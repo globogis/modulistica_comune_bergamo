@@ -1,0 +1,540 @@
+{% set CodiceModulo = "PRESE_PROG_CRE" %}
+{% set Urn = "document:c_a794:centro.ricreativo.estivo.progetto;presentazione" %}
+{% extends "base.html" %}
+
+{% block meta %}
+
+<meta campi_firma="Titolare_CodiceFiscale"
+campi_firma_label="il dichiarante"
+classi_modulo="Servizi sociali"
+codice_modulo="{{ CodiceModulo }}"
+urn="{% block urn %}{{ Urn }}{% endblock urn %}"
+sub_urn_list=""
+uo_globo_list=""
+descrizione="Centro Ricreativo Estivo, presentazione del progetto"
+destinatario_amministrazione=""
+destinatario_ufficio="UOSERVIZISOCIALI"
+dinamico="SI"
+email_a=""
+ente_abilitato="TUTTI"
+filigrana="NO"
+firmare="P7M_ELETTRONICA"
+istruzioni_compilazione=""
+istruzioni_invio="mail_pec"
+metodo_invio="mail"
+name="GLOBO_modulo"
+procura="NO,,"
+tipo_modulo="principale"
+urlhelp="/modulistica/moduli/{{ CodiceModulo }}"
+verifica_pagamento="NO"
+versione="1.3|17/05/2019"/>
+
+<meta codice_modulo_figlio="Incarico_procura"
+urn_modulo_figlio="document:s_italia:generale;incarico.procura"
+name="GLOBO_modulofiglio"
+numero="1"
+obbligatorio="DINAMICO"/>
+
+<meta codice_allegato="ULT_ANIM_SOGG"
+urn_allegato="document:a_794:centro.ricreativo.estivo.coinvolti"
+descrizione_estesa="Elenco degli ulteriori animatori coinvolti"
+filename="Ulteriori animatori.pdf"
+firmato="SI"
+istruzioni="/modulistica/moduli/ULT_ANIM_SOGG"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="DAE-CDI"
+urn_allegato="document:s_italia:generale;documento.identita;documentazione"
+descrizione_estesa="Documento di identità"
+filename="Documento identita.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/DAE-CDI"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="ALTRI-ALLEGATI"
+urn_allegato="document:s_italia:altri.allegati"
+descrizione_estesa="Altri allegati"
+filename="Altri allegati.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/ALTRI-ALLEGATI"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+
+{% endblock meta %}
+
+{% block title %}
+  Centro Ricreativo Estivo, presentazione del progetto
+{% endblock title %}
+
+{% block content %}
+
+<globo_fondo_pagina areaheight="150" scope="4">
+  {{ utils.firma() }}
+</globo_fondo_pagina>
+
+<input id="Parametri_Comune" name="Parametri_Comune" type="hidden" dynamic_value="#Ente.value()"/>
+<input id="Oggetto" name="Oggetto" type="hidden" dynamic_value="#Titolare_Cognome.value().toUpperCase() + ' ' + #Titolare_Nome.value().toUpperCase() + ' - Centro Ricreativo Estivo, presentazione del progetto'"/>
+
+{{ intestazioni.intestazione_moduloprincipale_senzabollo() }}
+
+<h1 class="Modulo">
+  Centro Ricreativo Estivo, presentazione del progetto
+</h1>
+
+{{ anagrafica.societa("Titolare", "Il sottoscritto", ["Persona fisica", "Titolare", "Legale rappresentante"], "Richiedente", "visibility:visibility", "cursor:pointer", "mail_ordinaria", "false") }}
+
+<br>
+<h3 class="Modulo">
+  COMUNICA
+</h3>
+<table class="Modulo" style="border: 1px solid grey;margin-bottom: -5px;" mandatory="true">
+  <tbody>
+    <tr class="Rigaintestazioneridotta">
+      <td colspan="2">
+        <p class="Labelcella"> Denominazione del Centro Ricreativo Estivo </p>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2">
+        <input class="inputNormal" id="Parametri_den_ric_est" name="Parametri_den_ric_est" style="width: 100%;" label="Denominazione del centro ricreativo estivo" />
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td colspan="2">
+        <p class="Labelcella"> Luogo di svolgimento </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td style="width: 70%">
+        <p class="Labelcella"> Indirizzo </p>
+      </td>
+      <td>
+        <p class="Labelcella"> Civico </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input class="inputNormal" id="Parametri_indirizzo" name="Parametri_indirizzo" style="width: 100%;" label="Indirizzo" />
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_civico" name="Parametri_civico" style="width: 100%;" label="Civico" />
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<table class="Modulo" style="border: 1px solid grey;margin-top: -1px;" mandatory="true">
+  <tbody>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella"> Calendario attività </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella"> Dal giorno </p>
+      </td>
+      <td>
+        <p class="Labelcella"> Dalle ore </p>
+      </td>
+      <td>
+        <p class="Labelcella"> Al giorno </p>
+      </td>
+      <td>
+        <p class="Labelcella"> Alle ore </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input class="inputNormal" id="Parametri_cal_gio_ini" name="Parametri_cal_gio_ini" style="width: 100%;" label="Giorno inizio attività" />
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_cal_ora_ini" name="Parametri_cal_ora_ini" style="width: 100%;" label="Ora inizio attività" />
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_cal_gio_fin" name="Parametri_cal_gio_fin" style="width: 100%;" label="Giorno fine attività" />
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_cal_ora_fin" name="Parametri_cal_ora_fin" style="width: 100%;" label="Ora fine attività" />
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<div id="Tassonomia_serviz_cre" name="Tassonomia_serviz_cre" label="Servizi aggiuntivi erogati" enabled="true"></div>
+<table class="Modulo" style="border: 1px solid grey;margin-top: -1px;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="2">
+        <p class="Labeltabella"> descrizione dell'organizzazione </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td colspan="2">
+        <p class="Labelcella"> Servizi aggiuntivi erogati </p>
+      </td>
+    </tr>
+    <tr >
+      <td style="vertical-align: top; width: 4%;">
+        <input group="Tassonomia_serviz_cre" id="Tassonomia_serviz_cre1" name="Tassonomia_serviz_cre1" type="checkbox" value="SI" />
+      </td>
+      <td>
+        <p> servizio assistenza pre - CRE </p>
+      </td>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input group="Tassonomia_serviz_cre" id="Tassonomia_serviz_cre2" name="Tassonomia_serviz_cre2" type="checkbox" value="SI" />
+      </td>
+      <td>
+        <p> servizio assistenza post - CRE </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td colspan="2">
+        <p> <span style="font-size: 65%"> <b> Partecipanti previsti </b> <i> (numero di partecipanti da 6 a 16 anni senza situazioni di disabilità, non considerare il numero di assistenti animatori minorenni) </i> </span> </p>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2" mandatory="true">
+        <input class="inputNormal" id="Parametri_part_prev_sed" name="Parametri_part_prev_sed" style="width: 100%;" label="Partecipanti previsti" format="number" />
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td colspan="2">
+        <p> <span style="font-size: 65%"> <b> Partecipanti previsti </b> <i> (in situazioni di disabilità) </i> </span> </p>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2" mandatory="true">
+        <input class="inputNormal" id="Parametri_part_prev_dis" name="Parametri_part_prev_dis" style="width: 100%;" label="Partecipanti previsti" format="number" />
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td colspan="2">
+        <p class="Labelcella"> Numero totale partecipanti </p>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2">
+        <input class="inputNormal" id="Parametri_part_tot" name="Parametri_part_tot" style="width: 100%;" label="Partecipanti totali" format="number" />
+      </td>
+    </tr>
+  </tbody>
+</table>
+<table class="Modulo" style="border: 1px solid grey;margin-top: -1px;" mandatory="true">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td>
+        <p class="Labeltabella"> strutture utilizzate </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella"> Breve descrizione degli spazi propri utilizzazi (oratori, aule parrocchiali, strutture sportive, strutture di ordini religiosi) </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <textarea class="inputNormal" id="Parametri_strutt_util" name="Parametri_strutt_util" style="width: 100%; height: 5cm;" label="Strutture utilizzate"></textarea>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<table class="Modulo" style="border: 1px solid grey;margin-top: -1px;">
+  <tbody>
+    <tr class="Rigaintestazioneridotta">
+      <td colspan="2">
+        <p class="Labelcella"> Strutture comunali </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <div id="Tassonomia_strutt_comun" name="Tassonomia_strutt_comun" label="Strutture comunali" mandatory="true"></div>
+        <input id="Tassonomia_strutt_comun1" name="Tassonomia_strutt_comun" type="radio" value="1" />
+      </td>
+      <td>
+        <p> non richiederà l’utilizzo di strutture comunali ulteriori per lo svolgimento delle attività </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="Tassonomia_strutt_comun2" name="Tassonomia_strutt_comun" type="radio" value="2" />
+      </td>
+      <td>
+        <p> necessità l’utilizzo di spazi e strutture comunali </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<table class="Modulo" style="border: 1px solid grey;margin-top: -1px;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="3">
+        <p class="Labeltabella"> autorizzazioni </p>
+      </td>
+    </tr>
+    <tr>
+      <td rowspan="3" style="vertical-align: top; width: 4%;">
+        <div id="Tassonomia_autor_prov" name="Tassonomia_autor_prov" label="Autorizzazione provinciale" mandatory="true"></div>
+        <input group="Tassonomia_autor_prov" id="Tassonomia_autor_prov1" name="Tassonomia_autor_prov" type="radio" value="1" />
+      </td>
+      <td colspan="2">
+        <p> in possesso dell'autorizzazione provinciale per l'apertura del CRE </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella"> Numero </p>
+      </td>
+      <td>
+        <p class="Labelcella"> Data di rilascio </p>
+      </td>
+    </tr>
+    <tr mandatory_enabled="#Tassonomia_autor_prov1.checked()">
+      <td>
+        <input class="inputNormal" id="Parametri_numero_autor" name="Parametri_numero_autor" style="width: 100%;" label="Numero autorizzazione" />
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_data_autor" name="Parametri_data_autor" style="width: 100%;" label="Data autorizzazione" />
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <div id="Tassonomia_autor_prov" name="Tassonomia_autor_prov" label="Autorizzazione apertura attività"></div>
+        <input group="Tassonomia_autor_prov" id="Tassonomia_autor_prov2" name="Tassonomia_autor_prov" type="radio" value="2" />
+      </td>
+      <td colspan="2">
+        <p> la parrocchia presenterà agli uffici comunali la presa d’atto di apertura attività </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<table class="Modulo" style="border: 1px solid grey;margin-top: -1px;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td>
+        <p class="Labeltabella"> conto previsionale </p>
+      </td>
+    </tr>
+    {% set cons = ["Totale contributo senza assistenza","Totale contributo con servizio assistenza PRE-CRE","Totale contributo con servizio assistenza POST-CRE","Totale contributo disabili","Totale previsione"] %}
+    {% for con in cons %}
+      <tr class="Rigaintestazioneridotta">
+        <td>
+          <p class="Labelcella"> {{ con }} </p>
+        </td>
+      </tr>
+      <tr {% if loop.index == 2 %} mandatory_enabled="#Tassonomia_serviz_cre1.checked()" {% elif loop.index == 3 %} mandatory_enabled="#Tassonomia_serviz_cre2.checked()" {% else %} mandatory="true" {% endif %}>
+        <td>
+          <input class="inputNormal" id="Parametri_cont_val{{loop.index}}" name="Parametri_cont_val{{loop.index}}" style="width: 100%;" label="{{ con }}" format="valuta_positiva"/>
+        </td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+<br>
+<globo_salto_pagina></globo_salto_pagina>
+<table class="Modulo" style="border: 1px solid grey;margin-bottom: -5px;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td>
+        <p class="Labeltabella"> personale coinvolto </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+{{ anagrafica.cognome_nome("AventeTitolo1", "nominativo di riferimento", "Richiedente", "visibility:visibility", "cursor:pointer", "visibility:visibility") }}
+<table class="Modulo" style="border: 1px solid grey;margin-top: -1px;">
+  <tbody>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella"> Telefono </p>
+      </td>
+      <td>
+        <p class="Labelcella"> Telefono cellulare </p>
+      </td>
+      <td>
+        <p> <span style="font-size: 65%;"> <b> E-mail </b> <i> (posta elettronica ordinaria) </i> </span> </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input class="inputNormal" id="AventeTitolo1_Telefono" label="Telefono" name="AventeTitolo1_Telefono" style="width:100%" format="regular_expression" expression="(^[0|3]{1}[0-9]{5,10}$)" mandatory="#AventeTitolo1_TelefonoCellulare.value()==''"/>
+      </td>
+      <td>
+        <input class="inputNormal" id="AventeTitolo1_TelefonoCellulare" label="Telefono cellulare" name="AventeTitolo1_TelefonoCellulare" style="width:100%" mandatory="#AventeTitolo1_Telefono.value()==''"/>
+      </td>
+      <td>
+        <input class="inputNormal" format="email" id="AventeTitolo1_EMail" label="E-mail ordinaria" name="AventeTitolo1_EMail" style="width:100%;" />
+      </td>
+    </tr>
+  </tbody>
+</table>
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="4">
+        <p class="Labeltabella"> animatori (tutti i maggiorenni con funzione di responsabili) </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td style="width: 25%">
+        <p class="Labelcella"> Nome </p>
+      </td>
+      <td style="width: 25%">
+        <p class="Labelcella"> Cognome </p>
+      </td>
+      <td style="width: 25%">
+        <p class="Labelcella"> Data di nascita </p>
+      </td>
+      <td style="width: 25%">
+        <p class="Labelcella"> Funzione </p>
+      </td>
+    </tr>
+    {% for i in range(1, 51) %}
+      <tr {% if loop.index == 1 %} mandatory_enabled="true" {% endif %}>
+        <td>
+          <input class="inputNormal" id="Referente{{loop.index}}_Nome" name="Referente{{loop.index}}_Nome" style="width: 100%;" label="nome"/>
+        </td>
+        <td>
+          <input class="inputNormal" id="Referente{{loop.index}}_Cognome" name="Referente{{loop.index}}_Cognome" style="width: 100%;" label="Cognome"
+          {% if loop.index > 1 %} mandatory_enabled="#Referente{{loop.index}}_Nome.value()!=''" {% endif %}/>
+        </td>
+        <td>
+          <input class="inputNormal" id="Referente{{loop.index}}_DataNascita" name="Referente{{loop.index}}_DataNascita" style="width: 100%;" label="Data di nascita"
+          {% if loop.index > 1 %} mandatory_enabled="#Referente{{loop.index}}_Nome.value()!=''" {% endif %}/>
+        </td>
+        <td>
+          {% set funcs = ["","animatore","educatore professionale","genitore","laboratori","pulizie"] %}
+          <select name="Referente{{loop.index}}_Ruolo" id="Referente{{loop.index}}_Ruolo" style="width: 100%;" label="Funzione" {% if loop.index > 1 %} mandatory_enabled="#Referente{{loop.index}}_Nome.value()!=''" {% endif %}>
+            {% for func in funcs %}
+              <option value="{{ func }}">{{ func }}</option>
+            {% endfor %}
+          </select>
+        </td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+<table class="Modulo" style="border: 1px solid grey;margin-top: -1px;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td>
+        <p class="Labeltabella"> assistenti animatori </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p>
+          <span style="font-size: 65%;"> <b> Numero </b> <i> (si considerano tutti i minori che svolgono funzioni di aiuto agli animatori o che svolgono particolari attiività a favore del funzionamento della struttura) </i></span>
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td mandatory="true">
+        <input class="inputNormal" id="Parametri_ass_anim_num" name="Parametri_ass_anim_num" style="width: 100%;" label="Numero assistenti animatori" format="number"/>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          Eventuali annotazioni
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <textarea class="inputNormal" id="Parametri_Annotazioni" name="Parametri_Annotazioni" style="width: 100%; height: 5cm;" label="Eventuali annotazioni"></textarea>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<table class="Modulo" name="Allegati" style="border: 1px solid grey">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="2">
+        <p style="text-align: center;">
+          <b>
+            Elenco degli allegati
+          </b>
+          <br/>
+          <span style="font-size:70%">
+            <i>(barrare tutti gli allegati richiesti in fase di presentazione della pratica ed elencati sul portale)</i>
+          </span>
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="width: 4%; vertical-align: top;background-color: white">
+        <input id="ULT_ANIM_SOGG" name="ULT_ANIM_SOGG" type="checkbox" value="OBBLIGATORIO"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          elenco degli ulteriori animatori coinvolti <br>
+          <span style="font-size: 70%;"><i> (da allegare qualora non fossero sufficienti gli spazi previsti) </i></span>
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="DAE-CDI" name="DAE-CDI" type="checkbox" value="OBBLIGATORIO" />
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          copia del documento d'identità
+          <br/>
+          <span style="font-size:70%">
+            <i>(da allegare se il modulo è sottoscritto con firma autografa)</i>
+          </span>
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="ALTRI-ALLEGATI" name="ALTRI-ALLEGATI" type="checkbox" value="OBBLIGATORIO"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          altri allegati
+          <span style="font-size:70%">(specificare)</span>
+          <input class="" label="Altri allegati" id="AltriAllegati" mandatory_enabled="#ALTRI_ALLEGATI.checked()" name="AltriAllegati" style="width:79%;"/>
+        </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+{{ utils.trattamento_dati_personali() }}
+<br/>
+  {{ utils.firma_hidden() }}
+<br/>
+
+<p class="Modulo">
+  <input id="SalvaModulo" name="SalvaModulo" style="height:30px;width:120px;" title="Verifica la corretta compilazione dei campi e salva il modulo nel faldone virtuale dell'istanza." type="submit" value="Salva modulo"/>
+</p>
+
+<input destinatario_amministrazione="getParameter('Ente')" id="GLOBO_modulo_c{{ CodiceModulo }}" name="GLOBO_modulo_c{{ CodiceModulo }}" type="hidden" value=""/>
+<input firmare="'P7M_ELETTRONICA'" id="GLOBO_modulofiglio_cIncarico_procura" name="GLOBO_modulofiglio_cIncarico_procura" type="hidden" value=""/>
+
+<input id="GLOBO_allegato_cULT_ANIM_SOGG" name="GLOBO_allegato_cULT_ANIM_SOGG" type="hidden" value="" obbligatorio="#ULT_ANIM_SOGG.checked() ? 'OBBLIGATORIO' : ''"/>
+<input id="GLOBO_allegato_cDAE-CDI" name="GLOBO_allegato_cDAE-CDI" obbligatorio="#DAE_CDI.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+<input id="GLOBO_allegato_cALTRI-ALLEGATI" name="GLOBO_allegato_cALTRI-ALLEGATI" obbligatorio="#ALTRI_ALLEGATI.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_id_padre" name="GLOBO_id_padre" type="hidden"/>
+<input id="GLOBO_recupera_dati" name="GLOBO_recupera_dati" type="hidden"/>
+<input id="GLOBO_codice_modulo" name="GLOBO_codice_modulo" type="hidden" value="{{ CodiceModulo }}"/>
+
+{% endblock content %}

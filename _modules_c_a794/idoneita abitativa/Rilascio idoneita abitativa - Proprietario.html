@@ -1,0 +1,757 @@
+{% set CodiceModulo = "IDO_ABIT_PROPRIE" %}
+{% set Urn = "document:c_a794:idoneita.abitativa;attestato;dichiarazioni.alloggio" %}
+{% extends "base.html" %}
+{% block meta %}
+
+<meta campi_firma="Titolare_CodiceFiscale"
+campi_firma_label="il dichiarante"
+classi_modulo="Edilizia"
+codice_modulo="{{ CodiceModulo }}"
+urn="{% block urn %}{{ Urn }}{% endblock urn %}"
+sub_urn_list=""
+uo_globo_list=""
+descrizione="Domanda di rilascio attestazione d'idoneità abitativa - Proprietario"
+destinatario_amministrazione=""
+destinatario_ufficio=""
+dinamico="SI"
+email_a=""
+ente_abilitato="TUTTI"
+filigrana="NO"
+firmare="P7M_ELETTRONICA"
+istruzioni_compilazione=""
+istruzioni_invio=""
+metodo_invio=""
+name="GLOBO_modulo"
+procura="NO,,"
+tipo_modulo="secondario"
+urlhelp="/modulistica/moduli/{{ CodiceModulo }}"
+verifica_pagamento="NO"
+versione="1.2|05/04/2019"/>
+
+<meta codice_allegato="DICH-ALL-SOTT"
+urn_allegato="document:c_a794:idoneità.abitativa;dichiarazione.sottoscritta"
+descrizione_estesa="Copia delle dichiarazioni del proprietario dell'alloggio sottoscritta con firma autografa dal proprietario e con allegata la carta d’identità del proprietario"
+filename="Dich proprietario alloggio.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/DIC-PRO-ALL"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="IAL-PLA-LOC"
+urn_allegato="document:s_italia:idoneita.alloggiativa;planimetria.immobile;planimetria"
+descrizione_estesa="Planimetria dei locali"
+filename="Planimetria dei locali.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/ALL-PLA-ALL"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="CONTR-FUMI"
+urn_allegato="document:c_a794:idoneità.abitativa;controllo.fumi;documento"
+descrizione_estesa="Copia del documento di controllo fumi"
+filename="Controllo fumi.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/DOC-CON-FUM"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="DAE-CDI"
+urn_allegato="document:s_italia:generale;documento.identita;documentazione"
+descrizione_estesa="Documento di identità"
+filename="Documento identita.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/DAE-CDI"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="ALTRI-ALLEGATI"
+urn_allegato="document:s_italia:altri.allegati"
+descrizione_estesa="Altri allegati"
+filename="Altri allegati.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/ALTRI-ALLEGATI"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<script type="text/javascript">
+
+  function beforeCheck() {
+    CalcolaNumeroPersone();
+  }
+
+  function beforeSave() {
+    CalcolaNumeroPersone();
+  }
+
+  function CalcolaNumeroPersone() {
+
+    // Ottengo i valori utili al calcolo
+    var normativaRiferimento = "DM 05/07/1975";
+    var alloggioIdoneo = document.getElementById("Parametri_Alloggio_idoneo").value;
+    var tipoAbitazione = document.getElementById("Parametri_Tipo_alloggio").value;
+    var superficieTotale = document.getElementById("Parametri_Superficie_totale").value;
+    var esito = "";
+
+    if (normativaRiferimento == "DM 05/07/1975") {
+      if(alloggioIdoneo=="No") {
+        esito = "Non determinato";
+      }
+      else if (tipoAbitazione=="Monolocale") {
+        if (superficieTotale < 34) {
+          esito = 1;
+        }
+        else {
+          esito = 2;
+        }
+      }
+      else if (superficieTotale <= 56) {
+        esito = superficieTotale / 14;
+      }
+      else {
+        esito = 4 + ((superficieTotale-56) / 10);
+      }
+    }
+
+    // Setto il valore
+    if (!isNaN(esito)) {
+      esito = Math.floor(esito);
+    }
+    document.getElementById("Parametri_Persone_massime").value = esito;
+
+  }
+
+</script>
+
+<style>
+
+@media pdf {
+
+  .pdfAlignRight {
+    text-align: right;
+  }
+
+ }
+
+</style>
+
+{% endblock meta %}
+
+{% block title %}
+  Domanda di rilascio attestazione d'idoneità abitativa - Proprietario
+{% endblock title %}
+
+{% block content %}
+
+<globo_fondo_pagina areaheight="150" scope="3">
+{{ utils.firma() }}
+</globo_fondo_pagina>
+
+<input dynamic_value="#Ente.value()" id="Parametri_Comune" name="Parametri_Comune" type="hidden"/>
+
+<input dynamic_value="#Titolare_Cognome.value().toUpperCase() + ' ' + #Titolare_Nome.value().toUpperCase() + ' - Domanda di rilascio attestazione d\'idoneità abitativa - Proprietario'" id="Oggetto" name="Oggetto" type="hidden"/>
+
+{{ intestazioni.intestazione_modulosecondario_senzabollo() }}
+
+<h1 class="Modulo">
+  Domanda di rilascio attestazione d'idoneità abitativa
+</h1>
+
+<h2 class="Modulo">
+  Dichiarazioni del proprietario relative alle caratteristiche dell'alloggio
+</h2>
+
+{{anagrafica.societa("Titolare", "Il sottoscritto", ["Persona fisica","Titolare", "Legale rappresentante", "Amministratore di condominio"], "Richiedente", "visibility:visibility", "cursor:pointer", "mail_ordinaria", "false")}}
+
+{{ utils.Dichiara_445() }}
+
+<table class="Modulo" style="border:1px solid grey; margin-top: -1px;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="2">
+        <p class="Labeltabella">
+          di essere:
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <div id="Tassonomia_Ruolo_titolare" name="Tassonomia_Ruolo_titolare" label="Ruolo titolare"></div>
+        <input id="Tassonomia_Ruolo_titolare3" name="Tassonomia_Ruolo_titolare" type="radio" value="3"/>
+      </td>
+      <td>
+        <p>
+          il <strong> proprietario o gestore </strong>dell'alloggio oggetto di idoneità abitativa e che le caratteristiche di seguito indicate corrispondono all'effettivo stato di fatto dell'alloggio
+        </p>
+      </td>
+     </tr>
+      <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="Tassonomia_Ruolo_titolare5" name="Tassonomia_Ruolo_titolare" type="radio" value="5"/>
+      </td>
+      <td>
+        <p>
+          il <strong> conduttore </strong> (affittuario, comodatario o ospite) dell'alloggio oggetto di idoneità abitativa e che le caratteristiche di seguito indicate corrispondono a quanto dichiarato dal proprietario/gestore come da documentazione allegata prodotta e sottoscritta dallo stesso
+        </p>
+      </td>
+     </tr>
+  </tbody>
+</table> 
+
+<input id="Immobile1_DatiImmobileRichiesti" name="Immobile1_DatiImmobileRichiesti" dynamic_check="true" type="checkbox" style="display:none" value="si"/>
+<input id="Immobile1_DatiCatastaliObbligatori" name="Immobile1_DatiCatastaliObbligatori" dynamic_check="true" type="checkbox" style="display:none" value="si"/>
+{{ immobili.immobile_secondario("Immobile1", "dell'Unità immobiliare urbana", "Unità immobiliare urbana" ) }}
+
+
+<globo_salto_pagina></globo_salto_pagina>
+
+<h4 class="Modulo">
+  CARATTERISTICHE DELL'ALLOGGIO:
+</h4>
+
+<input id="Parametri_Finestre1" name="Parametri_Finestre1" dynamic_value="#Tassonomia_Finestre1.checked() ? 'Si' : 'No'" type="hidden"/>
+<table class="Modulo" style="border:1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="2">
+        <p class="Labeltabella">
+          Finestre
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <div id="Tassonomia_Finestre" name="Tassonomia_Finestre" label="Finestre" mandatory="true"> </div>
+        <input group="Tassonomia_Finestre" id="Tassonomia_Finestre1" name="Tassonomia_Finestre1" type="checkbox" value="SI" />
+      </td>
+      <td>
+        <p>
+          che nelle stanze da letto, nel soggiorno e nella cucina c’è almeno una finestra apribile
+        </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<input id="Parametri_Illuminazione1" name="Parametri_Illuminazione1" dynamic_value="#Tassonomia_Illuminazione1.checked() ? 'Si' : 'No'" type="hidden"/>
+<table class="Modulo" style="border:1px solid grey; margin-top: -1px;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="2">
+        <p class="Labeltabella">
+          Illuminazione
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <div id="Tassonomia_Illuminazione" name="Tassonomia_Illuminazione" label="Illuminazione" mandatory="true"> </div>
+        <input group="Tassonomia_Illuminazione" id="Tassonomia_Illuminazione1" name="Tassonomia_Illuminazione1" type="checkbox" value="SI"/>
+      </td>
+      <td>
+        <p>
+          che le stanze da letto, il soggiorno e la cucina sono adeguatamente illuminate da luce naturale diretta
+        </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<input id="Parametri_Stanze_da_bagno1" name="Parametri_Stanze_da_bagno1" dynamic_value="#Tassonomia_Stanze_da_bagno1.checked() ? 'Si' : 'No'" type="hidden"/>
+<input id="Parametri_Stanze_da_bagno2" name="Parametri_Stanze_da_bagno2" dynamic_value="#Tassonomia_Stanze_da_bagno2.checked() ? 'Si' : 'No'" type="hidden"/>
+<input id="Parametri_Stanze_da_bagno3" name="Parametri_Stanze_da_bagno3" dynamic_value="#Tassonomia_Stanze_da_bagno3.checked() ? 'Si' : 'No'" type="hidden"/>
+<table class="Modulo" style="border:1px solid grey; margin-top: -1px;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="2">
+        <p class="Labeltabella">
+          Stanze da bagno
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <div id="Tassonomia_Stanze_da_bagno" name="Tassonomia_Stanze_da_bagno" label="Stanze da bagno" mandatory="true"> </div>
+        <input group="Tassonomia_Stanze_da_bagno" id="Tassonomia_Stanze_da_bagno1" name="Tassonomia_Stanze_da_bagno1" type="checkbox" value="SI"/>
+      </td>
+      <td>
+        <p>
+          che almeno una stanza da bagno è dotata di vaso, bidet, vasca da bagno o doccia, lavabo
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input group="Tassonomia_Stanze_da_bagno" id="Tassonomia_Stanze_da_bagno2" name="Tassonomia_Stanze_da_bagno2" type="checkbox" value="SI"/>
+      </td>
+      <td>
+        <p>
+          che tutte le stanze da bagno hanno un'apertura verso l'esterno per il ricambio dell'aria o sono dotate di impianto di aspirazione meccanica
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input group="Tassonomia_Stanze_da_bagno" id="Tassonomia_Stanze_da_bagno3" name="Tassonomia_Stanze_da_bagno3" type="checkbox" value="SI"/>
+      </td>
+      <td>
+        <p>
+          che non ci sono stanze da bagno senza apertura verso l'esterno con apprecchiature a fiamma libera
+        </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<input id="Parametri_Condensazione1" name="Parametri_Condensazione1" dynamic_value="#Tassonomia_Condensazione1.checked() ? 'Si' : 'No'" type="hidden"/>
+<table class="Modulo" style="border:1px solid grey; margin-top: -1px;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="2">
+        <p class="Labeltabella">
+          Condensazione
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <div id="Tassonomia_Condensazione" name="Tassonomia_Condensazione" label="Condensazione" mandatory="true"> </div>
+        <input group="Tassonomia_Condensazione" id="Tassonomia_Condensazione1" name="Tassonomia_Condensazione1" type="checkbox" value="SI"/>
+      </td>
+      <td>
+        <p>
+          che sulle pareti dei locali non ci sono tracce di condensazione permanente
+        </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<input id="Parametri_Isolamento_acustico1" name="Parametri_Isolamento_acustico1" dynamic_value="#Tassonomia_Isolamento_acustico1.checked() ? 'Si' : 'No'" type="hidden"/>
+<table class="Modulo" style="border:1px solid grey; margin-top: -1px;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="2">
+        <p class="Labeltabella">
+          Isolamento acustico
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <div id="Tassonomia_Isolamento_acustico" name="Tassonomia_Isolamento_acustico" label="Isolamento acustico" mandatory="true"> </div>
+        <input group="Tassonomia_Isolamento_acustico" id="Tassonomia_Isolamento_acustico1" name="Tassonomia_Isolamento_acustico1" type="checkbox" value="SI"/>
+      </td>
+      <td>
+        <p>
+          che l'alloggio è adeguatamente isolato dai rumori provenienti dall’esterno
+        </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<input id="Parametri_Impianto_elettrico1" name="Parametri_Impianto_elettrico1" dynamic_value="#Tassonomia_Impianto_elettrico1.checked() ? 'Si' : 'No'" type="hidden"/>
+<input id="Parametri_Impianto_elettrico2" name="Parametri_Impianto_elettrico2" dynamic_value="#Tassonomia_Impianto_elettrico2.checked() ? 'Si' : 'No'" type="hidden"/>
+<table class="Modulo" style="border:1px solid grey; margin-top: -1px;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="2">
+        <p class="Labeltabella">
+          Impianti
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td colspan="2">
+        <p class="Labelcella">
+          Impianto elettrico
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <div id="Tassonomia_Impianto_elettrico" name="Tassonomia_Impianto_elettrico" label="Impianto elettrico" mandatory="true"> </div>
+        <input group="Tassonomia_Impianto_elettrico" id="Tassonomia_Impianto_elettrico1" name="Tassonomia_Impianto_elettrico1" type="checkbox" value="SI"/>
+      </td>
+      <td>
+        <p>
+          di essere in possesso del certificato di conformità dell’impianto elettrico, in corso di validità, rilasciato ai sensi della Legge 05/03/1990, n.46
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input group="Tassonomia_Impianto_elettrico" id="Tassonomia_Impianto_elettrico2" name="Tassonomia_Impianto_elettrico2" type="checkbox" value="SI"/>
+      </td>
+      <td>
+        <p>
+          di essere in possesso della dichiarazione di rispondenza/conformità dell’impianto elettrico, in corso di validità, rilasciato ai sensi del Decreto Ministeriale 22/01/2008, n.37
+        </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<input id="Parametri_Impianto_gas1" name="Parametri_Impianto_gas1" dynamic_value="#Tassonomia_Impianto_gas1.checked() ? 'Si' : 'No'" type="hidden"/>
+<input id="Parametri_Impianto_gas2" name="Parametri_Impianto_gas2" dynamic_value="#Tassonomia_Impianto_gas2.checked() ? 'Si' : 'No'" type="hidden"/>
+<input id="Parametri_Impianto_gas3" name="Parametri_Impianto_gas3" dynamic_value="#Tassonomia_Impianto_gas3.checked() ? 'Si' : 'No'" type="hidden"/>
+<table class="Modulo" style="border:1px solid grey; margin-top: -1px;">
+  <tbody>
+    <tr class="Rigaintestazioneridotta">
+      <td colspan="2">
+        <p class="Labelcella">
+          Impianto a gas
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <div id="Tassonomia_Impianto_gas" name="Tassonomia_Impianto_gas" label="Impianto a gas" mandatory="true"> </div>
+        <input group="Tassonomia_Impianto_gas" id="Tassonomia_Impianto_gas1" name="Tassonomia_Impianto_gas1" type="checkbox" value="SI"/>
+      </td>
+      <td>
+        <p>
+          di essere in possesso del certificato di conformità dell’impianto a gas, in corso di validità, rilasciato ai sensi della Legge 05/03/1990, n.46
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input group="Tassonomia_Impianto_gas" id="Tassonomia_Impianto_gas2" name="Tassonomia_Impianto_gas2" type="checkbox" value="SI"/>
+      </td>
+      <td>
+        <p>
+          di essere in possesso del certificato di conformità o della dichiarazione di rispondenza/conformità dell'impianto a gas, in corso di validità, rilasciata ai sensi del Decreto Ministeriale 22-1-2008, n.37
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input group="Tassonomia_Impianto_gas" id="Tassonomia_Impianto_gas3" name="Tassonomia_Impianto_gas3" type="checkbox" value="SI"/>
+      </td>
+      <td>
+        <p>
+          che l'alloggio NON dispone di alcun impianto a GAS
+        </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<input id="Parametri_Impianto_riscaldamento1" name="Parametri_Impianto_riscaldamento1" dynamic_value="#Tassonomia_Impianto_riscaldamento1.checked() ? 'Si' : 'No'" type="hidden"/>
+<input id="Parametri_Impianto_riscaldamento2" name="Parametri_Impianto_riscaldamento2" dynamic_value="#Tassonomia_Impianto_riscaldamento2.checked() ? 'Si' : 'No'" type="hidden"/>
+<input id="Parametri_Impianto_riscaldamento3" name="Parametri_Impianto_riscaldamento3" dynamic_value="#Tassonomia_Impianto_riscaldamento3.checked() ? 'Si' : 'No'" type="hidden"/>
+<table class="Modulo" style="border:1px solid grey; margin-top: -1px;">
+  <tbody>
+    <tr class="Rigaintestazioneridotta">
+      <td colspan="5">
+        <p class="Labelcella">
+          Impianto di riscaldamento
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td rowspan="5" style="vertical-align: top; width: 4%; background-color: white;">
+        <input id="Tassonomia_Impianto_riscaldamento1" name="Tassonomia_Impianto_riscaldamento1" label="Impianto di riscaldamento" mandatory="true" type="checkbox" value="SI"/>
+      </td>
+      <td colspan="4">
+        <p>
+          che l’alloggio è dotato di un impianto di riscaldamento che garantisce una temperatura dell’aria compresa tra i 18° ed i 20° C in tutti gli ambienti abitati
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td colspan="2"></td>
+      <td>
+        <p class="Labelcella">
+          Numero CURIT
+        </p>
+      </td>
+      <td>
+        <p class="Labelcella">
+          o, alternativamernte, dati dell'amministratore del condominio
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <div id="Tassonomia_TipoRiscaldamento" name="Tassonomia_TipoRiscaldamento" label="Tipo impianto di riscaldamento" mandatory_enabled="#Tassonomia_Impianto_riscaldamento1.checked()"></div>
+        <input id="Tassonomia_TipoRiscaldamento1" name="Tassonomia_TipoRiscaldamento" type="radio" value="1"/>
+      </td>
+      <td style="width: 16%;">
+        <p>
+          centralizzato
+        </p>
+      </td>
+      <td style="width: 20%;">
+        <input class="inputNormal" id="Parametri_Centralizzato_CURIT" name="Parametri_Centralizzato_CURIT" style="width: 100%;" label="Numero CURIT impianto centralizzato" enabled="#Tassonomia_TipoRiscaldamento1.checked()" mandatory="#Tassonomia_TipoRiscaldamento1.checked() and #Parametri_Centralizzato_Amminis.value() == ''">
+      </td>
+      <td style="width: 60%;">
+        <input class="inputNormal" id="Parametri_Centralizzato_Amminis" name="Parametri_Centralizzato_Amminis" style="width: 100%;" label="Amministratore di condominio impianto centralizzato" enabled="#Tassonomia_TipoRiscaldamento1.checked()" mandatory="#Tassonomia_TipoRiscaldamento1.checked() and #Parametri_Centralizzato_CURIT.value() == ''">
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="Tassonomia_TipoRiscaldamento6" name="Tassonomia_TipoRiscaldamento" type="radio" value="6"/>
+      </td>
+      <td>
+        <p>
+          teleriscaldato
+        </p>
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_Teleriscaldato_CURIT" name="Parametri_Teleriscaldato_CURIT" style="width: 100%;" label="Numero CURIT impianto teleriscaldato" enabled="#Tassonomia_TipoRiscaldamento6.checked()" mandatory="#Tassonomia_TipoRiscaldamento6.checked() and #Parametri_Teleriscaldato_Amminis.value() == ''">
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_Teleriscaldato_Amminis" name="Parametri_Teleriscaldato_Amminis" style="width: 100%;" label="Amministratore di condominio impianto teleriscaldato" enabled="#Tassonomia_TipoRiscaldamento6.checked()" mandatory="#Tassonomia_TipoRiscaldamento6.checked() and #Parametri_Teleriscaldato_CURIT.value() == ''">
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="Tassonomia_TipoRiscaldamento2" name="Tassonomia_TipoRiscaldamento" type="radio" value="2"/>
+      </td>
+      <td>
+        <p>
+          autonomo
+        </p>
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_Autonomo_CURIT" name="Parametri_Autonomo_CURIT" style="width: 100%;" label="Numero CURIT impianto autonomo" enabled="#Tassonomia_TipoRiscaldamento2.checked()" mandatory="#Tassonomia_TipoRiscaldamento2.checked() and #Parametri_Autonomo_Amminis.value() == ''">
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_Autonomo_Amminis" name="Parametri_Autonomo_Amminis" style="width: 100%;" label="Amministratore di condominio impianto autonomo" enabled="#Tassonomia_TipoRiscaldamento2.checked()" mandatory="#Tassonomia_TipoRiscaldamento2.checked() and #Parametri_Autonomo_CURIT.value() == ''">
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+         <div id="Tassonomia_Impianto_riscaldamento" name="Tassonomia_Impianto_riscaldamento" label="Conformità impianto di riscaldamento" mandatory="true"> </div>
+        <input group="Tassonomia_Impianto_riscaldamento" id="Tassonomia_Impianto_riscaldamento2" name="Tassonomia_Impianto_riscaldamento2" type="checkbox" value="SI"/>
+      </td>
+      <td colspan="4">
+        <p>
+          di essere in possesso del certificato di conformità dell’impianto di riscaldamento, in corso di validità, rilasciato ai sensi della Legge 05/03/1990, n.46
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input group="Tassonomia_Impianto_riscaldamento" id="Tassonomia_Impianto_riscaldamento3" name="Tassonomia_Impianto_riscaldamento3" type="checkbox" value="SI"/>
+      </td>
+      <td colspan="4">
+        <p>
+          di essere in possesso della dichiarazione di rispondenza/conformità dell’impianto di riscaldamento, in corso di validità, rilasciato ai sensi del Decreto Ministeriale 22/01/2008, n.37
+        </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<input class="inputNormal" id="Parametri_Numero_CURIT" name="Parametri_Numero_CURIT" style="width: 100%;" label="Numero CURIT" dynamic_value="#Parametri_Centralizzato_CURIT.value() + #Parametri_Teleriscaldato_CURIT.value() + #Parametri_Autonomo_CURIT.value()" type="hidden">
+<input class="inputNormal" id="Parametri_Dati_amministratore" name="Parametri_Dati_amministratore" style="width: 100%;" label="Dati amministratore del condominio" dynamic_value="#Parametri_Centralizzato_Amminis.value() + #Parametri_Teleriscaldato_Amminis.value()" type="hidden">
+<input class="inputNormal" id="Parametri_Numero_targa" name="Parametri_Numero_targa" style="width: 100%;" label="Numero targa" dynamic_value="#Parametri_Autonomo_Amminis.value()" type="hidden">
+
+<table class="Modulo" style="border:1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="4">
+        <p class="Labeltabella">
+          che l'alloggio si compone dei seguenti locali
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td style="width: 52%;">
+        <p class="Labelcella">
+          Descrizione
+        </p>
+      </td>
+      <td style="width: 20%;">
+        <p class="Labelcella">
+          Altezza
+        </p>
+      </td>
+      <td style="width: 8%;">
+        <p class="Labelcella" style="text-align: center;">
+          Sottotetto
+        </p>
+      </td>
+      <td style="width: 20%;">
+        <p class="Labelcella">
+          Superficie
+        </p>
+      </td>
+    </tr>
+    {% for i in range(1, 12) %}
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <select class="inputNormal" id="Parametri_Locale{{ i }}_Descrizione" name="Parametri_Locale{{ i }}_Descrizione" style="width: 100%;" label="Descrizione" {% if i == 1 %} mandatory="true" {% endif %}>
+          <option value=""></option>
+          <option value="Soggiorno">Soggiorno</option>
+          <option value="Cucina">Cucina</option>
+          <option value="Soggiorno con cucina">Soggiorno con cucina</option>
+          <option value="Camera da letto">Camera da letto</option>
+          <option value="Bagno">Bagno</option>
+          <option value="Ingresso, corridoio o disimpegno, ripostiglio">Ingresso, corridoio o disimpegno, ripostiglio</option>
+        </select>
+      </td>
+      <td>
+        <p class="pdfAlignRight">
+          <input class="inputNormal" id="Parametri_Locale{{ i }}_Altezza" name="Parametri_Locale{{ i }}_Altezza" style="width: 80%;" label="Altezza" format="positive_float" mandatory="#Parametri_Locale{{ i }}_Descrizione.value() != ''"> m
+        </p>
+      </td>
+      <td style="text-align: center;">
+        <input id="Parametri_Locale{{ i }}_Sottotetto" name="Parametri_Locale{{ i }}_Sottotetto" type="checkbox" value="SI" enabled="#Parametri_Locale{{ i }}_Descrizione.value() != ''"/>
+      </td>
+      <td>
+        <p class="pdfAlignRight">
+          <input class="inputNormal" id="Parametri_Locale{{ i }}_Superficie" name="Parametri_Locale{{ i }}_Superficie" style="width: 80%;" label="Superficie" format="positive_float" mandatory="#Parametri_Locale{{ i }}_Descrizione.value() != ''"> m²
+        </p>
+      </td>
+    </tr>
+    {% endfor %}
+    <tr>
+      <td colspan="3">
+        <p>
+          <b><i>Superficie totale dell'alloggio</i></b>
+        </p>
+      </td>
+      <td>
+        <p class="pdfAlignRight">
+          <input class="inputNormal" id="Parametri_Superficie_totale" name="Parametri_Superficie_totale" style="width: 80%; color: black; font-weight: bold;" label="Superficie totale" readonly="readonly" dynamic_value="(GetNotNullFloatFromValue(#Parametri_Locale1_Superficie.value()) + GetNotNullFloatFromValue(#Parametri_Locale2_Superficie.value()) + GetNotNullFloatFromValue(#Parametri_Locale3_Superficie.value()) + GetNotNullFloatFromValue(#Parametri_Locale4_Superficie.value()) + GetNotNullFloatFromValue(#Parametri_Locale5_Superficie.value()) + GetNotNullFloatFromValue(#Parametri_Locale6_Superficie.value()) + GetNotNullFloatFromValue(#Parametri_Locale7_Superficie.value()) + GetNotNullFloatFromValue(#Parametri_Locale8_Superficie.value()) + GetNotNullFloatFromValue(#Parametri_Locale9_Superficie.value()) + GetNotNullFloatFromValue(#Parametri_Locale10_Superficie.value()) + GetNotNullFloatFromValue(#Parametri_Locale11_Superficie.value())).toFixed(2)"> <b>m²</b>
+        </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- Parametri tabellare locali -->
+<input class="inputNormal" id="Parametri_Locali" name="Parametri_Locali" label="Locali" dynamic_value="#Parametri_Locale1_Descrizione.value() + '|' + #Parametri_Locale1_Altezza.value() + '|' + (#Parametri_Locale1_Sottotetto.checked() ? 'Si' : 'No') + '|' + #Parametri_Locale1_Superficie.value() + '~' + #Parametri_Locale2_Descrizione.value() + '|' + #Parametri_Locale2_Altezza.value() + '|' + (#Parametri_Locale2_Sottotetto.checked() ? 'Si' : 'No') + '|' + #Parametri_Locale2_Superficie.value() + '~' + #Parametri_Locale3_Descrizione.value() + '|' + #Parametri_Locale3_Altezza.value() + '|' + (#Parametri_Locale3_Sottotetto.checked() ? 'Si' : 'No') + '|' + #Parametri_Locale3_Superficie.value() + '~' + #Parametri_Locale4_Descrizione.value() + '|' + #Parametri_Locale4_Altezza.value() + '|' + (#Parametri_Locale4_Sottotetto.checked() ? 'Si' : 'No') + '|' + #Parametri_Locale4_Superficie.value() + '~' + #Parametri_Locale5_Descrizione.value() + '|' + #Parametri_Locale5_Altezza.value() + '|' + (#Parametri_Locale5_Sottotetto.checked() ? 'Si' : 'No') + '|' + #Parametri_Locale5_Superficie.value() + '~' + #Parametri_Locale6_Descrizione.value() + '|' + #Parametri_Locale6_Altezza.value() + '|' + (#Parametri_Locale6_Sottotetto.checked() ? 'Si' : 'No') + '|' + #Parametri_Locale6_Superficie.value() + '~' + #Parametri_Locale7_Descrizione.value() + '|' + #Parametri_Locale7_Altezza.value() + '|' + (#Parametri_Locale7_Sottotetto.checked() ? 'Si' : 'No') + '|' + #Parametri_Locale7_Superficie.value() + '~' + #Parametri_Locale8_Descrizione.value() + '|' + #Parametri_Locale8_Altezza.value() + '|' + (#Parametri_Locale8_Sottotetto.checked() ? 'Si' : 'No') + '|' + #Parametri_Locale8_Superficie.value() + '~' + #Parametri_Locale9_Descrizione.value() + '|' + #Parametri_Locale9_Altezza.value() + '|' + (#Parametri_Locale9_Sottotetto.checked() ? 'Si' : 'No') + '|' + #Parametri_Locale9_Superficie.value() + '~' + #Parametri_Locale10_Descrizione.value() + '|' + #Parametri_Locale10_Altezza.value() + '|' + (#Parametri_Locale10_Sottotetto.checked() ? 'Si' : 'No') + '|' + #Parametri_Locale10_Superficie.value() + '~' + #Parametri_Locale11_Descrizione.value() + '|' + #Parametri_Locale11_Altezza.value() + '|' + (#Parametri_Locale11_Sottotetto.checked() ? 'Si' : 'No') + '|' + #Parametri_Locale11_Superficie.value() + '~'" type="hidden">
+
+<!-- Campi hidden alloggio -->
+<input class="inputNormal" id="Parametri_Alloggio_idoneo" name="Parametri_Alloggio_idoneo" style="width: 100%;" label="Alloggio idoneo" dynamic_value="( #Tassonomia_Finestre1.checked() and #Tassonomia_Illuminazione1.checked() and #Tassonomia_Stanze_da_bagno1.checked() and #Tassonomia_Stanze_da_bagno2.checked() and #Tassonomia_Stanze_da_bagno3.checked() and #Tassonomia_Condensazione1.checked() and #Tassonomia_Isolamento_acustico1.checked() and (#Tassonomia_Impianto_elettrico1.checked() || #Tassonomia_Impianto_elettrico2.checked()) and (#Tassonomia_Impianto_gas1.checked() || #Tassonomia_Impianto_gas2.checked() || #Tassonomia_Impianto_gas3.checked() ) and #Tassonomia_Impianto_riscaldamento1.checked() and (#Tassonomia_Impianto_riscaldamento2.checked() || #Tassonomia_Impianto_riscaldamento3.checked()) ) ? 'Si' : 'No'" type="hidden">
+<input class="inputNormal" id="Parametri_Numero_locali" name="Parametri_Numero_locali" style="width: 100%;" label="Numero locali" dynamic_value="(#Parametri_Locale1_Descrizione.value() != '' ? 1 : 0) + (#Parametri_Locale2_Descrizione.value() != '' ? 1 : 0) + (#Parametri_Locale3_Descrizione.value() != '' ? 1 : 0) + (#Parametri_Locale4_Descrizione.value() != '' ? 1 : 0) + (#Parametri_Locale5_Descrizione.value() != '' ? 1 : 0) + (#Parametri_Locale6_Descrizione.value() != '' ? 1 : 0) + (#Parametri_Locale7_Descrizione.value() != '' ? 1 : 0) + (#Parametri_Locale8_Descrizione.value() != '' ? 1 : 0) + (#Parametri_Locale9_Descrizione.value() != '' ? 1 : 0) + (#Parametri_Locale10_Descrizione.value() != '' ? 1 : 0) + (#Parametri_Locale11_Descrizione.value() != '' ? 1 : 0)" type="hidden">
+<input class="inputNormal" id="Parametri_Tipo_alloggio" name="Parametri_Tipo_alloggio" style="width: 100%;" label="Tipo di alloggio" dynamic_value="(parseInt(#Parametri_Numero_locali.value()) < 2 ? 'Non definito' : (parseInt(#Parametri_Numero_locali.value()) == 2 ? 'Monolocale' : 'Più locali') )" type="hidden">
+<input class="inputNormal" id="Parametri_Persone_massime" name="Parametri_Persone_massime" style="width: 100%;" label="Numero persone massime ammesse" type="hidden">
+
+<br/>
+<h3 class="Modulo">
+  SI IMPEGNA
+</h3>
+
+<p class="Modulo">
+  A comunicare all’amministrazione qualsiasi variazione delle caratteristiche dell’alloggio o degli impianti qui dichiarate.
+</p>
+<br/>
+
+<table class="Modulo" name="Allegati" style="border: 1px solid grey">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="2">
+        <p style="text-align: center;">
+          <b>
+            Elenco degli allegati
+          </b>
+          <br/>
+          <span style="font-size:70%">
+            <i>(barrare tutti gli allegati richiesti in fase di presentazione della pratica ed elencati sul portale)</i>
+          </span>
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">
+        <input id="DICH-ALL-SOTT" name="DICH-ALL-SOTT" type="checkbox" value="OBBLIGATORIO" enabled="#Tassonomia_Ruolo_titolare5.checked()" dynamic_check="#Tassonomia_Ruolo_titolare5.checked()"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          copia delle dichiarazioni del proprietario/gestore dell'alloggio sottoscritta con firma autografa e con allegata la carta d'identità
+           <br/>
+          <span style="font-size:70%">
+            <i>(da allegare solo se l’istanza è presentata dal conduttore dell'alloggio)</i>
+          </span>
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">
+        <input checked="checked" dynamic_check="true" id="IAL-PLA-LOC" name="IAL-PLA-LOC" type="checkbox" value="OBBLIGATORIO"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          planimetria dell'alloggio allo stato attuale di fatto
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">
+        <input id="CONTR-FUMI" name="CONTR-FUMI" type="checkbox" value="OBBLIGATORIO" enabled="#Tassonomia_TipoRiscaldamento2.checked()" dynamic_check="#Tassonomia_TipoRiscaldamento2.checked()" />    
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          copia del documento di controllo fumi
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">
+        <input id="DAE-CDI" name="DAE-CDI" type="checkbox" value="OBBLIGATORIO" />
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          copia del documento d'identità
+          <br/>
+          <span style="font-size:70%">
+            <i>(da allegare se il modulo è sottoscritto con firma autografa)</i>
+          </span>
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td width="4%">
+        <input id="ALTRI-ALLEGATI" name="ALTRI-ALLEGATI" type="checkbox" value="OBBLIGATORIO"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          altri allegati
+          <span style="font-size:70%">
+            (specificare)
+          </span>
+          <input class="" label="Altri allegati" id="AltriAllegati" mandatory_enabled="#ALTRI_ALLEGATI.checked()" name="AltriAllegati" style="width:79%;"/>
+        </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<br/>
+  {{ utils.firma_hidden() }}
+<br/>
+
+<p class="Modulo">
+  <input id="SalvaModulo" name="SalvaModulo" style="height:30px;width:120px;" title="Verifica la corretta compilazione dei campi e salva il modulo nel faldone virtuale dell'istanza." type="submit" value="Salva modulo"/>
+</p>
+
+<input id="GLOBO_modulo_c{{ CodiceModulo }}" name="GLOBO_modulo_c{{ CodiceModulo }}" type="hidden" value="{{ CodiceModulo }}"/>
+
+<input id="GLOBO_allegato_cDICH-ALL-SOTT" name="GLOBO_allegato_cDICH-ALL-SOTT" obbligatorio="#DICH_ALL_SOTT.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+<input id="GLOBO_allegato_cIAL-PLA-LOC" name="GLOBO_allegato_cIAL-PLA-LOC" obbligatorio="#IAL_PLA_LOC.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+<input id="GLOBO_allegato_cCONTR-FUMI" name="GLOBO_allegato_cCONTR-FUMI" obbligatorio="#CONTR_FUMI.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_allegato_cDAE-CDI" name="GLOBO_allegato_cDAE-CDI" obbligatorio="#DAE_CDI.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+<input id="GLOBO_allegato_cALTRI-ALLEGATI" name="GLOBO_allegato_cALTRI-ALLEGATI" obbligatorio="#ALTRI_ALLEGATI.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value="" />
+
+<input id="GLOBO_id_padre" name="GLOBO_id_padre" type="hidden"/>
+<input id="GLOBO_recupera_dati" name="GLOBO_recupera_dati" type="hidden"/>
+<input id="GLOBO_codice_modulo" name="GLOBO_codice_modulo" type="hidden" value="{{ CodiceModulo }}"/>
+
+{% endblock content %}

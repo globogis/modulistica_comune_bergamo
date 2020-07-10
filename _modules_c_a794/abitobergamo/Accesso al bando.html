@@ -1,0 +1,345 @@
+{% set CodiceModulo = "DOM_SIS_ALL" %}
+{% set Urn = "document:c_a794:incentivo.sistemazione.alloggio" %}
+{% extends "base.html" %}
+
+{% block meta %}
+
+<meta campi_firma="Titolare_CodiceFiscale"
+campi_firma_label="il dichiarante"
+classi_modulo="ufficio ERP e housing sociale"
+codice_modulo="{{ CodiceModulo }}"
+urn="{% block urn %}{{ Urn }}{% endblock urn %}"
+sub_urn_list=""
+uo_globo_list=""
+descrizione="Domanda di accesso al bando per la sistemazione di alloggi sfitti"
+destinatario_amministrazione=""
+destinatario_ufficio="UOHOUSINGSOCIALE"
+dinamico="SI"
+email_a=""
+ente_abilitato="TUTTI"
+filigrana="NO"
+firmare="P7M_ELETTRONICA"
+istruzioni_compilazione=""
+istruzioni_invio="mail_pec"
+metodo_invio="mail"
+name="GLOBO_modulo"
+procura="NO,,"
+tipo_modulo="principale"
+urlhelp="/modulistica/moduli/{{ CodiceModulo }}"
+verifica_pagamento="NO"
+versione="1.1|29/03/2019"/>
+
+<meta codice_modulo_figlio="Incarico_procura"
+urn_modulo_figlio="document:s_italia:generale;incarico.procura"
+name="GLOBO_modulofiglio"
+numero="1"
+obbligatorio="DINAMICO"/>
+
+<meta codice_allegato="DAE-CDI"
+urn_allegato="document:s_italia:generale;documento.identita;documentazione"
+descrizione_estesa="Documento di identità"
+filename="Documento identita.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/DAE-CDI"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="COP_PRE_FATT"
+urn_allegato="document:c_a794:preventivi.fatture.lavori;copia"
+descrizione_estesa="Copia preventivi/fatture dei lavori da eseguire/eseguiti"
+filename="Copia fatture.pdf"
+firmato="SI"
+istruzioni="/modulistica/moduli/COP_PRE_FATT"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="ALTRI-ALLEGATI"
+urn_allegato="document:s_italia:altri.allegati"
+descrizione_estesa="Altri allegati"
+filename="Altri allegati.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/ALTRI-ALLEGATI"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+{% endblock meta %}
+
+{% block title %}
+  Domanda di accesso al bando per la sistemazione di alloggi sfitti
+{% endblock title %}
+
+{% block content %}
+
+<globo_fondo_pagina areaheight="150" scope="2">
+  {{ utils.firma() }}
+</globo_fondo_pagina>
+
+<input id="Parametri_Comune" name="Parametri_Comune" type="hidden" dynamic_value="#Ente.value()"/>
+<input id="Oggetto" name="Oggetto" type="hidden" dynamic_value="#Titolare_Cognome.value().toUpperCase() + ' ' + #Titolare_Nome.value().toUpperCase() + ' - Domanda di accesso al bando per la sistemazione di alloggi sfitti'"/>
+
+{{ intestazioni.intestazione_moduloprincipale_senzabollo() }}
+
+<h1 class="Modulo">
+  Domanda di accesso al bando per la sistemazione di alloggi sfitti
+</h1>
+<h2 class="Modulo">
+  Ai sensi della Deliberazione della Giunta regionale 03/07/2015, n. 10/3789
+</h2>
+
+<input id="Titolare_DatiPersonaObbligatori" name="Titolare_DatiPersonaObbligatori" type="hidden" dynamic_check="true"/>
+<input id="Titolare_Titolo" name="Titolare_Titolo" type="hidden" value="Richiedente"/>
+<input id="Titolare_Ruolo" name="Titolare_Ruolo" type="hidden" value="Richiedente"/>
+{{ anagrafica.persona_fisica("Titolare", "Il sottoscritto", "visibility:visibility", "cursor:pointer", "visibility:visibility", "visibility:visibility", "mail_ordinaria") }}
+
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="3">
+        <p class="Labeltabella">
+          In qualità di proprietario di un’unità immobiliare sfitta collocata, ai sensi dell’Accordo territoriale per il Comune di Bergamo del 13 giugno 2017 in 
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella"> Area </p>
+      </td>
+      <td>
+        <p class="Labelcella"> Sub-fascia </p>
+      </td>
+      <td>
+        <p class="Labelcella"> Superficie convenzionale </p>
+      </td>
+    </tr>
+    <tr mandatory="true">
+      <td>
+        <input class="inputNormal" id="Parametri_Area" name="Parametri_Area" style="width: 100%;" label="Area" />
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_SubFascia" name="Parametri_SubFascia" style="width: 100%;" label="Sub-fascia" />
+      </td>
+      <td>
+        <p> <input class="inputNormal" id="Parametri_SuperficieConvenzionale" name="Parametri_SuperficieConvenzionale" style="width: 80%;" label="Superficie convenzionale" /> m <sup>2</sup> </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+{% set char = ['A','B','C','D','E','F','G'] %}
+<div id="Tassonomia_ClasseEnergetica" name="Tassonomia_ClasseEnergetica" label="Classe energetica" mandatory="true"></div>
+<table class="Modulo" style="border: 1px solid grey;margin-top: ;">
+  <tbody>
+    <tr class="Rigaintestazioneridotta">
+      <td colspan="2">
+        <p class="Labelcella"> Classe energetica </p>
+      </td>
+    </tr>
+    {% for c in char %}
+      <tr>
+        <td style="width: 4%;">
+          <input id="Tassonomia_ClasseEnergetica{{loop.index}}" name="Tassonomia_ClasseEnergetica" type="radio" value="{{loop.index}}" />
+        </td>
+        <td>
+          {{ c }}
+        </td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% set contratto = ['3 anni + 2 anni','4 anni + 2 anni','5 anni + 2 anni','6 anni e oltre + 2 anni'] %}
+<div id="Tassonomia_Contratto" name="Tassonomia_Contratto" label="Durata contrattuale" mandatory="true"></div>
+<table class="Modulo" style="border: 1px solid grey;margin-top: -1px;">
+  <tbody>
+    <tr class="Rigaintestazioneridotta">
+      <td colspan="8">
+        <p class="Labelcella"> Durata contrattuale </p>
+      </td>
+    </tr>
+    <tr>
+      {% for item in contratto %}
+        <td style="width: 4%;">
+          <input id="Tassonomia_Contratto{{loop.index}}" name="Tassonomia_Contratto" type="radio" value="{{loop.index}}" />
+        </td>
+        <td>
+          <p> {{ item }} </p>
+        </td>
+      {% endfor %}
+    </tr>
+  </tbody>
+</table>
+<table class="Modulo" style="border: 1px solid grey;margin-top: -1px;">
+  <tbody>
+    <tr class="Rigaintestazioneridotta">
+      <td colspan="2">
+        <p class="Labelcella"> Ubicazione </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="Tassonomia_Ubicazione" name="Tassonomia_Ubicazione" type="checkbox" value="SI" />
+      </td>
+      <td>
+        <p> ubicato in immobile di cui all’articolo 1, comma 2, lettera a) della Legge 09/12/1998, n.431, ovvero immobili vincolati ai sensi della Legge 01/06/1939, n. 1089, o inclusi nelle categorie catastali A/1, A/8 e A/9. </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<table class="Modulo" style="border: 1px solid grey; margin-top: -1px;">
+  <tbody>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella"> Arredato* </p>
+      </td>
+    </tr>
+    <tr mandatory="true">
+      <td>
+        <input class="inputNormal" id="Parametri_Arredamento" name="Parametri_Arredamento" style="width: 100%;" label="Arredato" />
+        <p>
+          *indicare un valore da 0% a 15%, dove lo 0% indica non arredata, mentre 15% completamente arredata.
+          Per gli alloggi parzialmente arredati la maggiorazione dovrà essere inferiore al massimo e proporzionale all’arredo effettivamente presente e che dovrà essere in ogni caso presente una cucina, o angolo cottura, totalmente attrezzata di elettrodomestici e mobili pensili          
+        </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 class="Modulo">
+  CHIEDE
+</h3>
+<p class="Modulo">
+  di poter beneficiare per l’erogazione di incentivi ai proprietari di alloggi sfitti per la sistemazione dei medesimi da immettere sul mercato della locazione a canone concordato, ai sensi della Deliberazione di Giunta regionale 03/07/2015, n. 10/378.
+</p>
+
+<globo_salto_pagina></globo_salto_pagina>
+{{ utils.Dichiara_445() }}
+
+<p class="Modulo">
+  di essere proprietario
+</p>
+<input id="Immobile1_DatiImmobileRichiesti" name="Immobile1_DatiImmobileRichiesti" type="checkbox" style="display: none;" value="si" dynamic_check="true"/>
+<input id="Immobile1_DatiCatastaliObbligatori" name="Immobile1_DatiCatastaliObbligatori" type="checkbox" style="display: none;" value="si" dynamic_check="true"/>
+{{ immobili.immobile_secondario("Immobile1", "sito in", "Collocazione immobile" ) }}
+
+<h3 class="Modulo">
+  COMUNICA
+</h3>
+
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td>
+        <p class="Labeltabella">
+            che intende eseguire/ha eseguito i seguenti lavori di sistemazione/messa a norma dell’alloggio
+        </p>
+      </td>
+    </tr>
+    <tr mandatory="true">
+      <td>
+        <textarea class="inputNormal" id="Parametri_AlloggioTextArea" name="Parametri_AlloggioTextArea" style="width: 100%; height: 5cm;" label="Comunicazione lavori di sistemazione dell'alloggio"></textarea>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          Eventuali annotazioni
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <textarea class="inputNormal" id="Parametri_Annotazioni" name="Parametri_Annotazioni" style="width: 100%; height: 5cm;" label="Eventuali annotazioni"></textarea>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<br>
+<table class="Modulo" name="Allegati" style="border: 1px solid grey">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="2">
+        <p style="text-align: center;">
+          <b>
+            Elenco degli allegati
+          </b>
+          <br/>
+          <span style="font-size:70%">
+            <i>(barrare tutti gli allegati richiesti in fase di presentazione della pratica ed elencati sul portale)</i>
+          </span>
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="width: 4%; vertical-align: top;">
+        <input id="COP_PRE_FATT" name="COP_PRE_FATT" type="checkbox" value="OBBLIGATORIO" dynamic_check="true" checked="checked"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          copia preventivi/fatture dei lavori da eseguire/eseguiti
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="DAE-CDI" name="DAE-CDI" type="checkbox" value="OBBLIGATORIO" />
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          copia del documento d'identità
+          <br/>
+          <span style="font-size:70%">
+            <i>(da allegare se il modulo è sottoscritto con firma autografa)</i>
+          </span>
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="ALTRI-ALLEGATI" name="ALTRI-ALLEGATI" type="checkbox" value="OBBLIGATORIO"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          altri allegati
+          <span style="font-size:70%">(specificare)</span>
+          <input class="" label="Altri allegati" id="AltriAllegati" mandatory_enabled="#ALTRI_ALLEGATI.checked()" name="AltriAllegati" style="width:79%;"/>
+        </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+{{ utils.trattamento_dati_personali() }}
+<br/>
+  {{ utils.firma_hidden() }}
+<br/>
+
+<p class="Modulo">
+  <input id="SalvaModulo" name="SalvaModulo" style="height:30px;width:120px;" title="Verifica la corretta compilazione dei campi e salva il modulo nel faldone virtuale dell'istanza." type="submit" value="Salva modulo"/>
+</p>
+
+<input destinatario_amministrazione="getParameter('Ente')" id="GLOBO_modulo_c{{ CodiceModulo }}" name="GLOBO_modulo_c{{ CodiceModulo }}" type="hidden" value=""/>
+<input firmare="'P7M_ELETTRONICA'" id="GLOBO_modulofiglio_cIncarico_procura" name="GLOBO_modulofiglio_cIncarico_procura" type="hidden" value=""/>
+
+<input id="GLOBO_allegato_cCOP_PRE_FATT" name="GLOBO_allegato_cCOP_PRE_FATT" type="hidden" value="" obbligatorio="#COP_PRE_FATT.checked() ? 'OBBLIGATORIO' : ''"/>
+<input id="GLOBO_allegato_cDAE-CDI" name="GLOBO_allegato_cDAE-CDI" obbligatorio="#DAE_CDI.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+<input id="GLOBO_allegato_cALTRI-ALLEGATI" name="GLOBO_allegato_cALTRI-ALLEGATI" obbligatorio="#ALTRI_ALLEGATI.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_id_padre" name="GLOBO_id_padre" type="hidden"/>
+<input id="GLOBO_recupera_dati" name="GLOBO_recupera_dati" type="hidden"/>
+<input id="GLOBO_codice_modulo" name="GLOBO_codice_modulo" type="hidden" value="{{ CodiceModulo }}"/>
+
+{% endblock content %}

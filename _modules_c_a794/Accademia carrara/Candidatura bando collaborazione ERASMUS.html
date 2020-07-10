@@ -1,0 +1,452 @@
+{% set CodiceModulo = "DOM_ERASMUS_PLUS" %}
+{% set Urn = "document:c_a794:frequentare.accademica.carrara;bando.erasmus" %}
+{% extends "base.html" %}
+
+{% block meta %}
+
+<meta campi_firma="Titolare_CodiceFiscale"
+campi_firma_label="il dichiarante"
+classi_modulo="Tempo libero sport e cultura"
+codice_modulo="{{ CodiceModulo }}"
+urn="{% block urn %}{{ Urn }}{% endblock urn %}"
+sub_urn_list=""
+uo_globo_list=""
+descrizione="Candidatura al bando per l'incarico di collaborazione alla gestione del progetto ERASMUS +"
+destinatario_amministrazione=""
+destinatario_ufficio="UOTEMPOLIBEROSPORTECULTURA"
+dinamico="SI"
+email_a=""
+ente_abilitato="TUTTI"
+filigrana="NO"
+firmare="NO"
+istruzioni_compilazione=""
+istruzioni_invio="mail_pec"
+metodo_invio="mail"
+name="GLOBO_modulo"
+procura="NO,,"
+tipo_modulo="principale"
+urlhelp="/modulistica/moduli/{{ CodiceModulo }}"
+verifica_pagamento="NO"
+versione="1.0|08/02/2019"/>
+
+<meta codice_modulo_figlio="INCARICO_PROCURA"
+urn_modulo_figlio="document:s_italia:generale;incarico.procura"
+name="GLOBO_modulofiglio"
+numero="1"
+obbligatorio="DINAMICO"/>
+
+<meta codice_allegato="DAE-CDI"
+urn_allegato="document:s_italia:generale;documento.identita;documentazione"
+descrizione_estesa="Documento di identità"
+filename="Documento identita.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/DAE-CDI"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="LAV-CUR-VIT"
+urn_allegato="document:s_italia:concorsi.selezioni;curriculum.professionale;documentazione"
+descrizione_estesa="Curriculum vitae redatto secondo il modello europeo"
+filename="Curriculum vitae.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/LAV-CUR-VIT"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="ALTRI-ALLEGATI"
+urn_allegato="document:s_italia:altri.allegati"
+descrizione_estesa="Altri allegati"
+filename="Altri allegati.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/ALTRI-ALLEGATI"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+{% endblock meta %}
+
+{% block title %}
+    Candidatura al bando per l'incarico di collaborazione alla gestione del progetto ERASMUS +
+{% endblock title %}
+
+{% block content %}
+
+<style>
+    .noBorder{
+        border: 0 !important;
+    }
+
+    @media pdf{
+       .borderInPDF{
+            border-bottom: 1px solid black;
+       }
+    }
+</style>
+
+<globo_fondo_pagina areaheight="150" scope="2">
+    {{ utils.firma() }}
+</globo_fondo_pagina>
+
+<input id="Parametri_Comune" name="Parametri_Comune" type="hidden" dynamic_value="#Ente.value()"/>
+<input id="Oggetto" name="Oggetto" type="hidden" dynamic_value="#Titolare_Cognome.value().toUpperCase() + ' ' + #Titolare_Nome.value().toUpperCase() + ' - candidatura bando collaborazione progetto ERASMUS +'"/>
+
+{{ intestazioni.intestazione_moduloprincipale_senzabollo() }}
+
+<h1 class="Modulo">
+    Candidatura al bando per l'incarico di collaborazione alla gestione del progetto ERASMUS +
+</h1>
+
+<input id="Titolare_DatiPersonaObbligatori" name="Titolare_DatiPersonaObbligatori" type="hidden" dynamic_check="true"/>
+<input id="Titolare_Titolo" name="Titolare_Titolo" type="hidden" value="Richiedente"/>
+<input id="Titolare_Ruolo" name="Titolare_Ruolo" type="hidden" value="Richiedente"/>
+{{ anagrafica.persona_fisica("Titolare", "Il sottoscritto", "visibility:visibility", "cursor:pointer", "visibility:visibility", "visibility:visibility", "mail_ordinaria", "", "true", "false", "false", "", "false", "true", "visibility:visibility") }}
+
+<h3 class="Modulo">
+    CHIEDE
+</h3>
+
+<p class="Modulo">
+    di partecipare alla procedura selettiva pubblica per il conferimento di incarico di collaborazione presso l’Accademia di Belle Arti G. Carrara per lo svolgimento di attività di gestione del progetto Erasmus +.
+</p>
+
+{{ utils.Dichiara_445() }}
+
+<table class="Modulo" style="border: 1px solid grey;">
+    <tbody>
+        <tr class="Rigaintestazione">
+            <td colspan="4">
+                <p class="Labeltabella">
+                    di essere in possesso dei seguenti titoli di studio o accademici
+                </p>
+            </td>
+        </tr>
+        <tr class="Rigaintestazioneridotta">
+            <td style="width:37.5%;">
+                <p class="Labelcella">
+                    Titolo
+                </p>
+            </td>
+            <td style="width: 37.5%;">
+                <p class="Labelcella">
+                    Conseguito presso
+                </p>
+            </td>
+            <td style="width: 15%;">
+                <p class="Labelcella">
+                    In data
+                </p>
+            </td>
+            <td style="width: 10%;">
+                <p class="Labelcella">
+                    Con votazione
+                </p>
+            </td>
+        </tr>
+        {% for i in range(1, 7) %}
+        <tr {% if i == 1 %} mandatory="true" {% endif %}>
+            <td>
+                <input class="inputNormal" id="Parametri_TitoloStudio{{i}}_Titolo" name="Parametri_TitoloStudio{{i}}_Titolo" style="width: 100%;" label="Titolo di studio" />
+            </td>
+            <td>
+                <input class="inputNormal" id="Parametri_TitoloStudio{{i}}_ConseguimentoSede" name="Parametri_TitoloStudio{{i}}_ConseguimentoSede" style="width: 100%;" label="Sede conseguimento titolo"
+                mandatory_enabled="{% if i == 1 %} true {% else %} #Parametri_TitoloStudio{{i}}_Titolo.value() != '' {% endif %}"/>
+            </td>
+            <td>
+                <input class="inputNormal" id="Parametri_TitoloStudio{{i}}_Data" name="Parametri_TitoloStudio{{i}}_Data" style="width: 100%;" label="Data conseguimento titolo" mandatory_enabled="{% if i == 1 %} true {% else %} #Parametri_TitoloStudio{{i}}_Titolo.value() != '' {% endif %}" format="date" />
+            </td>
+            <td>
+                <input class="inputNormal" id="Parametri_TitoloStudio{{i}}_Votazione" name="Parametri_TitoloStudio{{i}}_Votazione" style="width: 100%;" label="Votazione titolo"
+                mandatory_enabled="{% if i == 1 %} true {% else %} #Parametri_TitoloStudio{{i}}_Titolo.value() != '' {% endif %}"/>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<table class="Modulo" style="border: 1px solid grey;">
+    <tbody>
+        <tr class="Rigaintestazione">
+            <td colspan="4">
+                <p class="Labeltabella">
+                    di conoscere le seguenti lingue estere
+                </p>
+            </td>
+        </tr>
+        <tr class="Rigaintestazioneridotta">
+            <td style="width:25%;">
+                <p class="Labelcella">
+                    Lingua
+                </p>
+            </td>
+            <td style="width: 25;">
+                <p class="Labelcella">
+                    Comprensione (*)
+                </p>
+            </td>
+            <td style="width: 25%;">
+                <p class="Labelcella">
+                    Parlato (*)
+                </p>
+            </td>
+            <td style="width: 25%;">
+                <p class="Labelcella">
+                    Scritto (*)
+                </p>
+            </td>
+        </tr>
+        
+        {% for i in range(1, 6) %}
+        <tr {% if i == 1 %} mandatory="true" {% endif %}>
+            <td>
+                <input class="inputNormal" id="Parametri_Lingua{{i}}_Lingua" name="Parametri_Lingua{{i}}_Lingua" style="width: 100%;" label="Lingua estera" />
+            </td>
+            {% set capacita = ["", "Sufficiente", "Buono", "Ottimo", "Madrelingua"] %}
+            <td>
+                <select name="Parametri_Lingua{{i}}_Comprensione" id="Parametri_Lingua{{i}}_Comprensione" label="Capacità comprensione" style="width: 100%;" 
+                mandatory_enabled="{% if i == 1 %} true {% else %} #Parametri_Lingua{{i}}_Lingua.value() != '' {% endif %}" >
+                    {% for cap in capacita %}
+                        <option value="{{cap}}">{{cap}}</option>
+                    {% endfor %}
+                </select>
+            </td>
+            <td>
+                <select name="Parametri_Lingua{{i}}_Parlato" id="Parametri_Lingua{{i}}_Parlato" label="Capacità parlato" style="width: 100%;"
+                mandatory_enabled="{% if i == 1 %} true {% else %} #Parametri_Lingua{{i}}_Lingua.value() != '' {% endif %}">
+                    {% for cap in capacita %}
+                        <option value="{{cap}}">{{cap}}</option>
+                    {% endfor %}
+                </select>
+            </td>
+            <td>
+                <select name="Parametri_Lingua{{i}}_Scritto" id="Parametri_Lingua{{i}}_Scritto" label="Capacità scritto" style="width: 100%;" 
+                mandatory_enabled="{% if i == 1 %} true {% else %} #Parametri_Lingua{{i}}_Lingua.value() != '' {% endif %}">
+                    {% for cap in capacita %}
+                        <option value="{{cap}}">{{cap}}</option>
+                    {% endfor %}
+                </select>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<p class="Modulo" style="font-size:80%;">
+    <i>Capacità (*)</i>:<br/>
+    sufficiente, buono, ottimo, madrelingua
+</p>
+
+<globo_salto_pagina></globo_salto_pagina>
+
+<h3 class="Modulo">
+    DICHIARA INOLTRE
+</h3>
+
+{% set dichiarazioni = ["di non aver prestato servizi presso Pubbliche Amministrazioni risolti per destituzione o dispensa per persistente
+insufficiente rendimento ovvero essere stato dichiarato decaduto da un impiego pubblico.", "di non aver riportato condanne penali e di non aver procedimenti penali in corso d'istruttoria.", "di accettare senza riserve le condizioni previste dal bando di selezione.", "di non essere in situazioni di incompatibilità previste dalla normativa vigente e di non avere in atto alcuna controversia con il Comune di Bergamo.", "di aver richiesto all’amministrazione di appartenenza l’autorizzazione preventiva per l’attività da svolgere se già dipendente di altra pubblica amministrazione."] %}
+<div id="Tassonomia_Dichiara" name="Tassonomia_Dichiara" label="Dichiarazione" mandatory="true"></div>
+<table class="Modulo noBorder" style="border: 1px solid grey;">
+    <tbody>
+        {% for dichiarazione in dichiarazioni %}
+        <tr class="noBorder">
+            <td class="noBorder" style="vertical-align: top; width: 4%;">
+                <input group="Tassonomia_Dichiara" id="Tassonomia_Dichiara{{loop.index}}" name="Tassonomia_Dichiara{{loop.index}}" type="checkbox" value="SI" checked="checked" dynamic_check="true">
+            </td>
+            <td class="noBorder">
+                <p>
+                    {{dichiarazione}}
+                </p>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<br>
+
+<p class="Modulo">
+    relativamente all’iscrizione alle liste elettorali
+</p>
+
+<div id="Tassonomia_IscrizioneListeElettorali" name="Tassonomia_IscrizioneListeElettorali" label="Iscrizione liste elettorali" mandatory="true"></div>
+<table class="Modulo" style="border: 1px solid grey;">
+    <tbody>
+        <tr>
+            <td rowspan="3" style="vertical-align: top; width: 4%; background-color:#ffffff">
+                <input id="Tassonomia_IscrizioneListeElettorali1" name="Tassonomia_IscrizioneListeElettorali" type="radio" value="1" />
+            </td>
+            <td colspan="2">
+                <p>
+                    di essere iscritto nelle liste elettorali del Comune di
+                </p>
+            </td>
+        </tr>
+        <tr class="Rigaintestazioneridotta">
+            <td style="width: 48%;">
+                <p class="Labelcella">
+                    Provincia
+                </p>
+            </td>
+            <td style="width: 48%;">
+                <p class="Labelcella">
+                    Comune
+                </p>
+            </td>  
+        </tr>
+        <tr mandatory_enabled="#Tassonomia_IscrizioneListeElettorali1.checked()">
+            <td>
+                {{ utils.provincie( 'Parametri_ProvinciaListeElettorali1', label="Provincia") }}
+            </td>
+            <td>
+                <select class="inputNormal" id="Parametri_ComuneListeElettorali1" name="Parametri_ComuneListeElettorali1" style="width:100%" label="Comune" dynamic_value="getComuniFromProvincia( #Parametri_ProvinciaListeElettorali1.value(), 'Parametri_ComuneListeElettorali1')"></select>
+            </td>
+        </tr>
+        <tr>
+            <td rowspan="5" style="vertical-align: top; width: 4%; background-color: #ffffff">
+                <input id="Tassonomia_IscrizioneListeElettorali2" name="Tassonomia_IscrizioneListeElettorali" type="radio" value="2" />
+            </td>
+            <td colspan="2">
+                <p>
+                    di non essere iscritto o di essere stato cancellato dalle liste elettorali del Comune di
+                </p>
+            </td>
+        </tr>
+        <tr class="Rigaintestazioneridotta">
+            <td>
+                <p class="Labelcella">
+                    Provincia
+                </p>
+            </td>
+            <td>
+                <p class="Labelcella">
+                    Comune
+                </p>
+            </td>  
+        </tr>
+        <tr mandatory_enabled="#Tassonomia_IscrizioneListeElettorali2.checked()">
+            <td>
+                {{ utils.provincie( 'Parametri_ProvinciaListeElettorali2', label="Provincia") }}
+            </td>
+            <td>
+                <select class="inputNormal" id="Parametri_ComuneListeElettorali2" name="Parametri_ComuneListeElettorali2" style="width:100%" label="Comune" dynamic_value="getComuniFromProvincia( #Parametri_ProvinciaListeElettorali2.value(), 'Parametri_ComuneListeElettorali2')"></select>
+            </td>
+        </tr>
+        <tr class="Rigaintestazioneridotta">
+            <td colspan="2">
+                <p class="Labelcella">
+                    Motivo della mancata iscrizione o cancellazione
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <input class="inputNormal" id="Parametri_MotivoMancataIscrizione" name="Parametri_MotivoMancataIscrizione" style="width: 100%;" label="Motivazione" mandatory_enabled="#Tassonomia_IscrizioneListeElettorali2.checked()" />
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<br>
+
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          Eventuali annotazioni
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <textarea class="inputNormal" id="Parametri_Annotazioni" name="Parametri_Annotazioni" style="width: 100%; height: 5cm;" label="Eventuali annotazioni"></textarea>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<br>
+
+<table class="Modulo" name="Allegati" style="border: 1px solid grey">
+    <tbody>
+        <tr class="Rigaintestazione">
+            <td colspan="2">
+                <p style="text-align: center;">
+                    <b>
+                        Elenco degli allegati
+                    </b>
+                    <br/>
+                    <span style="font-size:70%">
+                        <i>(barrare tutti gli allegati richiesti in fase di presentazione della pratica ed elencati sul portale)</i>
+                    </span>
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 4%; vertical-align: top;">
+                <input id="LAV-CUR-VIT" name="LAV-CUR-VIT" type="checkbox" value="OBBLIGATORIO" checked="checked" dynamic_check="true" />
+            </td>
+            <td style="background-color: #eeeeee;">
+                <p>
+                    curriculum professionale
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td style="vertical-align: top; width: 4%;">
+                <input id="DAE-CDI" name="DAE-CDI" type="checkbox" value="OBBLIGATORIO" />
+            </td>
+            <td style="background-color: #eeeeee;">
+                <p>
+                    copia del documento d'identità
+                    <br/>
+                    <span style="font-size:70%">
+                        <i>(da allegare se il modulo è sottoscritto con firma autografa)</i>
+                    </span>
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td style="vertical-align: top; width: 4%;">
+                <input id="ALTRI-ALLEGATI" name="ALTRI-ALLEGATI" type="checkbox" value="OBBLIGATORIO"/>
+            </td>
+            <td style="background-color: #eeeeee;">
+                <p>
+                    altri allegati
+                    <span style="font-size:70%">(specificare)</span>
+                    <input class="" label="Altri allegati" id="AltriAllegati" mandatory_enabled="#ALTRI_ALLEGATI.checked()" name="AltriAllegati" style="width:79%;"/>
+                </p>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+
+<br>
+{{ utils.trattamento_dati_personali() }}
+<br/>
+    {{ utils.firma_hidden() }}
+<br/>
+
+<p class="Modulo">
+    <input id="SalvaModulo" name="SalvaModulo" style="height:30px;width:120px;" title="Verifica la corretta compilazione dei campi e salva il modulo nel faldone virtuale dell'istanza." type="submit" value="Salva modulo"/>
+</p>
+
+<input destinatario_amministrazione="getParameter('Ente')" id="GLOBO_modulo_c{{ CodiceModulo }}" name="GLOBO_modulo_c{{ CodiceModulo }}" type="hidden" value=""/>
+<input firmare="'P7M_ELETTRONICA'" id="GLOBO_modulofiglio_cINCARICO_PROCURA" name="GLOBO_modulofiglio_cINCARICO_PROCURA" type="hidden" value=""/>
+
+
+
+<input id="GLOBO_allegato_cDAE-CDI" name="GLOBO_allegato_cDAE-CDI" obbligatorio="#DAE_CDI.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+<input id="GLOBO_allegato_cLAV-CUR-VIT" name="GLOBO_allegato_cLAV-CUR-VIT" type="hidden" value="" obbligatorio="#LAV_CUR_VIT.checked() ? 'OBBLIGATORIO' : ''"/>
+<input id="GLOBO_allegato_cALTRI-ALLEGATI" name="GLOBO_allegato_cALTRI-ALLEGATI" obbligatorio="#ALTRI_ALLEGATI.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_id_padre" name="GLOBO_id_padre" type="hidden"/>
+<input id="GLOBO_recupera_dati" name="GLOBO_recupera_dati" type="hidden"/>
+<input id="GLOBO_codice_modulo" name="GLOBO_codice_modulo" type="hidden" value="{{ CodiceModulo }}"/>
+
+{% endblock content %}

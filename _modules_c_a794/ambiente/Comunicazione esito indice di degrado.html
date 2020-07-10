@@ -1,0 +1,157 @@
+{% set CodiceModulo = "DICH-PROP-AMI" %}
+{% set Urn = "document:c_a794:proprietario.copertura.amianto;dichiarazione" %}
+{% extends "base.html" %}
+{% block meta %}
+
+<meta campi_firma="Dichiarante_CodiceFiscale"
+campi_firma_label="il dichiarante"
+classi_modulo="Generale"
+codice_modulo="{{ CodiceModulo }}"
+urn="{% block urn %}{{ Urn }}{% endblock urn %}"
+descrizione="Comunicazione esito indice di degrado"
+destinatario_amministrazione=""
+destinatario_ufficio="UOAMBIENTE"
+dinamico="SI"
+email_a=""
+ente_abilitato="TUTTI"
+filigrana="NO"
+firmare="P7M_ELETTRONICA"
+istruzioni_compilazione="ATTENZIONE: questo modulo deve essere compilato con i dati del dichiarante."
+istruzioni_invio="mail_pec"
+metodo_invio=""
+name="GLOBO_modulo"
+procura="NO,,"
+tipo_modulo="secondario"
+ufficio=""
+urlhelp="/modulistica/moduli/{{ CodiceModulo }}"
+verifica_pagamento="NO"
+versione="1.1|11/04/2019"/>
+
+
+{% endblock meta %}
+{% block title %}
+   Asseverazione dell'indice di degrado, dichiarazioni del proprietario dell'immobile o amministratore
+  {% endblock title %}
+{% block content %}
+ <globo_fondo_pagina areaheight="150" scope="1">
+{{ utils.firma() }}
+ </globo_fondo_pagina>
+{{ intestazioni.intestazione_modulosecondario_senzabollo() }}
+ <input type="hidden" id="Oggetto" name="Oggetto" dynamic_value="#Dichiarante_Cognome.value().toUpperCase() + ' - Asseverazione dell\'indice di degrado, dichiarazioni del proprietario dell\'immobile o amministratore'"/>
+
+ <h1 class="Modulo">
+  Comunicazione esito indice di degrado a seguito della valutazione dello stato della copertura in cemento-amianto
+ </h1>
+
+ {{anagrafica.societa("Dichiarante","Il sottoscritto",["Persona fisica", "Titolare", "Amministratore di condominio"], "Dichiarante", visibility_mail="mail_ordinaria", pec_obbligatoria="false")}}
+
+  <br/>
+
+<table class="Modulo" style="border:1px solid grey;">
+  <tbody>
+   <tr class="Rigaintestazioneridotta">
+    <td colspan="2">
+     <p class="Labeltabella">
+      a seguito della valutazione dello stato di degrado della copertura in cemento amianto effettuata da un professionista abilitato
+    </p>
+    </td>
+   </tr>
+  </tbody>
+ </table>
+<div type="Dichiara_445">
+  <h3 class="Modulo">COMUNICA</h3>
+</div>
+ <input checked="checked" id="SempreSI" name="SempreSI" style="display:none;" type="checkbox" value="si"/>
+  <br/>
+  <table class="Modulo" style="border: 0px;">
+  <tbody>
+   <tr style="border: 0px;">
+    <td style="width: 20px; border: 0px; vertical-align: top;">
+     <input enabled="#Metadati_ValoreID.value() <= 25" dynamic_check="#Metadati_ValoreID.value() <= 25" id="Parametri_AmiantoDich1" name="Parametri_AmiantoDich1" type="checkbox" value="si"/>
+    </td>
+    <td style="border: 0px;">
+     <p>
+      che farà effettuare nuovamente ad un tecnico abilitato la valutazione dell'indice di degrado entro 24 mesi.
+     </p>
+    </td>
+   </tr>
+      <tr style="border: 0px;">
+    <td style="width: 20px; border: 0px; vertical-align: top;">
+     <input enabled="#Metadati_ValoreID.value() > 25 and #Metadati_ValoreID.value() <= 44" dynamic_check="#Metadati_ValoreID.value() > 25 and #Metadati_ValoreID.value() <= 44" id="Parametri_AmiantoDich2" name="Parametri_AmiantoDich2" type="checkbox" value="si" />
+    </td>
+    <td style="border: 0px;">
+     <p>
+      che eseguirà la bonifica della copertura in cemento-amianto entro 36 mesi.
+     </p>
+    </td>
+   </tr>  
+    <tr style="border: 0px;">
+    <td style="width: 20px; border: 0px; vertical-align: top;">
+     <input enabled="#Metadati_ValoreID.value() > 44" dynamic_check="#Metadati_ValoreID.value() > 44" id="Parametri_AmiantoDich3" name="Parametri_AmiantoDich3" type="checkbox" value="si" />
+    </td>
+    <td style="border: 0px;">
+     <p>
+      che procederà con la rimozione della copertura in cemento-amianto entro 12 mesi.
+     </p>
+    </td>
+   </tr>
+   <tr style="border: 0px;">
+    <td style="width: 20px; border: 0px; vertical-align: top;">
+     <input enabled="#Metadati_ValoreID.value() <= 44" dynamic_check="#Metadati_ValoreID.value() <= 44" id="Parametri_AmiantoDich4" name="Parametri_AmiantoDich4" type="checkbox" value="si" />
+    </td>
+    <td style="border: 0px;">
+     <p>
+      che provvederà a nominare un responsabile per la manutenzione dei materiali in amianto.
+     </p>
+    </td>
+   </tr>   
+   <tr style="border: 0px;">
+    <td style="width: 20px; border: 0px; vertical-align: top;">
+     <input enabled="#Metadati_ValoreID.value() <= 44" dynamic_check="#Metadati_ValoreID.value() <= 44 " id="Parametri_AmiantoDich5" name="Parametri_AmiantoDich5" type="checkbox" value="si" />
+    </td>
+    <td style="border: 0px;">
+     <p>
+      che predisporrà la documentazione che consenta di individuarne l'ubicazione.
+     </p>
+    </td>
+   </tr> 
+   <tr style="border: 0px;">
+    <td style="width: 20px; border: 0px; vertical-align: top;">
+     <input enabled="#Metadati_ValoreID.value() <= 44" dynamic_check="#Metadati_ValoreID.value() <= 44 " id="Parametri_AmiantoDich6" name="Parametri_AmiantoDich6" type="checkbox" value="si" />
+    </td>
+    <td style="border: 0px;">
+     <p>
+      che garantirà efficaci misure di sicurezza durante le attività di pulizia, gli interventi di manutenzione e in occasione di ogni evento che possa creare un disturbo ai materiali contenenti amianto.
+     </p>
+    </td>
+   </tr> 
+   <tr style="border: 0px;">
+    <td style="width: 20px; border: 0px; vertical-align: top;">
+     <input enabled="#Metadati_ValoreID.value() <= 44" dynamic_check="#Metadati_ValoreID.value() <= 44 " id="Parametri_AmiantoDich7" name="Parametri_AmiantoDich7" type="checkbox" value="si" />
+    </td>
+    <td style="border: 0px;">
+     <p>
+      che informerà correttamente gli occupanti dell'edificio sulla presenza di amianto nello stabile.
+     </p>
+    </td>
+   </tr>
+
+   </tbody>
+ </table>
+<br/>
+{{ utils.trattamento_dati_personali() }}
+
+<br/>
+ {{ utils.firma_hidden() }}
+ <br/>
+ <p class="Modulo">
+  <input id="SalvaModulo" name="SalvaModulo" style="height:30px;width:120px;" title="Verifica la corretta compilazione dei campi e salva il modulo nel faldone virtuale dell'istanza." type="submit" value="Salva modulo"/>
+ </p>
+ <input id="GLOBO_modulo_c{{ CodiceModulo }}" name="GLOBO_modulo_c{{ CodiceModulo }}" type="hidden" value=""/>
+ <input id="GLOBO_id_padre" name="GLOBO_id_padre" type="hidden"/>
+ <input id="GLOBO_recupera_dati" name="GLOBO_recupera_dati" type="hidden"/>
+ <input id="GLOBO_codice_modulo" name="GLOBO_codice_modulo" type="hidden" value="{{ CodiceModulo }}"/>
+  {{ utils.passaggio_metadati() }}
+ <input id="Metadati_ValoreID" name="Metadati_ValoreID" type="hidden"/>
+
+{% endblock content %}

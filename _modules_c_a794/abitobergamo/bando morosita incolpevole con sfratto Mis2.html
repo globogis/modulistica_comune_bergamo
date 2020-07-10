@@ -1,0 +1,679 @@
+{% set CodiceModulo = "DOM_MOR_INCO" %}
+{% set Urn = "document:c_a794:bando.inquilini.morosi;domanda" %}
+{% extends "base.html" %}
+
+{% block meta %}
+
+<meta campi_firma="Titolare_CodiceFiscale"
+campi_firma_label="il dichiarante"
+classi_modulo="Generale"
+codice_modulo="{{ CodiceModulo }}"
+urn="{% block urn %}{{ Urn }}{% endblock urn %}"
+sub_urn_list=""
+uo_globo_list=""
+descrizione="Domanda di accesso al bando per morosità incolpevole con sfratto (Misura 2)"
+destinatario_amministrazione=""
+destinatario_ufficio="UOHOUSINGSOCIALE"
+dinamico="SI"
+email_a=""
+ente_abilitato="TUTTI"
+filigrana="NO"
+firmare="P7M_ELETTRONICA"
+istruzioni_compilazione=""
+istruzioni_invio="mail_pec"
+metodo_invio="mail"
+name="GLOBO_modulo"
+procura="NO,,"
+tipo_modulo="principale"
+urlhelp="/modulistica/moduli/{{ CodiceModulo }}"
+verifica_pagamento="NO"
+versione="1.0|08/05/2019"/>
+
+<meta codice_modulo_figlio="INCARICO_PROCURA"
+urn_modulo_figlio="document:s_italia:generale;incarico.procura"
+name="GLOBO_modulofiglio"
+numero="1"
+obbligatorio="DINAMICO"/>
+
+<meta codice_allegato="DAE-CDI"
+urn_allegato="document:s_italia:generale;documento.identita;documentazione"
+descrizione_estesa="Documento di identità"
+filename="Documento identita.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/DAE-CDI"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="DIC_ISEE"
+urn_allegato="document:s_italia:generale;dichiarazione.isee;documentazione"
+descrizione_estesa="Copia attestazione ISEE"
+filename="Attestazione ISEE.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/DIC_ISEE"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="AL-CON-LOC"
+urn_allegato="document:s_italia:generale;contratto.locazione;contratto"
+descrizione_estesa="Copia contratto di locazione"
+filename="Contratto locazione.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/AL-CON-LOC"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="COP-PROV-SFRATT"
+urn_allegato="document:c_a794:edilizia.residenziale.pubblica;alloggio;provvedimento.sfratto;documentazione"
+descrizione_estesa="Copia del provvedimento di sfratto"
+filename="Provvedimento Sfratto.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/COP-PROV-SFRATT"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="COP-ID-PERM-DOTE"
+urn_allegato="document:c_a794:dote.comune.documenti.extracomunitario"
+descrizione_estesa="Copia del permesso di soggiorno"
+filename="Permesso soggiorno.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/COP-ID-PERM-DOTE"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="DOC_ATT_INVALIDO_NUCLEO"
+urn_allegato="document:c_a794:generale;stato.invalidita;invalidita.civile;certificato.medico"
+descrizione_estesa="Documentazione attestante lo stato di invalidità"
+filename="Certificato invalidita.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/DOC_ATT_INVALIDO_NUCLEO"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="DOC-CAUSE-MOR"
+urn_allegato="document:c_a794:cause.morosità.incolpevole"
+descrizione_estesa="Documentazione attestante le vcause della situazione di morosità incolpevole"
+filename="Documenti morosita incolpevole.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/DOC-CAUSE-MOR"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="ALTRI-ALLEGATI"
+urn_allegato="document:s_italia:altri.allegati"
+descrizione_estesa="Altri allegati"
+filename="Altri allegati.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/ALTRI-ALLEGATI"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+
+{% endblock meta %}
+
+{% block title %}
+  Domanda di accesso al bando per morosità incolpevole con sfratto (Misura 2)
+{% endblock title %}
+
+{% block content %}
+
+<globo_fondo_pagina areaheight="150" scope="3">
+  {{ utils.firma() }}
+</globo_fondo_pagina>
+
+<input id="Parametri_Comune" name="Parametri_Comune" type="hidden" dynamic_value="#Ente.value()"/>
+<input id="Oggetto" name="Oggetto" type="hidden" dynamic_value="#Titolare_Cognome.value().toUpperCase() + ' ' + #Titolare_Nome.value().toUpperCase() + ' - bando morosita incolpevole con sfratto'"/>
+
+{{ intestazioni.intestazione_moduloprincipale_senzabollo() }}
+
+<h1 class="Modulo">
+  Domanda di accesso al bando per morosità incolpevole con sfratto (Misura 2)
+</h1>
+
+
+<input id="Titolare_DatiPersonaObbligatori" name="Titolare_DatiPersonaObbligatori" type="hidden" dynamic_check="true"/>
+<input id="Titolare_Titolo" name="Titolare_Titolo" type="hidden" value="Richiedente"/>
+<input id="Titolare_Ruolo" name="Titolare_Ruolo" type="hidden" value="Richiedente"/>
+{{ anagrafica.persona_fisica("Titolare", "Il sottoscritto", "visibility:visibility", "cursor:pointer", "visibility:visibility", "visibility:visibility", "mail_ordinaria") }}
+
+
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="3">
+        <p class="Labeltabella">
+          il proprietario
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          Cognome
+        </p>
+      </td>
+      <td>
+        <p class="Labelcella">
+          Nome
+        </p>
+      </td>
+      <td>
+        <p class="Labelcella">
+          Telefono
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input class="inputNormal" id="Parametri_CognomeProprietario" name="Parametri_CognomeProprietario" style="width: 100%;" label="Cognome proprietario" mandatory="true"/>
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_NomeProprietario" name="Parametri_NomeProprietario" style="width: 100%;" label="Nome proprietario" mandatory="true"/>
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_TelefonoProprietario" name="Parametri_TelefonoProprietario" style="width: 100%;" label="Telefono proprietario" mandatory="true"/>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<h3 class="Modulo">
+  CHIEDE
+</h3>
+
+
+<p class="Modulo">
+  di poter beneficiare del contributo a favore di inquilini morosi incolpevoli titolari di contratti sul libero mercato e soggetti a provvedimento di sfratto, 
+  previsto dalla Deliberazione della Giunta Regionale 01/10/2018, n 11/602, in ottemperanza a quanto indicato nel Decreto Ministeriale 31/05/2018.
+</p>
+
+
+{{ utils.Dichiara_445() }}
+
+
+<table class="Modulo" style="border: 0px;">
+  <tbody>
+    <tr style="border: 0px;">
+      <td style="vertical-align: top; width: 4%; border: 0px;">
+        <input id="NoBeneficiario2015" name="NoBeneficiario2015" type="checkbox" value="SI" dynamic_check="true" checked="checked"/>
+      </td>
+      <td style="border: 0px;">
+        <p>
+          di non aver già beneficiato, per se stessi o per i componenti del proprio nucleo familiare, del contributo morosità incolpevole 2015 di cui alla Deliberazione della Giunta regionale 14/11/2014, n 10/2648
+        </p>
+      </td>
+    </tr>
+    <tr style="border: 0px;">
+      <td style="vertical-align: top; width: 4%; border: 0px;">
+        <input id="NoBeneficiario2016" name="NoBeneficiario2016" type="checkbox" value="SI" dynamic_check="true" checked="checked"/>
+      </td>
+      <td style="border: 0px;">
+        <p>
+          di non aver già beneficiato, per se stessi o per i componenti del proprio nucleo familiare, del contributo morosità incolpevole 2016 di cui alla Deliberazione della Giunta regionale 30/10/2015, n 10/4247
+        </p>
+      </td>
+    </tr>
+    <tr style="border: 0px;">
+      <td style="vertical-align: top; width: 4%; border: 0px;">
+        <input id="NoBeneficiario2017" name="NoBeneficiario2017" type="checkbox" value="SI" dynamic_check="true" checked="checked"/>
+      </td>
+      <td style="border: 0px;">
+        <p>
+          di non aver beneficiato, per se stessi o per i componenti del proprio nucleo familiare, del contributo morosità incolpevole 2017 di cui alla Deliberazione della Giunta regionale 10/03/2016, n 10/5644
+        </p>
+      </td>
+    </tr>
+    <tr style="border: 0px;">
+      <td style="vertical-align: top; width: 4%; border: 0px;">
+        <input id="NoBeneficiario2018" name="NoBeneficiario2018" type="checkbox" value="SI" dynamic_check="true" checked="checked"/>
+      </td>
+      <td style="border: 0px;">
+        <p>
+          di non aver beneficiato, per se stessi o per i componenti del proprio nucleo familiare, del contributo morosità incolpevole 2018 di cui alla Deliberazione della Giunta regionale 04/12/2017, n 10/7464
+        </p>
+      </td>
+    </tr>
+    <tr style="border: 0px;">
+      <td style="vertical-align: top; width: 4%; border: 0px;">
+        <input id="TitolareUnitàImmobiliare" name="TitolareUnitàImmobiliare" type="checkbox" value="SI" dynamic_check="true" checked="checked"/>
+      </td>
+      <td style="border: 0px;">
+        <p>
+          di essere titolare di contratto di locazione sul libero mercato regolarmente registrato di una unità immobiliare, non appartenente alle categorie catastali A/1, A/8, A/9
+        </p>
+      </td>
+    </tr>
+    <tr style="border: 0px;">
+      <td style="vertical-align: top; width: 4%; border: 0px;">
+        <input id="DestinatarioSfratto" name="DestinatarioSfratto" type="checkbox" value="SI" dynamic_check="true" checked="checked"/>
+      </td>
+      <td style="border: 0px;">
+        <p>
+          di essere destinatario di un atto di intimazione di sfratto per morosità con citazione per la convalida
+        </p>
+      </td>
+    </tr>
+    <tr style="border: 0px;">
+      <td style="vertical-align: top; width: 4%; border: 0px;">
+        <input id="ResidenzainSfratto" name="ResidenzainSfratto" type="checkbox" value="SI" dynamic_check="true" checked="checked"/>
+      </td>
+      <td style="border: 0px;">
+        <p>
+          di risiedere nell'alloggio oggetto della procedura di sfratto da almeno un anno
+        </p>
+      </td>
+    </tr>
+    <tr style="border: 0px;">
+      <td style="vertical-align: top; width: 4%; border: 0px;">
+        <input id="AventeRedditoISE" name="AventeRedditoISE" type="checkbox" value="SI" dynamic_check="true" checked="checked"/>
+      </td>
+      <td style="border: 0px;">
+        <p>
+          di avere un reddito ISE (Indicatore della Situazione Economica) non superiore a 35.000,00€ o un valore ISEE (Indicatore della Situazione Economica Equivalente) non superiore a 26.000,00€
+        </p>
+      </td>
+    </tr>
+    <tr style="border: 0px;">
+      <td style="vertical-align: top; width: 4%; border: 0px;">
+        <input id="ComposizioneAnagraficaISEE" name="ComposizioneAnagraficaISEE" type="checkbox" value="SI" dynamic_check="true" checked="checked"/>
+      </td>
+      <td style="border: 0px;">
+        <p>
+          che la composizione anagrafica del proprio nucleo familiare corrisponde alla composizione anagrafica presente nell'attestazione ISEE allegata alla presente domanda
+        </p>
+      </td>
+    </tr>
+    <tr style="border: 0px;">
+      <td style="vertical-align: top; width: 4%; border: 0px;">
+        <input id="NoUsofruttoAltroImmobile" name="NoUsofruttoAltroImmobile" type="checkbox" value="SI" dynamic_check="true" checked="checked"/>
+      </td>
+      <td style="border: 0px;">
+        <p>
+          di non essere titolare, nè il richiedente nè alcun componente della famiglia, di diritto di proprietà, usofrutto uso o abitazione nella provincia di residenza di altro immobile 
+          fruibile ed adeguato alle esigenze del proprio nucleo familiare. Dichiara altresì la seguente composizione familiare
+        </p>
+      </td>
+    </tr>
+    <tr style="border: 0px;">
+      <td style="vertical-align: top; width: 4%; border: 0px;">
+        <input id="PresaVisioneRegolamento" name="PresaVisioneRegolamento" type="checkbox" value="SI" dynamic_check="true" checked="checked"/>
+      </td>
+      <td style="border: 0px;">
+        <p>
+          di aver preso visione dei contenuti del bando pubblico per l'erogazione di contributi agli inquilini morosi incolpevoli titolari di contratti sul libero mercato e soggetti a provvedimento di sfratto e di 
+          possedere tutti i requisiti di partecipazione in esso indicati, nonchè la propria disponibilità a fornire idonea documentaziomne atta a dimostrare la completezza e la veridicità dei dati dichiarati.
+        </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<h3 class="Modulo">
+  DICHIARA INOLTRE
+</h3>
+
+
+<p class="Modulo">
+  di essere in situazione di morosità incolpevole a causa di una consistente riduzione del reddito per le seguenti cause
+</p>
+
+
+<table class="Modulo" style="border: 0px;">
+  <tbody>
+    <tr class="Rigaintestazioneridotta">
+      <td colspan="2">
+        <p class="Labelcella">
+          Cause
+        </p>
+      </td>
+      <td>
+        <p class="Labelcella">
+          Dal giorno
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="Licenziamento" name="Licenziamento" type="checkbox" value="SI" />
+      </td>
+      <td>
+        <p>
+          perdita di lavoro per licenziamento
+        </p>
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_DataLicenziamento" name="Parametri_DataLicenziamento" format="date" style="width: 100%;" label="Data licenziamento" mandatory_enabled="#Licenziamento.checked()"/>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="Mobilita" name="Mobilita" type="checkbox" value="SI" />
+      </td>
+      <td>
+        <p>
+          mobilità
+        </p>
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_DataMobilità" name="Parametri_DataMobilità" style="width: 100%;" format="date" label="Data mobilità" mandatory_enabled="#Mobilita.checked()"/>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="CassaIntegrazione" name="CassaIntegrazione" type="checkbox" value="SI" />
+      </td>
+      <td>
+        <p>
+          cassa integrazione
+        </p>
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_DataCassaIntegrazione" name="Parametri_DataCassaIntegrazione" style="width: 100%;" format="date" label="Data cassa integrazione" mandatory_enabled="#CassaIntegrazione.checked()"/>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="MancatoRinnovo" name="MancatoRinnovo" type="checkbox" value="SI" />
+      </td>
+      <td>
+        <p>
+          mancato rinnovo di contratto a termine
+        </p>
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_DataContrattoaTermine" name="Parametri_DataContrattoaTermine" style="width: 100%;" format="date" label="Data contratto a termine" mandatory_enabled="#MancatoRinnovo.checked()"/>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="RiduzioneOrarioLavoro" name="RiduzioneOrarioLavoro" type="checkbox" value="SI" />
+      </td>
+      <td>
+        <p>
+          accordo aziendale e sindacale con riduzione dell'orario di lavoro
+        </p>
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_DataRiduzioneOrario" name="Parametri_DataRiduzioneOrario" style="width: 100%;" format="date" label="Data riduzione orario" mandatory_enabled="#RiduzioneOrarioLavoro.checked()"/>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="CessazioneAttivita" name="CessazioneAttivita" type="checkbox" value="SI" />
+      </td>
+      <td>
+        <p>
+          cessazione attività professionale di impresa
+        </p>
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_DataCessazioneAttività" name="Parametri_DataCessazioneAttività" style="width: 100%;" format="date" label="Data cessazione attività" mandatory_enabled="#CessazioneAttivita.checked()"/>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="MalattiaGrave" name="MalattiaGrave" type="checkbox" value="SI" />
+      </td>
+      <td>
+        <p>
+          malattia grave di un componente della famiglia
+        </p>
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_DataMalattiaGrave" name="Parametri_DataMalattiaGrave" style="width: 100%;" format="date" label="Data malattia grave" mandatory_enabled="#MalattiaGrave.checked()"/>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="Infortunio" name="Infortunio" type="checkbox" value="SI" />
+      </td>
+      <td>
+        <p>
+          infortunio di un componente della famiglia
+        </p>
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_DataInfortunio" name="Parametri_DataInfortunio" style="width: 100%;" format="date" label="Data infortunio" mandatory_enabled="#Infortunio.checked()"/>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="Decesso" name="Decesso" type="checkbox" value="SI" />
+      </td>
+      <td>
+        <p>
+          decesso di un componente di famiglia
+        </p>
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_DataDecesso" name="Parametri_DataDecesso" style="width: 100%;" format="date" label="Data decesso" mandatory_enabled="#Decesso.checked()"/>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="NascitaFiglio" name="NascitaFiglio" type="checkbox" value="SI" />
+      </td>
+      <td>
+        <p>
+          nascita di un figlio
+        </p>
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_DataNascitaFiglio" name="Parametri_DataNascitaFiglio" style="width: 100%;" format="date" label="Data nascita figlio" mandatory_enabled="#NascitaFiglio.checked()"/>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="RicongiungimentoFamiliare" name="RicongiungimentoFamiliare" type="checkbox" value="SI" />
+      </td>
+      <td>
+        <p>
+          ricongiungimento familiare di un componente non in età lavorativa
+        </p>
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_DataRicongiungimentoFamiliare" name="Parametri_DataRicongiungimentoFamiliare" format="date" style="width: 100%;" label="Data ricongiungimento familiare" mandatory_enabled="#RicongiungimentoFamiliare.checked()"/>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="Altro" name="Altro" type="checkbox" value="SI" />
+      </td>
+      <td colspan="2">
+        <p>
+          altro <br/>
+          <span style="font-size: 70%;">(specificare)</span>
+          <input class="inputNormal" id="Parametri_Altro" name="Parametri_Altro" style="width: 83%;" label="Altro" mandatory_enabled="#Altro.checked()"/>
+        </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<input id="AventeTitolo_DatiPersonaObbligatori" name="AventeTitolo_DatiPersonaObbligatori" type="hidden" dynamic_check="#AventeTitoloSelezione.checked()" />
+<input id="AventeTitolo_Titolo" name="AventeTitolo_Titolo" type="hidden" value="Richiedente"/>
+<input id="AventeTitolo_Ruolo" name="AventeTitolo_Ruolo" type="hidden" value="Richiedente"/>
+{{ anagrafica.persona_fisica("AventeTitolo", "<input id='AventeTitoloSelezione' name='AventeTitoloSelezione' type='checkbox'/> dati anagrafici della persona abilitata per legge <br/><span style='font-size: 70%; font-weight: normal'>(da compilare se dichiarazione resa per conto di incapace o soggetto ad amministrazione di sostegno)</span>", "visibility:visibility", "cursor:pointer", "visibility:visibility", "visibility:visibility", "mail_ordinaria") }}
+
+
+<input id="Referente_DatiPersonaObbligatori" name="Referente_DatiPersonaObbligatori" type="hidden" dynamic_check="ReferenteSelezione.checked()" />
+<input id="Referente_Titolo" name="Referente_Titolo" type="hidden" value="Richiedente"/>
+<input id="Referente_Ruolo" name="Referente_Ruolo" type="hidden" value="Richiedente"/>
+{{ anagrafica.persona_fisica("Referente", "<input id='ReferenteSelezione' name='ReferenteSelezione' type='checkbox'/> dati anagrafici del delegato <br/><span style='font-size: 70%; font-weight: normal;'>(da compilare solo se la dichiarazione è resa dal delegato per conto del dichiarante)</span>", "visibility:visibility", "cursor:pointer", "visibility:visibility", "visibility:visibility", "mail_ordinaria") }}
+
+
+<br/>
+
+
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          Eventuali annotazioni
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <textarea class="inputNormal" id="Parametri_Annotazioni" name="Parametri_Annotazioni" style="width: 100%; height: 5cm;" label="Eventuali annotazioni"></textarea>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<br/>
+
+
+<table class="Modulo" name="Allegati" style="border: 1px solid grey">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="2">
+        <p style="text-align: center;">
+          <b>
+            Elenco degli allegati
+          </b>
+          <br/>
+          <span style="font-size:70%">
+            <i>(barrare tutti gli allegati richiesti in fase di presentazione della pratica ed elencati sul portale)</i>
+          </span>
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="DAE-CDI" name="DAE-CDI" type="checkbox" value="OBBLIGATORIO" dynamic_check="true" checked="checked"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          copia del documento d'identità<br/>
+          <span style="font-size:70%"><i>(da allegare se il modulo è sottoscritto con firma autografa)</i></span>
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="width: 4%; vertical-align: top;">
+        <input id="DIC_ISEE" name="DIC_ISEE" type="checkbox" value="OBBLIGATORIO" dynamic_check="true" checked="checked"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          copia attestazione ISEE
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="width: 4%; vertical-align: top;">
+        <input id="AL-CON-LOC" name="AL-CON-LOC" type="checkbox" value="OBBLIGATORIO" dynamic_check="true" checked="checked"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          copia contratto locazione
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="width: 4%; vertical-align: top;">
+        <input id="COP-PROV-SFRATT" name="COP-PROV-SFRATT" type="checkbox" value="OBBLIGATORIO" dynamic_check="true" checked="checked"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          copia del provvedimento di sfratto
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="PER-SOG" name="PER-SOG" type="checkbox" value="OBBLIGATORIO" enabled="#Titolare_Cittadinanza.element.options[#Titolare_Cittadinanza.element.selectedIndex].parentNode.label == 'NON Unione Europea'" dynamic_check="#Titolare_Cittadinanza.element.options[#Titolare_Cittadinanza.element.selectedIndex].parentNode.label == 'NON Unione Europea'"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          copia del permesso di soggiorno<br/><span style="font-size:70%"><i>(da allegare in caso di cittadino extracomunitario) </i></span>
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="width: 4%; vertical-align: top;">
+        <input id="DOC_ATT_INVALIDO_NUCLEO" name="DOC_ATT_INVALIDO_NUCLEO" type="checkbox" value="OBBLIGATORIO"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          documentazione attestante lo stato di invalidità
+          <span style="font-size: 70%;"><i>(In caso ci siano membri nel nucleo familiare con un'invalidità di almeno il 74%)</i></span>
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="width: 4%; vertical-align: top;">
+        <input id="DOC-CAUSE-MOR" name="DOC-CAUSE-MOR" type="checkbox" value="OBBLIGATORIO" dynamic_check="true" checked="checked"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          documentazione attestante le cause della situazione di morosità incolpevole
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="ALTRI-ALLEGATI" name="ALTRI-ALLEGATI" type="checkbox" value="OBBLIGATORIO"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          altri allegati
+          <span style="font-size:70%">(specificare)</span>
+          <input class="" label="Altri allegati" id="AltriAllegati" mandatory_enabled="#ALTRI_ALLEGATI.checked()" name="AltriAllegati" style="width:79%;"/>
+        </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<br/>
+  {{ utils.trattamento_dati_personali() }}
+<br/>
+  {{ utils.firma_hidden() }}
+<br/>
+
+
+<p class="Modulo">
+  <input id="SalvaModulo" name="SalvaModulo" style="height:30px;width:120px;" title="Verifica la corretta compilazione dei campi e salva il modulo nel faldone virtuale dell'istanza." type="submit" value="Salva modulo"/>
+</p>
+
+
+<input id="GLOBO_allegato_cDAE-CDI" name="GLOBO_allegato_cDAE-CDI" type="hidden" value="" obbligatorio="#DAE_CDI.checked() ? 'OBBLIGATORIO' : ''"/>
+<input id="GLOBO_allegato_cDIC_ISEE" name="GLOBO_allegato_cDIC_ISEE" type="hidden" value="" obbligatorio="#DIC_ISEE.checked() ? 'OBBLIGATORIO' : ''"/>
+<input id="GLOBO_allegato_cAL-CON-LOC" name="GLOBO_allegato_cAL-CON-LOC" type="hidden" value="" obbligatorio="#AL_CON_LOC.checked() ? 'OBBLIGATORIO' : ''"/>
+<input id="GLOBO_allegato_cDOC-CAUSE-MOR" name="GLOBO_allegato_cDOC-CAUSE-MOR" type="hidden" value="" obbligatorio="#DOC_CAUSE_MOR.checked() ? 'OBBLIGATORIO' : ''"/>
+<input id="GLOBO_allegato_cCOP-PROV-SFRATT" name="GLOBO_allegato_cCOP-PROV-SFRATT" type="hidden" value="" obbligatorio="#COP_PROV_SFRATT.checked() ? 'OBBLIGATORIO' : ''"/>
+<input id="GLOBO_allegato_cCOP-ID-PERM-DOTE" name="GLOBO_allegato_cCOP-ID-PERM-DOTE" type="hidden" value="" obbligatorio="#COP_ID_PERM_DOTE.checked() ? 'OBBLIGATORIO' : ''"/>
+<input id="GLOBO_allegato_cDOC_ATT_INVALIDO_NUCLEO" name="GLOBO_allegato_cDOC_ATT_INVALIDO_NUCLEO" type="hidden" value="" obbligatorio="#DOC_ATT_INVALIDO_NUCLEO.checked() ? 'OBBLIGATORIO' : ''"/>
+<input id="GLOBO_allegato_cALTRI-ALLEGATI" name="GLOBO_allegato_cALTRI-ALLEGATI" type="hidden" value="" obbligatorio="#ALTRI_ALLEGATI.checked() ? 'OBBLIGATORIO' : ''"/>
+
+
+<input destinatario_amministrazione="getParameter('Ente')" id="GLOBO_modulo_c{{ CodiceModulo }}" name="GLOBO_modulo_c{{ CodiceModulo }}" type="hidden" value=""/>
+<input firmare="'P7M_ELETTRONICA'" id="GLOBO_modulofiglio_cINCARICO_PROCURA" name="GLOBO_modulofiglio_cINCARICO_PROCURA" type="hidden" value=""/>
+
+<input id="GLOBO_id_padre" name="GLOBO_id_padre" type="hidden"/>
+<input id="GLOBO_recupera_dati" name="GLOBO_recupera_dati" type="hidden"/>
+<input id="GLOBO_codice_modulo" name="GLOBO_codice_modulo" type="hidden" value="{{ CodiceModulo }}"/>
+
+{% endblock content %}

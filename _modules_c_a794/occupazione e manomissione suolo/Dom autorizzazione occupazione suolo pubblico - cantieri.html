@@ -1,0 +1,1636 @@
+{% set CodiceModulo =  "AUT_SUOLO_PUBBL_PL" %}{% extends "base.html" %}
+{% set Urn = "document:c_a794:occupazione.suolo.pubblico;cantieri;domanda" %}
+{% block meta %}<meta campi_firma="Titolare_CodiceFiscale"
+campi_firma_label="il dichiarante"
+classi_modulo="Commercio"
+codice_modulo="{{ CodiceModulo }}"
+urn="{% block urn %}{{ Urn }}{% endblock urn %}"
+sub_urn_list=""
+uo_globo_list=""
+descrizione="Domanda di autorizzazione occupazione temporanea suolo pubblico"
+destinatario_amministrazione=""
+destinatario_ufficio="U0058"
+dinamico="SI"
+email_a=""
+ente_abilitato="TUTTI"
+filigrana="NO"
+firmare="P7M_ELETTRONICA"
+in_bollo="SI"
+istruzioni_compilazione="ATTENZIONE: questo modulo deve essere compilato con i dati del richiedente, cambiare i dati di intestazione se necessario. "
+istruzioni_invio="mail_pec"
+metodo_invio="mail"
+name="GLOBO_modulo"
+procura="NO,,"
+tipo_modulo="principale"
+ufficio=""
+urlhelp="DomandeRisposte/FAQ"
+verifica_pagamento="NO"
+versione="1.2|23/09/2019"/>
+
+<meta codice_modulo_figlio="STU-EDI-SOG"
+urn_modulo_figlio="document:r_lombar:edilizia.privata;soggetti.coinvolti;dichiarazione.sostitutiva"
+name="GLOBO_modulofiglio"
+numero="1"
+obbligatorio="DINAMICO"/>
+
+<meta codice_modulo_figlio="PL_VIAB_CANTIERE_S"
+urn_modulo_figlio="document:c_a794:occupare.suolo.pubblico;emissione.ordinanza.disciplina.circolazione;domanda"
+name="GLOBO_modulofiglio"
+numero="1"
+obbligatorio="DINAMICO"/>
+
+<!--
+<meta codice_modulo_figlio="Incarico_procura"
+name="GLOBO_modulofiglio"
+numero="1"
+obbligatorio="DINAMICO"/>
+-->
+
+<meta codice_modulo_figlio="MARCA_BOLLO"
+urn_modulo_figlio="document:s_italia:pagamento.imposta.bollo;apposizione.domanda;dichiarazione.sostitutiva"
+name="GLOBO_modulofiglio"
+numero="1"
+obbligatorio="DINAMICO"/>
+
+<meta codice_allegato="OCC-PLA"
+urn_allegato="document:s_italia:occupazione.suolo.pubblico;planimetria.area;planimetria"
+descrizione_estesa="Planimetrie di progetto"
+filename="Planimetrie progetto.pdf"
+firmato="SI"
+firmatari="Titolare_CodiceFiscale,STU-EDI-SOG.Referente1_CodiceFiscale"
+firmatari_label="il dichiarante,il progettista"
+istruzioni="/modulistica/moduli/OCC-PLA"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="DOC_FOTO"
+urn_allegato="document:s_italia:generale;colori;documentazione.fotografica"
+descrizione_estesa="Documentazione fotografica"
+filename="Documentaz. fotografica.pdf"
+firmato="SI"
+istruzioni="/modulistica/moduli/DOC_FOTO"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="RelTecnica"
+urn_allegato="document:c_a794:occupazione.suolo.pubblico;relazione.tecnica"
+descrizione_estesa="Relazione tecnica descrittiva dell'intervento"
+filename="Relazione Tecnica.pdf"
+firmato="SI"
+firmatari="Titolare_CodiceFiscale,STU-EDI-SOG.Referente1_CodiceFiscale"
+firmatari_label="il dichiarante,il progettista"
+istruzioni="/modulistica/moduli/OCC-PLA"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="Particolari"
+urn_allegato="document:c_a794:occupazione.suolo.pubblico;particolari.costruttivi"
+descrizione_estesa="Particolari costruttivi"
+filename="Particolari costruttivi.pdf"
+firmato="SI"
+istruzioni="/modulistica/moduli/OCC-PLA"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="RIC-DIR-SEG"
+urn_allegato="document:s_italia:diritti.segreteria.istruttoria;ricevuta"
+descrizione_estesa="Ricevuta diritti segreteria/istruttoria"
+filename="Ricev. diritti segreteria.pdf"
+firmato="SI"
+istruzioni="/modulistica/moduli/RIC-DIR-SEG"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+
+<meta codice_allegato="ALTRI-ALLEGATI"
+urn_allegato="document:s_italia:altri.allegati"
+descrizione_estesa="Altri allegati"
+filename="Altri allegati.pdf"
+firmato="SI"
+istruzioni="/modulistica/moduli/ALTRI-ALLEGATI"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+
+<!--
+<meta codice_allegato="VAL-PRE-IAA"
+descrizione_estesa="Valutazione previsionale di impatto acustico"
+filename="Impatto acustico.pdf"
+firmato="SI"
+istruzioni="/modulistica/moduli/VAL-PRE-IAA"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="CES-ATT-CAN"
+descrizione_estesa="Copia dell'atto di cessione o dichiarazione notarile"
+filename="Atto notarile.pdf"
+firmato="SI"
+istruzioni="/modulistica/moduli/CES-ATT-CAN"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="PER-SOG"
+descrizione_estesa="Permesso di soggiorno"
+filename="Permesso soggiorno.pdf"
+firmato="SI"
+istruzioni="/modulistica/moduli/PER-SOG"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="OCC-ASS-DEP"
+descrizione_estesa="Attestazione di versamento del deposito cauzionale e rimborso per l'utilizzo della rete elettrica"
+filename="Deposito cauz. colonnina.pdf"
+firmato="SI"
+istruzioni="/modulistica/moduli/OCC-ASS-DEP"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+-->
+
+{% endblock meta %}
+{% block title %}
+
+   Domanda di autorizzazione occupazione temporanea suolo pubblico - cantieri 
+  {% endblock title %}
+{% block content %}
+ <globo_fondo_pagina areaheight="150" scope="3">
+ {{ utils.firma() }}
+</globo_fondo_pagina>
+
+<input id="Tassonomia_Occ1" name="Tassonomia_Occ" type="hidden" value="1"/>
+
+<input dynamic_value="#Titolare_Cognome.value().toUpperCase() + ' - occupazione suolo pubblico cantieri' + (#Tassonomia_TipoOccupazione1.checked() ? ' (nuova concessione)' : '')
+ +(#Tassonomia_TipoOccupazione2.checked() ? ' (rinnovo concessione)' : '')
+ +(#Tassonomia_TipoOccupazione5.checked() ? ' (modifica concessione)' : '') " id="Oggetto" name="Oggetto" type="hidden"/>
+
+<input dynamic_value="#Ente.value()" id="Parametri_Comune" name="Parametri_Comune" type="hidden"/>
+
+
+ {{ intestazioni.intestazione_moduloprincipale_conbollo() }}
+ <h1 class="Modulo">
+
+ Domanda di concessione all'occupazione temporanea di suolo pubblico con eventuale manomissione
+</h1>
+
+
+<h2 class="Modulo">
+ per lavori edili e cantieri stradali di durata superiore alle 12 ore
+</h2>
+
+{{anagrafica.societa("Titolare","Il sottoscritto",["Persona fisica","Titolare", "Legale rappresentante"], "Richiedente")}}
+
+<table class="Modulo" style="border:1px solid grey">
+ <tbody>
+    <tr class="Rigaintestazione">
+    <td colspan="3"> 
+ <strong>Richiamati i precedenti: </strong>
+ </td>
+  </tr>  
+   <tr class="Rigaintestazioneridotta">
+   <td>
+    <p class="Labelcella">
+     titolo edilizio
+    </p>
+   </td>
+   <td>
+    <p class="Labelcella">
+     protocollo
+    </p>
+   </td>
+   <td>
+    <p class="Labelcella">
+     data
+    </p>
+   </td>
+  </tr>
+  <tr>
+    <td>
+    <p>
+     <select class="" id="Parametri_TitoloEdilizio1" label="Carattere titolo" mandatory="true" name="Parametri_TitoloEdilizio1" style="width:100%;">
+      <option value="">
+      </option>
+	  <option value="cila">
+       Cil asseverata
+      </option>
+      <option value="DIA">
+       Denuncia Inizio Attività
+      </option>
+      <option value="SCIA">
+       Segnalazione Certificata Inizio Attività
+      </option>
+    <option value="PDC">
+       Permesso di Costruire
+      </option>
+	   <option value="nessuno">
+       Nessuno
+      </option>
+     </select>
+    </p>
+   </td>
+   <td>
+    <input class="" id="Parametri_ProtocolloTitoloEdilizio1" label="Numero di protocollo del titolo edilizio" mandatory_enabled="#Parametri_TitoloEdilizio1.check_value(['cila']) || #Parametri_TitoloEdilizio1.check_value(['DIA']) || #Parametri_TitoloEdilizio1.check_value(['SCIA']) || #Parametri_TitoloEdilizio1.check_value(['PDC'])" name="Parametri_ProtocolloTitoloEdilizio1" style="width:100%;"/>
+   </td>
+     <td style="width:20%">
+    <input class="" format="date" id="Parametri_DataTitoloEdilizio1" label="Data di protocollo del titolo edilizio" mandatory_enabled="#Parametri_TitoloEdilizio1.check_value(['cila']) || #Parametri_TitoloEdilizio1.check_value(['DIA']) || #Parametri_TitoloEdilizio1.check_value(['SCIA']) || #Parametri_TitoloEdilizio1.check_value(['PDC'])" name="Parametri_DataTitoloEdilizio1" style="width:100%"/>
+   </td>
+  </tr>
+   <tr class="Rigaintestazioneridotta">
+   <td>
+    <p class="Labelcella">
+     titolo edilizio
+    </p>
+   </td>
+   <td>
+    <p class="Labelcella">
+     protocollo
+    </p>
+   </td>
+   <td>
+    <p class="Labelcella">
+     data
+    </p>
+   </td>
+  </tr>
+  <tr>
+    <td>
+    <p>
+     <select class="" id="Parametri_TitoloEdilizio2" label="Carattere titolo"  name="Parametri_TitoloEdilizio2" style="width:100%;">
+      <option value="">
+      </option>
+	  <option value="cila">
+       Cil asseverata
+      </option>
+      <option value="DIA">
+       Denuncia Inizio Attività
+      </option>
+      <option value="SCIA">
+       Segnalazione Certificata Inizio Attività
+      </option>
+    <option value="PDC">
+       Permesso di Costruire
+      </option>
+     </select>
+    </p>
+   </td>
+   <td>
+   <input class="" id="Parametri_ProtocolloTitoloEdilizio2" label="Numero di protocollo del titolo edilizio" mandatory_enabled="#Parametri_TitoloEdilizio2.check_value(['cila']) || #Parametri_TitoloEdilizio2.check_value(['DIA']) || #Parametri_TitoloEdilizio2.check_value(['SCIA']) || #Parametri_TitoloEdilizio2.check_value(['PDC'])" name="Parametri_ProtocolloTitoloEdilizio2" style="width:100%;"/>
+   </td>
+     <td style="width:20%">
+    <input class="" format="date" id="Parametri_DataTitoloEdilizio2" label="Data di protocollo del titolo edilizio" mandatory_enabled="#Parametri_TitoloEdilizio2.check_value(['cila']) || #Parametri_TitoloEdilizio2.check_value(['DIA']) || #Parametri_TitoloEdilizio2.check_value(['SCIA']) || #Parametri_TitoloEdilizio2.check_value(['PDC'])" name="Parametri_DataTitoloEdilizio2" style="width:100%"/>
+   </td>
+  </tr>
+       <tr class="Rigaintestazioneridotta">
+   <td>
+
+    <p class="Labelcella">
+     titolo edilizio
+    </p>
+   </td>
+   <td>
+    <p class="Labelcella">
+     protocollo
+    </p>
+   </td>
+   <td>
+    <p class="Labelcella">
+     data
+    </p>
+   </td>
+  </tr>
+  <tr>
+    <td>
+    <p>
+     <select class="" id="Parametri_TitoloEdilizio3" label="Carattere titolo"  name="Parametri_TitoloEdilizio3" style="width:100%;">
+      <option value="">
+      </option>
+	<option value="cila">
+       Cil asseverata
+      </option>
+	  <option value="DIA">
+       Denuncia Inizio Attività
+      </option>
+      <option value="SCIA">
+       Segnalazione Certificata Inizio Attività
+      </option>
+    <option value="PDC">
+       Permesso di Costruire
+      </option>
+     </select>
+    </p>
+   </td>
+   <td>
+     <input class="" id="Parametri_ProtocolloTitoloEdilizio3" label="Numero di protocollo del titolo edilizio" mandatory_enabled="#Parametri_TitoloEdilizio3.check_value(['cila']) || #Parametri_TitoloEdilizio3.check_value(['DIA']) || #Parametri_TitoloEdilizio3.check_value(['SCIA']) || #Parametri_TitoloEdilizio3.check_value(['PDC'])" name="Parametri_ProtocolloTitoloEdilizio3" style="width:100%;"/>
+   </td>
+     <td style="width:20%">
+    <input class="" format="date" id="Parametri_DataTitoloEdilizio3" label="Data di protocollo del titolo edilizio" mandatory_enabled="#Parametri_TitoloEdilizio3.check_value(['cila']) || #Parametri_TitoloEdilizio3.check_value(['DIA']) || #Parametri_TitoloEdilizio3.check_value(['SCIA']) || #Parametri_TitoloEdilizio3.check_value(['PDC'])" name="Parametri_DataTitoloEdilizio3" style="width:100%"/>
+   </td>
+  </tr>
+</tbody>
+</table>
+
+
+<globo_salto_pagina>
+</globo_salto_pagina>
+
+<table class="Modulo" style="border: 1px solid grey">
+ <tbody>
+  <tr class="Rigaintestazione">
+    <td colspan="2">
+
+     <strong>Dato atto che per la realizzazione delle seguenti opere è necessario, per assenza di area privata disponibile,
+occupare suolo pubblico con</strong>
+    </td>
+</tr>
+  <tr>
+   <td style="width:4%">
+    <div id="Tassonomia_TipoOpera" label="Tipo opera" mandatory="true">
+    </div>
+    <input class="" id="Tassonomia_TipoOpera1" name="Tassonomia_TipoOpera1" type="checkbox" value="1"/>
+   </td>
+   <td colspan="2">
+    <p>
+     Posa di ponteggio
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td>
+    <input class="" id="Tassonomia_TipoOpera2" name="Tassonomia_TipoOpera2" type="checkbox" value="2"/>
+   </td>
+   <td colspan="2">
+    <p>
+     Posa Gru
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td>
+    <input class="" id="Tassonomia_TipoOpera3" name="Tassonomia_TipoOpera3" type="checkbox" value="3"/>
+   </td>
+   <td colspan="2">
+    <p>
+     Area di cantiere
+    </p>
+   </td>
+  </tr>
+  <tr>
+      <td>
+       <input class="" id="Tassonomia_TipoOpera5" name="Tassonomia_TipoOpera5" type="checkbox" value="5"/>
+      </td>
+      <td colspan="2">
+       <p>
+        Passo carrabile ( specificare l'area di occupazione)
+       </p>
+      </td>
+     </tr>
+  <tr>
+   <td>
+  <input id="Tassonomia_TipoOpera4" name="Tassonomia_TipoOpera4" type="checkbox" value="4"/>
+   </td>
+   <td colspan="2">
+    <p>
+     Altro
+    <span style="font-size:70%">
+      (specificare)
+     </span>
+     <input class="" id="TipoOpera_altro" label="Altra opera"  mandatory_enabled="#Tassonomia_TipoOpera4.checked()" name="TipoOpera_altro" style="width:79%;"/>
+    </p>
+   </td>
+  </tr>
+  </tbody>
+</table> 
+
+<h3 class="Modulo">
+ CHIEDE LA CONCESSIONE PER 
+</h3>
+
+<table class="Modulo" style="border:1px solid grey">
+ <tbody>
+ <tr>
+   <td style="width:4%">
+    <div id="Tassonomia_TipoOccupazione" label="Tipo istanza" mandatory="true">
+    </div>
+    <input class="" id="Tassonomia_TipoOccupazione1" name="Tassonomia_TipoOccupazione" type="radio" value="1"/>
+   </td>
+   <td colspan="2">
+    <p>
+     nuova occupazione
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td>
+    <input class="" id="Tassonomia_TipoOccupazione5" name="Tassonomia_TipoOccupazione" type="radio" value="5"/>
+   </td>
+   <td colspan="2">
+   <p>
+     modifica dell'occupazione 
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td>
+    <input class="" id="Tassonomia_TipoOccupazione6" name="Tassonomia_TipoOccupazione" type="radio" value="6"/>
+   </td>
+   <td colspan="2">
+    <p>
+     proroga dell'occupazione
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td rowspan="3" style="vertical-align:top">
+    <input class="" id="Tassonomia_TipoOccupazione2" name="Tassonomia_TipoOccupazione" type="radio" value="2"/>
+   </td>
+   <td colspan="2">
+    <p>
+     rinnovo  dell'occupazione
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td>
+    <div id="Tassonomia_OccSuo3PModifiche" label="Presenza/Assenza modifiche" mandatory_enabled="#Tassonomia_TipoOccupazione.check_value(['2'])">
+    </div>
+    <input class="" id="Tassonomia_OccSuo3Modifiche1" name="Tassonomia_OccSuo3PModifiche" type="radio" value="1"/>
+   </td>
+   <td>
+    <p>
+     senza modifiche
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td style="width:4%">
+    <input class="" id="Tassonomia_OccSuo3Modifiche2" name="Tassonomia_OccSuo3PModifiche" type="radio" value="2"/>
+   </td>
+   <td>
+    <p>
+     con modifiche
+    </p>
+   </td>
+  </tr>
+  </tbody>
+</table> 
+
+
+<table class="Modulo" style="border: 1px solid grey">
+ <tbody>
+  <tr class="Rigaintestazione">
+   <td colspan="3">
+    <p>
+     <b>
+      in precedenza ottenuta tramite
+     </b>
+     <br/>
+     <span style="font-size:70%">
+      <i>
+       (da compilare in caso di concessione già ottenuta)
+      </i>
+     </span>
+    </p>
+   </td>
+  </tr>
+  <tr class="Rigaintestazioneridotta">
+   <td colspan="3">
+    <p class="Labelcella">
+
+     Titolo autorizzativo
+    </p>
+   </td>
+  </tr>
+  <tr class="Rigaintestazioneridotta">
+   <td>
+    <p class="Labelcella">
+     Numero
+    </p>
+   </td>
+   <td>
+    <p class="Labelcella">
+     Data
+    </p>
+   </td>
+   <td>
+    <p class="Labelcella">
+     Ente di riferimento
+    </p>
+   </td>
+  </tr>
+  <tr mandatory_enabled="#Tassonomia_TipoOccupazione2.checked() || #Tassonomia_TipoOccupazione5.checked() || #Tassonomia_TipoOccupazione6.checked()">
+   <td style="width:25%">
+    <input class="" id="Parametri_Autorizzazione_corrente" label="Numero autorizzazione" name="Parametri_Autorizzazione_corrente" style="width:100%"/>
+   </td>
+   <td style="width:25%">
+    <input class="" format="date" id="Parametri_Autorizzazione_corrente_Data" label="Data autorizzazione" name="Parametri_Autorizzazione_corrente_Data" style="width:100%"/>
+   </td>
+   <td>
+    <input class="" id="Parametri_Autorizzazione_corrente_Note" label="Ente di riferimento autorizzazione" name="Parametri_Autorizzazione_corrente_Note" style="width:100%"/>
+   </td>
+  </tr>
+ </tbody>
+</table>
+
+<input checked="checked" dynamic_check="true" style="display:none" id="Immobile_DatiCatastaliObbligatori" name="Immobile_DatiCatastaliObbligatori" type="checkbox" value="si"/>
+{{ immobili.immobile_toponomastica( "Immobile", "collocata in", "Collocazione occupazione", "display:visibility", "visibility:hidden", "cursor:default", "true" ) }}
+
+<table class="Modulo" style="border:1px solid grey">
+ <tbody>
+  <tr class="Rigaintestazione">
+    <td>
+    <p>
+      <b>
+        In particolare la concessione prevede anche la manomissione, così come meglio descritta nella relazione e/o nelle tavole progettuali allegate, pari ad una superficie di: 
+      </b>
+    </p>
+    </td>        
+  </tr>
+  <tr class="Rigaintestazioneridotta">
+    <td>
+    <p class="Labelcella">
+     da indicare solo in caso di manomissione
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td>
+    <input class="" id="Parametri_Superficie_mano" label="Superficie totale ai fini manomissione" name="Parametri_Superficie_mano"/> metri quadri
+   </td>
+   </tr>
+ </tbody>
+</table>
+
+ <table class="Modulo" style="border:1px solid grey; margin-top:-1px">
+ <tbody>
+  <tr class="Rigaintestazioneridotta">
+   <td style="width:40%;">
+    <p class="Labelcella">
+     Carattere occupazione
+    </p>
+   </td>
+   <td>
+    <p class="Labelcella">
+     Periodo dal
+    </p>
+   </td>
+   <td>
+    <p class="Labelcella">
+     al
+    </p>
+   </td>
+   <td>
+    <p class="Labelcella">
+     totale giorni
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td>
+    <p>
+     <select class="" id="Parametri_TempoOccupazione" label="Carattere occupazione" mandatory="true" name="Parametri_TempoOccupazione" style="width:100%;">
+      <option value="">
+      </option>
+       <option value="Ponteggio">
+       Posa ponteggio
+      </option>
+      <option value="GRU">
+       Posa GRU
+      </option>
+       <option value="cantiere">
+       Area Cantiere
+      </option>
+      <option value="carrabile">
+          Passo Carrabile
+         </option>
+      <option value="altro">
+       Altro
+      </option>
+     </select>
+    </p>
+   </td>
+   <td>
+    <input class="" id="Parametri_TempoOccupazione_dal" label="Periodo"  name="Parametri_TempoOccupazione_dal" format="date" style="width:100%;" />
+   </td>
+    <td>
+    <input class="" id="Parametri_TempoOccupazione_al" label="Periodo" name="Parametri_TempoOccupazione_al"  format="date" style="width:100%;"/>
+   </td>
+    <td>
+    <input class="" id="Parametri_TempoOccupazione_totGG" label="Periodo" mandatory_enabled="true" name="Parametri_TempoOccupazione_totGG" style="width:100%;"/>
+   </td>
+  </tr>
+ </tbody>
+</table>
+ <table class="Modulo" style="border:1px solid grey; margin-top:-1px">
+ <tbody>
+  <tr class="Rigaintestazioneridotta">
+   <td style="width:40%;">
+    <p class="Labelcella">
+     Tipologia
+    </p>
+   </td>
+   <td>
+    <p class="Labelcella">
+     finitura
+    </p>
+   </td>
+   <td>
+    <p class="Labelcella">
+     finitura
+    </p>
+   </td>
+   <td>
+    <p class="Labelcella">
+     metri x metri
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td>
+    <p>
+     <select class="" id="Parametri_TipologiaOccupazione2" label="Carattere occupazione" mandatory="true" name="Parametri_TipologiaOccupazione2" style="width:100%;">
+      <option value="">
+      </option>
+      <option value="Carreggiata">
+       Carreggiata finita con:
+      </option>
+      <option value="Marciapiede">
+       Marciapiede finito con:
+      </option>
+    <option value="aiuola">
+       Aiuola
+      </option>
+     </select>
+    </p>
+   </td>
+   <td>
+    <input class="" id="Parametri_TipologiaOccupazione2_finitura1" label="finitura" mandatory_enabled="#Parametri_TipologiaOccupazione2.check_value(['Marciapiede']) || #Parametri_TipologiaOccupazione2.check_value(['Carreggiata']) " name="Parametri_TipologiaOccupazione2_finitura1" style="width:100%;"/>
+   </td>
+    <td>
+    <input class="" id="Parametri_TipologiaOccupazione2_finitura2" label="finitura" mandatory_enabled="#Parametri_TipologiaOccupazione2.check_value(['Marciapiede']) || #Parametri_TipologiaOccupazione2.check_value(['Carreggiata']) " name="Parametri_TipologiaOccupazione2_finitura2" style="width:100%;"/>
+   </td>
+    <td>
+    <input class="" id="Parametri_TipologiaOccupazione2_mxm" label="m x m occupazione" mandatory_enabled="true" name="Parametri_TipologiaOccupazione2_mxm" style="width:100%;"/>
+   </td>
+  </tr>
+ </tbody>
+</table>
+
+<table class="Modulo" style="border:1px solid grey; margin-top:-1px">
+ <tbody>
+  <tr class="Rigaintestazioneridotta">
+   <td style="width:40%;">
+    <p class="Labelcella">
+     Carattere occupazione
+    </p>
+   </td>
+   <td>
+    <p class="Labelcella">
+     Periodo dal
+    </p>
+   </td>
+   <td>
+    <p class="Labelcella">
+     al
+    </p>
+   </td>
+   <td>
+    <p class="Labelcella">
+     totale giorni
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td>
+    <p>
+     <select class="" id="Parametri_TempoOccupazione1" label="Carattere occupazione"  name="Parametri_TempoOccupazione1" style="width:100%;">
+      <option value="">
+      </option>
+       <option value="Ponteggio">
+       Posa ponteggio
+      </option>
+      <option value="GRU">
+       Posa GRU
+      </option>
+       <option value="cantiere">
+       Area Cantiere
+      </option>
+      <option value="carrabile">
+          Passo Carrabile
+         </option>
+      <option value="altro">
+       Altro
+      </option>
+     </select>
+    </p>
+   </td>
+   <td>
+    <input class="" id="Parametri_TempoOccupazione1_dal" label="Periodo" name="Parametri_TempoOccupazione1_dal" format="date" style="width:100%;" />
+   </td>
+    <td>
+    <input class="" id="Parametri_TempoOccupazione1_al" label="Periodo" name="Parametri_TempoOccupazione1_al" format="date" style="width:100%;"/>
+   </td>
+    <td>
+    <input class="" id="Parametri_TempoOccupazione1_totGG" label="Periodo" name="Parametri_TempoOccupazione1_totGG" mandatory="#Parametri_TempoOccupazione1.value()!=''"style="width:100%;"/>
+   </td>
+  </tr>
+ </tbody>
+</table>
+ <table class="Modulo" style="border:1px solid grey; margin-top:-1px">
+ <tbody>
+  <tr class="Rigaintestazioneridotta">
+   <td style="width:40%;">
+    <p class="Labelcella">
+     Tipologia
+    </p>
+   </td>
+   <td>
+    <p class="Labelcella">
+     finitura
+    </p>
+   </td>
+   <td>
+    <p class="Labelcella">
+     finitura
+    </p>
+   </td>
+   <td>
+    <p class="Labelcella">
+     metri x metri
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td>
+    <p>
+     <select class="" id="Parametri_TipologiaOccupazione3" label="Carattere occupazione" name="Parametri_TipologiaOccupazione3" style="width:100%;">
+      <option value="">
+      </option>
+      <option value="Carreggiata">
+       Carreggiata finita con:
+      </option>
+      <option value="Marciapiede">
+       Marciapiede finito con:
+      </option>
+    <option value="aiuola">
+       Aiuola
+      </option>
+     </select>
+    </p>
+   </td>
+   <td>
+     <input class="" id="Parametri_TipologiaOccupazione3_finitura1" label="finitura" mandatory_enabled="#Parametri_TipologiaOccupazione3.check_value(['Marciapiede']) || #Parametri_TipologiaOccupazione3.check_value(['Carreggiata']) " name="Parametri_TipologiaOccupazione3_finitura1" style="width:100%;"/>
+   </td>
+    <td>
+    <input class="" id="Parametri_TipologiaOccupazione3_finitura2" label="finitura" mandatory_enabled="#Parametri_TipologiaOccupazione3.check_value(['Marciapiede']) || #Parametri_TipologiaOccupazione3.check_value(['Carreggiata']) " name="Parametri_TipologiaOccupazione2_finitura3" style="width:100%;"/>
+   </td>
+    <td>
+    <input class="" id="Parametri_TipologiaOccupazione3_mxm" label="m x m occupazione" mandatory_enabled="#Parametri_TipologiaOccupazione3.check_value(['Marciapiede']) || #Parametri_TipologiaOccupazione3.check_value(['Carreggiata']) " name="Parametri_TipologiaOccupazione3_mxm" style="width:100%;"/>
+   </td>
+  </tr>
+ </tbody>
+</table>
+
+
+<table class="Modulo" style="border:1px solid grey; margin-top:-1px">
+ <tbody>
+  <tr class="Rigaintestazioneridotta">
+   <td style="width:40%;">
+    <p class="Labelcella">
+     Carattere occupazione
+    </p>
+   </td>
+   <td>
+    <p class="Labelcella">
+     Periodo dal
+    </p>
+   </td>
+   <td>
+    <p class="Labelcella">
+     al
+    </p>
+   </td>
+   <td>
+    <p class="Labelcella">
+     totale giorni
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td>
+    <p>
+     <select class="" id="Parametri_TempoOccupazione2" label="Carattere occupazione"  name="Parametri_TempoOccupazione2" style="width:100%;">
+      <option value="">
+      </option>
+       <option value="Ponteggio">
+       Posa ponteggio
+      </option>
+      <option value="GRU">
+       Posa GRU
+      </option>
+       <option value="cantiere">
+       Area Cantiere
+      </option>
+      <option value="carrabile">
+          Passo Carrabile
+         </option>
+      <option value="altro">
+       Altro
+      </option>
+     </select>
+    </p>
+   </td>
+   <td>
+    <input class="" id="Parametri_TempoOccupazione2_dal" label="Periodo" name="Parametri_TempoOccupazione2_dal"  format="date" style="width:100%;" />
+   </td>
+    <td>
+    <input class="" id="Parametri_TempoOccupazione2_al" label="Periodo" name="Parametri_TempoOccupazione2_al"  format="date" style="width:100%;"/>
+   </td>
+    <td>
+    <input class="" id="Parametri_TempoOccupazione2_totGG" label="Periodo" name="Parametri_TempoOccupazione2_totGG" mandatory="#Parametri_TempoOccupazione2.value()!=''"  style="width:100%;"/>
+   </td>
+  </tr>
+ </tbody>
+</table>
+ <table class="Modulo" style="border:1px solid grey; margin-top:-1px">
+ <tbody>
+  <tr class="Rigaintestazioneridotta">
+   <td style="width:40%;">
+    <p class="Labelcella">
+     Tipologia
+    </p>
+   </td>
+   <td>
+    <p class="Labelcella">
+     finitura
+    </p>
+   </td>
+   <td>
+    <p class="Labelcella">
+     finitura
+    </p>
+   </td>
+   <td>
+    <p class="Labelcella">
+     metri x metri
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td>
+    <p>
+     <select class="" id="Parametri_TipologiaOccupazione4" label="Carattere occupazione" name="Parametri_TipologiaOccupazione4" style="width:100%;">
+      <option value="">
+      </option>
+      <option value="Carreggiata">
+       Carreggiata finita con:
+      </option>
+      <option value="Marciapiede">
+       Marciapiede finito con:
+      </option>
+    <option value="aiuola">
+       Aiuola
+      </option>
+     </select>
+    </p>
+   </td>
+   <td>
+   <input class="" id="Parametri_TipologiaOccupazione4_finitura1" label="finitura" mandatory_enabled="#Parametri_TipologiaOccupazione4.check_value(['Marciapiede']) || #Parametri_TipologiaOccupazione4.check_value(['Carreggiata']) " name="Parametri_TipologiaOccupazione4_finitura1" style="width:100%;"/>
+   </td>
+    <td>
+    <input class="" id="Parametri_TipologiaOccupazione4_finitura2" label="finitura" mandatory_enabled="#Parametri_TipologiaOccupazione4.check_value(['Marciapiede']) || #Parametri_TipologiaOccupazione4.check_value(['Carreggiata']) " name="Parametri_TipologiaOccupazione2_finitura4" style="width:100%;"/>
+   </td>
+    <td>
+    <input class="" id="Parametri_TipologiaOccupazione4_mxm" label="m x m occupazione" mandatory_enabled="#Parametri_TipologiaOccupazione4.check_value(['Marciapiede']) || #Parametri_TipologiaOccupazione4.check_value(['Carreggiata']) " name="Parametri_TipologiaOccupazione4_mxm" style="width:100%;"/>
+   </td>
+  </tr>
+ </tbody>
+</table>
+
+<table class="Modulo" style="border:1px solid grey; margin-top:-1px">
+ <tbody>
+  <tr class="Rigaintestazioneridotta">
+   <td style="width:40%;">
+    <p class="Labelcella">
+     Carattere occupazione
+    </p>
+   </td>
+   <td>
+    <p class="Labelcella">
+     Periodo dal
+    </p>
+   </td>
+   <td>
+    <p class="Labelcella">
+     al
+    </p>
+   </td>
+   <td>
+    <p class="Labelcella">
+     totale giorni
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td>
+    <p>
+     <select class="" id="Parametri_TempoOccupazione3" label="Carattere occupazione"  name="Parametri_TempoOccupazione3" style="width:100%;">
+      <option value="">
+      </option>
+       <option value="Ponteggio">
+       Posa ponteggio
+      </option>
+      <option value="GRU">
+       Posa GRU
+      </option>
+       <option value="cantiere">
+       Area Cantiere
+      </option>
+      <option value="carrabile">
+          Passo Carrabile
+         </option>
+      <option value="altro">
+       Altro
+      </option>
+     </select>
+    </p>
+   </td>
+   <td>
+    <input class="" id="Parametri_TempoOccupazione3_dal" label="Periodo" name="Parametri_TempoOccupazione3_dal"   format="date" style="width:100%;" />
+   </td>
+    <td>
+    <input class="" id="Parametri_TempoOccupazione3_al" label="Periodo" name="Parametri_TempoOccupazione3_al"  format="date"  style="width:100%;"/>
+   </td>
+    <td>
+    <input class="" id="Parametri_TempoOccupazione3_totGG" label="Periodo" name="Parametri_TempoOccupazione3_totGG" mandatory="#Parametri_TempoOccupazione3.value()!=''" style="width:100%;"/>
+   </td>
+  </tr>
+ </tbody>
+</table>
+ <table class="Modulo" style="border:1px solid grey; margin-top:-1px">
+ <tbody>
+  <tr class="Rigaintestazioneridotta">
+   <td style="width:40%;">
+    <p class="Labelcella">
+     Tipologia
+    </p>
+   </td>
+   <td>
+    <p class="Labelcella">
+     finitura
+    </p>
+   </td>
+   <td>
+    <p class="Labelcella">
+     finitura
+    </p>
+   </td>
+   <td>
+    <p class="Labelcella">
+     metri x metri
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td>
+    <p>
+     <select class="" id="Parametri_TipologiaOccupazione5" label="Carattere occupazione" name="Parametri_TipologiaOccupazione5" style="width:100%;">
+      <option value="">
+      </option>
+      <option value="Carreggiata">
+       Carreggiata finita con:
+      </option>
+      <option value="Marciapiede">
+       Marciapiede finito con:
+      </option>
+    <option value="aiuola">
+       Aiuola
+      </option>
+     </select>
+    </p>
+   </td>
+   <td>
+   <input class="" id="Parametri_TipologiaOccupazione5_finitura1" label="finitura" mandatory_enabled="#Parametri_TipologiaOccupazione5.check_value(['Marciapiede']) || #Parametri_TipologiaOccupazione5.check_value(['Carreggiata']) " name="Parametri_TipologiaOccupazione5_finitura1" style="width:100%;"/>
+   </td>
+    <td>
+    <input class="" id="Parametri_TipologiaOccupazione5_finitura2" label="finitura" mandatory_enabled="#Parametri_TipologiaOccupazione5.check_value(['Marciapiede']) || #Parametri_TipologiaOccupazione5.check_value(['Carreggiata']) " name="Parametri_TipologiaOccupazione2_finitura5" style="width:100%;"/>
+   </td>
+    <td>
+    <input class="" id="Parametri_TipologiaOccupazione5_mxm" label="m x m occupazione" mandatory_enabled="#Parametri_TipologiaOccupazione5.check_value(['Marciapiede']) || #Parametri_TipologiaOccupazione5.check_value(['Carreggiata']) " name="Parametri_TipologiaOccupazione5_mxm" style="width:100%;"/>
+   </td>
+  </tr>
+ </tbody>
+</table>
+
+<table class="Modulo" style="border:1px solid grey">
+ <tbody>
+  <tr class="Rigaintestazione">
+    <td colspan="5">
+    <p>
+      <b>
+        In particolare le aree richieste saranno occupate, così come meglio descritto nella relazione e/o nelle tavole progettuali allegate, per una superficie
+      </b>
+    </p>
+    </td>        
+  </tr>
+  <tr class="Rigaintestazioneridotta">
+    <td>
+    <p class="Labelcella">
+     Ponteggi
+    </p>
+   </td>
+   <td>
+    <p class="Labelcella">
+     Gru
+    </p>
+   </td>
+      <td>
+    <p class="Labelcella">
+     Area di cantiere
+    </p>
+   </td>
+      <td>
+    <p class="Labelcella">
+     Prefabbricato provvisorio di cantiere
+    </p>
+   </td>
+     <td>
+    <p class="Labelcella">
+     Altro
+    </p>
+   </td>
+  </tr>
+  <tr >
+   <td>
+    <input class="" style="width:60%" id="Parametri_Superficie_ponteggi" label="Superficie ponteggi" name="Parametri_Superficie_ponteggi" mandatory_enabled="#Tassonomia_TipoOpera1.checked()"/> m²
+   </td>
+   <td>
+    <input class="" style="width:60%" id="Parametri_Superficie_gru" label="Superficie gru" name="Parametri_Superficie_gru" mandatory_enabled="#Tassonomia_TipoOpera2.checked()"/> m²
+   </td>
+    <td>
+    <input class="" style="width:60%"id="Parametri_Superficie_AreaCantiere" label="Superficie Area Cantiere" name="Parametri_Superficie_AreaCantiere" mandatory_enabled="#Tassonomia_TipoOpera3.checked()"/> m²
+   </td>
+      <td>
+    <input class="" style="width:60%"id="Parametri_Superficie_PrefCantiere" label="Superficie Pref Cantiere" name="Parametri_Superficie_PrefCantiere" mandatory_enabled="#Tassonomia_TipoOpera3.checked()"/> m²
+   </td> 
+  <td>
+    <input class="" style="width:60%"id="Parametri_Superficie_Altro" label="Superficie Altro" name="Parametri_Superficie_Altro" mandatory_enabled="#Tassonomia_TipoOpera4.checked()"/> m²
+   </td> 
+   </tr>
+  <tr class="Rigaintestazione">
+    <td colspan="5">
+    <p class="">
+      <b>
+     superficie totale ai fini COSAP/calcolata sulla base della proiezione a terra delle strutture
+      </b>
+    </p>
+   </td>
+  </tr>
+  <tr mandatory_enabled="true">
+   <td colspan="5">
+    <input class="" id="Parametri_Superficie_cosap" label="Superficie totale ai fini COSAP" name="Parametri_Superficie_cosap"/>  m²
+   </td>
+   </tr>
+ </tbody>
+</table>
+
+
+
+{{ utils.Dichiara_445() }}
+<br/>
+
+<table class="Modulo" style="border:1px solid grey; margin-top:-1px">
+   <tbody>
+    <tr  class="Rigaintestazione">
+      <td colspan="3" style="vertical-align: top;">
+        <p><strong>per quanto richiesto che:</strong></p>
+      </td>
+    </tr>       
+    <tr>
+       <td style="width:4%">
+    <div id="Tassonomia_Limitiviabilistici" label="Limiti viabilistici" mandatory="true">
+    </div>
+    <input class="" id="Tassonomia_Limitiviabilistici1" name="Tassonomia_Limitiviabilistici" type="radio" value="1"/>
+   </td>
+   <td colspan="2">
+    <p>
+   non è prevista e/o sarà richiesta successivamente all'ottenimento della concessione l'adozione di ordinanza di disciplina viabilistica
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td rowspan="4" style="vertical-align:top">
+    <input class="" id="Tassonomia_Limitiviabilistici2" name="Tassonomia_Limitiviabilistici" type="radio" value="2"/>
+   </td>
+   <td colspan="2">
+    <p>
+    richiede contestualmente l'adozione di ordinanza di disciplina viabilistica
+    </p>
+   </td>
+  </tr>
+ </tbody>
+</table> 
+
+
+<table class="Modulo" style="border: 0px;">
+ <tbody>
+  <tr style="border:0px;">
+    <td style="width: 4%; border:0px; vertical-align:top; background-color:white;">
+      <div id="Dichiara" label="Dichiara" mandatory="true"></div>
+      <input group="Dichiara" id="Tassonomia_impegna1" name="Tassonomia_impegna1" type="checkbox" dynamic_check="true" checked="checked" value="SI"/>
+    </td>
+    <td style="border:0px;" colspan="3">
+      <p>
+        di provvedere, nelle giornate dell’occupazione, al ripristino provvisorio della pavimentazione manomessa e/o a delimitare l'area di occupazione in conformità alle norme vigenti in tema di sicurezza e codice della strada. 
+      </p>
+    </td>
+   </tr >
+   <tr style="border:0px;" >
+    <td style="width: 4%; border:0px; vertical-align:top; background-color:white;" rowspan = "7">
+      <input group="Dichiara" id="Tassonomia_impegna2" name="Tassonomia_impegna2" type="checkbox" dynamic_check="true" checked="checked" value="SI"/>
+    </td>
+    <td style="border:0px;" colspan="3">
+      <p>
+       di provvedere, nei termini della data dell’occupazione, al ripristino definitivo tramite la posa a regola d’arte di:   
+      </p>
+    </td>
+   </tr>
+   </tbody>
+</table>
+   <table class="Modulo" style="border:1px solid grey; margin-top:-1px">
+   <tbody>
+ <tr>
+   <td style="width:4%">
+    <div id="Tassonomia_TipoRipristino" label="Tipo ripristino" mandatory="true">
+    </div>
+    <input class="" id="Tassonomia_TipoRipristino1" name="Tassonomia_TipoRipristino" type="radio" value="1"/>
+   </td>
+   <td colspan="2">
+    <p>
+     Binder di spessore non inferiore a cm 10
+    </p>
+   </td>
+  </tr>
+    <tr>
+   <td>
+    <input class="" id="Tassonomia_TipoRipristino2" name="Tassonomia_TipoRipristino" type="radio" value="2"/>
+   </td>
+   <td colspan="2">
+    <p>
+     Tout-venant bitumato di spessore pari a cm 15, (cm 20 per strade ad alto traffico)
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td>
+    <input class="" id="Tassonomia_TipoRipristino3" name="Tassonomia_TipoRipristino" type="radio" value="3"/>
+   </td>
+   <td colspan="2">
+    <p>
+     Binder spessore non inferiore a cm 15 in due strati (10 + 5)
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td>
+    <input class="" id="Tassonomia_TipoRipristino4" name="Tassonomia_TipoRipristino" type="radio" value="4"/>
+   </td>
+   <td colspan="2">
+    <p>
+     Pavimentazione speciale
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td>
+       <input id="Tassonomia_TipoRipristino5" name="Tassonomia_TipoRipristino" type="radio" value="5"/>
+   </td>
+   <td colspan="2">
+    <p>
+     Altro
+    <span style="font-size:70%">
+      (specificare)
+     </span>
+     <input class="" id="TipoRipristino_altro" label="Altro ripristino" mandatory_enabled="#Tassonomia_TipoRipristino.check_value(['5'])" name="TipoRipristino_altro" style="width:79%;"/>
+    </p>
+   </td>
+  </tr>
+</tbody>
+</table>
+
+  <table class="Modulo" style="border: 0px;">
+ <tbody>
+  <tr style="border:0px;">
+    <td style="width: 4%; border:0px; vertical-align:top; background-color:white;">
+      <div id="Dichiara1" label="Dichiara1" mandatory="true"></div>
+        <input group="Dichiara" id="Tassonomia_impegna3" name="Tassonomia_impegna3" type="checkbox" dynamic_check="true" checked="checked" value="SI"/>
+    </td>
+    <td style="border:0px;" colspan="3">
+      <p>
+        di osservare tutte le norme previste dal vigente Regolamento per le occupazioni di spazi ed aree pubbliche e per l’applicazione del relativo canone.      
+      </p>
+    </td>
+   </tr>
+  </tbody>
+</table>
+   
+<br/>
+
+<table class="Modulo" name="Allegati" style="border:1px solid grey">
+ <tbody>
+  <tr class="Rigaintestazione">
+   <td colspan="2">
+    <p style="text-align: center;">
+     <b>
+      Elenco degli allegati
+     </b>
+     <br/>
+     <span style="font-size:70%">
+      <i>
+       (barrare tutti gli allegati richiesti in fase di presentazione della pratica ed elencati sul portale)
+      </i>
+     </span>
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td>
+    <input dynamic_check="#Tassonomia_TipoOccupazione.value() == '1' || #Tassonomia_TipoOccupazione.value() == '5' || #Tassonomia_OccSuo3PModifiche.value() == '2' " enabled="#Tassonomia_TipoOccupazione.value() == '1' || #Tassonomia_TipoOccupazione.value() == '5' || #Tassonomia_OccSuo3PModifiche.value() == '2' " id="DOC_FOTO" name="DOC_FOTO" type="checkbox" value="OBBLIGATORIO"/>
+   </td>
+   <td style="background-color: #eeeeee;">
+    <p>
+     documentazione fotografica esplicativa a colori che illustra lo stato attuale dei luoghi e l'ambiente circostante
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td style="vertical-align:top">
+    <input dynamic_check="#Tassonomia_TipoOccupazione.value() == '1' || #Tassonomia_TipoOccupazione.value() == '5' || #Tassonomia_OccSuo3PModifiche.value() == '2' " enabled="#Tassonomia_TipoOccupazione.value() == '1' || #Tassonomia_TipoOccupazione.value() == '5' || #Tassonomia_OccSuo3PModifiche.value() == '2' " id="OCC-PLA" name="OCC-PLA" type="checkbox" value="OBBLIGATORIO"/>
+   </td>
+   <td style="background-color: #eeeeee;">
+    <p>
+     Disegni di progetto contenenti:
+    </p>
+  <p> 
+a) Estratto mappa o aerofotogrammetrico, in scala = 1:1000 ,con evidenziata l’area pubblica che si intende occupare e/o manomettere; 
+ </p>
+ <p> 
+b) Planimetrie, piante sezioni e prospetti significativi in scala = 1:100 integralmente quotate relative all’occupazione e/o manomissione da realizzare, con indicate le strade circostanti complete della larghezza della carreggiata e l'eventuale presenza di segnaletica stradale che necessita di integrazione, ovvero la eventuale presenza di fermate del mezzo pubblico, e/o di passaggi pedonali, e/o di chiusini per sottoservizi, i marciapiedi e la loro larghezza, le aiuole, le alberature, la cartellonistica stradale, i semafori, con ben evidenziato lo spazio rimanente per il pubblico transito veicolare e pedonale, individuando anche il percorso per i pedoni, 
+ </p>
+  </td>
+  </tr>
+   <tr>
+   <td>
+    <input dynamic_check="#Tassonomia_TipoOccupazione.value() == '1' || #Tassonomia_TipoOccupazione.value() == '5' || #Tassonomia_OccSuo3PModifiche.value() == '2' " enabled="#Tassonomia_TipoOccupazione.value() == '1' || #Tassonomia_TipoOccupazione.value() == '5' || #Tassonomia_OccSuo3PModifiche.value() == '2' " id="RelTecnica" name="RelTecnica" type="checkbox" value="OBBLIGATORIO"/>
+   </td>
+   <td style="background-color: #eeeeee;">
+    <p>
+     Breve relazione tecnica descrittiva dell’intervento.
+    </p>
+   </td>
+  </tr>
+  <tr>
+
+   <td>
+    <input enabled="#Tassonomia_TipoOccupazione.value() == '1' || #Tassonomia_TipoOccupazione.value() == '5' || #Tassonomia_OccSuo3PModifiche.value() == '2' " id="Particolari" name="Particolari" type="checkbox" value="OBBLIGATORIO"/>
+   </td>
+
+   <td style="background-color: #eeeeee;">
+    <p>
+
+
+     Eventuali particolari costruttivi
+   </p>
+   </td>
+  </tr>
+
+
+
+
+
+
+
+
+   <tr>
+	<td style="vertical-align:top">
+     <input dynamic_check="#Tassonomia_Limitiviabilistici.check_value(['2'])" enabled="#Tassonomia_Limitiviabilistici.check_value(['2'])" id="PL_VIAB_CANTIERE_S" name="PL_VIAB_CANTIERE_S" type="checkbox" value="OBBLIGATORIO"/>
+    </td>
+    <td style="background-color: #eeeeee;">
+
+
+
+
+
+
+
+
+
+     <p>
+      istanza per l'adozione di provvedimenti viabilistici
+     </p>
+    </td>
+   </tr>
+  <tr>
+
+   <td>
+    <input checked="checked" dynamic_check="true" id="MARCA_BOLLO" name="MARCA_BOLLO" type="checkbox" value="OBBLIGATORIO"/>
+   </td>
+   <td style="background-color: #eeeeee;">
+    <p>
+
+     pagamento dell'imposta di bollo
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td style="vertical-align: top;">
+
+    <input checked="checked" dynamic_check="true" id="RIC-DIR-SEG" name="RIC-DIR-SEG" type="checkbox" value="OBBLIGATORIO"/>
+   </td>
+   <td style="background-color: #eeeeee;">
+    <p>
+
+
+
+     ricevuta dei diritti di segreteria/istruttoria<br/><span style="font-size:70%"><i>(da allegare se previsti)</i></span>
+    </p>
+   </td>
+  </tr>
+
+
+
+
+
+
+
+
+
+
+  <tr>
+   <td>
+    <input checked="checked" dynamic_check="true" id="STU-EDI-SOG" name="STU-EDI-SOG" type="checkbox" value="OBBLIGATORIO"/>
+   </td>
+      <td style="background-color: #eeeeee;">
+    <p>
+     soggetti coinvolti nel procedimento edilizio
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td>
+    <input id="ALTRI-ALLEGATI" name="ALTRI-ALLEGATI" type="checkbox" value="OBBLIGATORIO"/>
+   </td>
+   <td style="background-color: #eeeeee;">
+    <p>
+
+     altri allegati
+     <span style="font-size:70%">
+      (specificare)
+     </span>
+     <input class="" id="AltriAllegati" label="Altri allegati" mandatory_enabled="#ALTRI_ALLEGATI.checked()" name="AltriAllegati" style="width:79%;"/>
+    </p>
+   </td>
+  </tr>
+ </tbody>
+</table>
+
+<!--
+<table class="Modulo" name="Allegati" style="border:1px solid grey">
+ <tbody>
+  <tr class="Rigaintestazione">
+   <td colspan="2">
+    <p style="text-align: center;">
+     <b>
+      Elenco degli allegati
+     </b>
+     <br/>
+     <span style="font-size:70%">
+      <i>
+       (barrare tutti gli allegati richiesti in fase di presentazione della pratica ed elencati sul portale)
+      </i>
+     </span>
+    </p>
+   </td>
+  </tr>
+   <tr>
+    <td style="vertical-align:top">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+     <input dynamic_check="#Immobile1_DatiImmobileRichiesti.checked()" enabled="#Immobile1_DatiImmobileRichiesti.checked()" id="OCC-ASS-DEP" name="OCC-ASS-DEP" type="checkbox" value="OBBLIGATORIO"/>
+    </td>
+    <td style="background-color: #eeeeee;">
+     <p>
+
+      attestazione di versamento del deposito cauzionale e rimborso per l'utilizzo della rete elettrica
+     </p>
+    </td>
+   </tr>
+   <tr>
+   <td>
+    <input dynamic_check="#Parametri_Motivo_subingresso.check_value( ['successione per atto tra vivi'] ) || #Parametri_Motivo_subingresso.check_value( ['compravendita'] ) || #Parametri_Motivo_subingresso.check_value( ['donazione'] ) || #Parametri_Motivo_subingresso.check_value( ['fusione di azienda'] ) || #Parametri_Motivo_subingresso.check_value( ['affitto di azienda/ramo di azienda'] ) || #Parametri_Motivo_subingresso.check_value( ['altre cause'] )" enabled="#Tassonomia_TipoOccupazione6.checked()" id="CES-ATT-CAN" name="CES-ATT-CAN" type="checkbox" value="OBBLIGATORIO"/>
+   </td>
+   <td style="background-color: #eeeeee;">
+    <p>
+     copia dell'atto di cessione o dichiarazione notarile
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td>
+    <input dynamic_check="#Tassonomia_TipoOccupazione.value() == '1' || #Tassonomia_TipoOccupazione.value() == '5' || #Tassonomia_OccSuo3PModifiche.value() == '2' || #Tassonomia_OccSuo4PModifiche.value() == '2'" enabled="#Tassonomia_TipoOccupazione.value() == '1' || #Tassonomia_TipoOccupazione.value() == '5' || #Tassonomia_OccSuo3PModifiche.value() == '2' || #Tassonomia_OccSuo4PModifiche.value() == '2'" id="DOC_FOTO" name="DOC_FOTO" type="checkbox" value="OBBLIGATORIO"/>
+   </td>
+   <td style="background-color: #eeeeee;">
+    <p>
+     documentazione fotografica esplicativa a colori che illustra lo stato attuale dei luoghi e l'ambiente circostante
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td style="vertical-align:top">
+    <input dynamic_check="#Tassonomia_TipoOccupazione.value() == '1' || #Tassonomia_TipoOccupazione.value() == '5' || #Tassonomia_OccSuo3PModifiche.value() == '2' || #Tassonomia_OccSuo4PModifiche.value() == '2'" enabled="#Tassonomia_TipoOccupazione.value() == '1' || #Tassonomia_TipoOccupazione.value() == '5' || #Tassonomia_OccSuo3PModifiche.value() == '2' || #Tassonomia_OccSuo4PModifiche.value() == '2'" id="OCC-PLA" name="OCC-PLA" type="checkbox" value="OBBLIGATORIO"/>
+   </td>
+   <td style="background-color: #eeeeee;">
+    <p>
+
+     planimetria in scala non inferiore a 1:100, quotata, dell'area interessata dalla occupazione con indicazione dei limiti sul fronte strada
+    </p>
+   </td>
+  </tr>
+  <tr>
+
+   <td style="width:3%">
+    <input dynamic_check="#Tassonomia_VIAClassificazione.value() == '3'" enabled="#Tassonomia_VIAClassificazione.value() == '3'" id="VAL-PRE-IAA" name="VAL-PRE-IAA" type="checkbox" value="OBBLIGATORIO"/>
+   </td>
+   <td style="background-color: #eeeeee;">
+    <p>
+
+     valutazione previsionale di impatto acustico
+    </p>
+   </td>
+  </tr>
+  <tr>
+
+   <td>
+    <input checked="checked" dynamic_check="true" id="MARCA_BOLLO" name="MARCA_BOLLO" type="checkbox" value="OBBLIGATORIO"/>
+   </td>
+   <td style="background-color: #eeeeee;">
+    <p>
+
+     pagamento dell'imposta di bollo
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td style="vertical-align: top;">
+    <input id="RIC-DIR-SEG" name="RIC-DIR-SEG" type="checkbox" value="OBBLIGATORIO"/>
+   </td>
+   <td style="background-color: #eeeeee;">
+    <p>
+
+     ricevuta dei diritti di segreteria/istruttoria<br/><span style="font-size:70%"><i>(da allegare se previsti)</i></span>
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td style="vertical-align: top;">
+    <input dynamic_check="#Titolare_Cittadinanza.element.options[#Titolare_Cittadinanza.element.selectedIndex].parentNode.label == 'NON Unione Europea'" enabled="#Titolare_Cittadinanza.element.options[#Titolare_Cittadinanza.element.selectedIndex].parentNode.label == 'NON Unione Europea'" id="PER-SOG" name="PER-SOG" type="checkbox" value="OBBLIGATORIO"/>
+   </td>
+   <td style="background-color: #eeeeee;">
+    <p>
+     documentazione relativa al permesso di soggiorno
+     <br/>
+     <span style="font-size:70%">
+      <i>
+
+       (da allegare solo in caso di cittadino extracomunitario)
+      </i>
+     </span>
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td>
+    <input dynamic_check="(parseInt(#Immobile_NumeroAltriImmobili.value()) / 16) &gt; 0" enabled="(parseInt(#Immobile_NumeroAltriImmobili.value()) / 16) &gt; 0" id="STU-EDI-IMM" name="STU-EDI-IMM" type="checkbox" value="OBBLIGATORIO"/>
+   </td>
+   <td colspan="1" style="background-color: #eeeeee;">
+    <p>
+     ulteriori particelle o subalterni oggetto del procedimento
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td>
+    <input id="ALTRI-ALLEGATI" name="ALTRI-ALLEGATI" type="checkbox" value="OBBLIGATORIO"/>
+   </td>
+   <td style="background-color: #eeeeee;">
+    <p>
+     altri allegati
+     <span style="font-size:70%">
+      (specificare)
+     </span>
+     <input class="" id="AltriAllegati" label="Altri allegati" mandatory_enabled="#ALTRI_ALLEGATI.checked()" name="AltriAllegati" style="width:79%;"/>
+    </p>
+   </td>
+  </tr>
+ </tbody>
+</table>
+
+
+<br/>
+-->
+
+<br/>
+
+{{ utils.trattamento_dati_personali() }}
+
+<br/>
+
+{{ utils.firma_hidden() }}
+ <br/>
+
+<p class="Modulo">
+ <input id="SalvaModulo" name="SalvaModulo" style="height:30px;width:120px;" title="Verifica la corretta compilazione dei campi e salva il modulo nel faldone virtuale dell'istanza." type="submit" value="Salva modulo"/>
+</p>
+
+<input destinatario_amministrazione="getParameter('Ente')" id="GLOBO_modulo_c{{ CodiceModulo }}" name="GLOBO_modulo_c{{ CodiceModulo }}" type="hidden" value=""/>
+
+<input id="GLOBO_modulofiglio_cSTU-EDI-SOG" name="GLOBO_modulofiglio_cSTU-EDI-SOG" obbligatorio="#STU_EDI_SOG.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_modulofiglio_cMARCA_BOLLO" name="GLOBO_modulofiglio_cMARCA_BOLLO" obbligatorio="#MARCA_BOLLO.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_allegato_cOCC-PLA" name="GLOBO_allegato_cOCC-PLA" obbligatorio="#OCC_PLA.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_allegato_cDOC_FOTO" name="GLOBO_allegato_cDOC_FOTO" obbligatorio="#DOC_FOTO.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+ <input id="GLOBO_modulofiglio_cPL_VIAB_CANTIERE_S" name="GLOBO_modulofiglio_cPL_VIAB_CANTIERE_S" obbligatorio="#PL_VIAB_CANTIERE_S.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_allegato_cRIC-DIR-SEG" name="GLOBO_allegato_cRIC-DIR-SEG" obbligatorio="#RIC_DIR_SEG.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_allegato_cRelTecnica" name="GLOBO_allegato_cRelTecnica" obbligatorio="#RelTecnica.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_allegato_cParticolari" name="GLOBO_allegato_cParticolari" obbligatorio="#Particolari.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_allegato_cALTRI-ALLEGATI" name="GLOBO_allegato_cALTRI-ALLEGATI" obbligatorio="#ALTRI_ALLEGATI.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input firmare="'P7M_ELETTRONICA'" id="GLOBO_modulofiglio_cIncarico_procura" name="GLOBO_modulofiglio_cIncarico_procura" type="hidden" value=""/>
+
+<input id="GLOBO_id_padre" name="GLOBO_id_padre" type="hidden"/>
+
+<input id="GLOBO_recupera_dati" name="GLOBO_recupera_dati" type="hidden"/>
+
+<input id="GLOBO_codice_modulo" name="GLOBO_codice_modulo" type="hidden" value="{{ CodiceModulo }}"/>
+
+
+{% endblock content %}
+

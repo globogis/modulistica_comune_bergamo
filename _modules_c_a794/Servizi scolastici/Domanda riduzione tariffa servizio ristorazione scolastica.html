@@ -1,0 +1,470 @@
+{% set CodiceModulo = "DOM_AGEV_RISTO" %}
+{% set Urn = "document:c_a794:agevolazione.tariffa.mensa;domanda" %}
+{% extends "base.html" %}
+
+{% block meta %}
+
+<meta campi_firma="Titolare_CodiceFiscale"
+campi_firma_label="il dichiarante"
+classi_modulo="Generale"
+codice_modulo="{{ CodiceModulo }}"
+urn="{% block urn %}{{ Urn }}{% endblock urn %}"
+sub_urn_list=""
+uo_globo_list=""
+descrizione="Domanda di riduzione della tariffa per il servizio di ristorazione scolastica"
+destinatario_amministrazione=""
+destinatario_ufficio="UOPUBBLICAISTRUZIONE"
+dinamico="SI"
+email_a=""
+ente_abilitato="TUTTI"
+filigrana="NO"
+firmare="P7M_ELETTRONICA"
+istruzioni_compilazione=""
+istruzioni_invio="mail_pec"
+metodo_invio="mail"
+name="GLOBO_modulo"
+procura="NO,,"
+tipo_modulo="principale"
+urlhelp="/modulistica/moduli/{{ CodiceModulo }}"
+verifica_pagamento="NO"
+versione="1.2|06/06/2019"/>
+
+<meta codice_modulo_figlio="INCARICO_PROCURA"
+urn_modulo_figlio="document:s_italia:generale;incarico.procura"
+name="GLOBO_modulofiglio"
+numero="1"
+obbligatorio="DINAMICO"/>
+
+
+<meta codice_allegato="DAE-CDI"
+urn_allegato="document:s_italia:generale;documento.identita;documentazione"
+descrizione_estesa="Documento di identità"
+filename="Documento identita.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/DAE-CDI"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="ALTRI-ALLEGATI"
+urn_allegato="document:s_italia:altri.allegati"
+descrizione_estesa="Altri allegati"
+filename="Altri allegati.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/ALTRI-ALLEGATI"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+
+{% endblock meta %}
+
+{% block title %}
+  Domanda di riduzione della tariffa per il servizio di ristorazione scolastica
+{% endblock title %}
+
+{% block content %}
+
+<globo_fondo_pagina areaheight="150" scope="2">
+  {{ utils.firma() }}
+</globo_fondo_pagina>
+
+<input id="Parametri_Comune" name="Parametri_Comune" type="hidden" dynamic_value="#Ente.value()"/>
+<input id="Oggetto" name="Oggetto" type="hidden" dynamic_value="#Titolare_Cognome.value().toUpperCase() + ' ' + #Titolare_Nome.value().toUpperCase() + ' - domanda riduzione tariffa servizio ristorazione scolastica'"/>
+
+{{ intestazioni.intestazione_moduloprincipale_senzabollo() }}
+
+<h1 class="Modulo">
+  Domanda di riduzione della tariffa per il servizio di ristorazione scolastica
+</h1>
+
+
+<input id="Titolare_DatiPersonaObbligatori" name="Titolare_DatiPersonaObbligatori" type="hidden" dynamic_check="true"/>
+<input id="Titolare_Titolo" name="Titolare_Titolo" type="hidden" value="Richiedente"/>
+<input id="Titolare_Ruolo" name="Titolare_Ruolo" type="hidden" value="Richiedente"/>
+{{ anagrafica.persona_fisica("Titolare", "Il sottoscritto genitore, tutore o affidatario", "visibility:visibility", "cursor:pointer", "visibility:visibility", "visibility:visibility", "mail_ordinaria") }}
+
+
+<h3 class="Modulo">
+  CHIEDE
+</h3>
+
+
+<p class="Modulo">
+  la riduzione sulla tariffa applicata per il minore
+</p>
+
+
+<input id="AventeTitolo1_DatiPersonaObbligatori" name="AventeTitolo1_DatiPersonaObbligatori" type="hidden" dynamic_check="true"/>
+<input id="AventeTitolo1_Titolo" name="AventeTitolo1_Titolo" type="hidden" value="Richiedente"/>
+<input id="AventeTitolo1_Ruolo" name="AventeTitolo1_Ruolo" type="hidden" value="Richiedente"/>
+{{ anagrafica.persona_fisica("AventeTitolo1", "generalità del minore utilizzatore del servizio", "display:none", "cursor:default", "visibility:visibility", "visibility:visibility", "no_mail") }}
+
+
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="3">
+        <p class="Labeltabella">
+          nell'anno scolastico:
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td style="width: 33%;">
+        <p class="Labelcella">
+          Scuola
+        </p>
+      </td>
+      <td style="width: 33%;">
+        <p class="Labelcella">
+          Classe
+        </p>
+      </td>
+      <td style="width: 34%;">
+        <p class="Labelcella">
+          Sezione
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input class="inputNormal" id="Parametri_Scuola" name="Parametri_Scuola" style="width: 100%;" label="Scuola" mandatory="true">
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_Classe" name="Parametri_Classe" style="width: 100%;" label="Classe" mandatory="true">
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_Sezione" name="Parametri_Sezione" style="width: 100%;" label="Sezione" mandatory="true">
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="2">
+        <p class="Labeltabella">
+          in quanto
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <div id="Tassonomia_SituazioneFamiliare" name="Tassonomia_SituazioneFamiliare" label="situazione familiare" mandatory="true"></div>
+        <input group="Tassonomia_SituazioneFamiliare" id="Tassonomia_SituazioneFamiliare1" name="Tassonomia_SituazioneFamiliare1" type="checkbox" value="SI" />
+      </td>
+      <td>
+        <p>
+          nucleo familiare con attestazione ISEE in corso di validità inferiore a 5.000,00 €
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input group="Tassonomia_SituazioneFamiliare" id="Tassonomia_SituazioneFamiliare2" name="Tassonomia_SituazioneFamiliare2" type="checkbox" value="SI" />
+      </td>
+      <td>
+        <p>
+          alunno in situazione di disabilità certificata ai sensi della legge 104/92
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input group="Tassonomia_SituazioneFamiliare" id="Tassonomia_SituazioneFamiliare3" name="Tassonomia_SituazioneFamiliare3" type="checkbox" value="SI" />
+      </td>
+      <td>
+        <p>
+          nucleo familiare con più figli iscritti al servizio di ristorazione scolastica e/o nido comunale <br/>
+          <span style="font-size: 70%;"><i>(indicati nella sottostante tabella)</i></span>
+        </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="8">
+        <p class="Labeltabella">
+          figli iscritti al servizio di ristorazione scolastica
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td rowspan="2">
+        <p class="Labelcella">
+          Cognome e nome
+        </p>
+      </td>
+      <td rowspan="2">
+        <p class="Labelcella">
+          Scuola/nido frequentati
+        </p>
+      </td>
+      <td rowspan="2">
+        <p class="Labelcella">
+          Data di nascita
+        </p>
+      </td>
+      <td colspan="5">
+        <p class="Labelcella">
+          Frequenza settimanale
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          L
+        </p>
+      </td>
+      <td>
+        <p class="Labelcella">
+          M
+        </p>
+      </td>
+      <td>
+        <p class="Labelcella">
+          M
+        </p>
+      </td>
+      <td>
+        <p class="Labelcella">
+          G
+        </p>
+      </td>
+      <td>
+        <p class="Labelcella">
+          V
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td style="background-color: white;">
+        <input class="inputNormal" id="Parametri_NomeFiglio1" name="Parametri_NomeFiglio1" style="width: 100%;" label="Nome" mandatory_enabled="#Tassonomia_SituazioneFamiliare3.checked()"/>
+      </td>
+      <td style="background-color: white;">
+        <input class="inputNormal" id="Parametri_ScuolaFiglio1" name="Parametri_ScuolaFiglio1" style="width: 100%;" label="Scuola" mandatory_enabled="#Tassonomia_SituazioneFamiliare3.checked()"/>
+      </td>
+      <td style="width: 15%; background-color: white;">
+        <input class="inputNormal" id="Parametri_DataNascitaFiglio1" name="Parametri_DataNascitaFiglio1" format="date" style="width: 100%;" label="Data di nascita" mandatory_enabled="#Tassonomia_SituazioneFamiliare3.checked()"/>
+      </td>
+      <td style="background-color: white;">
+        <input id="Lunedi1" name="Lunedi1" type="checkbox" value="SI" />
+      </td>
+      <td style="background-color: white;">
+        <input id="Martedi1" name="Martedi1" type="checkbox" value="SI" />
+      </td>
+      <td style="background-color: white;">
+        <input id="Mercoledi1" name="Mercoledi1" type="checkbox" value="SI" />
+      </td>
+      <td style="background-color: white;">
+        <input id="Giovedi1" name="Giovedi1" type="checkbox" value="SI" />
+      </td>
+      <td style="background-color: white;">
+        <input id="Venerdi1" name="Venerdi1" type="checkbox" value="SI" />
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td style="background-color: white;">
+        <input class="inputNormal" id="Parametri_NomeFiglio2" name="Parametri_NomeFiglio2" style="width: 100%;" label="Nome"/>
+      </td>
+      <td style="background-color: white;">
+        <input class="inputNormal" id="Parametri_ScuolaFiglio2" name="Parametri_ScuolaFiglio2" style="width: 100%;" label="Scuola" mandatory_enabled="#Parametri_NomeFiglio2.value()"/>
+      </td>
+      <td style="width: 15%; background-color: white;">
+        <input class="inputNormal" id="Parametri_DataNascitaFiglio2" name="Parametri_DataNascitaFiglio2" format="date" style="width: 100%;" label="Data di nascita" mandatory_enabled="#Parametri_NomeFiglio2.value()"/>
+      </td>
+      <td style="background-color: white;">
+        <input id="Lunedi2" name="Lunedi2" type="checkbox" value="SI" mandatory_enabled="#Parametri_NomeFiglio2.value()"/>
+      </td>
+      <td style="background-color: white;">
+        <input id="Martedi2" name="Martedi2" type="checkbox" value="SI" mandatory_enabled="#Parametri_NomeFiglio2.value()"/>
+      </td>
+      <td style="background-color: white;">
+        <input id="Mercoledi2" name="Mercoledi2" type="checkbox" value="SI" mandatory_enabled="#Parametri_NomeFiglio2.value()"/>
+      </td>
+      <td style="background-color: white;">
+        <input id="Giovedi2" name="Giovedi2" type="checkbox" value="SI" mandatory_enabled="#Parametri_NomeFiglio2.value()"/>
+      </td>
+      <td style="background-color: white;">
+        <input id="Venerdi2" name="venerdi2" type="checkbox" value="SI" mandatory_enabled="#Parametri_NomeFiglio2.value()"/>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td style="background-color: white;">
+        <input class="inputNormal" id="Parametri_NomeFiglio3" name="Parametri_NomeFiglio3" style="width: 100%;" label="Nome"/>
+      </td>
+      <td style="background-color: white;">
+        <input class="inputNormal" id="Parametri_ScuolaFiglio3" name="Parametri_ScuolaFiglio3" style="width: 100%;" label="Scuola" mandatory_enabled="#Parametri_NomeFiglio3.value()"/>
+      </td>
+      <td style="width: 15%; background-color: white;">
+        <input class="inputNormal" id="Parametri_DataNascitaFiglio3" name="Parametri_DataNascitaFiglio3" format="date" style="width: 100%;" label="Data di nascita" mandatory_enabled="#Parametri_NomeFiglio3.value()"/>
+      </td>
+      
+      <td style="background-color: white;">
+        <input id="Lunedi3" name="Lunedi3" type="checkbox" value="SI" enabled="#Parametri_NomeFiglio3.value()"/>
+      </td>
+      <td style="background-color: white;">
+        <input id="Martedi3" name="Martedi3" type="checkbox" value="SI" enabled="#Parametri_NomeFiglio3.value()"/>
+      </td>
+      <td style="background-color: white;">
+        <input id="Mercoledi3" name="Mercoledi3" type="checkbox" value="SI" enabled="#Parametri_NomeFiglio3.value()"/>
+      </td>
+      <td style="background-color: white;">
+        <input id="Giovedi3" name="Giovedi3" type="checkbox" value="SI" enabled="#Parametri_NomeFiglio3.value()"/>
+      </td>
+      <td style="background-color: white;">
+        <input id="Venerdi3" name="venerdi3" type="checkbox" value="SI" enabled="#Parametri_NomeFiglio3.value()"/>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+{{ utils.Dichiara_445() }}
+
+
+<p>
+  Di possedere il seguente valore ISEE:
+</p>
+
+
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          Valore ISEE
+        </p>
+      </td>
+      <td>
+        <p class="Labelcella">
+          Data rilascio
+        </p>
+      </td>
+      <td>
+        <p class="Labelcella">
+          Data fine validità
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <p>
+          <input class="inputNormal" id="Parametri_ValoreISEE" name="Parametri_ValoreISEE" style="width: 70%;" format="valuta_positiva" label="Valore ISEE" mandatory="true"/> €
+        </p>
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_DataRilascioISEE" name="Parametri_DataRilascioISEE" format="date" style="width: 50%;" label="Data rilascio ISEE" mandatory="true"/>
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_DataFineValidita" name="Parametri_DataFineValidita" format="date" style="width: 50%;" label="Data fine validità" mandatory="true"/>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<br/>
+
+
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          Eventuali annotazioni
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <textarea class="inputNormal" id="Parametri_Annotazioni" name="Parametri_Annotazioni" style="width: 100%; height: 5cm;" label="Eventuali annotazioni"></textarea>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<br/>
+
+
+<table class="Modulo" name="Allegati" style="border: 1px solid grey">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="2">
+        <p style="text-align: center;">
+          <b>
+            Elenco degli allegati
+          </b>
+          <br/>
+          <span style="font-size:70%">
+            <i>(barrare tutti gli allegati richiesti in fase di presentazione della pratica ed elencati sul portale)</i>
+          </span>
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="DAE-CDI" name="DAE-CDI" type="checkbox" value="OBBLIGATORIO" />
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          copia del documento d'identità
+          <br/>
+          <span style="font-size:70%">
+            <i>(da allegare se il modulo è sottoscritto con firma autografa)</i>
+          </span>
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="ALTRI-ALLEGATI" name="ALTRI-ALLEGATI" type="checkbox" value="OBBLIGATORIO"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          altri allegati
+          <span style="font-size:70%">(specificare)</span>
+          <input class="" label="Altri allegati" id="AltriAllegati" mandatory_enabled="#ALTRI_ALLEGATI.checked()" name="AltriAllegati" style="width:79%;"/>
+        </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<br/>
+{{ utils.trattamento_dati_personali() }}
+<br/>
+  {{ utils.firma_hidden() }}
+<br/>
+
+
+<p class="Modulo">
+  <input id="SalvaModulo" name="SalvaModulo" style="height:30px;width:120px;" title="Verifica la corretta compilazione dei campi e salva il modulo nel faldone virtuale dell'istanza." type="submit" value="Salva modulo"/>
+</p>
+
+<input destinatario_amministrazione="getParameter('Ente')" id="GLOBO_modulo_c{{ CodiceModulo }}" name="GLOBO_modulo_c{{ CodiceModulo }}" type="hidden" value=""/>
+<input firmare="'P7M_ELETTRONICA'" id="GLOBO_modulofiglio_cINCARICO_PROCURA" name="GLOBO_modulofiglio_cINCARICO_PROCURA" type="hidden" value=""/>
+
+
+<input id="GLOBO_allegato_cDAE-CDI" name="GLOBO_allegato_cDAE-CDI" obbligatorio="#DAE_CDI.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+<input id="GLOBO_allegato_cALTRI-ALLEGATI" name="GLOBO_allegato_cALTRI-ALLEGATI" obbligatorio="#ALTRI_ALLEGATI.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+
+
+<input id="GLOBO_id_padre" name="GLOBO_id_padre" type="hidden"/>
+<input id="GLOBO_recupera_dati" name="GLOBO_recupera_dati" type="hidden"/>
+<input id="GLOBO_codice_modulo" name="GLOBO_codice_modulo" type="hidden" value="{{ CodiceModulo }}"/>
+
+{% endblock content %}

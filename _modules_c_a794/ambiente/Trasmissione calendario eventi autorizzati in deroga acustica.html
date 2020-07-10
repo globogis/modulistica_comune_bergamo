@@ -1,0 +1,430 @@
+{% set CodiceModulo = "COM-MAN-TEMP-DEROGA-CAL" %}
+{% set Urn = "document:c_a794:manifestazioni.temporanee.deroga.calendari;comunicazione" %}
+{% set modulo_destinatario = [] %}
+{% extends "base.html" %}
+{% block meta %}
+<meta campi_firma="Titolare_CodiceFiscale"
+campi_firma_label="il dichiarante"
+classi_modulo="Ecologia"
+codice_modulo="{{ CodiceModulo }}"
+urn="{% block urn %}{{ Urn }}{% endblock urn %}"
+sub_urn_list=""
+uo_globo_list=""
+descrizione="Trasmissione calendario eventi autorizzati in deroga acustica"
+destinatario_amministrazione=""
+destinatario_ufficio="UOAMBIENTE"
+dinamico="SI"
+email_a=""
+ente_abilitato="TUTTI"
+filigrana="SI"
+firmare="P7M_ELETTRONICA"
+istruzioni_compilazione=""
+istruzioni_invio="mail_pec"
+metodo_invio="mail"
+name="GLOBO_modulo"
+procura="NO,,"
+tipo_modulo="principale"
+urlhelp="/modulistica/moduli/{{ CodiceModulo }}"
+verifica_pagamento="NO"
+versione="1.3|26/07/2019"  /> 
+
+<meta codice_allegato="ALTRI-ALLEGATI"
+urn_allegato="document:s_italia:altri.allegati"
+descrizione_estesa="Altri allegati"
+filename="Altri allegati.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/ALTRI-ALLEGATI"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="DAE-CDI"
+urn_allegato="document:s_italia:generale;documento.identita;documentazione"
+descrizione_estesa="Documento di identità"
+filename="Documento identita.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/DAE-CDI"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+
+{% endblock meta %}
+
+{% block title %}Trasmissione calendario eventi autorizzati in deroga acustica{% endblock title %}
+
+{% block content %}
+
+ <globo_fondo_pagina areaheight="150" scope="2">
+ {{ utils.firma() }}
+</globo_fondo_pagina>
+
+{{ intestazioni.intestazione_moduloprincipale_senzabollo() }}
+
+<h1 class="Modulo">
+ Trasmissione calendario eventi autorizzati in deroga acustica
+</h1>
+
+<h2 class="Modulo">
+  Ai sensi dell'articolo 3.1 comma 1,2,4 del regolamento comunale n. 61
+</h2>
+<br>
+{{ anagrafica.cognome_nome("Titolare", "Il sottoscritto", "Richiedente", "visibility:visibility", "cursor:pointer", "visibility:visibility") }}
+
+<h3 class="Modulo">TRASMETTE </h3>
+<p class='Modulo'> il calendario degli eventi autorizzati in deroga acustica 
+</p>
+<table class="Modulo" style="border:1px solid grey; margin-top:-1px">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td>
+        Atto autorizzatorio numero
+      </td>
+      <td>
+        del
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input class="inputNormal" id="Parametri_AttoN" name="Parametri_AttoN" style="width: 100%;" label="Numero Atto" mandatory="true" />
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_DataAtto" name="Parametri_DataAtto" style="width: 100%;" label="Data Atto" format="date" mandatory="true"/>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<table class="Modulo" style="border:1px solid grey; margin-top:-1px">
+<tr class="Rigaintestazione">
+    <td>
+        nel luogo
+      </td>
+      <tr> 
+      <td>
+        <input class="inputNormal" id="Parametri_LuogoEvento" name="Parametri_LuogoEvento" style="width: 100%;" label="Luogo Evento" mandatory="true"/>
+      </td>
+    </tr>
+  </tbody>
+</table>
+</table>
+    
+<br>
+
+<table class="Modulo" style="border:1px solid grey; margin-top:-1px">
+   <tbody>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          il giorno
+        </p>
+      </td>
+     <td>
+        <p class="Labelcella">
+         il giorno
+        </p>
+      </td>  
+ <td>
+        <p class="Labelcella">
+         il giorno
+        </p>
+      </td>
+  <td>
+        <p class="Labelcella">
+         il giorno
+        </p>
+      </td>  
+    <td>
+        <p class="Labelcella">
+         il giorno
+        </p>
+      </td>     
+    </tr>
+   <tr>
+      <td style="vertical-align: top;">
+        <input class="inputNormal" id="Parametri_DicilGiorno" name="Parametri_DicilGiorno" label="il giorno" mandatory="true" format="date" style="width:100%"/>
+      </td>
+      <td style="vertical-align: top;">
+        <input class="inputNormal" id="Parametri_DicilGiorno2" name="Parametri_DicilGiorno2" label="il giorno" format="date" style="width:100%"/>
+      </td>
+	   <td  style="vertical-align: top;">
+        <input class="inputNormal" id="Parametri_DicilGiorno3" name="Parametri_DicilGiorno3" label="il giorno" format="date" style="width:100%"/>
+      </td>
+      <td  style="vertical-align: top;">
+        <input class="inputNormal" id="Parametri_DicilGiorno4" name="Parametri_DicilGiorno4" label="il giorno" format="date" style="width:100%"/>
+      </td>
+	   <td style="vertical-align: top;">
+        <input class="inputNormal" id="Parametri_DicilGiorno5" name="Parametri_DicilGiorno5" label="il giorno" format="date" style="width:100%"/>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          il giorno
+        </p>
+      </td>
+     <td>
+        <p class="Labelcella">
+         il giorno
+        </p>
+      </td>  
+ <td>
+        <p class="Labelcella">
+         il giorno
+        </p>
+      </td>
+  <td>
+        <p class="Labelcella">
+         il giorno
+        </p>
+      </td>  
+    <td>
+        <p class="Labelcella">
+         il giorno
+        </p>
+      </td>     
+    </tr>
+   <tr>
+      <td style="vertical-align: top;">
+        <input class="inputNormal" id="Parametri_DicilGiorno6" name="Parametri_DicilGiorno6" label="il giorno" format="date" style="width:100%"/>
+      </td>
+      <td style="vertical-align: top;">
+        <input class="inputNormal" id="Parametri_DicilGiorno7" name="Parametri_DicilGiorno7" label="il giorno" format="date" style="width:100%"/>
+      </td>
+     <td  style="vertical-align: top;">
+        <input class="inputNormal" id="Parametri_DicilGiorno8" name="Parametri_DicilGiorno8" label="il giorno" format="date" style="width:100%"/>
+      </td>
+      <td  style="vertical-align: top;">
+        <input class="inputNormal" id="Parametri_DicilGiorno9" name="Parametri_DicilGiorno9" label="il giorno" format="date" style="width:100%"/>
+      </td>
+     <td style="vertical-align: top;">
+        <input class="inputNormal" id="Parametri_DicilGiorno10" name="Parametri_DicilGiorno10" label="il giorno" format="date" style="width:100%"/>
+      </td>
+    </tr>
+     <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          il giorno
+        </p>
+      </td>
+     <td>
+        <p class="Labelcella">
+         il giorno
+        </p>
+      </td>  
+ <td>
+        <p class="Labelcella">
+         il giorno
+        </p>
+      </td>
+  <td>
+        <p class="Labelcella">
+         il giorno
+        </p>
+      </td>  
+    <td>
+        <p class="Labelcella">
+         il giorno
+        </p>
+      </td>     
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">
+        <input class="inputNormal" id="Parametri_DicilGiorno11" name="Parametri_DicilGiorno11" label="il giorno" format="date" style="width:100%"/>
+      </td>
+      <td style="vertical-align: top;">
+        <input class="inputNormal" id="Parametri_DicilGiorno12" name="Parametri_DicilGiorno12" label="il giorno" format="date" style="width:100%"/>
+      </td>
+     <td  style="vertical-align: top;">
+        <input class="inputNormal" id="Parametri_DicilGiorno13" name="Parametri_DicilGiorno13" label="il giorno" format="date" style="width:100%"/>
+      </td>
+      <td  style="vertical-align: top;">
+        <input class="inputNormal" id="Parametri_DicilGiorno14" name="Parametri_DicilGiorno14" label="il giorno" format="date" style="width:100%"/>
+      </td>
+     <td style="vertical-align: top;">
+        <input class="inputNormal" id="Parametri_DicilGiorno15" name="Parametri_DicilGiorno15" label="il giorno" format="date" style="width:100%"/>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          il giorno
+        </p>
+      </td>
+     <td>
+        <p class="Labelcella">
+         il giorno
+        </p>
+      </td>  
+ <td>
+        <p class="Labelcella">
+         il giorno
+        </p>
+      </td>
+  <td>
+        <p class="Labelcella">
+         il giorno
+        </p>
+      </td>  
+    <td>
+        <p class="Labelcella">
+         il giorno
+        </p>
+      </td>     
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">
+        <input class="inputNormal" id="Parametri_DicilGiorno16" name="Parametri_DicilGiorno16" label="il giorno" format="date" style="width:100%"/>
+      </td>
+      <td style="vertical-align: top;">
+        <input class="inputNormal" id="Parametri_DicilGiorno17" name="Parametri_DicilGiorno17" label="il giorno" format="date" style="width:100%"/>
+      </td>
+     <td  style="vertical-align: top;">
+        <input class="inputNormal" id="Parametri_DicilGiorno18" name="Parametri_DicilGiorno18" label="il giorno" format="date" style="width:100%"/>
+      </td>
+      <td  style="vertical-align: top;">
+        <input class="inputNormal" id="Parametri_DicilGiorno19" name="Parametri_DicilGiorno19" label="il giorno" format="date" style="width:100%"/>
+      </td>
+     <td style="vertical-align: top;">
+        <input class="inputNormal" id="Parametri_DicilGiorno20" name="Parametri_DicilGiorno20" label="il giorno" format="date" style="width:100%"/>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          il giorno
+        </p>
+      </td>
+     <td>
+        <p class="Labelcella">
+         il giorno
+        </p>
+      </td>  
+ <td>
+        <p class="Labelcella">
+         il giorno
+        </p>
+      </td>
+  <td>
+        <p class="Labelcella">
+         il giorno
+        </p>
+      </td>  
+    <td>
+        <p class="Labelcella">
+         il giorno
+        </p>
+      </td>     
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">
+        <input class="inputNormal" id="Parametri_DicilGiorno21" name="Parametri_DicilGiorno21" label="il giorno" format="date" style="width:100%"/>
+      </td>
+      <td style="vertical-align: top;">
+        <input class="inputNormal" id="Parametri_DicilGiorno22" name="Parametri_DicilGiorno22" label="il giorno" format="date" style="width:100%"/>
+      </td>
+     <td  style="vertical-align: top;">
+        <input class="inputNormal" id="Parametri_DicilGiorno23" name="Parametri_DicilGiorno23" label="il giorno" format="date" style="width:100%"/>
+      </td>
+      <td  style="vertical-align: top;">
+        <input class="inputNormal" id="Parametri_DicilGiorno24" name="Parametri_DicilGiorno24" label="il giorno" format="date" style="width:100%"/>
+      </td>
+     <td style="vertical-align: top;">
+        <input class="inputNormal" id="Parametri_DicilGiorno25" name="Parametri_DicilGiorno25" label="il giorno" format="date" style="width:100%"/>
+      </td>
+    </tr>
+   
+    
+  </tbody>
+</table>
+
+<globo_salto_pagina>
+</globo_salto_pagina>
+
+
+<br/>
+<table class="Modulo" style="border:1px solid grey">
+ <tbody>
+  <tr class="Rigaintestazione">
+   <td colspan="2">
+    <p style="text-align: center;">
+     <b>
+      Elenco degli allegati
+     </b>
+     <br/>
+     <span style="font-size:70%">
+      <i>
+       (barrare tutti gli allegati richiesti in fase di presentazione della pratica ed elencati sul portale)
+      </i>
+     </span>
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td style="vertical-align: top;">
+    <input enabled="false" id="DAE-CDI" name="DAE-CDI" type="checkbox" value="OBBLIGATORIO"/>
+   </td>
+   <td style="background-color: #eeeeee;">
+    <p>
+     copia del documento d'identità
+     <br/>
+     <span style="font-size:70%">
+      <i>
+       (da non allegare se il modulo è sottoscritto con firma elettronica o se la firma autografa è apposta in presenza del dipendente addetto alla ricezione) 
+      </i>
+     </span>
+    </p>
+   </td>
+  </tr>
+
+  <tr>
+   <td>
+    <input id="ALTRI-ALLEGATI" name="ALTRI-ALLEGATI" type="checkbox" value="OBBLIGATORIO"/>
+   </td>
+   <td style="background-color: #eeeeee;">
+    <p>
+     altri allegati
+     <span style="font-size:70%">
+      (specificare)
+     </span>
+     <input class="" id="AltriAllegati" label="Altri allegati" mandatory_enabled="#ALTRI_ALLEGATI.checked()" name="AltriAllegati" style="width:79%;"/>
+    </p>
+   </td>
+  </tr>
+ </tbody>
+</table>
+<br/>
+
+{{ utils.trattamento_dati_personali() }}
+
+<br/>
+<br/>
+
+
+ {{ utils.firma_hidden() }}
+ <br/>
+
+<p class="Modulo">
+ <input id="SalvaModulo" name="SalvaModulo" style="height:30px;width:120px;" title="Verifica la corretta compilazione dei campi e salva il modulo nel faldone virtuale dell'istanza." type="submit" value="Salva modulo"/>
+</p>
+
+<input destinatario_amministrazione="getParameter('Ente')" id="GLOBO_modulo_c{{ CodiceModulo }}" name="GLOBO_modulo_c{{ CodiceModulo }}" type="hidden" value=""/>
+
+<input id="GLOBO_allegato_cALTRI-ALLEGATI" name="GLOBO_allegato_cALTRI-ALLEGATI" obbligatorio="#ALTRI_ALLEGATI.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_allegato_cDAE-CDI" name="GLOBO_allegato_cDAE-CDI" obbligatorio="#DAE_CDI.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_allegato_cECO-EVENTI" name="GLOBO_allegato_cECO-EVENTI" obbligatorio="#ECO_EVENTI.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_id_padre" name="GLOBO_id_padre" type="hidden"/>
+
+<input id="GLOBO_recupera_dati" name="GLOBO_recupera_dati" type="hidden"/>
+
+<input id="GLOBO_codice_modulo" name="GLOBO_codice_modulo" type="hidden" value="{{ CodiceModulo }}"/>
+
+<!-- passaggio dati tra moduli -->
+<input id="Metadati_TipoProcedimento" name="Metadati_TipoProcedimento" value="permesso_costruire" type="hidden"/>
+<input id="Metadati_TipoSanatoria" name="Metadati_TipoSanatoria" dynamic_value="#Tassonomia_TitoloPDC3.checked() ? 'in_sanatoria' : 'non_in_sanatoria'" type="hidden"/>
+
+{% endblock content %}

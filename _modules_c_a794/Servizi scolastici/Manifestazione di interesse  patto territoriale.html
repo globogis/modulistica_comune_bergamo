@@ -1,0 +1,610 @@
+{% set CodiceModulo = "MAN_COP_TER" %}
+{% set Urn = "document:c_a794:manifestazione.interesse.coprogettazione.patto;istanza" %}
+{% extends "base.html" %}
+
+{% block meta %}
+
+<meta campi_firma="Titolare_CodiceFiscale"
+campi_firma_label="il dichiarante"
+classi_modulo="Servizi scolastici"
+codice_modulo="{{ CodiceModulo }}"
+urn="{% block urn %}{{ Urn }}{% endblock urn %}"
+sub_urn_list=""
+uo_globo_list=""
+descrizione="Manifestazione di interesse coprogettazione e gestione patto educativo territoriale"
+destinatario_amministrazione=""
+destinatario_ufficio="Servizi Sociali"
+dinamico="SI"
+email_a=""
+ente_abilitato="TUTTI"
+filigrana="SI"
+firmare="P7M_ELETTRONICA"
+istruzioni_compilazione=""
+istruzioni_invio="mail_pec"
+metodo_invio="mail"
+name="GLOBO_modulo"
+procura="NO,,"
+tipo_modulo="principale"
+urlhelp="/modulistica/moduli/{{ CodiceModulo }}"
+verifica_pagamento="NO"
+versione="1.0|01/05/2020"/>
+
+<meta codice_modulo_figlio="INCARICO_PROCURA"
+urn_modulo_figlio="document:s_italia:generale;incarico.procura"
+name="GLOBO_modulofiglio"
+numero="1"
+obbligatorio="DINAMICO"/>
+
+<meta codice_modulo_figlio="PROP_PROG"
+urn_modulo_figlio="document:c_a794:proposta.progettuale.manifestazione.interesse;allegato"
+name="GLOBO_modulofiglio"
+numero="1"
+obbligatorio="DINAMICO"/>
+
+<meta codice_allegato="ALTRI-ALLEGATI"
+urn_allegato="document:s_italia:altri.allegati"
+descrizione_estesa="Altri allegati"
+filename="Altri allegati.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/ALTRI-ALLEGATI"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+{% endblock meta %}
+
+{% block title %}
+Manifestazione di interesse per l'individuazione di soggetti privati disponibili a partecipare alla coprogettazione e gestione di un patto educativo territoriale
+ {% endblock title %}
+ 
+{% block content %}
+
+<globo_fondo_pagina areaheight="150" scope="3">
+  {{ utils.firma() }}
+</globo_fondo_pagina>
+
+<input id="Parametri_Comune" name="Parametri_Comune" type="hidden" dynamic_value="#Ente.value()"/>
+<input id="Oggetto" name="Oggetto" type="hidden" dynamic_value="#Titolare_Cognome.value().toUpperCase() + ' ' + #Titolare_Nome.value().toUpperCase() + ' - Manifestazione di interesse coprogettazione e gestione patto educativo territoriale'"/>
+
+{{ intestazioni.intestazione_moduloprincipale_senzabollo() }}
+
+<h1 class="Modulo">
+ Manifestazione di interesse per l'individuazione di soggetti privati disponibili a partecipare alla coprogettazione e gestione di un patto educativo territoriale
+</h1>
+
+{{ anagrafica.societa("Titolare", "Il sottoscritto", ["Persona fisica", "Titolare", "Legale rappresentante"], "Richiedente", "visibility:visibility", "cursor:pointer", "mail_ordinaria", "false") }}
+
+<br>
+<h3 class="Modulo">
+  MANIFESTA IL PROPRIO INTERESSE
+</h3>
+<p class="Modulo">
+  a partecipare alla Programmazione territoriale integrata per il Patto educativo “Estate Insieme” da parte di associazioni, organizzazioni ed enti che si occupano di attività educative, ricreative, sportive, culturali per bambini, bambine, ragazzi e ragazze
+</p>
+<br>
+
+{{ utils.Dichiara_445() }}
+ 
+<br>
+<div id="Tassonomia_Categorie" name="Tassonomia_Categorie" label="Categorie" mandatory="true"></div>
+<table class="Modulo" style="border: 1px solid grey;">
+<tbody>
+  <tr class="Rigaintestazione">
+    <td style="vertical-align: top; width: 4%;"> 
+    <input id="dichiara" name="dichiara" type="checkbox" value="SI" checked="checked" dynamic_check="true"/> 
+    </td>
+    <td>
+        <p class="Labeltabella">
+        di appartenere ad una delle seguenti categorie:
+      </p>
+    </td>
+  </tr>
+  <tr>
+      <td  style="vertical-align: top; width: 4%;"> 
+        <input class='' id='Tassonomia_Categorie1' name='Tassonomia_Categorie' type="radio" value="1"/>
+      </td>
+      <td> 
+         Organizzazioni del Terzo Settore, dell’Associazionismo iscritte ai registi regionali o nazionali o ad analoghi elenchi regionali/nazionali con almeno 1 anno di esperienza nel campo
+      </td>
+    </tr>
+    <tr>
+      <td  style="vertical-align: top; width: 4%;"> 
+        <input class='' id='Tassonomia_Categorie2' name='Tassonomia_Categorie' type="radio" value="2"/>
+      </td>
+      <td> 
+         Enti riconosciuti delle confessioni religiose con le quali lo Stato ha stipulato patti, accordi o intese con almeno 1 anno di esperienza nel campo
+      </td>
+    </tr>
+    <tr>
+      <td  style="vertical-align: top; width: 4%;"> 
+        <input class='' id='Tassonomia_Categorie3' name='Tassonomia_Categorie' type="radio" value="3"/>
+      </td>
+      <td> 
+         Associazioni o società sportive dilettantistiche affiliate ad una Federazione Sportiva Nazionale riconosciuta dal CONI o ad un Ente di promozione atletica riconosciuto che abbiano maturato almeno 1 anno di esperienza nel campo
+      </td>
+    </tr>
+    <tr>
+      <td  style="vertical-align: top; width: 4%;"> 
+        <input class='' id='Tassonomia_Categorie4' name='Tassonomia_Categorie' type="radio" value="4"/>
+      </td>
+      <td> 
+         Enti, Agenzie e Associazioni che svolgono attività educativa in campo culturale con almeno 1 anno di esperienza
+      </td>
+    </tr>
+  </tbody>
+</table>
+<div id="Tassonomia_Scelta_Progettualità" name="Tassonomia_Scelta_Progettualità" label="Scelta progettualità" mandatory="true"></div>
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazioneridotta">
+      <td style="vertical-align: top; width: 4%;" > 
+        <input id="Tassonomia_Indica_Progettualità" name="Tassonomia_Indica_Progettualità" type="checkbox" value="OBBLIGATORIO" checked="checked" dynamic_check="true"/>
+        </td>
+      <td colspan="7">
+        <p class="LabelTabella">
+            di aver maturato le seguenti esperienze coerenti con l'oggetto della manifestazione <i>max 2000 caratteri</i>
+        </p>
+      </td>
+     <tr>
+      <td colspan="7" >
+      <textarea class="inputNormal" id="Parametri_Tipo_Esperienze" name="Parametri_Tipo_Esperienze" style="width: 100%; height: 13cm;" maxlength="2000" label="Tipo Esperienze" mandatory="true"></textarea> 
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td style="vertical-align: top; width: 4%;" > 
+        <input id="Tassomia_Attività" name="Tassomia_Attività" type="checkbox" value="SI" checked="checked" dynamic_check="true" label="Sedi e attività"/>
+      </td>
+      <td colspan="7" >
+        <p class="LabelTabella"  >
+          di essere attivo sul territorio oggetto della programmazione con le seguenti sedi ed attività (max 2.000 caratteri):
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="7">
+      <textarea class="inputNormal" id="Parametri_Tipo_Attività" name="Parametri_Tipo_Attività" style="width: 100%; height: 13cm;" maxlength="2000" label="Tipo Sedi e Attività" mandatory="true" ></textarea> 
+      </td> 
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input class="inputNormal" id="Tassonomia_Spazi_Pro" name="Tassonomia_Spazi_Pro" type="checkbox" value="SI"/>
+      </td>
+      <td colspan="7">
+        di disporre di spazi propri da mettere a disposizione per lo svolgimento delle proprie attività <i>(indicare quali)</i>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="6">
+      <textarea class="inputNormal" id="Tassonomia_Spazi_Attivita" name="Tassonomia_Spazi_Attivita" style="width: 100%; height: 5cm;" label="Spazi Attività" mandatory_enabled="#Tassonomia_Spazi_Pro.checked()" ></textarea> 
+      </td> 
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input class="inputNormal" id="Tassonomia_Spazi_Per_Altri" name="Tassonomia_Spazi_Per_Altri" type="checkbox" value="SI"/>
+      </td>
+      <td colspan="6">
+        di disporre di spazi propri da mettere a disposizione, concordando gli orari,  per lo svolgimento di attività condotte da altri soggetti sottoscrittori del patto <i>indicare quali</i>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="6">
+      <textarea class="inputNormal" id="Parametri_Spazi_Attivita_Altrui" name="Parametri_Spazi_Attivita_Altrui" style="width: 100%; height: 5cm;" label="Spazi per attività altri" mandatory_enabled="#Tassonomia_Spazi_Per_Altri.checked()" ></textarea> 
+      </td> 
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;" mandatory="true" rowspan="4"> 
+        <input class="inputNormal" id="Tassonomia_Quartieri" name="Tassonomia_Quartieri" type="checkbox" value="SI"/>
+      </td>
+      <td colspan="6">
+        di organizzare le proprie attività nei seguenti quartieri <i>(se fossero necessari ulteriori spazi inserire i quartieri in allegato)</i>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="6">
+      <input class="inputNormal" id="Tassonomia_Quartiere_Attivita" name="Tassonomia_Quartiere_Attivita" style="width: 100%;"  label="Denominazione quartiere" mandatory_enabled="#Tassonomia_Quartieri.checked()" />
+      </td> 
+    </tr>
+    <tr>
+      <td colspan="6">
+      <input class="inputNormal" id="Tassonomia_Quartiere_Attivita2" name="Tassonomia_Quartiere_Attivita2" style="width: 100%;"  label="Denominazione quartiere"  />
+      </td> 
+    </tr>
+    <tr>
+      <td colspan="6">
+      <input class="inputNormal" id="Tassonomia_Quartiere_Attivita3" name="Tassonomia_Quartiere_Attivita3" style="width: 100%;"  label="Denominazione quartiere"  />
+      </td> 
+    </tr>
+    <div id="Tassonomia_Eta" name="Tassonomia_Eta" label="Categorie" mandatory_enabled="#Tassonomia_Fascia_Eta.checked()"></div>
+    <tr>
+      <td style="vertical-align: top; width: 4%;" rowspan="4"> 
+        <input class="inputNormal" id="Tassonomia_Fascia_Eta" name="Tassonomia_Fascia_Eta" type="checkbox" checked="checked" dynamic_check="true" value="SI"/>
+      </td>
+      <td colspan="6">
+        di essere disponibile ad organizzare le proprie attività per le seguenti fasce d'età 
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+      <input group="Tassonomia_Eta" id="Tassonomia_Fascia1" name="Tassonomia_Fascia1" style="width: 100%;" Type="checkbox" value="SI"/>
+      </td> 
+      <td colspan="6" >
+        <p>
+          3-5
+        </p>
+        
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;" >
+      <input group="Tassonomia_Eta" id="Tassonomia_Fascia2" name="Tassonomia_Fascia2" style="width: 100%;" Type="checkbox" value="SI"/>
+      </td> 
+      <td colspan="6">
+        6-10
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;" >
+      <input group="Tassonomia_Eta" id="Tassonomia_Fascia3" name="Tassonomia_Fascia3" style="width: 100%;" Type="checkbox" value="SI"/>
+      </td> 
+      <td colspan="6">
+        11-14
+      </td>
+    </tr>
+    <div id="Tassonomia_Periodo" name="Tassonomia_Periodo" label="Categorie" mandatory_enabled="#Tassonomia_Mesi.checked()"></div>
+    <tr>
+      <td style="vertical-align: top; width: 4%;" rowspan="4"> 
+        <input class="inputNormal" id="Tassonomia_Mesi" name="Tassonomia_Mesi" type="checkbox" checked="checked" dynamic_check="true" value="SI"/>
+      </td>
+      <td colspan="6">
+        di essere in grado di organizzare la propria attività nei seguenti mesi e settimane <i> (tenere conto della riapertura delle scuole il primo settembre)</i>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+      <input group="Tassonomia_Mesi" id="Tassonomia_Giugno" name="Tassonomia_Giugno" style="width: 100%;" Type="checkbox" value="SI"/>
+      </td> 
+      <td colspan="6" >
+        <p>
+          Giugno <input class="inputNormal" id="Tassonomia_Settimane_Giugno" name="Tassonomia_Settimane_Giugno" style="width: 70%;";label="Settimane Giugno" mandatory_enabled="#Tassonomia_Giugno.checked()" />
+        </p>
+        
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+      <input group="Tassonomia_Mesi" id="Tassonomia_Luglio" name="Tassonomia_Luglio" style="width: 100%;" Type="checkbox" value="SI"/>
+      </td> 
+      <td colspan="6" >
+        <p>
+          Luglio    <input class="inputNormal" id="Tassonomia_Settimane_Luglio" name="Tassonomia_Settimane_Luglio" style="width: 70%;";label="Settimane Luglio" mandatory_enabled="#Tassonomia_Luglio.checked()" />
+        </p>
+        
+      </td>
+    </tr>
+   <tr>
+      <td style="vertical-align: top; width: 4%;">
+      <input group="Tassonomia_Mesi" id="Tassonomia_Agosto" name="Tassonomia_Agosto" style="width: 100%;" Type="checkbox" value="SI"/>
+      </td> 
+      <td colspan="6" >
+        <p>
+          Agosto <input class="inputNormal" id="Tassonomia_Settimane_Agosto" name="Tassonomia_Settimane_Agosto" style="width: 70%;";label="Settimane Agosto" mandatory_enabled="#Tassonomia_Agosto.checked()" />
+        </p>
+        
+      </td>
+    </tr>
+    <div id="Tassonomia_Orario" name="Tassonomia_Orario" label="Orario" mandatory="true"></div>
+     <div id="Tassonomia_Tipo_Orario" name="Tassonomia_Tipo_Orario" label="Orario" mandatory_enabled="#Tassonomia_Orario2.checked()"></div>
+    <tr>
+      <td style="vertical-align: top; width: 4%;" rowspan="5"> 
+        <input class="inputNormal" id="Tassonomia_Tipo_Frequenza" name="Tassonomia_Tipo_Frequenza" type="checkbox"  value="si" checked="checked" dynamic_check="true"/>
+      </td>
+      <td colspan="6">
+         di organizzare la propria attività per 
+      </td>
+      </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;"> 
+        <input class="inputNormal" id="Tassonomia_Orario1" name="Tassonomia_Orario" type="radio"  value="1"/>
+      </td>
+      <td colspan="6">
+          l'intera giornata
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;" rowspan="3">
+      <input class="inputNormal" id="Tassonomia_Orario2" name="Tassonomia_Orario" type="radio"  value="2"/>
+      </td> 
+      <td colspan="6">
+         per mezza giornata        
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+       <td colspan="6" >
+        <p class="Labelcella">
+          Specificare 
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+    <select class="inputNormal" id="Tassonomia_Fascia_Oraria" name="Tassonomia_Fascia_Oraria" style="width: 100%;" label="Fascia Oraria" mandatory_enabled="#Tassonomia_Orario2.checked()">
+                {% set opts = ["","giornata intera","mezza giornata mattina","mezza giornata pomeriggio"] %}
+                {% for opt in opts %}
+                  <option value="{{ opt }}"> {{ opt }} </option>
+                {% endfor %}
+              </select>
+        </td>
+    </tr>
+    
+    <div id="Tassonomia_Operatori" name="Tassonomia_Operatori" label="Categorie" mandatory_enabled="#Tassonomia_Tipo_Operatori.checked()"></div>
+    <tr>
+      <td style="vertical-align: top; width: 4%;" rowspan="5"> 
+        <input class="inputNormal" id="Tassonomia_Tipo_Operatori" name="Tassonomia_Tipo_Operatori" type="checkbox" checked="checked" dynamic_check="true" value="SI"/>
+      </td>
+      <td colspan="3">
+        che gli animatori/educatori/operatori sono inquadrati nelle seguenti categorie
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+      <input group="Tassonomia_Operatori" id="Tassonomia_Volontari" name="Tassonomia_Volontari" style="width: 100%;" Type="checkbox" value="SI"/>
+      </td> 
+      <td >
+        <p>
+          volontari
+        </p>
+        
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+      <input group="Tassonomia_Operatori" id="Tassonomia_Collaboratori" name="Tassonomia_Collaboratori" style="width: 100%;" Type="checkbox" value="SI"/>
+      </td> 
+      <td >
+        <p>
+          collaboratori
+        </p>
+        
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+      <input group="Tassonomia_Operatori" id="Tassonomia_Allenatori" name="Tassonomia_Allenatori" style="width: 100%;" Type="checkbox" value="SI"/>
+      </td> 
+      <td >
+        <p>
+          allenatori
+        </p>
+        
+      </td>
+    </tr>
+   <tr>
+      <td style="vertical-align: top; width: 4%;">
+      <input group="Tassonomia_Operatori" id="Tassonomia_Altro" name="Tassonomia_Altro" style="width: 100%;" Type="checkbox" value="SI"/>
+      </td> 
+      <td >
+        <p>
+          Altro <i>Specificare</i> <input class="inputNormal" id="Tassonomia_Atri_Coll" name="Tassonomia_Atri_Coll" style="width: 70%;";label="altra categoria operatori" mandatory_enabled="#Tassonomia_Altro.checked()" />
+        </p>
+        
+      </td>
+    </tr>
+    <div id="Tassonomia_Formazione" name="Tassonomia_Formazione" label="Formazione operatori" mandatory_enabled="#Tassonomia_Form_Oper.checked()"></div>
+    <tr>
+      <td style="vertical-align: top; width: 4%;" rowspan="5"> 
+        <input class="inputNormal" id="Tassonomia_Form_Oper" name="Tassonomia_Form_Oper" type="checkbox" checked="checked" dynamic_check="true" value="SI"/>
+      </td>
+      <td colspan="3">
+       che animatori/educatori/allenatori 
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+      <input  id="Tassonomia_No_Formazione" name="Tassonomia_Formazione" style="width: 100%;" Type="radio" value="1"/>
+      </td> 
+      <td >
+        <p>
+          non hanno una formazione specifica  
+        </p>
+        
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;" rowspan="3">
+      <input id="Tassonomia_Si_Formazione" name="Tassonomia_Formazione" style="width: 100%;" Type="radio" value="2"/>
+      </td> 
+      <td  >
+        <p>
+         hanno una formazione specifica 
+        </p>
+        
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          Indicare quale
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>     
+       <input class="inputNormal" id="Tassonomia_Tipo_Form" name="Tassonomia_Tipo_Form" style="width: 100%;";label="Tipo Formazione operatori" mandatory_enabled="#Tassonomia_Si_Formazione.checked()" />
+     </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+      <input  id="Tassonomia_Formazione_Pedagocica" name="Tassonomia_Formazione_Pedagocica" style="width: 100%;" Type="checkbox" value="si"/>
+      </td> 
+      <td colspan="4" >
+        <p>
+          di avere necessità di formazione pedagocica con riferimento alle fasce d'età per l'attività svolta 
+        </p>        
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+      <input  id="Tassonomia_Formazione_DPI" name="Tassonomia_Formazione_DPI" style="width: 100%;" Type="checkbox" value="si"/>
+      </td> 
+      <td colspan="4" >
+        <p>
+          di avere necessità di formazione sui comportamenti, le procedure di sicurezza e l’utilizzo corretto dei dispositivi di protezione individuale
+        </p>        
+      </td>
+    </tr>
+<tr>
+      <td style="vertical-align: top; width: 4%;" rowspan="2" >
+      <input  id="Tassonomia_Costo" name="Tassonomia_Costo" style="width: 100%;" Type="checkbox" checked="checked" dynamic_check="true" value="si"/>
+      </td> 
+      <td colspan="4" >
+        <p>
+          di quantificare, tenendo conto dell'indeterminatezza dei dati attualmente noti, il costo unitario settimanale per bambino in Euro <i> indicativo e da riverificare</i>
+        </p>        
+      </td>
+    </tr>
+    <tr>
+      <td colspan="4">
+      <input  id="Tassonomia_Euro" name="Tassonomia_Euro" style="width: 100%;" label="Costo per bambino" mandatory="true"/>
+      </td> 
+    </tr>
+    </tbody>
+</table>
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazioneridotta">
+      <td style="vertical-align: top; width: 4%;" rowspan="5">
+        <input class="inputNormal" id="Tassonomia_Ref" name="Tassonomia_Ref" type="checkbox" value="SI" checked="checked" dynamic_check="true" />
+      </td>
+      <td colspan="3">
+        <p class="Labeltabella">
+           di indicare quale referente per la proposta progettuale
+        </p>
+      </td>
+    </tr>
+      
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          Cognome
+        </p>
+      </td>
+       <td>
+        <p class="Labelcella">
+          Nome
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="width: 50%;" >
+       <input type="InputNormal" id="Tassonomia_Cognome_Ref" name="Tassonomia_Cognome_Ref" label="Cognome Referente" style="width: 100%;" mandatory="true"/>
+      </td>
+      <td style="width: 50%;" >
+       <input type="InputNormal" id="Tassonomia_Nome_Ref" name="Tassonomia_Nome_Ref" label="Nome Referente" style="width: 100%;"mandatory="true"/>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          Recapito Tel.
+        </p>
+      </td>
+       <td>
+        <p class="Labelcella">
+          Indirizzo email
+        </p>
+      </td>
+    </tr>
+    <tr mandatory="true">
+      <td style="width: 50%;" >
+       <input type="InputNormal" id="Tassonomia_Rec_Ref" name="Tassonomia_Rec_Ref" label="Recapito telefonico Referente" style="width: 100%;" mandatory="true"/>
+      </td>
+      <td style="width: 50%;" >
+       <input type="InputNormal" id="Tassonomia_Email_Ref" name="Tassonomia_Email_Ref" label="Email Referente" style="width: 100%;" format="mail_ordinaria" mandatory="true"/>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<br>
+
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          Eventuali annotazioni
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <textarea class="inputNormal" id="Parametri_Annotazioni" name="Parametri_Annotazioni" style="width: 100%; height: 5cm;" label="Eventuali annotazioni"></textarea>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<br>
+<table class="Modulo" name="Allegati" style="border: 1px solid grey">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="2">
+        <p style="text-align: center;">
+          <b>
+          Elenco degli allegati
+          </b>
+          <br/>
+          <span style="font-size:70%">
+          <i>(barrare tutti gli allegati richiesti in fase di presentazione della pratica ed elencati sul portale)</i>
+          </span>
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="PROP_PROG" name="PROP_PROG" type="checkbox" value="OBBLIGATORIO" cheched="checked" dynamic_check="true"/>
+      </td>
+      <td>
+        <p>
+          Proposta progettuale
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="ALTRI-ALLEGATI" name="ALTRI-ALLEGATI" type="checkbox" value="OBBLIGATORIO"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          altri allegati
+          <span style="font-size:70%">(specificare)</span>
+          <input class="" label="Altri allegati" id="AltriAllegati" mandatory_enabled="#ALTRI_ALLEGATI.checked()" name="AltriAllegati" style="width:79%;"/>
+        </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<br>
+{{ utils.trattamento_dati_personali() }}
+<br/>
+  {{ utils.firma_hidden() }}
+<br/>
+
+<p class="Modulo">
+  <input id="SalvaModulo" name="SalvaModulo" style="height:30px;width:120px;" title="Verifica la corretta compilazione dei campi e salva il modulo nel faldone virtuale dell'istanza." type="submit" value="Salva modulo"/>
+</p>
+
+<input destinatario_amministrazione="getParameter('Ente')" id="GLOBO_modulo_c{{ CodiceModulo }}" name="GLOBO_modulo_c{{ CodiceModulo }}" type="hidden" value=""/>
+<input firmare="'P7M_ELETTRONICA'" id="GLOBO_modulofiglio_cINCARICO_PROCURA" name="GLOBO_modulofiglio_cINCARICO_PROCURA" type="hidden" value=""/>
+<input id="GLOBO_modulofiglio_cPROP_PROG" name="GLOBO_modulofiglio_cPROP_PROG" type="hidden" value="" obbligatorio="#PROP_PROG.checked() ? 'OBBLIGATORIO' : ''"/>
+<input id="GLOBO_allegato_cALTRI-ALLEGATI" name="GLOBO_allegato_cALTRI-ALLEGATI" obbligatorio="#ALTRI_ALLEGATI.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+
+<input id="GLOBO_id_padre" name="GLOBO_id_padre" type="hidden"/>
+<input id="GLOBO_recupera_dati" name="GLOBO_recupera_dati" type="hidden"/>
+<input id="GLOBO_codice_modulo" name="GLOBO_codice_modulo" type="hidden" value="{{ CodiceModulo }}"/>
+
+{% endblock content %}

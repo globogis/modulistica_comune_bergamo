@@ -1,0 +1,157 @@
+{% set CodiceModulo = "SCH-CGI-ADL" %}
+{% set Urn = "document:c_a794:scheda.adl" %}
+{% extends "base.html" %}
+{% block meta %}
+
+<meta campi_firma="DichiarazioneCF"
+campi_firma_label="il dichiarante"
+classi_modulo="Ambito territoriale"
+codice_modulo="{{ CodiceModulo }}"
+urn="{% block urn %}{{ Urn }}{% endblock urn %}"
+sub_urn_list=""
+uo_globo_list=""
+descrizione="Scheda A.D.L."
+destinatario_amministrazione=""
+destinatario_ufficio=""
+dinamico="SI"
+email_a=""
+ente_abilitato="TUTTI"
+filigrana="NO"
+firmare="P7M_ELETTRONICA" 
+istruzioni_compilazione=""
+istruzioni_invio=""
+metodo_invio="mail"
+name="GLOBO_modulo"
+procura="NO,,"
+tipo_modulo="secondario"
+ufficio=""
+urlhelp="/modulistica/moduli/{{ CodiceModulo }}"
+verifica_pagamento="NO"
+versione="1.4|02/05/2019"/>
+
+{% endblock meta %}
+
+{% block title %}
+  Scheda A.D.L.
+{% endblock title %}
+
+{% block content %}
+
+<globo_fondo_pagina areaheight="150" scope="1">
+  {{ utils.firma() }}
+</globo_fondo_pagina>
+
+<input id="Oggetto" name="Oggetto" type="hidden" dynamic_value="'Scheda A.D.L.'"/>
+
+{{ intestazioni.intestazione_modulosecondario_senzabollo() }}
+
+<h1 class="Modulo">SCHEDA A.D.L.<br/>
+(Index of Indipendence in Activities of Daily Living)</h1>
+		
+
+{% set Macro = [  ("(AD 1) <br> Fare il bagno", [ ("Non riceve alcuna assistenza (entra ed esce dalla vasca autonomamente, nel caso che la vasca sia il mezzo abituale per fare il bagno)", 1),
+                                                  ("Riceve assistenza nel lavare solo una parte del corpo (es. la schiena od una gamba)", 1) ,
+                                                  ("Riceve assistenza nel lavare più di una parte del corpo (o rimane non lavato)", 0) ] ),
+                  ("(AD 2) <br> Vestirsi", [  ("Prende gli abiti e si veste completamente senza assistenza", 1),
+                                              ("Prende gli abiti e si veste completamente senza assistenza, tranne per allacciarsi le scarpe", 1) ,
+                                              ("Riceve assistenza nel prendere gli abiti o nel vestirsi oppure rimane parzialmente o completamente svestito", 0) ] ),
+                  ("(AD 3) <br> Uso dei servizi", [ ("Va ai servizi, si pulisce, si riveste senza assistenza (può usare supporti come il bastone o il deambulatore o la sedia a rotelle, è in grado di maneggiare la padella o la comoda svuotandola al mattino)", 1),
+                                                    ("Riceve assistenza nell’andare ai servizi, nel pulirsi, nel vestirsi, nell’usare la padella o la comoda", 0) ,
+                                                    ("Non va ai servizi per i bisogni corporali", 0) ] ),
+                  ("(AD 4) <br> Spostarsi", [ ("Entra ed esce dal letto come pure si siede e si alza dalla sedia senza assistenza (può usare supporti come il bastone o il deambulatore)", 1),
+                                              ("Entra ed esce dal letto come pure si siede e si alza dalla sedia con assistenza", 0) ,
+                                              ("Non si alza dal letto", 0) ] ),
+                  ("(AD 5) <br> Continenza", [  ("Controlla completamente da solo la minzione o la defecazione", 1),
+                                                ("Ha occasionali &quot;incidenti&quot;", 0) ,
+                                                ("Il controllo della minzione e della defecazione è condizionato dalla sorveglianza, usa il catetere o è incontinente", 0) ] ),
+                  ("(AD 6) <br> Alimentarsi", [ ("Si alimenta da solo senza assistenza", 1),
+                                                ("Si alimenta da solo eccetto che necessita di assistenza per tagliare la carne o per spalmare il burro sul pane", 1) ,
+                                                ("Riceve assistenza nell’alimentarsi o viene alimentato parzialmente o completamente per sondino o per via endovenosa", 0) ] )
+                                               ]
+                  %}
+
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazioneridotta">
+      <td colspan="3" style="width: 90%">
+        <p class="Labelcella"> Attività </p>
+      </td>
+      <td style="width: 10%">
+        <p class="Labelcella"> Punteggio </p>
+      </td>
+    </tr>
+
+    {% for m,array in Macro %}
+      <tr>
+        <td style="width: 15%" rowspan="{{array|length}}">
+          <p> {{ m|safe }} </p>
+        </td>
+        {% set father = loop.index %}
+        <div id="Tassonomia_Attivita{{father}}" name="Tassonomia_Attivita{{father}}" label="{{ item }}" mandatory="true"></div>
+        {% for item,value in array %}
+          {% if loop.first %}
+              <td style="width: 4%">
+                <input id="Tassonomia_Attivita{{father}}_{{loop.index}}" name="Tassonomia_Attivita{{father}}" type="radio" value="{{value}}" />
+              </td>
+              <td>
+                <p>  {{ item }} </p>
+              </td>
+              <td>
+                <p> {{ value }} </p>
+              </td>
+            </tr>
+          {% else %}
+            <tr>
+              <td style="width: 4%">
+                <input id="Tassonomia_Attivita{{father}}_{{loop.index}}" name="Tassonomia_Attivita{{father}}" type="radio" value="{{value}}" />
+              </td>
+              <td>
+                <p> {{ item }} </p>
+              </td>
+              <td>
+                <p> {{ value }} </p>
+              </td>
+            </tr>
+          {% endif %}
+        {% endfor %}
+    {% endfor %}
+  </tbody>
+</table>
+
+{% for m,array in Macro %}
+  {% set father = loop.index %}
+  <input id="Parametri_ValoreAttivita{{father}}" name="Parametri_ValoreAttivita{{father}}" type="hidden" dynamic_value=" {% for item,value in array %} #Tassonomia_Attivita{{father}}_{{loop.index}}.checked() ? parseInt(#Tassonomia_Attivita{{father}}_{{loop.index}}.value()) : 0 {% if not loop.last %} + {% endif %} {% endfor %}" />
+{% endfor %}
+
+<table class="Modulo" style="border: 1px solid grey;margin-top: -1px;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td style="width: 90%">
+        <p class="Labeltabella" style="text-align: right"> TOTALE PUNTEGGIO </p>
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_TotalePunteggio" name="Parametri_TotalePunteggio" style="width: 100%;" label="Totale punteggio" dynamic_value="{% for m,array in Macro %} parseInt(#Parametri_ValoreAttivita{{loop.index}}.value()) {% if not loop.last %} + {% endif %} {% endfor %}" />
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+
+
+
+<br/>
+  {{ utils.firma_hidden() }}
+<br/>
+
+<p class="Modulo">
+  <input id="SalvaModulo" name="SalvaModulo" style="height:30px;width:120px;" title="Verifica la corretta compilazione dei campi e salva il modulo nel faldone virtuale dell'istanza." type="submit" value="Salva modulo"/>
+</p>
+
+<input id="GLOBO_modulo_c{{ CodiceModulo }}" name="GLOBO_modulo_c{{ CodiceModulo }}" type="hidden" value=""/>
+
+<input id="GLOBO_id_padre" name="GLOBO_id_padre" type="hidden"/>
+<input id="GLOBO_recupera_dati" name="GLOBO_recupera_dati" type="hidden"/>
+<input id="GLOBO_codice_modulo" name="GLOBO_codice_modulo" type="hidden" value="{{ CodiceModulo }}"/>
+
+{% endblock content %}

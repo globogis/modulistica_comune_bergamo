@@ -1,0 +1,165 @@
+{% set CodiceModulo = "SCH-CGI-IAD" %}
+{% set Urn = "document:c_a794:scheda.iadl" %}
+{% extends "base.html" %}
+{% block meta %}
+
+<meta campi_firma="DichiarazioneCF"
+campi_firma_label="il dichiarante"
+classi_modulo="Ambito territoriale"
+codice_modulo="{{ CodiceModulo }}"
+urn="{% block urn %}{{ Urn }}{% endblock urn %}"
+sub_urn_list=""
+uo_globo_list=""
+descrizione="Scheda I.A.D.L."
+destinatario_amministrazione=""
+destinatario_ufficio=""
+dinamico="SI"
+email_a=""
+ente_abilitato="TUTTI"
+filigrana="NO"
+firmare="P7M_ELETTRONICA" 
+istruzioni_compilazione=""
+istruzioni_invio=""
+metodo_invio="mail"
+name="GLOBO_modulo"
+procura="NO,,"
+tipo_modulo="secondario"
+ufficio=""
+urlhelp="/modulistica/moduli/{{ CodiceModulo }}"
+verifica_pagamento="NO"
+versione="1.4|02/05/2019"/>
+
+{% endblock meta %}
+
+{% block title %}
+  Scheda I.A.D.L.
+{% endblock title %}
+
+{% block content %}
+
+<globo_fondo_pagina areaheight="150" scope="1">
+  {{ utils.firma() }}
+</globo_fondo_pagina>
+
+<input id="Oggetto" name="Oggetto" type="hidden" dynamic_value="'Scheda I.A.D.L.'"/>
+
+{{ intestazioni.intestazione_modulosecondario_senzabollo() }}
+
+<h1 class="Modulo">SCHEDA I.A.D.L.<br/>
+(Instrumental Activities of Daily Living Scale)
+</h1>
+
+
+
+{% set Macro = [  ("(I.A. 1) A <br> Capacità di usare il telefono", [ ("Usa il telefono di propria iniziativa, alza il microfono e compone il numero", 1),
+                                                                      ("Compone solo alcuni numeri ben conosciuti", 1),
+                                                                      ("È in grado di rispondere al telefono, ma non di chiamare", 1),
+                                                                      ("Non è capace di usare il telefono", 0) ] ),
+                  ("(I.A. 2) B <br> Movimento per acquisti nei negozi", [ ("Prende autonomamente cura di tutte le necessità di acquisti nei negozi", 1),
+                                                                          ("È in grado di effettuare solo piccoli acquisti nei negozi", 0),
+                                                                          ("Necessita di essere accompagnato per qualsiasi giro di acquisti nei negozi", 0),
+                                                                          ("È del tutto incapace di fare acquisti nei negozi", 0)  ] ),
+                  ("(I.A. 3) C <br> Mezzi di trasporto", [  ("Si sposta da solo sui mezzi pubblici o guida la propria auto", 1),
+                                                            ("Organizza i propri spostamenti con taxi, ma non usa i mezzi pubblici", 1),
+                                                            ("Usa i mezzi pubblici se accompagnato da qualcuno", 1),
+                                                            ("Può spostarsi soltanto con taxi o con auto con l’assistenza di altri", 0),
+                                                            ("Non si sposta per niente", 0) ] ),
+                  ("(I.A. 4) D <br> Responsabilità nell’uso di farmaci", [  ("È in grado di assumere medicinali nelle giuste dosi ed al tempo giusto", 1),
+                                                                            ("È in grado di assumere medicinali se preparati in anticipo in dosi separate", 0),
+                                                                            ("Non è in grado di assumere medicine da solo", 0) ] ),
+                  ("(I.A. 5) E <br> Capacità di gestire il danaro", [ ("Gestisce le operazioni finanziarie indipendentemente (bilanci, scrive assegni, paga affitti, conti, va in banca, raccoglie e tiene nota delle entrate)", 1),
+                                                                      ("Gestisce gli acquisti quotidiani, ma necessita di aiuto per le operazioni bancarie, gli acquisti maggiori, ecc.", 1),
+                                                                      ("È incapace di maneggiare denaro", 0) ] ),
+                  ("(I.A. 6) F <br> Cucinare", [  ("Si prepara e si serve i pasti da solo", 1),
+                                                  ("Assume cibo inadeguato anche se preparato da solo o gli debbono essere forniti gli ingredienti", 0) ] ),
+                  ("(I.A. 7) G <br> Accudire la casa", [  ("Fa lavori leggeri da solo anche se non mantiene la casa pulita o va aiutato ma fa tutti i lavori", 1),
+                                                          ("Non fa alcun lavoro domestico", 0) ] ),
+                  ("(I.A. 8) H <br> Bucato", [  ("Lava da solo tutto o solo la biancheria", 1),
+                                                ("Tutto il bucato è fatto da altri", 0) ] )  
+                ] 
+%}
+
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazioneridotta">
+      <td colspan="3" style="width: 90%">
+        <p class="Labelcella"> Attività </p>
+      </td>
+      <td style="width: 10%">
+        <p class="Labelcella"> Punteggio </p>
+      </td>
+    </tr>
+
+    {% for m,array in Macro %}
+      <tr>
+        <td style="width: 15%" rowspan="{{array|length}}">
+          <p> {{ m|safe }} </p>
+        </td>
+        {% set father = loop.index %}
+        <div id="Tassonomia_Attivita{{father}}" name="Tassonomia_Attivita{{father}}" label="{{ item }}" mandatory="true"></div>
+        {% for item,value in array %}
+          {% if loop.first %}
+              <td style="width: 4%">
+                <input id="Tassonomia_Attivita{{father}}_{{loop.index}}" name="Tassonomia_Attivita{{father}}" type="radio" value="{{value}}" />
+              </td>
+              <td>
+                <p>  {{ item }} </p>
+              </td>
+              <td>
+                <p> {{ value }} </p>
+              </td>
+            </tr>
+          {% else %}
+            <tr>
+              <td style="width: 4%">
+                <input id="Tassonomia_Attivita{{father}}_{{loop.index}}" name="Tassonomia_Attivita{{father}}" type="radio" value="{{value}}" />
+              </td>
+              <td>
+                <p> {{ item }} </p>
+              </td>
+              <td>
+                <p> {{ value }} </p>
+              </td>
+            </tr>
+          {% endif %}
+        {% endfor %}
+    {% endfor %}
+  </tbody>
+</table>
+
+{% for m,array in Macro %}
+  {% set father = loop.index %}
+  <input id="Parametri_ValoreAttivita{{father}}" name="Parametri_ValoreAttivita{{father}}" type="hidden" dynamic_value=" {% for item,value in array %} #Tassonomia_Attivita{{father}}_{{loop.index}}.checked() ? parseInt(#Tassonomia_Attivita{{father}}_{{loop.index}}.value()) : 0 {% if not loop.last %} + {% endif %} {% endfor %}" />
+{% endfor %}
+
+<table class="Modulo" style="border: 1px solid grey;margin-top: -1px;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td style="width: 90%">
+        <p class="Labeltabella" style="text-align: right"> TOTALE PUNTEGGIO </p>
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_TotalePunteggio" name="Parametri_TotalePunteggio" style="width: 100%;" label="Totale punteggio" dynamic_value="{% for m,array in Macro %} parseInt(#Parametri_ValoreAttivita{{loop.index}}.value()) {% if not loop.last %} + {% endif %} {% endfor %}" />
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+
+
+<br/>
+  {{ utils.firma_hidden() }}
+<br/>
+
+<p class="Modulo">
+  <input id="SalvaModulo" name="SalvaModulo" style="height:30px;width:120px;" title="Verifica la corretta compilazione dei campi e salva il modulo nel faldone virtuale dell'istanza." type="submit" value="Salva modulo"/>
+</p>
+
+<input id="GLOBO_modulo_c{{ CodiceModulo }}" name="GLOBO_modulo_c{{ CodiceModulo }}" type="hidden" value=""/>
+
+<input id="GLOBO_id_padre" name="GLOBO_id_padre" type="hidden"/>
+<input id="GLOBO_recupera_dati" name="GLOBO_recupera_dati" type="hidden"/>
+<input id="GLOBO_codice_modulo" name="GLOBO_codice_modulo" type="hidden" value="{{ CodiceModulo }}"/>
+
+{% endblock content %}

@@ -1,0 +1,531 @@
+{% set CodiceModulo = "SCH-VAL-SOC" %}
+{% set Urn = "document:c_a794:scheda.valutazione.sociale" %}
+{% extends "base.html" %}
+{% block meta %}
+
+<meta campi_firma="DichiarazioneCF"
+campi_firma_label="il dichiarante"
+classi_modulo="Ambito territoriale"
+codice_modulo="{{ CodiceModulo }}"
+urn="{% block urn %}{{ Urn }}{% endblock urn %}"
+sub_urn_list=""
+uo_globo_list=""
+descrizione="Scheda di valutazione sociale"
+destinatario_amministrazione=""
+destinatario_ufficio=""
+dinamico="SI"
+email_a=""
+ente_abilitato="TUTTI"
+filigrana="NO"
+firmare="P7M_ELETTRONICA" 
+istruzioni_compilazione=""
+istruzioni_invio=""
+metodo_invio="mail"
+name="GLOBO_modulo"
+procura="NO,,"
+tipo_modulo="secondario"
+ufficio=""
+urlhelp="/modulistica/moduli/{{ CodiceModulo }}"
+verifica_pagamento="NO"
+versione="1.1|18/04/2019"/>
+
+{% endblock meta %}
+
+{% block title %}
+  Scheda di valutazione sociale
+{% endblock title %}
+
+{% block content %}
+
+<globo_fondo_pagina areaheight="150" scope="2">
+  {{ utils.firma() }}
+</globo_fondo_pagina>
+
+<input id="Oggetto" name="Oggetto" type="hidden" dynamic_value="'Scheda di valutazione sociale'"/>
+
+{{ intestazioni.intestazione_modulosecondario_senzabollo() }}
+
+<h1 class="Modulo">
+  Scheda di valutazione sociale
+</h1>
+
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="7">
+        <p class="Labeltabella">
+            1. CONDIZIONE ABITATIVA
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <p>
+           Situazione abitativa
+        </p>
+      </td>
+      <td>
+	    <div id="CondizioneAbtativaFirst" mandatory="true" label="Situazione abitativa"/>
+        <p><input id="CondizioneAbtativaFirst1" name="CondizioneAbtativaFirst" type="radio" value="1" /> Adeguata</p>
+      </td>
+      <td>
+        <p>0</p>
+      </td>
+      <td>
+        <p><input id="CondizioneAbtativaFirst2" name="CondizioneAbtativaFirst" type="radio" value="2" /> Parzialmente Adeguata</p>
+      </td>
+      <td>
+        <p>2</p>
+      </td>
+      <td>
+        <p><input id="CondizioneAbtativaFirst3" name="CondizioneAbtativaFirst" type="radio" value="3" /> Inadeguata</p>
+      </td>
+      <td>
+        <p>4</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <p>
+            Sostenibilità abitazione
+        </p>
+      </td>
+      <td>
+        <div id="CondizioneAbtativaSecond" mandatory="true" label="Sostenibilità abitazione"/>
+        <p><input id="CondizioneAbtativaSecond1" name="CondizioneAbtativaSecond" type="radio" value="1" /> Sostenibile</p>
+      </td>
+      <td>
+        <p>0</p>
+      </td>
+      <td>
+        <p><input id="CondizioneAbtativaSecond2" name="CondizioneAbtativaSecond" type="radio" value="2" /> Parzialmente sostenibile</p>
+      </td>
+      <td>
+        <p>1</p>
+      </td>
+      <td>
+        <p><input id="CondizioneAbtativaSecond3" name="CondizioneAbtativaSecond" type="radio" value="3" /> Non sostenibile</p>
+      </td>
+      <td>
+       <p> 2</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <p>
+            Precarietà
+        </p>
+      </td>
+      <td>
+        <div id="CondizioneAbtativaThird" mandatory="true" label="Precarietà"/>
+        <p><input id="CondizioneAbtativaThird1" name="CondizioneAbtativaThird" type="radio" value="1" />  Assente</p>
+      </td>
+      <td>
+        <p>0</p>
+      </td>
+      <td>
+        <p><input id="CondizioneAbtativaThird2" name="CondizioneAbtativaThird" type="radio" value="2" /> Moderata</p>
+      </td>
+      <td>
+        <p>2</p>
+      </td>
+      <td>
+        <p><input id="CondizioneAbtativaThird3" name="CondizioneAbtativaThird" type="radio" value="3" /> Severa</p>
+      </td>
+      <td>
+        <p>4</p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="8">
+        <p class="Labeltabella">
+            2. FRAGILITA' SOCIALE
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazione">
+      <td colspan="7">
+        <p class="Labeltabella">
+            2.1 Carico assistenziale
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="width:24%">
+        <p>
+            Disabilità o invalidità a carico di componenti del nucleo familiare
+        </p>
+      </td>
+      <td style="width:17%">
+        <p><input id="Disabilita1" name="Disabilita1" type="checkbox" value="SI" />  Nessun <br/>riconoscimento di <br/>invalidità</p>
+      </td>
+      <td>
+        <p>0</p>
+      </td>
+      <td style="width:30%">
+        <p><input id="Disabilita2" name="Disabilita2" type="checkbox" value="SI" /> Riconoscimento di invalidità <br/>civile per:<br/>
+        - persone di età compresa tra 18 <br/>e 65 anni con disabilità grave e <br/>non autosufficienza;  <br/>
+        - minori con disabilità medio/grave<br/> e non autosufficienza;<br/>
+        - over 65 con disabilità grave e<br/> non autosufficienza 
+        (ex DCPM <br/>159/2013)</p>
+      </td>
+      <td>
+        <p>4</p>
+      </td>
+      <td>
+        <p><input id="Disabilita3" name="Disabilita3" type="checkbox" value="SI" /> Riconoscimento <br/>dell’indennità di <br/>accompagnamento
+      </td>
+      <td>
+        <p>8</p>
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        <p>
+            Ulteriore carico <br/>assistenziale
+        </p>
+      </td>
+      <td>
+        <p><input id="Ulteriore1" name="Ulteriore1" type="checkbox" value="SI" /> Assenza di <br/>minori e persone <br/>anziane con <br/>compromissione <br/>funzionale</p>
+      </td>
+      <td>
+        <p>0</p>
+      </td>
+      <td>
+        <p><input id="Ulteriore2" name="Ulteriore2" type="checkbox" value="SI" /> Presenza di 1 membro <br/>anziano con compromissione <br/>funzionale o di 1 minore</p>
+      </td>
+      <td>
+        <p>2</p>
+      </td>
+      <td>
+        <p><input id="Ulteriore3" name="Ulteriore3" type="checkbox" value="SI" /> Presenza di 2 e  più<br/> membri minori o <br/>anziani con<br/> compromissione <br/>funzionale</p>
+      </td>
+      <td>
+        <p>4</p>
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        <p>
+            Stress del caregiver
+        </p>
+      </td>
+      <td>
+        <p><input id="Caregiver1" name="Caregiver1" type="checkbox" value="SI" /> Assenza di <br/>stress del care <br/>giver</p>
+      </td>
+      <td>
+        <p>0</p>
+      </td>
+      <td>
+        <p><input id="Caregiver2" name="Caregiver2" type="checkbox" value="SI" /> Stress moderato del caregiver</p>
+      </td>
+      <td>
+        <p>3</p>
+      </td>
+      <td>
+        <p><input id="Caregiver3" name="Caregiver3" type="checkbox" value="SI" /> Stress elevato del<br/> caregiver</p>
+      </td>
+      <td>
+        <p>6</p>
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        <p>
+            Evento acuto a carico del <br/>care giver
+        </p>
+      </td>
+      <td>
+        <p><input id="EventoAcuto1" name="EventoAcuto1" type="checkbox" value="SI" /> Nessun<br/> evento a carico<br/> del care giver</p>
+      </td>
+      <td>
+        <p>0</p>
+      </td>
+      <td>
+        <p><input id="EventoAcuto2" name="EventoAcuto2" type="checkbox" value="SI" /> Patologia certificata che<br/> compromette l'autonomia <br/>funzionale del care giver</p>
+      </td>
+      <td>
+        <p>3</p>
+      </td>
+      <td>
+        <p><input id="EventoAcuto3" name="EventoAcuto3" type="checkbox" value="SI" /> Decesso o assenza<br/> del care giver</p>
+      </td>
+      <td>
+        <p>5</p>
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        <p>
+            Limitazioni della capacità <br/>di agire a carico di un<br/>componente del nucleo<br/> familiare
+        </p>
+      </td>
+      <td>
+        <p><input id="Limitazioni1" name="Limitazioni1" type="checkbox" value="SI" /> Assenza di <br/>limitazioni</p>
+      </td>
+      <td>
+       <p> 0</p>
+      </td>
+      <td>
+        <p><input id="Limitazioni2" name="Limitazioni2" type="checkbox" value="SI" /> Presenza di amministrazione <br/>di sostegno</p>
+      </td>
+      <td>
+       <p> 1</p>
+      </td>
+      <td>
+        <p><input id="Limitazioni3" name="Limitazioni3" type="checkbox" value="SI" /> Presenza di<br/> inabilitazione, <br/>interdizione</p>
+      </td>
+      <td>
+       <p> 2</p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<table class="Modulo" style="border: 1px solid grey;margin-top:-1px">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="7">
+        <p class="Labeltabella">
+            2.2 Carico Sociale
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="width:24%">
+        <p>
+            Dipendenze accertate a<br/> carico di un componente<br/> del nucleo familiare
+        </p>
+      </td>
+      <td style="width:17%">
+        <p><input id="Dipendenze1" name="Dipendenze1" type="checkbox" value="SI" /> Assenza di<br/> dipendenza da <br/>sostanze, gioco<br/> d’azzardo patologico</p>
+      </td>
+      <td>
+        <p>0</p>
+      </td>
+      <td style="width:30%">
+        <p><input id="Dipendenze2" name="Dipendenze2" type="checkbox" value="SI" /> Presenza di dipendenza da<br/> sostanze, gioco d’azzardo<br/> patologico prese in carico da<br/> servizio specialistico</p>
+      </td>
+      <td>
+        <p>3</p>
+      </td>
+      <td>
+        <p><input id="Dipendenze3" name="Dipendenze3" type="checkbox" value="SI" /> Presenza di <br/>dipendenza da <br/>sostanze, gioco<br/> d’azzardo patologico<br/> non prese in carico da <br/>servizio specialistico</p>
+      </td>
+      <td>
+        <p>6</p>
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        <p>
+            Patologia psichiatrica
+        </p>
+      </td>
+      <td>
+        <p><input id="Patologia1" name="Patologia1" type="checkbox" value="SI" /> Assenza di <br/>patologia <br/>psichiatrica</p>
+      </td>
+      <td>
+        <p>0</p>
+      </td>
+      <td>
+        <p><input id="Patologia2" name="Patologia2" type="checkbox" value="SI" /> Presenza di patologia <br/>psichiatrica con situazione di<br/> buon compenso</p>
+      </td>
+      <td>
+        <p>3</p>
+      </td>
+      <td>
+       <p><input id="Patologia3" name="Patologia3" type="checkbox" value="SI" /> Presenza di <br/>patologia psichiatrica <br/>non compensata con <br/>ricoveri frequenti</p>
+      </td>
+      <td>
+        <p>6</p>
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        <p>
+            Situazione di pregiudizio <br/>per minori
+        </p>
+      </td>
+      <td>
+        <p><input id="Pregiudizio1" name="Pregiudizio1" type="checkbox" value="SI" /> Assenza di <br/>situazione di<br/> pregiudizio per<br/> minori</p>
+      </td>
+      <td>
+        <p>0</p>
+      </td>
+      <td>
+        <p><input id="Pregiudizio2" name="Pregiudizio2" type="checkbox" value="SI" /> Presenza di criticità nel <br/>rapporto genitoriale tale da<br/> comportare l’intervento di servizi<br/> psico-socio-educativi</p>
+      </td>
+      <td>
+        <p>3
+      </td>
+      <td>
+        <p><input id="Pregiudizio3" name="Pregiudizio3" type="checkbox" value="SI" /> Presenza di<br/> situazione di <br/>pregiudizio per minori</p>
+      </td>
+      <td>
+        <p>6</p>
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        <p>
+            Alta conflittualità / <br/>maltrattamenti accertati a<br/> carico di uno o più<br/> componente del nucleo<br/> familiare 
+        </p>
+      </td>
+      <td>
+        <p><input id="Conflittualita1" name="Conflittualita1" type="checkbox" value="SI" /> Assenza di <br/>problemi relazionali / agiti <br/>maltrattanti</p>
+      </td>
+      <td>
+        <p>0
+      </td>
+      <td>
+        <p><input id="Conflittualita2" name="Conflittualita2" type="checkbox" value="SI" /> Presenza di problemi <br/>relazionali severi</p>
+      </td>
+      <td>
+        <p>3
+      </td>
+      <td>
+        <p><input id="Conflittualita3" name="Conflittualita3" type="checkbox" value="SI" /> Presenza di agiti <br/>maltrattanti</p>
+      </td>
+      <td>
+        <p>6</p>
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        <p>
+            Nucleo monogenitoriale
+        </p>
+      </td>
+      <td>
+        <p><input id="Nucleo1" name="Nucleo1" type="checkbox" value="SI" /> Assenza di <br/>nucleo <br/>monogenitoriale</p>
+      </td>
+      <td>
+        <p>0
+      </td>
+      <td>
+       <p> <input id="Nucleo2" name="Nucleo2" type="checkbox" value="SI" /> Nucleo familiare costituito da<br/> un solo genitore e da 1 figlio</p>
+      </td>
+      <td>
+        <p>2
+      </td>
+      <td>
+        <p><input id="Nucleo3" name="Nucleo3" type="checkbox" value="SI" /> Nucleo familiare <br/>costituito da un solo<br/> genitore e da due e più<br/> figli</p>
+      </td>
+      <td>
+        <p>3</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <p>
+            Carichi penali
+        </p>
+      </td>
+      <td>
+        <p><input id="Penali1" name="Penali1" type="checkbox" value="SI" /> Assenza di <br/>provvedimenti <br/>di restrizione<br/>della libertà<br/>di
+membri<br/>del nucleo</p>
+      </td>
+      <td>
+        <p>0
+      </td>
+      <td>
+       <p> <input id="Penali2" name="Penali2" type="checkbox" value="SI" /> Pena in esecuzione domiciliare</p>
+      </td>
+      <td>
+        <p>1,5
+      </td>
+      <td>
+        <p><input id="Penali3" name="Penali3" type="checkbox" value="SI" /> Pena in esecuzione
+ <br/>carceraria</p>
+      </td>
+      <td>
+        <p>3</p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<table class="Modulo" style="border: 1px solid grey; margin-top:-1px">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="7">
+        <p class="Labeltabella">
+            2.3 Rete di supporto informale
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="width:24%">
+        <p>
+            Valutazione rete di <br/>supporto
+          (esclusi badante,<br/> servizi, famiglia)
+        </p>
+      </td>
+      <td style="width:17%">
+        <p><input id="Supporto1" name="Supporto1" type="checkbox" value="SI" /> sufficiente</p>
+      </td>
+      <td>
+        <p>0</p>
+      </td>
+      <td style="width:30%">
+        <p><input id="Supporto2" name="Supporto2" type="checkbox" value="SI" /> parzialmente sufficiente o con tenuta precaria</p>
+      </td>
+      <td>
+        <p>7,5</p>
+      </td>
+      <td style="width:18%">
+       <p> <input id="Supporto3" name="Supporto3" type="checkbox" value="SI" /> insufficiente</p>
+      </td>
+      <td>
+       <p> 15</p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr>
+      <td colspan="5">
+        <p>Punteggio massimo 80 (massima dipendenza)</p>
+      </td>
+      <td colspan="1">
+        <p>TOTALE</p>
+      </td>
+      <td style="width:22%">
+        <input class="inputNormal" id="Parametri_TotalePunteggio" name="Parametri_TotalePunteggio" style="width: 100%;" label="Totale punteggio" mandatory="true"/>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<br/>
+  {{ utils.firma_hidden() }}
+<br/>
+
+<p class="Modulo">
+  <input id="SalvaModulo" name="SalvaModulo" style="height:30px;width:120px;" title="Verifica la corretta compilazione dei campi e salva il modulo nel faldone virtuale dell'istanza." type="submit" value="Salva modulo"/>
+</p>
+
+<input destinatario_amministrazione="getParameter('Ente')" id="GLOBO_modulo_c{{ CodiceModulo }}" name="GLOBO_modulo_c{{ CodiceModulo }}" type="hidden" value=""/>
+<input firmare="'P7M_ELETTRONICA'" id="GLOBO_modulofiglio_cINCARICO_PROCURA" name="GLOBO_modulofiglio_cINCARICO_PROCURA" type="hidden" value=""/>
+
+<input id="GLOBO_id_padre" name="GLOBO_id_padre" type="hidden"/>
+<input id="GLOBO_recupera_dati" name="GLOBO_recupera_dati" type="hidden"/>
+<input id="GLOBO_codice_modulo" name="GLOBO_codice_modulo" type="hidden" value="{{ CodiceModulo }}"/>
+
+{% endblock content %}

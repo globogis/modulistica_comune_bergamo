@@ -1,0 +1,418 @@
+{% set CodiceModulo = "RICH_PATROCINIO" %}
+{% set Urn = "document:c_a794:patrocinio;domanda" %}
+{% extends "base.html" %}
+
+{% block meta %}
+
+<meta campi_firma="Titolare_CodiceFiscale"
+campi_firma_label="il dichiarante"
+classi_modulo="Contributi"
+codice_modulo="{{ CodiceModulo }}"
+urn="{% block urn %}{{ Urn }}{% endblock urn %}"
+sub_urn_list="ambi,paropp,staffsind,cultum,edpriv,servidemo,istrusport,manit,mobil,protciv"
+uo_globo_list=""
+descrizione="Domanda di concessione del patrocinio"
+destinatario_amministrazione=""
+destinatario_ufficio="UOTEMPOLIBEROSPORTCULTURA"
+dinamico="SI"
+email_a=""
+ente_abilitato="TUTTI"
+filigrana="NO"
+firmare="AUTENTICATO"
+istruzioni_compilazione=""
+istruzioni_invio="mail_pec"
+metodo_invio="mail"
+name="GLOBO_modulo"
+procura="NO,,"
+tipo_modulo="principale"
+urlhelp="/modulistica/moduli/{{ CodiceModulo }}"
+verifica_pagamento="NO"
+versione="1.1|03/09/2019"/>
+
+<meta codice_modulo_figlio="INCARICO_PROCURA"
+urn_modulo_figlio="document:s_italia:generale;incarico.procura"
+name="GLOBO_modulofiglio"
+numero="1"
+obbligatorio="DINAMICO"/>
+
+<meta codice_allegato="PAT-REL-ILL"
+urn_allegato="document:s_italia:patrocinio;relazione.illustrativa.iniziativa;relazione"
+descrizione_estesa="Relazione illustrativa della manifestazione o iniziativa"
+filename="Relazione illustrativa manifestazione.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/PAT-REL-ILL"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_modulo_figlio="PATR_GREEN"
+urn_modulo_figlio="document:c_a794:patrocinio.green;domanda"
+name="GLOBO_modulofiglio"
+numero="1"
+obbligatorio="DINAMICO"/>
+
+<meta codice_allegato="DAE-CDI"
+urn_allegato="document:s_italia:generale;documento.identita;documentazione"
+descrizione_estesa="Documento di identità"
+filename="Documento identita.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/DAE-CDI"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="ALTRI-ALLEGATI"
+urn_allegato="document:s_italia:altri.allegati"
+descrizione_estesa="Altri allegati"
+filename="Altri allegati.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/ALTRI-ALLEGATI"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+{% endblock meta %}
+
+{% block title %}
+    Domanda di concessione del patrocinio
+{% endblock title %}
+
+{% block content %}
+
+<style>
+
+    .noBorder {
+        border: 0 !important;
+    }
+</style>
+
+
+<globo_fondo_pagina areaheight="150" scope="3">
+    {{ utils.firma() }}
+</globo_fondo_pagina>
+
+<input id="Parametri_Comune" name="Parametri_Comune" type="hidden" dynamic_value="#Ente.value()"/>
+<input id="Oggetto" name="Oggetto" type="hidden" dynamic_value="#Titolare_Cognome.value().toUpperCase() + ' ' + #Titolare_Nome.value().toUpperCase() + ' - domanda concessione patrocinio'"/>
+
+{{ intestazioni.intestazione_moduloprincipale_senzabollo() }}
+
+<h1 class="Modulo">
+    Domanda di concessione del patrocinio
+</h1>
+
+{{ anagrafica.societa("Titolare", "Il sottoscritto", ["Persona fisica", "Titolare", "Legale rappresentante"], "Richiedente", "visibility:visibility", "cursor:pointer", "mail_ordinaria", "false", "false") }}
+
+<h3 class="Modulo">
+    CHIEDE
+</h3>
+
+<p class="Modulo">
+    il patrocinio dell'amministrazione comunale, consistente nell'autorizzazione all'uso del logo del Comune di Bergamo, sul materiale pubblicitario e divulgativo relativo all'iniziativa/manifestazione
+</p>
+
+{{ immobili.immobile_toponomastica( 'Immobile', "che si svolgerà in", "Luogo iniziativa") }}
+
+{{ utils.calendario("prevista per il seguente periodo") }}
+
+
+<div id="Tassonomia_TipoIngressoPubblico" name="Tassonomia_TipoIngressoPubblico" label="Tipo ingresso" mandatory="true"></div>
+<table class="Modulo" style="border: 1px solid grey;">
+    <tbody>
+        <tr class="Rigaintestazione">
+            <td colspan="3">
+                <p class="Labeltabella">
+                    dalle seguenti caratteristiche
+                </p>
+            </td>
+        </tr>
+        <tr class="Rigaintestazioneridotta">
+            <td colspan="3">
+                <p class="Labelcella">
+                    Denominazione
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">
+                <input class="inputNormal" id="Parametri_DenominazioneIniziativa" name="Parametri_DenominazioneIniziativa" style="width: 100%;" label="Denominazione" mandatory="true"/>
+            </td>
+        </tr>
+        <tr class="Rigaintestazioneridotta">
+          <td colspan="3">
+            <p class="Labelcella">
+              Assessorato competente (*)
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="3">
+            {% set assessorati = ["assessorato verde pubblico- edilizia residenziale pubblica-educazione alla cittadinanza-affari generali-pace-legalità e trasparenza-pari opportunità-tempi urbani",
+            "assessorato politiche sociali",
+            "uffici di segreteria e staff sindaco giunta e comunicazione",
+            "assessorato cultura",
+            "assessorato riqualificazione urbana-urbanistica-edilizia privata-patrimonio",
+            "assessorato innovazione-semplificazione-servizi demografici-sportello polifunzionale-servizi cimiteriali-partecipazione-reti sociali",
+            "assessorato istruzione-sport e tempo libero-politiche per i giovani-edilizia scolastica e sportiva",
+            "assessorato lavori pubblici e reti-manutenzioni-servizi teconologici",
+            "assessorato ambiente-mobilità",
+            "assessorato-bilancio-tributi-affari legali-fondi comunitari-sicurezza-protezione civile-vicesindaco"] %}
+            <select name="Parametri_AssessoratoCompetente" id="Parametri_AssessoratoCompetente" label="Assessorato competente" style="width: 100%" mandatory="true">
+              <option value=""></option>
+              {% for assessorato in assessorati %}
+              <option value="{{assessorato}}">{{assessorato}}</option>
+              {% endfor %}
+            </select>
+          </td>
+        </tr>
+        <tr class="Rigaintestazioneridotta">
+            <td colspan="3">
+                <p class="Labelcella">
+                    Tipo di ingresso al pubblico
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td style="vertical-align: top; width: 4%;">
+                <input id="Tassonomia_TipoIngressoPubblico1" name="Tassonomia_TipoIngressoPubblico" type="radio" value="1" />
+            </td>
+            <td colspan="2">
+                <p>
+                    libero
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td style="vertical-align: top; width: 4%;">
+                <input id="Tassonomia_TipoIngressoPubblico2" name="Tassonomia_TipoIngressoPubblico" type="radio" value="2" />
+            </td>
+            <td colspan="2">
+                <p>
+                    a offerta libera
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td rowspan="3" style="vertical-align: top; width: 4%; background-color: white;">
+                <input id="Tassonomia_TipoIngressoPubblico3" name="Tassonomia_TipoIngressoPubblico" type="radio" value="3" />
+            </td>
+            <td colspan="2">
+                <p>
+                    a pagamento
+                </p>
+            </td>
+        </tr>
+        <tr class="Rigaintestazioneridotta">
+            <td>
+                <p class="Labelcella">
+                    Costo dell’ingresso
+                </p>
+            </td>
+            <td>
+                <p class="Labelcella">
+                    Utilizzo del ricavato
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 20%;">
+                <input class="inputNormal" id="Parametri_CostoIngresso" name="Parametri_CostoIngresso" style="width: 100%;" label="Costo ingresso" format="valuta_positiva" mandatory_enabled="#Tassonomia_TipoIngressoPubblico3.checked()" />
+            </td>
+            <td style="width: 72%;">
+                <input class="inputNormal" id="Parametri_UtilizzoRicavato" name="Parametri_UtilizzoRicavato" style="width: 100%;" label="Utilizzo ricavato" mandatory_enabled="#Tassonomia_TipoIngressoPubblico3.checked()"/>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<h3 class="Modulo">
+  CHIEDE INOLTRE
+</h3>
+<table class="Modulo" style="border: 1px solid grey;">
+    <tbody>
+        <tr class="Rigaintestazione">
+       <td style="vertical-align: top; width: 4%;">
+       <input id="Tassonomia_Patrocinio_Green" name="Tassonomia_Patrocinio_Green" type="checkbox" value="si" label="patrocinio green"/>
+       </td>
+       <td>
+       <p class="LabelTabella">
+         l'attribuzione del logo Green Friendly Event
+        </p>
+        </td>
+        </tr>
+     </tbody>
+</table>
+
+
+<p class="Modulo">
+  <span style="font-size: 80%;"><i>(*) Opzioni: </i> <br>
+  {% for assessorato in assessorati %}
+  {{assessorato}}{% if loop.index != 10%},{%endif%} <br>
+  {% endfor %}
+  </span>
+</p>
+{{ utils.Dichiara_445() }}
+
+
+<div id="Tassonomia_Dichiara1" name="Tassonomia_Dichiara1" label="Dichiara" mandatory="true"></div>
+<div id="Tassonomia_Dichiara2" name="Tassonomia_Dichiara2" label="Dichiara" mandatory="true"></div>
+<div id="Tassonomia_Dichiara3" name="Tassonomia_Dichiara3" label="Dichiara" mandatory="true"></div>
+<table class="Modulo noBorder">
+    <tbody>
+        <tr class="noBorder">
+            <td class="noBorder" style="vertical-align: top; width: 4%;">
+                <input group="Tassonomia_Dichiara1" id="Tassonomia_Dichiara11" name="Tassonomia_Dichiara11" type="checkbox" value="SI" />
+            </td>
+            <td class="noBorder">
+                <p>
+                    che gli organizzatori, finanziatori o sponsor dell’iniziativa non sono coinvolti nella produzione, commercializzazione, finanziamento e intermediazione di armi di qualunque tipo (compresi i sistemi elettronici e le sostanze chimiche, biologiche e nucleari)
+                </p>
+            </td>
+        </tr>
+        <tr class="noBorder">
+            <td class="noBorder" style="vertical-align: top; width: 4%;">
+                <input group="Tassonomia_Dichiara3" id="Tassonomia_Dichiara31" name="Tassonomia_Dichiara31" type="checkbox" value="SI" />
+            </td>
+            <td class="noBorder">
+                <p>
+                    di aver preso visione del Regolamento comunale accettandone tutte le clausole previste
+                </p>
+            </td>
+        </tr>
+        <tr class="noBorder">
+            <td class="noBorder" style="vertical-align: top; width: 4%;">
+                <input group="Tassonomia_Dichiara2" id="Tassonomia_Dichiara21" name="Tassonomia_Dichiara21" type="checkbox" value="SI" />
+            </td>
+            <td class="noBorder">
+                <p>
+                    che le banche, coinvolte nell’organizzazione, non risultano coinvolte nel finanziamento all’export di armi come da relazione annuale del Ministero dell’Economia e delle finanze, prevista dalle Legge 09/07/1990, n.185
+                </p>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<br>
+
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          Eventuali annotazioni
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <textarea class="inputNormal" id="Parametri_Annotazioni" name="Parametri_Annotazioni" style="width: 100%; height: 5cm;" label="Eventuali annotazioni"></textarea>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<br>
+
+<globo_salto_pagina></globo_salto_pagina>
+
+<table class="Modulo" name="Allegati" style="border: 1px solid grey">
+    <tbody>
+        <tr class="Rigaintestazione">
+            <td colspan="2">
+                <p style="text-align: center;">
+                    <b>
+                        Elenco degli allegati
+                    </b>
+                    <br/>
+                    <span style="font-size:70%">
+                        <i>(barrare tutti gli allegati richiesti in fase di presentazione della pratica ed elencati sul portale)</i>
+                    </span>
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 4%; vertical-align: top;">
+                <input id="PAT-REL-ILL" name="PAT-REL-ILL" type="checkbox" value="OBBLIGATORIO" checked="checked" dynamic_check="true" />
+            </td>
+            <td style="background-color: #eeeeee;">
+                <p>
+                    relazione illustrativa della manifestazione o iniziativa
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 4%; vertical-align: top;">
+                <input id="PATR_GREEN" name="PATR_GREEN" type="checkbox" value="si" mandatory_enabled="#Tassonomia_Patrocinio_Green.checked()" dynamic_check="true"/>
+            </td>
+            <td style="background-color: #eeeeee;">
+                <p>
+                   Modulo requisiti logo patrocinio Green
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td style="vertical-align: top; width: 4%;">
+                <input id="DAE-CDI" name="DAE-CDI" type="checkbox" value="OBBLIGATORIO" />
+            </td>
+            <td style="background-color: #eeeeee;">
+                <p>
+                    copia del documento d'identità
+                    <br/>
+                    <span style="font-size:70%">
+                        <i>(da allegare se il modulo è sottoscritto con firma autografa)</i>
+                    </span>
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td style="vertical-align: top; width: 4%;">
+                <input id="ALTRI-ALLEGATI" name="ALTRI-ALLEGATI" type="checkbox" value="OBBLIGATORIO"/>
+            </td>
+            <td style="background-color: #eeeeee;">
+                <p>
+                    altri allegati
+                    <span style="font-size:70%">(specificare)</span>
+                    <input class="" label="Altri allegati" id="AltriAllegati" mandatory_enabled="#ALTRI_ALLEGATI.checked()" name="AltriAllegati" style="width:79%;"/>
+                </p>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+
+<br>
+{{ utils.trattamento_dati_personali() }}
+<br/>
+    {{ utils.firma_hidden() }}
+<br/>
+
+<p class="Modulo">
+    <input id="SalvaModulo" name="SalvaModulo" style="height:30px;width:120px;" title="Verifica la corretta compilazione dei campi e salva il modulo nel faldone virtuale dell'istanza." type="submit" value="Salva modulo"/>
+</p>
+
+<input destinatario_amministrazione="getParameter('Ente')" id="GLOBO_modulo_c{{ CodiceModulo }}" name="GLOBO_modulo_c{{ CodiceModulo }}" type="hidden" value=""/>
+<input firmare="'P7M_ELETTRONICA'" id="GLOBO_modulofiglio_cINCARICO_PROCURA" name="GLOBO_modulofiglio_cINCARICO_PROCURA" type="hidden" value=""/>
+<input id="GLOBO_sub_urn" name="GLOBO_sub_urn" type="hidden" dynamic_value="#Parametri_AssessoratoCompetente.value() == '{{assessorati[0]}}' ? 'ambi' :
+(#Parametri_AssessoratoCompetente.value() == '{{assessorati[1]}}' ? 'paropp' :
+(#Parametri_AssessoratoCompetente.value() == '{{assessorati[2]}}' ? 'staffsind' :
+(#Parametri_AssessoratoCompetente.value() == '{{assessorati[3]}}' ? 'cultum' :
+(#Parametri_AssessoratoCompetente.value() == '{{assessorati[4]}}' ? 'edpriv' :
+(#Parametri_AssessoratoCompetente.value() == '{{assessorati[5]}}' ? 'servidemo' :
+(#Parametri_AssessoratoCompetente.value() == '{{assessorati[6]}}' ? 'istrusport' :
+(#Parametri_AssessoratoCompetente.value() == '{{assessorati[7]}}' ? 'manit' :
+(#Parametri_AssessoratoCompetente.value() == '{{assessorati[8]}}' ? 'mobil' :
+(#Parametri_AssessoratoCompetente.value() == '{{assessorati[9]}}' ? 'protciv' : '')))))))))" />
+
+<input id="GLOBO_allegato_cPAT-REL-ILL" name="GLOBO_allegato_cPAT-REL-ILL" type="hidden" value="" obbligatorio="#PAT_REL_ILL.checked() ? 'OBBLIGATORIO' : ''"/>
+<input id="GLOBO_modulofiglio_cPATR_GREEN" name="GLOBO_modulofiglio_cPATR_GREEN" obbligatorio="#PATR_GREEN.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+<input id="GLOBO_allegato_cDAE-CDI" name="GLOBO_allegato_cDAE-CDI" obbligatorio="#DAE_CDI.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+<input id="GLOBO_allegato_cALTRI-ALLEGATI" name="GLOBO_allegato_cALTRI-ALLEGATI" obbligatorio="#ALTRI_ALLEGATI.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+
+<input id="GLOBO_id_padre" name="GLOBO_id_padre" type="hidden"/>
+<input id="GLOBO_recupera_dati" name="GLOBO_recupera_dati" type="hidden"/>
+<input id="GLOBO_codice_modulo" name="GLOBO_codice_modulo" type="hidden" value="{{ CodiceModulo }}"/>
+
+{% endblock content %}

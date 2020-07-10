@@ -1,0 +1,349 @@
+{% set CodiceModulo = "RETT_PUNT_ASS" %}
+{% set Urn = "document:c_a794:edilizia.residenziale.pubblica;rettifica.punteggio.riconoscimento.invalidita;domanda" %}
+{% extends "base.html" %}
+{% block meta %}
+
+<meta campi_firma="Titolare_CodiceFiscale"
+campi_firma_label="il dichiarante"
+classi_modulo="ERP e housing sociale"
+codice_modulo="{{ CodiceModulo }}"
+urn="{% block urn %}{{ Urn }}{% endblock urn %}"
+sub_urn_list=""
+uo_globo_list=""
+descrizione="Domanda di rettifica del punteggio attribuito in graduatoria provvisoria per il riconoscimento dell'invalidità civile"
+destinatario_amministrazione=""
+destinatario_ufficio="UOHOUSINGSOCIALE"
+dinamico="SI"
+email_a=""
+ente_abilitato="TUTTI"
+filigrana="NO"
+firmare="P7M_ELETTRONICA"
+istruzioni_compilazione=""
+istruzioni_invio="mail_pec"
+metodo_invio="mail"
+name="GLOBO_modulo"
+procura="NO,,"
+tipo_modulo="principale"
+urlhelp="/modulistica/moduli/{{ CodiceModulo }}"
+verifica_pagamento="NO"
+versione="1.2|17/12/2019"/>
+
+<meta codice_modulo_figlio="INCARICO_PROCURA"
+urn_modulo_figlio="document:s_italia:generale;incarico.procura"
+name="GLOBO_modulofiglio"
+numero="1"
+obbligatorio="DINAMICO"/>
+
+<meta codice_allegato="ERP-CER-INV"
+urn_allegato="document:r_lombar:edilizia.residenziale.pubblica;comprova.invalidita;documentazione"
+descrizione_estesa="Copia della documentazione e certificazioni attestanti tipo e grado di invalidità"
+filename="Documentazione invalidita.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/ERP-CER-INV"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="DAE-CDI"
+urn_allegato="document:s_italia:generale;documento.identita;documentazione"
+descrizione_estesa="Documento di identità"
+filename="Documento identita.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/DAE-CDI"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="ALTRI-ALLEGATI"
+urn_allegato="document:s_italia:altri.allegati"
+descrizione_estesa="Altri allegati"
+filename="Altri allegati.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/ALTRI-ALLEGATI"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+{% endblock meta %}
+
+{% block title %}
+  Domanda di rettifica del punteggio attribuito in graduatoria provvisoria per il riconoscimento dell'invalidità civile
+{% endblock title %}
+
+{% block content %}
+<globo_fondo_pagina areaheight="150" scope="2">
+  {{ utils.firma() }}
+</globo_fondo_pagina>
+<input id="Parametri_Comune" name="Parametri_Comune" type="hidden" dynamic_value="#Ente.value()"/>
+<input id="Oggetto" name="Oggetto" type="hidden" dynamic_value="#Titolare_Cognome.value().toUpperCase() + ' ' + #Titolare_Nome.value().toUpperCase() + ' - rettifica punteggio riconoscimento invalidità civile'"/>
+{{ intestazioni.intestazione_moduloprincipale_senzabollo() }}
+<h1 class="Modulo">
+  Domanda di rettifica del punteggio attribuito in graduatoria provvisoria per il riconoscimento dell'invalidità civile
+</h1>
+<h2 class="Modulo">
+  Ai sensi dell'articolo 12, comma  del Regolamento Regionale 04/18/2017, n. 4
+</h2>
+<input id="Titolare_DatiPersonaObbligatori" name="Titolare_DatiPersonaObbligatori" type="hidden" dynamic_check="true"/>
+<input id="Titolare_Titolo" name="Titolare_Titolo" type="hidden" value="Richiedente"/>
+<input id="Titolare_Ruolo" name="Titolare_Ruolo" type="hidden" value="Richiedente"/>
+{{ anagrafica.persona_fisica("Titolare", "Il sottoscritto", "visibility:visibility", "cursor:pointer", "visibility:visibility", "visibility:visibility", "mail_ordinaria") }}
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="3">
+        <p class="Labeltabella">
+          in riferimento alla richiesta di assegnazione di un alloggio presentata o aggiornata durante l'apertura del bando
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td style="width: 33%;">
+        <p class="Labelcella">
+          ID pratica Regione Lombardia
+        </p>
+      </td>
+      <td style="width: 33%;">
+        <p class="Labelcella">
+          Numero protocollo regionale
+        </p>
+      </td>
+      <td style="width: 34%;">
+        <p class="Labelcella">
+          Data protocollo regionale
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input class="inputNormal" id="Parametri_DomIDPRATICA" name="Parametri_DomIDPRATICA" style="width: 100%;" label="ID della pratica regionale" mandatory="true">
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_DomPROTREG" name="Parametri_DomPROTREG" style="width: 100%;" label="Numero protocollo regionale" mandatory="true">
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_DomDATAPROTREG" format="date" name="Parametri_DomDATAPROTREG" style="width: 100%;" label="Data protocollo regionale" mandatory="true">
+      </td>
+    </tr>
+  </tbody>
+</table>
+<h3 class="Modulo">
+  CHIEDE
+</h3>
+<p class="Modulo">
+  la rettifica del punteggio per il riconoscimento dell'invalidità civile
+</p>
+
+<table class="Modulo" style="border:1px solid grey">
+  <tbody>
+    <tr >
+      <td style="vertical-align: top; width: 4%;">
+        <div id="Tassonomia_SoggettoInvalidita" name="Tassonomia_SoggettoInvalidita" label="Soggetto con invalidità" mandatory="true"></div>
+        <input id="Tassonomia_SoggettoInvalidita1" name="Tassonomia_SoggettoInvalidita" type="radio" value="1"/>
+      </td>
+      <td colspan="3">
+        <p>
+          del richiedente
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td rowspan="3" style="vertical-align: top; width: 4%; background-color:white">
+        <input id="Tassonomia_SoggettoInvalidita2" name="Tassonomia_SoggettoInvalidita" type="radio" value="2"/>
+      </td>
+      <td colspan="3">
+        <p>
+          di un componente del nucleo familiare
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          Cognome
+        </p>
+      </td>
+      <td style="width:33%">
+        <p class="Labelcella">
+          Nome
+        </p>
+      </td>
+      <td style="width:34%">
+        <p class="Labelcella">
+          Grado di parentela
+        </p>
+      </td>
+    </tr>
+    <tr mandatory_enabled="#Tassonomia_SoggettoInvalidita2.checked()">
+      <td>
+        <input class="" label="Cognome componente del nucleo familiare" id="AventeTitolo_Cognome"  name="AventeTitolo_Cognome" style="width:100%;"/>
+      </td>
+      <td>
+        <input class="" label="Nome componente del nucleo familiare" id="AventeTitolo_Nome" name="AventeTitolo_Nome" style="width:100%;"/>
+      </td>
+      <td>
+        <input class="" label="Grado di parentela componente del nucleo familiare" id="AventeTitolo_GradoParentela" name="AventeTitolo_GradoParentela" style="width:100%;"/>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td colspan="4">
+        <p class="Labelcella">
+          Invalidità riconosciuta
+        </p>
+      </td>
+    </tr>
+    <tr >
+      <td style="vertical-align: top; width: 4%;">
+        <div id="Tassonomia_Invalidita" name="Tassonomia_Invalidita" label="Invalidità riconosciuta" mandatory="true"></div>
+        <input id="Tassonomia_Invalidita1" name="Tassonomia_Invalidita" type="radio" value="1"/>
+      </td>
+      <td colspan="3">
+        <p>
+          100% o handicap grave con accompagnamento
+        </p>
+      </td>
+    </tr>
+    <tr >
+      <td style="vertical-align: top; width: 4%;">
+        <input id="Tassonomia_Invalidita2" name="Tassonomia_Invalidita" type="radio" value="2"/>
+      </td>
+      <td colspan="3">
+        <p>
+          100% o handicap grave senza accompagnamento
+        </p>
+      </td>
+    </tr>
+    <tr >
+      <td style="vertical-align: top; width: 4%;">
+        <input id="Tassonomia_Invalidita3" name="Tassonomia_Invalidita" type="radio" value="3"/>
+      </td>
+      <td colspan="3">
+        <p>
+          dal 66% al 99%
+        </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+{{ utils.Dichiara_445() }}
+<table class="Modulo" style="border: 0px;">
+  <tbody>
+    <tr style="border: 0px;">
+      <td style="vertical-align: top; width: 4%; border:0px">
+        <input id="Dichiara1" name="Dichiara1" type="checkbox" value="SI" checked="checked" dynamic_check="true"/>
+      </td>
+      <td style="border: 0px;">
+        <p>
+          che il procedimento amministrativo di riconoscimento dell’invalidità civile è stato avviato prima della scadenza del termine di presentazione della domanda di partecipazione al bando.
+        </p>
+      </td>
+    </tr>
+    <tr style="border: 0px;">
+      <td style="vertical-align: top; width: 4%; border:0px">
+        <input id="Dichiara2" name="Dichiara2" type="checkbox" value="SI" checked="checked" dynamic_check="true"/>
+      </td>
+      <td style="border: 0px;">
+        <p>
+          di essere in graduatoria provvisoria nelle liste del comune di Bergamo
+        </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<br/>
+
+<table class="Modulo" style="border:1px solid grey">
+ <tbody>
+  <tr class="Rigaintestazioneridotta">
+   <td colspan="2">
+    <p class="Labelcella">
+     Eventuali annotazioni
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td colspan="2">
+    <textarea class="inputNormal" id="Parametri_Annotazioni" name="Parametri_Annotazioni" style="width:100%;height:5cm;">
+    </textarea>
+   </td>
+  </tr>
+ </tbody>
+</table>
+
+<br>
+<table class="Modulo" name="Allegati" style="border: 1px solid grey">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="2">
+        <p style="text-align: center;">
+          <b>
+          Elenco degli allegati
+          </b>
+          <br>
+          <span style="font-size:70%">
+          <i>(barrare tutti gli allegati richiesti in fase di presentazione della pratica ed elencati sul portale)</i>
+          </span>
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="width: 4%; vertical-align: top;">
+        <input id="ERP-CER-INV" name="ERP-CER-INV" type="checkbox" value="OBBLIGATORIO" checked="checked" dynamic_check="true"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          copia della documentazione e certificazioni attestanti tipo e grado di invalidità
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="DAE-CDI" name="DAE-CDI" type="checkbox" value="OBBLIGATORIO" />
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          copia del documento d'identità
+          <br>
+          <span style="font-size:70%">
+          <i>(da allegare se il modulo è sottoscritto con firma autografa)</i>
+          </span>
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="ALTRI-ALLEGATI" name="ALTRI-ALLEGATI" type="checkbox" value="OBBLIGATORIO"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          altri allegati
+          <span style="font-size:70%">(specificare)</span>
+          <input class="" label="Altri allegati" id="AltriAllegati" mandatory_enabled="#ALTRI_ALLEGATI.checked()" name="AltriAllegati" style="width:79%;"/>
+        </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+{{ utils.trattamento_dati_personali() }}
+<br>
+{{ utils.firma_hidden() }}
+<br>
+<p class="Modulo">
+  <input id="SalvaModulo" name="SalvaModulo" style="height:30px;width:120px;" title="Verifica la corretta compilazione dei campi e salva il modulo nel faldone virtuale dell'istanza." type="submit" value="Salva modulo"/>
+</p>
+<input id="GLOBO_modulo_c{{ CodiceModulo }}" name="GLOBO_modulo_c{{ CodiceModulo }}" type="hidden" value="" destinatario_amministrazione="getParameter('Ente')"/>
+<input firmare="'P7M_ELETTRONICA'" id="GLOBO_modulofiglio_cINCARICO_PROCURA" name="GLOBO_modulofiglio_cINCARICO_PROCURA" type="hidden" value=""/>
+
+<input id="GLOBO_allegato_cERP-CER-INV" name="GLOBO_allegato_cERP-CER-INV" type="hidden" value="" obbligatorio="#ERP_CER_INV.checked() ? 'OBBLIGATORIO' : ''"/>
+<input id="GLOBO_allegato_cDAE-CDI" name="GLOBO_allegato_cDAE-CDI" obbligatorio="#DAE_CDI.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+<input id="GLOBO_allegato_cALTRI-ALLEGATI" name="GLOBO_allegato_cALTRI-ALLEGATI" obbligatorio="#ALTRI_ALLEGATI.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_id_padre" name="GLOBO_id_padre" type="hidden"/>
+<input id="GLOBO_recupera_dati" name="GLOBO_recupera_dati" type="hidden"/>
+<input id="GLOBO_codice_modulo" name="GLOBO_codice_modulo" type="hidden" value="{{ CodiceModulo }}"/>
+{% endblock content %}

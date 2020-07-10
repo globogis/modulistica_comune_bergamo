@@ -1,0 +1,492 @@
+{% set CodiceModulo = "SCH_AREA" %}
+{% set Urn = "document:c_a794:scheda.descrittiva.area;allegato" %}
+{% extends "base.html" %}
+
+{% block meta %}
+
+<meta campi_firma="TitolareNonImportare_CodiceFiscale"
+campi_firma_label="il dichiarante"
+classi_modulo="UOURBANISTICA"
+codice_modulo="{{ CodiceModulo }}"
+urn="{% block urn %}{{ Urn }}{% endblock urn %}"
+sub_urn_list=""
+uo_globo_list=""
+descrizione="Scheda descrittiva delle caratteristiche dell’area"
+destinatario_amministrazione=""
+destinatario_ufficio=""
+dinamico="SI"
+email_a=""
+ente_abilitato="TUTTI"
+filigrana="NO"
+firmare="P7M_ELETTRONICA"
+istruzioni_compilazione=""
+istruzioni_invio=""
+metodo_invio="mail"
+name="GLOBO_modulo"
+procura="NO,,"
+tipo_modulo="secondario"
+urlhelp="/modulistica/moduli/{{ CodiceModulo }}"
+verifica_pagamento="NO"
+versione="1.0|14/05/2020"/>
+
+{% endblock meta %}
+
+{% block title %}
+
+Scheda descrittiva delle caratteristiche dell’area
+
+ 
+{% endblock title %}
+
+{% block content %}
+
+<globo_fondo_pagina areaheight="150" scope="2">
+  {{ utils.firma() }}
+</globo_fondo_pagina>
+
+<input id="Oggetto" name="Oggetto" type="hidden" dynamic_value="'Scheda descrittiva delle caratteristiche dell’area ' + #TitolareNonImportare_Cognome.value().toUpperCase() + ' ' + #TitolareNonImportare_Nome.value().toUpperCase()"/>
+
+<div type="intestazione_moduloprincipale_conbollo">
+	{{ utils.get_ufficio_dest()}}
+	<table class="Modulo" style="border: 1px solid grey">
+		<tbody>
+			<tr>
+				<td style="width: 20%; height:160px; text-align: center;">
+					<img alt="Ente" src="./appoggio/img/StemmaComune.png"/>
+				</td>
+				<td style="width: 48%; text-align: center;">
+					<p style="text-align:center; font-size: 10pt;">
+						In allegato alla segnalazione <br/><br/>
+						ambiti di rigenerazione urbana<br/>
+							<td style="width: 32%; text-align:center;">
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+
+
+<h1 class="Modulo">
+Scheda descrittiva delle caratteristiche dell’area
+  
+</h1>
+
+<!-- DATI DEL TITOLARE -->
+{{anagrafica.cognome_nome("TitolareNonImportare","Il sottoscritto", "Richiedente", "visibility:hidden", "cursor:default")}}
+
+<br>
+
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="3">
+        <p class="Labeltabella">
+          SPAZIO RISERVATO ALL'UFFICIO
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          N°
+        </p>
+      </td>
+      <td>
+        <p class="Labelcella">
+         GeoCod Rif.
+        </p>
+      </td>
+      <td>
+        <p class="Labelcella">
+         Classificazione per l'area urbana di Bergamo
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input class="InputNormal" id="Tassonomia_Numero" name="Tassonomia_Numero" style="width: 100%;" readonly />
+      </td>
+      <td>
+        <input class="InputNormal" id="Tassonomia_GeoCod " name="Tassonomia_GeoCod" style="width: 100%;" readonly />
+      </td>
+      <td>
+        <input class="InputNormal" id="Tassonomia_Classificazione" name="Tassonomia_Classificazione" style="width: 100%;" readonly />
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labeltabella">
+          Denominazione area
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input class="InputNormal" id="Tassonomia_Denominazione_Area" name="Tassonomia_Denominazione_Area" style="width: 100%;" label="Denominazione Area" mandatory="true"/>
+      </td>
+    </tr>
+    </tbody>
+    </table>
+    <table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td>
+        <p class="Labeltabella">
+          Dati identificativi
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          Comune e Provincia
+        </p>
+      </td>
+      <td>
+        <p class="Labelcella">
+          Quartiere
+        </p>
+      </td>
+      <td>
+        <p class="Labelcella">
+          Via
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+      <p>
+        Bergamo (BG)
+      </p>
+      </td>
+      <td>
+        <input class="InputNormal" id="Tassonomia_Quartiere" name="Tassonomia_Quartiere" style="width: 100%;" label="Quartiere" mandatory="true" />
+      </td> 
+      <td>
+        <input class="InputNormal" id="Tassonomia_Via" name="Tassonomia_Via" style="width: 100%;" label="Via" mandatory="true" />
+      </td>  
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          Superficie Territoriale dell’area (ha) 
+        </p>
+      </td> <td>
+        <p class="Labelcella">
+          Volume fabbricati esistenti 
+        </p>
+      </td>
+       <td>
+        <p class="Labelcella">
+          Superficie impermeabile 
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+      <input class="InputNormal" id="Tassonomia_Superficie_Territoriale" name="Tassonomia_Superficie_Territoriale" style="width: 100%;" label="Superficie Territoriale dell'area" mandatory="true"/>
+      </td>
+      <td>
+      <input class="InputNormal" id="Tassonomia_Volume_Fabbricati_Esistenti" name="Tassonomia_Volume_Fabbricati_Esistenti" style="width: 100%;" label="Volume fabbricati esistenti"/>
+      </td>
+      <td>
+      <input class="InputNormal" id="Tassonomia_Superficie_impermeabile" name="Tassonomia_Superficie_impermeabile" style="width: 100%;" label="Superficie impermeabile" mandatory="true"/>
+      </td>
+    </tr>
+    </tbody>
+    </table>
+      <table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td>
+        <p class="Labeltabella">
+          Descrizione
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          Rilievo fotografico
+        </p>
+      </td>
+      </tr>
+      <tr>
+      <td>
+            <p> <span style="font-size: 70%; font-weight: normal;">
+              Vedi raccolta fotografica allegata
+              </span>
+            </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          Descrizione dell'area e del contesto urbano o territoriale*
+        </p>
+       </td>
+       </tr>
+       <tr>
+      <td>
+        <textarea class="inputNormal" id="Tassonomia_Descrizione_Area" name="Tassonomia_Descrizione_Area" style="width: 100%; height: 3cm;" label="Descrizione Area" mandatory="true"></textarea> 
+      </td>      
+    </tr>
+    <tr>
+      <td>
+    <span style="font-size: 70%; font-weight: normal;"><i>*Breve descrizione degli elementi di relazione tra l’ambito e il resto del quartiere/città</i></span>
+    </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          Livello di Dismissione – Obsolescenza*
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <textarea class="inputNormal" id="Tassonomia_Dismissione" name="Tassonomia_Dismissione" style="width: 100%; height: 3cm;" label="Dismissione obsolescenza" mandatory="true"></textarea> 
+      </td>
+    </tr>
+    </tbody>
+    </table>
+
+      <span style="font-size: 70%; font-weight: normal;"><i>*Descrizione delle condizioni d’uso, indicando se si tratta di: <br>
+ . aree e/o edifici utilizzati; <br>
+ . aree e/o edifici non utilizzati; <br>
+ . aree e/o edifici utilizzati in modo improprio. <br>
+Se si tratta di aree e/o edifici interessati da fenomeni di dismissione/abbandono, indicare: <br>
+. periodo della dismissione; <br>
+. motivo/tipologia e grado di dismissione; <br>
+. precedente utilizzazione prevalente; <br>
+eventuali utilizzi post-dismissione anche impropri e temporanei
+</i></span>
+<div id="Tassonomia_Criticità" name="Tassonomia_Criticità" label="Elementi Criticità" mandatory="true"></div>
+
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="2">
+        <p class="Labeltabella">
+          Elementi di criticità o degrado*
+        </p>
+      </td>
+    </tr>
+     <tr>
+      <td style="vertical-align: top; width: 4%;">
+      <input group="Tassonomia_Criticità" id="Tassonomia_Fisici" name="Tassonomia_Fisici" type="checkbox" value="si" />
+      </td>
+      <td>
+        <p class="Labelcella">
+          A. Fisici <input id="Tassonomia_Elementi_Fisici" name="Tassonomia_Elementi_Fisici" style="width: 90%;" label="Elementi Fisici" mandatory_enabled="#Tassonomia_Fisici.checked()"/>
+        </p>
+      </td>
+      </tr>
+      <tr>
+        <td style="vertical-align: top; width: 4%;">
+      <input group="Tassonomia_Criticità" id="Tassonomia_Usi" name="Tassonomia_Usi" type="checkbox" value="si" />
+      </td>
+      <td>
+        <p class="Labelcella">
+          B. Usi sociali e relazioni <input id="Tassonomia_Elementi_Sociali" name="Tassonomia_Elementi_Sociali" style="width: 80%;" label="Elementi Sociali" mandatory_enabled="#Tassonomia_Usi.checked()"/>
+        </p>
+      </td>
+      </tr>
+      <tr>
+        <td style="vertical-align: top; width: 4%;">
+      <input group="Tassonomia_Criticità" id="Tassonomia_Sicurezza" name="Tassonomia_Sicurezza" type="checkbox" value="si" />
+      </td>
+      <td>
+        <p class="Labelcella">
+          C. Sicurezza <input id="Tassonomia_Elementi_Sicurezza" name="Tassonomia_Elementi_Sicurezza" style="width: 87%;" label="Sicurezza" mandatory_enabled="#Tassonomia_Sicurezza.checked()"/>
+        </p>
+      </td>
+    </tr>
+    </tbody>
+    </table>
+    <span style="font-size: 70%; font-weight: normal;"><i>*Esempio: <br>
+ . aree di cantiere dismesse relative a grandi opere, oggetto di mancato o insufficiente recupero;<br>
+ .presenza di elementi o assetti che interferiscono negativamente con il profilo e la forma dell'insediamento storico nonché con le visuali panoramiche, limitandole, <br>occludendole o sovrapponendosi in modo incongruo con i caratteri e le relazioni visive significative del paesaggio
+</i></span>
+  <table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          Identificazione dei valori e valutazione della loro permanenza /trasformazione 
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+      <input id="Tassonomia_Valori" name="Tassonomia_Valori" style="width: 100%;" label="Identificazione dei valori" mandatory="true" />
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          Indicazione del grado di reversibilità delle trasformazioni 
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+      <input id="Tassonomia_Reversibilità" name="Tassonomia_Reversibilità" style="width: 100%;" label="Indiazione grado di reversibità" mandatory="true" />
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          Potenzialità*
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+      <input id="Tassonomia_Potenzialità" name="Tassonomia_Potenzialità" style="width: 100%;" label="Indiazione grado di reversibità" mandatory="true" />
+      </td>
+    </tr>
+    </tbody>
+    </table>
+    <span style="font-size: 70%; font-weight: normal;"><i>* Elementi “leva” intrinsechi al sito:<br>
+ . vicinanza stazioni RFI/TPL<br>
+ . nodo della rete verde sovraccomunale <br>
+ . contiguità a centri civici/Servizi di scala intercomunale<br>
+ . altro
+</i></span>
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="3">
+        <p class="Labeltabella">
+          Pianificazione comunale: previsioni e stato di attuazione
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td colspan="3">
+        <p class="Labelcella">
+          Previsioni PGT
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          Ambito
+        </p>
+      </td>
+       <td>
+        <p class="Labelcella">
+          Tessuto
+        </p>
+      </td>
+        <td>
+        <p class="Labelcella">
+          Servizi
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input id="Tassonomia_Ambito" name="Tassonomia_Ambito" style="width: 100%;" label="Ambito" mandatory="true" />
+            <td>
+        <input id="Tassonomia_Tessuto" name="Tassonomia_Tessuto" style="width: 100%;" label="Ambito" mandatory="true" />
+      </td>
+            <td>
+        <input id="Tassonomia_Servizi" name="Tassonomia_Servizi" style="width: 100%;" label="Ambito" mandatory="true" />
+      </td>
+      </td>
+    </tr>
+  <table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazioneridotta">
+      <td colspan="2">
+        <p class="Labelcella">
+          Eventuali progetti di recupero <i> (riqualificazione, riuso anche temporaneo, messa in sicurezza) </i>
+        </p>
+      </td>
+    </tr>
+    {% set progetti1 = [ "non presentati",
+                        "presentati ma non approvati",
+                        " in corso di realizzazione ma bloccati ",
+                        "in corso di realizzazione" ] %}
+    {% for i in progetti1 %}
+      <tr>
+        <td style="vertical-align: top; width: 4%;">
+          <input id="progetti1{{ loop.index }}" name="progetti1{{ loop.index }}" type="checkbox" value="SI" />
+        </td>
+        <td>
+          {{ i }}
+        </td>
+      </tr>
+    {% endfor %}
+    <tr class="Rigaintestazioneridotta">
+      <td colspan="2">
+        <p class="Labelcella">
+          Eventuali progetti di bonifica risanamento ambientale
+        </p>
+      </td>
+    </tr>
+
+     {% set progetti2 = [ "non presentati",
+                        "presentati ma non approvati",
+                        " in corso di realizzazione ma bloccati ",
+                        "in corso di realizzazione" ] %}
+    {% for i in progetti2 %}
+      <tr>
+        <td style="vertical-align: top; width: 4%;">
+          <input id="progetti2{{ loop.index }}" name="progetti2{{ loop.index }}" type="checkbox" value="SI" />
+        </td>
+        <td>
+          {{ i }}
+        </td>
+      </tr>
+      
+    {% endfor %}
+<tr class="Rigaintestazioneridotta">
+        <td colspan="2">
+          <p class="Labelcella">
+            Eventuali incentivi in atto per il recupero 
+          </p>
+        </td>
+      </tr>
+       {% set incentivi = [ "previsti",
+                        "non previsti"
+                         ] %}
+    {% for i in incentivi %}
+      <tr>
+        <td style="vertical-align: top; width: 4%;">
+          <input id="incentivi{{ loop.index }}" name="incentivi{{ loop.index }}" type="checkbox" value="SI" />
+        </td>
+        <td>
+          {{ i }}
+        </td>
+      </tr>
+    {% endfor %}
+
+  </tbody>
+</table>
+
+
+<br/>
+  {{ utils.firma_hidden() }}
+<br/>
+
+<p class="Modulo">
+  <input id="SalvaModulo" name="SalvaModulo" style="height:30px;width:120px;" title="Verifica la corretta compilazione dei campi e salva il modulo nel faldone virtuale dell'istanza." type="submit" value="Salva modulo"/>
+</p>
+
+<input id="GLOBO_modulo_c{{ CodiceModulo }}" name="GLOBO_modulo_c{{ CodiceModulo }}" type="hidden" value=""/>
+
+<input id="GLOBO_id_padre" name="GLOBO_id_padre" type="hidden"/>
+<input id="GLOBO_recupera_dati" name="GLOBO_recupera_dati" type="hidden"/>
+<input id="GLOBO_codice_modulo" name="GLOBO_codice_modulo" type="hidden" value="{{ CodiceModulo }}"/>
+
+{% endblock content %}

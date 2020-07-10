@@ -1,0 +1,199 @@
+{% set CodiceModulo = "ULT_SOGG_CONTR" %}
+{% set Urn = "document:c_a794:ulteriori.soggetti.contributo" %}
+{% extends "base.html" %}
+
+{% block meta %}
+
+<meta campi_firma="TitolareNonImportare_CodiceFiscale"
+campi_firma_label="il dichiarante"
+classi_modulo="Servizi sociali"
+codice_modulo="{{ CodiceModulo }}"
+urn="{% block urn %}{{ Urn }}{% endblock urn %}"
+descrizione="Ulteriori soggetti oggetto del procedimento"
+destinatario_amministrazione=""
+destinatario_ufficio=""
+dinamico="SI"
+email_a=""
+ente_abilitato="TUTTI"
+filigrana="NO"
+firmare="P7M_ELETTRONICA"
+istruzioni_compilazione=""
+istruzioni_invio=""
+metodo_invio="mail"
+name="GLOBO_modulo"
+procura="NO,,"
+tipo_modulo="secondario"
+urlhelp="/modulistica/moduli/{{ CodiceModulo }}"
+verifica_pagamento="NO"
+versione="1.0|24/12/2018"/>
+
+{% endblock meta %}
+
+{% block title %}
+  Ulteriori soggetti oggetto del procedimento
+{% endblock title %}
+
+{% block content %}
+
+<globo_fondo_pagina areaheight="150" scope="2">
+  {{ utils.firma() }}
+</globo_fondo_pagina>
+
+<input id="Oggetto" name="Oggetto" type="hidden" dynamic_value="'Ulteriori soggetti oggetto del procedimento di ' + #TitolareNonImportare_Cognome.value().toUpperCase() + ' ' + #TitolareNonImportare_Nome.value().toUpperCase()"/>
+
+{{ intestazioni.intestazione_modulosecondario_senzabollo() }}
+
+<h1 class="Modulo">
+  Ulteriori soggetti oggetto del procedimento
+</h1>
+
+<!-- DATI DEL TITOLARE -->
+{{anagrafica.cognome_nome("TitolareNonImportare","Il sottoscritto", "Richiedente", "visibility:hidden", "cursor:default")}}
+
+<br>
+
+<p class="Modulo">
+  con riferimento alla richiesta di concessione di un contributo economico per la frequenza 
+</p>
+{% set cons = ["del centro ricreativo estivo per minori",
+               "del centro ricreativo estivo per minori disabili",
+               "del soggiorno climatico per minori",
+               "del soggiorno climatico per disabili"]%}
+<div id="Tassonomia_contr_eco_fre" name="Tassonomia_contr_eco_fre" label="Contributo economico per la frequenza" mandatory="true"></div>
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    {% for con in cons %}  
+      <tr>
+        <td style="vertical-align: top; width: 4%;">
+          <input group="Tassonomia_contr_eco_fre" id="Tassonomia_contr_eco_fre{{loop.index}}" name="Tassonomia_contr_eco_fre{{loop.index}}" type="checkbox" value="SI" />
+        </td>
+        <td>
+          {{ con }}
+        </td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{{ utils.Dichiara_445() }}
+
+{% for i in range(4, 12) %}
+
+  <input id="AventeTitolo{{i}}_Titolo" name="AventeTitolo{{i}}_Titolo" type="hidden" value="Avente Titolo"/>
+  <input id="AventeTitolo{{i}}_Ruolo" name="AventeTitolo{{i}}_Ruolo" type="hidden" value="Avente Titolo"/>
+  {% if i == 4 %}
+    {{ anagrafica.persona_fisica("AventeTitolo"~i, "<input id='AventeTitolo"~i~"_DatiPersonaObbligatori' name='AventeTitolo"~i~"_DatiPersonaObbligatori' type='checkbox' dynamic_check='true'/> generalità del minore utilizzatore del servizio", 
+    "visibility:visibility", "cursor:pointer", "visibility:visibility", "visibility:none", "none") }}
+  {% else %}
+    {{ anagrafica.persona_fisica("AventeTitolo"~i, "<input id='AventeTitolo"~i~"_DatiPersonaObbligatori' name='AventeTitolo"~i~"_DatiPersonaObbligatori' type='checkbox' enabled='#AventeTitolo"~(i-1)~"_DatiPersonaObbligatori.checked()'/> generalità del minore utilizzatore del servizio", 
+    "visibility:visibility", "cursor:pointer", "visibility:visibility", "visibility:none", "none") }}
+  {% endif %}
+  <table class="Modulo" style="border: 1px solid grey;margin-top: -1px;">
+    <tbody>
+      <tr class="Rigaintestazioneridotta">
+        <td>
+          <p class="Labelcella"> Denominazione CRE/soggiorno climatico </p>
+        </td>
+        <td>
+          <p class="Labelcella"> Data inizio </p>
+        </td>
+        <td>
+          <p class="Labelcella"> Data fine </p>
+        </td>
+        <td>
+          <p class="Labelcella"> Durata (giorni) </p>
+        </td>
+        <td>
+          <p class="Labelcella"> Spesa sostenuta </p>
+        </td>
+      </tr>
+      <tr mandatory_enabled="#AventeTitolo{{i}}_DatiPersonaObbligatori.checked()"> 
+        <td style="width: 33.2%">
+          <input class="inputNormal" id="Parametri_denom_cre{{i}}" name="Parametri_denom_cre{{i}}" style="width: 100%;" label="Denominazione CRE/soggiorno climatico"/>
+        </td>
+        <td style="width: 17%">
+          <input class="inputNormal" id="Parametri_dinizio{{i}}" name="Parametri_dinizio{{i}}" style="width: 100%;" label="Data inizio" format="date"/>
+        </td>
+        <td style="width: 17%">
+          <input class="inputNormal" id="Parametri_dfine{{i}}" name="Parametri_dfine{{i}}" style="width: 100%;" label="Data fine" format="date"/>
+        </td>
+        <td>
+          <input class="inputNormal" id="Parametri_dur_gior{{i}}" name="Parametri_dur_gior{{i}}" style="width: 100%;" label="Durata (giorni)"/>
+        </td>
+        <td>
+          <input class="inputNormal" id="Parametri_spe_sost{{i}}" name="Parametri_spe_sost{{i}}" style="width: 100%;" label="Spesa sostenuta" format="valuta_positiva" />
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <table class="Modulo" style="border: 1px solid grey;margin-top: -1px;">
+    <tbody>
+      <tr>
+        <td rowspan="5" style="vertical-align: top; width: 4%;background-color: white">
+          <input id="Tassonomia_stf_educ{{i}}" name="Tassonomia_stf_educ{{i}}" type="checkbox" value="SI" enabled="#AventeTitolo{{i}}_DatiPersonaObbligatori.checked()"/>
+        </td>
+        <td colspan="3">
+          <p> con presenza di staff educativo non appartenente al nucleo familiare  </p>
+        </td>
+      </tr>
+      <tr class="Rigaintestazioneridotta">
+        <td>
+          <p class="Labelcella"> Nome operatore </p>
+        </td>
+        <td colspan="2">
+          <p class="Labelcella"> Cognome operatore </p>
+        </td>
+      </tr>
+      <tr mandatory_enabled="#Tassonomia_stf_educ{{i}}.checked()">
+        <td>
+          <input class="inputNormal" id="Parametri_oper_nome{{i}}" name="Parametri_oper_nome{{i}}" style="width: 100%;" label="Nome operatore" />
+        </td>
+        <td colspan="2">
+          <input class="inputNormal" id="Parametri_oper_cogn{{i}}" name="Parametri_oper_cogn{{i}}" style="width: 100%;" label="Cognome operatore" />
+        </td>
+      </tr>
+      <tr class="Rigaintestazioneridotta">
+        <td>
+          <p class="Labelcella"> Giorni di assistenza erogata </p>
+        </td>
+        <td>
+          <p class="Labelcella"> Spesa sostenuta per l'assistenza </p>
+        </td>
+        <td>
+          <p class="Labelcella"> Qualifica </p>
+        </td>
+      </tr>
+      <tr mandatory_enabled="#Tassonomia_stf_educ{{i}}.checked()">
+        <td>
+          <input class="inputNormal" id="Parametri_ass_erog{{i}}" name="Parametri_ass_erog{{i}}" style="width: 100%;" label="Giorni di assenza erogata"/>
+        </td>
+        <td>
+          <input class="inputNormal" id="Parametri_sos_ass{{i}}" name="Parametri_sos_ass{{i}}" style="width: 100%;" label="Spesa sostenuta per l'assistenza" />
+        </td>
+        <td>
+          <input class="inputNormal" id="Parametri_qualif{{i}}" name="Parametri_qualif{{i}}" style="width: 100%;" label="Qualifica" />
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <br>
+{% endfor %}
+
+
+
+
+<br/>
+  {{ utils.firma_hidden() }}
+<br/>
+
+<p class="Modulo">
+  <input id="SalvaModulo" name="SalvaModulo" style="height:30px;width:120px;" title="Verifica la corretta compilazione dei campi e salva il modulo nel faldone virtuale dell'istanza." type="submit" value="Salva modulo"/>
+</p>
+
+<input id="GLOBO_modulo_c{{ CodiceModulo }}" name="GLOBO_modulo_c{{ CodiceModulo }}" type="hidden" value=""/>
+
+<input id="GLOBO_id_padre" name="GLOBO_id_padre" type="hidden"/>
+<input id="GLOBO_recupera_dati" name="GLOBO_recupera_dati" type="hidden"/>
+<input id="GLOBO_codice_modulo" name="GLOBO_codice_modulo" type="hidden" value="{{ CodiceModulo }}"/>
+
+{% endblock content %}

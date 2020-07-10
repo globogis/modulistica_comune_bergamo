@@ -1,0 +1,794 @@
+{% set CodiceModulo = "SEGN_PREM_ATLE" %}
+{% set Urn = "document:c_a794:premio.atleti;segnalare" %}
+{% extends "base.html" %}
+
+{% block meta %}
+
+<meta campi_firma="Titolare_CodiceFiscale"
+campi_firma_label="il dichiarante"
+classi_modulo="Sport e tempo libero"
+codice_modulo="{{ CodiceModulo }}"
+urn="{% block urn %}{{ Urn }}{% endblock urn %}"
+sub_urn_list=""
+uo_globo_list=""
+descrizione="Candidatura di squadre e atleti per il premio 'Città di Bergamo ai suoi atleti'"
+destinatario_amministrazione=""
+destinatario_ufficio="UOTEMPOLIBEROSPORTECULTURA"
+dinamico="SI"
+email_a=""
+ente_abilitato="TUTTI"
+filigrana="SI"
+firmare="P7M_ELETTRONICA"
+istruzioni_compilazione=""
+istruzioni_invio="mail_pec"
+metodo_invio="mail"
+name="GLOBO_modulo"
+procura="NO,,"
+tipo_modulo="principale"
+urlhelp="/modulistica/moduli/{{ CodiceModulo }}"
+verifica_pagamento="NO"
+versione="1.2|17/09/2019"/>
+
+<meta codice_modulo_figlio="INCARICO_PROCURA"
+urn_modulo_figlio="document:s_italia:generale;incarico.procura"
+name="GLOBO_modulofiglio"
+numero="1"
+obbligatorio="DINAMICO"/>
+
+
+<meta codice_allegato="DAE-CDI"
+urn_allegato="document:s_italia:generale;documento.identita;documentazione"
+descrizione_estesa="Documento di identità"
+filename="Documento identita.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/DAE-CDI"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+
+<meta codice_allegato="ALTRI-ALLEGATI"
+urn_allegato="document:s_italia:altri.allegati"
+descrizione_estesa="Altri allegati"
+filename="Altri allegati.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/ALTRI-ALLEGATI"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+{% endblock meta %}
+
+{% block title %}
+  Candidatura di squadre e atleti per il premio 'Città di Bergamo ai suoi atleti'
+{% endblock title %}
+
+{% block content %}
+
+<globo_fondo_pagina areaheight="150" scope="4">
+  {{ utils.firma() }}
+</globo_fondo_pagina>
+
+<input id="Parametri_Comune" name="Parametri_Comune" type="hidden" dynamic_value="#Ente.value()"/>
+<input id="Oggetto" name="Oggetto" type="hidden" dynamic_value="#Titolare_Cognome.value().toUpperCase() + ' ' + #Titolare_Nome.value().toUpperCase() + ' - candidatura premio Città di Bergamo'"/>
+
+{{ intestazioni.intestazione_moduloprincipale_senzabollo() }}
+
+<h1 class="Modulo">
+  Candidatura di squadre e atleti per il premio 'La Città di Bergamo ai suoi atleti'
+</h1>
+
+<input dynamic_check="true" id="Titolare_DatiPersonaObbligatori" name="Titolare_DatiPersonaObbligatori" type="hidden"/>
+<input id="Titolare_Titolo" name="Titolare_Titolo" type="hidden" value="Richiedente"/>
+{{ anagrafica.persona_fisica("Titolare", "Il sottoscritto", "visibility:visibility", "cursor:pointer", "visibility:visibility", "visibility:visibility", "mail_ordinaria", "", "true", "false", "false", "", "true") }}
+      <table class="Modulo" style="border:1px solid grey; margin-top:-1px;">
+        <tbody>
+          <tr class="Rigaintestazione">
+            <td colspan="5">
+              <p>
+                <b> in qualità di </b>
+             </p>
+            </td>
+          </tr>
+          <tr class="Rigaintestazioneridotta">
+            <td colspan="5">
+              <p class="Labelcella"> Ruolo </p>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="5">
+              <select class="inputNormal" id="Titolare_Ruolo" name="Titolare_Ruolo" style="width:100%;" mandatory_enabled="true" label="Ruolo del Richiedente">
+                <option value=""></option>
+					<option value="Titolare">Titolare</option>
+					<option value="Legale rappresentante">Rappresentante</option>
+              </select>
+            </td>
+          </tr>
+          <tr class="Rigaintestazioneridotta">
+            <td colspan="5">
+              <p class="Labelcella"> Denominazione/Ragione sociale </p>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="5">
+              <input class="inputNormal" id="Titolare_Federazione" name="Titolare_Federazione" style="width:100%;" mandatory_enabled="true" label="Denominazione Federazione"></select>
+            </td>
+          </tr>
+          <tr class="Rigaintestazioneridotta">
+            <td colspan="5">
+              <p class="Labelcella">Sede legale</p>
+            </td>
+          </tr>
+          <tr class="Rigaintestazioneridotta">
+            <td style="width:9%;">
+              <p class="Labelcella"> Provincia </p>
+            </td>
+            <td style="width:33%;">
+              <p class="Labelcella"> Comune </p>
+            </td>
+            <td style="width:33%;">
+              <p class="Labelcella"> Indirizzo </p>
+            </td>
+            <td style="width:9%;">
+              <p class="Labelcella"> Civico </p>
+            </td>
+            <td style="width:16%;">
+              <p class="Labelcella"> CAP </p>
+            </td>
+          </tr>
+          <tr mandatory_enabled="#Titolare_Ruolo.check_value([ 'Titolare','Legale rappresentante'])">
+            <td>
+              {{ utils.provincie( 'Titolare_ProvinciaSede', label="Provincia della sede legale") }}
+            </td>
+            <td>
+             <select class="inputNormal" id="Titolare_ComuneSede" name="Titolare_ComuneSede" style="width:100%" label="Comune della sede legale" dynamic_value="getComuniFromProvincia( #Titolare_ProvinciaSede.value(), 'Titolare_ComuneSede')"> </select>
+            </td>
+            <td>
+              <input class="" id="Titolare_ViaSede" name="Titolare_ViaSede" style="width:100%;" label="Indirizzo della sede legale" maxlength="60" format="regular_expression" expression="^(.+)\s(.+)$"/>
+            </td>
+            <td>
+              <input class="" id="Titolare_CivicoSede" name="Titolare_CivicoSede" style="width:100%;" label="Civico della sede legale" maxlength="10"/>
+            </td>
+            <td>
+              <input class="" id="Titolare_CAPSede" name="Titolare_CAPSede" style="width:100%;" format="cap" label="CAP della sede legale" enabled="#Titolare_Ruolo.check_value([ 'Titolare','Legale rappresentante' ])" mandatory="#Titolare_Ruolo.check_value([ 'Titolare','Legale rappresentante' ]) and #Titolare_ProvinciaSede.value() != 'EE'"/>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <table class="Modulo" style="border:1px solid grey; margin-top:-1px;" mandatory_enabled="#Titolare_Ruolo.check_value([ 'Titolare','Legale rappresentante' ])">
+        <tbody>
+          <tr class="Rigaintestazioneridotta">
+            <td style="width:50%;">
+              <p class="Labelcella">Codice Fiscale</p>
+            </td>
+            <td style="width:50%;">
+              <p class="Labelcella">Partita IVA</p>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <input class="" id="Titolare_CFPI" name="Titolare_CFPI" label="Codice fiscale" style="width:100%;" format="cfpiva"/>
+            </td>
+              <td>
+                <input class="" id="Titolare_PI" name="Titolare_PI" label="Partita IVA" style="width:100%;" format="piva"/>
+              </td>
+          </tr>
+        </tbody>
+      </table>
+      <table class="Modulo" style="border:1px solid grey; margin-top:-1px;">
+        <tbody>
+          <tr class="Rigaintestazioneridotta">
+            <td style="width:33%;">
+              <p class="Labelcella">Telefono soggetto giuridico </p>
+            </td>
+            <td>
+              <p class="Labelcella"> Posta elettronica certificata soggetto giuridico </p>
+            </td>
+          </tr>
+          <tr>
+            <!-- Telefono soggetto giuridico -->
+            <td mandatory_enabled="#Titolare_Ruolo.check_value([ 'Titolare','Legale rappresentante'])">
+              <input class="inputNormal" id="Titolare_TelefonoSede" label="Telefono soggetto giuridico" name="Titolare_TelefonoSede" style="width:100%"/>
+            </td>
+            <!-- email PEC -->
+            <td enabled="#Titolare_Ruolo.check_value([ 'Titolare','Legale rappresentante'])" mandatory="(#Titolare_Ruolo.check_value([ 'Titolare','Legale rappresentante' ]))">
+              <input class="inputNormal" format="pec" id="Titolare_EMailPECSede" label="E-mail PEC soggetto giuridico" name="Titolare_EMailPECSede" style="width:100%;"/>					
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+<h3 class="Modulo">
+  PROPONE
+</h3>
+<p class="Modulo">
+  la candidatura al premio "La Città di Bergamo ai suoi atleti" per
+</p>
+
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr>
+      <td style="width:4%; vertical-align:top">
+        <div id="Tassonomia_RiceventePremio" mandatory="true" label="Soggetti candidati"></div>
+        <input id="Tassonomia_RiceventePremio1" name="Tassonomia_RiceventePremio" type="radio" value="1">
+      </td>
+      <td>
+        <p>
+          l’atleta, nato o residente nella città di Bergamo, con età non inferiore ai 14 anni al momento dello svolgimento della gara, che nella stagione sportiva conclusa (decorrente dal 1° settembre dell’anno precedente al 31 agosto dell’anno in corso) ha vinto o si
+		  è classificato sia individualmente che con la propria squadra nei primi tre posti alle Olimpiadi, campionati mondiali, campionati europei, Giochi del Mediterraneo, Universiadi o al primo posto ai campionati italiani, assoluti o giovanili, o in gare e tornei di 
+		  assoluta rilevanza internazionale (riconosciuti dalla Federazione di riferimento)
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align:top">
+        <input id="Tassonomia_RiceventePremio2" name="Tassonomia_RiceventePremio" type="radio" value="2">
+      </td>
+      <td>
+        <p>
+          la squadra con sede legale a Bergamo, la cui maggioranza degli atleti abbia un’età non inferiore ai 14 anni al momento dello svolgimento della gara, abbia  che ha vinto nella stagione sportiva conclusa,(decorrente dal 1° settembre dell’anno precedente al 31 agosto dell’anno in corso), 
+		  campionati anzionali nazionali o internazionali, tornei nazionali internazionali (riconosciuti dalla Federazione di riferimento) o che abbia conseguito la promozione alla propria massima categoria federale
+        </p>
+      </td>
+    </tr>
+
+  </tbody>
+</table>
+
+<globo_salto_pagina></globo_salto_pagina>
+
+<input id="AventeTitolo1_DatiPersonaObbligatori" name="AventeTitolo1_DatiPersonaObbligatori" type="hidden" dynamic_check="#Tassonomia_RiceventePremio1.checked()"/>
+<input id="AventeTitolo1_Titolo" name="AventeTitolo1_Titolo" type="hidden" value="Atleta" />
+<input id="AventeTitolo1_Ruolo" name="AventeTitolo1_Ruolo" type="hidden" value="Atleta" />
+{{ anagrafica.persona_fisica("AventeTitolo1", "l'atleta <br> <span style='font-size:70%; font-weight:normal'><i>(da compilare se si propone la candidatura per un atleta)</i></span>", "display:none", "cursor:default", "visibility:visibility", "visibility:visibility", "mail_ordinaria") }}
+
+<table class="Modulo" style="border: 1px solid grey; margin-top:-1px;" enabled="#Tassonomia_RiceventePremio1.checked()">
+  <tbody>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          Squadra di appartenenza
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input class="inputNormal" id="Parametri_SquadraAppartenenza" name="Parametri_SquadraAppartenenza" style="width: 100%;" label="Squadra appartenenza" />
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<input id="AventeTitolo2_Titolo" name="AventeTitolo2_Titolo" type="hidden" value="Squadra"/>
+<input id="AventeTitolo2_Ruolo"  name="AventeTitolo2_Ruolo"  type="hidden" value="Squadra"/>
+<div type="Anagrafica_Società_senza_richiedente" mandatory_enabled="#Tassonomia_RiceventePremio2.checked()">
+  <table class="Modulo" style="border:1px solid grey;">
+    <tbody>
+      <tr class="Rigaintestazione">
+        <td style="border-right:0px">
+            <p class="Labeltabella"> la squadra <br><span style='font-size:70%; font-weight:normal'><i>(da compilare se si propone la candidatura per una squadra)</i></span> </p>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <table class="Modulo" style="border:1px solid grey; margin-top:-1px">
+    <tbody>
+      <tr class="Rigaintestazioneridotta">
+        <td colspan="3">
+          <p class="Labelcella">Denominazione della squadra</p>
+        </td>
+        <td colspan="2">
+          <p class="Labelcella">Tipologia</p>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="3">
+          <input class="" id="AventeTitolo2_Denominazione" name="AventeTitolo2_Denominazione" style="width:100%" label="Denominazione/Ragione sociale"/>
+        </td>
+        <td colspan="2">
+          {{ utils.tipologiaimpresa( 'AventeTitolo2_TipologiaImpresa' )}}
+        </td>
+      </tr>
+      <tr class="Rigaintestazioneridotta">
+        <td colspan="5">
+          <p class="Labelcella"> Sede legale </p>
+        </td>
+      </tr>
+      <tr class="Rigaintestazioneridotta">
+        <td style="width:9%;">
+          <p class="Labelcella"> Provincia </p>
+        </td>
+        <td style="width:33%;">
+          <p class="Labelcella"> Comune </p>
+        </td>
+        <td style="width:33%;">
+          <p class="Labelcella"> Indirizzo </p>
+        </td>
+        <td style="width:9%;">
+          <p class="Labelcella"> Civico </p>
+        </td>
+        <td style="width:16%;">
+          <p class="Labelcella"> CAP </p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          {{ utils.provincie( 'AventeTitolo2_ProvinciaSede', label="Provincia della sede legale") }}
+        </td>
+        <td>
+          <select class="inputNormal" id="AventeTitolo2_ComuneSede" name="AventeTitolo2_ComuneSede" style="width:100%" label="Comune della sede legale" dynamic_value="getComuniFromProvincia( #AventeTitolo2_ProvinciaSede.value(), 'AventeTitolo2_ComuneSede')"> </select>
+        </td>
+        <td>
+          <input class="" id="AventeTitolo2_ViaSede" name="AventeTitolo2_ViaSede" style="width:100%;" label="Indirizzo della sede legale" maxlength="60" format="regular_expression" expression="^(.+)\s(.+)$"/>
+        </td>
+        <td>
+          <input class="" id="AventeTitolo2_CivicoSede" name="AventeTitolo2_CivicoSede" style="width:100%;" label="Civico della sede legale" maxlength="10"/>
+        </td>
+        <td>
+          <input class="" id="AventeTitolo2_CAPSede" name="AventeTitolo2_CAPSede" style="width:100%;" format="cap" label="CAP della sede legale" />
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+
+  <table class="Modulo" style="margin-top:-1px; border:1px solid grey;">
+    <tbody>
+      <tr class="Rigaintestazioneridotta">
+        <td style="width:50%;">
+            <p class="Labelcella"> Telefono soggetto giuridico </p>
+        </td>
+        <td>
+          <p class="Labelcella"> Posta elettronica certificata (domicilio digitale) </p>
+        </td>
+      </tr>
+      <tr>
+        <!-- Telefono soggetto giuridico -->
+        <td>
+          <input class="inputNormal" id="AventeTitolo2_TelefonoSede" label="Telefono soggetto giuridico" name="AventeTitolo2_TelefonoSede" style="width:100%" mandatory="{{ telefono_obbligatorio }}"/>
+        </td>
+        <!-- email PEC -->
+        <td>
+            <input class="inputNormal" format="pec" id="AventeTitolo2_EMailPECSede" label="E-mail PEC del Squadra" name="AventeTitolo2_EMailPECSede" style="width:100%;" mandatory="!#AventeTitolo2_TipologiaImpresa.check_value(['associazione']) and !#AventeTitolo2_TipologiaImpresa.check_value(['ente religioso'])"/>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<table class="Modulo" style="border: 1px solid grey; margin-top:-1px" mandatory_enabled="#Tassonomia_RiceventePremio2.checked()">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="3">
+        <p class="Labeltabella">
+          dati del referente
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          Cognome
+        </p>
+      </td>
+      <td>
+        <p class="Labelcella">
+          Nome
+        </p>
+      </td>
+      <td>
+        <p class="Labelcella">
+          Numero di telefono
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input id="AventeTitolo3_Cognome" name="AventeTitolo3_Cognome" style="width:100%" label="Cognome referente">
+      </td>
+      <td>
+        <input id="AventeTitolo3_Nome" name="AventeTitolo3_Nome" style="width:100%" label="Nome referente">
+      </td>
+      <td>
+        <input id="AventeTitolo3_NumeroTelefono" name="AventeTitolo3_NumeroTelefono" style="width:100%" label="Numero telefono referente">
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<table class="Modulo" style="border: 1px solid grey; margin-top:-1px;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="4">
+        <p class="Labeltabella">
+          dati dei componenti
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td style="width:25%">
+        <p class="Labelcella">
+          Cognome
+        </p>
+      </td>
+      <td style="width:25%">
+        <p class="Labelcella">
+          Nome
+        </p>
+      </td>
+      <td style="width:25%">
+        <p class="Labelcella">
+          Data di nascita
+        </p>
+      </td>
+      <td style="width:25%">
+        <p class="Labelcella">
+          Telefono
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input class="inputNormal" id="AventeTitolo4_Cognome" name="AventeTitolo4_Cognome" style="width: 100%;" label="Cognome componente" mandatory_enabled="#Tassonomia_RiceventePremio2.checked()" />
+      </td>
+      <td>
+        <input class="inputNormal" id="AventeTitolo4_Nome" name="AventeTitolo4_Nome" style="width: 100%;" label="Nome componente" mandatory_enabled="#Tassonomia_RiceventePremio2.checked()" />
+      </td>
+      <td>
+        <input class="inputNormal" id="AventeTitolo4_DataNascita" name="AventeTitolo4_DataNascita" style="width: 100%;" label="Data di nascita componente" mandatory_enabled="#Tassonomia_RiceventePremio2.checked()" format="date" />
+      </td>
+      <td>
+        <input class="inputNormal" id="AventeTitolo4_Recapito" name="AventeTitolo4_Recapito" style="width: 100%;" format="number" label="Recapito componente" mandatory_enabled="#Tassonomia_RiceventePremio2.checked()" />
+      </td>
+    </tr>
+    {% for i in range(5, 33) %}
+    <tr>
+      <td>
+        <input class="inputNormal" id="AventeTitolo{{i}}_Cognome" name="AventeTitolo{{i}}_Cognome" style="width: 100%;" label="Cognome componente" enabled="#AventeTitolo{{i-1}}_Cognome.value() != ''"/>
+      </td>
+      <td>
+        <input class="inputNormal" id="AventeTitolo{{i}}_Nome" name="AventeTitolo{{i}}_Nome" style="width: 100%;" label="Nome componente" mandatory_enabled="#AventeTitolo{{i}}_Cognome.value() != ''"/>
+      </td>
+      <td>
+        <input class="inputNormal" id="AventeTitolo{{i}}_DataNascita" name="AventeTitolo{{i}}_DataNascita" style="width: 100%;" label="Data di nascita componente" mandatory_enabled="#AventeTitolo{{i}}_Cognome.value() != ''" format="date"/>
+      </td>
+      <td>
+        <input class="inputNormal" id="AventeTitolo{{i}}_Recapito" name="AventeTitolo{{i}}_Recapito" style="width: 100%;" label="Recapito componente" format="number" mandatory_enabled="#AventeTitolo{{i}}_Cognome.value() != ''" />
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<globo_salto_pagina></globo_salto_pagina>
+
+<h3 class="Modulo">
+  IN RELAZIONE AI SEGUENTI TITOLI CONSEGUITI
+</h3>
+
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="4">
+        <p class="Labeltabella">
+          <input id="Parametri_Titolo1" name="Parametri_Titolo1" type="checkbox" checked="checked" dynamic_check="true" value="si"> titolo conseguito
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td colspan="4">
+        <p class="Labelcella">
+          Denominazione della competizione
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="4">
+        <input class="inputNormal" id="Parametri_DenominazioneCompetizione1" name="Parametri_DenominazioneCompetizione1" style="width: 100%;" label="Denominazione competizione" mandatory_enabled="#Parametri_Titolo1.checked()"/>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          Titolo conseguito
+        </p>
+      </td>
+      <td>
+        <p class="Labelcella">
+          Data conseguimento titolo
+        </p>
+      </td>
+      <td>
+        <p class="Labelcella">
+          Numero partecipanti alla gara
+        </p>
+      </td>
+      <td style="width:10%;">
+        <p class="Labelcella">
+          Gara master
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input class="inputNormal" id="Parametri_TitoloConseguito1" name="Parametri_TitoloConseguito1" style="width: 100%;" label="Titolo conseguito" mandatory_enabled="#Parametri_Titolo1.checked()"/>
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_DataConseguimentoTitolo1" name="Parametri_DataConseguimentoTitolo1" style="width: 100%;" label="Data conseguimento titolo" format="date" mandatory_enabled="#Parametri_Titolo1.checked()"/>
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_NumeroPartecipanti1" name="Parametri_NumeroPartecipanti1" style="width: 100%;" label="Numero partecipanti" mandatory_enabled="#Parametri_Titolo1.checked()"/>
+      </td>
+      <td>
+        <input id="Tassonomia_GaraMaster1" name="Tassonomia_GaraMaster1" type="checkbox" value="si" enabled="#Parametri_Titolo1.checked()">
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="4">
+        <p class="Labeltabella">
+          <input id="Parametri_Titolo2" name="Parametri_Titolo2" type="checkbox"value="si" enabled="#Parametri_Titolo1.checked()"> ulteriore titolo conseguito
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td colspan="4">
+        <p class="Labelcella">
+          Denominazione della competizione
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="4">
+        <input class="inputNormal" id="Parametri_DenominazioneCompetizione2" name="Parametri_DenominazioneCompetizione2" style="width: 100%;" label="Denominazione competizione" mandatory_enabled="#Parametri_Titolo2.checked()"/>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          Titolo conseguito
+        </p>
+      </td>
+      <td>
+        <p class="Labelcella">
+          Data conseguimento titolo
+        </p>
+      </td>
+      <td>
+        <p class="Labelcella">
+          Numero partecipanti alla gara
+        </p>
+      </td>
+      <td style="width:10%;">
+        <p class="Labelcella">
+          Gara master
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input class="inputNormal" id="Parametri_TitoloConseguito2" name="Parametri_TitoloConseguito2" style="width: 100%;" label="Titolo conseguito" mandatory_enabled="#Parametri_Titolo2.checked()"/>
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_DataConseguimentoTitolo2" name="Parametri_DataConseguimentoTitolo2" style="width: 100%;" label="Data conseguimento titolo" format="date" mandatory_enabled="#Parametri_Titolo2.checked()"/>
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_NumeroPartecipanti2" name="Parametri_NumeroPartecipanti2" style="width: 100%;" label="Numero partecipanti" mandatory_enabled="#Parametri_Titolo2.checked()"/>
+      </td>
+      <td>
+        <input id="Tassonomia_GaraMaster2" name="Tassonomia_GaraMaster2" type="checkbox" value="si" enabled="#Parametri_Titolo2.checked()">
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="4">
+        <p class="Labeltabella">
+          <input id="Parametri_Titolo3" name="Parametri_Titolo3" type="checkbox"value="si" enabled="#Parametri_Titolo2.checked()"> ulteriore titolo conseguito
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td colspan="4">
+        <p class="Labelcella">
+          Denominazione della competizione
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="4">
+        <input class="inputNormal" id="Parametri_DenominazioneCompetizione3" name="Parametri_DenominazioneCompetizione3" style="width: 100%;" label="Denominazione competizione" mandatory_enabled="#Parametri_Titolo3.checked()"/>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          Titolo conseguito
+        </p>
+      </td>
+      <td>
+        <p class="Labelcella">
+          Data conseguimento titolo
+        </p>
+      </td>
+      <td>
+        <p class="Labelcella">
+          Numero partecipanti alla gara
+        </p>
+      </td>
+      <td style="width:10%;">
+        <p class="Labelcella">
+          Gara master
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input class="inputNormal" id="Parametri_TitoloConseguito3" name="Parametri_TitoloConseguito3" style="width: 100%;" label="Titolo conseguito" mandatory_enabled="#Parametri_Titolo3.checked()"/>
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_DataConseguimentoTitolo3" name="Parametri_DataConseguimentoTitolo3" style="width: 100%;" label="Data conseguimento titolo" format="date" mandatory_enabled="#Parametri_Titolo3.checked()"/>
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_NumeroPartecipanti3" name="Parametri_NumeroPartecipanti3" style="width: 100%;" label="Numero partecipanti" mandatory_enabled="#Parametri_Titolo3.checked()"/>
+      </td>
+      <td>
+        <input id="Tassonomia_GaraMaster3" name="Tassonomia_GaraMaster3" type="checkbox" value="si" enabled="#Parametri_Titolo3.checked()">
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="4">
+        <p class="Labeltabella">
+          <input id="Parametri_Titolo4" name="Parametri_Titolo4" type="checkbox"value="si" enabled="#Parametri_Titolo3.checked()"> ulteriore titolo conseguito
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td colspan="4">
+        <p class="Labelcella">
+          Denominazione della competizione
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="4">
+        <input class="inputNormal" id="Parametri_DenominazioneCompetizione4" name="Parametri_DenominazioneCompetizione4" style="width: 100%;" label="Denominazione competizione" mandatory_enabled="#Parametri_Titolo4.checked()"/>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          Titolo conseguito
+        </p>
+      </td>
+      <td>
+        <p class="Labelcella">
+          Data conseguimento titolo
+        </p>
+      </td>
+      <td>
+        <p class="Labelcella">
+          Numero partecipanti alla gara
+        </p>
+      </td>
+      <td style="width:10%;">
+        <p class="Labelcella">
+          Gara master
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input class="inputNormal" id="Parametri_TitoloConseguito4" name="Parametri_TitoloConseguito4" style="width: 100%;" label="Titolo conseguito" mandatory_enabled="#Parametri_Titolo4.checked()"/>
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_DataConseguimentoTitolo4" name="Parametri_DataConseguimentoTitolo4" style="width: 100%;" label="Data conseguimento titolo" format="date" mandatory_enabled="#Parametri_Titolo4.checked()"/>
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_NumeroPartecipanti4" name="Parametri_NumeroPartecipanti4" style="width: 100%;" label="Numero partecipanti" mandatory_enabled="#Parametri_Titolo4.checked()"/>
+      </td>
+      <td>
+        <input id="Tassonomia_GaraMaster4" name="Tassonomia_GaraMaster4" type="checkbox" value="si" enabled="#Parametri_Titolo3.checked()">
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<br>
+
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          Eventuali annotazioni
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <textarea class="inputNormal" id="Parametri_Annotazioni" name="Parametri_Annotazioni" style="width: 100%; height: 5cm;" label="Eventuali annotazioni"></textarea>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<br>
+<table class="Modulo" name="Allegati" style="border: 1px solid grey">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="2">
+        <p style="text-align: center;">
+          <b>
+            Elenco degli allegati
+          </b>
+          <br/>
+          <span style="font-size:70%">
+            <i>(barrare tutti gli allegati richiesti in fase di presentazione della pratica ed elencati sul portale)</i>
+          </span>
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="DAE-CDI" name="DAE-CDI" type="checkbox" value="OBBLIGATORIO" />
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          copia del documento d'identità
+          <br/>
+          <span style="font-size:70%">
+            <i>(da allegare se il modulo è sottoscritto con firma autografa)</i>
+          </span>
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="ALTRI-ALLEGATI" name="ALTRI-ALLEGATI" type="checkbox" value="OBBLIGATORIO"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          altri allegati
+          <span style="font-size:70%">(specificare)</span>
+          <input class="" label="Altri allegati" id="AltriAllegati" mandatory_enabled="#ALTRI_ALLEGATI.checked()" name="AltriAllegati" style="width:79%;"/>
+        </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+{{ utils.trattamento_dati_personali() }}
+<br/>
+  {{ utils.firma_hidden() }}
+<br/>
+
+<p class="Modulo">
+  <input id="SalvaModulo" name="SalvaModulo" style="height:30px;width:120px;" title="Verifica la corretta compilazione dei campi e salva il modulo nel faldone virtuale dell'istanza." type="submit" value="Salva modulo"/>
+</p>
+
+<input destinatario_amministrazione="getParameter('Ente')" id="GLOBO_modulo_c{{ CodiceModulo }}" name="GLOBO_modulo_c{{ CodiceModulo }}" type="hidden" value=""/>
+<input firmare="'P7M_ELETTRONICA'" id="GLOBO_modulofiglio_cINCARICO_PROCURA" name="GLOBO_modulofiglio_cINCARICO_PROCURA" type="hidden" value=""/>
+
+<input id="GLOBO_allegato_cDAE-CDI" name="GLOBO_allegato_cDAE-CDI" obbligatorio="#DAE_CDI.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+<input id="GLOBO_allegato_cALTRI-ALLEGATI" name="GLOBO_allegato_cALTRI-ALLEGATI" obbligatorio="#ALTRI_ALLEGATI.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_id_padre" name="GLOBO_id_padre" type="hidden"/>
+<input id="GLOBO_recupera_dati" name="GLOBO_recupera_dati" type="hidden"/>
+<input id="GLOBO_codice_modulo" name="GLOBO_codice_modulo" type="hidden" value="{{ CodiceModulo }}"/>
+
+{% endblock content %}

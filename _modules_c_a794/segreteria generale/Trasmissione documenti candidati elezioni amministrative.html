@@ -1,0 +1,199 @@
+{% set CodiceModulo = "TRASM-DOC-CAND" %}
+{% set Urn = "document:c_a794:trasmissione.documenti.candidati.amministrative" %}
+{% extends "base.html" %}
+
+{% block meta %}
+
+<meta campi_firma="Titolare_CodiceFiscale"
+campi_firma_label="il dichiarante"
+classi_modulo="Servizi demografici"
+codice_modulo="{{ CodiceModulo }}"
+urn="{% block urn %}{{ Urn }}{% endblock urn %}"
+sub_urn_list=""
+uo_globo_list=""
+descrizione="Trasmissione dei documenti relativi ai candidati alle elezioni amministrative"
+destinatario_amministrazione=""
+destinatario_ufficio="UOSEGRETERIAGENERALE"
+dinamico="SI"
+email_a=""
+ente_abilitato="TUTTI"
+filigrana="SI"
+firmare="P7M_ELETTRONICA"
+istruzioni_compilazione=""
+istruzioni_invio="mail_pec"
+metodo_invio="mail"
+name="GLOBO_modulo"
+procura="NO,,"
+tipo_modulo="principale"
+urlhelp="/modulistica/moduli/{{ CodiceModulo }}"
+verifica_pagamento="NO"
+versione="1.3|16/05/2019"/>
+
+<meta codice_modulo_figlio="INCARICO_PROCURA"
+urn_modulo_figlio="document:s_italia:generale;incarico.procura"
+name="GLOBO_modulofiglio"
+numero="1"
+obbligatorio="DINAMICO"/>
+
+<meta codice_allegato="ALLEGATI_CANDIDATI"
+urn_allegato="document:c_a794:allegati.candidati"
+descrizione_estesa="Allegati relativi ai candidati"
+filename="Allegato.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/ALLEGATI_CANDIDATI"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+{% endblock meta %}
+
+{% block title %}
+  Trasmissione dei documenti relativi ai candidati alle elezioni amministrative
+{% endblock title %}
+
+{% block content %}
+
+<globo_fondo_pagina areaheight="150" scope="3">
+  {{ utils.firma() }}
+</globo_fondo_pagina>
+
+<input id="Parametri_Comune" name="Parametri_Comune" type="hidden" dynamic_value="#Ente.value()"/>
+<input id="Oggetto" name="Oggetto" type="hidden" dynamic_value="'Documenti relativi ai candidati della lista ' + #Parametri_NomeLista.value()"/>
+
+{{ intestazioni.intestazione_moduloprincipale_senzabollo() }}
+
+<h1 class="Modulo">
+  Trasmissione dei documenti relativi ai candidati alle elezioni amministrative
+</h1>
+<h2 class="Modulo">
+  Ai sensi della La legge 09-01-2019, n.3
+</h2>
+
+<input id="Titolare_DatiPersonaObbligatori" name="Titolare_DatiPersonaObbligatori" type="hidden" dynamic_check="true"/>
+<input id="Titolare_Titolo" name="Titolare_Titolo" type="hidden" value="Richiedente"/>
+<input id="Titolare_Ruolo" name="Titolare_Ruolo" type="hidden" value="Richiedente"/>
+{{ anagrafica.persona_fisica("Titolare", "Il sottoscritto", "visibility:visibility", "cursor:pointer", "visibility:visibility", "visibility:visibility", "mail_ordinaria","", "true", "false", "false", "", "true") }}
+<table class="Modulo" style="border: 1px solid grey;margin-top: -1px;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td>
+        <p class="Labeltabella"> In qualità di presentatore della lista </p>
+      </td>
+    </tr>
+    <tr>
+      <td mandatory="true">
+        <input class="inputNormal" id="Parametri_NomeLista" name="Parametri_NomeLista" style="width: 100%;" label="Nome della lista" />
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+
+<h3 class="Modulo">
+  TRASMETTE, PER CIASCUNO DEI CANDIDATI
+</h3>
+
+{% set allegati = [ "Il curriculum vitae redatto secondo il modello europeo",
+                    "Il certificato penale, rilasciato dal casellario giudiziale non prima di novanta giorni della data fissata per le elezioni"] %}
+<ul>
+  {% for allegato in allegati %}
+    <li>
+        {{ allegato }}
+    </li>
+  {% endfor %}
+</ul>
+
+{{ utils.Dichiara_445() }}
+
+<p class="Modulo">
+  Che i documenti allegati sono quelli già pubblicati nel sito internet del partito o movimento politico ovvero della lista o del candidato con essa collegato
+</p>
+
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="3">
+        <p class="Labeltabella"> Elenco dei candidati dei quali viene allegata la documentazione </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella"> Cognome </p>
+      </td>
+      <td>
+        <p class="Labelcella"> Nome </p>
+      </td>
+      <td>
+        <p class="Labelcella"> Codice Fiscale </p>
+      </td>
+    </tr>
+    {% for i in range(1, 33) %}
+      <tr {% if i < 22 %} mandatory="true" {% endif %}>
+        <td>
+          <input class="inputNormal" id="AventeTitolo{{loop.index}}_Cognome" name="AventeTitolo{{loop.index}}_Cognome" style="width: 100%;" label="Cognome del {{loop.index}}° candidato" />
+        </td>
+        <td {% if i >= 22 %} mandatory_enabled="#AventeTitolo{{loop.index}}_Cognome.value()!=''" {% endif %}>
+          <input class="inputNormal" id="AventeTitolo{{loop.index}}_Nome" name="AventeTitolo{{loop.index}}_Nome" style="width: 100%;" label="Nome del {{loop.index}}° candidato" />
+        </td>
+        <td {% if i >= 22 %} mandatory_enabled="#AventeTitolo{{loop.index}}_Cognome.value()!=''" {% endif %}>
+          <input class="inputNormal" id="AventeTitolo{{loop.index}}_CodiceFiscale" name="AventeTitolo{{loop.index}}_CodiceFiscale" onkeyup="this.value = this.value.toUpperCase();" style="width: 100%;" label="Codice Fiscale del {{loop.index}}° candidato" format="cf" />
+        </td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+
+
+
+<br>
+<globo_salto_pagina></globo_salto_pagina>
+<table class="Modulo" name="Allegati" style="border: 1px solid grey">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="2">
+        <p style="text-align: center;">
+          <b>
+            Elenco degli allegati
+          </b>
+          <br/>
+          <span style="font-size:70%">
+            <i>(barrare tutti gli allegati richiesti in fase di presentazione della pratica ed elencati sul portale)</i>
+          </span>
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="ALLEGATI_CANDIDATI" name="ALLEGATI_CANDIDATI" type="checkbox" value="OBBLIGATORIO" dynamic_check="true" enabled="true"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          numero <input class="inputNormal" id="Parametri_NumeroAllegati" name="Parametri_NumeroAllegati" style="width: 5%" mandatory_enabled="#ALLEGATI_CANDIDATI.checked()"/> allegati
+        </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<br>
+{{ utils.trattamento_dati_personali() }}
+<br/>
+  {{ utils.firma_hidden() }}
+<br/>
+
+<p class="Modulo">
+  <input id="SalvaModulo" name="SalvaModulo" style="height:30px;width:120px;" title="Verifica la corretta compilazione dei campi e salva il modulo nel faldone virtuale dell'istanza." type="submit" value="Salva modulo"/>
+</p>
+
+<input destinatario_amministrazione="getParameter('Ente')" id="GLOBO_modulo_c{{ CodiceModulo }}" name="GLOBO_modulo_c{{ CodiceModulo }}" type="hidden" value=""/>
+<input firmare="'P7M_ELETTRONICA'" id="GLOBO_modulofiglio_cINCARICO_PROCURA" name="GLOBO_modulofiglio_cINCARICO_PROCURA" type="hidden" value=""/>
+
+<input id="GLOBO_allegato_cALLEGATI_CANDIDATI" name="GLOBO_allegato_cALLEGATI_CANDIDATI" obbligatorio="#ALLEGATI_CANDIDATI.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value="" numero="#Parametri_NumeroAllegati.value()"/>
+
+<input id="GLOBO_id_padre" name="GLOBO_id_padre" type="hidden"/>
+<input id="GLOBO_recupera_dati" name="GLOBO_recupera_dati" type="hidden"/>
+<input id="GLOBO_codice_modulo" name="GLOBO_codice_modulo" type="hidden" value="{{ CodiceModulo }}"/>
+
+{% endblock content %}

@@ -1,0 +1,492 @@
+{% set CodiceModulo = "PATR_GREEN" %}
+{% set Urn = "document:c_a794:patrocinio.green;domanda" %}
+{% extends "base.html" %}
+
+{% block meta %}
+
+<meta campi_firma="Titolare_CodiceFiscale"
+campi_firma_label="il dichiarante"
+classi_modulo="Sport e tempo libero"
+codice_modulo="{{ CodiceModulo }}"
+urn="{% block urn %}{{ Urn }}{% endblock urn %}"
+sub_urn_list=""
+uo_globo_list=""
+descrizione="Richiesta logo green friendly event"
+destinatario_amministrazione=""
+destinatario_ufficio="UOTEMPOLIBEROSPORTCULTURA"
+dinamico="SI"
+email_a=""
+ente_abilitato="TUTTI"
+filigrana="SI"
+firmare=""
+istruzioni_compilazione=""
+istruzioni_invio="mail_pec"
+metodo_invio="mail"
+name="GLOBO_modulo"
+procura="NO,,"
+tipo_modulo="secondario"
+urlhelp="/modulistica/moduli/{{ CodiceModulo }}"
+verifica_pagamento="NO"
+versione="1.0|06/02/2020"/>
+
+{% endblock meta %}
+
+{% block title %}
+  Richiesta logo green friendly event
+{% endblock title %}
+
+{% block content %}
+
+<globo_fondo_pagina areaheight="150" scope="3">
+  {{ utils.firma() }}
+</globo_fondo_pagina>
+
+<input id="Parametri_Comune" name="Parametri_Comune" type="hidden" dynamic_value="#Ente.value()"/>
+<input id="Oggetto" name="Oggetto" type="hidden" dynamic_value="#Titolare_Cognome.value().toUpperCase() + ' ' + #Titolare_Nome.value().toUpperCase() + ' - Richiesta logo green friendly event'"/>
+
+{{ intestazioni.intestazione_moduloprincipale_senzabollo() }}
+
+<h1 class="Modulo">
+   Richiesta logo green friendly event
+</h1>
+
+<input id="Titolare_DatiPersonaObbligatori" name="Titolare_DatiPersonaObbligatori" type="hidden" dynamic_check="true"/>
+<input id="Titolare_Titolo" name="Titolare_Titolo" type="hidden" value="Richiedente"/>
+<input id="Titolare_Ruolo" name="Titolare_Ruolo" type="hidden" value="Richiedente"/>
+{{ anagrafica.persona_fisica("Titolare", "Il sottoscritto", "visibility:visibility", "cursor:pointer", "visibility:visibility", "visibility:visibility", "mail_ordinaria" ) }}
+
+<p class="Modulo">
+  con riferimento alla domanda di patrocinio relativa alla manifestazione indicata nel modulo principale
+</p>
+
+
+<br>
+{{ utils.Dichiara_445() }}
+<br>
+
+<p class="Modulo">
+ che la manifestazione sarà realizzata applicando i seguenti criteri ambientali per la riduzione dell’impatto ambientale delle attività culturali sviluppati nell’ambito del progetto LIFE+ GREEN FEST, e coerentemente con le Linee Guida per la richiesta del patrocinio green del Comune di Bergamo.
+ </p>
+
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+     <tr class="Rigaintestazione">
+       <td colspan="2">
+         <p class="Labelcella">
+           Rifiuti
+           </p>
+        </td>
+        </tr>
+        <tr>
+        <td style="vertical-align: top; width: 4%;">
+          <input class="InputNormal" id="Parametri_Racc_Diff" name="Parametri_Racc_Diff" label="Raccolta differenziata" type="checkbox" mandatory="true" checked="checked" dynamic_check="true" value="si"/>
+        </td>
+        <td>
+        <p class="LabelTabella">
+           Raccolta differenziata
+        </p>
+      </td>
+      </tr>
+      <tr>
+      <td style="vertical-align: top; width: 4%;">
+          <input class="InputNormal" id="Parametri_Piatti" name="Parametri_Piatti" label="Piatti monouso" type="checkbox" value="si"/>
+        </td>
+        <td>
+        <p class="LabelTabella">
+           Piatti e stoviglie monouso da plastica vegetale
+        </p>
+      </td>
+      </tr>
+       <tr>
+      <td style="vertical-align: top; width: 4%;">
+          <input class="InputNormal" id="Parametri_plastic_free" name="Parametri_plastic_free" label="Plastic free" type="checkbox" value="si"/>
+        </td>
+        <td>
+        <p class="LabelTabella">
+           Evento plastic-free
+        </p>
+      </td>
+      </tr>
+        <tr class="Rigaintestazione">
+        <td colspan="2">
+        <p class="Labelcella">
+          Energia
+          </p>
+          </td>
+          </tr>
+          <tr>
+        <td style="vertical-align: top; width: 4%;">
+          <input class="InputNormal" id="Parametri_Lampade" name="Parametri_Lampade" label="Lampade basso consumo" type="checkbox" mandatory="true" checked="checked" dynamic_check="true" value="si"/>
+        </td>
+        <td>
+        <p class="LabelTabella">
+        Lampade a basso consumo
+        </p>
+      </td>
+      </tr>
+      <tr>
+        <td style="vertical-align: top; width: 4%;">
+          <input class="InputNormal" id="Parametri_Energy" name="Parametri_Energy" label="Energy Star" value="si" type="checkbox" mandatory="true" checked="checked"dynamic_check="true"/>
+        </td>
+        <td>
+        <p class="LabelTabella">
+        	Dispositivi informatici Energy Star 5.0
+        </p>
+      </td>
+      </tr>
+      <tr>
+        <td style="vertical-align: top; width: 4%;">
+          <input class="InputNormal" id="Parametri_Temp" name="Parametri_Temp" label="Temperatura" type="checkbox" value="si" mandatory="true" checked="checked" >
+        </td>
+        <td>
+        <p class="LabelTabella">
+            Possibilità di regolare la temperature negli spazi interni
+        </p>
+      </td>
+      </tr>
+      <tr>
+        <td style="vertical-align: top; width: 4%;">
+          <input class="InputNormal" id="Parametri_Temp" name="Parametri_Temp" value="si" label="Temperatura" type="checkbox" >
+        </td>
+        <td>
+        <p class="LabelTabella">
+            Energia proveniente da fonti rinnovabili
+        </p>
+      </td>
+      </tr>
+      <tr>
+        <td style="vertical-align: top; width: 4%;">
+          <input class="InputNormal" id="Parametri_Inf_Comp" name="Parametri_Inf_Comp" value="si" label="Info comportamenti" type="checkbox">
+        </td>
+        <td>
+        <p class="LabelTabella">
+            Informazioni sui comportamenti per ridurre impatti della manifestazione
+        </p>
+      </td>
+      </tr>
+      <tr>
+        <td style="vertical-align: top; width: 4%;">
+          <input class="InputNormal" id="Parametri_Basso_Consumo" name="Parametri_Basso_Consumo" value="si" label="Basso consumo" type="checkbox">
+        </td>
+        <td>
+        <p class="LabelTabella">
+            Atri dispositivi a basso consumo
+        </p>
+      </td>
+      </tr>    
+      <tr class="Rigaintestazione">
+        <td colspan="2">
+        <p class="Labelcella">
+          Trasporti
+          </p>
+          </td>
+          </tr>
+      <tr>
+        <td style="vertical-align: top; width: 4%;">
+          <input class="InputNormal" id="Parametri_Trasp_Pub" name="Parametri_Trasp_Pub" value="si" label="Trasporto pubblico" type="checkbox" mandatory="true" checked="checked" dynamic_check="true">
+        </td>      
+      <td>
+        <p class="LabelTabella">
+            Evento accessibile con il trasporto pubblico
+        </p>
+      </td>
+    </tr>
+    <tr>
+        <td style="vertical-align: top; width: 4%;">
+          <input class="InputNormal" id="Parametri_Inf_Trasp_Pub" name="Parametri_Inf_Trasp_Pub" label="Info Trasporto pubblico"  type="checkbox" value="si" mandatory="true" checked="checked" dynamic_check="true">
+        </td>      
+      <td>
+        <p class="LabelTabella">
+            Informazioni sulla raggiungibilità dell’evento con i mezzi pubblici
+        </p>
+      </td>
+    </tr>
+    <tr>
+        <td style="vertical-align: top; width: 4%;">
+          <input class="InputNormal" id="Parametri_Coll_Trasp_Pub" name="Parametri_Coll_Trasp_Pub" label="Collaborazioni Trasporto pubblico" type="checkbox" value="si">
+        </td>      
+      <td>
+        <p class="LabelTabella">
+            Collaborazioni ad hoc con il trasporto pubblico
+        </p>
+      </td>
+    </tr>
+    <tr>
+        <td style="vertical-align: top; width: 4%;">
+          <input class="InputNormal" id="Parametri_Navetta" name="Parametri_Navetta" label="Navetta" type="checkbox" value="si">
+        </td>      
+      <td>
+        <p class="LabelTabella">
+           Predisposizione servizio navetta
+        </p>
+      </td>
+    </tr>
+    <tr>
+        <td style="vertical-align: top; width: 4%;">
+          <input class="InputNormal" id="Parametri_Strutt_Ric" name="Parametri_Strutt_Ric" label="Strutture ricettive" type="checkbox" value="si">
+        </td>      
+      <td>
+        <p class="LabelTabella">
+           Strutture ricettive collegate con il trasporto pubblico
+        </p>
+      </td>
+    </tr>
+    <tr>
+        <td style="vertical-align: top; width: 4%;">
+          <input class="InputNormal" id="Parametri_Impatto_Amb" name="Parametri_Impatto_Amb" label="Impatto ambientale" type="checkbox" value="si">
+        </td>      
+      <td>
+        <p class="LabelTabella">
+           Uso mezzi a basso impatto ambientale per il trasporto dei materiali
+        </p>
+      </td>
+    </tr>
+    <tr>
+        <td style="vertical-align: top; width: 4%;">
+          <input class="InputNormal" id="Parametri_Car_Sharing" name="Parametri_Car_Sharing" label="Car sharing" type="checkbox" value="si">
+        </td>      
+      <td>
+        <p class="LabelTabella">
+           Informazioni sui materiali informativi della raggiungibilità dell’evento con servizi bike/car-sharing
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazione">
+        <td colspan="2">
+        <p class="Labelcella">
+          Promozione e comunicazione
+          </p>
+          </td>
+          </tr>
+    <tr>
+        <td style="vertical-align: top; width: 4%;">
+          <input class="InputNormal" id="Parametri_Inf_Impatto" name="Parametri_Inf_Impatto" label="Info Impatto" type="checkbox" value="si" mandatory="true" checked="checked"dynamic_check="true">
+        </td>      
+      <td>
+        <p class="LabelTabella">
+             Informazioni sull'impatto dell'evento sul web e sui metodi per ridurlo
+        </p>
+      </td>
+    </tr>
+    <tr>
+        <td style="vertical-align: top; width: 4%;">
+          <input class="InputNormal" id="Parametri_Inf_Gest_Rif" name="Parametri_Inf_Gest_Rif" label="Info gestione rifiuti" type="checkbox" value="si" mandatory="true" checked="checked"dynamic_check="true">
+        </td>      
+      <td>
+        <p class="LabelTabella">
+             Informazioni sulla corretta gestione dei rifiuti durante l’evento
+        </p>
+      </td>
+    </tr>
+      <tr>
+        <td style="vertical-align: top; width: 4%;">
+          <input class="InputNormal" id="Parametri_Inf_Acqua" name="Parametri_Inf_Acqua" label="Info acqua" type="checkbox" value="si">
+        </td>      
+      <td>
+        <p class="LabelTabella">
+             Informazioni sull’uso dell’acqua durante l’evento
+        </p>
+      </td>
+    </tr>
+    <tr>
+        <td style="vertical-align: top; width: 4%;">
+          <input class="InputNormal" id="Parametri_Inf_Consumi" name="Parametri_Inf_Consumi" label="Info consumi" type="checkbox" value="si">
+        </td>      
+      <td>
+        <p class="LabelTabella">
+             Informazione sui consumi energetici durante l’evento
+        </p>
+      </td>
+    </tr>
+    <tr>
+        <td style="vertical-align: top; width: 4%;">
+          <input class="InputNormal" id="Parametri_Mat_Vis" name="Parametri_Mat_Vis" label="Materiali visivi raccolta differenziata" type="checkbox" value="si">
+        </td>      
+      <td>
+        <p class="LabelTabella">
+             Predisposizione di materiali visivi per promuovere la raccolta differenziata
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazione">
+        <td colspan="2">
+        <p class="Labelcella">
+          Accessibilità e uguaglianza
+          </p>
+          </td>
+          </tr>
+    <tr>
+        <td style="vertical-align: top; width: 4%;">
+          <input class="InputNormal" id="Parametri_Disabili" name="Parametri_Disabili" label="Accessibilità disabili" type="checkbox" mandatory="true" checked="checked" value="si" dynamic_check="true">
+        </td>      
+      <td>
+        <p class="LabelTabella">
+             Garanzia accessibilità per persone disabili
+        </p>
+      </td>
+    </tr>
+    <tr>
+        <td style="vertical-align: top; width: 4%;">
+          <input class="InputNormal" id="Parametri_Equità" name="Parametri_Equità" label="Equità genere" type="checkbox" mandatory="true" checked="checked" value="si" dynamic_check="true">
+        </td>      
+      <td>
+        <p class="LabelTabella">
+            Equità di genere nei contratti di lavoro
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazione">
+        <td colspan="2">
+        <p class="Labelcella">
+          Prodotti per le pulizie
+          </p>
+          </td>
+          </tr>
+    <tr>
+        <td style="vertical-align: top; width: 4%;">
+          <input class="InputNormal" id="Parametri_Ecolabel" name="Parametri_Ecolabel" label="Pulizie Ecolabel" type="checkbox" mandatory="true" checked="checked" value="si" dynamic_check="true">
+        </td>      
+      <td>
+        <p class="LabelTabella">
+            Prodotti per le pulizie Ecolabel
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazione">
+        <td colspan="2">
+        <p class="Labelcella">
+          Cibi e bevande
+          </p>
+          </td>
+          </tr>
+    <tr>
+        <td style="vertical-align: top; width: 4%;">
+          <input class="InputNormal" id="Parametri_Prod_Bio" name="Parametri_Prod_Bio" label="Prodotti biologici" type="checkbox"  mandatory="true" checked="checked" value="si" dynamic_check="true">
+        </td>      
+      <td>
+        <p class="LabelTabella">
+            Presenza di prodotti biologici
+        </p>
+      </td>
+    </tr>
+    <tr>
+        <td style="vertical-align: top; width: 4%;">
+          <input class="InputNormal" id="Parametri_Prod_Stag" name="Parametri_Prod_Stag" label="Prodotti ortofrutticoli stagionali" type="checkbox" value="si" mandatory="true" checked="checked" dynamic_check="true">
+        </td>      
+      <td>
+        <p class="LabelTabella">
+            Prodotti ortofrutticoli stagionali
+        </p>
+      </td>
+    </tr>
+    <tr>
+        <td style="vertical-align: top; width: 4%;">
+          <input class="InputNormal" id="Parametri_Imballaggi" name="Parametri_Imballaggi" label="Imballaggi riciclabili" type="checkbox" value="si" mandatory="true" checked="checked" dynamic_check="true">
+        </td>      
+      <td>
+        <p class="LabelTabella">
+            Imballaggi con materiali riciclabili e riciclati
+        </p>
+      </td>
+    </tr>
+     <tr>
+        <td style="vertical-align: top; width: 4%;">
+          <input class="InputNormal" id="Parametri_Prod_Km_Zero" name="Parametri_Prod_Km_Zero" label="Prodotti Km 0" type="checkbox" value="si">
+        </td>      
+      <td>
+        <p class="LabelTabella">
+            Prodotti a KM0
+        </p>
+      </td>
+    </tr>
+       <tr>
+        <td style="vertical-align: top; width: 4%;">
+          <input class="InputNormal" id="Parametri_Prod_Esotici" name="Parametri_Prod_Esotici" label="Prodotti Esotici" type="checkbox" value="si">
+        </td>      
+      <td>
+        <p class="LabelTabella">
+            Prodotti esotici da commercio equo e solidale
+        </p>
+      </td>
+    </tr>
+     <tr>
+        <td style="vertical-align: top; width: 4%;">
+          <input class="InputNormal" id="Parametri_Rec_Cibi" name="Parametri_Rec_Cibi" label="Recupero cibi" type="checkbox" value="si">
+        </td>      
+      <td>
+        <p class="LabelTabella">
+            Protocollo per il recupero dei cibi avanzati
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazione">
+        <td colspan="2">
+        <p class="Labelcella">
+          Allestimenti
+          </p>
+          </td>
+          </tr>
+    <tr>
+        <td style="vertical-align: top; width: 4%;">
+          <input class="InputNormal" id="Parametri_Strutture" name="Parametri_Strutture" label="Strutture" type="checkbox" value="si" mandatory="true" checked="checked" dynamic_check="true">
+        </td>      
+      <td>
+        <p class="LabelTabella">
+            Strutture modulari riutilizzabili, riparabili e riassemblabili
+        </p>
+      </td>
+    </tr>
+    <tr>
+        <td style="vertical-align: top; width: 4%;">
+          <input class="InputNormal" id="Parametri_Riuso" name="Parametri_Riuso" label="Riuso" type="checkbox"value="si">
+        </td>      
+      <td>
+        <p class="LabelTabella">
+            Piano per la raccolta ed il riuso degli allestimenti utilizzati nell’evento
+        </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<br>
+
+<globo_salto_pagina></globo_salto_pagina>
+
+<br>
+
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          Eventuali annotazioni
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <textarea class="inputNormal" id="Parametri_Annotazioni" name="Parametri_Annotazioni" style="width: 100%; height: 5cm;" label="Eventuali annotazioni"></textarea>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<br>
+
+
+
+<p class="Modulo">
+  <input id="SalvaModulo" name="SalvaModulo" style="height:30px;width:120px;" title="Verifica la corretta compilazione dei campi e salva il modulo nel faldone virtuale dell'istanza." type="submit" value="Salva modulo"/>
+</p>
+
+<input destinatario_amministrazione="getParameter('Ente')" id="GLOBO_modulo_c{{ CodiceModulo }}" name="GLOBO_modulo_c{{ CodiceModulo }}" type="hidden" value=""/>
+<input firmare="'P7M_ELETTRONICA'" id="GLOBO_modulofiglio_cINCARICO_PROCURA" name="GLOBO_modulofiglio_cINCARICO_PROCURA" type="hidden" value=""/>
+
+
+<input id="GLOBO_id_padre" name="GLOBO_id_padre" type="hidden"/>
+<input id="GLOBO_recupera_dati" name="GLOBO_recupera_dati" type="hidden"/>
+<input id="GLOBO_codice_modulo" name="GLOBO_codice_modulo" type="hidden" value="{{ CodiceModulo }}"/>
+
+{% endblock content %}

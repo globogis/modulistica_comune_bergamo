@@ -1,0 +1,502 @@
+{% set CodiceModulo = "RICH_ASSEGNO_MAT_ANF" %}
+{% set Urn = "document:c_a794:assegno.nucleo.numeroso;domanda" %}
+{% extends "base.html" %}
+{% block meta %}
+
+<meta campi_firma="Titolare_CodiceFiscale"
+campi_firma_label="il dichiarante"
+classi_modulo="Generale"
+codice_modulo="{{ CodiceModulo }}"
+urn="{% block urn %}{{ Urn }}{% endblock urn %}"
+sub_urn_list=""
+uo_globo_list=""
+descrizione="Domanda di concessione dell'assegno di nucleo familiare (ANF) e di maternità (MAT)"
+destinatario_amministrazione=""
+destinatario_ufficio="UOSERVIZISOCIALI"
+dinamico="SI"
+email_a=""
+ente_abilitato="TUTTI" 
+filigrana="NO"
+firmare="AUTENTICATO"
+istruzioni_compilazione=""
+istruzioni_invio="mail_pec"
+metodo_invio="mail"
+name="GLOBO_modulo"
+procura="NO,,"
+tipo_modulo="principale"
+urlhelp="/modulistica/moduli/{{ CodiceModulo }}"
+verifica_pagamento="NO"
+versione="1.1|11/07/2019"/>
+
+<meta codice_modulo_figlio="INCARICO_PROCURA"
+urn_modulo_figlio="document:s_italia:generale;incarico.procura"
+name="GLOBO_modulofiglio"
+numero="1"
+obbligatorio="DINAMICO" />
+
+<meta codice_allegato="ASS-SOG"
+urn_allegato=""
+descrizione_estesa="Copia della carta di soggiorno valida/permesso di soggiorno CE per soggiornanti di lungo periodo" 
+filename="Permesso soggiorno.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/ASS-MAT-EXT"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="DAE-CDI"
+descrizione_estesa="Documento di identità"
+filename="Documento identita.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/DAE-CDI"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="ALTRI-ALLEGATI"
+descrizione_estesa="Altri allegati"
+filename="Altri allegati.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/ALTRI-ALLEGATI"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+{% endblock meta %}
+
+{% block title %}
+  Domanda di concessione dell'assegno di nucleo familiare (ANF) e di maternità (MAT)
+{% endblock title %}
+
+{% block content %}
+
+<globo_fondo_pagina areaheight="150" scope="2">
+  {{ utils.firma() }}
+</globo_fondo_pagina>
+
+<input id="Parametri_Comune" name="Parametri_Comune" type="hidden" dynamic_value="#Ente.value()"/>
+<input id="Oggetto" name="Oggetto" type="hidden" dynamic_value="#Titolare_Cognome.value().toUpperCase() + ' ' + #Titolare_Nome.value().toUpperCase() + ' - Domanda di concessione dell assegno di nucleo familiare (ANF) e di maternita (MAT)'"/>
+
+{{ intestazioni.intestazione_moduloprincipale_senzabollo() }}
+
+<h1 class="Modulo">
+  Domanda di concessione dell'assegno di nucleo familiare (ANF) e di maternità (MAT)
+</h1>
+
+<input id="Titolare_DatiPersonaObbligatori" name="Titolare_DatiPersonaObbligatori" type="hidden" dynamic_check="true"/>
+<input id="Titolare_Titolo" name="Titolare_Titolo" type="hidden" value="Richiedente"/>
+<input id="Titolare_Ruolo" name="Titolare_Ruolo" type="hidden" value="Richiedente"/>
+{{ anagrafica.persona_fisica("Titolare", "Il sottoscritto", "visibility:visibility", "cursor:pointer", "visibility:visibility", "visibility:visibility", "mail_ordinaria")  }}
+
+<h3 class="Modulo"> CHIEDE </h3>
+
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <div id="Tassonomia_TipoAssegno" name="Tassonomia_TipoAssegno" label="Specificare il tipo di assegno richiesto" mandatory="true"></div>
+        <input id="Tassonomia_TipoAssegno1" name="Tassonomia_TipoAssegno" type="radio" value="1" />
+      </td>
+      <td colspan="1" style="width: 96%;">
+        assegno per nucleo familiare con tre figli minori, Decreto ministeriale 21/12/2000, n.452, art.16
+      </td>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="Tassonomia_TipoAssegno2" name="Tassonomia_TipoAssegno" type="radio" value="2" />
+      </td>
+      <td>
+        assegno di maternità, Decreto Ministeriale 21/12/2000, n.452, art.13
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="Tassonomia_TipoAssegno3" name="Tassonomia_TipoAssegno" type="radio" value="3" />
+      </td>
+      <td>
+        quota differenziale assegno di maternità, Decreto Ministeriale 21/12/2000, n.452, art.13
+      </td>
+    </tr>
+  </tbody>
+</table>
+{{ utils.Dichiara_445() }}
+
+<div id="Tassonomia_Dichiara" name="Tassonomia_Dichiara" label="Selezionare almeno una delle tre dichiarazioni"></div>
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr>
+      <td rowspan="3" style="vertical-align: top; width: 4%;">
+        <input group="Tassonomia_Dichiara" id="Tassonomia_Dichiara1" name="Tassonomia_Dichiara1" type="checkbox" value="SI" dynamic_check="#Tassonomia_TipoAssegno2.checked() || #Tassonomia_TipoAssegno3.checked()"/>
+      </td>
+      <td colspan="4" style="width: 96%;">
+        la nascita o adozione del figlio
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td style="width: 24%;">
+        <p class="Labelcella"> Nome e Cognome </p>
+      </td>
+      <td style="width: 24%;">
+        <p class="Labelcella"> Avvenuta il </p>
+      </td>
+      <td style="width: 24%;">
+        <p class="Labelcella"> Nel Comune di </p>
+      </td>
+      <td style="width: 24%;">
+        <p class="Labelcella"> Provincia </p>
+      </td>
+    </tr>
+    <tr mandatory_enabled="#Tassonomia_Dichiara1.checked()">
+      <td>
+        <input class="inputNormal" id="Parametri_NomeCognome" name="Parametri_NomeCognome" style="width: 100%;" label="Inserire il nome ed il cognome del figlio" />
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_DataNascita" name="Parametri_DataNascita" style="width: 100%;" label="Inserire la data di nascita o di adozione del figlio" format="date"/>
+      </td>
+      <td>
+        <select class="inputNormal" id="AventeTitolo1_Comune" name="AventeTitolo1_Comune" style="width:100%" label="Comune di nascita del bambino"
+        dynamic_value="getComuniFromProvincia(#AventeTitolo1_Provincia.value(), 'AventeTitolo1_Comune')">
+        </select>
+      </td>
+      <td>
+        {{ utils.provincie("AventeTitolo1_Provincia", "Provincia di nascita del bambino") }}
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input group="Tassonomia_Dichiara" id="Tassonomia_Dichiara2" name="Tassonomia_Dichiara2" type="checkbox" value="SI" dynamic_check="#Tassonomia_TipoAssegno2.checked()"/>
+      </td>
+      <td colspan="4" style="width: 96%;">
+        di non essere beneficiaria di trattamenti previdenziali di maternità per l’astensione obbligatoria a carico dell’INPS o di altro ente previdenziale
+      </td>
+    </tr>
+    <tr>
+      <td rowspan="3" style="vertical-align: top; width: 4%;">
+        <input group="Tassonomia_Dichiara" id="Tassonomia_Dichiara3" name="Tassonomia_Dichiara3" type="checkbox" value="SI" dynamic_check="#Tassonomia_TipoAssegno3.checked()" />
+      </td>
+      <td colspan="4" style="width: 96%;">
+        di aver percepito dall’ente o dal datore di lavoro tenuto a corrispondere il trattamento previdenziale o economico di maternità  la somma complessiva
+      </td>
+    </tr>
+    <tr colspan="2" class="Rigaintestazioneridotta">
+      <td colspan="2">
+        <p class="Labelcella"> Somma versata </p>
+      </td>
+      <td colspan="2">
+        <p class="Labelcella"> Ente/datore di lavoro </p>
+      </td>
+    </tr>
+    <tr mandatory_enabled="#Tassonomia_Dichiara3.checked()">
+      <td colspan="2">
+        <input class="inputNormal" id="Parametri_SommaVersara" name="Parametri_SommaVersara" style="width: 100%;" label="Indicare la somma versata" />
+      </td>
+      <td colspan="2">
+        <input class="inputNormal" id="Parametri_EnteLavoro" name="Parametri_EnteLavoro" style="width: 100%;" label="Indicare l'ente o datore di lavoro" />
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<table class="Modulo" style="border:0px">
+  <tbody>
+    <tr style="border:0px">
+      <td style="width:4%; vertical-align:top; border:0px; background-color:white">
+        <input id="Tassonomia_RiduzioneTariffaISEE" name="Tassonomia_RiduzioneTariffaISEE" type="checkbox" value="si" dynamic_check="true" checked="checked"/>
+      </td>
+      <td style="border:0px">
+        <p> di essere in possesso di attestazione ISEE </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<table class="Modulo" style="border:0px">
+  <tbody>
+    <tr class="Rigaintestazioneridotta" style="border:0px">
+      <td rowspan="2" style="width:4%; background-color:white; border:0px"></td>
+      <td>
+        <p class="Labelcella"> Valore ISEE </p>
+      </td>
+      <td style="width:24%;">
+        <p class="Labelcella"> Data rilascio </p>
+      </td>
+      <td style="width:24%;">
+        <p class="Labelcella"> Numero di protocollo DSU </p>
+      </td>
+      <td style="width:24%;">
+        <p class="Labelcella"> Data fine validità </p>
+      </td>
+    </tr>
+    <tr style="border:0px" mandatory_enabled="#Tassonomia_RiduzioneTariffaISEE.checked()">
+      <td style="background-color:white">
+        <p> <input class="inputNormal" id="Parametri_Valore_ISEE" label="Valore ISEE" name="Parametri_Valore_ISEE" style="width:80%" format="valuta_positiva"/> € </p>
+      </td>
+      <td style="background-color:white">
+        <input class="inputNormal" id="Parametri_DatarilascioISEE" label="Data rilascio ISEE" name="Parametri_DatarilascioISEE" style="width:100%" format="date"/>
+      </td>
+      <td style="background-color:white">
+        <input class="inputNormal" id="Parametri_ProtocolloDSU" name="Parametri_ProtocolloDSU" style="width: 100%;" label="Numero di protocollo DSU">
+      </td>
+      <td style="background-color:white">
+        <input class="inputNormal" id="Parametri_DataFineValiditaISEE" label="Data fine validità ISEE" name="Parametri_DataFineValiditaISEE" style="width:100%" format="date"/>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<br>
+<h3 class="Modulo">
+  CHIEDE INOLTRE
+</h3>
+che l’eventuale contributo venga erogato mediante
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr>
+      <td rowspan="5" style="vertical-align: top; width: 4%; background-color: white;">
+        <div id="Tassonomia_Modalita_attribuzione" name="Tassonomia_Modalita_attribuzione" label="Modalità di attribuzione del contributo" mandatory="true"></div>
+        <input id="Tassonomia_Modalita_attribuzione1" name="Tassonomia_Modalita_attribuzione" type="radio" value="1"/>
+      </td>
+      <td colspan="2">
+        <p>
+          accredito a mezzo bonifico in libretto postale (intestato al richiedente)
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td style="width: 50%;">
+        <p class="Labelcella">
+          Istituto
+        </p>
+      </td>
+      <td style="width: 50%;">
+        <p class="Labelcella">
+          Numero del libretto postale
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input class="inputNormal" id="Parametri_Istituto1" name="Parametri_Istituto1" style="width: 100%;" label="Istituto" mandatory_enabled="#Tassonomia_Modalita_attribuzione1.checked()">
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_Numero_CC1" name="Parametri_Numero_CC1" style="width: 100%;" label="Numero conto corrente" format="regular_expression" expression="^[0-9]{12}$" mandatory_enabled="#Tassonomia_Modalita_attribuzione1.checked()">
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          Coordinate IBAN
+        </p>
+      </td>
+      <td>
+        <p class="Labelcella">
+          Codice BIC (swift)
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input class="inputNormal" id="Parametri_IBAN1" name="Parametri_IBAN1" style="width: 100%;" label="Coordinate IBAN" mandatory_enabled="#Tassonomia_Modalita_attribuzione1.checked()">
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_BIC_swift1" name="Parametri_BIC_swift1" style="width: 100%;" label="Codice BIC (swift)" mandatory="#Parametri_IBAN.value() != '' and (!#Parametri_IBAN.value().toUpperCase().startsWith('IT'))" mandatory_enabled="#Tassonomia_Modalita_attribuzione1.checked()">
+      </td>
+    </tr>
+  </tbody>
+  <tbody>
+    <tr>
+      <td rowspan="5" style="vertical-align: top; width: 4%; background-color: white;">
+        <input id="Tassonomia_Modalita_attribuzione2" name="Tassonomia_Modalita_attribuzione" type="radio" value="2"/>
+      </td>
+      <td colspan="2">
+        <p>
+          accredito a mezzo bonifico in conto corrente bancario (intestato al richiedente)
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td style="width: 50%;">
+        <p class="Labelcella">
+          Istituto
+        </p>
+      </td>
+      <td style="width: 50%;">
+        <p class="Labelcella">
+          Numero conto corrente bancario
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input class="inputNormal" id="Parametri_Istituto2" name="Parametri_Istituto2" style="width: 100%;" label="Istituto" mandatory_enabled="#Tassonomia_Modalita_attribuzione2.checked()">
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_Numero_CC2" name="Parametri_Numero_CC2" style="width: 100%;" label="Numero conto corrente" mandatory_enabled="#Tassonomia_Modalita_attribuzione2.checked()">
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          Coordinate IBAN
+        </p>
+      </td>
+      <td>
+        <p class="Labelcella">
+          Codice BIC (swift)
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input class="inputNormal" id="Parametri_IBAN2" name="Parametri_IBAN2" style="width: 100%;" label="Coordinate IBAN" mandatory_enabled="#Tassonomia_Modalita_attribuzione2.checked()">
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_BIC_swift2" name="Parametri_BIC_swift2" style="width: 100%;" label="Codice BIC (swift)" mandatory="#Parametri_IBAN.value() != '' and (!#Parametri_IBAN.value().toUpperCase().startsWith('IT'))" mandatory_enabled="#Tassonomia_Modalita_attribuzione2.checked()">
+      </td>
+    </tr>
+  </tbody>
+</table>
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          Eventuali annotazioni
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <textarea class="inputNormal" id="Parametri_Annotazioni" name="Parametri_Annotazioni" style="width: 100%; height: 5cm;" label="Eventuali annotazioni"></textarea>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="2">
+        <p class="Labeltabella"> Hai compilato l'istanza con il supporto di un dipendente comunale? </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <div id="Tassonomia_supporto" name="Tassonomia_supporto" label="Suporto nella compilazione" mandatory="true"></div>
+        <input id="Tassonomia_supporto1" name="Tassonomia_supporto" type="radio" value="si" />
+      </td>
+      <td>
+        <p>Sì </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="Tassonomia_supporto2" name="Tassonomia_supporto" type="radio" value="no" />
+      </td>
+      <td>
+        <p> No</p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+  <table class="Modulo" style="border:1px solid grey;">
+  <tbody>
+      <tr class="Rigaintestazioneridotta">
+      <td style="width: 50%;">
+        <p class="Labelcella"> Cognome dipendente </p>
+      </td>
+      <td style="width: 50%;">
+        <p class="Labelcella"> Nome dipendente </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input class="inputNormal" id="Parametri_CognomeDIP" name="Parametri_CognomeDIP" style="width: 100%;" label="Cognome dipendente" mandatory_enabled="#Tassonomia_supporto1.checked()">
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_NomeDIP" name="Parametri_NomeDIP" style="width: 100%;" label="Nome dipendente" mandatory_enabled="#Tassonomia_supporto1.checked()">
+      </td>
+    </tr>
+    </tbody>
+    </table>
+
+<br>
+<table class="Modulo" name="Allegati" style="border: 1px solid grey">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="2">
+        <p style="text-align: center;">
+          <b>
+            Elenco degli allegati
+          </b>
+          <br/>
+          <span style="font-size:70%">
+            <i>(barrare tutti gli allegati richiesti in fase di presentazione della pratica ed elencati sul portale)</i>
+          </span>
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width:3%">
+        <input enabled="#Titolare_Cittadinanza.element.options[#Titolare_Cittadinanza.element.selectedIndex].parentNode.label == 'NON Unione Europea'" dynamic_check="#Titolare_Cittadinanza.element.options[#Titolare_Cittadinanza.element.selectedIndex].parentNode.label == 'NON Unione Europea'" id="ASS-SOG" name="ASS-SOG" type="checkbox" value="OBBLIGATORIO"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>titolo di soggiorno valido per la permanenza sul territorio italiano<br/>
+        <span style="font-size:70%"><i> (da allegare in caso di cittadina extracomunitaria) </i></span>
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="DAE-CDI" name="DAE-CDI" type="checkbox" value="OBBLIGATORIO" />
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          copia del documento d'identità
+          <br/>
+          <span style="font-size:70%">
+            <i>(da allegare se il modulo è sottoscritto con firma autografa)</i>
+          </span>
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="ALTRI-ALLEGATI" name="ALTRI-ALLEGATI" type="checkbox" value="OBBLIGATORIO"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          altri allegati
+          <span style="font-size:70%">(specificare)</span>
+          <input class="" label="Altri allegati" id="AltriAllegati" mandatory_enabled="#ALTRI_ALLEGATI.checked()" name="AltriAllegati" style="width:79%;"/>
+        </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<br/>
+{{ utils.trattamento_dati_personali() }}
+<br/>
+
+<br/>
+  {{ utils.firma_hidden() }}
+<br/>
+
+<p class="Modulo">
+  <input id="SalvaModulo" name="SalvaModulo" style="height:30px;width:120px;" title="Verifica la corretta compilazione dei campi e salva il modulo nel faldone virtuale dell'istanza." type="submit" value="Salva modulo"/>
+</p>
+
+<input destinatario_amministrazione="getParameter('Ente')" id="GLOBO_modulo_c{{ CodiceModulo }}" name="GLOBO_modulo_c{{ CodiceModulo }}" type="hidden" value=""/>
+<input firmare="'P7M_ELETTRONICA'" id="GLOBO_modulofiglio_cINCARICO_PROCURA" name="GLOBO_modulofiglio_cINCARICO_PROCURA" type="hidden" value=""/>
+
+<input id="GLOBO_allegato_cASS-SOG" name="GLOBO_allegato_cASS-SOG" obbligatorio="#ASS_SOG.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+<input id="GLOBO_allegato_cDAE-CDI" name="GLOBO_allegato_cDAE-CDI" obbligatorio="#DAE_CDI.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+<input id="GLOBO_allegato_cALTRI-ALLEGATI" name="GLOBO_allegato_cALTRI-ALLEGATI" obbligatorio="#ALTRI_ALLEGATI.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_id_padre" name="GLOBO_id_padre" type="hidden"/>
+<input id="GLOBO_recupera_dati" name="GLOBO_recupera_dati" type="hidden"/>
+<input id="GLOBO_codice_modulo" name="GLOBO_codice_modulo" type="hidden" value="{{ CodiceModulo }}"/>
+
+{% endblock content %}

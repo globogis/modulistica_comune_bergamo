@@ -1,0 +1,585 @@
+{% set CodiceModulo =  "PL_MANIFEST_S" %}
+{% extends "base.html" %}
+{% set Urn = "document:c_a794:occupazione.suolo.pubblico;emissione.ordinanza;domanda" %}
+{% block meta %}
+<meta campi_firma="Titolare_CodiceFiscale"
+campi_firma_label="il dichiarante"
+classi_modulo="Commercio"
+codice_modulo="{{ CodiceModulo }}"
+urn="{% block urn %}{{ Urn }}{% endblock urn %}"
+sub_urn_list=""
+uo_globo_list=""
+descrizione="Domanda di emissione di ordinanza di disciplina della circolazione per manifestazione o spettacolo"
+destinatario_amministrazione=""
+destinatario_ufficio="U0058"
+dinamico="SI"
+email_a=""
+ente_abilitato="TUTTI"
+filigrana="NO"
+firmare="P7M_ELETTRONICA"
+istruzioni_compilazione=""
+istruzioni_invio=""
+metodo_invio=""
+name="GLOBO_modulo"
+procura="NO,,"
+tipo_modulo="secondario"
+ufficio=""
+urlhelp="DomandeRisposte/FAQ"
+verifica_pagamento="NO"
+versione="1.1|24/03/2019"/>
+
+<meta codice_modulo_figlio="MARCA_BOLLO"
+urn_modulo_figlio="document:s_italia:pagamento.imposta.bollo;apposizione.domanda;dichiarazione.sostitutiva"
+name="GLOBO_modulofiglio"
+numero="1"
+obbligatorio="DINAMICO"/>
+
+<meta codice_modulo_figlio="ult_occupazioni_manifestazione"
+urn_modulo_figlio="document:c_a794:occupazione.suolo.pubblico;ulteriori.occupazioni.manifestazione"
+name="GLOBO_modulofiglio"
+numero="1"
+obbligatorio="DINAMICO"/>
+
+<meta codice_allegato="RIC-DIR-SEG"
+urn_allegato="document:s_italia:diritti.segreteria.istruttoria;ricevuta"
+descrizione_estesa="Ricevuta diritti segreteria/istruttoria"
+filename="Ricev. diritti segreteria.pdf"
+firmato="SI"
+istruzioni="/modulistica/moduli/RIC-DIR-SEG"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="ALTRI-ALLEGATI"
+urn_allegato="document:s_italia:altri.allegati"
+descrizione_estesa="Altri allegati"
+filename="Altri allegati.pdf"
+firmato="SI"
+istruzioni="/modulistica/moduli/ALTRI-ALLEGATI"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+{% endblock meta %}
+{% block title %}
+   Domanda di occupazione temporanea suolo pubblico per manifestazioni e richiesta di emissione di ordinanza di disciplina della circolazione
+  {% endblock title %}
+{% block content %}
+ <globo_fondo_pagina areaheight="150" scope="4">
+ {{ utils.firma() }}
+</globo_fondo_pagina>
+
+<input dynamic_value="#Titolare_Cognome.value().toUpperCase() + ' - Domanda manifestazioni o spettacoli'" id="Oggetto" name="Oggetto" type="hidden"/>
+
+ {{ intestazioni.intestazione_moduloprincipale_conbollo() }}
+ 
+ <h1 class="Modulo">
+Domanda di emissione di ordinanza di disciplina della circolazione
+</h1>
+<h2 class="Modulo">
+in allegato a richiesta di manifestazione o spettacolo
+</h2>
+
+{{anagrafica.societa("Titolare","Il sottoscritto",["Persona fisica","Titolare", "Legale rappresentante"], "Richiedente")}}
+
+<h3 class="Modulo">
+CHIEDE L'EMISSIONE DI ORDINANZA DI DISCIPLINA DELLA CIRCOLAZIONE PER 
+</h3>
+
+<table class="Modulo" style="border: 1px solid grey">
+ <tbody>
+  <tr class="Rigaintestazione">
+    <td colspan="2">
+     <strong>ottenere le seguenti tipologie di limitazioni:</strong>
+    </td>
+</tr>
+  <tr>
+   <td style="width:4%">
+    <div id="Tassonomia_TipoOrdinanza" label="Tipo ordinanza" mandatory="true">
+    </div>
+    <input group="Tassonomia_TipoOrdinanza" class="" id="Tassonomia_TipoOrdinanza1" name="Tassonomia_TipoOrdinanza1" type="checkbox" value="1"/>
+   </td>
+   <td colspan="2">
+    <p>
+     divieto di sosta con rimozione forzata in stalli di sosta regolamentata
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td>
+    <input group="Tassonomia_TipoOrdinanza" class="" id="Tassonomia_TipoOrdinanza2" name="Tassonomia_TipoOrdinanza2" type="checkbox" value="2"/>
+   </td>
+   <td colspan="2">
+    <p>
+     divieto di transito veicolare/pedonale
+    </p>
+   </td>
+  </tr>
+   <tr>
+   <td>
+       <input group="Tassonomia_TipoOrdinanza" id="Tassonomia_TipoOrdinanza5" name="Tassonomia_TipoOrdinanza5" type="checkbox" value="5"/>
+   </td>
+   <td colspan="2">
+    <p>
+     Altro
+    <span style="font-size:70%">
+      (specificare)
+     </span>
+     <input class="" group="Tassonomia_TipoOrdinanza" id="TipoOrdinanza_altro" label="Altro ordinanza"  mandatory_enabled="#Tassonomia_TipoOrdinanza5.checked()" name="TipoOrdinanza_altro" style="width:79%;"/>
+    </p>
+   </td>
+  </tr>
+  </tbody>
+</table>  
+
+<input checked="checked" dynamic_check="true" style="display:none" id="Immobile_DatiCatastaliObbligatori" name="Immobile_DatiCatastaliObbligatori" type="checkbox" value="si"/>
+{{ immobili.immobile_toponomastica( "Immobile", "collocata in", "Collocazione occupazione", "display:visibility", "visibility:hidden", "cursor:default", "true" ) }}
+
+ <table class="Modulo" style="border:1px solid grey; margin-top:-1px">
+ <tbody>
+  <tr class="Rigaintestazioneridotta">
+   <td style="width:40%;">
+    <p class="Labelcella">
+     Carattere occupazione
+    </p>
+   </td>
+   <td>
+    <p class="Labelcella">
+     Periodo dal
+    </p>
+   </td>
+   <td>
+    <p class="Labelcella">
+     al
+    </p>
+   </td>
+   <td>
+    <p class="Labelcella">
+     totale giorni
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td>
+    <p>
+     <select class="" id="Parametri_TipoOccupazione" label="Carattere occupazione" mandatory="true" name="Parametri_TipoOccupazione" style="width:100%;">
+      <option value="">
+      </option>
+       <option value="Ponteggio">
+       gezebo
+      </option>
+      <option value="GRU">
+       tenda
+      </option>
+       <option value="cantiere">
+       palco
+      </option>
+	  <option value="cantiere">
+       solo tavolo
+      </option>
+	  <option value="cantiere">
+       veicolo
+      </option>
+	<option value="altro">
+       Altro
+      </option>
+     </select>
+    </p>
+   </td>
+   <td>
+    <input class="" id="Parametri_TempoOccupazione_dal" label="Periodo" mandatory_enabled="true" name="Parametri_TempoOccupazione_dal" format="date" style="width:100%;" />
+   </td>
+    <td>
+    <input class="" id="Parametri_TempoOccupazione_al" label="Periodo" mandatory_enabled="true" name="Parametri_TempoOccupazione_al"  format="date" style="width:100%;"/>
+   </td>
+    <td>
+    <input class="" id="Parametri_TempoOccupazione_totGG" label="Periodo" mandatory_enabled="true" name="Parametri_TempoOccupazione_totGG" style="width:100%;"/>
+   </td>
+  </tr>
+ </tbody>
+</table>
+
+ <table class="Modulo" style="border:1px solid grey; margin-top:-1px">
+ <tbody>
+  <tr class="Rigaintestazioneridotta">
+   <td style="width:40%;">
+    <p class="Labelcella">
+    festivi
+    </p>
+   </td>
+   <td>
+    <p class="Labelcella">
+     dalle ore
+	 </p>
+   </td>
+   <td>
+    <p class="Labelcella">
+     alle ore
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td>
+    <p>
+     <select class="" id="Parametri_Tipofestivi" label="festivi" mandatory="true" name="Parametri_Tipofestivi" style="width:100%;">
+      <option value="">
+      </option>
+       <option value="inclusi">
+       inclusi
+      </option>
+      <option value="non inclusi">
+       non inclusi
+      </option>
+	  </select>
+    </p>
+   </td>
+  <td>
+    <input class="" id="Parametri_TempoOccupazione_dalleore" label="dalle ore" name="Parametri_TempoOccupazione_dalleore" style="width:100%;" />
+   </td>
+    <td>
+    <input class="" id="Parametri_TempoOccupazione_alleore" label="alle ore" name="Parametri_TempoOccupazione_alleore"  style="width:100%;"/>
+   </td>
+  </tr>
+ </tbody>
+</table>
+
+<table class="Modulo" style="border:1px solid grey; margin-top:-1px">
+ <tbody>
+  <tr class="Rigaintestazioneridotta">
+   <td style="width:40%;">
+    <p class="Labelcella">
+    sabato
+    </p>
+   </td>
+   <td>
+    <p class="Labelcella">
+     dalle ore
+	 </p>
+   </td>
+   <td>
+    <p class="Labelcella">
+     alle ore
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td>
+    <p>
+     <select class="" id="Parametri_TipoSabato" label="sabato" mandatory="true" name="Parametri_TipoSabato" style="width:100%;">
+      <option value="">
+      </option>
+       <option value="incluso">
+       incluso
+      </option>
+      <option value="non incluso">
+       non incluso
+      </option>
+	  </select>
+    </p>
+   </td>
+  <td>
+    <input class="" id="Parametri_TempoOccupazione_dalleore1" label="dalle ore" name="Parametri_TempoOccupazione_dalleore1" style="width:100%;" />
+   </td>
+    <td>
+    <input class="" id="Parametri_TempoOccupazione_alleore1" label="alle ore" name="Parametri_TempoOccupazione_alleore1"  style="width:100%;"/>
+   </td>
+  </tr>
+ </tbody>
+</table>
+
+ <table class="Modulo" style="border:1px solid grey; margin-top:-1px">
+ <tbody>
+  <tr class="Rigaintestazioneridotta">
+   <td style="width:40%;">
+    <p class="Labelcella">
+     Finalità
+    </p>
+   </td>
+     <td>
+    <p class="Labelcella">
+     metri x metri
+    </p>
+   </td>
+  </tr>
+    <tr>
+   <td>
+    <p>
+     <select class="" id="Parametri_TipoOccupazione2" label="Carattere occupazione" mandatory="true" name="Parametri_TipoOccupazione2" style="width:100%;">
+      <option value="">
+      </option>
+      <option value="traslocco">
+       manifestazione
+      </option>
+      <option value="opere edili">
+       spettacolo
+	   </option>
+   </select>
+    </p>
+   </td>
+     <td>
+    <input class="" id="Parametri_TipologiaOccupazione2_mxm" label="m x m occupazione" mandatory_enabled="true" name="Parametri_TipologiaOccupazione2_mxm" style="width:100%;"/>
+   </td>
+  </tr>
+ </tbody>
+</table>
+
+<table class="Modulo" style="border:1px solid grey">
+ <tbody>
+  <tr class="Rigaintestazione">
+    <td colspan="5">
+    <p class="">
+      <b>
+     superficie totale 
+      </b>
+    </p>
+   </td>
+  </tr>
+  <tr mandatory_enabled="true">
+   <td colspan="5">
+    <input class="" id="Parametri_Superficie_cosap" label="Superficie totale ai fini COSAP" name="Parametri_Superficie_cosap"/>  m²
+   </td>
+   </tr>
+ </tbody>
+</table>
+
+ <table class="Modulo" style="border:1px solid grey; margin-top:-1px">
+ <tbody>
+  <tr class="Rigaintestazioneridotta">
+   <td colspan="2">
+    <p class="Labelcella">
+     Descrizione occupazione
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td style="width:4%">
+    <div id="desoccupazione" label="Titolo sottoscrivente" mandatory="true">
+    </div>
+    <input id="desoccupazione_unica" name="desoccupazione" type="radio" value="unica occupazione"/>
+   </td>
+   <td>
+    <p>
+     unica occupazione
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td>
+    <input id="desoccupazione_ulteriore" name="desoccupazione" type="radio" value="ulteriori occupazioni"/>
+   </td>
+   <td>
+    <p>
+     ulteriori occupazioni
+    </p>
+   </td>
+  </tr>
+ </tbody>
+</table>
+
+<globo_salto_pagina>
+</globo_salto_pagina>
+
+
+
+<h3 class="Modulo">
+ DICHIARA DI ESSERE A CONOSCENZA CHE
+</h3>
+
+<table class="Modulo" style="border: 0px;">
+  <tbody>
+   <tr style="border: 0px;">
+    <td style="width: 20px; border: 0px; vertical-align: top;">
+     <input id="Parametri_Dichiarainoltre" name="Parametri_Dichiarainoltre" type="checkbox" dynamic_check="true" checked="checked" value="SI"/>
+    </td>
+    <td colspan="2" style="border: 0px;">
+     <p>
+      Ai sensi dell’art. 9 comma 1 del “Regolamento per le occupazioni di spazi ed aree pubbliche e per
+l’applicazione del relativo canone”, approvato dal Consiglio Comunale con deliberazione  N. 172 Reg./75 Prop. Del. 
+nella seduta del 16/11/2015, e successive modificazioni e integrazioni, la mancata occupazione del suolo è motivo di decadenza dell’autorizzazione viabilistica.
+</p>
+    </td>
+   </tr>
+ <tr style="border: 0px;">
+    <td style="width: 20px; border: 0px; vertical-align: top;">
+     <input id="Parametri_Dichiarainoltre1" name="Parametri_Dichiarainoltre1" type="checkbox" dynamic_check="true" checked="checked" value="SI"/>
+    </td>
+    <td colspan="2" style="border: 0px;">
+     <p>
+Ai sensi dell’art. 34 “Regolamento per le occupazioni di spazi ed aree pubbliche e per l’applicazione del
+relativo canone”, approvato dal Consiglio Comunale con deliberazione n°150/I0043570 P.G. nella seduta del
+19/10/1998, e successive modificazioni e integrazioni – 8^ stesura, scaricabile dal sito del Comune di
+Bergamo (www.comune.bg.it) sono esenti dal pagamento del Canone d’Occupazione Suolo Pubblico, tra
+gli altri, 1) le occupazioni che, in relazione alla medesima area di riferimento, siano complessivamente
+inferiori a mezzo metro quadrato o lineare, 2) le occupazioni per manifestazioni o iniziative di carattere
+politico, purché l’area occupata non ecceda i 10 m²
+</p>
+    </td>
+   </tr>
+   <tr style="border: 0px;">
+    <td style="width: 20px; border: 0px; vertical-align: top;">
+     <input id="Parametri_Dichiarainoltre2" name="Parametri_Dichiarainoltre2" type="checkbox" dynamic_check="true" checked="checked" value="SI"/>
+    </td>
+    <td colspan="2" style="border: 0px;">
+     <p>
+   Ai sensi dell’art. 32 del “Regolamento per le occupazioni di spazi ed aree pubbliche e per l’applicazione del
+relativo canone”, approvato dal Consiglio Comunale con deliberazione n°150/I0043570 P.G. nella seduta del
+19/10/1998, e successive modificazioni e integrazioni – 8^ stesura, sono previste delle agevolazioni quando
+la finalità dell’occupazione abbia precise caratteristiche
+</p>
+    </td>
+   </tr>
+    <tr style="border: 0px;">
+    <td style="width: 20px; border: 0px; vertical-align: top;">
+     <input id="Parametri_Dichiarainoltre3" name="Parametri_Dichiarainoltre3" type="checkbox" dynamic_check="true" checked="checked" value="SI"/>
+    </td>
+    <td colspan="2" style="border: 0px;">
+     <p>
+	 Il pagamento del Canone d’Occupazione Spazi e Aree Pubbliche (COSAP), se dovuto, sarà comunicato per
+iscritto al momento del rilascio dell’autorizzazione dall’Ufficio in intestazione e dovrà essere effettuato a mezzo
+di versamento su C/C PT n° 16331241, intestato al Comune di Bergamo – Servizio Tesoreria con causale
+“Occupazione Suolo di Via ………… del giorno……”
+</p>
+    </td>
+   </tr>
+    <tr style="border: 0px;">
+    <td style="width: 20px; border: 0px; vertical-align: top;">
+     <input id="Parametri_Dichiarainoltre4" name="Parametri_Dichiarainoltre4" type="checkbox" dynamic_check="true" checked="checked" value="SI"/>
+    </td>
+    <td colspan="2" style="border: 0px;">
+     <p>
+ai sensi dell’art. 27 del CDS, l’autorizzazione deve essere ritirata e trattenuta sul luogo dell’occupazione per
+tutta la durata della medesima (pena l’applicazione delle sanzioni da esso previste). Inoltre, ai sensi dell’art. 9
+comma d e art. 3 del “Regolamento per le occupazioni di spazi ed aree pubbliche e per l’applicazione del
+relativo canone”, approvato dal Consiglio Comunale con deliberazione n°150/I0043570 P.G. nella seduta del
+19/10/1998, e successive modificazioni e integrazioni – 8^ stesura, della mancata occupazione del suolo
+bisogna dare comunicazione, con le modalità indicate per la presentazione della domanda, nei cinque giorni
+successivi al termine iniziale dell’occupazione, pena la decadenza dell’autorizzazione e l’applicazione delle
+sanzioni amministrative previste all’art. 40 comma 3
+</p>
+    </td>
+   </tr>
+    <tr style="border: 0px;">
+    <td style="width: 20px; border: 0px; vertical-align: top;">
+     <input id="Parametri_Dichiarainoltre5" name="Parametri_Dichiarainoltre5" type="checkbox" dynamic_check="true" checked="checked" value="SI"/>
+    </td>
+    <td colspan="2" style="border: 0px;">
+     <p>   
+Ai sensi del vigente “Regolamento per l'applicazione della tariffa di igiene ambientale”, approvato dal Consiglio
+Comunale con deliberazione N. 69 Reg./24 Prop.Del. nella seduta del 19/04/2010, l’occupazione potrebbe
+essere soggetta alla stipula del contratto per la pulizia dell’area in concessione, da formalizzare presso
+l’Ufficio Tributi del Comune di Bergamo in Piazza Matteotti n° 3. Tale adempimento, se necessario, sarà
+comunicato per iscritto al momento del rilascio dell’autorizzazione dall’Ufficio in intestazione
+</p>
+    </td>
+   </tr>
+    <tr style="border: 0px;">
+    <td style="width: 20px; border: 0px; vertical-align: top;">
+     <input id="Parametri_Dichiarainoltre6" name="Parametri_Dichiarainoltre6" type="checkbox" dynamic_check="true" checked="checked" value="SI"/>
+    </td>
+    <td colspan="2" style="border: 0px;">
+     <p>   
+	 Per quanto non specificatamente previsto, si rimanda a quanto disposto e previsto dal “Regolamento per le
+occupazioni di spazi ed aree pubbliche e per l’applicazione del relativo canone”, approvato dal Consiglio
+Comunale con deliberazione n°150/I0043570 P.G. nella seduta del 19/10/1998, e successive modificazioni
+e integrazioni – 8^ stesura, scaricabile dal sito del Comune di Bergamo (www.comune.bg.it) e dal Codice
+della Strada (D. L. 285/92 e successive modifiche).
+     </p>
+    </td>
+   </tr>
+   </tbody>
+ </table>
+<br/>
+<br/>
+
+<table class="Modulo" name="Allegati" style="border:1px solid grey">
+ <tbody>
+  <tr class="Rigaintestazione">
+   <td colspan="2">
+    <p style="text-align: center;">
+     <b>
+      Elenco degli allegati
+     </b>
+     <br/>
+     <span style="font-size:70%">
+      <i>
+       (barrare tutti gli allegati richiesti in fase di presentazione della pratica ed elencati sul portale)
+      </i>
+     </span>
+    </p>
+   </td>
+    <tr>
+   <td>
+    <input dynamic_check="#desoccupazione.value() == 'ulteriori occupazioni'" enabled="#desoccupazione.value() == 'ulteriori occupazioni'" id="ult_occupazioni" name="ult_occuapazioni" type="checkbox" value="OBBLIGATORIO"/>
+   </td>
+   <td style="background-color: #eeeeee;">
+    <p>
+     n°
+     <input class="" format="number" id="Noccupazioni" label="Numero ulteriori occupazioni" mandatory_enabled="#ult_occupazioni.checked()" name="Noccupazioni" size="1"/>
+      ulteriori occupazioni
+    </p>
+   </td>
+  <tr>
+   <td>
+    <input checked="checked" dynamic_check="true" id="MARCA_BOLLO" name="MARCA_BOLLO" type="checkbox" value="OBBLIGATORIO"/>
+   </td>
+   <td style="background-color: #eeeeee;">
+    <p>
+     pagamento dell'imposta di bollo
+    </p>
+   </td>
+  </tr>
+ <tr>
+    <td style="vertical-align: top; width:4%">
+     <input id="RIC-DIR-SEG" name="RIC-DIR-SEG" type="checkbox" value="OBBLIGATORIO"/>
+    </td>
+    <td style="background-color: #eeeeee;">
+     <p>
+      ricevuta dei diritti di segreteria/istruttoria<br/><span style="font-size:70%"><i>(da allegare se previsti)</i></span>
+     </p>
+    </td>
+   </tr>
+    <tr>
+   <td>
+    <input id="ALTRI-ALLEGATI" name="ALTRI-ALLEGATI" type="checkbox" value="OBBLIGATORIO"/>
+   </td>
+   <td style="background-color: #eeeeee;">
+    <p>
+     altri allegati
+     <span style="font-size:70%">
+      (specificare)
+     </span>
+     <input class="" id="AltriAllegati" label="Altri allegati" mandatory_enabled="#ALTRI_ALLEGATI.checked()" name="AltriAllegati" style="width:79%;"/>
+    </p>
+   </td>
+  </tr>
+ </tbody>
+</table>
+
+{{ utils.firma_hidden() }}
+ <br/>
+
+<p class="Modulo">
+ <input id="SalvaModulo" name="SalvaModulo" style="height:30px;width:120px;" title="Verifica la corretta compilazione dei campi e salva il modulo nel faldone virtuale dell'istanza." type="submit" value="Salva modulo"/>
+</p>
+
+<input id="GLOBO_modulo_c{{ CodiceModulo }}" name="GLOBO_modulo_c{{ CodiceModulo }}" type="hidden" value=""/>
+
+<input id="GLOBO_modulofiglio_cMARCA_BOLLO" name="GLOBO_modulofiglio_cMARCA_BOLLO" obbligatorio="#MARCA_BOLLO.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+
+<input id="GLOBO_modulofiglio_cult_occupazioni_manifestazione" name="GLOBO_modulofiglio_cult_occupazioni_manifestazione" numero="#Noccupazioni.value()" obbligatorio="#ult_occupazioni.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+ 
+<input id="GLOBO_allegato_cRIC-DIR-SEG" name="GLOBO_allegato_cRIC-DIR-SEG" obbligatorio="#RIC_DIR_SEG.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_allegato_cALTRI-ALLEGATI" name="GLOBO_allegato_cALTRI-ALLEGATI" obbligatorio="#ALTRI_ALLEGATI.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_id_padre" name="GLOBO_id_padre" type="hidden"/>
+
+<input id="GLOBO_recupera_dati" name="GLOBO_recupera_dati" type="hidden"/>
+
+<input id="GLOBO_codice_modulo" name="GLOBO_codice_modulo" type="hidden" value="{{ CodiceModulo }}"/>
+
+
+{% endblock content %}

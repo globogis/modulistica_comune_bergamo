@@ -1,0 +1,442 @@
+{% set CodiceModulo =  "ult_strutture" %}{% extends "base.html" %}
+{% set Urn = "document:c_a794:occupazione.suolo.pubblico;ulteriori.strutture.oggetto.manifestazione.spettacolo" %}
+{% block meta %}<meta campi_firma="TitolareNonImportare_CodiceFiscale"
+classi_modulo="Generale"
+codice_modulo="{{ CodiceModulo }}"
+urn="{% block urn %}{{ Urn }}{% endblock urn %}"
+sub_urn_list=""
+uo_globo_list=""
+descrizione="Ulteriori strutture oggetto della manifestazione o spettacolo"
+destinatario_amministrazione=""
+destinatario_ufficio=""
+dinamico="SI"
+email_a=""
+ente_abilitato="TUTTI"
+filigrana="NO"
+firmare="P7M_DIGITALE"
+istruzioni_compilazione=""
+istruzioni_invio=""
+metodo_invio=""
+name="GLOBO_modulo"
+procura="NO,,"
+tipo_modulo="secondario"
+ufficio=""
+urlhelp="DomandeRisposte/FAQ"
+verifica_pagamento="NO"
+versione="1.0|01/01/2015"/>
+{% endblock meta %}
+{% block title %}
+   Ulteriori strutture oggetto della manifestazione o spettacolo
+  {% endblock title %}
+{% block content %}
+ <globo_fondo_pagina areaheight="150" scope="1">
+  {{ utils.firma() }}
+ </globo_fondo_pagina>
+{{intestazioni.intestazione_modulosecondario_senzabollo()}}
+ <input id="Oggetto" name="Oggetto" type="hidden" value="" dynamic_value="#TitolareNonImportare_Cognome.value().toUpperCase() + ' - ulteriori strtture'"/>
+ <h1 class="Modulo">
+  Ulteriori strutture oggetto del procedimento
+ </h1>
+ {{anagrafica.cognome_nome("TitolareNonImportare","Il sottoscritto", "Richiedente", "visibility:hidden", "cursor:default")}} 
+{{ utils.Dichiara_445() }}
+ <p class="Modulo">
+  che il procedimento riguarda anche le ulteriori strutture necessarie allo svolgimento della manifestazione o spettacolo e di seguito indicate.
+ </p>
+
+ <table class="Modulo" style="border:1px solid grey; margin-top:-1px">
+ <tbody>
+     <tr  class="Rigaintestazione">
+      <td colspan="4" >
+        <p><strong>istallazione di:</strong></p>
+      </td>
+    </tr>     
+  <tr class="Rigaintestazioneridotta">
+   <td style="width:40%;">
+    <p class="Labelcella">
+     Struttura
+    </p>
+   </td>
+   <td>
+    <p class="Labelcella">
+     descrizione / n° posti a sedere
+    </p>
+   </td>
+   <td>
+    <p class="Labelcella">
+     altezza
+    </p>
+   </td>
+   <td>
+    <p class="Labelcella">
+     larghezza x lunghezza
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td>
+    <p>
+     <select class="" id="Parametri_TipologiaStruttura1" label="Carattere occupazione" mandatory="true" name="Parametri_TipologiaStruttura1" style="width:100%;">
+      <option value="">
+      </option>
+      <option value="palco">
+       palco
+      </option>
+      <option value="gradinata">
+       gradinata
+      </option>
+	   <option value="gradinata">
+       tensostruttura
+      </option>
+     </select>
+    </p>
+   </td>
+   <td>
+    <input class="" id="Parametri_Tipologia_struttura_descrizione1" label="descrizione" mandatory_enabled="#Parametri_TipologiaStruttura1.check_value(['palco']) || #Parametri_TipologiaStruttura1.check_value(['gradinata']) " name="Parametri_Tipologia_struttura_descrizione1" style="width:100%;"/>
+   </td>
+    <td>
+    <input class="" id="Parametri_Tipologia_struttura_altezza1" label="altezza" mandatory_enabled="#Parametri_TipologiaStruttura1.check_value(['palco']) || #Parametri_TipologiaStruttura1.check_value(['gradinata']) " name="Parametri_Tipologia_struttura_altezza1" style="width:100%;"/>
+   </td>
+    <td>
+    <input class="" id="Parametri_Tipologia_struttura_mxm1" label="m x m occupazione" mandatory_enabled="#Parametri_TipologiaStruttura1.check_value(['palco']) || #Parametri_TipologiaStruttura1.check_value(['gradinata']) " name="Parametri_Tipologia_struttura_mxm1" style="width:100%;"/>
+   </td>
+  </tr>
+  </tbody>
+</table>
+ 
+  <table class="Modulo" style="border:1px solid grey; margin-top:-1px">
+ <tbody>
+     <tr  class="Rigaintestazione">
+      <td colspan="4" >
+        <p><strong>istallazione di:</strong></p>
+      </td>
+    </tr>     
+  <tr class="Rigaintestazioneridotta">
+   <td style="width:40%;">
+    <p class="Labelcella">
+     Struttura
+    </p>
+   </td>
+   <td>
+    <p class="Labelcella">
+     descrizione / n° posti a sedere
+    </p>
+   </td>
+   <td>
+    <p class="Labelcella">
+     altezza
+    </p>
+   </td>
+   <td>
+    <p class="Labelcella">
+     larghezza x lunghezza
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td>
+    <p>
+     <select class="" id="Parametri_TipologiaStruttura2" label="Carattere occupazione" mandatory="" name="Parametri_TipologiaStruttura2" style="width:100%;">
+      <option value="">
+      </option>
+      <option value="palco">
+       palco
+      </option>
+      <option value="gradinata">
+       gradinata
+      </option>
+	   <option value="gradinata">
+       tensostruttura
+      </option>
+     </select>
+    </p>
+   </td>
+   <td>
+    <input class="" id="Parametri_Tipologia_struttura_descrizione2" label="descrizione" mandatory_enabled="#Parametri_TipologiaStruttura2.check_value(['palco']) || #Parametri_TipologiaStruttura2.check_value(['gradinata']) " name="Parametri_Tipologia_struttura_descrizione2" style="width:100%;"/>
+   </td>
+    <td>
+    <input class="" id="Parametri_Tipologia_struttura_altezza2" label="altezza" mandatory_enabled="#Parametri_TipologiaStruttura2.check_value(['palco']) || #Parametri_TipologiaStruttura2.check_value(['gradinata']) " name="Parametri_Tipologia_struttura_altezza2" style="width:100%;"/>
+   </td>
+    <td>
+    <input class="" id="Parametri_Tipologia_struttura_mxm2" label="m x m occupazione" mandatory_enabled="#Parametri_TipologiaStruttura2.check_value(['palco']) || #Parametri_TipologiaStruttura2.check_value(['gradinata']) " name="Parametri_Tipologia_struttura_mxm2" style="width:100%;"/>
+   </td>
+  </tr>
+  </tbody>
+</table>
+
+ <table class="Modulo" style="border:1px solid grey; margin-top:-1px">
+ <tbody>
+     <tr  class="Rigaintestazione">
+      <td colspan="4" >
+        <p><strong>istallazione di:</strong></p>
+      </td>
+    </tr>     
+  <tr class="Rigaintestazioneridotta">
+   <td style="width:40%;">
+    <p class="Labelcella">
+     Struttura
+    </p>
+   </td>
+   <td>
+    <p class="Labelcella">
+     descrizione / n° posti a sedere
+    </p>
+   </td>
+   <td>
+    <p class="Labelcella">
+     altezza
+    </p>
+   </td>
+   <td>
+    <p class="Labelcella">
+     larghezza x lunghezza
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td>
+    <p>
+     <select class="" id="Parametri_TipologiaStruttura3" label="Carattere occupazione" mandatory="" name="Parametri_TipologiaStruttura3" style="width:100%;">
+      <option value="">
+      </option>
+      <option value="palco">
+       palco
+      </option>
+      <option value="gradinata">
+       gradinata
+      </option>
+	   <option value="gradinata">
+       tensostruttura
+      </option>
+     </select>
+    </p>
+   </td>
+   <td>
+    <input class="" id="Parametri_Tipologia_struttura_descrizione3" label="descrizione" mandatory_enabled="#Parametri_TipologiaStruttura3.check_value(['palco']) || #Parametri_TipologiaStruttura3.check_value(['gradinata']) " name="Parametri_Tipologia_struttura_descrizione3" style="width:100%;"/>
+   </td>
+    <td>
+    <input class="" id="Parametri_Tipologia_struttura_altezza3" label="altezza" mandatory_enabled="#Parametri_TipologiaStruttura3.check_value(['palco']) || #Parametri_TipologiaStruttura3.check_value(['gradinata']) " name="Parametri_Tipologia_struttura_altezza3" style="width:100%;"/>
+   </td>
+    <td>
+    <input class="" id="Parametri_Tipologia_struttura_mxm3" label="m x m occupazione" mandatory_enabled="#Parametri_TipologiaStruttura3.check_value(['palco']) || #Parametri_TipologiaStruttura3.check_value(['gradinata']) " name="Parametri_Tipologia_struttura_mxm3" style="width:100%;"/>
+   </td>
+  </tr>
+  </tbody>
+</table>
+
+ <table class="Modulo" style="border:1px solid grey; margin-top:-1px">
+ <tbody>
+     <tr  class="Rigaintestazione">
+      <td colspan="4" >
+        <p><strong>istallazione di:</strong></p>
+      </td>
+    </tr>     
+  <tr class="Rigaintestazioneridotta">
+   <td style="width:40%;">
+    <p class="Labelcella">
+     Struttura
+    </p>
+   </td>
+   <td>
+    <p class="Labelcella">
+     descrizione / n° posti a sedere
+    </p>
+   </td>
+   <td>
+    <p class="Labelcella">
+     altezza
+    </p>
+   </td>
+   <td>
+    <p class="Labelcella">
+      larghezza x lunghezza
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td>
+    <p>
+     <select class="" id="Parametri_TipologiaStruttura4" label="Carattere occupazione" mandatory="" name="Parametri_TipologiaStruttura4" style="width:100%;">
+      <option value="">
+      </option>
+      <option value="palco">
+       palco
+      </option>
+      <option value="gradinata">
+       gradinata
+      </option>
+	   <option value="gradinata">
+       tensostruttura
+      </option>
+     </select>
+    </p>
+   </td>
+   <td>
+    <input class="" id="Parametri_Tipologia_struttura_descrizione4" label="descrizione" mandatory_enabled="#Parametri_TipologiaStruttura4.check_value(['palco']) || #Parametri_TipologiaStruttura4.check_value(['gradinata']) " name="Parametri_Tipologia_struttura_descrizione4" style="width:100%;"/>
+   </td>
+    <td>
+    <input class="" id="Parametri_Tipologia_struttura_altezza4" label="altezza" mandatory_enabled="#Parametri_TipologiaStruttura4.check_value(['palco']) || #Parametri_TipologiaStruttura4.check_value(['gradinata']) " name="Parametri_Tipologia_struttura_altezza4" style="width:100%;"/>
+   </td>
+    <td>
+    <input class="" id="Parametri_Tipologia_struttura_mxm4" label="m x m occupazione" mandatory_enabled="#Parametri_TipologiaStruttura4.check_value(['palco']) || #Parametri_TipologiaStruttura4.check_value(['gradinata']) " name="Parametri_Tipologia_struttura_mxm4" style="width:100%;"/>
+   </td>
+  </tr>
+  </tbody>
+</table>
+
+ <table class="Modulo" style="border:1px solid grey; margin-top:-1px">
+ <tbody>
+     <tr  class="Rigaintestazione">
+      <td colspan="4" >
+        <p><strong>istallazione di:</strong></p>
+      </td>
+    </tr>     
+  <tr class="Rigaintestazioneridotta">
+   <td style="width:40%;">
+    <p class="Labelcella">
+     Struttura
+    </p>
+   </td>
+   <td>
+    <p class="Labelcella">
+     descrizione / n° posti a sedere
+    </p>
+   </td>
+   <td>
+    <p class="Labelcella">
+     altezza
+    </p>
+   </td>
+   <td>
+    <p class="Labelcella">
+     larghezza x lunghezza
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td>
+    <p>
+     <select class="" id="Parametri_TipologiaStruttura5" label="Carattere occupazione" mandatory="" name="Parametri_TipologiaStruttura5" style="width:100%;">
+      <option value="">
+      </option>
+      <option value="palco">
+       palco
+      </option>
+      <option value="gradinata">
+       gradinata
+      </option>
+	   <option value="gradinata">
+       tensostruttura
+      </option>
+     </select>
+    </p>
+   </td>
+   <td>
+    <input class="" id="Parametri_Tipologia_struttura_descrizione5" label="descrizione" mandatory_enabled="#Parametri_TipologiaStruttura5.check_value(['palco']) || #Parametri_TipologiaStruttura5.check_value(['gradinata']) " name="Parametri_Tipologia_struttura_descrizione5" style="width:100%;"/>
+   </td>
+    <td>
+    <input class="" id="Parametri_Tipologia_struttura_altezza5" label="altezza" mandatory_enabled="#Parametri_TipologiaStruttura5.check_value(['palco']) || #Parametri_TipologiaStruttura5.check_value(['gradinata']) " name="Parametri_Tipologia_struttura_altezza5" style="width:100%;"/>
+   </td>
+    <td>
+    <input class="" id="Parametri_Tipologia_struttura_mxm5" label="m x m occupazione" mandatory_enabled="#Parametri_TipologiaStruttura5.check_value(['palco']) || #Parametri_TipologiaStruttura5.check_value(['gradinata']) " name="Parametri_Tipologia_struttura_mxm5" style="width:100%;"/>
+   </td>
+  </tr>
+  </tbody>
+</table>
+
+ <table class="Modulo" style="border:1px solid grey; margin-top:-1px">
+ <tbody>
+     <tr  class="Rigaintestazione">
+      <td colspan="4" >
+        <p><strong>istallazione di:</strong></p>
+      </td>
+    </tr>     
+  <tr class="Rigaintestazioneridotta">
+   <td style="width:40%;">
+    <p class="Labelcella">
+     Struttura
+    </p>
+   </td>
+   <td>
+    <p class="Labelcella">
+     descrizione / n° posti a sedere
+    </p>
+   </td>
+   <td>
+    <p class="Labelcella">
+     altezza
+    </p>
+   </td>
+   <td>
+    <p class="Labelcella">
+     larghezza x lunghezza
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td>
+    <p>
+     <select class="" id="Parametri_TipologiaStruttura6" label="Carattere occupazione" mandatory="" name="Parametri_TipologiaStruttura6" style="width:100%;">
+      <option value="">
+      </option>
+      <option value="palco">
+       palco
+      </option>
+      <option value="gradinata">
+       gradinata
+      </option>
+	   <option value="gradinata">
+       tensostruttura
+      </option>
+     </select>
+    </p>
+   </td>
+   <td>
+    <input class="" id="Parametri_Tipologia_struttura_descrizione6" label="descrizione" mandatory_enabled="#Parametri_TipologiaStruttura6.check_value(['palco']) || #Parametri_TipologiaStruttura6.check_value(['gradinata']) " name="Parametri_Tipologia_struttura_descrizione6" style="width:100%;"/>
+   </td>
+    <td>
+    <input class="" id="Parametri_Tipologia_struttura_altezza6" label="altezza" mandatory_enabled="#Parametri_TipologiaStruttura6.check_value(['palco']) || #Parametri_TipologiaStruttura6.check_value(['gradinata']) " name="Parametri_Tipologia_struttura_altezza6" style="width:100%;"/>
+   </td>
+    <td>
+    <input class="" id="Parametri_Tipologia_struttura_mxm6" label="m x m occupazione" mandatory_enabled="#Parametri_TipologiaStruttura6.check_value(['palco']) || #Parametri_TipologiaStruttura6.check_value(['gradinata']) " name="Parametri_Tipologia_struttura_mxm6" style="width:100%;"/>
+   </td>
+  </tr>
+  </tbody>
+</table>
+
+<table class="Modulo" style="border:1px solid grey">
+ <tbody>
+  <tr class="Rigaintestazione">
+    <td>
+    <p>
+      <b>
+        In particolare le ulteriori aree richieste saranno occupate, così come meglio descritto nella relazione e/o nelle tavole progettuali allegate all'istanza, per una superficie
+      </b>
+    </p>
+    </td>        
+  </tr>
+  <tr class="Rigaintestazioneridotta">
+    <td>
+    <p class="Labelcella">
+     superficie totale occupazione
+    </p>
+   </td>
+  </tr>
+  <tr mandatory_enabled="true">
+   <td>
+    <input class="" id="Parametri_Superficie_cosap" label="Superficie totale ai fini COSAP" name="Parametri_Superficie_cosap"/> metri quadri
+   </td>
+   </tr>
+ </tbody>
+</table>
+
+<br/>
+ {{ utils.firma_hidden() }}
+ <br/>
+ <p class="Modulo">
+  <input id="SalvaModulo" name="SalvaModulo" style="height:30px;width:120px;" title="Verifica la corretta compilazione dei campi e salva il modulo nel faldone virtuale dell'istanza." type="submit" value="Salva modulo"/>
+ </p>
+ <input id="GLOBO_modulo_c{{ CodiceModulo }}" name="GLOBO_modulo_c{{ CodiceModulo }}" type="hidden" value=""/>
+ <input id="GLOBO_id_padre" name="GLOBO_id_padre" type="hidden"/>
+ <input id="GLOBO_recupera_dati" name="GLOBO_recupera_dati" type="hidden"/>
+ <input id="GLOBO_codice_modulo" name="GLOBO_codice_modulo" type="hidden" value="{{ CodiceModulo }}"/>
+{% endblock content %}

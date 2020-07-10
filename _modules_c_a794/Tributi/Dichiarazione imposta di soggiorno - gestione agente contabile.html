@@ -1,0 +1,370 @@
+{% set CodiceModulo = "GESTIONE_AGENTE_CONTABILE" %}
+{% set Urn = "document:c_a794:imposta.soggiorno;trasmissione.conto.gestione.agente.contabile;trasmissione.documentazione" %}{% extends "base.html" %}
+{% block meta %}
+
+<meta campi_firma="Titolare_CodiceFiscale"
+campi_firma_label="il dichiarante"
+classi_modulo="Tributi"
+codice_modulo="{{ CodiceModulo }}"
+urn="{% block urn %}{{ Urn }}{% endblock urn %}"
+sub_urn_list=""
+uo_globo_list=""
+descrizione="Trasmissione del conto della gestione dell'agente contabile"
+destinatario_amministrazione=""
+destinatario_ufficio="UOTRIBUTI"
+dinamico="SI"
+email_a=""
+ente_abilitato="TUTTI"
+filigrana="NO"
+firmare="P7M_ELETTRONICA"
+istruzioni_compilazione=""
+istruzioni_invio="mail_pec"
+metodo_invio="mail"
+name="GLOBO_modulo"
+procura="NO,,"
+tipo_modulo="principale"
+urlhelp="/modulistica/moduli/{{ CodiceModulo }}"
+verifica_pagamento="NO"
+versione="1.1|15/01/2020"/>
+
+<meta codice_modulo_figlio="INCARICO_PROCURA"
+urn_modulo_figlio="document:s_italia:generale;incarico.procura"
+name="GLOBO_modulofiglio"
+numero="1"
+obbligatorio="DINAMICO"/>
+
+<meta codice_modulo_figlio="MOD-21"
+urn_modulo_figlio="document:c_a794:imposta.soggiorno;modello.21;report"
+name="GLOBO_modulofiglio"
+numero="0"
+obbligatorio="DINAMICO"/>
+
+<meta codice_allegato="DAE-CDI"
+urn_allegato="document:s_italia:generale;documento.identita;documentazione"
+descrizione_estesa="Documento di identità"
+filename="Documento identita.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/DAE-CDI"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="ALTRI-ALLEGATI"
+urn_allegato="document:s_italia:altri.allegati"
+descrizione_estesa="Altri allegati"
+filename="Altri allegati.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/ALTRI-ALLEGATI"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+{% endblock meta %}
+
+{% block title %}
+   Trasmissione del conto della gestione dell'agente contabile
+{% endblock title %}
+
+{% block content %}
+
+<globo_fondo_pagina areaheight="150" scope="2">
+{{ utils.firma() }}
+</globo_fondo_pagina>
+
+<input dynamic_value="#Ente.value()" id="Parametri_Comune" name="Parametri_Comune" type="hidden"/>
+
+<input dynamic_value="#Titolare_Cognome.value().toUpperCase() + ' ' + #Titolare_Nome.value().toUpperCase() + ' - conto gestione agente contabile'" id="Oggetto" name="Oggetto" type="hidden"/>
+
+{{ intestazioni.intestazione_moduloprincipale_senzabollo() }}
+
+<h1 class="Modulo">
+ Trasmissione del conto della gestione dell'agente contabile
+</h1>
+
+<h2 class="Modulo">
+ Ai sensi dell'articolo 93 e dell'articolo 233 del Decreto Legislativo 18/08/2000, n. 267 e del Decreto del Presidente della Repubblica 31/01/1996, n. 194
+</h2>
+
+<input class="inputNormal" id="Titolare_Note" name="Titolare_Note" type="hidden" dynamic_value="#Titolare_Ruolo.value()">
+{{anagrafica.societa("Titolare", "Il sottoscritto", ["Persona fisica", "Titolare", "Legale rappresentante", "Gestore"], "Richiedente", "visibility:visibility", "cursor:pointer", "mail_ordinaria", "false", "true", "", "visibility:visibility", "visibility:visibility")}}
+
+<p class="Modulo" style="font-size:80%"><i>Ruolo (*)</i>:
+  <br/> persona fisica, titolare, legale rappresentante, gestore</p>
+  
+<!-- struttura 1 -->
+<table class="Modulo" style="border:1px solid grey;">
+   <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="2">
+        <p class="Labeltabella">
+          <input id="Struttura1" name="Struttura1" type="checkbox" dynamic_check="true" checked="checked" value="si" /> della struttura ricettiva con la seguente denominazione e classificazione
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td colspan="2">
+        <p class="Labelcella">
+          Denominazione struttura ricettiva
+        </p>
+      </td>
+    </tr>
+    <tr>
+    <td>
+      <input class="inputNormal" id="Parametri_DenominazioneStruttura1" name="Parametri_DenominazioneStruttura1" label="Denominazione struttura ricettiva" style="width:100%" mandatory_enabled="#Struttura1.checked()"/>
+    </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td colspan="2">
+        <p class="Labelcella">
+          Classificazione struttura ricettiva <span style="font-weight:normal">(**)</span>
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2">
+        <select class="inputNormal" id="Tassonomia_TipoStruttura1" name="Tassonomia_TipoStruttura1" label="Classificazione struttura ricettiva" style="width:100%;"  mandatory_enabled="#Struttura1.checked()">
+            <option value=""></option>
+            <option value="albergo 1 stella">albergo 1 stella</option>
+			<option value="residenza turistico alberghiera (RTA) 2 stelle">residenza turistico alberghiera (RTA) 2 stelle</option>
+            <option value="albergo 2 stelle o residenza turistico alberghiera (RTA) 3 stelle">albergo 2 stelle o residenza turistico alberghiera (RTA) 3 stelle</option>
+			<option value="albergo 3 stelle o residenza turistico alberghiera (RTA) 4 stelle">albergo 3 stelle o residenza turistico alberghiera (RTA) 4 stelle</option>
+			<option value="albergo 4 stelle o 5 stelle">albergo 4 stelle o 5 stelle</option>
+			<option value="struttura non alberghiera">struttura non alberghiera</option>
+			<option value="struttura all'aperto">struttura all'aperto</option>
+        </select>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td colspan="2">
+        <p class="Labelcella">
+          Sede della struttura
+        </p>
+      </td>
+    </tr>	
+  </tbody>
+</table>
+<input class="inputNormal" id="Immobile1_DatiImmobileRichiesti" name="Immobile1_DatiImmobileRichiesti" type="hidden" dynamic_check="#Struttura1.checked()"/>
+{{ immobili.immobile_toponomastica_secondario("Immobile1", "con sede operativa in", "Collocazione attività", "display:none", "visibility:visibility", "cursor:pointer", "true") }}
+
+<globo_salto_pagina></globo_salto_pagina>
+
+<!-- struttura 2 -->
+<table class="Modulo" style="border:1px solid grey;">
+   <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="2">
+        <p class="Labeltabella">
+          <input id="Struttura2" name="Struttura2" type="checkbox" value="si" /> ulteriore struttura ricettiva
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td colspan="2">
+        <p class="Labelcella">
+          Denominazione struttura ricettiva
+        </p>
+      </td>
+    </tr>
+    <tr>
+    <td>
+      <input class="inputNormal" id="Parametri_DenominazioneStruttura2" name="Parametri_DenominazioneStruttura2" label="Denominazione struttura ricettiva" style="width:100%" mandatory_enabled="#Struttura2.checked()"/>
+    </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td colspan="2">
+        <p class="Labelcella">
+          Classificazione struttura ricettiva <span style="font-weight:normal">(**)</span>
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2">
+        <select class="inputNormal" id="Tassonomia_TipoStruttura2" name="Tassonomia_TipoStruttura2" label="Classificazione struttura ricettiva" style="width:100%;"  mandatory_enabled="#Struttura2.checked()">
+            <option value=""></option>
+            <option value="albergo 1 stella">albergo 1 stella</option>
+			<option value="residenza turistico alberghiera (RTA) 2 stelle">residenza turistico alberghiera (RTA) 2 stelle</option>
+            <option value="albergo 2 stelle o residenza turistico alberghiera (RTA) 3 stelle">albergo 2 stelle o residenza turistico alberghiera (RTA) 3 stelle</option>
+			<option value="albergo 3 stelle o residenza turistico alberghiera (RTA) 4 stelle">albergo 3 stelle o residenza turistico alberghiera (RTA) 4 stelle</option>
+			<option value="albergo 4 stelle o 5 stelle">albergo 4 stelle o 5 stelle</option>
+			<option value="struttura non alberghiera">struttura non alberghiera</option>
+			<option value="struttura all'aperto">struttura all'aperto</option>
+        </select>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td colspan="2">
+        <p class="Labelcella">
+          Sede della struttura
+        </p>
+      </td>
+    </tr>	
+  </tbody>
+</table>
+<input class="inputNormal" id="Immobile2_DatiImmobileRichiesti" name="Immobile2_DatiImmobileRichiesti" type="hidden" dynamic_check="#Struttura2.checked()"/>
+{{ immobili.immobile_toponomastica_secondario("Immobile2", "con sede operativa in", "Collocazione attività", "display:none", "visibility:visibility", "cursor:pointer", "true") }}
+
+<!-- struttura 3 -->
+<table class="Modulo" style="border:1px solid grey;">
+   <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="2">
+        <p class="Labeltabella">
+          <input id="Struttura3" name="Struttura3" type="checkbox" value="si" /> ulteriore struttura ricettiva
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td colspan="2">
+        <p class="Labelcella">
+          Denominazione struttura ricettiva
+        </p>
+      </td>
+    </tr>
+    <tr>
+    <td>
+      <input class="inputNormal" id="Parametri_DenominazioneStruttura3" name="Parametri_DenominazioneStruttura3" label="Denominazione struttura ricettiva" style="width:100%" mandatory_enabled="#Struttura3.checked()"/>
+    </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td colspan="2">
+        <p class="Labelcella">
+          Classificazione struttura ricettiva <span style="font-weight:normal">(**)</span>
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2">
+        <select class="inputNormal" id="Tassonomia_TipoStruttura3" name="Tassonomia_TipoStruttura3" label="Classificazione struttura ricettiva" style="width:100%;"  mandatory_enabled="#Struttura3.checked()">
+            <option value=""></option>
+            <option value="albergo 1 stella">albergo 1 stella</option>
+			<option value="residenza turistico alberghiera (RTA) 2 stelle">residenza turistico alberghiera (RTA) 2 stelle</option>
+            <option value="albergo 2 stelle o residenza turistico alberghiera (RTA) 3 stelle">albergo 2 stelle o residenza turistico alberghiera (RTA) 3 stelle</option>
+			<option value="albergo 3 stelle o residenza turistico alberghiera (RTA) 4 stelle">albergo 3 stelle o residenza turistico alberghiera (RTA) 4 stelle</option>
+			<option value="albergo 4 stelle o 5 stelle">albergo 4 stelle o 5 stelle</option>
+			<option value="struttura non alberghiera">struttura non alberghiera</option>
+			<option value="struttura all'aperto">struttura all'aperto</option>
+        </select>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td colspan="2">
+        <p class="Labelcella">
+          Sede della struttura
+        </p>
+      </td>
+    </tr>	
+  </tbody>
+</table>
+<input class="inputNormal" id="Immobile3_DatiImmobileRichiesti" name="Immobile3_DatiImmobileRichiesti" type="hidden" dynamic_check="#Struttura3.checked()"/>
+{{ immobili.immobile_toponomastica_secondario("Immobile3", "con sede operativa in", "Collocazione attività", "display:none", "visibility:visibility", "cursor:pointer", "true") }}
+
+<p class="Modulo" style="font-size:80%"><i>Classificazione struttura ricettiva (**)</i>:
+  <br/> albergo 1 stella, residenza turistico alberghiera (RTA) 2 stelle, albergo 2 stelle o residenza turistico alberghiera (RTA) 3 stelle, albergo 3 stelle o residenza turistico alberghiera (RTA) 4 stelle, albergo 4 stelle o 5 stelle, struttura non alberghiera, struttura all'aperto</p>
+
+<input class="" id="NumeroModelli21" dynamic_value="parseInt(#Struttura1.checked() ? '1': '0') + parseInt(#Struttura2.checked() ? '1': '0') + parseInt(#Struttura3.checked() ? '1': '0')" name="NumeroModelli21" type="hidden" style="width:100%;"/>
+
+<h3 class="Modulo">
+ TRASMETTE
+</h3>
+
+<p class="Modulo">
+  il conto della gestione dell’agente contabile per le somme incassate a titolo di imposta di soggiorno.
+</p>
+
+<br>
+
+<table class="Modulo" name="Allegati" style="border: 1px solid grey">
+ <tbody>
+  <tr class="Rigaintestazione">
+   <td colspan="2">
+    <p style="text-align: center;">
+     <b>
+      Elenco degli allegati
+    </b>
+     <br/>
+     <span style="font-size:70%">
+      <i>
+       (barrare tutti gli allegati richiesti in fase di presentazione della pratica ed elencati sul portale)
+     </i>
+   </span>
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td width="4%" style="vertical-align: top;">
+    <input id="MODELLO-21" name="MODELLO-21" type="checkbox" dynamic_check="true" checked="checked" value="OBBLIGATORIO" />
+   </td>
+   <td style="background-color: #eeeeee;">
+    <p>
+     modello 21 - conto della gestione dell'agente contabile
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td style="vertical-align: top;">
+    <input id="DAE-CDI" name="DAE-CDI" type="checkbox" value="OBBLIGATORIO" />
+   </td>
+   <td style="background-color: #eeeeee;">
+    <p>
+     copia del documento d'identità
+     <br/>
+     <span style="font-size:70%">
+    <i>
+     (da allegare se il modulo è sottoscritto con firma autografa)
+   </i>
+ </span>
+    </p>
+   </td>
+  </tr>
+  <tr>
+    <td>
+     <input id="ALTRI-ALLEGATI" name="ALTRI-ALLEGATI" type="checkbox" value="OBBLIGATORIO"/>
+    </td>
+    <td style="background-color: #eeeeee;">
+     <p>
+      altri allegati
+      <span style="font-size:70%">
+       (specificare)
+      </span>
+      <input class="" label="Altri allegati" id="AltriAllegati" mandatory_enabled="#ALTRI_ALLEGATI.checked()" name="AltriAllegati" style="width:79%;"/>
+     </p>
+    </td>
+   </tr>
+ </tbody>
+</table>
+
+
+<br/>
+
+{{ utils.trattamento_dati_personali() }}
+
+
+<br/>
+
+{{ utils.firma_hidden() }}
+
+<br/>
+
+<p class="Modulo">
+ <input id="SalvaModulo" name="SalvaModulo" style="height:30px;width:120px;" title="Verifica la corretta compilazione dei campi e salva il modulo nel faldone virtuale dell'istanza." type="submit" value="Salva modulo"/>
+</p>
+
+<input destinatario_amministrazione="getParameter('Ente')" id="GLOBO_modulo_c{{ CodiceModulo }}" name="GLOBO_modulo_c{{ CodiceModulo }}" type="hidden" value=""/>
+
+<input firmare="'P7M_ELETTRONICA'" id="GLOBO_modulofiglio_cINCARICO_PROCURA" name="GLOBO_modulofiglio_cINCARICO_PROCURA" type="hidden" value=""/>
+
+<input firmare="'P7M_ELETTRONICA'" id="GLOBO_modulofiglio_cMOD-21" name="GLOBO_modulofiglio_cMOD-21" obbligatorio="#MOD_21.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value="" numero="#NumeroModelli21.value()"/>
+
+<input id="GLOBO_allegato_cALTRI-ALLEGATI" name="GLOBO_allegato_cALTRI-ALLEGATI" obbligatorio="#ALTRI_ALLEGATI.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value="" />
+
+<input id="GLOBO_allegato_cDAE-CDI" name="GLOBO_allegato_cDAE-CDI" obbligatorio="#DAE_CDI.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_id_padre" name="GLOBO_id_padre" type="hidden"/>
+<input id="GLOBO_recupera_dati" name="GLOBO_recupera_dati" type="hidden"/>
+<input id="GLOBO_codice_modulo" name="GLOBO_codice_modulo" type="hidden" value="{{ CodiceModulo }}"/>
+
+<!-- passaggio dati tra moduli -->
+<input class="" id="Metadati_NumeroModelli21" name="Metadati_NumeroModelli21" dynamic_value="#NumeroModelli21.value()" type="hidden"/>
+{% endblock content %}

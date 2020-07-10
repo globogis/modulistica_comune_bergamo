@@ -1,0 +1,540 @@
+{% set CodiceModulo = "MOD_RAPP_LAV" %}
+{% set Urn = "document:c_a794:modifica.rapporto.lavoro;domanda" %}
+{% extends "base.html" %}
+
+{% set direzioni = ["Avvocatura comunale",
+                    "Direzione affari generali e staff del sindaco",
+                    "Direzione bilancio tributi società partecipate e retribuzioni",
+                    "Direzione commercio e servizi cimiteriali",
+                    "Direzione edilizia scolastica sportiva e grandi opere pubbliche di riqualificazione",
+                    "Direzione gare appalti e contratti di opere servizi e forniture",
+                    "Direzione generale",
+                    "Direzione lavori pubblici infrastrutture strade coord. reti e opere pubbliche",
+                    "Direzione patrimonio ed espropri",
+                    "Direzione pianificazione strategica e organizzazione",
+                    "Direzione risorse umane e servizi alla persona",
+                    "Direzione servizi polifunzionali partecipazione e cultura",
+                    "Direzione sicurezza ambiente e mobilità",
+                    "Direzione urbanistica edilizia privata e SUEAP",
+                    "Direzione verde pubblico servizio abitativo pubblico edifici e impianti",
+                    "Polizia locale e protezione civile",
+                    "Segreteria generale"] %}
+
+{% block meta %}
+
+<meta campi_firma="Titolare_CodiceFiscale"
+campi_firma_label="il dichiarante"
+classi_modulo="Lavoro"
+codice_modulo="{{ CodiceModulo }}"
+urn="{% block urn %}{{ Urn }}{% endblock urn %}"
+sub_urn_list="avvocatura,affari,bilancio,commercio,edilizia,gare,generale,infrastrutture,patrimonio,pianificazione,risorse,polifunzionali,sicurezza,urbanistica,verde,polizia,segreteria"
+uo_globo_list=""
+descrizione="Richiesta di trasformazione rapporto di lavoro"
+destinatario_amministrazione=""
+destinatario_ufficio="UOLAVORO"
+dinamico="SI"
+email_a=""
+ente_abilitato="TUTTI"
+filigrana="SI"
+firmare="AUTENTICATO"
+istruzioni_compilazione=""
+istruzioni_invio="mail_pec"
+metodo_invio="mail"
+name="GLOBO_modulo"
+procura="NO,,"
+tipo_modulo="principale"
+urlhelp="/modulistica/moduli/{{ CodiceModulo }}"
+verifica_pagamento="NO"
+versione="1.0|08/01/2020"/>
+
+<meta codice_modulo_figlio="INCARICO_PROCURA"
+urn_modulo_figlio="document:s_italia:generale;incarico.procura"
+name="GLOBO_modulofiglio"
+numero="1"
+obbligatorio="DINAMICO"/>
+
+<meta codice_allegato="DAE-CDI"
+urn_allegato="document:s_italia:generale;documento.identita;documentazione"
+descrizione_estesa="Documento di identità"
+filename="Documento identita.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/DAE-CDI"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="ALTRI-ALLEGATI"
+urn_allegato="document:s_italia:altri.allegati"
+descrizione_estesa="Altri allegati"
+filename="Altri allegati.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/ALTRI-ALLEGATI"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+{% endblock meta %}
+
+{% block title %}
+  Domanda di autorizzazione all'uso del permesso di studio
+{% endblock title %}
+
+{% block content %}
+
+<globo_fondo_pagina areaheight="150" scope="3">
+  {{ utils.firma() }}
+</globo_fondo_pagina>
+
+<input id="Parametri_Comune" name="Parametri_Comune" type="hidden" dynamic_value="#Ente.value()"/>
+<input id="Oggetto" name="Oggetto" type="hidden" dynamic_value="#Titolare_Cognome.value().toUpperCase() + ' ' + #Titolare_Nome.value().toUpperCase() + ' - Richiesta di modifica rapporto di lavoro'"/>
+
+{{ intestazioni.intestazione_moduloprincipale_senzabollo() }}
+
+<h1 class="Modulo">
+  Richiesta di modifica rapporto di lavoro
+</h1>
+
+<input id="Titolare_DatiPersonaObbligatori" name="Titolare_DatiPersonaObbligatori" type="hidden" dynamic_check="true"/>
+<input id="Titolare_Titolo" name="Titolare_Titolo" type="hidden" value="Richiedente"/>
+<input id="Titolare_Ruolo" name="Titolare_Ruolo" type="hidden" value="Richiedente"/>
+{{ anagrafica.persona_fisica("Titolare", "Il sottoscritto", "visibility:visibility", "cursor:pointer", "visibility:visibility", "visibility:visibility", "mail_ordinaria") }}
+
+<table class="Modulo" style="border: 1px solid grey;margin-top: -1px;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="3">
+        <p class="Labeltabella"> dipendente del Comune di Bergamo </p>
+      </td>
+    </tr>
+     <tr class="Rigaintestazioneridotta">
+       <td style="width: 20%">
+          <p>Num.matricola </p>
+        </td>
+      <td style="width: 50%">
+          <p>Direzione</p>
+        </td>
+      <td style="width: 30%">
+          <p>Servizio</p>
+        </td>
+        </tr>
+    <tr mandatory_enabled="#Titolare_DatiPersonaObbligatori.checked()">
+      <td>
+        <input class="inputNormal" id="Parametri_Num_Matricola" name="Parametri_Num_Matricola" style="width:100%;" label="Numero Matricola"/>
+      </td>
+      <td>
+        <select name="Parametri_Direzioni" id="Parametri_Direzioni" style="width: 100%;" label="Direzioni" >
+                    <option value=""></option>
+                    {% for direzione in direzioni %}
+                    <option value="{{direzione}}">{{direzione}}</option>
+                    {% endfor %}
+         </select>
+       </td>
+      <td>
+        <input class="inputNormal"id="Paramentri_Servizio" name="Servizio" style="width: 100%;" label="Servizio"/>
+      </td>
+      </tr>
+      <tr class="Rigaintestazioneridotta">
+        <td colspan="2">
+          Categoria salariale
+          </td>
+          <td>
+          Posizione economica
+          </td>
+       </tr>
+       <tr>
+       <td colspan="2">
+         <input class="InputNormal" id="Parametri_Cat_Sal" name="Parametri_Cat_Sal" style="width: 100%;" label="Categoria salariale" mandatory="true"/>
+       </td>
+       <td>
+       <input class="InputNormal" id="Parametri_Pos_Eco" name="Parametri_Pos_Eco" style="width: 100%;" label="Posizione Economica" mandatory="true"/>
+       </td>
+       </tr>
+   </tbody>
+</table>
+
+<div id="Tassonomia_Tipo_Contratto" name="Tassonomia_Tipo_Contratto" label="Tipo contratto" mandatory="true"></div>
+<table class="Modulo" style="border: 1px solid grey;margin-top: -1px;">
+  <tbody>
+    <tr class="Rigaintestazione">
+
+      <p class="Labeltabella">in servizio con rapporto di lavoro</p>
+      </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input class="InputNormal" id="Tassonomia_Tipo_Contratto1" name="Tassonomia_Tipo_Contratto" value="1" type="radio"/>
+      </td>
+      <td>
+        <p>
+          a tempo pieno
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input class="InputNormal" id="Tassonomia_Tipo_Contratto2" name="Tassonomia_Tipo_Contratto" value="2" type="radio"/>
+      </td>
+      <td>
+        <p>
+          a tempo parziale
+        </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<br>
+<h3 class="Modulo">
+  CHIEDE
+</h3>
+<p class="Modulo"> di poter modificare il proprio rapporto di lavoro</p>
+<table class="Modulo" style="border: 1px solid grey;" mandatory_enabled="#Tassonomia_Tipo_Contratto1.checked()">
+  <tbody>
+    <tr>
+     <td style="vertical-align: top; width: 4%;" rowspan="3">
+      <input class="InputNormal" id="Tassonomia_Tipo_Part_Time" name="Tassonomia_Tipo_Part_Time" value="OBBLIGATORIO" type="checkbox" mandatory="true"/>
+     </td>
+      <td colspan="11">
+        <p>
+          part time
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td style="width: 80%;" colspan="6" >
+       tipologia
+       </td>
+       <td style="width: 20%;" colspan="5" >
+         percentuale
+       </td>
+     </tr>
+     <tr>
+       <td colspan="6"  >
+       <select name="Parametri_Tipologia_PartTime" id="Parametri_Tipologia_PartTime" style="width: 100%;" label="Tipologia part-time" mandatory="true">
+         <option value=""></option>
+         <option value="orizzontale">Orizzontale</option>
+         <option value="verticale">Verticale</option>
+         <option value="misto">Misto</option>
+      </select> 
+      </td>
+       <td colspan="5"  >
+          <input class="InputNormal" id="Tassonomia_Percentuale_PartTime" name="Tassonomia_Percentuale_PartTime" style="width:100%;" label="Percentuale Part_time"/>
+        </td>
+       </tr>
+       <div id="Tassonomia_Periodo_Part_Time" name="Tassonomia_Periodo_Part_Time" label="Periodo part-time" mandatory_enabled="#Parametri_Tipologia_PartTime.value() == 'orizzontale'"></div>
+        <tr >
+        <td style="vertical-align: top; width: 4%;" >
+          <input class="InputNormal" id="Tassonomia_Periodo_Part_Time1" name="Tassonomia_Periodo_Part_Time" value="1" type="radio" label="Part_time mattina"/>
+          </td>
+          <td colspan="10">
+            mattina
+          </td>
+       </tr>
+       <tr >
+        <td style="vertical-align: top; width: 4%;" >
+          <input class="InputNormal" id="Tassonomia_Periodo_Part_Time2" name="Tassonomia_Periodo_Part_Time" value="2" type="radio" label="Part_time pomeriggio"/>
+          </td>
+          <td colspan="10">
+            pomeriggio
+          </td>
+       </tr>
+       {% set days = ["lunedì","martedì","mercoledì","giovedì","venerdì"] %}
+    <div id="Tassonomia_Giorni" name="Tassonomia_Giorni" label="giorni rientro" mandatory_enabled="#Parametri_Tipologia_PartTime.value() == 'misto'" ></div>
+    <tr class="Rigaintestazione">
+      <td colspan="10">
+        <p class="Labeltabella"> nei giorni <span style="font-size: 70%;"><i> ( se di tipo misto, indicare i giorni della settimana con orario a tempo pieno) </i></span> </p>
+      </td>
+    </tr>
+    <tr>
+      {% for day in days %}
+        <td style="vertical-align: top;width: 4%;">
+          <input group="Tassonomia_Giorni" id="Tassonomia_Giorni{{loop.index}}" name="Tassonomia_Giorni{{loop.index}}" type="checkbox" value="SI" />
+        </td>
+        <td style="width: 16%;">
+          {{ day }}
+        </td>
+      {% endfor %}    
+  </tbody>
+</table>
+
+
+<br>
+
+<div id="Tassonomia_Part_Time" name="Tassonomia_Part_Time" label="Tipo part_time"  mandatory_enabled="#Tassonomia_Tipo_Contratto2.checked()"></div>
+<table class="Modulo" style="border: 1px solid grey;" enabled="#Tassonomia_Tipo_Contratto2.checked()">
+  <tbody>
+    <tr>
+     <td style="vertical-align: top; width: 4%;" >
+      <input class="InputNormal" id="Tassonomia_Part_Time1" name="Tassonomia_Part_Time" value="1" type="radio" label="da part-time a tempo pieno"/>
+     </td>
+     <td colspan="10" >
+       Tempo pieno
+     </td>
+     </tr>
+     <tr >
+       <td style="vertical-align: top; width: 4%;" rowspan="5" >
+         <input class="InputNormal" id="Tassonomia_Part_Time2" name="Tassonomia_Part_Time" value="2" type="radio" label="modifica part-time"/>
+       </td>
+       <td  colspan="10" >
+          di modificare la percentuale del part-time
+       </td>
+       </tr>
+       <tr class="Rigaintestazioneridotta">
+         <td colspan="5">
+           <p class="Labelcella">
+              da 
+           </p>
+         </td>
+         <td colspan="5">
+           <p class="Labelcella">
+           a
+           </p>
+         </td>
+       </tr>
+       <tr>
+         <td colspan="5">
+           <input class="inputNormal" id="Parametri_Modifica_Part_timeda" name="Parametri_Modifica_Part_timeda" style="width: 100%;" label="Modifica percentuale part_time" mandatory_enabled="#Tassonomia_Part_Time2.checked()" />
+         </td>
+         <td colspan="5">
+            <input class="inputNormal" id="Parametri_Modifica_Part_timea" name="Parametri_Modifica_Part_timea" style="width: 100%;" label="Modifica percentuale part_time" mandatory_enabled="#Tassonomia_Part_Time2.checked()" />
+         </td>
+       </tr>
+        <tr class="Rigaintestazioneridotta">
+      <td style="width: 80%;" colspan="10" >
+       tipologia
+       </td>
+     </tr>
+     <tr>
+       <td colspan="10"  >
+       <select name="Parametri_Tipologia_PartTime2" id="Parametri_Tipologia_PartTime2" style="width: 100%;" label="Tipologia part-time" mandatory_enabled="#Tassonomia_Part_Time2.checked()">
+         <option value=""></option>
+         <option value="orizzontale">Orizzontale</option>
+         <option value="verticale">Verticale</option>
+         <option value="misto">Misto</option>
+      </select> 
+      </td>
+      </tr>
+      <div id="Tassonomia_Fascia_Part_time" name="Tassonomia_Fascia_Part_time" label="Fascia part-time" mandatory_enabled="#Parametri_Tipologia_PartTime2.value() == 'orizzontale'"></div>
+        <tr >
+        <td style="vertical-align: top; width: 4%;" >
+          <input class="InputNormal" id="Tassonomia_Fascia_Part_time1" name="Tassonomia_Fascia_Part_time" value="1" type="radio" label="Part_time mattina"/>
+          </td>
+          <td colspan="10">
+            mattina
+          </td>
+       </tr>
+       <tr >
+        <td style="vertical-align: top; width: 4%;" >
+          <input class="InputNormal" id="Tassonomia_Fascia_Part_time2" name="Tassonomia_Fascia_Part_time" value="2" type="radio" label="Part_time pomeriggio"/>
+          </td>
+          <td colspan="10">
+            pomeriggio
+          </td>
+       </tr>
+       {% set daysS = ["lunedì","martedì","mercoledì","giovedì","venerdì"] %}
+    <div id="Tassonomia_Giorni2" name="Tassonomia_Giorni2" label="giorni rientro" mandatory_enabled="#Parametri_Tipologia_PartTime2.value() == 'misto'"></div>
+    <tr class="Rigaintestazione">
+      <td colspan="10">
+        <p class="Labeltabella"> nei giorni <span style="font-size: 70%;"><i> ( se di tipo misto, indicare i giorni della settimana con orario a tempo pieno) </i></span> </p>
+      </td>
+    </tr>
+    <tr>
+      {% for day in daysS %}
+        <td style="vertical-align: top;width: 4%;">
+          <input group="Tassonomia_Giorni2" id="Tassonomia_Giorni2{{loop.index}}" name="Tassonomia_Giorni2{{loop.index}}" type="checkbox" value="SI" mandatory_enabled="#Parametri_Tipologia_PartTime2.value() == 'misto'" />
+        </td>
+        <td style="width: 16%;">
+          {{ day }}
+        </td>
+      {% endfor %}    
+       </tbody>
+       </table>
+<div id="Tassonomia_Durata" name="Tassonomia_Durata" label="Durata modifica" mandatory="true"></div>
+<table class="Modulo" style="border: 1px solid grey;" >
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="2">
+        <p class="Labeltabella">
+          con decorrenza dal 
+        </p>
+      </td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <input class="inputNormal" id="Parametri_Decorrenza" name="Parametri_Decorrenza" style="width: 100%;" label="Decorrenza" format="date" mandatory="true"/>
+        </td>
+      </tr>
+      <tr>
+      <td style="vertical-align: top;width: 4%;">
+      <input class="InputNormal" id="Tassonomia_Durata1" name="Tassonomia_Durata" label="Durata" type="radio" value="1"/>
+      </td>
+      <td>
+       <p class="Labelcella">
+         a tempo determinato
+        </p>
+        </td>
+        </tr>
+    <tr>
+    <td style="vertical-align: top;width: 4%;">
+    <input class="InputNormal" id="Tassonomia_Durata2" name="Tassonomia_Durata" label="Durata" type="radio" value="2"/>
+    </td>
+    <td>
+    <p class="Labelcella">
+     a tempo indeterminato
+     </p>
+     </td>
+     </tr>
+    <tr class="Rigaintestazioneridotta">
+    <td colspan="2">
+          fino al
+    </td>
+    </tr>
+    <tr>
+    <td colspan="2">
+    <input class="InputNormal" id="Parametri_Fino" name="Parametri_Fino" label="Data fine modifica rapporto" style="width: 100%;:" format="date"  mandatory_enabled="#Tassonomia_Durata1.checked()"/>
+    </td>
+    </tr>    
+  </tbody>
+</table>
+
+
+
+    <br>
+{{ utils.Dichiara_445() }}
+
+<br>
+
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazione">
+       <td style="vertical-align: top; width: 4%;">
+     <input class="InputNormal" id="Tassonomia_Precedenza" name="Tassonomia_Precedenza" value="si" type="checkbox" label="Precedenza"/>
+      <td>
+        <p class="Labeltabella">
+          di essere in possesso dei seguenti titoli di precedenza di cui all’art. 5 del “Regolamento del rapporto di lavoro a tempo parziale” 
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2">
+      <input class="inputNormal" id="Parametri_Elenco_Titoli" name="Parametri_Elenco_Titoli" style="width: 100%;" label="Titoli Precedenza" mandatory_enabled="#Tassonomia_Precedenza.checked()" />
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2">
+      <input class="inputNormal" id="Parametri_Elenco_Titoli2" name="Parametri_Elenco_Titoli2" style="width: 100%;" label="Titoli Precedenza2" />
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2">
+      <input class="inputNormal" id="Parametri_Elenco_Titoli3" name="Parametri_Elenco_Titoli3" style="width: 100%;" label="Titoli Precedenza3" />
+      </td>
+    </tr>
+  </tbody>
+</table>
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazione">
+       <td style="vertical-align: top; width: 4%;">
+     <input class="InputNormal" id="Tassonomia_Att_Lav" name="Tassonomia_Att_Lav" value="si" type="checkbox" label="Attività Lavorativa"/>
+      <td>
+        <p class="Labeltabella">
+          di svolgere la seguente ulteriore attività lavorativa per la quale si richiede il part-time:
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2">
+      <input class="inputNormal" id="Parametri_Des_Att_Lav" name="Parametri_Des_Att_Lav" style="width: 100%;" label="Attività Lavorativa" mandatory_enabled="#Tassonomia_Att_Lav.checked()" />
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+
+<globo_salto_pagina></globo_salto_pagina>
+<table class="Modulo" name="Allegati" style="border: 1px solid grey">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="2">
+        <p style="text-align: center;">
+          <b>
+            Elenco degli allegati
+          </b>
+          <br/>
+          <span style="font-size:70%">
+            <i>(barrare tutti gli allegati richiesti in fase di presentazione della pratica ed elencati sul portale)</i>
+          </span>
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="DAE-CDI" name="DAE-CDI" type="checkbox" value="OBBLIGATORIO" />
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          copia del documento d'identità
+          <br/>
+          <span style="font-size:70%">
+            <i>(da allegare se il modulo è sottoscritto con firma autografa)</i>
+          </span>
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="ALTRI-ALLEGATI" name="ALTRI-ALLEGATI" type="checkbox" value="OBBLIGATORIO"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          altri allegati
+          <span style="font-size:70%">(specificare)</span>
+          <input class="" label="Altri allegati" id="AltriAllegati" mandatory_enabled="#ALTRI_ALLEGATI.checked()" name="AltriAllegati" style="width:79%;"/>
+        </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<br>
+{{ utils.trattamento_dati_personali() }}
+<br/>
+  {{ utils.firma_hidden() }}
+<br/>
+
+<p class="Modulo">
+  <input id="SalvaModulo" name="SalvaModulo" style="height:30px;width:120px;" title="Verifica la corretta compilazione dei campi e salva il modulo nel faldone virtuale dell'istanza." type="submit" value="Salva modulo"/>
+</p>
+
+<input destinatario_amministrazione="getParameter('Ente')" id="GLOBO_modulo_c{{ CodiceModulo }}" name="GLOBO_modulo_c{{ CodiceModulo }}" type="hidden" value=""/>
+<input firmare="'P7M_ELETTRONICA'" id="GLOBO_modulofiglio_cINCARICO_PROCURA" name="GLOBO_modulofiglio_cINCARICO_PROCURA" type="hidden" value=""/>
+
+<input id="GLOBO_sub_urn" name="GLOBO_sub_urn" type="hidden" dynamic_value="
+#Parametri_Direzioni.value()  == '{{direzioni[0]}}' ? 'avvocatura' :
+(#Parametri_Direzioni.value() == '{{direzioni[1]}}' ? 'affari' :
+(#Parametri_Direzioni.value() == '{{direzioni[2]}}' ? 'bilancio' :
+(#Parametri_Direzioni.value() == '{{direzioni[3]}}' ? 'commercio' :
+(#Parametri_Direzioni.value() == '{{direzioni[4]}}' ? 'edilizia' :
+(#Parametri_Direzioni.value() == '{{direzioni[5]}}' ? 'gare' :
+(#Parametri_Direzioni.value() == '{{direzioni[6]}}' ? 'generale' :
+(#Parametri_Direzioni.value() == '{{direzioni[7]}}' ? 'infrastrutture' :
+(#Parametri_Direzioni.value() == '{{direzioni[8]}}' ? 'patrimonio' :
+(#Parametri_Direzioni.value() == '{{direzioni[9]}}' ? 'pianificazione' :
+(#Parametri_Direzioni.value() == '{{direzioni[10]}}' ? 'risorse' :
+(#Parametri_Direzioni.value() == '{{direzioni[11]}}' ? 'polifunzionali' :
+(#Parametri_Direzioni.value() == '{{direzioni[12]}}' ? 'sicurezza' :
+(#Parametri_Direzioni.value() == '{{direzioni[13]}}' ? 'urbanistica' :
+(#Parametri_Direzioni.value() == '{{direzioni[14]}}' ? 'verde' :
+(#Parametri_Direzioni.value() == '{{direzioni[15]}}' ? 'polizia' :
+(#Parametri_Direzioni.value() == '{{direzioni[16]}}' ? 'segreteria' : ''))))))))))))))))" />
+
+<input id="GLOBO_allegato_cDAE-CDI" name="GLOBO_allegato_cDAE-CDI" obbligatorio="#DAE_CDI.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+<input id="GLOBO_allegato_cALTRI-ALLEGATI" name="GLOBO_allegato_cALTRI-ALLEGATI" obbligatorio="#ALTRI_ALLEGATI.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_id_padre" name="GLOBO_id_padre" type="hidden"/>
+<input id="GLOBO_recupera_dati" name="GLOBO_recupera_dati" type="hidden"/>
+<input id="GLOBO_codice_modulo" name="GLOBO_codice_modulo" type="hidden" value="{{ CodiceModulo }}"/>
+
+{% endblock content %}

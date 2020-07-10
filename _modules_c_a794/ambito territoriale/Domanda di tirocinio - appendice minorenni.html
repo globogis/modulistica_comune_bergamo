@@ -1,0 +1,203 @@
+{% set CodiceModulo = "APP-MINO-TOFIR" %}
+{% set Urn = "document:c_a794:appendice.tirocinante;tofir" %}
+{% extends "base.html" %}
+
+{% block meta %}
+
+<meta campi_firma="TitolareNonImportare_CodiceFiscale"
+campi_firma_label="il dichiarante"
+classi_modulo="Generale"
+codice_modulo="{{ CodiceModulo }}"
+urn="{% block urn %}{{ Urn }}{% endblock urn %}"
+descrizione="Appendice"
+destinatario_amministrazione=""
+destinatario_ufficio=""
+dinamico="SI"
+email_a=""
+ente_abilitato="TUTTI"
+filigrana="NO"
+firmare="P7M_ELETTRONICA"
+istruzioni_compilazione=""
+istruzioni_invio=""
+metodo_invio="mail"
+name="GLOBO_modulo"
+procura="NO,,"
+tipo_modulo="secondario"
+urlhelp="/modulistica/moduli/{{ CodiceModulo }}"
+verifica_pagamento="NO"
+versione="1.0|26/06/2019"/>
+
+{% endblock meta %}
+
+{% block title %}
+  Appendice
+{% endblock title %}
+
+{% block content %}
+
+<globo_fondo_pagina areaheight="150" scope="1">
+  {{ utils.firma() }}
+</globo_fondo_pagina>
+
+<input id="Oggetto" name="Oggetto" type="hidden" dynamic_value="'Appendice'"/>
+
+{{ intestazioni.intestazione_modulosecondario_senzabollo() }}
+
+<h1 class="Modulo">
+  Appendice
+</h1>
+
+<h2 class="Modulo">
+  Da utilizzarsi solo in caso di tirocinante minorenne
+</h2>
+
+
+<input id="TitolareNonImportare_DatiPersonaObbligatori" name="TitolareNonImportare_DatiPersonaObbligatori" type="hidden" dynamic_check="true"/>
+<input id="TitolareNonImportare_Titolo" name="TitolareNonImportare_Titolo" type="hidden" value="Richiedente"/>
+<input id="TitolareNonImportare_Ruolo" name="TitolareNonImportare_Ruolo" type="hidden" value="Richiedente"/>
+{{ anagrafica.persona_fisica("TitolareNonImportare", "Il sottoscritto", "display:none", "cursor:default", "visibility:visibility", "visibility:visibility", "mail_ordinaria", "", "true", "true", "false", "", "true", "true", "visibility:visibility") }}
+
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="3">
+        <p class="Labeltabella">
+          in qualità di <br/>
+          <span style="font-size: 70%; font-weight: normal;"><i>(indicare alternativamente se padre, madre, altro titolare della rappresentanza legale)</i></span>
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="3">
+        <select class="inputNormal" id="Parametri_RuoloTitolare" label="Ruolo titolare" name="Parametri_RuoloTitolare" style="width:100%" mandatory="true">
+          <option value=""></option>
+          <option value="padre">padre</option>
+           <option value="madre">madre</option>
+          <option value="tutore">tutore</option>
+          <option value="affidatario">affidatario</option>
+          <option value="titolare della rappresentanza legale">titolare della rappresentanza legale</option>
+        </select>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="3">
+        <p class="Labeltabella">
+          del tirocinante <br/>
+          <span style="font-size: 70%; font-weight: normal;"><i>(minorenne)</i></span>
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          Cognome
+        </p>
+      </td>
+      <td>
+        <p class="Labelcella">
+          Nome
+        </p>
+      </td>
+      <td>
+        <p class="Labelcella">
+          Codice Fiscale
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input class="inputNormal" id="Parametri_Cognome" name="Parametri_Cognome" style="width: 100%;" label="Cognome" mandatory_enabled="true"/>
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_Nome" name="Parametri_Nome" style="width: 100%;" label="Nome" mandatory_enabled="true"/>
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_CodFisc" name="Parametri_CodFisc" style="width: 100%;" format="cf" label="Codice fiscale" mandatory_enabled="true"/>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+{{ utils.Dichiara_445() }}
+
+
+<table class="Modulo" style="border: 0px;">
+  <tbody>
+    <tr style="border: 0px;">
+      <td style="vertical-align: top; width: 4%; border: 0px;">
+        <input id="Dichiara1" name="Dichiara1" type="checkbox" value="SI" />
+      </td>
+      <td style="border: 0px;">
+        <p>
+          di aver preso visione della Convenzione sottoscritta dal soggetto promotore, dal soggetto proponente e dal soggetto ospitante sulla base della quale viene attuato il tirocinio
+        </p>
+      </td>
+    </tr>
+    <tr style="border: 0px;">
+      <td style="vertical-align: top; width: 4%; border: 0px;">
+        <input id="Dichiara2" name="Dichiara2" type="checkbox" value="SI" />
+      </td>
+      <td style="border: 0px;">
+        <p>
+          di aver preso visione del Progetto Personalizzato, di accettare integralmente quanto esposto, ed in particolare di quanto indicato alla sezione "Obblighi del tirocinante"
+        </p>
+      </td>
+    </tr>
+    <tr style="border: 0px;">
+      <td style="vertical-align: top; width: 4%; border: 0px;">
+        <input id="Dichiara3" name="Dichiara3" type="checkbox" value="SI" />
+      </td>
+      <td style="border: 0px;">
+        <p>
+          che questo Progetto Personalizzato è parte integrante della Convenzione sopra chiamata
+        </p>
+      </td>
+    </tr>
+    <tr style="border: 0px;">
+      <td style="vertical-align: top; width: 4%; border: 0px;">
+        <input id="Dichiara4" name="Dichiara4" type="checkbox" value="SI" />
+      </td>
+      <td style="border: 0px;">
+        <p>
+          di esprimere, ai sensi dell'articolo 13 del Regolamento dell'Unione Europea n. 679/2016 (Regolamento generale sulla protezione dei dati personali), il consenso al trattamento, anche automatizzato, 
+          dei dati personali contenuti nel presente Progetto Personalizzato, inclusa la loro eventuale comunicazione a soggetti terzi specificatamente incaricati, limitatamente ai dini della 
+          corretta gestione del tirocinio, da parte del soggetto promotore e del soggetto ospitante e da parte di Regione Lombardia qualora venissero da questa acquisiti ai fini delle funzioni di controllo e monitoraggio
+        </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<h3 class="Modulo">
+  AUTORIZZA
+</h3>
+
+
+<p class="Modulo">
+  il tirocinante a partecipare alle attività di tirocinio previste dal presente Progetto Personalizzato, secondo le modalità in esso definite
+</p>
+
+
+<br/>
+  {{ utils.firma_hidden() }}
+<br/>
+
+<p class="Modulo">
+  <input id="SalvaModulo" name="SalvaModulo" style="height:30px;width:120px;" title="Verifica la corretta compilazione dei campi e salva il modulo nel faldone virtuale dell'istanza." type="submit" value="Salva modulo"/>
+</p>
+
+<input id="GLOBO_modulo_c{{ CodiceModulo }}" name="GLOBO_modulo_c{{ CodiceModulo }}" type="hidden" value=""/>
+
+<input id="GLOBO_id_padre" name="GLOBO_id_padre" type="hidden"/>
+<input id="GLOBO_recupera_dati" name="GLOBO_recupera_dati" type="hidden"/>
+<input id="GLOBO_codice_modulo" name="GLOBO_codice_modulo" type="hidden" value="{{ CodiceModulo }}"/>
+
+{% endblock content %}

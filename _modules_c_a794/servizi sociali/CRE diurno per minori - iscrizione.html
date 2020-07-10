@@ -1,0 +1,477 @@
+{% set CodiceModulo = "CRE_MINORI_ISCRIZIONE" %}
+{% set Urn = "document:c_a794:centro.diurno.estivo;iscrizione" %}
+{% extends "base.html" %}
+
+{% block meta %}
+
+<meta campi_firma="Titolare_CodiceFiscale"
+campi_firma_label="il dichiarante"
+classi_modulo="Servizi sociali"
+codice_modulo="{{ CodiceModulo }}"
+urn="{% block urn %}{{ Urn }}{% endblock urn %}"
+sub_urn_list=""
+uo_globo_list=""
+descrizione="Domanda di iscrizione al centro ricreativo estivo diurno per minori"
+destinatario_amministrazione=""
+destinatario_ufficio="UOSERVIZISOCIALI"
+dinamico="SI"
+email_a=""
+ente_abilitato="TUTTI"
+filigrana="NO"
+firmare="P7M_ELETTRONICA"
+istruzioni_compilazione=""
+istruzioni_invio="mail_pec"
+metodo_invio="mail"
+name="GLOBO_modulo"
+procura="NO,,"
+tipo_modulo="principale"
+urlhelp="/modulistica/moduli/{{ CodiceModulo }}"
+verifica_pagamento="NO"
+versione="1.2|14/05/2019"/>
+
+<meta codice_modulo_figlio="Incarico_procura"
+urn_modulo_figlio="document:s_italia:generale;incarico.procura"
+name="GLOBO_modulofiglio"
+numero="1"
+obbligatorio="DINAMICO"/>
+
+<meta codice_allegato="MEN-CER-ASL"
+urn_allegato=""
+descrizione_estesa="Copia della certificazione medica per dieta speciale"
+filename="Certificato medico.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/MEN-CER-ASL"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="COP-DIA-MED"
+urn_allegato=""
+descrizione_estesa="Copia della diagnosi medica per disabilità"
+filename="Diagnosi medica.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/COP-DIA-MED"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="DAE-CDI"
+urn_allegato="document:s_italia:generale;documento.identita;documentazione"
+descrizione_estesa="Documento di identità"
+filename="Documento identita.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/DAE-CDI"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="ALTRI-ALLEGATI"
+urn_allegato="document:s_italia:altri.allegati"
+descrizione_estesa="Altri allegati"
+filename="Altri allegati.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/ALTRI-ALLEGATI"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+{% endblock meta %}
+
+{% block title %}
+  Domanda di iscrizione al centro ricreativo estivo diurno per minori
+{% endblock title %}
+
+{% block content %}
+
+<globo_fondo_pagina areaheight="150" scope="2">
+  {{ utils.firma() }}
+</globo_fondo_pagina>
+
+<input id="Parametri_Comune" name="Parametri_Comune" type="hidden" dynamic_value="#Ente.value()"/>
+<input id="Oggetto" name="Oggetto" type="hidden" dynamic_value="#Titolare_Cognome.value().toUpperCase() + ' ' + #Titolare_Nome.value().toUpperCase() + ' - Domanda di iscrizione al centro ricreativo estivo diurno per minori'"/>
+
+{{ intestazioni.intestazione_moduloprincipale_senzabollo() }}
+
+<h1 class="Modulo">
+  Domanda di iscrizione al centro ricreativo estivo diurno per minori
+</h1>
+
+<input id="Titolare_DatiPersonaObbligatori" name="Titolare_DatiPersonaObbligatori" type="hidden" dynamic_check="true"/>
+<input id="Titolare_Titolo" name="Titolare_Titolo" type="hidden" value="Richiedente"/>
+<input id="Titolare_Ruolo" name="Titolare_Ruolo" type="hidden" value="Richiedente"/>
+{{ anagrafica.persona_fisica("Titolare", "Il sottoscritto", "visibility:visibility", "cursor:pointer", "visibility:visibility", "visibility:visibility", "mail_ordinaria") }}
+
+<h3 class="Modulo">
+  CHIEDE
+</h3>
+
+<p class="Modulo">
+  l'iscrizione al centro ricreativo estivo
+</p>
+<table class="Modulo" style="border: 1px solid grey;margin-bottom: -5px">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td>
+        <p class="Labeltabella"> denominazione del centro ricreativo estivo </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input class="inputNormal" id="Parametri_denom_centro" name="Parametri_denom_centro" style="width: 100%;" label="Denominazione del centro ricreativo estivo" mandatory="true"/>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<input id="AventeTitolo1_DatiPersonaObbligatori" name="AventeTitolo1_DatiPersonaObbligatori" type="hidden" dynamic_check="true"/>
+<input id="AventeTitolo1_Titolo" name="AventeTitolo1_Titolo" type="hidden" value="Richiedente"/>
+<input id="AventeTitolo1_Ruolo" name="AventeTitolo1_Ruolo" type="hidden" value="Richiedente"/>
+{{ anagrafica.persona_fisica("AventeTitolo1", "per il minore", "visibility:visibility", "cursor:pointer", "visibility:visibility", "visibility:none", "") }}
+
+<div id="Tassonomia_cond_partic" name="Tassonomia_cond_partic" label="Condizioni particolari"></div>
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazioneridotta">
+      <td colspan="2">
+        <p class="Labelcella"> Condizioni particolari </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input group="Tassonomia_cond_partic" id="Tassonomia_cond_partic1" name="Tassonomia_cond_partic1" type="checkbox" value="SI" />
+      </td>
+      <td>
+        <p> disabilità </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input group="Tassonomia_cond_partic" id="Tassonomia_cond_partic2" name="Tassonomia_cond_partic2" type="checkbox" value="SI" />
+      </td>
+      <td>
+        <p> diete speciali </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td colspan="2">
+        <p class="Labelcella"> Specificare allergie, intolleranze alimentari, disgusti  </p>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2">
+        <input class="inputNormal" id="Parametri_diet_spec" name="Parametri_diet_spec" style="width: 100%;" label="Dieta speciale" mandatory_enabled="#Tassonomia_cond_partic2.checked()" />
+      </td>
+    </tr>
+  </tbody>
+</table>
+<table class="Modulo" style="border: 1px solid grey;margin-top: -1px;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="2">
+        <p class="Labeltabella"> per il periodo </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella"> Data inizio frequenza </p>
+      </td>
+      <td>
+        <p class="Labelcella"> Data fine frequenza </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input class="inputNormal" id="Parametri_dat_inizio" name="Parametri_dat_inizio" style="width: 100%;" label="Data inizio frequenza" mandatory="true" format="date"/>
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_dat_fine" name="Parametri_dat_fine" style="width: 100%;" label="Data fine frequenza" mandatory="true" format="date"/>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<div id="Tassonomia_tip_or" name="Tassonomia_tip_or" label="Orari di frequenza" mandatory="true"></div>
+<table class="Modulo" style="border: 1px solid grey;margin-top: -1px;">
+  <tbody>
+    <tr class="Rigaintestazioneridotta">
+      <td colspan="2">
+        <p class="Labelcella"> Con i seguenti orari </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="Tassonomia_tip_or1" name="Tassonomia_tip_or" type="radio" value="1" />
+      </td>
+      <td>
+        <p> normale </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="Tassonomia_tip_or2" name="Tassonomia_tip_or" type="radio" value="2" />
+      </td>
+      <td>
+        <p> anticipato </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="Tassonomia_tip_or3" name="Tassonomia_tip_or" type="radio" value="3" />
+      </td>
+      <td>
+        <p> posticipato </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<br>
+{{ utils.Dichiara_445() }}
+
+{% set dics = ["che il minore è seguito dal servizio di neuropsichiatria infantile",
+               "che il minore necessita di un assistente educatore a tempo pieno",
+               "che il minore è titolare di invalidità civile, nella misura del",
+               "di avere i requisiti per accedere al servizio e di aver letto le informazioni allegate alla domanda sui criteri di ammissione al servizio"] %}
+
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+
+    {% for dic in dics %}
+      <tr>
+        <td {% if loop.index == 1 %} rowspan="3" {% endif %} style="vertical-align: top; width: 4%;">
+          <input id="Dichiara{{loop.index}}" name="Dichiara{{loop.index}}" type="checkbox" value="SI" {% if loop.index == 4 %} checked="checked" dynamic_check="true" {% endif %} />
+        </td>
+        <td colspan="3">
+          <p> {{ dic }}
+            {% if loop.index == 3 %}
+              <input class="inputNormal" id="Parametri_dic{{loop.index}}_invciv" name="Parametri_dic{{loop.index}}_invciv" style="width: 8%;" label="Misura invalidità civile" mandatory="#Dichiara{{loop.index}}.checked()" format="number"/> %
+            {% endif %}
+          </p>
+        </td>
+      </tr>
+      {% if loop.index == 1 %}
+        <tr class="Rigaintestazioneridotta">
+          <td>
+            <p class="Labelcella"> Struttura sanitaria(*) </p>
+          </td>
+          <td>
+            <p class="Labelcella"> Medico referente </p>
+          </td>
+          <td>
+            <p class="Labelcella"> Numero di telefono </p>
+          </td>
+        </tr>
+        <tr mandatory="#Dichiara{{loop.index}}.checked()">
+          <td>
+            <input class="inputNormal" id="Parametri_neur_inf_strut" name="Parametri_neur_inf_strut" style="width: 100%;" label="Struttura sanitaria" />
+          </td>
+          <td>
+            <input class="inputNormal" id="Parametri_neur_inf_medre" name="Parametri_neur_inf_medre" style="width: 100%;" label="Medico referente" />
+          </td>
+          <td>
+            <input class="inputNormal" id="Parametri_neur_inf_strte" name="Parametri_neur_inf_strte" style="width: 100%;" label="Telefono SS" />
+          </td>
+        </tr>
+      {% endif %}
+    {% endfor %}
+  </tbody>
+</table>
+<p> <span style="font-size: 80%"> <i> (*) </i> da non indicare se il minore è seguito da uno specialista privato </span> </p>
+
+<br>
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="5">
+        <p class="Labeltabella"> che il nucleo familiare del minore è cosi composto </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella"> Cognome </p>
+      </td>
+      <td>
+        <p class="Labelcella"> Nome </p>
+      </td>
+      <td>
+        <p class="Labelcella"> Rapporto di parentela </p>
+      </td>
+      <td>
+        <p class="Labelcella"> Luogo nascita </p>
+      </td>
+      <td>
+        <p class="Labelcella"> Data nascita </p>
+      </td>
+    </tr>
+    {% for i in range(1, 9) %}
+      <tr {% if i == 1 %} mandatory_enabled="true" {% endif %} >
+        <td>
+          <input class="inputNormal" id="Parametri_famil{{i}}_Cognome" name="Parametri_famil{{i}}_Cognome" style="width: 100%;" label="Cognome del familiare {{i}}"
+          {% if i > 1 %} enabled="#Parametri_famil{{i-1}}_Cognome.value()!=''" {% endif %} />
+        </td>
+        <td>
+          <input class="inputNormal" id="Parametri_famil{{i}}_Nome" name="Parametri_famil{{i}}_Nome" style="width: 100%;" label="Nome del familiare {{i}}"
+          {% if i > 1 %} mandatory_enabled="#Parametri_famil{{i}}_Cognome.value()!=''" {% endif %} />
+        </td>
+        <td>
+          <select class="inputNormal" id="Parametri_famil{{i}}_rapparent" name="Parametri_famil{{i}}_rapparent" style="width: 100%;" label="Rapporto di parentela del familiare {{i}}"
+          {% if i > 1 %} mandatory_enabled="#Parametri_famil{{i}}_Cognome.value()!=''" {% endif %} >
+            {% set pars = [ "", "Padre", "Madre", "Figlio", "Coniuge", "Dichiarante", "Altro" ] %}
+            {% for par in pars %}
+              <option value="{{par}}"> {{par}} </option>
+            {% endfor %}
+          </select>
+        </td>
+        <td>
+          <input class="inputNormal" id="Parametri_famil{{i}}_LuogoNascita" name="Parametri_famil{{i}}_LuogoNascita" style="width: 100%;" label="Luogo di nascita del familiare {{i}}"
+          {% if i > 1 %} mandatory_enabled="#Parametri_famil{{i}}_Cognome.value()!=''" {% endif %} />
+        </td>
+        <td>
+          <input class="inputNormal" id="Parametri_famil{{i}}_DataNascita" name="Parametri_famil{{i}}_DataNascita" style="width: 100%;" label="Data di nascita del familiare {{i}}"  format="date"
+          {% if i > 1 %} mandatory_enabled="#Parametri_famil{{i}}_Cognome.value()!=''" {% endif %} />
+        </td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<br>
+<h3 class="Modulo">
+  DICHIARA INOLTRE
+</h3>
+{% set dics = [ "di impegnarsi a versare la quota prevista per la retta di frequenza entro l’inizio del CRED",
+                "di impegnarsi a comunicare eventuali variazioni o la rinuncia al posto tramite apposita comunicazione dallo sportello telematico polifunzionale",
+                "di essere a conoscenza che in caso di mancata frequenza per cause non imputabili all’amministrazione comunale, non sarà effettuato alcun rimborso da parte dell’amministrazione comunale"] %}
+
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    {% for dic in dics %}
+      <tr>
+        <td style="vertical-align: top; width: 4%;">
+        <div id="Parametri_in{{loop.index}}" name="Parametri_in{{loop.index}}" label="Dichiarazioni" mandatory="true"></div>
+          <input group="Parametri_in{{loop.index}}" id="Dichiara_in{{loop.index}}S1" name="Dichiara_in{{loop.index}}S1" type="checkbox" value="SI"/>
+        </td>
+        <td>
+          <p> {{ dic }} </p>
+        </td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          Eventuali annotazioni
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <textarea class="inputNormal" id="Parametri_Annotazioni" name="Parametri_Annotazioni" style="width: 100%; height: 5cm;" label="Eventuali annotazioni"></textarea>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<table class="Modulo" name="Allegati" style="border: 1px solid grey">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="2">
+        <p style="text-align: center;">
+          <b>
+            Elenco degli allegati
+          </b>
+          <br/>
+          <span style="font-size:70%">
+            <i>(barrare tutti gli allegati richiesti in fase di presentazione della pratica ed elencati sul portale)</i>
+          </span>
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="width: 4%; vertical-align: top;">
+        <input id="MEN-CER-ASL" name="MEN-CER-ASL" type="checkbox" value="OBBLIGATORIO" enabled="#Tassonomia_cond_partic2.checked()" dynamic_check="#Tassonomia_cond_partic2.checked()"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          copia della certificazione medica per dieta speciale
+          <br/>
+          <span style="font-size:70%">
+            <i>(da allegare se il minore ha bisogno di dieta speciale e non ha già consegnato il certificato medico o altro alla mensa scolastica)</i>
+          </span>
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="width: 4%; vertical-align: top;">
+        <input id="COP-DIA-MED" name="COP-DIA-MED" type="checkbox" value="OBBLIGATORIO" enabled="#Tassonomia_cond_partic1.checked()" dynamic_check="#Tassonomia_cond_partic1.checked()"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          copia della diagnosi medica per disabilità
+          <br/>
+          <span style="font-size:70%">
+            <i>(da allegare se il minore è disabile)</i>
+          </span>
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="DAE-CDI" name="DAE-CDI" type="checkbox" value="OBBLIGATORIO" />
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          copia del documento d'identità
+          <br/>
+          <span style="font-size:70%">
+            <i>(da allegare se il modulo è sottoscritto con firma autografa)</i>
+          </span>
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="ALTRI-ALLEGATI" name="ALTRI-ALLEGATI" type="checkbox" value="OBBLIGATORIO"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          altri allegati
+          <span style="font-size:70%">(specificare)</span>
+          <input class="" label="Altri allegati" id="AltriAllegati" mandatory_enabled="#ALTRI_ALLEGATI.checked()" name="AltriAllegati" style="width:79%;"/>
+        </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<br>
+{{ utils.trattamento_dati_personali() }}
+<br/>
+  {{ utils.firma_hidden() }}
+<br/>
+
+<p class="Modulo">
+  <input id="SalvaModulo" name="SalvaModulo" style="height:30px;width:120px;" title="Verifica la corretta compilazione dei campi e salva il modulo nel faldone virtuale dell'istanza." type="submit" value="Salva modulo"/>
+</p>
+
+<input destinatario_amministrazione="getParameter('Ente')" id="GLOBO_modulo_c{{ CodiceModulo }}" name="GLOBO_modulo_c{{ CodiceModulo }}" type="hidden" value=""/>
+<input firmare="'P7M_ELETTRONICA'" id="GLOBO_modulofiglio_cIncarico_procura" name="GLOBO_modulofiglio_cIncarico_procura" type="hidden" value=""/>
+
+
+<input id="GLOBO_allegato_cMEN-CER-ASL" name="GLOBO_allegato_cMEN-CER-ASL" type="hidden" value="" obbligatorio="#MEN_CER_ASL.checked() ? 'OBBLIGATORIO' : ''"/>
+<input id="GLOBO_allegato_cCOP-DIA-MED" name="GLOBO_allegato_cCOP-DIA-MED" type="hidden" value="" obbligatorio="#COP_DIA_MED.checked() ? 'OBBLIGATORIO' : ''"/>
+<input id="GLOBO_allegato_cDAE-CDI" name="GLOBO_allegato_cDAE-CDI" obbligatorio="#DAE_CDI.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+<input id="GLOBO_allegato_cALTRI-ALLEGATI" name="GLOBO_allegato_cALTRI-ALLEGATI" obbligatorio="#ALTRI_ALLEGATI.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_id_padre" name="GLOBO_id_padre" type="hidden"/>
+<input id="GLOBO_recupera_dati" name="GLOBO_recupera_dati" type="hidden"/>
+<input id="GLOBO_codice_modulo" name="GLOBO_codice_modulo" type="hidden" value="{{ CodiceModulo }}"/>
+
+{% endblock content %}

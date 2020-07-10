@@ -1,0 +1,1232 @@
+{% set CodiceModulo = "DOM_MIS_2" %}
+{% set Urn = "document:c_a794:morosità.ridotta;concessione" %}
+{% extends "base.html" %}
+
+{% block meta %}
+
+<meta campi_firma="Titolare_CodiceFiscale"
+campi_firma_label="il dichiarante"
+classi_modulo="Generale"
+codice_modulo="{{ CodiceModulo }}"
+urn="{% block urn %}{{ Urn }}{% endblock urn %}"
+sub_urn_list=""
+uo_globo_list=""
+descrizione="Domanda di accesso al bando per morosità incolpevole ridotta senza sfratto (Misura 2)"
+destinatario_amministrazione=""
+destinatario_ufficio="UOHOUSINGSOCIALE"
+dinamico="SI"
+email_a=""
+ente_abilitato="TUTTI"
+filigrana="NO"
+firmare="P7M_ELETTRONICA"
+istruzioni_compilazione=""
+istruzioni_invio="mail_pec"
+metodo_invio="mail"
+name="GLOBO_modulo"
+procura="NO,,"
+tipo_modulo="principale"
+urlhelp="/modulistica/moduli/{{ CodiceModulo }}"
+verifica_pagamento="NO"
+versione="1.2|23/01/2020"/>
+
+<meta codice_modulo_figlio="INCARICO_PROCURA"
+urn_modulo_figlio="document:s_italia:generale;incarico.procura"
+name="GLOBO_modulofiglio"
+numero="1"
+obbligatorio="DINAMICO"/>
+
+
+<meta codice_allegato="AL-CON-LOC"
+urn_allegato="document:s_italia:generale;contratto.locazione;contratto"
+descrizione_estesa="Copia del contratto di locazione"
+filename="Contratto locazione.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/AL-CON-LOC"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="ERP-LET-LIC"
+urn_allegato="document:r_lombar:edilizia.residenziale.pubblica;ricalcolo.canone.affitto.spese;lettera.licenziamento;documentazione"
+descrizione_estesa="Alloggi ERP; copia della lettera di licenziamento"
+filename="Copia licenziamento.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/AL-CON-LOC"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="DIC_ISEE"
+urn_allegato="document:s_italia:generale;dichiarazione.isee;documentazione"
+descrizione_estesa="copia della dichiarazione ISEE"
+filename="Attestazione ISEE.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/DIC_ISEE"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="DOC-IDE-FIS"
+urn_allegato="document:c_a794:copia.documento.identita.codice.fiscale.nucleo.familiare"
+descrizione_estesa="Copia documento di identità e codice fiscale dei membri del nucleo familiare"
+filename="Documento Identita.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/DOC-IDE-FIS"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="MOR-INC-SIT"
+urn_allegato="document:c_a794:situazione.morosita.incolpevole"
+descrizione_estesa="Copia della lettera raccomandata del proprietario dell'immobile che attesta la situazione di morosità pregressa"
+filename="Documenti morosita incolpevole.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/MOR-INC-SIT"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="DOC-RID-LAV"
+urn_allegato="document:c_a794:documentazione.attestante.riduzione.attivita.lavorativa;allegato"
+descrizione_estesa="Documentazione attestante la riduzione dell'attività lavorativa"
+filename="Documentazione riduzione attivita.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/DOC-RID-LAV"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="ERP-COM-INT"
+urn_allegato="document:r_lombar:edilizia.residenziale.pubblica;ricalcolo.canone.affitto.spese;comunicazione.inps.erogazione.cassa.integrazione.mobilita.sussidio.disoccupazione;documentazione"
+descrizione_estesa="Alloggi SAP, copia della comunicazione dell'INPS di erogazione cassa integrazione, mobilità o sussidio disoccupazione "
+filename="Documentazione cassa integrazione.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/ERP-COM-INT"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="COP_CONTR_LAV"
+urn_allegato="document:c_a794:copia.contratto.lavoro;allegato"
+descrizione_estesa="Copia del contratto di lavoro"
+filename="Copia del contratto di lavoro.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/COP_CONTR_LAV"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="COP_VIS_CAM"
+urn_allegato="document:c_a794:copia.visura.camerale"
+descrizione_estesa="Visura camerale"
+filename="Visura camerale.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/COP_VIS_CAM"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="DAN-COP-MED"
+urn_allegato="document:s_italia:risarcimento.danni;lesioni.personali;spese.mediche.sostenute;documentazione"
+descrizione_estesa="Documentazione attestante le eventuali spese mediche sostenute"
+filename="Copia spese mediche sostenute.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/DAN-COP-MED"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="DAN_CERT_INF"
+urn_allegato="document:c_a794:copia.certificato.infortunio;documentazione"
+descrizione_estesa="Copia certificato infortunio e documentazione attestante le eventuali spese mediche sostenute"
+filename="Copia spese mediche sostenute.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/DAN_CERT_INF"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="CERT_MORTE"
+urn_allegato="document:c_a794:certificato.morte;allegato"
+descrizione_estesa="Certificato di morte"
+filename="Copia certificato di morte.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/CERT_MORTE"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="SEN-SEP-COM"
+urn_allegato="document:s_italia:generale;assegni.mantenimento;sentenza.separazione.scritture.private;documentazione"
+descrizione_estesa="Copia della sentenza di separazione"
+filename="Copia sentenza separazione o divorzio.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/SEN-SEP-COM"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="COP_RIC_SEP"
+urn_allegato="document:C_A794:ricorso.separazione;documentazione"
+descrizione_estesa="Copia del ricorso di separazione"
+filename="Copia ricorso separazione o divorzio.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/COP_RIC_SEP"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="COP_CESS_CONTR"
+urn_allegato="document:c_a794:copia.comunicazione.cessato.contributo;comunicazione;"
+descrizione_estesa="Copia comunicazione dell’ente di cessata erogazione del contributo"
+filename="Copia comunicazione ente.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/COP_RIC_SEP"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="ALTRI-ALLEGATI"
+urn_allegato="document:s_italia:altri.allegati"
+descrizione_estesa="Altri allegati"
+filename="Altri allegati.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/ALTRI-ALLEGATI"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+
+{% endblock meta %}
+
+{% block title %}
+  Domanda di accesso al bando per morosità incolpevole ridotta senza sfratto (Misura 2)
+{% endblock title %}
+
+{% block content %}
+
+<globo_fondo_pagina areaheight="150" scope="3">
+  {{ utils.firma() }}
+</globo_fondo_pagina>
+
+<input id="Parametri_Comune" name="Parametri_Comune" type="hidden" dynamic_value="#Ente.value()"/>
+<input id="Oggetto" name="Oggetto" type="hidden" dynamic_value="#Titolare_Cognome.value().toUpperCase() + ' ' + #Titolare_Nome.value().toUpperCase() + ' - bando morosità incolpevole senza sfratto'"/>
+
+{{ intestazioni.intestazione_moduloprincipale_senzabollo() }}
+
+<h1 class="Modulo">
+  Domanda di accesso al bando per morosità incolpevole ridotta senza sfratto (Misura 2 - DGR n. XI/2065 2019 )
+</h1>
+
+<h2 class="Modulo">
+  Legge Regionale 08/07/2016, n. 16
+</h2>
+
+
+<input id="Titolare_DatiPersonaObbligatori" name="Titolare_DatiPersonaObbligatori" type="hidden" dynamic_check="true"/>
+<input id="Titolare_Titolo" name="Titolare_Titolo" type="hidden" value="Richiedente"/>
+<input id="Titolare_Ruolo" name="Titolare_Ruolo" type="hidden" value="Richiedente"/>
+{{ anagrafica.persona_fisica("Titolare", "Il sottoscritto ", "visibility:visibility", "cursor:pointer", "visibility:visibility", "visibility:visibility", "mail_ordinaria") }}
+
+<br>
+
+<table class="Modulo" style="border: 1px solid grey;" mandatory="true">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="5">
+        <p class="Labeltabella"> Il titolare/sottoscrittore del contratto di locazione di alloggio sito in: </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td style="width:8%;">
+        <p class="Labelcella">Provincia</p>
+      </td>
+      <td style="width:28%;">
+        <p class="Labelcella">Comune</p>
+      </td>
+      <td>
+        <p class="Labelcella">Indirizzo</p>
+      </td>
+      <td style="width:8%;">
+        <p class="Labelcella">Civico</p>
+      </td>
+      <td style="width:13%;">
+        <p class="Labelcella">CAP</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        {{ utils.provincie( 'AventeTitolo1_ProvinciaResidenza', "Provincia di residenza del titolare/sottoscrittore del contratto") }}
+      </td>
+      <td>
+        <select class="inputNormal" id="AventeTitolo1_ComuneResidenza" name="AventeTitolo1_ComuneResidenza" style="width:100%" label="Comune di residenza del titolare/sottoscrittore del contratto" dynamic_value="getComuniFromProvincia( #AventeTitolo1_ProvinciaResidenza.value(), 'AventeTitolo1_ComuneResidenza')"></select>
+      </td>
+      <td>
+        <input class="" id="AventeTitolo1_ViaResidenza" name="AventeTitolo1_ViaResidenza" style="width:100%;" label="Via di residenza del titolare/sottoscrittore del contratto" format="regular_expression" expression="^(.+)\s(.+)$"/>
+      </td>
+      <td>
+        <input class="" id="AventeTitolo1_CivicoResidenza" name="AventeTitolo1_CivicoResidenza" style="width:100%;" label="Civico di residenza del titolare/sottoscrittore del contratto" maxlength="10"/>
+      </td>
+      <td>
+        <input class="" id="AventeTitolo1_CAPResidenza" name="AventeTitolo1_CAPResidenza" style="width:100%;" format="cap" label="CAP di residenza del titolare/sottoscrittore del contratto" enabled="#AventeTitolo1_DatiPersonaObbligatori.checked()" {% if residenza_obbligatoria == 'true'%}mandatory="#AventeTitolo1_DatiPersonaObbligatori.checked() and #AventeTitolo1_ProvinciaResidenza.value() != 'EE'"{% endif %}/>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+
+
+<h3 class="Modulo">
+  CHIEDE
+</h3>
+
+<p class="Modulo">
+  l’erogazione di un contributo, da liquidare direttamente al proprietario di casa, in quanto nucleo con morosità incolpevole ridotta e accertata, in fase iniziale (massimo sei mensilità)
+
+<br>
+{{ utils.Dichiara_445() }}
+
+
+<table class="Modulo" style="border: 0px;">
+  <tbody>
+    <tr style="border: 0px;">
+      <td style="vertical-align: top; width: 4%; border: 0px;">
+        <input id="Dichiara1" name="Dichiara1" type="checkbox" value="SI" dynamic_check="true" checked="checked"/>
+      </td>
+      <td style="border: 0px;">
+        <p>
+          di essere residente (o che un membro del nucleo familiare sia residente) da almeno cinque anni in Regione Lombardia
+        </p>
+      </td>
+    </tr>
+    <tr style="border: 0px;">
+      <td style="vertical-align: top; width: 4%; border: 0px;">
+        <input id="Dichiara2" name="Dichiara2" type="checkbox" value="SI" dynamic_check="true" checked="checked"/>
+      </td>
+      <td style="border: 0px;">
+        <p>
+          di non essere in possesso di alloggio adeguato in Regione Lombardia
+        </p>
+      </td>
+    </tr>
+    <tr style="border: 0px;">
+      <td style="vertical-align: top; width: 4%; border: 0px;">
+        <input id="Dichiara3" name="Dichiara3" type="checkbox" value="SI" dynamic_check="true" checked="checked"/>
+      </td>
+      <td style="border: 0px;">
+        <p>
+          di avere una morosità incolpevole accertata in fase iniziale (max di sei mensilità)
+        </p>
+      </td>
+    </tr>
+    <tr style="border: 0px;">
+      <td style="vertical-align: top; width: 4%; border: 0px;">
+        <input id="Richiara4" name="Richiara4" type="checkbox" value="SI" dynamic_check="true" checked="checked"/>
+      </td>
+      <td style="border: 0px;">
+        <p>
+          di non essere sottoposto a procedure di rilascio dell'abitazione 
+        </p>
+      </td>
+    </tr>
+    <tr style="border: 0px;">
+      <td style="vertical-align: top; width: 4%; border: 0px;">
+        <input id="Dichiara7" name="Dichiara7" type="checkbox" value="SI" dynamic_check="true" checked="checked"/>
+      </td>
+      <td style="border: 0px;">
+        <p>
+          di essere in possesso dell'attestazione ISEE riferita al proprio nucleo familiare , in corso di validità con un valore ISEE (Indicazione della Situazione Economica Equivalente) non superiore a Euro 15.000,00 
+        </p>
+      </td>
+    </tr>
+    
+  </tbody>
+</table>
+<br>
+
+<h3 class="Modulo">
+  DICHIARA INOLTRE
+</h3>
+
+
+<p class="Modulo">
+  che la morosità, alla data di sottoscrizione della presente istanza,  è pari a numero mensilità <input id="Tassonomia_N_Mensilità" name="Tassonomia_N_Mensilità" label=" Numero mensilità" style="width: 5%;" mandatory="true"/> ed è sopravvenuta a seguito di perdita o consistente riduzione della capacità reddituale del nucleo familiare per una delle seguenti cause:
+</p>
+
+<div id="Tassonomia_CauseMorosita" name="Tassonomia_CauseMorosita" label="Cause morosità" mandatory="true"></div>
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top; width: 4%;" rowspan="3">
+        
+        <input id="Tassonomia_CauseMorosita1" name="Tassonomia_CauseMorosita" type="radio" value="1" />
+      </td>
+      <td colspan="4" >
+        <p>
+          perdita di lavoro per licenziamento del Sig. o Sig.ra
+        </p>
+      </td>
+    </tr>
+    <tr class="rigaintestazioneridotta">
+      <td style="width: 40%;" >
+        <p class="Labelcella">
+          Cognome
+        </p>
+      </td>
+      <td style="width: 40%;" >
+        <p class="Labelcella">
+          Nome
+        </p>
+      </td>
+      <td style="width: 20%;" >
+        <p class="Labelcella">
+          dal
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input id="Tassonomia_cognome_lic" name="Tassonomia_cognome_lic" style="width: 100%;" label="Cognome licenziamento" mandatory_enabled="#Tassonomia_CauseMorosita1.checked()" />
+      </td>
+      <td>
+        <input id="Tassonomia_nome_lic" name="Tassonomia_nome_lic" style="width: 100%;" label="Nome licenziamento" mandatory_enabled="#Tassonomia_CauseMorosita1.checked()" />
+      </td>
+      <td>
+        <input id="Tassonomia_data_lic" name="Tassonomia_data_lic" style="width: 100%;" label="Data licenziamento" format="date" mandatory_enabled="#Tassonomia_CauseMorosita1.checked()"/>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;" rowspan="3">
+        <input id="Tassonomia_CauseMorosita2" name="Tassonomia_CauseMorosita" type="radio" value="2" />
+      </td>
+      <td colspan="3">
+        <p>
+           riduzione dell'orario di lavoro del Sig. o Sig.ra
+        </p>
+      </td>
+    </tr>
+    <tr class="rigaintestazioneridotta">
+      <td style="width: 40%;" >
+        <p class="Labelcella">
+          Cognome
+        </p>
+      </td>
+      <td style="width: 40%;" >
+        <p class="Labelcella">
+          Nome
+        </p>
+      </td>
+      <td style="width: 20%;" >
+        <p class="Labelcella">
+          dal
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input id="Tassonomia_cognome_rid" name="Tassonomia_cognome_rid" style="width: 100%;" label="Cognome riduzione orario" mandatory_enabled="#Tassonomia_CauseMorosita2.checked()" />
+      </td>
+      <td>
+        <input id="Tassonomia_nome_rid" name="Tassonomia_nome_rid" style="width: 100%;" label="Nome riduzione orario" mandatory_enabled="#Tassonomia_CauseMorosita2.checked()" />
+      </td>
+      <td>
+        <input id="Tassonomia_data_rid" name="Tassonomia_data_rid" style="width: 100%;" label="Data riduzione orario" format="date" mandatory_enabled="#Tassonomia_CauseMorosita2.checked()"/>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;" rowspan="3">
+        <input id="Tassonomia_CauseMorosita4" name="Tassonomia_CauseMorosita" type="radio" value="4"  />
+      </td>
+      <td colspan="3">
+        <p>
+          cassa integrazione ordinaria o straordinaria del Sig o Sig.ra (allegare copia di comunicazione di sospensione del lavoro)
+        </p>
+      </td>
+    </tr>
+    <tr class="rigaintestazioneridotta">
+      <td style="width: 40%;" >
+        <p class="Labelcella">
+          Cognome
+        </p>
+      </td>
+      <td style="width: 40%;" >
+        <p class="Labelcella">
+          Nome
+        </p>
+      </td>
+      <td style="width: 20%;" >
+        <p class="Labelcella">
+          dal
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input id="Tassonomia_cognome_sosp" name="Tassonomia_cognome_sosp" style="width: 100%;" label="Cognome sospensione" mandatory_enabled="#Tassonomia_CauseMorosita4.checked()" />
+      </td>
+      <td>
+        <input id="Tassonomia_nome_sosp" name="Tassonomia_nome_sosp" style="width: 100%;" label="Nome sospensione" mandatory_enabled="#Tassonomia_CauseMorosita4.checked()" />
+      </td>
+      <td>
+        <input id="Tassonomia_data_sosp" name="Tassonomia_data_sosp" style="width: 100%;" label="Data sospensione" format="date" mandatory_enabled="#Tassonomia_CauseMorosita4.checked()"/>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;" rowspan="3">
+        <input id="Tassonomia_CauseMorosita5" name="Tassonomia_CauseMorosita" type="radio" value="5" />
+      </td>
+      <td colspan="3">
+        <p>
+          mancato rinnovo di contratto a termine o di lavoro atipico del Sig. o Sig.ra (allegare copia/copie del/dei contratto/i di lavoro scaduto/i)
+        </p>
+      </td>
+    </tr>
+    <tr class="rigaintestazioneridotta">
+      <td style="width: 40%;" >
+        <p class="Labelcella">
+          Cognome
+        </p>
+      </td>
+      <td style="width: 40%;" >
+        <p class="Labelcella">
+          Nome
+        </p>
+      </td>
+      <td style="width: 20%;" >
+        <p class="Labelcella">
+          dal
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input id="Tassonomia_cognome_man" name="Tassonomia_cognome_man" style="width: 100%;" label="Cognome mancato rinnovo" mandatory_enabled="#Tassonomia_CauseMorosita5.checked()" />
+      </td>
+      <td>
+        <input id="Tassonomia_nome_man" name="Tassonomia_nome_man" style="width: 100%;" label="Nome mancato rinnovo" mandatory_enabled="#Tassonomia_CauseMorosita5.checked()" />
+      </td>
+      <td>
+        <input id="Tassonomia_data_man" name="Tassonomia_data_man" style="width: 100%;" label="Data mancato rinnovo" format="date" mandatory_enabled="#Tassonomia_CauseMorosita5.checked()"/>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;" rowspan="3">
+        <input id="Tassonomia_CauseMorosita6" name="Tassonomia_CauseMorosita" type="radio" value="6" />
+      </td>
+      <td colspan="3">
+        <p>
+          cessazione attività di libero-professionale o di imprese registrate, del Sig. o Sig.ra (allegare visura camerale)
+        </p>
+      </td>
+    </tr>
+    <tr class="rigaintestazioneridotta">
+      <td style="width: 40%;" >
+        <p class="Labelcella">
+          Cognome
+        </p>
+      </td>
+      <td style="width: 40%;" >
+        <p class="Labelcella">
+          Nome
+        </p>
+      </td>
+      <td style="width: 20%;" >
+        <p class="Labelcella">
+          dal
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input id="Tassonomia_cognome_ces" name="Tassonomia_cognome_ces" style="width: 100%;" label="Cognome cessazione attività" mandatory_enabled="#Tassonomia_CauseMorosita6.checked()" />
+      </td>
+      <td>
+        <input id="Tassonomia_nome_ces" name="Tassonomia_nome_ces" style="width: 100%;" label="Nome cessazione attività" mandatory_enabled="#Tassonomia_CauseMorosita6.checked()" />
+      </td>
+      <td>
+        <input id="Tassonomia_data_ces" name="Tassonomia_data_ces" style="width: 100%;" label="Data cessazione attività" format="date" mandatory_enabled="#Tassonomia_CauseMorosita6.checked()"/>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;" rowspan="3">
+        <input id="Tassonomia_CauseMorosita9" name="Tassonomia_CauseMorosita" type="radio" value="9" />
+      </td>
+      <td colspan="3">
+        <p>
+          malattia grave del Sig. o Sig.ra per la quale sono state sostenute spese medica pari ad euro <input id="Tassonomia_spese_mediche" name="Tassonomia_spese_mediche" label="spese mediche" style="width: 10%;" format="value" mandatory_enabled="#Tassonomia_CauseMorosita9.checked()"/> 
+          (allegare copia del certificato medico o della struttura santaria o ospedaliera, copia delle fatture/ricevute fiscali relative alle spese mediche)
+        </p>
+      </td>
+    </tr>
+    <tr class="rigaintestazioneridotta">
+      <td style="width: 40%;" >
+        <p class="Labelcella">
+          Cognome
+        </p>
+      </td>
+      <td style="width: 40%;" >
+        <p class="Labelcella">
+          Nome
+        </p>
+      </td>
+      <td style="width: 20%;" >
+        <p class="Labelcella">
+          dal
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input id="Tassonomia_cognome_mal" name="Tassonomia_cognome_mal" style="width: 100%;" label="Cognome malattia" mandatory_enabled="#Tassonomia_CauseMorosita9.checked()" />
+      </td>
+      <td>
+        <input id="Tassonomia_nome_mal" name="Tassonomia_nome_mal" style="width: 100%;" label="Nome malattia" mandatory_enabled="#Tassonomia_CauseMorosita9.checked()" />
+      </td>
+      <td>
+        <input id="Tassonomia_data_mal" name="Tassonomia_data_mal" style="width: 100%;" label="Data malattia" format="date" mandatory_enabled="#Tassonomia_CauseMorosita9.checked()"/>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;" rowspan="3">
+        <input id="Tassonomia_CauseMorosita15" name="Tassonomia_CauseMorosita" type="radio" value="15" />
+      </td>
+      <td colspan="3">
+        <p>
+          infortunio grave del Sig. o Sig.ra per il quale sono state sostenute spese medica pari ad euro <input id="Tassonomia_spese_infortunio" name="Tassonomia_spese_infortunio" label="spese infortunio" style="width: 10%;" format="value" mandatory_enabled="#Tassonomia_CauseMorosita15.checked()"/>
+          (allegare copia del certificato infortunio; copia delle fatture/ricevute fiscali relative alle spese mediche)
+        </p>
+      </td>
+    </tr>
+    <tr class="rigaintestazioneridotta">
+      <td style="width: 40%;" >
+        <p class="Labelcella">
+          Cognome
+        </p>
+      </td>
+      <td style="width: 40%;" >
+        <p class="Labelcella">
+          Nome
+        </p>
+      </td>
+      <td style="width: 20%;" >
+        <p class="Labelcella">
+          dal
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input id="Tassonomia_cognome_inf" name="Tassonomia_cognome_inf" style="width: 100%;" label="Cognome infortunio" mandatory_enabled="#Tassonomia_CauseMorosita15.checked()" />
+      </td>
+      <td>
+        <input id="Tassonomia_nome_inf" name="Tassonomia_nome_inf" style="width: 100%;" label="Nome infortunio" mandatory_enabled="#Tassonomia_CauseMorosita15.checked()" />
+      </td>
+      <td>
+        <input id="Tassonomia_data_inf" name="Tassonomia_data_inf" style="width: 100%;" label="Data infortunio" format="date" mandatory_enabled="#Tassonomia_CauseMorosita15.checked()"/>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;" rowspan="3">
+        <input id="Tassonomia_CauseMorosita16" name="Tassonomia_CauseMorosita" type="radio" value="16" />
+      </td>
+      <td colspan="3">
+        <p>
+          decesso del Sig. o Sig.ra 
+          (allegare copia del certificato di morte se il defunto non era residente in Bergamo)
+        </p>
+      </td>
+    </tr>
+    <tr class="rigaintestazioneridotta">
+      <td style="width: 40%;" >
+        <p class="Labelcella">
+          Cognome
+        </p>
+      </td>
+      <td style="width: 40%;" >
+        <p class="Labelcella">
+          Nome
+        </p>
+      </td>
+      <td style="width: 20%;" >
+        <p class="Labelcella">
+          dal
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input id="Tassonomia_cognome_dec" name="Tassonomia_cognome_dec" style="width: 100%;" label="Cognome decesso" mandatory_enabled="#Tassonomia_CauseMorosita16.checked()" />
+      </td>
+      <td>
+        <input id="Tassonomia_nome_dec" name="Tassonomia_nome_dec" style="width: 100%;" label="Nome decesso" mandatory_enabled="#Tassonomia_CauseMorosita16.checked()" />
+      </td>
+      <td>
+        <input id="Tassonomia_data_dec" name="Tassonomia_data_dec" style="width: 100%;" label="Data decesso" format="date" mandatory_enabled="#Tassonomia_CauseMorosita16.checked()"/>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;" >
+        <input id="Tassonomia_CauseMorosita7" name="Tassonomia_CauseMorosita" type="radio" value="7" />
+      </td>
+      <td colspan="3">
+        <p>
+           separazione o divorzio già avvenuto, presso il Tribunale o dinanzi all'Ufficiale di Stato Civile in data: <input id="Tassonomia_Divorzio" name="Tassonomia_Divorzio" label="divorzio" style="width: 12%;" format="date" mandatory_enabled="#Tassonomia_CauseMorosita7.checked()"/>
+           (allegare copia della sentenza di separazione o divorzio riportante il timbro di avvenuto deposito del tribunale competente) 
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;" >
+        <input id="Tassonomia_CauseMorosita17" name="Tassonomia_CauseMorosita" type="radio" value="17" />
+      </td>
+      <td colspan="3">
+        <p>
+          separazione o divorzio in corso di giudizio, presso il Tribunale o dinanzi all'Ufficiale di Stato Civile in data: <input id="Tassonomia_Divorzio2" name="Tassonomia_Divorzio2" label="divorzio" style="width: 12%;" format="date" mandatory_enabled="#Tassonomia_CauseMorosita17.checked()"/>
+          (allegare copia del ricorso di separazione o divorzio riportante il timbro di avvenuto deposito del tribunale competente)
+        </p>
+      </td>
+    </tr>
+    
+    <tr>
+      <td style="vertical-align: top; width: 4%;" rowspan="6">
+        <input id="Tassonomia_CauseMorosita10" name="Tassonomia_CauseMorosita" type="radio" value="10" />
+      </td>
+      <td colspan="3">
+        <p>
+          accrescimento naturale del nucleo familiare per la nascita di:
+        </p>
+      </td>
+    </tr>
+    <tr class="rigaintestazioneridotta">
+      <td style="width: 40%;" >
+        <p class="Labelcella">
+          Cognome
+        </p>
+      </td>
+      <td style="width: 40%;" >
+        <p class="Labelcella">
+          Nome
+        </p>
+      </td>
+      <td style="width: 20%;" >
+        <p class="Labelcella">
+          dal
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input id="Tassonomia_cognome_nas" name="Tassonomia_cognome_nas" style="width: 100%;" label="Cognome nascita" mandatory_enabled="#Tassonomia_CauseMorosita10.checked()" />
+      </td>
+      <td>
+        <input id="Tassonomia_nome_nas" name="Tassonomia_nome_nas" style="width: 100%;" label="Nome nascita" mandatory_enabled="#Tassonomia_CauseMorosita10.checked()" />
+      </td>
+      <td>
+        <input id="Tassonomia_data_nas" name="Tassonomia_data_nas" style="width: 100%;" label="Data nascita" format="date" mandatory_enabled="#Tassonomia_CauseMorosita10.checked()"/>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input id="Tassonomia_cognome_nas2" name="Tassonomia_cognome_nas2" style="width: 100%;" label="Cognome nascita" enabled="#Tassonomia_CauseMorosita10.checked()" />
+      </td>
+      <td>
+        <input id="Tassonomia_nome_nas2" name="Tassonomia_nome_nas2" style="width: 100%;" label="Nome nascita" enabled="#Tassonomia_CauseMorosita10.checked()" />
+      </td>
+      <td>
+        <input id="Tassonomia_data_nas2" name="Tassonomia_data_nas2" style="width: 100%;" label="Data nascita" format="date" enabled="#Tassonomia_CauseMorosita10.checked()"/>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input id="Tassonomia_cognome_nas3" name="Tassonomia_cognome_nas3" style="width: 100%;" label="Cognome nascita" enabled="#Tassonomia_CauseMorosita10.checked()" />
+      </td>
+      <td>
+        <input id="Tassonomia_nome_nas3" name="Tassonomia_nome_nas3" style="width: 100%;" label="Nome nascita" enabled="#Tassonomia_CauseMorosita10.checked()" />
+      </td>
+      <td>
+        <input id="Tassonomia_data_nas3" name="Tassonomia_data_nas3" style="width: 100%;" label="Data nascita" format="date" enabled="#Tassonomia_CauseMorosita10.checked()"/>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input id="Tassonomia_cognome_nas4" name="Tassonomia_cognome_nas4" style="width: 100%;" label="Cognome nascita" enabled="#Tassonomia_CauseMorosita10.checked()" />
+      </td>
+      <td>
+        <input id="Tassonomia_nome_nas4" name="Tassonomia_nome_nas4" style="width: 100%;" label="Nome nascita" enabled="#Tassonomia_CauseMorosita10.checked()" />
+      </td>
+      <td>
+        <input id="Tassonomia_data_nas4" name="Tassonomia_data_nas4" style="width: 100%;" label="Data nascita" format="date" enabled="#Tassonomia_CauseMorosita10.checked()"/>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;" rowspan="6">
+        <input id="Tassonomia_CauseMorosita11" name="Tassonomia_CauseMorosita" type="radio" value="11" />
+      </td>
+      <td colspan="3">
+        <p>
+          accrescimento del nucleo familiare per l'ingresso del Sig. o Sig.ra,  privi di reddito ma legati da vincolo parentale con un componente del nucleo familiare originario <i></i>
+        </p>
+      </td>
+    </tr>
+    <tr class="rigaintestazioneridotta">
+      <td style="width: 40%;" >
+        <p class="Labelcella">
+          Cognome
+        </p>
+      </td>
+      <td style="width: 40%;" >
+        <p class="Labelcella">
+          Nome
+        </p>
+      </td>
+      <td style="width: 20%;" >
+        <p class="Labelcella">
+          dal
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input id="Tassonomia_cognome_ric" name="Tassonomia_cognome_ric" style="width: 100%;" label="Cognome ricongiungimento" mandatory_enabled="#Tassonomia_CauseMorosita11.checked()" />
+      </td>
+      <td>
+        <input id="Tassonomia_nome_ric" name="Tassonomia_nome_ric" style="width: 100%;" label="Nome ricongiungimento" mandatory_enabled="#Tassonomia_CauseMorosita11.checked()" />
+      </td>
+      <td>
+        <input id="Tassonomia_data_ric" name="Tassonomia_data_ric" style="width: 100%;" label="Data ricongiungimento" format="date" mandatory_enabled="#Tassonomia_CauseMorosita11.checked()"/>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input id="Tassonomia_cognome_ric2" name="Tassonomia_cognome_ric2" style="width: 100%;" label="Cognome ricongiungimento" enabled="#Tassonomia_CauseMorosita11.checked()" />
+      </td>
+      <td>
+        <input id="Tassonomia_nome_ric2" name="Tassonomia_nome_ric2" style="width: 100%;" label="Nome ricongiungimento" enabled="#Tassonomia_CauseMorosita11.checked()" />
+      </td>
+      <td>
+        <input id="Tassonomia_data_ric2" name="Tassonomia_data_ric2" style="width: 100%;" label="Data ricongiungimento" format="date" enabled="#Tassonomia_CauseMorosita11.checked()"/>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input id="Tassonomia_cognome_ric3" name="Tassonomia_cognome_ric3" style="width: 100%;" label="Cognome ricongiungimento" enabled="#Tassonomia_CauseMorosita11.checked()" />
+      </td>
+      <td>
+        <input id="Tassonomia_nome_ric3" name="Tassonomia_nome_ric3" style="width: 100%;" label="Nome ricongiungimento" enabled="#Tassonomia_CauseMorosita11.checked()" />
+      </td>
+      <td>
+        <input id="Tassonomia_data_ric3" name="Tassonomia_data_ric3" style="width: 100%;" label="Data ricongiungimento" format="date" enabled="#Tassonomia_CauseMorosita11.checked()"/>
+      </td>
+    </tr>
+       <tr>
+      <td>
+        <input id="Tassonomia_cognome_ric4" name="Tassonomia_cognome_ric4" style="width: 100%;" label="Cognome ricongiungimento" enabled="#Tassonomia_CauseMorosita11.checked()" />
+      </td>
+      <td>
+        <input id="Tassonomia_nome_ric4" name="Tassonomia_nome_ric4" style="width: 100%;" label="Nome ricongiungimento" enabled="#Tassonomia_CauseMorosita11.checked()" />
+      </td>
+      <td>
+        <input id="Tassonomia_data_ric4" name="Tassonomia_data_ric4" style="width: 100%;" label="Data ricongiungimento" format="date" enabled="#Tassonomia_CauseMorosita11.checked()"/>
+      </td>
+    </tr>
+     <tr>
+      <td style="vertical-align: top; width: 4%;" rowspan="5">
+        <input id="Tassonomia_CauseMorosita8" name="Tassonomia_CauseMorosita" type="radio" value="8" />
+      </td>
+      <td colspan="3">
+        <p>
+          decrescimento del nucleo familiare per
+        </p>
+      </td>
+    </tr>
+    <tr >
+      <td style="vertical-align: top; width: 4%;" colspan="3">      
+       <div id="Tassonomia_decrescimento" name="Tassonomia_decrescimento" label="Cause decrescimento" mandatory_enabled="#Tassonomia_CauseMorosita8.checked()"></div>
+       <input id="Tassonomia_decrescimento1" name="Tassonomia_decrescimento" type="radio" value="1" />
+        
+          cambio di residenza 
+       
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;" colspan="3">
+       <input id="Tassonomia_decrescimento2" name="Tassonomia_decrescimento" type="radio" value="2" />
+     
+          allontanamento senza fissare altra residenza
+       
+      </td>
+    </tr>
+    <tr class="rigaintestazioneridotta">
+      <td style="width: 40%;" >
+        <p class="Labelcella">
+          Cognome
+        </p>
+      </td>
+      <td style="width: 40%;" >
+        <p class="Labelcella">
+          Nome
+        </p>
+      </td>
+      <td style="width: 20%;" >
+        <p class="Labelcella">
+          dal
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input id="Tassonomia_cognome_decr" name="Tassonomia_cognome_decr" style="width: 100%;" label="Cognome decrescimento" mandatory_enabled="#Tassonomia_CauseMorosita8.checked()" />
+      </td>
+      <td>
+        <input id="Tassonomia_nome_decr" name="Tassonomia_nome_decr" style="width: 100%;" label="Nome decrescimento" mandatory_enabled="#Tassonomia_CauseMorosita8.checked()" />
+      </td>
+      <td>
+        <input id="Tassonomia_data_decr" name="Tassonomia_data_decr" style="width: 100%;" label="Data decrescimento" format="date" mandatory_enabled="#Tassonomia_CauseMorosita8.checked()"/>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;" >
+       <input id="Tassonomia_dichiarazione_irreperibiltà" name="Tassonomia_dichiarazione_irreperibiltà" type="checkbox" value="si" label="dichiarazione irreperibilità" mandatory_enabled="#Tassonomia_decrescimento2.checked()" dynamic_check="true" />
+      </td>
+      <td colspan="3">
+        dichiara di aver provveduto a richiedere all’ufficio anagrafe la cancellazione anagrafica per irreperibilità dello stesso in data <input id="Tassonomia_data_irreperibilità" name="Tassonomia_data_irreperibilità" style="width: 10%" format="date" label="Data irreperibiità" mandatory_enabled="#Tassonomia_decrescimento2.checked()"/>
+      </td>
+      </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;" rowspan="3">
+        <input id="Tassonomia_CauseMorosita12" name="Tassonomia_CauseMorosita" type="radio" value="12" />
+      </td>
+      <td colspan="3">
+        <p>
+          cessazione di erogazione di contributi pubblici a favore del Sig. o Sig.ra 
+        </p>
+      </td>
+    </tr>
+     <tr class="rigaintestazioneridotta">
+      <td style="width: 40%;" >
+        <p class="Labelcella">
+          Cognome
+        </p>
+      </td>
+      <td style="width: 40%;" >
+        <p class="Labelcella">
+          Nome
+        </p>
+      </td>
+      <td style="width: 20%;" >
+        <p class="Labelcella">
+          dal
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input id="Tassonomia_cognome_contr" name="Tassonomia_cognome_contr" style="width: 100%;" label="Cognome contributo" mandatory_enabled="#Tassonomia_CauseMorosita12.checked()" />
+      </td>
+      <td>
+        <input id="Tassonomia_nome_contr" name="Tassonomia_nome_contr" style="width: 100%;" label="Nome contributo" mandatory_enabled="#Tassonomia_CauseMorosita12.checked()" />
+      </td>
+      <td>
+        <input id="Tassonomia_data_contr" name="Tassonomia_data_contr" style="width: 100%;" label="Data contributo" format="date" mandatory_enabled="#Tassonomia_CauseMorosita12.checked()"/>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="Tassonomia_CauseMorosita14" name="Tassonomia_CauseMorosita" type="radio" value="14" />
+      </td>
+      <td colspan="3">
+        <p>
+          altro <span style="font-size: 70%;">(specificare)</span>
+          <input class="inputNormal" id="Parametri_Altro" name="Parametri_Altro" style="width: 100%;" label="Altro" mandatory_enabled="#Tassonomia_CauseMorosita14.checked()"/>
+        </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+<br/>
+
+<h3 class="Modulo">
+  DICHIARA INOLTRE
+</h3>
+<br>
+
+<table class="Modulo" style="border: 0px;">
+  <tbody>
+    <tr style="border: 0px;">
+      <td style="vertical-align: top; width: 4%; border: 0px;">
+        <input id="Dichiara8" name="Dichiara8" type="checkbox" value="SI" dynamic_check="true" checked="checked"/>
+      </td>
+      <td style="border: 0px;">
+        <p>
+          di impegnarsi ai fini del riconoscimento del beneficio, a sottoscrivere un accordo con il proprietario di casa e con un rappresentante del Comune a partecipare a politiche attive del lavoro, se disoccupato, ed a sanare la morosità pregressa non coperta da contributo.
+        </p>
+      </td>
+    </tr>
+    </tbody>
+</table>
+
+
+<br/>
+
+
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          Eventuali annotazioni
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <textarea class="inputNormal" id="Parametri_Annotazioni" name="Parametri_Annotazioni" style="width: 100%; height: 5cm;" label="Eventuali annotazioni"></textarea>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<table class="Modulo" name="Allegati" style="border: 1px solid grey">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="2">
+        <p style="text-align: center;">
+          <b>
+            Elenco degli allegati
+          </b>
+          <br/>
+          <span style="font-size:70%">
+            <i>(barrare tutti gli allegati richiesti in fase di presentazione della pratica ed elencati sul portale)</i>
+          </span>
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="AL-CON-LOC" name="AL-CON-LOC" type="checkbox" value="OBBLIGATORIO" dynamic_check="true" checked="checked"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          copia del contratto di locazione
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="DIC_ISEE" name="DIC_ISEE" type="checkbox" value="OBBLIGATORIO" dynamic_check="true" checked="checked"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          copia della dichiarazione ISEE
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="DOC-IDE-FIS" name="DOC-IDE-FIS" type="checkbox" value="OBBLIGATORIO" dynamic_check="true" checked="checked"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          copia documento d'identità e, per i cittadini non comunitari,  copia del titolo di soggiorno
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="width: 4%; vertical-align: top;">
+        <input id="MOR-INC-SIT" name="MOR-INC-SIT" type="checkbox" value="OBBLIGATORIO" mandatory="true" checked="checked"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          lettera raccomandata del proprietario dell'immobile che attesti il mancato versamento del canone di locazione con data antecedente all'emissione del bando
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="width: 4%; vertical-align: top;">
+        <input id="ERP-LET-LIC" name="ERP-LET-LIC" type="checkbox" value="OBBLIGATORIO" mandatory_enabled="#Tassonomia_CauseMorosita1.checked()" dynamic_check="true"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          copia lettera di licenziamento <i>(da allegare se selezionata la relativa voce) </i>
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="width: 4%; vertical-align: top;">
+        <input id="DOC-RID-LAV" name="DOC-RID-LAV" type="checkbox" value="OBBLIGATORIO" mandatory_enabled="#Tassonomia_CauseMorosita2.checked()" dynamic_check="true"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          copia della documentazione attestante la riduzione dell'orario di lavoro <i>(da allegare se selezionata la relativa voce) </i>
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="width: 4%; vertical-align: top;">
+        <input id="ERP-COM-INT" name="ERP-COM-INT" type="checkbox" value="OBBLIGATORIO" mandatory_enabled="#Tassonomia_CauseMorosita4.checked()" dynamic_check="true"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          copia della documentazione attestante la sospensione dal lavoro <i>(da allegare se selezionata la relativa voce) </i>
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="width: 4%; vertical-align: top;">
+        <input id="COP_CONTR_LAV" name="COP_CONTR_LAV" type="checkbox" value="OBBLIGATORIO" mandatory_enabled="#Tassonomia_CauseMorosita5.checked()" dynamic_check="true"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          copia del contratto di lavoro non rinnovato <i>(da allegare se selezionata la relativa voce) </i>
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="width: 4%; vertical-align: top;">
+        <input id="COP_VIS_CAM" name="COP_VIS_CAM" type="checkbox" value="OBBLIGATORIO" mandatory_enabled="#Tassonomia_CauseMorosita6.checked()" dynamic_check="true"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          visura camerale <i>(da allegare se selezionata la relativa voce) </i>
+        </p>
+      </td>
+    </tr>
+ <tr>
+      <td style="width: 4%; vertical-align: top;">
+        <input id="DAN-COP-MED" name="DAN-COP-MED" type="checkbox" value="OBBLIGATORIO" mandatory_enabled="#Tassonomia_CauseMorosita9.checked()" dynamic_check="true"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          copia del certificato medico o della struttura sanitaria od ospedaliera; copia delle fatture / ricevute fiscali relative alle spese mediche. Nel caso di spese interamente a carico del Servizio Sanitario, dovrà essere dimostrata la caduta di reddito dovuta alla malattia: es. certificato di invalidità, incapacità di svolgere le proprie mansioni ecc.) <i>(da allegare se selezionata la relativa voce) </i>
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="width: 4%; vertical-align: top;">
+        <input id="DAN_CERT_INF" name="DAN_CERT_INF" type="checkbox" value="OBBLIGATORIO" mandatory_enabled="#Tassonomia_CauseMorosita15.checked()" dynamic_check="true"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          copia certificazione infortunio; copia delle fatture / ricevute fiscali relative alle spese mediche <i>(da allegare se selezionata la relativa voce) </i>
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="width: 4%; vertical-align: top;">
+        <input id="CERT_MORTE" name="CERT_MORTE" type="checkbox" value="OBBLIGATORIO" />
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          copia del certificato di morte <i>(da allegare se selezionata la relativa voce e se il defunto non era residente nel comune di Bergamo) </i>
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="width: 4%; vertical-align: top;">
+        <input id="SEN-SEP-COM" name="SEN-SEP-COM" type="checkbox" value="OBBLIGATORIO" mandatory_enabled="#Tassonomia_CauseMorosita7.checked()" dynamic_check="true" />
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          copia della sentenza di separazione o divorzio con timbro di deposito presso il Tribunale <i>(da allegare se selezionata la relativa voce) </i>
+        </p>
+      </td>
+    </tr>
+     <tr>
+      <td style="width: 4%; vertical-align: top;">
+        <input id="COP_RIC_SEP" name="COP_RIC_SEP" type="checkbox" value="OBBLIGATORIO" mandatory_enabled="#Tassonomia_CauseMorosita17.checked()" dynamic_check="true" />
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          copia del ricorso di separazione o divorzio con timbro di deposito presso il Tribunale <i>(da allegare se selezionata la relativa voce) </i>
+        </p>
+      </td>
+    </tr>
+     <tr>
+      <td style="width: 4%; vertical-align: top;">
+        <input id="COP_CESS_CONTR" name="COP_CESS_CONTR" type="checkbox" value="OBBLIGATORIO" mandatory_enabled="#Tassonomia_CauseMorosita12.checked()" dynamic_check="true" />
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          copia comunicazione dell’ente di cessata erogazione del contributo <i>(da allegare se selezionata la relativa voce) </i>
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="ALTRI-ALLEGATI" name="ALTRI-ALLEGATI" type="checkbox" value="OBBLIGATORIO"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          altri allegati
+          <span style="font-size:70%">(specificare)</span>
+          <input class="" label="Altri allegati" id="AltriAllegati" mandatory_enabled="#ALTRI_ALLEGATI.checked()" name="AltriAllegati" style="width:79%;"/>
+        </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<br/>
+  {{ utils.trattamento_dati_personali() }}
+<br/>
+  {{ utils.firma_hidden() }}
+<br/>
+
+
+<p class="Modulo">
+  <input id="SalvaModulo" name="SalvaModulo" style="height:30px;width:120px;" title="Verifica la corretta compilazione dei campi e salva il modulo nel faldone virtuale dell'istanza." type="submit" value="Salva modulo"/>
+</p>
+
+<input destinatario_amministrazione="getParameter('Ente')" id="GLOBO_modulo_c{{ CodiceModulo }}" name="GLOBO_modulo_c{{ CodiceModulo }}" type="hidden" value=""/>
+<input firmare="'P7M_ELETTRONICA'" id="GLOBO_modulofiglio_cINCARICO_PROCURA" name="GLOBO_modulofiglio_cINCARICO_PROCURA" type="hidden" value=""/>
+
+
+<input id="GLOBO_allegato_cAL-CON-LOC" name="GLOBO_allegato_cAL-CON-LOC" type="hidden" value="" obbligatorio="#AL_CON_LOC.checked() ? 'OBBLIGATORIO' : ''"/>
+<input id="GLOBO_allegato_cDIC_ISEE" name="GLOBO_allegato_cDIC_ISEE" type="hidden" value="" obbligatorio="#DIC_ISEE.checked() ? 'OBBLIGATORIO' : ''"/>
+<input id="GLOBO_allegato_cDOC-IDE-FIS" name="GLOBO_allegato_cDOC-IDE-FIS" type="hidden" value="" obbligatorio="#DOC_IDE_FIS.checked() ? 'OBBLIGATORIO' : ''"/>
+<input id="GLOBO_allegato_cMOR-INC-SIT" name="GLOBO_allegato_cMOR-INC-SIT" type="hidden" value="" obbligatorio="#MOR_INC_SIT.checked() ? 'OBBLIGATORIO' : ''"/>
+<input id="GLOBO_allegato_cERP-LET-LIC" name="GLOBO_allegato_cERP-LET-LIC" type="hidden" value="" obbligatorio="#ERP_LET_LIC.checked() ? 'OBBLIGATORIO' : ''"/>
+<input id="GLOBO_allegato_cCOP_CONTR_LAV" name="GLOBO_allegato_cCOP_CONTR_LAV" type="hidden" value="" obbligatorio="#COP_CONTR_LAV.checked() ? 'OBBLIGATORIO' : ''"/>
+<input id="GLOBO_allegato_cCOP_VIS_CAM" name="GLOBO_allegato_cCOP_VIS_CAM" type="hidden" value="" obbligatorio="#COP_VIS_CAM.checked() ? 'OBBLIGATORIO' : ''"/>
+<input id="GLOBO_allegato_cDAN-COP-MED" name="GLOBO_allegato_cDAN-COP-MED" type="hidden" value="" obbligatorio="#DAN_COP_MED.checked() ? 'OBBLIGATORIO' : ''"/>
+<input id="GLOBO_allegato_cDAN_CERT_INF" name="GLOBO_allegato_cDAN_CERT_INF" type="hidden" value="" obbligatorio="#DAN_CERT_INF.checked() ? 'OBBLIGATORIO' : ''"/>
+<input id="GLOBO_allegato_cCOP_RIC_SEP" name="GLOBO_allegato_cCOP_RIC_SEP" type="hidden" value="" obbligatorio="#COP_RIC_SEP.checked() ? 'OBBLIGATORIO' : ''"/>
+<input id="GLOBO_allegato_cSEN-SEP-COM" name="GLOBO_allegato_cSEN-SEP-COM" type="hidden" value="" obbligatorio="#SEN_SEP_COM.checked() ? 'OBBLIGATORIO' : ''"/>
+<input id="GLOBO_allegato_cCOP_CESS_CONTR" name="GLOBO_allegato_cCOP_CESS_CONTR" type="hidden" value="" obbligatorio="#COP_CESS_CONTR.checked() ? 'OBBLIGATORIO' : ''"/>
+
+<input id="GLOBO_allegato_cALTRI-ALLEGATI" name="GLOBO_allegato_cALTRI-ALLEGATI" obbligatorio="#ALTRI_ALLEGATI.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+
+<input id="GLOBO_id_padre" name="GLOBO_id_padre" type="hidden"/>
+<input id="GLOBO_recupera_dati" name="GLOBO_recupera_dati" type="hidden"/>
+<input id="GLOBO_codice_modulo" name="GLOBO_codice_modulo" type="hidden" value="{{ CodiceModulo }}"/>
+
+{% endblock content %}

@@ -1,0 +1,923 @@
+{% set CodiceModulo = "DOC-ATT-DOCUM" %}
+{% set Urn = "document:c_a794:accesso.documentale;domanda" %}
+{% extends "base.html" %}
+
+{% block meta %}
+
+<meta campi_firma="Titolare_CodiceFiscale"
+campi_firma_label="il dichiarante"
+classi_modulo="Generale"
+codice_modulo="{{ CodiceModulo }}"
+urn="{% block urn %}{{ Urn }}{% endblock urn %}"
+sub_urn_list="SUEAP,ARCHIVIO"
+uo_globo_list=""
+descrizione="Domanda accesso documenti amministrativi"
+destinatario_amministrazione=""
+destinatario_ufficio=""
+dinamico="SI"
+email_a=""
+ente_abilitato="TUTTI"
+filigrana="NO"
+firmare="P7M_ELETTRONICA"
+istruzioni_compilazione=""
+istruzioni_invio="mail_pec"
+metodo_invio="mail"
+name="GLOBO_modulo"
+procura="NO,,"
+tipo_modulo="principale"
+urlhelp="/modulistica/moduli/{{ CodiceModulo }}"
+verifica_pagamento="NO"
+versione="1.3|10/09/2019"/>
+
+<meta codice_modulo_figlio="INCARICO_PROCURA"
+urn_modulo_figlio="document:s_italia:generale;incarico.procura"
+name="GLOBO_modulofiglio"
+numero="1"
+obbligatorio="DINAMICO"/>
+
+
+<meta codice_allegato="DOC_CONTR_AFF"
+urn_allegato="document:c_a794:contratto.affitto;copia"
+descrizione_estesa="Copia del regolare contratto di affitto"
+filename="Contratto di affitto.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/DOC_CONTR_AFF"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="DOC_PRELIM_ACQ"
+urn_allegato="document:c_a794:preliminare.vendita;copia"
+descrizione_estesa="Copia del documento preliminare di acquisto"
+filename="Documento preliminare acquisto.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/DOC_PRELIM_ACQ"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="DOC_INCA_TRIBU"
+urn_allegato="document:c_a794:incarico.tribunale;copia"
+descrizione_estesa="Copia del conferimento dell'incarico da parte del Tribunale"
+filename="Conferimento incarico Tribunale.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/DOC_INCA_TRIBU"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="DOC_INCA_PROP"
+urn_allegato="document:c_a794:incarico.proprietario;copia"
+descrizione_estesa="Copia del conferimento dell'incarico da parte del proprietario"
+filename="Conferimento incarico proprietario.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/DOC_INCA_PROP"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="COP-ATT-NOT"
+urn_allegato="document:s_italia:atto.notarile;copia"
+descrizione_estesa="copia dell'atto notarile con il quale è stata conferita la procura"
+filename="Copia atto notarile.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/COP-ATT-NOT"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_modulo_figlio="STU-EDI-IMM"
+urn_modulo_figlio="document:s_italia:edilizia.privata;ulteriori.immobili;dichiarazione.sostitutiva"
+name="GLOBO_modulofiglio"
+numero="1"
+obbligatorio="DINAMICO"/>
+
+<meta codice_allegato="DAE-CDI"
+urn_allegato="document:s_italia:generale;documento.identita;documentazione"
+descrizione_estesa="Documento di identità"
+filename="Documento identita.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/DAE-CDI"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="ALTRI-ALLEGATI"
+urn_allegato="document:s_italia:altri.allegati"
+descrizione_estesa="Altri allegati"
+filename="Altri allegati.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/ALTRI-ALLEGATI"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+
+{% endblock meta %}
+
+{% block title %}
+  Domanda di accesso ai documenti amministrativi
+{% endblock title %}
+
+{% block content %}
+
+<globo_fondo_pagina areaheight="150" scope="4">
+  {{ utils.firma() }}
+</globo_fondo_pagina>
+
+<input id="Parametri_Comune" name="Parametri_Comune" type="hidden" dynamic_value="#Ente.value()"/>
+<input id="Oggetto" name="Oggetto" type="hidden" dynamic_value="#Titolare_Cognome.value().toUpperCase() + ' ' + #Titolare_Nome.value().toUpperCase() + ' - accesso documenti amministrativi'"/>
+
+{{ intestazioni.intestazione_moduloprincipale_senzabollo() }}
+
+<h1 class="Modulo">
+  Domanda di accesso ai documenti amministrativi
+</h1>
+
+
+{{ anagrafica.societa("Titolare", "Il sottoscritto", ["Persona fisica", "Titolare", "Legale rappresentante"], "Richiedente", "visibility:visibility", "cursor:pointer", "mail_ordinaria", "false") }}
+
+
+
+
+
+<h3 class="Modulo">
+  CHIEDE
+</h3>
+
+
+<p class="Modulo">
+  di esercitare il diritto di accesso agli atti
+</p>
+
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="3">
+        <p class="Labeltabella">
+          dei seguenti atti o documenti amministrativi
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td colspan="3">
+        <p class="Labelcella">
+          Riguardanti seguenti ambiti (in caso di molteplici documenti, indicare l'ambito prevalente)
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td rowspan="3" style="vertical-align: top; width: 4%;">
+        <div id="Tassonomia_AmbitoAtti" name="Tassonomia_AmbitoAtti" label="Ambito atti o documenti" mandatory="true"></div>
+        <input id="Tassonomia_AmbitoAtti1" name="Tassonomia_AmbitoAtti" type="radio" value="1" />
+      </td>
+      <td colspan="2">
+        <p>
+          istanze edilizie e/o paesaggistiche
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <div id="Tassonomia_DataPresentazione" name="Tassonomia_DataPresentazione" label="Presentati nel periodo" mandatory_enabled="#Tassonomia_AmbitoAtti1.checked()"></div>
+        <input id="Tassonomia_DataPresentazione1" name="Tassonomia_DataPresentazione" type="radio" value="1" />
+      </td>
+      <td>
+        <p>
+          presentate dopo il 01/01/2000
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="Tassonomia_DataPresentazione2" name="Tassonomia_DataPresentazione" type="radio" value="2" />
+      </td>
+      <td>
+        <p>
+          presentate prima del 31/12/1999
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="Tassonomia_AmbitoAtti2" name="Tassonomia_AmbitoAtti" type="radio" value="2" />
+      </td>
+      <td colspan="2">
+        <p>
+          altro <span style="font-size: 70%;">(specificare)</span> 
+          <input class="inputNormal" id="Parametri_AltroAmbitoAtti" name="Parametri_AltroAmbitoAtti" style="width: 80%;" label="Altro ambito degli atti" mandatory_enabled="#Tassonomia_AmbitoAtti2.checked()"/>
+        </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="2">
+        <p class="Labeltabella">
+          in quanto
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td colspan="2">
+        <p class="Labelcella">
+          Titolo richiedente
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%; background-color: white;">
+        <div id="Tassonomia_DirittoRichiesta" name="Tassonomia_DirittoRichiesta" label="Titolo del richiedente" mandatory_enabled="#Tassonomia_AmbitoAtti1.checked()" ></div>
+        <input id="Tassonomia_DirittoRichiesta1" name="Tassonomia_DirittoRichiesta" type="radio" value="1" />
+      </td>
+      <td>
+        <p>
+          proprietario dell'immobile
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td rowspan="2" style="vertical-align: top; width: 4%; background-color: white;">
+        <input id="Tassonomia_DirittoRichiesta2" name="Tassonomia_DirittoRichiesta" type="radio" value="2" />
+      </td>
+      <td>
+        <p>
+          affittuario dell'immobile, pertanto
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazione">
+      <td>
+        <p class="Labeltabella">
+          allega copia del contratto d'affitto
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%; background-color: white;">
+        <input id="Tassonomia_DirittoRichiesta3" name="Tassonomia_DirittoRichiesta" type="radio" value="3" />
+      </td>
+      <td>
+        <p>
+          confinante
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td rowspan="2" style="vertical-align: top; width: 4%; background-color: white;">
+        <input id="Tassonomia_DirittoRichiesta4" name="Tassonomia_DirittoRichiesta" type="radio" value="4" />
+      </td>
+      <td>
+        <p>
+          promissario acquirente, pertanto
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazione">
+      <td>
+        <p class="Labeltabella">
+          allega copia del preliminare d'acquisto
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%; background-color: white;">
+        <input id="Tassonomia_DirittoRichiesta5" name="Tassonomia_DirittoRichiesta" type="radio" value="5" />
+      </td>
+      <td>
+        <p>
+          amministratore di condominio
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td rowspan="2" style="vertical-align: top; width: 4%; background-color: white;">
+        <input id="Tassonomia_DirittoRichiesta6" name="Tassonomia_DirittoRichiesta" type="radio" value="6" />
+      </td>
+      <td>
+        <p>
+          professionista incaricato dal tribunale, pertanto
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazione">
+      <td>
+        <p class="Labeltabella">
+          allega copia dell'incarico da parte del tribunale 
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td rowspan="2" style="vertical-align: top; width: 4%; background-color: white;">
+        <input id="Tassonomia_DirittoRichiesta7" name="Tassonomia_DirittoRichiesta" type="radio" value="7" />
+      </td>
+      <td>
+        <p>
+          professionista incaricato dal proprietario, pertanto
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazione">
+      <td>
+        <p class="Labeltabella">
+          allega delega del proprietario e relativa carta d’identità
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%; background-color: white;">
+        <input id="Tassonomia_DirittoRichiesta8" name="Tassonomia_DirittoRichiesta" type="radio" value="8" />
+      </td>
+      <td>
+        <p>
+          notaio rogante
+        </p>
+      </td>
+    </tr>
+    </tbody>
+</table>
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="5">
+        <p class="Labeltabella">
+          estremi identificativi dei documenti di riferimento
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td style="width: 40%">
+        <p class="Labelcella">
+          Tipo/destinazione del documento
+        </p>
+      </td>
+      <td style="width: 15%">
+        <p class="Labelcella">
+          numero protocollo
+        </p>
+      </td>
+      <td style="width: 15%">
+        <p class="Labelcella">
+          Data
+        </p>
+      </td>
+      <td>
+        <p class="Labelcella">
+          Numero pratica
+        </p>
+      </td>
+      <td>
+        <p class="Labelcella">
+          Diritti di segreteria da versare
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input class="inputNormal" id="Parametri_TipoDocumento1" name="Parametri_TipoDocumento1" style="width: 100%;" label="Tipo di documento" />
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_NumeroProtocolloDocumento1" name="Parametri_NumeroProtocolloDocumento1" style="width: 100%;" label="Numero di protocollo del documento" mandatory_enabled="#Parametri_TipoDocumento1.value()" />
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_DataProtocolloDocumento1" name="Parametri_DataProtocolloDocumento1" style="width: 100%;" format="date" label="Data di protocollo" mandatory_enabled="#Parametri_TipoDocumento1.value()" />
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_NumeroPraticaProtocollo1" name="Parametri_NumeroPraticaProtocollo1" style="width: 100%;" label="Numero di pratica del protocollo" mandatory_enabled="#Parametri_TipoDocumento1.value()" />
+      </td>
+      <td rowspan="3" style="text-align: center;">
+        <p>
+          30€
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input class="inputNormal" id="Parametri_TipoDocumento2" name="Parametri_TipoDocumento2" style="width: 100%;" label="Tipo di documento" enabled="#Parametri_TipoDocumento1.value()"/>
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_NumeroProtocolloDocumento2" name="Parametri_NumeroProtocolloDocumento2" style="width: 100%;" label="Numero di protocollo del documento" mandatory_enabled="#Parametri_TipoDocumento2.value()" />
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_DataProtocolloDocumento2" name="Parametri_DataProtocolloDocumento2" style="width: 100%;" format="date" label="Data di protocollo"mandatory_enabled="#Parametri_TipoDocumento2.value()"/>
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_NumeroPraticaProtocollo2" name="Parametri_NumeroPraticaProtocollo2" style="width: 100%;" label="Numero di pratica del protocollo"mandatory_enabled="#Parametri_TipoDocumento2.value()" />
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input class="inputNormal" id="Parametri_TipoDocumento3" name="Parametri_TipoDocumento3" style="width: 100%;" label="Tipo di documento" enabled="#Parametri_TipoDocumento2.value()"/>
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_NumeroProtocolloDocumento3" name="Parametri_NumeroProtocolloDocumento3" style="width: 100%;" label="Numero di protocollo del documento" mandatory_enabled="#Parametri_TipoDocumento3.value()" />
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_DataProtocolloDocumento3" name="Parametri_DataProtocolloDocumento3" style="width: 100%;" format="date" label="Data di protocollo" mandatory_enabled="#Parametri_TipoDocumento3.value()"/>
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_NumeroPraticaProtocollo3" name="Parametri_NumeroPraticaProtocollo3" style="width: 100%;" label="Numero di pratica del protocollo" mandatory_enabled="#Parametri_TipoDocumento3.value()"/>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input class="inputNormal" id="Parametri_TipoDocumento4" name="Parametri_TipoDocumento4" style="width: 100%;" label="Tipo di documento" enabled="#Parametri_TipoDocumento3.value()"/>
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_NumeroProtocolloDocumento4" name="Parametri_NumeroProtocolloDocumento4" style="width: 100%;" label="Numero di protocollo del documento" mandatory_enabled="#Parametri_TipoDocumento4.value()"/>
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_DataProtocolloDocumento4" name="Parametri_DataProtocolloDocumento4" style="width: 100%;" format="date" label="Data di protocollo" mandatory_enabled="#Parametri_TipoDocumento4.value()"/>
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_NumeroPraticaProtocollo4" name="Parametri_NumeroPraticaProtocollo4" style="width: 100%;" label="Numero di pratica del protocollo" mandatory_enabled="#Parametri_TipoDocumento4.value()"/>
+      </td>
+      <td style="text-align: center;">
+        <p>
+          + 5€
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input class="inputNormal" id="Parametri_TipoDocumento5" name="Parametri_TipoDocumento5" style="width: 100%;" label="Tipo di documento" enabled="#Parametri_TipoDocumento4.value()"/>
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_NumeroProtocolloDocumento5" name="Parametri_NumeroProtocolloDocumento5" style="width: 100%;" label="Numero di protocollo del documento" mandatory_enabled="#Parametri_TipoDocumento5.value()"/>
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_DataProtocolloDocumento5" name="Parametri_DataProtocolloDocumento5" style="width: 100%;" format="date" label="Data di protocollo" mandatory_enabled="#Parametri_TipoDocumento5.value()"/>
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_NumeroPraticaProtocollo5" name="Parametri_NumeroPraticaProtocollo5" style="width: 100%;" label="Numero di pratica del protocollo" mandatory_enabled="#Parametri_TipoDocumento5.value()"/>
+      </td>
+      <td style="text-align: center;">
+        <p>
+          + 5€
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input class="inputNormal" id="Parametri_TipoDocumento6" name="Parametri_TipoDocumento6" style="width: 100%;" label="Tipo di documento" enabled="#Parametri_TipoDocumento5.value()"/>
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_NumeroProtocolloDocumento6" name="Parametri_NumeroProtocolloDocumento6" style="width: 100%;" label="Numero di protocollo del documento" mandatory_enabled="#Parametri_TipoDocumento6.value()"/>
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_DataProtocolloDocumento6" name="Parametri_DataProtocolloDocumento6" style="width: 100%;" format="date" label="Data di protocollo" mandatory_enabled="#Parametri_TipoDocumento6.value()"/>
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_NumeroPraticaProtocollo6" name="Parametri_NumeroPraticaProtocollo6" style="width: 100%;" label="Numero di pratica del protocollo" mandatory_enabled="#Parametri_TipoDocumento6.value()"/>
+      </td>
+      <td style="text-align: center;">
+        <p>
+          + 5€
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input class="inputNormal" id="Parametri_TipoDocumento7" name="Parametri_TipoDocumento7" style="width: 100%;" label="Tipo di documento" enabled="#Parametri_TipoDocumento6.value()"/>
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_NumeroProtocolloDocumento7" name="Parametri_NumeroProtocolloDocumento7" style="width: 100%;" label="Numero di protocollo del documento" mandatory_enabled="#Parametri_TipoDocumento7.value()"/>
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_DataProtocolloDocumento7" name="Parametri_DataProtocolloDocumento7" style="width: 100%;" format="date" label="Data di protocollo" mandatory_enabled="#Parametri_TipoDocumento7.value()"/>
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_NumeroPraticaProtocollo7" name="Parametri_NumeroPraticaProtocollo7" style="width: 100%;" label="Numero di pratica del protocollo" mandatory_enabled="#Parametri_TipoDocumento7.value()"/>
+      </td>
+      <td style="text-align: center;">
+        <p>
+          + 5€
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input class="inputNormal" id="Parametri_TipoDocumento8" name="Parametri_TipoDocumento8" style="width: 100%;" label="Tipo di documento" enabled="#Parametri_TipoDocumento7.value()"/>
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_NumeroProtocolloDocumento8" name="Parametri_NumeroProtocolloDocumento8" style="width: 100%;" label="Numero di protocollo del documento" mandatory_enabled="#Parametri_TipoDocumento8.value()"/>
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_DataProtocolloDocumento8" name="Parametri_DataProtocolloDocumento8" style="width: 100%;" format="date" label="Data di protocollo" mandatory_enabled="#Parametri_TipoDocumento8.value()"/>
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_NumeroPraticaProtocollo8" name="Parametri_NumeroPraticaProtocollo8" style="width: 100%;" label="Numero di pratica del protocollo" mandatory_enabled="#Parametri_TipoDocumento8.value()"/>
+      </td>
+      <td style="text-align: center;">
+        <p>
+          + 5€
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input class="inputNormal" id="Parametri_TipoDocumento9" name="Parametri_TipoDocumento9" style="width: 100%;" label="Tipo di documento" enabled="#Parametri_TipoDocumento8.value()"/>
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_NumeroProtocolloDocumento9" name="Parametri_NumeroProtocolloDocumento9" style="width: 100%;" label="Numero di protocollo del documento" mandatory_enabled="#Parametri_TipoDocumento9.value()"/>
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_DataProtocolloDocumento9" name="Parametri_DataProtocolloDocumento9" style="width: 100%;" format="date" label="Data di protocollo" mandatory_enabled="#Parametri_TipoDocumento9.value()"/>
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_NumeroPraticaProtocollo9" name="Parametri_NumeroPraticaProtocollo9" style="width: 100%;" label="Numero di pratica del protocollo" mandatory_enabled="#Parametri_TipoDocumento9.value()"/>
+      </td>
+      <td style="text-align: center;">
+        <p>
+          + 5€
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input class="inputNormal" id="Parametri_TipoDocumento10" name="Parametri_TipoDocumento10" style="width: 100%;" label="Tipo di documento" enabled="#Parametri_TipoDocumento9.value()"/>
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_NumeroProtocolloDocumento10" name="Parametri_NumeroProtocolloDocumento10" style="width: 100%;" label="Numero di protocollo del documento" mandatory_enabled="#Parametri_TipoDocumento10.value()"/>
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_DataProtocolloDocumento10" name="Parametri_DataProtocolloDocumento10" style="width: 100%;" format="date" label="Data di protocollo" mandatory_enabled="#Parametri_TipoDocumento10.value()"/>
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_NumeroPraticaProtocollo10" name="Parametri_NumeroPraticaProtocollo10" style="width: 100%;" label="Numero di pratica del protocollo" mandatory_enabled="#Parametri_TipoDocumento10.value()"/>
+      </td>
+      <td style="text-align: center;">
+        <p>
+          + 5€
+        </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          Eventuali ulteriori informazioni di dettaglio, utili per identificare gli atti o i documenti amministrativi richiesti
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <textarea class="inputNormal" id="Parametri_InformazioniDettaglio" name="Parametri_InformazioniDettaglio" style="width: 100%; height: 5cm;" label="Ulteriori informazioni di dettaglio" mandatory_enabled="true"></textarea>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<input id="Immobile_NumeroUlterioriImmobili" name="Immobile_NumeroUlterioriImmobili" type="hidden" dynamic_value="#Immobile_NumeroAltriImmobili.value() == 0 ? '0' :  Math.ceil(#Immobile_NumeroAltriImmobili.value() / 16) ">
+<input checked="checked" dynamic_check="true" style="display:none" id="Immobile_DatiCatastaliObbligatori" name="Immobile_DatiCatastaliObbligatori" type="checkbox" value="SI"/>
+{{ immobili.immobile_secondario("Immobile","<input id='Immobile_DatiImmobileRichiesti' name='Immobile_DatiImmobileRichiesti' type='checkbox' value='SI'/> in relazione all'immobile","Localizzazione immobile") }}
+
+<table class="Modulo" style="border: 1px solid grey; margin-top: -1px">
+  <tbody>
+        <tr class="Rigaintestazioneridotta">
+          <td colspan="9">
+            <p class="Labelcella"> Ulteriori immobili oggetto del procedimento <i>(allegare il modulo "Ulteriori immobili oggetto del procedimento")</i> </p>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="9">
+            <p> il procedimento riguarda <input class="" id="Immobile_NumeroAltriImmobili" name="Immobile_NumeroAltriImmobili" style="width:5%;" value="0" label="Numero ulteriori immobili" enabled="#Immobile_DatiImmobileRichiesti.checked()"/> ulteriori immobili
+            </p>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+	
+<table class="Modulo" style="border: 1px solid grey; margin-top: -1px">
+  <tbody>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          Uso
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input class="inputNormal" id="Parametri_UsoImmobile" name="Parametri_UsoImmobile" style="width: 100%;" label="Uso dell'immobile" mandatory_enabled="#Immobile_DatiImmobileRichiesti.checked()"/>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<globo_salto_pagina></globo_salto_pagina>
+
+{{ utils.Dichiara_445() }}
+
+
+<p class="Modulo">
+  di avere un interesse personale e concreto ovvero pubblico o diffuso all'accesso per la tutela di situazioni giuridicamente rilevanti per il seguente motivo
+</p>
+
+
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <div id="Tassonomia_MotivoAccessoAtti" name="Tassonomia_MotivoAccessoAtti" label="Motivo di accesso agli atti" mandatory="true"></div>
+        <input id="Tassonomia_MotivoAccessoAtti1" name="Tassonomia_MotivoAccessoAtti" type="radio" value="1" />
+      </td>
+      <td>
+        <p>
+          atto notarile
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="Tassonomia_MotivoAccessoAtti2" name="Tassonomia_MotivoAccessoAtti" type="radio" value="2" />
+      </td>
+      <td>
+        <p>
+          controversia
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="Tassonomia_MotivoAccessoAtti3" name="Tassonomia_MotivoAccessoAtti" type="radio" value="3" />
+      </td>
+      <td>
+        <p>
+          documentazione personale
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="Tassonomia_MotivoAccessoAtti4" name="Tassonomia_MotivoAccessoAtti" type="radio" value="4" />
+      </td>
+      <td>
+        <p>
+          mutuo
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="Tassonomia_MotivoAccessoAtti5" name="Tassonomia_MotivoAccessoAtti" type="radio" value="5" />
+      </td>
+      <td>
+        <p>
+          presentazione progetto edilizio
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="Tassonomia_MotivoAccessoAtti6" name="Tassonomia_MotivoAccessoAtti" type="radio" value="6" />
+      </td>
+      <td>
+        <p>
+          presunta lesione di interessi
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="Tassonomia_MotivoAccessoAtti7" name="Tassonomia_MotivoAccessoAtti" type="radio" value="7" />
+      </td>
+      <td>
+        <p>
+          verifica conformità edilizia
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="Tassonomia_MotivoAccessoAtti8" name="Tassonomia_MotivoAccessoAtti" type="radio" value="8" />
+      </td>
+      <td>
+        <p>
+          altro <span style="font-size: 70%;">(specificare)</span>
+          <input class="inputNormal" id="Parametri_AltraMotivazioneAccesso" name="Parametri_AltraMotivazioneAccesso" style="width: 80%;" label="Altro motivo" mandatory_enabled="#Tassonomia_MotivoAccessoAtti8.checked()"/>
+        </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<p class="Modulo">
+  e di essere consapevole che in presenza di controinteressati l'ente è tenuto, ai sensi dell'articolo 3 del Decreto del Presidente della Repubblica 12/04/2006, n. 184, a dare comunicazione 
+  della presente richiesta agli stessi, i quali possono farne motivata opposizione entro 10 giorni.
+  Previa verifica e conferma da parte dell'ufficio competente circa la sussistenza del diritto, dei costi, dell'eventuale regolarizzazione dell'istanza, del rispetto alle disposizioni in materia di bollo
+  e fatti salvi eventuali motivi ostativi di natura tecnica ed organizzativa,
+</p>
+
+
+<h3 class="Modulo">
+  CHIEDE INOLTRE
+</h3>
+
+
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <div id="Tassonomia_MezzoInvioDocumentazione" name="Tassonomia_MezzoInvioDocumentazione" label="Chiede inoltre" mandatory="true"></div>
+        <input id="Tassonomia_MezzoInvioDocumentazione1" name="Tassonomia_MezzoInvioDocumentazione" type="radio" value="1" />
+      </td>
+      <td>
+        <p>
+          di poterli ritirare presso l'ufficio competente
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="Tassonomia_MezzoInvioDocumentazione2" name="Tassonomia_MezzoInvioDocumentazione" type="radio" value="2" />
+      </td>
+      <td>
+        <p>
+          di riceverli all'indirizzo di Posta Elettronica Certificata (PEC) sopra indicato come domicilio digitale
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="Tassonomia_MezzoInvioDocumentazione3" name="Tassonomia_MezzoInvioDocumentazione" type="radio" value="3" />
+      </td>
+      <td>
+        <p>
+          di riceverli a mezzo posta all'indirizzo di residenza sopra indicato
+        </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<br/>
+
+
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          Eventuali annotazioni
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <textarea class="inputNormal" id="Parametri_Annotazioni" name="Parametri_Annotazioni" style="width: 100%; height: 5cm;" label="Eventuali annotazioni"></textarea>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<br/>
+
+
+<globo_salto_pagina></globo_salto_pagina>
+
+
+<table class="Modulo" name="Allegati" style="border: 1px solid grey">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="2">
+        <p style="text-align: center;">
+          <b>Elenco degli allegati</b><br/>
+          <span style="font-size:70%"><i>(barrare tutti gli allegati richiesti in fase di presentazione della pratica ed elencati sul portale)</i></span>
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="width: 4%; vertical-align: top;">
+        <input id="DOC_CONTR_AFF" name="DOC_CONTR_AFF" type="checkbox" value="OBBLIGATORIO" enabled="#Tassonomia_DirittoRichiesta2.checked()" dynamic_check="#Tassonomia_DirittoRichiesta2.checked()"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          copia del regolare contratto di affitto
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="width: 4%; vertical-align: top;">
+        <input id="DOC_PRELIM_ACQ" name="DOC_PRELIM_ACQ" type="checkbox" value="OBBLIGATORIO" enabled="#Tassonomia_DirittoRichiesta4.checked()" dynamic_check="#Tassonomia_DirittoRichiesta4.checked()"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          copia del documento preliminare di acquisto
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="width: 4%; vertical-align: top;">
+        <input id="DOC_INCA_TRIBU" name="DOC_INCA_TRIBU" type="checkbox" value="OBBLIGATORIO" enabled="#Tassonomia_DirittoRichiesta6.checked()" dynamic_check="#Tassonomia_DirittoRichiesta6.checked()"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          copia del conferimento dell'incarico da parte del Tribunale
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="width: 4%; vertical-align: top;">
+        <input id="DOC_INCA_PROP" name="DOC_INCA_PROP" type="checkbox" value="OBBLIGATORIO" enabled="#Tassonomia_DirittoRichiesta7.checked()" dynamic_check="#Tassonomia_DirittoRichiesta7.checked()"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          copia del conferimento dell'incarico da parte del proprietario
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="width: 4%; vertical-align: top;">
+        <input id="COP-ATT-NOT" name="COP-ATT-NOT" type="checkbox" value="OBBLIGATORIO"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          copia dell'atto notarile con il quale è stata conferita la procura
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="STU-EDI-IMM" name="STU-EDI-IMM" type="checkbox" value="OBBLIGATORIO" enabled="(parseInt(#Immobile_NumeroAltriImmobili.value()) / 16) &gt; 0" dynamic_check="(parseInt(#Immobile_NumeroAltriImmobili.value()) / 16) &gt; 0"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          ulteriori immobili oggetto del procedimento
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="DAE-CDI" name="DAE-CDI" type="checkbox" value="OBBLIGATORIO" />
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          copia del documento d'identità<br/>
+          <span style="font-size:70%"><i>(da allegare se il modulo è sottoscritto con firma autografa)</i></span>
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="ALTRI-ALLEGATI" name="ALTRI-ALLEGATI" type="checkbox" value="OBBLIGATORIO"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          altri allegati
+          <span style="font-size:70%">(specificare)</span>
+          <input class="" label="Altri allegati" id="AltriAllegati" mandatory_enabled="#ALTRI_ALLEGATI.checked()" name="AltriAllegati" style="width:79%;"/>
+        </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<br/>
+  {{ utils.trattamento_dati_personali() }}
+<br/>
+  {{ utils.firma_hidden() }}
+<br/>
+
+<p class="Modulo">
+  <input id="SalvaModulo" name="SalvaModulo" style="height:30px;width:120px;" title="Verifica la corretta compilazione dei campi e salva il modulo nel faldone virtuale dell'istanza." type="submit" value="Salva modulo"/>
+</p>
+
+<input type="hidden" dynamic_value="#Tassonomia_DataPresentazione1.checked() ? 'SUEAP' : 'ARCHIVIO'" id="GLOBO_sub_urn"  ng-sub-urn  name="GLOBO_sub_urn" value=""/>
+<input sub_urn="#Tassonomia_DataPresentazione1.checked() ? 'SUEAP' : 'ARCHIVIO'" id="GLOBO_modulo_c{{ CodiceModulo }}" name="GLOBO_modulo_c{{ CodiceModulo }}" destinatario_amministrazione="getParameter('Ente')" style="width:100%" value="" type="hidden"/>
+
+<input firmare="'P7M_ELETTRONICA'" id="GLOBO_modulofiglio_cINCARICO_PROCURA" name="GLOBO_modulofiglio_cINCARICO_PROCURA" type="hidden" value=""/>
+
+<input id="GLOBO_allegato_cDOC_CONTR_AFF" name="GLOBO_allegato_cDOC_CONTR_AFF" type="hidden" value="" obbligatorio="#DOC_CONTR_AFF.checked() ? 'OBBLIGATORIO' : ''"/>
+<input id="GLOBO_allegato_cDOC_PRELIM_ACQ" name="GLOBO_allegato_cDOC_PRELIM_ACQ" type="hidden" value="" obbligatorio="#DOC_PRELIM_ACQ.checked() ? 'OBBLIGATORIO' : ''"/>
+<input id="GLOBO_allegato_cDOC_INCA_TRIBU" name="GLOBO_allegato_cDOC_INCA_TRIBU" type="hidden" value="" obbligatorio="#DOC_INCA_TRIBU.checked() ? 'OBBLIGATORIO' : ''"/>
+<input id="GLOBO_allegato_cDOC_INCA_PROP" name="GLOBO_allegato_cDOC_INCA_PROP" type="hidden" value="" obbligatorio="#DOC_INCA_PROP.checked() ? 'OBBLIGATORIO' : ''"/>
+<input id="GLOBO_allegato_cCOP-ATT-NOT" name="GLOBO_allegato_cCOP-ATT-NOT" type="hidden" value="" obbligatorio="#COP_ATT_NOT.checked() ? 'OBBLIGATORIO' : ''"/>
+<input id="GLOBO_modulofiglio_cSTU-EDI-IMM" name="GLOBO_modulofiglio_cSTU-EDI-IMM" type="hidden" value="" obbligatorio="#STU_EDI_IMM.checked() ? 'OBBLIGATORIO' : ''" numero="#Immobile_NumeroUlterioriImmobili.value()"/>
+<input id="GLOBO_allegato_cDAE-CDI" name="GLOBO_allegato_cDAE-CDI" obbligatorio="#DAE_CDI.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+<input id="GLOBO_allegato_cALTRI-ALLEGATI" name="GLOBO_allegato_cALTRI-ALLEGATI" obbligatorio="#ALTRI_ALLEGATI.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+
+<input id="GLOBO_id_padre" name="GLOBO_id_padre" type="hidden"/>
+<input id="GLOBO_recupera_dati" name="GLOBO_recupera_dati" type="hidden"/>
+<input id="GLOBO_codice_modulo" name="GLOBO_codice_modulo" type="hidden" value="{{ CodiceModulo }}"/>
+
+{% endblock content %}

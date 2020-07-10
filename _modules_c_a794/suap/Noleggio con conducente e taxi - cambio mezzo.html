@@ -1,0 +1,706 @@
+{% set CodiceModulo = "AUT_NOL_MEZ" %}
+{% set Urn = "document:c_a794:taxi.noleggio.con.conducente;cambio.mezzo;domanda" %}
+{% extends "base.html" %}
+{% block meta %}
+
+<meta campi_firma="Titolare_CodiceFiscale"
+campi_firma_label="il dichiarante"
+classi_modulo="Commercio"
+codice_modulo="{{ CodiceModulo }}"
+urn="{% block urn %}{{ Urn }}{% endblock urn %}"
+sub_urn_list=""
+uo_globo_list=""
+descrizione="Domanda di cambio del mezzo utilizzato per l'attività di noleggio con conducente o taxi"
+destinatario_amministrazione=""
+destinatario_ufficio="UOSUAP"
+dinamico="SI"
+email_a=""
+ente_abilitato="TUTTI"
+filigrana="SI"
+firmare="P7M_ELETTRONICA"
+generabile_da="AUT_NOL_SOSTITUZIONE,AUT_NOL_VOLTURAZ,COM_NOL_CONFERIMENTO,SCIA_NCC_AUTOVETTURE"
+istruzioni_compilazione=""
+istruzioni_invio="mail_pec"
+metodo_invio="mail"
+name="GLOBO_modulo"
+procura="NO,,"
+tipo_modulo="principale"
+ufficio=""
+urlhelp="/modulistica/moduli/{{ CodiceModulo }}"
+verifica_pagamento="NO"
+versione="1.0|24/12/2019"/>
+
+<meta codice_modulo_figlio="INCARICO_PROCURA"
+urn_modulo_figlio="document:s_italia:generale;incarico.procura"
+name="GLOBO_modulofiglio"
+numero="1"
+obbligatorio="DINAMICO"/>
+
+<meta codice_allegato="PER-SOG"
+urn_allegato="document:s_italia:generale;permesso.soggiorno;documentazione"
+descrizione_estesa="Permesso di soggiorno"
+filename="Permesso soggiorno.pdf"
+firmato="SI"
+istruzioni="/modulistica/moduli/PER-SOG"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="NCC-CON-EST"
+urn_allegato="document:s_italia:taxi.noleggio.con.conducente;contratto.leasing;contratto"
+descrizione_estesa="Copia del contratto di leasing stipulato per il possesso del mezzo"
+filename="Contratto leasing.pdf"
+firmato="SI"
+istruzioni="/modulistica/moduli/NCC-CON-EST"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="NOL-CON-LIB"
+urn_allegato="document:s_italia:taxi.noleggio.con.conducente;libretto.automezzo;documentazione"
+descrizione_estesa="Copia della carta di circolazione del mezzo"
+filename="Libretto mezzo.pdf"
+firmato="SI"
+istruzioni="/modulistica/moduli/NOL-CON-LIB"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="RIC-DIR-SEG"
+urn_allegato="document:s_italia:diritti.segreteria.istruttoria;ricevuta"
+descrizione_estesa="Ricevuta diritti segreteria/istruttoria"
+filename="Ricev. diritti segreteria.pdf"
+firmato="SI"
+istruzioni="/modulistica/moduli/RIC-DIR-SEG"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="ALTRI-ALLEGATI"
+urn_allegato="document:s_italia:altri.allegati"
+descrizione_estesa="Altri allegati"
+filename="Altri allegati.pdf"
+firmato="SI"
+istruzioni="/modulistica/moduli/ALTRI-ALLEGATI"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="COP-ATT-NOT"
+urn_allegato="document:s_italia:atto.notarile;copia"
+descrizione_estesa="Copia dell’atto notarile con il quale è stata conferita la procura"
+dimensione_massima="4"
+filename="Atto notarile procura.pdf"
+firmato="SI"
+istruzioni="/modulistica/moduli/COP-ATT-NOT"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta name="GLOBO_report"
+codice_report="DISTINTA_MODELLO_RIEPILOGO"
+urn_report="report:s_italia:distinta.modello.riepilogo"
+firmare="SI"/>
+
+{% endblock meta %}
+{% block title %}
+   Domanda di cambio del mezzo utilizzato per l'attività di noleggio con conducente o taxi
+  {% endblock title %}
+{% block content %}
+ <globo_fondo_pagina areaheight="150" scope="2">
+ {{ utils.firma() }}
+</globo_fondo_pagina>
+
+<input dynamic_value="#Titolare_Cognome.value().toUpperCase() + ' ' + #Titolare_Nome.value().toUpperCase() +
+( #Tassonomia_TipoAttivita35.checked() ?  ' - noleggio con conducente (cambio mezzo)' : '')
+ +(#Tassonomia_TipoAttivita70.checked() ?  ' - taxi (cambio mezzo)' : '')" id="Oggetto" name="Oggetto" type="hidden"/>
+
+<input id="Parametri_Comune" name="Parametri_Comune" type="hidden" value=""/>
+
+<input id="Tassonomia_DIAPAltre8" name="Tassonomia_DIAPAltre" type="hidden" value="8"/>
+
+<input id="Tassonomia_DIAPNuovaAttivita4" name="Tassonomia_DIAPNuovaAttivita" type="hidden" value="4"/>
+
+
+{{ intestazioni.intestazione_moduloprincipale_senzabollo() }}
+ <h1 class="Modulo">
+ Domanda di cambio del mezzo utilizzato per l'attività di noleggio con conducente o taxi
+</h1>
+
+<h2 class="Modulo">
+ Ai sensi della Legge 15/01/1992, n. 21
+</h2>
+
+
+{{anagrafica.societa("Titolare","Il sottoscritto",["Titolare", "Legale rappresentante", "Procuratore con potere di rappresentanza legale"], "Richiedente")}}
+
+
+{{utils.domicilio_digitale()}}
+
+
+<table class="Modulo" style="margin-top:-1px; border:1px solid grey">
+ <tbody>
+  <tr class="Rigaintestazioneridotta">
+   <td colspan="3">
+    <p class="Labelcella">
+     Iscrizione Albo conducenti
+    </p>
+   </td>
+  </tr>
+  <tr class="Rigaintestazioneridotta">
+   <td style="width:25%">
+    <p class="Labelcella">
+     Numero iscrizione
+    </p>
+   </td>
+   <td style="width:25%">
+    <p class="Labelcella">
+     Data
+    </p>
+   </td>
+   <td>
+    <p class="Labelcella">
+     Ente di riferimento
+    </p>
+   </td>
+  </tr>
+  <tr mandatory="true">
+   <td>
+    <input class="" id="Titolare_AlboConducenti" label="Numero iscrizione Albo conducenti" name="Titolare_AlboConducenti" style="width:100%"/>
+   </td>
+   <td>
+    <input class="" format="date" id="Titolare_AlboConducenti_Data" label="Data iscrizione Albo conducenti" name="Titolare_AlboConducenti_Data" style="width:100%"/>
+   </td>
+   <td>
+    <input class="" id="Titolare_AlboConducenti_Note" label="Ente competente iscrizione Albo conducenti" name="Titolare_AlboConducenti_Note" style="width:100%"/>
+   </td>
+  </tr>
+ </tbody>
+</table>
+
+<table class="Modulo" style="border:1px solid grey">
+ <tbody>
+  <tr class="Rigaintestazione">
+   <td colspan="2">
+    <p class="Labeltabella">
+     in relazione all'attività di
+    </p>
+   </td>
+  </tr>
+  <tr class="Rigaintestazioneridotta">
+   <td colspan="2">
+    <p class="Labelcella">
+     Classificazione attività
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td style="width:4%">
+    <div id="Tassonomia_TipoAttivita" label="Classificazione attività" mandatory="true">
+    </div>
+    <input id="Tassonomia_TipoAttivita35" name="Tassonomia_TipoAttivita" type="radio" value="35"/>
+   </td>
+   <td>
+    <p>
+     noleggio con conducente
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td>
+    <input id="Tassonomia_TipoAttivita70" name="Tassonomia_TipoAttivita" type="radio" value="70"/>
+   </td>
+   <td>
+    <p>
+     taxi
+    </p>
+   </td>
+  </tr>
+ </tbody>
+</table>
+
+
+<globo_salto_pagina></globo_salto_pagina>
+
+
+<table class="Modulo" style="border:1px solid grey">
+ <tbody>
+  <tr class="Rigaintestazione">
+   <td colspan="3">
+    <p class="Labeltabella">
+     e in particolare in relazione al seguente veicolo
+    </p>
+   </td>
+  </tr>
+  <tr class="Rigaintestazioneridotta">
+   <td style="width:33%">
+    <p class="Labelcella">
+     Marca
+    </p>
+   </td>
+   <td style="width:33%">
+    <p class="Labelcella">
+     Modello
+    </p>
+   </td>
+   <td style="width:34%">
+    <p class="Labelcella">
+     Targa
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td>
+    <input class="" id="Parametri_NCCAutoVecchiaMarca" label="Marca mezzo sostituito" mandatory="true" name="Parametri_NCCAutoVecchiaMarca" style="width:100%;" type="text"/>
+   </td>
+   <td>
+    <input class="" id="Parametri_NCCAutoVecchiaModello" label="Modello mezzo sostituito" mandatory="true" name="Parametri_NCCAutoVecchiaModello" style="width:100%;" type="text"/>
+   </td>
+   <td>
+    <input class="" id="Parametri_NCCAutoVecchiaTarga" label="Targa mezzo sostituito" mandatory="true" name="Parametri_NCCAutoVecchiaTarga" style="width:100%;" type="text"/>
+   </td>
+  </tr>
+ </tbody>
+</table>
+
+<table class="Modulo" style="border: 1px solid grey; margin-top:-1px">
+ <tbody>
+  <tr class="Rigaintestazioneridotta">
+   <td>
+    <p class="Labelcella">
+     Titolo autorizzativo
+    </p>
+   </td>
+   <td>
+    <p class="Labelcella">
+     Numero
+    </p>
+   </td>
+   <td>
+    <p class="Labelcella">
+     Data
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td>
+    <p>
+     autorizzazione/licenza del Comune di Bergamo
+     <br/>
+     <span style="font-size:70%">
+      <i>
+       (articolo 8 della Legge 15/01/1992, n. 21)
+      </i>
+     </span>
+    </p>
+   </td>
+   <td style="width:17%">
+    <input class="" id="Parametri_Autorizzazione_corrente" label="Numero autorizzazione" mandatory="true" name="Parametri_Autorizzazione_corrente" style="width:100%"/>
+   </td>
+   <td style="width:17%">
+    <input class="" format="date" id="Parametri_Autorizzazione_corrente_Data" label="Data autorizzazione" mandatory="true" name="Parametri_Autorizzazione_corrente_Data" style="width:100%"/>
+   </td>
+  </tr>
+ </tbody>
+</table>
+
+
+<h3 class="Modulo">
+ CHIEDE
+</h3>
+
+<p class="Modulo">
+ la sostituzione dello stesso con il NUOVO MEZZO di seguito indicato, pertanto si chiede contestualmente il rilascio del nulla osta alla modifica della carta di circolazione presso l'ufficio provinciale di Motorizzazione Civile di
+</p>
+
+<table class="Modulo" style="border:1px solid grey;">
+ <tbody>
+  <tr class="Rigaintestazioneridotta">
+   <td style="width:100%">
+    <p class="Labelcella">
+     Motorizzazione civile
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td>
+    <input class="" id="Parametri_NCCMotorizzazione" label="Motorizzazione civile" mandatory="true" name="Parametri_NCCMotorizzazione" style="width:100%;" type="text"/>
+   </td>
+  </tr>
+ </tbody>
+</table>
+
+<table class="Modulo" style="border:1px solid grey; margin-top:-1px">
+ <tbody>
+  <tr class="Rigaintestazioneridotta">
+   <td style="width:33%">
+    <p class="Labelcella">
+     Marca
+    </p>
+   </td>
+   <td>
+    <p class="Labelcella">
+     Modello
+    </p>
+   </td>
+   <td>
+    <p class="Labelcella">
+     Targa
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td>
+    <input class="" id="Parametri_NCCAutoNuovaMarca" label="Marca nuovo mezzo" mandatory="true" name="Parametri_NCCAutoNuovaMarca" style="width:100%;" type="text"/>
+   </td>
+   <td>
+    <input class="" id="Parametri_NCCAutoNuovaModello" label="Modello nuovo mezzo" mandatory="true" name="Parametri_NCCAutoNuovaModello" style="width:100%;" type="text"/>
+   </td>
+   <td>
+    <input class="" id="Parametri_NCCAutoNuovaTarga" label="Targa nuovo mezzo" mandatory_enabled="#Parametri_NCCImmatricolazione2.checked()" name="Parametri_NCCAutoNuovaTarga" style="width:100%;" type="text"/>
+   </td>
+  </tr>
+  <tr class="Rigaintestazioneridotta">
+   <td colspan="2">
+    <p class="Labelcella">
+     Numero telaio
+    </p>
+   </td>
+   <td>
+    <p class="Labelcella">
+     Numero posti
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td colspan="2">
+    <input class="" id="Parametri_NCCAutoNuovaTelaio" label="Numero telaio nuovo mezzo" mandatory="true" name="Parametri_NCCAutoNuovaTelaio" style="width:100%;" type="text"/>
+   </td>
+   <td>
+    <input class="" format="number" id="Parametri_NCCAutoNuovaPosti" label="Numero posti nuovo mezzo" mandatory="true" name="Parametri_NCCAutoNuovaPosti" style="width:100%;" type="text"/>
+   </td>
+  </tr>
+ </tbody>
+</table>
+
+<table class="Modulo" style="border:1px solid grey; margin-top:-1px">
+ <tbody>
+  <tr class="Rigaintestazioneridotta">
+   <td colspan="2">
+    <p class="Labelcella">
+     Possesso mezzo
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td style="width:4%">
+    <div id="Parametri_NCCPossesso" label="Possesso nuovo mezzo" mandatory="true">
+    </div>
+    <input id="Parametri_NCCPossesso1" name="Parametri_NCCPossesso" type="radio" value="in possesso della società richiedente"/>
+   </td>
+   <td>
+    <p>
+     in possesso della società richiedente
+    </p>
+   </td>
+  </tr>
+  <tr style="border-bottom:0px">
+   <td>
+    <input id="Parametri_NCCPossesso2" name="Parametri_NCCPossesso" type="radio" value="mediante contratto di leasing"/>
+   </td>
+   <td>
+    <p>
+     mediante contratto di leasing
+    </p>
+   </td>
+  </tr>
+ </tbody>
+</table>
+
+<table class="Modulo" style="border:1px solid grey; margin-top:-1px">
+ <tbody>
+  <tr class="Rigaintestazioneridotta">
+   <td colspan="2">
+    <p class="Labelcella">
+     Immatricolazione mezzo
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td style="width:4%">
+    <div id="Parametri_NCCImmatricolazione" label="Immatricolazione mezzo" mandatory="true">
+    </div>
+    <input id="Parametri_NCCImmatricolazione1" name="Parametri_NCCImmatricolazione" type="radio" value="prima immatricolazione del mezzo"/>
+   </td>
+   <td>
+    <p>
+     prima immatricolazione del mezzo
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td>
+    <input id="Parametri_NCCImmatricolazione2" name="Parametri_NCCImmatricolazione" type="radio" value="il mezzo è già immatricolato"/>
+   </td>
+   <td>
+    <p>
+     il mezzo è già immatricolato
+    </p>
+   </td>
+  </tr>
+ </tbody>
+</table>
+
+<table class="Modulo" style="border:1px solid grey; margin-top:-1px">
+ <tbody>
+  <tr class="Rigaintestazioneridotta">
+   <td colspan="2">
+    <p class="Labelcella">
+     Alimentazione mezzo
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td style="width:4%">
+    <div id="Parametri_NCCAlimentazione" label="Alimentazione mezzo" mandatory="true">
+    </div>
+    <input id="Parametri_NCCAlimentazione1" name="Parametri_NCCAlimentazione" type="radio" value="benzina"/>
+   </td>
+   <td>
+    <p>
+     benzina
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td>
+    <input id="Parametri_NCCAlimentazione2" name="Parametri_NCCAlimentazione" type="radio" value="gasolio"/>
+   </td>
+   <td>
+    <p>
+     gasolio
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td>
+    <input id="Parametri_NCCAlimentazione3" name="Parametri_NCCAlimentazione" type="radio" value="metano"/>
+   </td>
+   <td>
+    <p>
+     metano
+    </p>
+   </td>
+  </tr>  
+  <tr>
+   <td>
+    <input id="Parametri_NCCAlimentazione4" name="Parametri_NCCAlimentazione" type="radio" value="g.p.l."/>
+   </td>
+   <td>
+    <p>
+     g.p.l.
+    </p>
+   </td>
+  </tr>   
+ </tbody>
+</table>
+
+<table class="Modulo" style="border:1px solid grey; margin-top:-1px">
+ <tbody>
+  <tr class="Rigaintestazioneridotta">
+   <td>
+    <p class="Labelcella">
+     Classe euro mezzo
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td>
+    <input class="" format="number" id="Parametri_NCCClasseEuro" label="Classe euro mezzo" mandatory="true" name="Parametri_NCCClasseEuro" style="width:100%;" type="text"/>
+   </td>
+  </tr>
+ </tbody>
+</table>
+
+<table class="Modulo" style="border:1px solid grey; margin-top:-1px">
+ <tbody>
+  <tr class="Rigaintestazioneridotta">
+   <td colspan="2">
+    <p class="Labelcella">
+     D.A.P.
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td style="width:4%">
+    <div id="Parametri_NCCDAP" label="D.A.P." mandatory="true">
+    </div>
+    <input id="Parametri_NCCDAP1" name="Parametri_NCCDAP" type="radio" value="1"/>
+   </td>
+   <td>
+    <p>
+     con D.A.P.
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td>
+    <input id="Parametri_NCCDAP2" name="Parametri_NCCDAP" type="radio" value="2"/>
+   </td>
+   <td>
+    <p>
+     senza D.A.P.
+    </p>
+   </td>
+  </tr> 
+ </tbody>
+</table>
+
+{{ utils.Dichiara_445() }}
+
+<input checked="checked" id="SempreSI" name="SempreSI" style="display:none;" type="checkbox" value="si"/>
+
+<table class="Modulo" style="border: 0px;">
+ <tbody>
+  <tr style="border: 0px;">
+   <td style="width: 20px; border: 0px; vertical-align: top;">
+    <input checked="checked" dynamic_check="true" id="Parametri_NCCMezzoDichiara1" name="Parametri_NCCMezzoDichiara1" type="checkbox" value="si"/>
+   </td>
+   <td style="border: 0px;">
+    <p>
+     che tale mezzo è idoneo allo svolgimento dell'attività nel rispetto della normativa vigente
+    </p>
+   </td>
+  </tr>
+ </tbody>
+</table>
+
+<br/>
+
+<table class="Modulo" name="Allegati" style="border:1px solid grey">
+ <tbody>
+  <tr class="Rigaintestazione">
+   <td colspan="2">
+    <p style="text-align: center;">
+     <b>
+      Elenco degli allegati
+     </b>
+     <br/>
+     <span style="font-size:70%">
+      <i>
+       (barrare tutti gli allegati richiesti in fase di presentazione della pratica ed elencati sul portale)
+      </i>
+     </span>
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td>
+    <input dynamic_check="#Parametri_NCCPossesso2.checked()" enabled="#Parametri_NCCPossesso2.checked()" id="NCC-CON-EST" name="NCC-CON-EST" type="checkbox" value="OBBLIGATORIO"/>
+   </td>
+   <td style="background-color: #eeeeee;">
+    <p>
+     copia del formale contratto di leasing stipulato con società terza in merito al possesso del mezzo
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td style="width:3%">
+    <input dynamic_check="#Parametri_NCCImmatricolazione2.checked()" enabled="#Parametri_NCCImmatricolazione2.checked()" id="NOL-CON-LIB" name="NOL-CON-LIB" type="checkbox" value="OBBLIGATORIO"/>
+   </td>
+   <td style="background-color: #eeeeee;">
+    <p>
+     copia della carta di circolazione del mezzo
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td style="vertical-align: top; width:4%">
+    <input id="RIC-DIR-SEG" name="RIC-DIR-SEG" type="checkbox" value="OBBLIGATORIO"/>
+   </td>
+   <td style="background-color: #eeeeee;">
+    <p>
+     ricevuta dei diritti di segreteria/istruttoria<br/><span style="font-size:70%"><i>(da allegare se previsti)</i></span>
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td style="vertical-align: top; width:4%">
+    <input dynamic_check="#Titolare_Cittadinanza.element.options[#Titolare_Cittadinanza.element.selectedIndex].parentNode.label == 'NON Unione Europea'" enabled="#Titolare_Cittadinanza.element.options[#Titolare_Cittadinanza.element.selectedIndex].parentNode.label == 'NON Unione Europea'" id="PER-SOG" name="PER-SOG" type="checkbox" value="OBBLIGATORIO"/>
+   </td>
+   <td style="background-color: #eeeeee;">
+    <p>
+     copia del permesso di soggiorno<br/><span style="font-size:70%"><i>(da allegare in caso di cittadino extracomunitario) </i></span>
+    </p>
+   </td>
+  </tr>
+  <tr>
+    <td style="vertical-align:top">
+      <input id="COP-ATT-NOT" name="COP-ATT-NOT" type="checkbox" value="OBBLIGATORIO" enabled="#Titolare_Ruolo.value() == 'Procuratore con potere di rappresentanza legale'" dynamic_check="#Titolare_Ruolo.value() == 'Procuratore con potere di rappresentanza legale'"/>
+    </td>
+    <td style="background-color: #eeeeee;">
+      <p style="display: inline-block;">copia dell'atto notarile con il quale è stata conferita la procura</p>
+    </td>
+  </tr>
+  <tr>
+   <td>
+    <input id="ALTRI-ALLEGATI" name="ALTRI-ALLEGATI" type="checkbox" value="OBBLIGATORIO"/>
+   </td>
+   <td style="background-color: #eeeeee;">
+    <p>
+     altri allegati
+     <span style="font-size:70%">
+      (specificare)
+     </span>
+     <input class="" id="AltriAllegati" label="Altri allegati" mandatory_enabled="#ALTRI_ALLEGATI.checked()" name="AltriAllegati" style="width:79%;"/>
+    </p>
+   </td>
+  </tr>
+ </tbody>
+</table>
+
+
+<br/>
+
+{{ utils.trattamento_dati_personali() }}
+
+<br/>
+
+
+{{ utils.firma_hidden() }}
+ <br/>
+
+<p class="Modulo">
+ <input id="SalvaModulo" name="SalvaModulo" style="height:30px;width:120px;" title="Verifica la corretta compilazione dei campi e salva il modulo nel faldone virtuale dell'istanza." type="submit" value="Salva modulo"/>
+</p>
+
+<input destinatario_amministrazione="getParameter('Ente')" id="GLOBO_modulo_c{{ CodiceModulo }}" name="GLOBO_modulo_c{{ CodiceModulo }}" type="hidden" value=""/>
+
+<input id="GLOBO_allegato_cPER-SOG" name="GLOBO_allegato_cPER-SOG" type="hidden" value="" obbligatorio="#PER_SOG.checked() ? 'OBBLIGATORIO' : ''"/>
+
+<input id="GLOBO_allegato_cNCC-CON-EST" name="GLOBO_allegato_cNCC-CON-EST" obbligatorio="#NCC_CON_EST.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_allegato_cNOL-CON-LIB" name="GLOBO_allegato_cNOL-CON-LIB" obbligatorio="#NOL_CON_LIB.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_allegato_cRIC-DIR-SEG" name="GLOBO_allegato_cRIC-DIR-SEG" obbligatorio="#RIC_DIR_SEG.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_allegato_cALTRI-ALLEGATI" name="GLOBO_allegato_cALTRI-ALLEGATI" obbligatorio="#ALTRI_ALLEGATI.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_modulofiglio_cINCARICO_PROCURA" name="GLOBO_modulofiglio_cINCARICO_PROCURA" type="hidden" value=""/>
+
+<input id="GLOBO_allegato_cCOP-ATT-NOT" name="GLOBO_allegato_cCOP-ATT-NOT" obbligatorio="#COP_ATT_NOT.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_id_padre" name="GLOBO_id_padre" type="hidden"/>
+
+<input id="GLOBO_recupera_dati" name="GLOBO_recupera_dati" type="hidden"/>
+
+<input id="GLOBO_codice_modulo" name="GLOBO_codice_modulo" type="hidden" value="{{ CodiceModulo }}"/>
+
+
+{% endblock content %}

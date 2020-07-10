@@ -1,0 +1,835 @@
+{% set CodiceModulo = "PL_ANN_PREVER" %}
+{% set Urn = "document:c_a794:sanzioni;preavviso.verbale;annullamento.autotutela;domanda" %}
+{% extends "base.html" %}
+{% block meta %}
+
+<meta campi_firma="Titolare_CodiceFiscale,AventeTitolo_CodiceFiscale"
+campi_firma_label="il titolare di contrassegno disabili,proprietario/locatario del veicolo "
+classi_modulo="Polizia locale"
+codice_modulo="{{ CodiceModulo }}"
+urn="{% block urn %}{{ Urn }}{% endblock urn %}"
+sub_urn_list=""
+uo_globo_list=""
+descrizione="Domanda di annullamento di verbale di violazione al codice della strada"
+destinatario_amministrazione=""
+destinatario_ufficio="UOPOLIZIALOCALE"
+dinamico="SI"
+email_a=""
+ente_abilitato="TUTTI"
+filigrana="SI"
+firmare="AUTENTICATO"
+istruzioni_compilazione=""
+istruzioni_invio="mail_pec"
+metodo_invio="mail"
+name="GLOBO_modulo"
+procura="NO,,"
+tipo_modulo="principale"
+ufficio=""
+urlhelp="/modulistica/moduli/{{ CodiceModulo }}"
+verifica_pagamento="NO"
+versione="1.7|11/03/2020"/>
+
+<meta codice_allegato="DAE-CDI"
+urn_allegato="document:s_italia:generale;documento.identita;documentazione"
+descrizione_estesa="Documento di identità"
+filename="Documento identita.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/DAE-CDI"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="ALTRI-ALLEGATI"
+urn_allegato="document:s_italia:altri.allegati"
+descrizione_estesa="Altri allegati"
+filename="Altri allegati.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/ALTRI-ALLEGATI"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="COP_DEN_CLO"
+urn_allegato="document:c_a794:copia.clonazione.targa;allegato"
+descrizione_estesa="Copia della denuncia di clonazione della targa"
+filename="Copia della denuncia di clonazione della targa.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/COP_DEN_CLO"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="COP_ACCR_TRANS"
+urn_allegato="document:c_a794:copia.accreditamento.transito;allegato"
+descrizione_estesa="Copia della documentazione attestante l'accreditamento per il transito o sosta"
+filename="Copia accreditamento transito.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/COP_ACCR_TRANS"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="CERT_MORTE"
+urn_allegato="document:c_a794:certificato.morte;allegato"
+descrizione_estesa="Certificato di morte"
+filename="Certificato di morte.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/CERT_MORTE"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="COP_CARTA_CIRC"
+urn_allegato="document:c_a794:copia.carta.circolazione;allegato"
+descrizione_estesa="Copia della carta di circolazione e foto della targa del veicolo "
+filename="Copia carta circolazione e targa.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/COP_CARTA_CIRC"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="DOC_FOTO"
+urn_allegato="document:s_italia:generale;colori;documentazione.fotografica"
+descrizione_estesa="Documentazione fotografica"
+filename="Documentazione fotografica.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/DOC_FOTO"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="COP_ATT_VENDITA"
+urn_allegato="document:c_a794:copia.atto.vendita;allegato"
+descrizione_estesa="Copia dell'atto di vendita"
+filename="Copia dell'atto di vendita.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/COP_ATT_VENDITA"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="DIS-DOC-FUR"
+urn_allegato="document:s_italia:generale;denuncia.smarrimento.furto;documentazione"
+descrizione_estesa="Copia della denuncia di furto"
+filename="Copia della denuncia di furto.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/DIS-DOC-FUR"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="RIC_SPE_NOT"
+urn_allegato="document:c_a794:ricevuta.spese.notifica;ricevuta"
+descrizione_estesa="Ricevuta spese di notifica e/o istruttoria"
+filename="Ricevuta spese di notifica e istruttoria.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/RIC_SPE_NOT"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="COP_PERM_TRANS"
+urn_allegato="document:c_a794:copia.permesso.transito;allegato"
+descrizione_estesa="Copia del permesso di transito"
+filename="Copia del permesso di transito.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/COP_PERM_TRANS"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="COP_LIC_TAXI"
+urn_allegato="document:c_a794:copia.licenza.taxi"
+descrizione_estesa="Copia della licenza per l'esercizio dell'attività di TAXI e foglio turni"
+filename="Copia licenza taxi.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/COP_LIC_TAXI"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="DIC_PERS_INV"
+urn_allegato="document:c_a794:dichiarazione.persona.disabile"
+descrizione_estesa="Dichiarazione persona disabile"
+filename="Dichiarazione persona disabile.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/DIC_PERS_INV"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+{% endblock meta %}
+
+{% block title %}Domanda di annullamento di verbale di violazione al codice della strada{% endblock title %}
+
+{% block content %}
+ <globo_fondo_pagina areaheight="150" scope="3">
+<div type="firma">
+	<table class="Modulo" name="Firme" style="border:1px solid grey; margin-left: 28pt; display: none; pd4ml-display: inline">
+		<tbody>
+			<tr>
+				<td style="width: 25%; text-align: center;">
+					<input class="" id="Luogo_PDF" name="Luogo_PDF" style="width:80%;" type="text"/>
+				</td>
+				<td style="width: 25%; text-align: center;">
+					<input class="" id="Data_PDF" name="Data_PDF" style="width:50%;" type="text"/>
+				</td>
+				<td style="width: 25%; text-align: center; height: 1.5cm;"></td>
+				<td style="width: 25%; text-align: center; height: 1.5cm;"></td>
+			</tr>
+			<tr class="Rigaintestazioneridotta">
+				<td>
+					<p class="Labelcella" style="text-align: center">Luogo</p>
+				</td>
+				<td>
+					<p class="Labelcella" style="text-align: center">Data</p>
+				</td>
+				<td>
+					<p class="Labelcella" style="text-align: center">il titolare di contrassegno disabili</p>
+				</td>
+				<td>
+					<p class="Labelcella" style="text-align: center">il proprietario/locatario del veicolo </p>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+</globo_fondo_pagina>
+
+{{intestazioni.intestazione_moduloprincipale_senzabollo()}}
+
+ <input dynamic_value="#Titolare_Cognome.value().toUpperCase() + ' ' + #Titolare_Nome.value().toUpperCase() + ' - annullamento di verbale di violazione al codice della strada'" id="Oggetto" name="Oggetto" type="hidden"/>
+
+<h1 class="Modulo">
+ Domanda di annullamento di verbale di violazione al codice della strada
+</h1>
+
+<h2 class="Modulo">
+  Ai sensi del Decreto Legislativo 30/04/1992, n. 285
+</h2>
+
+<input id="Titolare_DatiPersonaObbligatori" name="Titolare_DatiPersonaObbligatori" dynamic_check="true" type="hidden"/>
+<input id="Titolare_Titolo" name="Titolare_Titolo" type="hidden" value="Richiedente"/>
+<input id="Titolare_Ruolo" name="Titolare_Ruolo" type="hidden" value="Richiedente"/>
+{{ anagrafica.persona_fisica("Titolare", "Il sottoscritto", "visibility:visibility", "cursor:pointer", "visibility:visibility", "visibility:visibility", "mail_ordinaria") }}
+
+
+<input id="AventeTitolo_DatiPersonaObbligatori" name="AventeTitolo_DatiPersonaObbligatori" dynamic_check="true" checked="checked" type="hidden"/>
+<input id="AventeTitolo_Titolo" name="AventeTitolo_Titolo" type="hidden" value="Proprietario/locatario del veicolo"/>
+<input id="AventeTitolo_Ruolo"  name="AventeTitolo_Ruolo"  type="hidden" value="Proprietario/locatario del veicolo"/>
+<input type="hidden" class='inputNormal' id='AventeTitolo_Copia_Trigger' name='AventeTitolo_Copia_Trigger' dynamic_value='#AventeTitolo_Copia.value() ? copiaDatiDa("AventeTitolo","AventeTitolo_Copia",new Array("_Nome", "_Cognome", "_LuogoNascita", "_DataNascita", "_Sesso", "_Cittadinanza", "_CodiceFiscale", "_ComuneResidenza", "_ViaResidenza", "_CivicoResidenza", "_CAPResidenza", "_ProvinciaResidenza", "_Telefono", "_Fax", "_EMailPEC", "_EMail")) : ""' />
+{{ anagrafica.persona_fisica("AventeTitolo", "e il sottoscritto proprietario/locatario del veicolo", "visibility:visibility", "cursor:pointer", "visibility:visibility", "visibility:visibility", "mail_ordinaria", "<span style='pd4ml-visibility: hidden; pd4ml-display: none'><select class='inputNormal' id='AventeTitolo_Copia' name='AventeTitolo_Copia' onpropertychange='copiaDatiDa(&quot;AventeTitolo&quot;,&quot;AventeTitolo_Copia&quot;,new Array(&quot;_Nome&quot;, &quot;_Cognome&quot;, &quot;_LuogoNascita&quot;, &quot;_DataNascita&quot;, &quot;_Sesso&quot;, &quot;_Cittadinanza&quot;, &quot;_CodiceFiscale&quot;, &quot;_ComuneResidenza&quot;, &quot;_ViaResidenza&quot;, &quot;_CivicoResidenza&quot;, &quot;_CAPResidenza&quot;, &quot;_ProvinciaResidenza&quot;, &quot;_Telefono&quot;, &quot;_Fax&quot;, &quot;_EMailPEC&quot;, &quot;_EMail&quot;))' style='width:100%; pd4ml-visibility: hidden; pd4ml-display: none;'>
+         <option value=''>
+          copia i dati da
+         </option>
+         <option value='Titolare'>
+          titolare di contrassegno disabili
+         </option>	 
+		 </select></span>") }}
+
+<table class="Modulo" style="border:1px solid grey">
+ <tbody>
+  <tr class="Rigaintestazione">
+   <td colspan="2">
+    <p>
+     <b>
+      a seguito della notifica del verbale di violazione
+     </b>
+    </p>
+   </td>
+  </tr>
+  <tr class="Rigaintestazioneridotta">
+   <td style="width:50%">
+    <p class="Labelcella">
+     Numero verbale
+    </p>
+   </td>
+   <td>
+    <p class="Labelcella">
+     Data verbale
+    </p>
+   </td>
+  </tr>
+  <tr mandatory="true">
+   <td>
+    <input class="" id="Parametri_NumeroVerbale" label="Numero verbale"  name="Parametri_NumeroVerbale" style="width:100%"/>
+   </td>
+   <td>
+    <input class="" format="date" id="Parametri_NumeroVerbale_Data" label="Data verbale" name="Parametri_NumeroVerbale_Data" style="width:100%"/>
+   </td>
+  </tr>
+  </tbody>
+</table>
+
+<table class="Modulo" style="border:1px solid grey">
+ <tbody>
+  <tr class="Rigaintestazione">
+   <td colspan="2">
+    <p>
+     <b>
+      a carico del seguente veicolo
+     </b>
+    </p>
+   </td>
+  </tr>
+  <tr class="Rigaintestazioneridotta">
+   <td style="width:50%">
+    <p class="Labelcella">
+     Targa
+    </p>
+   </td>
+   <td>
+    <p class="Labelcella">
+     Modello
+    </p>
+   </td>
+  </tr>
+  <tr mandatory="true">
+   <td>
+    <input class="" id="Parametri_TargaVeicolo" label="Targa veicolo"  name="Parametri_TargaVeicolo" style="width:100%"/>
+   </td>
+   <td>
+    <input class="" id="Parametri_ModelloVeicolo" label="Targa veicolo" name="Parametri_ModelloVeicolo" style="width:100%"/>
+   </td>
+  </tr>
+  </tbody>
+</table>
+
+<h3 class="Modulo">CHIEDONO</h3>
+
+<p class="Modulo">l'annullamento in sede di autotutela del sopra indicato verbale di violazione al codice della strada in quanto</p>
+<div id="Tassonomia_Trasmette" name="Tassonomia_Trasmette" label="Motivo della compilazione" mandatory="true"></div>
+<table class="Modulo" style="border: 1px solid grey;">
+    <tbody>
+
+        <tr>
+            <td style="vertical-align: top; width: 4%;">
+                <input id="Tassonomia_Trasmette1" name="Tassonomia_Trasmette" type="radio" value="1" />
+            </td>
+            <td colspan="2">
+                <p>
+                    vi è stato un errore di trascrizione o di lettura della targa da parte dell’agente accertatore <i>Allegare copia della carta di circolazione e foto della targa</i>
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td style="vertical-align: top; width: 4%;">
+                <input id="Tassonomia_Trasmette2" name="Tassonomia_Trasmette" type="radio" value="2" />
+            </td>
+            <td colspan="2">
+                <p>
+                    è stata presentata denuncia di clonazione di targa presso le forze di polizia prima della data della violazione <i>Allegare copia della denuncia di clonazione della targa</i>
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td style="vertical-align: top; width: 4%;">
+                <input id="Tassonomia_Trasmette3" name="Tassonomia_Trasmette" type="radio" value="3" />
+            </td>
+            <td colspan="2">
+                <p>
+                    il veicolo sanzionato è stato venduto a un'altra persona prima della data della violazione <i>Allegare copia dell'atto di vendita o altro atto attestante la vendita della vettura</i>
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td style="vertical-align: top; width: 4%;">
+                <input id="Tassonomia_Trasmette4" name="Tassonomia_Trasmette" type="radio" value="4" />
+            </td>
+            <td colspan="2">
+                <p>
+                    il veicolo sanzionato risulta rubato alla data della violazione e la denuncia è stata presentata presso il Comando di Polizia di Bergamo
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td style="vertical-align: top; width: 4%;">
+                <input id="Tassonomia_Trasmette5" name="Tassonomia_Trasmette" type="radio" value="5" />
+            </td>
+            <td colspan="2">
+                <p>
+                    il veicolo sanzionato risulta rubato alla data della violazione e la denuncia non è stata presentata presso il Comando di Polizia di Bergamo <i>Allegare copia della denuncia di furto</i>
+                </p>
+            </td>
+        </tr>
+		<tr>
+            <td style="vertical-align: top; width: 4%;">
+                <input id="Tassonomia_Trasmette6" name="Tassonomia_Trasmette" type="radio" value="6" />
+            </td>
+            <td colspan="2">
+                <p>
+                    l'intestatario del veicolo sanzionato risulta deceduto dopo l'accertamento ed era residente a Bergamo
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td style="vertical-align: top; width: 4%;">
+                <input id="Tassonomia_Trasmette15" name="Tassonomia_Trasmette" type="radio" value="15" />
+            </td>
+            <td colspan="2">
+                <p>
+                    l'intestatario del veicolo sanzionato risulta deceduto dopo l'accertamento e non era residente a Bergamo <i>Allegare certificato di morte </i>
+                </p>
+            </td>
+        </tr>
+        
+           <tr>
+            <td style="vertical-align: top; width: 4%;" >
+                <input id="Tassonomia_Trasmette7" name="Tassonomia_Trasmette" type="radio" value="7" />
+            </td>
+            <td colspan="2">
+                <p>
+                    il veicolo sanzionato risulta transitato in ZTL o corsia riservata ai mezzi pubblici è in uso a taxi o noleggio con conducente <i> Allegare licenza, foglio turni e copia ricevuta pagamento spese di notifica</i>
+                </p>
+            </td>
+          </tr>
+                    
+        <div id="Tassonomia_Disabile" name="Tassonomia_Disabile" label="Conducente disabile" mandatory_enabled="#Tassonomia_Trasmette17.checked()" ></div>
+        <tr>
+            <td style="vertical-align: top; width: 4%;" rowspan="3">
+                <input id="Tassonomia_Trasmette17" name="Tassonomia_Trasmette" type="radio" value="17" />
+            </td>
+            <td colspan="2">
+                <p>
+                    il veicolo sanzionato risulta transitato in ZTL o corsia riservata ai mezzi pubblici è in uso a persona invalida <i>Allegare permesso invalidi e copia ricevuta pagamento spese di notifica</i>
+                </p>
+            </td>
+            
+        </tr>
+        <tr>
+        <td style="vertical-align: top; width: 4%;">
+        <input id="Tassonomia_Disabile1" name="Tassonomia_Disabile" type="radio" value="1"  />
+        </td>
+        <td>
+                <p>
+                    il conducente della vettura è la persona invalida
+                </p>
+                </td>
+        </tr>
+        <tr>
+        <td style="vertical-align: top; width: 4%;">
+        <input id="Tassonomia_Disabile2" name="Tassonomia_Disabile" type="radio" value="2"  />
+        </td>
+        <td>
+                <p>
+                    il conducente della vettura non è la persona invalida <i>Allegare dichiarazione della persona invalida che si trovava nella vettura del conducente al momento della sanzione</i>
+                </p>
+                </td>
+        </tr>
+        <tr>
+            <td style="vertical-align: top; width: 4%;" >
+                <input id="Tassonomia_Trasmette16" name="Tassonomia_Trasmette" type="radio" value="16" />
+            </td>
+            <td colspan="2">
+                <p>
+                    il veicolo sanzionato risulta transitato in ZTL o corsia riservata ai mezzi pubblici è in uso a veicolo a totale propulsione elettrica non accreditato <i> Allegare permesso e copia ricevuta pagamento spese di notifica</i>
+                </p>
+            </td>
+          </tr>
+        <tr>
+            <td style="vertical-align: top; width: 4%;">
+                <input id="Tassonomia_Trasmette8" name="Tassonomia_Trasmette" type="radio" value="8" />
+            </td>
+            <td colspan="2">
+                <p>
+                    è stato emesso avviso bonario con notifica del precedente verbale di accertamento di violazione errata, eseguita presso indirizzo non di residenza o mai effettuata dal Comando di Polizia Locale
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td style="vertical-align: top; width: 4%;">
+                <input id="Tassonomia_Trasmette9" name="Tassonomia_Trasmette" type="radio" value="9" />
+            </td>
+            <td colspan="2">
+                <p>
+                    il verbale di accertamento è stato notificato ad un'altra persona estranea alla violazione, per omonimia
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td style="vertical-align: top; width: 4%;">
+                <input id="Tassonomia_Trasmette10" name="Tassonomia_Trasmette" type="radio" value="10" />
+            </td>
+            <td colspan="2">
+                <p>
+                    la violazione è insussistente a seguito di oggettivo riscontro <i>(Es.: segnaletica mancante, parcometro guasto, ticket pagato, ecc…) </i><i>Allegare documentazione fotografica</i>
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td style="vertical-align: top; width: 4%;">
+                <input id="Tassonomia_Trasmette11" name="Tassonomia_Trasmette" type="radio" value="11" />
+            </td>
+            <td colspan="2">
+                <p>
+                    Il permesso di transito in ZTL e/o sosta risulta esser scaduto e rinnovato soltanto successivamente alla data della violazione<i> (Es.: residenti, artigiani/manutentori, invalidi, taxi, noleggio con conducenti ecc…) </i><i>Allegare copia ricevuta pagamento spese di notifica</i>
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td style="vertical-align: top; width: 4%;">
+                <input id="Tassonomia_Trasmette12" name="Tassonomia_Trasmette" type="radio" value="12" />
+            </td>
+            <td colspan="2">
+                <p>
+                    l’accesso alla ZTL è avvenuto con veicoli condotti da titolari di contrassegno di invalidità, che, per motivi di urgenza, non si siano potuti accreditare presso gli uffici competenti, purché abbiano già adempiuto l'obbligo di accreditarsi nelle 120 ore successive al transito e comunque prima dell’emissione del verbale di accertamento di violazione <i>Allegare copia della documentazione attestante l'accreditamento per il transito o la sosta </i>
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td style="vertical-align: top; width: 4%;">
+                <input id="Tassonomia_Trasmette13" name="Tassonomia_Trasmette" type="radio" value="13" />
+            </td>
+            <td colspan="2">
+                <p>
+                    per il veicolo sanzionato risulta esser stato rilasciato un permesso di transito in ZTL e/o sosta negli appositi spazi in data antecedente o contestuale a quella della violazione <i>Allegare copia del permesso di transito o sosta</i>
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td style="vertical-align: top; width: 4%;">
+                <input id="Tassonomia_Trasmette14" name="Tassonomia_Trasmette" type="radio" value="14" />
+            </td>
+            <td colspan="2">
+                <p>
+                    vi è stato un errore materiale da parte dell’ufficio che ha rilasciato il permesso di transito e/o sosta <i>Allegare copia del permesso di transito o sosta</i>
+                </p>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<h3 class="Modulo">
+  DICHIARANO INOLTRE IL POSSESSO DEL SEGUENTE PERMESSO:
+</h3>
+
+<table class="Modulo" style="border: 1px solid grey; margin-top:-1px" enabled="Tassonomia_Trasmette16.checked() || #Tassonomia_Trasmette17.checked() || #Tassonomia_Trasmette11.checked() || #Tassonomia_Trasmette13.checked() ||  #Tassonomia_Trasmette15.checked() || #Tassonomia_Trasmette16.checked()" >
+ <tbody>
+  <tr class="Rigaintestazioneridotta" >
+   <td style="width:17%">
+    <p class="Labelcella">
+     Numero permesso
+    </p>
+   </td>
+   <td style="width:16%">
+    <p class="Labelcella">
+     Data rilascio
+    </p>
+   </td>
+   <td style="width:18%">
+    <p class="Labelcella">
+     Data scadenza
+    </p>
+   </td>
+   <td>
+    <p class="Labelcella">
+     Ente di riferimento
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td>
+    <input class="" id="Parametri_Numero" label="Numero permesso"  name="Parametri_Numero" style="width:100%;" mandatory_enabled=" #Tassonomia_Trasmette16.checked() || #Tassonomia_Trasmette17.checked() || #Tassonomia_Trasmette11.checked() || #Tassonomia_Trasmette13.checked() || #Tassonomia_Trasmette12.checked() || #Tassonomia_Trasmette14.checked()"/>
+   </td>
+   <td>
+    <input class="" id="Parametri_Numero_Data" label="Data rilascio permesso"  name="Parametri_Numero_Data" style="width:100%;" format="date" mandatory_enabled=" #Tassonomia_Trasmette16.checked() ||  #Tassonomia_Trasmette17.checked() || #Tassonomia_Trasmette11.checked() || #Tassonomia_Trasmette13.checked() || #Tassonomia_Trasmette12.checked() || #Tassonomia_Trasmette14.checked()"/>
+   </td>
+   <td>
+    <input class="" id="Parametri_Numero_DataScadenza" label="Data scadenza permesso"  name="Parametri_Numero_DataScadenza" style="width:100%;" format="date" mandatory_enabled=" #Tassonomia_Trasmette16.checked() || #Tassonomia_Trasmette17.checked() || #Tassonomia_Trasmette11.checked() || #Tassonomia_Trasmette13.checked() || #Tassonomia_Trasmette12.checked() || #Tassonomia_Trasmette14.checked()"/>
+   </td>
+   <td>
+    <input class="" id="Parametri_Ente" label="Ente di riferimento permesso"  name="Parametri_Ente" style="width:100%;" mandatory_enabled= " #Tassonomia_Trasmette16.checked() || #Tassonomia_Trasmette17.checked() ||#Tassonomia_Trasmette11.checked() || #Tassonomia_Trasmette13.checked() || #Tassonomia_Trasmette12.checked() || #Tassonomia_Trasmette14.checked()"/>
+   </td>
+  </tr>
+  </tbody>
+</table>
+<br>
+
+
+
+
+
+ <globo_salto_pagina>
+</globo_salto_pagina>
+
+<br/>
+
+<table class="Modulo" style="border:1px solid grey">
+ <tbody>
+  <tr class="Rigaintestazioneridotta">
+   <td colspan="2">
+    <p class="Labelcella">
+     Eventuali annotazioni
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td colspan="2">
+    <textarea class="inputNormal" id="Parametri_Annotazioni" name="Parametri_Annotazioni" style="width:100%;height:5cm;">
+    </textarea>
+   </td>
+  </tr>
+ </tbody>
+</table>
+
+<br/>
+
+<table class="Modulo" style="border:1px solid grey">
+ <tbody>
+  <tr class="Rigaintestazione">
+   <td colspan="2">
+    <p style="text-align: center;">
+     <b>
+      Elenco degli allegati
+     </b>
+     <br/>
+     <span style="font-size:70%">
+      <i>
+       (barrare tutti gli allegati richiesti in fase di presentazione della pratica ed elencati sul portale)
+      </i>
+     </span>
+    </p>
+   </td>
+  </tr>
+  <tr>
+    <td style="vertical-align: top; width:4%">
+     <input id="COP_CARTA_CIRC" name="COP_CARTA_CIRC" type="checkbox" value="OBBLIGATORIO" mandatory_enabled="#Tassonomia_Trasmette1.checked()" dynamic_check="true" />
+    </td>
+    <td style="background-color: #eeeeee;">
+     <p>
+      Copia della carta di circolazione e foto della targa<br/><span style="font-size:70%"><i>(da allegare se selezionata la relativa voce)</i></span>
+     </p>
+    </td>
+   </tr>
+   <tr>
+   <td style="vertical-align: top; width:4%">
+    <input id="COP_DEN_CLO" name="COP_DEN_CLO" type="checkbox" value="OBBLIGATORIO" mandatory_enabled="#Tassonomia_Trasmette2.checked()" dynamic_check="true" />
+   </td>
+   <td style="background-color: #eeeeee;">
+    <p>
+     Copia della denuncia di clonazione della targa<br/><span style="font-size:70%"><i>(da allegare se selezionata la relativa voce)</i></span>
+    </p>
+   </td>
+  </tr>
+  <tr>
+    <td style="vertical-align: top; width:4%">
+     <input id="COP_ATT_VENDITA" name="COP_ATT_VENDITA" type="checkbox" value="OBBLIGATORIO" mandatory_enabled="#Tassonomia_Trasmette3.checked()" dynamic_check="true" />
+    </td>
+    <td style="background-color: #eeeeee;">
+     <p>
+      Copia dell'atto di vendita o altro atto attestante la vendita della vettura<br/><span style="font-size:70%"><i>(da allegare se selezionata la relativa voce)</i></span>
+     </p>
+    </td>
+   </tr>
+   <tr>
+    <td style="vertical-align: top; width:4%">
+     <input id="DIS-DOC-FUR" name="DIS-DOC-FUR" type="checkbox" value="OBBLIGATORIO" mandatory_enabled="#Tassonomia_Trasmette5.checked()" dynamic_check="true"  />
+    </td>
+    <td style="background-color: #eeeeee;">
+     <p>
+      Copia della denuncia di furto<br/><span style="font-size:70%"><i>(da allegare se selezionata la relativa voce e se non presentata presso il Comando di polizia locale di Bergamo)</i></span>
+     </p>
+    </td>
+   </tr>
+   <tr>
+    <td style="vertical-align: top; width:4%">
+     <input id="CERT_MORTE" name="CERT_MORTE" type="checkbox" value="OBBLIGATORIO" mandatory_enabled="#Tassonomia_Trasmette15.checked()" dynamic_check="true"  />
+    </td>
+    <td style="background-color: #eeeeee;">
+     <p>
+      Certificato di morte<br/><span style="font-size:70%"><i>(da allegare se selezionata la relativa voce e se il defunto non era residente a Bergamo)</i></span>
+     </p>
+    </td>
+   </tr>
+   <tr>
+    <td style="vertical-align: top; width:4%">
+     <input id="RIC_SPE_NOT" name="RIC_SPE_NOT" type="checkbox" value="OBBLIGATORIO" mandatory_enabled=" #Tassonomia_Trasmette16.checked() || #Tassonomia_Trasmette17.checked() || #Tassonomia_Trasmette7.checked() || #Tassonomia_Trasmette11.checked()" dynamic_check="true" />
+    </td>
+    <td style="background-color: #eeeeee;">
+     <p>
+      ricevuta del pagamento delle spese di notifica<br/><span style="font-size:70%"><i>(da allegare se previsti)</i></span>
+     </p>
+    </td>
+   </tr>
+   <tr>
+    <td style="vertical-align: top; width:4%">
+        <input id="DOC_FOTO" name="DOC_FOTO" type="checkbox" value="OBBLIGATORIO" mandatory_enabled="#Tassonomia_Trasmette10.checked()" dynamic_check="true" />
+    </td>
+    <td style="background-color: #eeeeee;">
+     <p>
+      Documentazione fotografica<br/><span style="font-size:70%"><i>(che attesti lo stato di segnaletica mancante, parcometro rotto o ticket pagato)</i></span>
+     </p>
+    </td>
+   </tr>
+   <tr>
+    <td style="vertical-align: top; width:4%">
+        <input id="COP_ACCR_TRANS" name="COP_ACCR_TRANS" type="checkbox" value="OBBLIGATORIO" mandatory_enabled="#Tassonomia_Trasmette12.checked()" dynamic_check="true" />
+    </td>
+    <td style="background-color: #eeeeee;">
+     <p>
+     Copia della documentazione attestante l'accreditamento per il transito o la sosta<br/><span style="font-size:70%"><i>(da allegare se selezionata la relativa voce)</i></span>
+     </p>
+    </td>
+   </tr>
+   <tr>
+    <td style="vertical-align: top; width:4%">
+     <input id="COP_PERM_TRANS" name="COP_PERM_TRANS" type="checkbox" value="OBBLIGATORIO" mandatory_enabled=" #Tassonomia_Trasmette17.checked() || #Tassonomia_Trasmette13.checked() || #Tassonomia_Trasmette14.checked() || #Tassonomia_Trasmette16.checked()" dynamic_check="true"/>
+    </td>
+    <td style="background-color: #eeeeee;">
+     <p>
+      Copia del permesso di transito o sosta<br/><span style="font-size:70%"><i>(da allegare se selezionata la relativa voce)</i></span>
+     </p>
+    </td>
+   </tr>
+   <tr>
+    <td style="vertical-align: top; width:4%">
+     <input id="COP_LIC_TAXI" name="COP_LIC_TAXI" type="checkbox" value="OBBLIGATORIO"  dynamic_check="#Tassonomia_Trasmette7.checked()" />
+    </td>
+    <td style="background-color: #eeeeee;">
+     <p>
+      Copia della licenza e del foglio turni<br/><span style="font-size:70%"><i>(da allegare se selezionata la relativa voce)</i></span>
+     </p>
+    </td>
+   </tr>
+   <tr>
+    <td style="vertical-align: top; width:4%">
+     <input id="DIC_PERS_INV" name="DIC_PERS_INV" type="checkbox" value="OBBLIGATORIO" dynamic_check="#Tassonomia_Disabile2.checked()"  />
+    </td>
+    <td style="background-color: #eeeeee;">
+     <p>
+      Dichiarazione persona disabile<br/><span style="font-size:70%"><i>(da allegare se selezionata la relativa voce)</i></span>
+     </p>
+    </td>
+   </tr>
+   
+  <tr>
+    <td style="vertical-align: top;width:4%">
+     <input id="DAE-CDI" name="DAE-CDI" type="checkbox" value="OBBLIGATORIO"/>
+    </td>
+    <td style="background-color: #eeeeee;">
+     <p>
+      copia del documento d'identità dei dichiaranti
+      <br/>
+      <span style="font-size:70%">
+       <i>
+        (da non allegare se il modulo è sottoscritto con firma elettronica o se la firma autografa è apposta in presenza del dipendente addetto alla ricezione)
+       </i>
+      </span>
+     </p>
+    </td>
+   </tr>
+	<tr>
+   <td>
+    <input id="ALTRI-ALLEGATI" name="ALTRI-ALLEGATI" type="checkbox" value="OBBLIGATORIO"/>
+   </td>
+   <td style="background-color: #eeeeee;">
+    <p>
+     altri allegati
+     <span style="font-size:70%">
+      (specificare)
+     </span>
+     <input class="inputNormal" id="AltriAllegati" label="Altri allegati" mandatory_enabled="#ALTRI_ALLEGATI.checked()" name="AltriAllegati" style="width:79%;"/>
+    </p>
+   </td>
+  </tr>
+ </tbody>
+</table>
+
+
+<br/>
+
+
+
+
+{{ utils.trattamento_dati_personali() }}
+
+<br/>
+
+<table class="Modulo" id="firme" name="Firme" style="border:1px solid grey; pd4ml-display: none;" >
+	<tbody>
+		<tr>
+			<td style="width: 25%; text-align: center;">
+				<input class="" id="Luogo" label="Luogo" mandatory="true" name="Luogo" style="width:80%;" type="text"/>
+			</td>
+			<td style="width: 25%; text-align: center;">
+				<input class="" format="date" id="Data" label="Data" mandatory="true" name="Data" style="width:50%;" type="text"/>
+			</td>
+			<td style="width: 25%; text-align: center; height: 1.5cm;">
+			</td>
+			<td style="width: 25%; text-align: center; height: 1.5cm;">
+			</td>
+		</tr>
+		<tr class="Rigaintestazioneridotta">
+			<td>
+				<p class="Labelcella" style="text-align: center">Luogo</p>
+			</td>
+			<td>
+				<p class="Labelcella" style="text-align: center">Data</p>
+			</td>
+				<td>
+					<p class="Labelcella" style="text-align: center">il titolare di contrassegno disabili</p>
+				</td>
+				<td>
+					<p class="Labelcella" style="text-align: center">il proprietario/locatario del veicolo </p>
+				</td>
+		</tr>
+	</tbody>
+</table>
+
+ <br/>
+
+<p class="Modulo">
+ <input id="SalvaModulo" name="SalvaModulo" style="height:30px;width:120px;" title="Verifica la corretta compilazione dei campi e salva il modulo nel faldone virtuale dell'istanza." type="submit" value="Salva modulo"/>
+</p>
+
+<input destinatario_amministrazione="getParameter('Ente')" id="GLOBO_modulo_c{{ CodiceModulo }}" name="GLOBO_modulo_c{{ CodiceModulo }}" type="hidden" value=""/>
+
+<input id="GLOBO_allegato_cDAE-CDI" name="GLOBO_allegato_cDAE-CDI" obbligatorio="#DAE_CDI.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_allegato_cALTRI-ALLEGATI" name="GLOBO_allegato_cALTRI-ALLEGATI" obbligatorio="#ALTRI_ALLEGATI.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_allegato_cRIC_SPE_NOT" name="GLOBO_allegato_cRIC_SPE_NOT" obbligatorio="#RIC_SPE_NOT.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_allegato_cCOP_DEN_CLO" name="GLOBO_allegato_cCOP_DEN_CLO" obbligatorio="#COP_DEN_CLO.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_allegato_cCERT_MORTE" name="GLOBO_allegato_cCERT_MORTE" obbligatorio="#CERT_MORTE.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_allegato_cCOP_ATT_VENDITA" name="GLOBO_allegato_cCOP_ATT_VENDITA" obbligatorio="#COP_ATT_VENDITA.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_allegato_cDIS-DOC-FUR" name="GLOBO_allegato_cDIS-DOC-FUR" obbligatorio="#DIS_DOC_FUR.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_allegato_cDOC_FOTO" name="GLOBO_allegato_cDOC_FOTO" obbligatorio="#DOC_FOTO.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_allegato_cCOP_PERM_TRANS" name="GLOBO_allegato_cCOP_PERM_TRANS" obbligatorio="#COP_PERM_TRANS.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_allegato_cCOP_CARTA_CIRC" name="GLOBO_allegato_cCOP_CARTA_CIRC" obbligatorio="#COP_CARTA_CIRC.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_allegato_cCOP_ACCR_TRANS" name="GLOBO_allegato_cCOP_ACCR_TRANS" obbligatorio="#COP_ACCR_TRANS.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_allegato_cDIC_PERS_INV" name="GLOBO_allegato_cDIC_PERS_INV" obbligatorio="#DIC_PERS_INV.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_allegato_cCOP_LIC_TAXI" name="GLOBO_allegato_cCOP_LIC_TAXI" obbligatorio="#COP_LIC_TAXI.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input firmare="'P7M_ELETTRONICA'" id="GLOBO_modulofiglio_cINCARICO_PROCURA" name="GLOBO_modulofiglio_cINCARICO_PROCURA" type="hidden" value=""/>
+
+<input id="GLOBO_id_padre" name="GLOBO_id_padre" type="hidden"/>
+
+<input id="GLOBO_recupera_dati" name="GLOBO_recupera_dati" type="hidden"/>
+
+<input id="GLOBO_codice_modulo" name="GLOBO_codice_modulo" type="hidden" value="{{ CodiceModulo }}"/>
+
+ {% endblock content %}

@@ -1,0 +1,473 @@
+{% set CodiceModulo = "IDO_ABIT_CONDUT" %}
+{% set Urn = "document:c_a794:idoneita.abitativa;attestato;domanda" %}
+{% extends "base.html" %}
+{% block meta %}
+
+<meta campi_firma="Titolare_CodiceFiscale"
+campi_firma_label="il dichiarante"
+classi_modulo="Edilizia"
+codice_modulo="{{ CodiceModulo }}"
+urn="{% block urn %}{{ Urn }}{% endblock urn %}"
+sub_urn_list=""
+uo_globo_list=""
+descrizione="Richiesta di rilascio dell'attestazione di idoneità abitativa - Conduttore"
+destinatario_amministrazione=""
+destinatario_ufficio="UOAMBIENTE"
+dinamico="SI"
+email_a=""
+ente_abilitato="TUTTI"
+filigrana="NO"
+firmare="P7M_ELETTRONICA"
+istruzioni_compilazione=""
+istruzioni_invio="mail_pec"
+metodo_invio="mail"
+name="GLOBO_modulo"
+procura="NO,,"
+tipo_modulo="principale"
+urlhelp="/modulistica/moduli/{{ CodiceModulo }}"
+verifica_pagamento="NO"
+versione="1.2|05/04/2019"/>
+
+<meta codice_modulo_figlio="INCARICO_PROCURA"
+urn_modulo_figlio="document:s_italia:generale;incarico.procura"
+name="GLOBO_modulofiglio"
+numero="1"
+obbligatorio="DINAMICO"/>
+
+<meta codice_modulo_figlio="IDO_ABIT_PROPRIE"
+urn_modulo_figlio="document:c_a794:idoneita.abitativa;attestato;dichiarazioni.alloggio"
+name="GLOBO_modulofiglio"
+numero="1"
+obbligatorio="DINAMICO"/>
+
+<meta codice_allegato="RIC-DIR-SEG"
+urn_allegato="document:s_italia:diritti.segreteria.istruttoria;ricevuta"
+descrizione_estesa="Ricevuta diritti segreteria/istruttoria"
+filename="Ricev. diritti segreteria.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/RIC-DIR-SEG"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="DAE-CDI"
+urn_allegato="document:s_italia:generale;documento.identita;documentazione"
+descrizione_estesa="Documento di identità"
+filename="Documento identita.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/DAE-CDI"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="ALTRI-ALLEGATI"
+urn_allegato="document:s_italia:altri.allegati"
+descrizione_estesa="Altri allegati"
+filename="Altri allegati.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/ALTRI-ALLEGATI"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+{% endblock meta %}
+
+{% block title %}
+  Richiesta di rilascio dell'attestazione di idoneità abitativa - Conduttore
+{% endblock title %}
+
+{% block content %}
+
+<globo_fondo_pagina areaheight="150" scope="2">
+{{ utils.firma() }}
+</globo_fondo_pagina>
+
+<input dynamic_value="#Ente.value()" id="Parametri_Comune" name="Parametri_Comune" type="hidden"/>
+
+<input dynamic_value="#Titolare_Cognome.value().toUpperCase() + ' ' + #Titolare_Nome.value().toUpperCase() + ' - Richiesta di rilascio dell\'attestazione di idoneità abitativa'" id="Oggetto" name="Oggetto" type="hidden"/>
+
+{{ intestazioni.intestazione_moduloprincipale_conbollo() }}
+
+<h1 class="Modulo">
+  Richiesta di rilascio dell'attestazione di idoneità abitativa
+</h1>
+
+<h2 class="Modulo">
+  Ai sensi dell'articolo 29 del Decreto Legislativo 25/07/1998, n. 286
+</h2>
+
+<input dynamic_check="true" id="Titolare_DatiPersonaObbligatori" name="Titolare_DatiPersonaObbligatori" type="hidden"/>
+<input id="Titolare_Titolo" name="Titolare_Titolo" type="hidden" value="Richiedente"/>
+<input id="Titolare_Ruolo" name="Titolare_Ruolo" type="hidden" value="Richiedente"/>
+{{ anagrafica.persona_fisica("Titolare", "Il sottoscritto", "visibility:visibility", "cursor:pointer", "visibility:visibility", "visibility:visibility", "mail_ordinaria") }}
+
+<table class="Modulo" style="border:1px solid grey; margin-top: -1px;">
+  <tbody>
+    <tr class="Rigaintestazioneridotta">
+      <td style="width: 33%;">
+        <p class="Labelcella">
+          Permesso di soggiorno numero
+        </p>
+      </td>
+      <td style="width: 77%;">
+        <p class="Labelcella">
+          Data di scadenza
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input class="inputNormal" id="Parametri_Permesso_soggiorno" name="Parametri_Permesso_soggiorno" style="width: 100%;" label="Numero permesso di soggiorno">
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_Permesso_soggiorno_Data" name="Parametri_Permesso_soggiorno_Data" style="width: 100%;" label="Data di scadenza" format="date">
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<table class="Modulo" style="border:1px solid grey; margin-top: -1px;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="4">
+        <p class="Labeltabella">
+          in qualità di
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td rowspan="4" style="vertical-align: top; width: 4%;">
+        <div id="Tassonomia_Ruolo_titolare" name="Tassonomia_Ruolo_titolare" label="Ruolo titolare" mandatory="true"></div>
+        <input id="Tassonomia_Ruolo_titolare1" name="Tassonomia_Ruolo_titolare" type="radio" value="1"/>
+      </td>
+      <td colspan="3">
+        <p>
+          affittuario/comodatario
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazione">
+      <td colspan="3">
+        <p class="Labeltabella">
+          regolato dal contratto di locazione o comodato
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td style="width: 33%;">
+        <p class="Labelcella">
+          Data registrazione
+        </p>
+      </td>
+      <td style="width: 33%;">
+        <p class="Labelcella">
+          Provincia ufficio di registrazione
+        </p>
+      </td>
+      <td style="width: 34%;">
+        <p class="Labelcella">
+          Codice
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input class="inputNormal" id="Parametri_ContrattoLoc_Data" name="Parametri_ContrattoLoc_Data" style="width: 100%;" label="Data registrazione" format="date" mandatory_enabled="#Tassonomia_Ruolo_titolare1.checked()">
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_ContrattoLoc_Note" name="Parametri_ContrattoLoc_Note" style="width: 100%;" label="Provincia ufficio di registrazione" mandatory_enabled="#Tassonomia_Ruolo_titolare1.checked()">
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_ContrattoLoc" name="Parametri_ContrattoLoc" style="width: 100%;" label="Codice" mandatory_enabled="#Tassonomia_Ruolo_titolare1.checked()">
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="Tassonomia_Ruolo_titolare2" name="Tassonomia_Ruolo_titolare" type="radio" value="2"/>
+      </td>
+      <td colspan="3">
+        <p>
+          ospite
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="Tassonomia_Ruolo_titolare3" name="Tassonomia_Ruolo_titolare" type="radio" value="3"/>
+      </td>
+      <td colspan="3">
+        <p>
+          proprietario/gestore
+        </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<input id="Immobile1_DatiImmobileRichiesti" name="Immobile1_DatiImmobileRichiesti" dynamic_check="true" type="checkbox" style="display:none" value="si"/>
+<input id="Immobile1_DatiCatastaliObbligatori" name="Immobile1_DatiCatastaliObbligatori" dynamic_check="true" type="checkbox" style="display:none" value="si"/>
+{{ immobili.immobile_secondario("Immobile1", "dell'Unità immobiliare urbana", "Unità immobiliare urbana" ) }}
+
+
+
+
+<h3 class="Modulo">
+  DICHIARA
+</h3>
+
+<table class="Modulo" style="border:1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td>
+        <p class="Labeltabella">
+          Numero di persone che attualmente risiedono nell'alloggio
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input class="inputNormal" id="Parametri_Numero_residenti" name="Parametri_Numero_residenti" style="width: 100%;" label="Numero residenti" format="number" mandatory="true">
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 class="Modulo">
+  CHIEDE
+</h3>
+
+<table class="Modulo" style="border:1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="2">
+        <p class="Labeltabella">
+          il rilascio dell'attestazione d'idoneità abitativa
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <div id="Tassonomia_IdoneitaAlloggioRichiesta" name="Tassonomia_IdoneitaAlloggioRichiesta" label="Motivo rilascio" mandatory="true"></div>
+        <input id="Tassonomia_IdoneitaAlloggioRichiesta1" name="Tassonomia_IdoneitaAlloggioRichiesta" type="radio" value="1"/>
+      </td>
+      <td>
+        <p>
+          nulla osta per ricongiumento familiare
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="Tassonomia_IdoneitaAlloggioRichiesta2" name="Tassonomia_IdoneitaAlloggioRichiesta" type="radio" value="2"/>
+      </td>
+      <td>
+        <p>
+          per richiesta di permesso di soggiorno per coesione familiare
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="Tassonomia_IdoneitaAlloggioRichiesta3" name="Tassonomia_IdoneitaAlloggioRichiesta" type="radio" value="3"/>
+      </td>
+      <td>
+        <p>
+          per sottoscrizione del contratto di lavoro subordinato
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="Tassonomia_IdoneitaAlloggioRichiesta4" name="Tassonomia_IdoneitaAlloggioRichiesta" type="radio" value="4"/>
+      </td>
+      <td>
+        <p>
+          nulla osta all'ingresso per lavoro subordinato
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="Tassonomia_IdoneitaAlloggioRichiesta5" name="Tassonomia_IdoneitaAlloggioRichiesta" type="radio" value="5"/>
+      </td>
+      <td>
+        <p>
+          per richiesta di permesso di soggiorno CE - soggiornante di lungo periodo
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="Tassonomia_IdoneitaAlloggioRichiesta6" name="Tassonomia_IdoneitaAlloggioRichiesta" type="radio" value="6"/>
+      </td>
+      <td>
+        <p>
+          per richiesta di permesso di soggiorno per familiare al seguito
+        </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<globo_salto_pagina></globo_salto_pagina>
+
+<h3 class="Modulo">
+  DICHIARA INOLTRE
+</h3>
+
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazioneridotta">
+      <td colspan="2">
+        <p class="Labelcella">
+          Come previsto dal Decreto del Presidente della Repubblica 26/10/1972, n. 642
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <div id="Tassonomia_Bollo" name="Tassonomia_Bollo" label="Bollo" mandatory="true"></div>
+        <input id="Tassonomia_Bollo2" name="Tassonomia_Bollo" type="radio" value="2"/>
+      </td>
+      <td>
+        <p>
+          di aver pagato due imposte di bollo in forma non virtuale annullando le stesse e di impegnarsi a conservare le originali per esibirle in caso di controlli dell’Amministrazione
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="Tassonomia_Bollo3" name="Tassonomia_Bollo" type="radio" value="3"/>
+      </td>
+      <td>
+        <p>
+          di essere esente dal pagamento dell’imposta di bollo, rientrando in uno dei casi previsti dalla tabella A del Decreto del presidente della Repubblica 26/10/1972, n.642
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td colspan="2">
+        <p class="Labelcella">
+          Numero seriale marca da bollo o ricevuta imposta di bollo virtuale n.1
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2">
+        <input class="inputNormal" id="Parametri_NumeroBollo1" name="Parametri_NumeroBollo1" style="width: 100%;" label="Numero seriale marca da bollo" format="number" mandatory="#Tassonomia_Bollo2.checked()">
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td colspan="2">
+        <p class="Labelcella">
+          Numero seriale marca da bollo o ricevuta imposta di bollo virtuale n.2
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2">
+        <input class="inputNormal" id="Parametri_NumeroBollo2" name="Parametri_NumeroBollo2" style="width: 100%;" label="Numero seriale marca da bollo" format="number" mandatory="#Tassonomia_Bollo2.checked()">
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<br/>
+
+<table class="Modulo" name="Allegati" style="border: 1px solid grey">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="2">
+        <p style="text-align: center;">
+          <b>
+            Elenco degli allegati
+          </b>
+          <br/>
+          <span style="font-size:70%">
+            <i>(barrare tutti gli allegati richiesti in fase di presentazione della pratica ed elencati sul portale)</i>
+          </span>
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">
+        <input checked="checked" dynamic_check="true" id="RIC-DIR-SEG" name="RIC-DIR-SEG" type="checkbox" value="OBBLIGATORIO"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          ricevuta di pagamento dei diritti di segreteria
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">
+        <input checked="checked" dynamic_check="true" id="IDO_ABIT_PROPRIE" name="IDO_ABIT_PROPRIE" type="checkbox" value="OBBLIGATORIO"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          dichiarazioni del proprietario dell'immobile
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">
+        <input id="DAE-CDI" name="DAE-CDI" type="checkbox" value="OBBLIGATORIO" />
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          copia del documento d'identità
+          <br/>
+          <span style="font-size:70%">
+            <i>(da allegare se il modulo è sottoscritto con firma autografa)</i>
+          </span>
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td width="4%">
+        <input id="ALTRI-ALLEGATI" name="ALTRI-ALLEGATI" type="checkbox" value="OBBLIGATORIO"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          altri allegati
+          <span style="font-size:70%">
+            (specificare)
+          </span>
+          <input class="" label="Altri allegati" id="AltriAllegati" mandatory_enabled="#ALTRI_ALLEGATI.checked()" name="AltriAllegati" style="width:79%;"/>
+        </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<br/>
+
+{{ utils.trattamento_dati_personali() }}
+
+<br/>
+{{ utils.firma_hidden() }}
+<br/>
+
+<p class="Modulo">
+  <input id="SalvaModulo" name="SalvaModulo" style="height:30px;width:120px;" title="Verifica la corretta compilazione dei campi e salva il modulo nel faldone virtuale dell'istanza." type="submit" value="Salva modulo"/>
+</p>
+
+<input destinatario_amministrazione="getParameter('Ente')" id="GLOBO_modulo_c{{ CodiceModulo }}" name="GLOBO_modulo_c{{ CodiceModulo }}" type="hidden" value=""/>
+<input firmare="'P7M_ELETTRONICA'" id="GLOBO_modulofiglio_cINCARICO_PROCURA" name="GLOBO_modulofiglio_cINCARICO_PROCURA" type="hidden" value=""/>
+
+<input id="GLOBO_modulofiglio_cIDO_ABIT_PROPRIE" name="GLOBO_modulofiglio_cIDO_ABIT_PROPRIE" obbligatorio="#IDO_ABIT_PROPRIE.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_allegato_cRIC-DIR-SEG" name="GLOBO_allegato_cRIC-DIR-SEG" obbligatorio="#RIC_DIR_SEG.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_allegato_cDAE-CDI" name="GLOBO_allegato_cDAE-CDI" obbligatorio="#DAE_CDI.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+<input id="GLOBO_allegato_cALTRI-ALLEGATI" name="GLOBO_allegato_cALTRI-ALLEGATI" obbligatorio="#ALTRI_ALLEGATI.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value="" />
+
+<input id="GLOBO_id_padre" name="GLOBO_id_padre" type="hidden"/>
+<input id="GLOBO_recupera_dati" name="GLOBO_recupera_dati" type="hidden"/>
+<input id="GLOBO_codice_modulo" name="GLOBO_codice_modulo" type="hidden" value="{{ CodiceModulo }}"/>
+
+{% endblock content %}

@@ -1,0 +1,559 @@
+{% set CodiceModulo =  "COM_OCC_URGENTE" %}
+{% set Urn = "document:c_a794:manomettere.occupare.suolo.pubblico;interventi.urgenti;comunicazione" %}
+{% extends "base.html" %}
+{% block meta %}<meta campi_firma="Titolare_CodiceFiscale"
+campi_firma_label="il dichiarante"
+classi_modulo="Commercio"
+codice_modulo="{{ CodiceModulo }}"
+urn="{% block urn %}{{ Urn }}{% endblock urn %}"
+sub_urn_list=""
+uo_globo_list=""
+descrizione="Comunicazione di manomissione e/o occupazione di suolo pubblico per interventi urgenti"
+destinatario_amministrazione=""
+destinatario_ufficio="U0058"
+dinamico="SI"
+email_a=""
+ente_abilitato="TUTTI"
+filigrana="SI"
+firmare="P7M_ELETTRONICA"
+in_bollo="no"
+istruzioni_compilazione="ATTENZIONE: questo modulo deve essere compilato con i dati del richiedente, cambiare i dati di intestazione se necessario."
+istruzioni_invio="mail_pec"
+metodo_invio="mail"
+name="GLOBO_modulo"
+procura="NO,,"
+tipo_modulo="principale"
+ufficio=""
+urlhelp="DomandeRisposte/FAQ"
+verifica_pagamento="NO"
+versione="1.1|28/02/2019"/>
+
+
+
+
+<meta codice_allegato="OCC-PLA"
+urn_allegato="document:s_italia:occupazione.suolo.pubblico;planimetria.area;planimetria"
+descrizione_estesa="Planimetrie di progetto"
+filename="Planimetrie progetto.pdf"
+firmato="SI"
+firmatari="Titolare_CodiceFiscale"
+firmatari_label="il dichiarante"
+istruzioni="/modulistica/moduli/OCC-PLA"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<!--
+<meta codice_allegato="DOC_FOTO"
+urn_allegato="document:s_italia:generale;colori;documentazione.fotografica"
+descrizione_estesa="Documentazione fotografica"
+filename="Documentaz. fotografica.pdf"
+firmato="SI"
+istruzioni="/modulistica/moduli/DOC_FOTO"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+-->
+
+<meta codice_allegato="ALTRI-ALLEGATI"
+urn_allegato="document:s_italia:altri.allegati"
+descrizione_estesa="Altri allegati"
+filename="Altri allegati.pdf"
+firmato="SI"
+istruzioni="/modulistica/moduli/ALTRI-ALLEGATI"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+{% endblock meta %}
+{% block title %}
+   Comunicazione di manomissione e/o occupazione di suolo pubblico per interventi urgenti
+  {% endblock title %}
+{% block content %}
+ <globo_fondo_pagina areaheight="150" scope="3">
+ {{ utils.firma() }}
+</globo_fondo_pagina>
+
+<input id="Tassonomia_Occ1" name="Tassonomia_Occ" type="hidden" value="1"/>
+
+<input dynamic_value="#Ente.value()" id="Parametri_Comune" name="Parametri_Comune" type="hidden"/>
+
+
+ {{ intestazioni.intestazione_moduloprincipale_senzabollo() }}
+ <h1 class="Modulo">
+    Comunicazione di manomissione e/o occupazione di suolo pubblico per interventi urgenti
+</h1>
+
+{{anagrafica.societa("Titolare","Il sottoscritto",["Titolare", "Legale rappresentante"], "Richiedente")}}
+
+{{ utils.Dichiara_445() }}
+<br/>
+
+<table class="Modulo" style="border: 1px solid grey; margin-top:-1px">
+ <tbody>
+  <tr  class="Rigaintestazione">
+      <td>
+    <p><strong>
+      Che per necessità urgenti ed inderogabili, a seguito di guasto di:
+    </strong>
+	</p>
+	</td>
+  </tr>
+  <tr>
+   <td>
+    <textarea class="inputnormal" id="Parametri_Descrguasto" label="descrizione guasto" mandatory="true" name="Parametri_Descrguasto" style="width:100%; height:1cm;">
+    </textarea>
+   </td>
+  </tr>
+ </tbody>
+</table> 
+
+<table class="Modulo" style="border: 1px solid grey; margin-top:-1px">
+ <tbody>
+  <tr  class="Rigaintestazione">
+      <td>
+    <p><strong>
+     in data
+	</strong>
+    </p>
+   </td>
+    </tr>
+  <tr>
+     <td>
+    <input class="" id="Parametri_TempoOccupazione_dal" label="Periodo" mandatory="true" name="Parametri_TempoOccupazione_dal" format="date" style="width:30%;" />
+   </td>
+    </tr>
+ </tbody>
+</table>
+
+<globo_salto_pagina>
+</globo_salto_pagina>
+
+<table class="Modulo" style="border: 1px solid grey; margin-top:-1px">
+ <tbody>
+  <tr  class="Rigaintestazione">
+      <td>
+    <p><strong>
+      esegue opere inerenti:
+    </strong>
+	</p>
+	<p> ( breve descrizione degli aspetti tecnici ) </p>
+   </td>
+  </tr>
+  <tr>
+   <td>
+    <textarea class="inputnormal" id="Parametri_DescrAtt" label="descrizione attività" mandatory="true" name="Parametri_DescrAtt" style="width:100%; height:2cm;">
+    </textarea>
+   </td>
+  </tr>
+ </tbody>
+</table> 
+
+
+<input checked="checked" dynamic_check="true" style="display:none" id="Immobile_DatiCatastaliObbligatori" name="Immobile_DatiCatastaliObbligatori" type="checkbox" value="si"/>
+{{ immobili.immobile_toponomastica( "Immobile", "nella seguente località:", "Collocazione occupazione", "display:visibility", "visibility:hidden", "cursor:default", "true" ) }}
+
+<!--
+<table class="Modulo" style="border:1px solid grey">
+ <tbody>
+  <tr class="Rigaintestazione">
+    <td>
+    <p>
+      <b>
+        In particolare l'intervento urgente ha una superficie di: 
+      </b>
+    </p>
+    </td>        
+  </tr>
+  <tr class="Rigaintestazioneridotta">
+    <td>
+    <p class="Labelcella">
+     area occupazione
+    </p>
+   </td>
+  </tr>
+  <tr mandatory_enabled="true">
+   <td>
+    <input class="" id="Parametri_Superficie_cosap" label="Superficie totale ai fini COSAP" name="Parametri_Superficie_cosap"/> metri quadri
+   </td>
+   </tr>
+ </tbody>
+</table>
+
+<table class="Modulo" style="border:1px solid grey; margin-top:-1px">
+ <tbody>
+  <tr class="Rigaintestazioneridotta">
+   <td style="width:40%;">
+    <p class="Labelcella">
+     Tipologia
+    </p>
+   </td>
+   <td>
+    <p class="Labelcella">
+     finitura
+    </p>
+   </td>
+   <td>
+    <p class="Labelcella">
+     finitura
+    </p>
+   </td>
+   <td>
+    <p class="Labelcella">
+     metri x metri
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td>
+    <p>
+     <select class="" id="Parametri_TipologiaOccupazione" label="Carattere occupazione" mandatory="true" name="Parametri_TipologiaOccupazione" style="width:100%;">
+      <option value="">
+      </option>
+      <option value="Carreggiata">
+       Carreggiata finita con:
+      </option>
+      <option value="Marciapiede">
+       Marciapiede finito con:
+      </option>
+    <option value="aiuola">
+       Aiuola
+      </option>
+     </select>
+    </p>
+   </td>
+   <td>
+    <input class="" id="Parametri_TipologiaOccupazione_finitura1" label="finitura" mandatory_enabled="#Parametri_TipologiaOccupazione.check_value(['Marciapiede']) || #Parametri_TipologiaOccupazione.check_value(['Carreggiata']) " name="Parametri_TipologiaOccupazione_finitura1" style="width:100%;"/>
+   </td>
+    <td>
+    <input class="" id="Parametri_TipologiaOccupazione_finitura2" label="finitura" mandatory_enabled="#Parametri_TipologiaOccupazione.check_value(['Marciapiede']) || #Parametri_TipologiaOccupazione.check_value(['Carreggiata']) " name="Parametri_TipologiaOccupazione_finitura2" style="width:100%;"/>
+   </td>
+    <td>
+    <input class="" id="Parametri_TipologiaOccupazione_mxm" label="m x m occupazione" mandatory_enabled="#Parametri_TipologiaOccupazione.check_value(['Marciapiede']) || #Parametri_TipologiaOccupazione.check_value(['Carreggiata']) " name="Parametri_TipologiaOccupazione_mxm" style="width:100%;"/>
+   </td>
+  </tr>
+ </tbody>
+</table>
+<br/>
+-->
+
+<input type="hidden" id="Referente9_DatiSocietaObbligatori" name="Referente9_DatiSocietaObbligatori" dynamic_check="#referente9checkbox.checked()"/>
+ {{ anagrafica.societa_secondaria("Referente9","<input id='referente9checkbox' name='referente9checkbox' type='checkbox' value='si' checked='checked' dynamic_check='true'/>
+       Che i lavori verranno eseguiti dall’Impresa:
+") }}   
+  <table class="Modulo" style="border:1px solid grey; margin-top:-1px">
+ <tbody>
+  <tr class="Rigaintestazioneridotta">
+   <td colspan="5">
+    <p class="Labelcella">
+     Sede Operativa
+    </p>
+   </td>
+  </tr>
+  <tr class="Rigaintestazioneridotta">
+   <td style="width:9%;">
+    <p class="Labelcella">
+     Provincia
+    </p>
+   </td>
+   <td style="width:33%;">
+    <p class="Labelcella">
+     Comune
+    </p>
+   </td>
+   <td style="width:33%;">
+    <p class="Labelcella">
+     Indirizzo
+    </p>
+   </td>
+   <td style="width:9%;">
+    <p class="Labelcella">
+     Civico
+    </p>
+   </td>
+   <td style="width:16%;">
+    <p class="Labelcella">
+     CAP
+    </p>
+   </td>
+  </tr>
+  <tr mandatory_enabled="#referente9checkbox.checked()">
+   <td>
+    {{ utils.provincie( "Referente9_ProvinciaSedeOperativa", "Provincia della sede operativa") }}
+   </td>
+   <td>
+    <select class="inputNormal" dynamic_value="getComuniFromProvincia( #Referente9_ProvinciaSedeOperativa.value(), 'Referente9_ComuneSedeOperativa')" id="Referente9_ComuneSedeOperativa" label="Comune della sede operativa" name="Referente9_ComuneSedeOperativa" style="width:100%">
+    </select>
+   </td>
+   <td>
+    <input class="" id="Referente9_ViaSedeOperativa" label="Indirizzo della sede operativa" name="Referente9_ViaSedeOperativa" style="width:100%;"/>
+   </td>
+   <td>
+    <input class="" id="Referente9_CivicoSedeOperativa" label="Civico della sede operativa" name="Referente9_CivicoSedeOperativa" style="width:100%;"/>
+   </td>
+   <td>
+    <input class="" format="cap" id="Referente9_CAPSedeOperativa" label="CAP della sede operativa" name="Referente9_CAPSedeOperativa" style="width:100%;"/>
+   </td>
+  </tr>
+ </tbody>
+</table>
+<table class="Modulo" style="margin-top:-1px; border:1px solid grey">
+  <tbody>  
+   <tr class="Rigaintestazioneridotta">
+    <td style="width:50%;">
+     <p class="Labelcella">
+      Matricola INPS
+     </p>
+    </td>
+    <td>
+     <p class="Labelcella">
+      Sede competente
+     </p>
+    </td>
+   </tr>
+   <tr enabled="#referente9checkbox.checked()">
+    <td>
+     <input class="" id="Referente9_INPS" label="Matricola INPS" name="Referente9_INPS" style="width:100%"/>
+    </td>
+    <td>
+     <input class="" id="Referente9_INAILSede" label="Sede competente" enabled="#referente9checkbox.checked()" name="Referente9_INAILSede" style="width:100%"/>
+	  </tr>
+  </tbody>
+ </table>
+ <table class="Modulo" style="margin-top:-1px; border:1px solid grey">
+  <tbody>  
+   <tr class="Rigaintestazioneridotta">
+    <td style="width:50%;">
+     <p class="Labelcella">
+      Codice INAIL
+     </p>
+    </td>
+    <td>
+     <p class="Labelcella">
+      Codice cassa edile
+     </p>
+    </td>
+    <td style="width:9%">
+     <p class="Labelcella">
+      Provincia
+     </p>
+    </td>
+   </tr>
+   <tr enabled="#referente9checkbox.checked()">
+    <td >
+     <input class="" id="Referente9_INAIL" label="Codice INAIL" name="Referente9_INAIL" style="width:100%"/>
+    </td>
+    <td >
+     <input class="" id="Referente9_Cedile" label="Codice cassa edile" name="Referente9_Cedile" style="width:100%"/>
+    </td>
+    <td>
+	{{ utils.provincie( "Referente9_CassaEdileProvincia", "Provincia cassa edile") }}
+	</td>
+	  </tr>
+  </tbody>
+ </table>
+<table class="Modulo" style="margin-top:-1px; border:1px solid grey">
+  <tbody>  
+   <tr class="Rigaintestazioneridotta">
+    <td style="width:50%;">
+     <p class="Labelcella">
+      Contratto applicato nei confronti dei dipendenti
+     </p>
+    </td>
+   </tr>
+   <tr >
+    <td>
+    <div id="TipoImpr" label="Contratto applicato nei confronti dei dipendenti" mandatory_enabled="#referente9checkbox.checked()">
+    </div>
+	 <input group="TipoImpr" id='referente9contratto1' name='referente9contratto1' type='checkbox' value='si'/> Imprese edili e industria
+	 <input group="TipoImpr" id='referente9contratto2' name='referente9contratto2' type='checkbox' value='si'/> Imprese edili artigiane
+	 <input group="TipoImpr"id='referente9contratto3' name='referente9contratto3' type='checkbox' value='si'/> Cooperative edili
+	 <input group="TipoImpr"id='referente9contratto4' name='referente9contratto4' type='checkbox' value='si'/> Non ha dipendenti
+	 </td>
+	  </tr>
+  </tbody>
+ </table>
+ <br/>
+ 
+ <globo_salto_pagina>
+</globo_salto_pagina>
+
+ <table class="Modulo" style="border: 0px;">
+ <tbody>
+    <tr style="border:0px;">
+    <td style="border:0px; vertical-align:top">
+      <div id="Tassonomia_Dichiara6" name="Tassonomia_Dichiara6" mandatory_enabled="true" label="Dichiarazione 6"> </div>
+      <input group="Tassonomia_Dichiara6" id="Tassonomia_Dichiara61" name="Tassonomia_Dichiara61" type="checkbox" value="SI"/>
+    </td>
+    <td style="border:0px;">
+      <p>
+       Che i lavori verranno eseguiti nel rispetto di quanto previsto dal Codice della strada, implicando l’occupazione parziale della sede stradale e garantendo in ogni momento il transito pedonale e veicolare.
+     </p>
+    </td>
+   </tr >
+     <tr style="border:0px;">
+    <td style="border:0px; vertical-align:top">
+      <div id="Tassonomia_Dichiara7" name="Tassonomia_Dichiara7" mandatory_enabled="true" label="Dichiarazione 7"> </div>
+      <input group="Tassonomia_Dichiara7" id="Tassonomia_Dichiara71" name="Tassonomia_Dichiara71" type="checkbox" value="SI"/>
+    </td>
+    <td style="border:0px;">
+      <p>
+ Che è necessario manomettere e occupare il suolo pubblico:
+      </p>
+    </td>
+   </tr>
+   </tbody>
+</table>
+
+  <table class="Modulo" style="border:1px solid grey; margin-top:-1px">
+ <tbody>
+  <tr class="Rigaintestazioneridotta">
+   <td style="width:40%;">
+    <p class="Labelcella">
+     Tipologia
+    </p>
+   </td>
+   <td>
+    <p class="Labelcella">
+     finitura
+    </p>
+   </td>
+    <td>
+    <p class="Labelcella">
+     metri x metri
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td>
+    <p>
+     <select class="" id="Parametri_TipologiaOccupazione" label="Carattere occupazione" mandatory="true" name="Parametri_TipologiaOccupazione" style="width:100%;">
+      <option value="">
+      </option>
+      <option value="Carreggiata">
+       Carreggiata finita con:
+      </option>
+      <option value="Marciapiede">
+       Marciapiede finito con:
+      </option>
+    <option value="Aiuola">
+       Aiuola
+      </option>
+     </select>
+    </p>
+   </td>
+   <td>
+    <input class="" id="Parametri_TipologiaOccupazione_finitura1" label="finitura" mandatory_enabled="#Parametri_TipologiaOccupazione.check_value(['Marciapiede']) || #Parametri_TipologiaOccupazione.check_value(['Carreggiata']) " name="Parametri_TipologiaOccupazione_finitura1" style="width:100%;"/>
+   </td>
+      <td>
+    <input class="" id="Parametri_TipologiaOccupazione_mxm" label="m x m occupazione" mandatory_enabled="#Parametri_TipologiaOccupazione.check_value(['Marciapiede']) || #Parametri_TipologiaOccupazione.check_value(['Carreggiata']) || #Parametri_TipologiaOccupazione.check_value(['Aiuola']) " name="Parametri_TipologiaOccupazione_mxm" style="width:100%;"/>
+   </td>
+  </tr>
+ </tbody>
+</table>
+
+  <table class="Modulo" style="border: 0px;">
+ <tbody>
+    <tr style="border:0px;">
+    <td style="border:0px; vertical-align:top">
+      <div id="Tassonomia_Dichiara9" name="Tassonomia_Dichiara9" mandatory_enabled="true" label="Dichiarazione 9"> </div>
+      <input group="Tassonomia_Dichiara9" id="Tassonomia_Dichiara91" name="Tassonomia_Dichiara91" type="checkbox" value="SI"/>
+    </td>
+    <td style="border:0px;">
+      <p>
+    Di essere a conoscenza dei seguenti obblighi, previsti dalle norme di legge e dai regolamenti comunali vigenti:
+	</p>
+    </td>
+   </tr>
+   </tbody>
+</table>
+
+ <table class="Modulo" style="border: 0px;">
+ <tbody>
+    <tr style="border:0px;">
+	 <td style="border:0px; vertical-align:top">
+<p> - Ripristinare provvisoriamente l’area nel più breve tempo possibile;</p>
+<p> -Tenere sempre l’area oggetto di manomissione in condizioni di sicurezza, con la segnaletica posta in ottemperanza con quanto stabilito del Codice della Strada e dal suo regolamento di attuazione; </p>
+<p> - Garantire in ogni momento il transito ai residenti ed ai mezzi di soccorso;</p>
+<p> - Ripristinare definitivamente la manomissione, sulla base delle prescrizioni generali impartite dall’Amministrazione comunale;</p>
+<p> - Presentare entro il giorno successivo all’occupazione, la richiesta di concessione in sanatoria per l’occupazione stessa, ai sensi dell’articolo 32 del regolamento per l’occupazione di spazi ed aree pubbliche e per l’applicazione del relativo canone.</p>
+    </td>
+   </tr>
+  </tbody>
+</table>
+<br/>
+
+<table class="Modulo" name="Allegati" style="border:1px solid grey">
+ <tbody>
+  <tr class="Rigaintestazione">
+   <td colspan="2">
+    <p style="text-align: center;">
+     <b>
+      Elenco degli allegati
+     </b>
+     <br/>
+     <span style="font-size:70%">
+      <i>
+       (barrare tutti gli allegati richiesti in fase di presentazione della pratica ed elencati sul portale)
+      </i>
+     </span>
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td>
+<input id="OCC-PLA" name="OCC-PLA" type="checkbox" dynamic_check="true" checked="checked" value="SI"/>
+   </td>
+   <td style="background-color: #eeeeee;">
+    <p>
+    Planimetrie in scala ≥ 1:100 / 1:200 
+ </p>
+  </td>
+  </tr>
+  <tr>
+   <td>
+    <input id="ALTRI-ALLEGATI" name="ALTRI-ALLEGATI" type="checkbox" value="OBBLIGATORIO"/>
+   </td>
+   <td style="background-color: #eeeeee;">
+    <p>
+     altri allegati
+     <span style="font-size:70%">
+      (specificare)
+     </span>
+     <input class="" id="AltriAllegati" label="Altri allegati" mandatory_enabled="#ALTRI_ALLEGATI.checked()" name="AltriAllegati" style="width:79%;"/>
+    </p>
+   </td>
+  </tr>
+ </tbody>
+</table>
+
+<br/>
+
+{{ utils.trattamento_dati_personali() }}
+
+<br/>
+
+{{ utils.firma_hidden() }}
+ <br/>
+
+<p class="Modulo">
+ <input id="SalvaModulo" name="SalvaModulo" style="height:30px;width:120px;" title="Verifica la corretta compilazione dei campi e salva il modulo nel faldone virtuale dell'istanza." type="submit" value="Salva modulo"/>
+</p>
+
+<input destinatario_amministrazione="getParameter('Ente')" id="GLOBO_modulo_c{{ CodiceModulo }}" name="GLOBO_modulo_c{{ CodiceModulo }}" type="hidden" value=""/>
+
+<input id="GLOBO_allegato_cOCC-PLA" name="GLOBO_allegato_cOCC-PLA" obbligatorio="#OCC_PLA.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_allegato_cALTRI-ALLEGATI" name="GLOBO_allegato_cALTRI-ALLEGATI" obbligatorio="#ALTRI_ALLEGATI.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_id_padre" name="GLOBO_id_padre" type="hidden"/>
+
+<input id="GLOBO_recupera_dati" name="GLOBO_recupera_dati" type="hidden"/>
+
+<input id="GLOBO_codice_modulo" name="GLOBO_codice_modulo" type="hidden" value="{{ CodiceModulo }}"/>
+
+
+{% endblock content %}

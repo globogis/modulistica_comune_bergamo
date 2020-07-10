@@ -1,0 +1,422 @@
+{% set CodiceModulo = "IND-RES-SEMPL" %}
+{% set Urn = "document:c_a794:progetto.individualizzato.residenzialita.fruitore" %}
+{% extends "base.html" %}
+
+{% block meta %}
+
+<meta campi_firma="TitolareNonImportare_CodiceFiscale"
+campi_firma_label="il dichiarante"
+classi_modulo="Generale"
+codice_modulo="{{ CodiceModulo }}"
+urn="{% block urn %}{{ Urn }}{% endblock urn %}"
+descrizione="Progetto individualizzato voucher residenzialità leggera"
+destinatario_amministrazione=""
+destinatario_ufficio=""
+dinamico="SI"
+email_a=""
+ente_abilitato="TUTTI"
+filigrana="NO"
+firmare="P7M_ELETTRONICA"
+istruzioni_compilazione=""
+istruzioni_invio=""
+metodo_invio="mail"
+name="GLOBO_modulo"
+procura="NO,,"
+tipo_modulo="secondario"
+urlhelp="/modulistica/moduli/{{ CodiceModulo }}"
+verifica_pagamento="NO"
+versione="1.0|28/06/2019"/>
+
+{% endblock meta %}
+
+{% block title %}
+  Progetto individualizzato voucher residenzialità leggera
+{% endblock title %}
+
+{% block content %}
+
+<globo_fondo_pagina areaheight="150" scope="3">
+  {{ utils.firma() }}
+</globo_fondo_pagina>
+
+<input id="Oggetto" name="Oggetto" type="hidden" dynamic_value="'Progetto individualizzato voucher residenzialità leggera'"/>
+
+{{ intestazioni.intestazione_modulosecondario_senzabollo() }}
+
+<h1 class="Modulo">
+  Progetto individualizzato voucher residenzialità leggera
+</h1>
+
+
+<input id="TitolareNonImportare_DatiPersonaObbligatori" name="TitolareNonImportare_DatiPersonaObbligatori" type="hidden" dynamic_check="true"/>
+<input id="TitolareNonImportare_Titolo" name="TitolareNonImportare_Titolo" type="hidden" value="Richiedente"/>
+<input id="TitolareNonImportare_Ruolo" name="TitolareNonImportare_Ruolo" type="hidden" value="Richiedente"/>
+{{ anagrafica.persona_fisica("TitolareNonImportare", "Il sottoscritto", "display:none", "cursor:default", "visibility:visibility", "visibility:visibility", "mail_ordinaria") }}
+
+
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="2">
+        <p class="Labeltabella">
+          medico di base
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          Cognome
+        </p>
+      </td>
+      <td>
+        <p class="Labelcella">
+          Nome
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input class="inputNormal" id="Parametri_CognomeMedicoBase" name="Parametri_CognomeMedicoBase" style="width: 100%;" label="Cognome medico di base" mandatory_enabled="true"/>
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_NomeMedicoBase" name="Parametri_NomeMedicoBase" style="width: 100%;" label="Nome medico di base" mandatory_enabled="true"/>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="2">
+        <p class="Labeltabella">
+          medico psichiatra
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          Cognome
+        </p>
+      </td>
+      <td>
+        <p class="Labelcella">
+          Nome
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input class="inputNormal" id="Parametri_CognomeMedicoPsichiatra" name="Parametri_CognomeMedicoPsichiatra" style="width: 100%;" label="Cognome medico psichiatra" mandatory_enabled="true"/>
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_NomeMedicoPsichiatra" name="Parametri_NomeMedicoPsichiatra" style="width: 100%;" label="Nome medico psichiatra" mandatory_enabled="true"/>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td>
+        <p class="Labeltabella">
+          diagnosi
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <textarea class="inputNormal" id="Parametri_Diagnosi" name="Parametri_Diagnosi" style="width: 100%; height: 5cm;" label="Diagnosi" mandatory_enabled="true"></textarea>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td>
+        <p class="Labeltabella">
+          in carico al servizio dell'anno
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input class="inputNormal" id="Parametri_AnnoPresaCarico" name="Parametri_AnnoPresaCarico" style="width: 100%;" format="number" label="Anno presa in carico" mandatory_enabled="true"/>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td>
+        <p class="Labeltabella">
+          terapia farmacologica assunta
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <textarea class="inputNormal" id="Parametri_TerapiaFarmacologica" name="Parametri_TerapiaFarmacologica" style="width: 100%; height: 5cm;" label="Terapia farmacologica assunta" mandatory_enabled="true"></textarea>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td>
+        <p class="Labeltabella">
+          eventuali altre patologie in corso
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <textarea class="inputNormal" id="Parametri_Patologie" name="Parametri_Patologie" style="width: 100%; height: 5cm;" label="Eventuali altre patologie in corso" mandatory_enabled="true"></textarea>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td>
+        <p class="Labeltabella">
+          obiettivi del progetto
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <textarea class="inputNormal" id="Parametri_ObiettiviProgetto" name="Parametri_ObiettiviProgetto" style="width: 100%; height: 5cm;" label="Obiettivi del progetto" mandatory_enabled="true"></textarea>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td>
+        <p class="Labeltabella">
+          autonomie personali e potenzialità del soggetto
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <textarea class="inputNormal" id="Parametri_AutonomiePotenzialita" name="Parametri_AutonomiePotenzialita" style="width: 100%; height: 5cm;" label="Autonomie personali e potenzialità del soggetto" mandatory_enabled="true"></textarea>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td>
+        <p class="Labeltabella">
+          interventi in atto
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <textarea class="inputNormal" id="Parametri_Interventi" name="Parametri_Interventi" style="width: 100%; height: 5cm;" label="Interventi in atto" mandatory_enabled="true"></textarea>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td>
+        <p class="Labeltabella">
+          esito del precedente progetto individuale di voucher di residenzialità leggera
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <textarea class="inputNormal" id="Parametri_EsitoPrecedenteVoucher" name="Parametri_EsitoPrecedenteVoucher" style="width: 100%; height: 5cm;" label="Esito precedente voucher di residenzialità leggera" mandatory_enabled="true"></textarea>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td>
+        <p class="Labeltabella">
+          ambiti in cui prevedibilmente vi è necessità di supporto
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <textarea class="inputNormal" id="Parametri_AmbitiNecessitaSupporto" name="Parametri_AmbitiNecessitaSupporto" style="width: 100%; height: 5cm;" label="Ambiti necessità di supporto" mandatory_enabled="true"></textarea>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td>
+        <p class="Labeltabella">
+          tipologia di voucher proposta
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <textarea class="inputNormal" id="Parametri_TipologiaVoucher" name="Parametri_TipologiaVoucher" style="width: 100%; height: 5cm;" label="Tipologia di voucher proposta" mandatory_enabled="true"></textarea>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td>
+        <p class="Labeltabella">
+          valutazione dell'intervento in itinere
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <textarea class="inputNormal" id="Parametri_ValutazioneInterventoItinere" name="Parametri_ValutazioneInterventoItinere" style="width: 100%; height: 5cm;" label="valutazione dell'intervento in itinere" mandatory_enabled="true"></textarea>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td>
+        <p class="Labeltabella">
+          ente accreditato
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          Denominazione ente accreditato
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input class="inputNormal" id="Parametri_EnteAccreditato" name="Parametri_EnteAccreditato" style="width: 100%;" label="Denominazione ente accreditato" mandatory_enabled="true"/>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="5">
+        <p class="Labeltabella">
+          personale coinvolto
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          Cognome
+        </p>
+      </td>
+      <td>
+        <p class="Labelcella">
+          Nome
+        </p>
+      </td>
+      <td style="width: 20%;">
+        <p class="Labelcella">
+          Qualifica
+        </p>
+      </td>
+      <td style="width: 14%;">
+        <p class="Labelcella">
+          Monte ore settimanale
+        </p>
+      </td>
+      <td>
+        <p class="Labelcella">
+          Note
+        </p>
+      </td>
+    </tr>
+    {% for i in range(1, 4) %}
+      <tr>
+        <td>
+          <input class="inputNormal" id="Parametri_Cognome{{i}}" name="Parametri_Cognome{{i}}" style="width: 100%;" label="Cognome" {% if i==1 %} mandatory_enabled="true" {% else %} enabled="#Parametri_Cognome{{i-1}}.value()" {% endif %}/>
+        </td>
+        <td>
+          <input class="inputNormal" id="Parametri_Nome{{i}}" name="Parametri_Nome{{i}}" style="width: 100%;" label="Nome" {% if i==1 %} mandatory_enabled="true" {% else %} mandatory_enabled="#Parametri_Cognome{{i}}.value()" {% endif %}/>
+        </td>
+        <td>
+          <input class="inputNormal" id="Parametri_Qualifica{{i}}" name="Parametri_Qualifica{{i}}" style="width: 100%;" label="Qualifica" {% if i==1 %} mandatory_enabled="true" {% else %} mandatory_enabled="#Parametri_Cognome{{i}}.value()" {% endif %}/>
+        </td>
+        <td>
+          <input class="inputNormal" id="Parametri_MonteOre{{i}}" name="Parametri_MonteOre{{i}}" style="width: 100%;" format="positive_float" label="Monte ore settimanali" {% if i==1 %} mandatory_enabled="true" {% else %} mandatory_enabled="#Parametri_Cognome{{i}}.value()" {% endif %}/>
+        </td>
+        <td>
+          <input class="inputNormal" id="Parametri_Note{{i}}" name="Parametri_Note{{i}}" style="width: 100%;" label="Note personale coinvolto" {% if i==1 %} mandatory_enabled="true" {% else %} mandatory_enabled="#Parametri_Cognome{{i}}.value()" {% endif %}/>
+        </td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+
+{{ anagrafica.cognome_nome("Referente3", "l'assistente sociale", "Richiedente", "display:none", "cursor:default", "visibility:visibility") }}
+
+
+<br/>
+  {{ utils.firma_hidden() }}
+<br/>
+
+<p class="Modulo">
+  <input id="SalvaModulo" name="SalvaModulo" style="height:30px;width:120px;" title="Verifica la corretta compilazione dei campi e salva il modulo nel faldone virtuale dell'istanza." type="submit" value="Salva modulo"/>
+</p>
+
+<input id="GLOBO_modulo_c{{ CodiceModulo }}" name="GLOBO_modulo_c{{ CodiceModulo }}" type="hidden" value=""/>
+
+<input id="GLOBO_id_padre" name="GLOBO_id_padre" type="hidden"/>
+<input id="GLOBO_recupera_dati" name="GLOBO_recupera_dati" type="hidden"/>
+<input id="GLOBO_codice_modulo" name="GLOBO_codice_modulo" type="hidden" value="{{ CodiceModulo }}"/>
+
+{% endblock content %}

@@ -1,0 +1,369 @@
+{% set CodiceModulo = "MAN_INT_AMB" %}
+{% set Urn = "document:c_a794:manifestazione.interesse.ambito.territoriale;istanza" %}
+{% extends "base.html" %}
+
+{% block meta %}
+
+<meta campi_firma="Titolare_CodiceFiscale"
+campi_firma_label="il dichiarante"
+classi_modulo="Servizi sociali"
+codice_modulo="{{ CodiceModulo }}"
+urn="{% block urn %}{{ Urn }}{% endblock urn %}"
+sub_urn_list=""
+uo_globo_list=""
+descrizione="Manifestazione di interesse ambito territoriale Bergamo"
+destinatario_amministrazione=""
+destinatario_ufficio="Servizi Sociali"
+dinamico="SI"
+email_a=""
+ente_abilitato="TUTTI"
+filigrana="SI"
+firmare="P7M_ELETTRONICA"
+istruzioni_compilazione=""
+istruzioni_invio="mail_pec"
+metodo_invio="mail"
+name="GLOBO_modulo"
+procura="NO,,"
+tipo_modulo="principale"
+urlhelp="/modulistica/moduli/{{ CodiceModulo }}"
+verifica_pagamento="NO"
+versione="1.0|04/03/2020"/>
+
+<meta codice_modulo_figlio="INCARICO_PROCURA"
+urn_modulo_figlio="document:s_italia:generale;incarico.procura"
+name="GLOBO_modulofiglio"
+numero="1"
+obbligatorio="DINAMICO"/>
+
+<meta codice_modulo_figlio="DIC_MAN_INT"
+urn_modulo_figlio="document:c_a794:dichiarazioni.manifestazione.interesse;dichiarazioni"
+name="GLOBO_modulofiglio"
+numero="1"
+obbligatorio="DINAMICO"/>
+
+<meta codice_modulo_figlio="PROP_PROG"
+urn_modulo_figlio="document:c_a794:proposta.progettuale.manifestazione.interesse;allegato"
+name="GLOBO_modulofiglio"
+numero="1"
+obbligatorio="DINAMICO"/>
+
+<meta codice_allegato="ALTRI-ALLEGATI"
+urn_allegato="document:s_italia:altri.allegati"
+descrizione_estesa="Altri allegati"
+filename="Altri allegati.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/ALTRI-ALLEGATI"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+{% endblock meta %}
+
+{% block title %}
+Manifestazione di interesse per l'individuazione di soggetti privati disponibili a partecipare alla programmazione territoriale integrata per la definizione di percorsi di inclusione attiva a favore di persone in condizione di vulnerabilità e disagio
+ {% endblock title %}
+ 
+{% block content %}
+
+<globo_fondo_pagina areaheight="150" scope="4">
+  {{ utils.firma() }}
+</globo_fondo_pagina>
+
+<input id="Parametri_Comune" name="Parametri_Comune" type="hidden" dynamic_value="#Ente.value()"/>
+<input id="Oggetto" name="Oggetto" type="hidden" dynamic_value="#Titolare_Cognome.value().toUpperCase() + ' ' + #Titolare_Nome.value().toUpperCase() + ' - Manifestazione di interesse percorsi di inclusione attiva'"/>
+
+{{ intestazioni.intestazione_moduloprincipale_senzabollo() }}
+
+<h1 class="Modulo">
+ Manifestazione di interesse per l'individuazione di soggetti privati disponibili a partecipare alla programmazione territoriale integrata per la definizione di percorsi di inclusione attiva a favore di persone in condizione di vulnerabilità e disagio
+</h1>
+
+<h2 class="Modulo">
+    Decreto Dirigente Struttura Giunta Regionale Lombardia n.N. 19171/2019
+</h2>
+
+{{ anagrafica.societa("Titolare", "Il sottoscritto", ["Persona fisica", "Titolare", "Legale rappresentante"], "Richiedente", "visibility:visibility", "cursor:pointer", "mail_ordinaria", "false") }}
+
+<br>
+<h3 class="Modulo">
+  MANIFESTA IL PROPRIO INTERESSE
+</h3>
+<p class="Modulo">
+  a partecipare alla programmazione territoriale integrata per la definizione di percorsi di inclusione attiva a favore di persone in condizione di vulnerabilità e disagio
+</p>
+<br>
+
+{{ utils.Dichiara_445() }}
+ 
+<br>
+<div id="Tassonomia_Categorie" name="Tassonomia_Categorie" label="Categorie" mandatory="true"></div>
+<table class="Modulo" style="border: 1px solid grey;">
+<tbody>
+  <tr class="Rigaintestazione">
+    <td style="vertical-align: top; width: 4%;"> 
+    <input id="dichiara" name="dichiara" type="checkbox" value="SI" checked="checked" dynamic_check="true"/> 
+    </td>
+    <td>
+        <p class="Labeltabella">
+        di appartenere ad una delle seguenti categorie:
+      </p>
+    </td>
+  </tr>
+  <tr>
+      <td  style="vertical-align: top; width: 4%;"> 
+        <input class='' id='Tassonomia_Categorie1' name='Tassonomia_Categorie' type="radio" value="1"/>
+      </td>
+      <td> 
+         organizzazioni del Terzo Settore iscritte ai registi regionali o nazionali o ad analoghi elenchi regionali/nazionali con almeno due anni di esperienza nel campo
+      </td>
+    </tr>
+    <tr>
+      <td  style="vertical-align: top; width: 4%;"> 
+        <input class='' id='Tassonomia_Categorie2' name='Tassonomia_Categorie' type="radio" value="2"/>
+      </td>
+      <td> 
+         enti riconosciuti delle confessioni religiose con le quali lo Stato ha stipulato patti, accordi o intese con almeno due anni di esperienza nel campo
+      </td>
+    </tr>
+    <tr>
+      <td  style="vertical-align: top; width: 4%;"> 
+        <input class='' id='Tassonomia_Categorie3' name='Tassonomia_Categorie' type="radio" value="3"/>
+      </td>
+      <td> 
+         soggetti iscritti all’albo regionale degli operatori accreditati per i Servizi al lavoro in Regione Lombardia
+      </td>
+    </tr>
+    <tr>
+      <td  style="vertical-align: top; width: 4%;"> 
+        <input class='' id='Tassonomia_Categorie4' name='Tassonomia_Categorie' type="radio" value="4"/>
+      </td>
+      <td> 
+         soggetti iscritti all’albo regionale degli operatori accreditati per i Servizi alla formazione (sez. A e B) in Regione Lombardia
+      </td>
+    </tr>
+    <tr>
+      <td  style="vertical-align: top; width: 4%;"> 
+        <input class='' id='Tassonomia_Categorie5' name='Tassonomia_Categorie' type="radio" value="5"/>
+      </td>
+      <td> 
+         enti gestori accreditati per la gestione di UdO socio-sanitarie che abbiano maturato almeno due anni di esperienza nel campo
+      </td>
+    </tr>
+    <tr>
+      <td  style="vertical-align: top; width: 4%;" > 
+        <input class='' id='Tassonomia_Categorie6' name='Tassonomia_Categorie' type="radio" value="6"/>
+      </td>
+      <td> 
+         enti gestori accreditati a livello territoriale per la gestione di UdO sociali che abbiano maturato almeno due anni di esperienza nel campo
+      </td>
+    </tr>
+  </tbody>
+</table>
+<div id="Tassonomia_Scelta_Progettualità" name="Tassonomia_Scelta_Progettualità" label="Scelta progettualità" mandatory="true"></div>
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazioneridotta">
+      <td style="vertical-align: top; width: 4%;" > 
+        <input id="Tassonomia_Indica_Progettualità" name="Tassonomia_Indica_Progettualità" type="checkbox" value="OBBLIGATORIO" checked="checked" dynamic_check="true"/>
+        </td>
+      <td colspan="2">
+        <p class="Labelcella">
+            di indicare il seguente interesse per la specifica progettualità:
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;" > 
+        <input id="Tassonomia_Scelta_Progettualità1" name="Tassonomia_Scelta_Progettualità" type="radio" value="1"/>
+      </td>
+      <td colspan="2">
+        <p class="Labeltabella">
+          vulnerabilità e disagio sociale a livello di sub-area Distretto Bergamo
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;" > 
+        <input id="Tassonomia_Scelta_Progettualità2" name="Tassonomia_Scelta_Progettualità" type="radio" value="2"/>
+      </td>
+      <td colspan="2">
+        <p class="Labeltabella">
+          bisogno specifico della grave emarginazione 
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="3" >
+      <textarea class="inputNormal" id="Parametri_Tipo_Esperienze" name="Parametri_Tipo_Esperienze" style="width: 100%; height: 13cm;" maxlength="2000" label="Tipo Esperienze" mandatory="true"></textarea> 
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td style="vertical-align: top; width: 4%;" > 
+        <input id="Tassomia_Attività" name="Tassomia_Attività" type="checkbox" value="SI" checked="checked" dynamic_check="true" label="Sedi e attività"/>
+      </td>
+      <td colspan="2" >
+        <p class="Labeltabella"  >
+          di essere attivo sul territorio oggetto della programmazione con le seguenti sedi ed attività (max 2.000 caratteri):
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="3">
+      <textarea class="inputNormal" id="Parametri_Tipo_Attività" name="Parametri_Tipo_Attività" style="width: 100%; height: 13cm;" maxlength="2000" label="Tipo Sedi e Attività" mandatory="true" ></textarea> 
+      </td> 
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input class="inputNormal" id="Tassonomia_Cap_Eco" name="Tassonomia_Cap_Eco" type="checkbox" value="SI" checked="checked" dynamic_check="true"/>
+      </td>
+      <td colspan="3">
+        di essere in possesso dei requisiti di capacità economica previsti dall’avviso
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td style="vertical-align: top; width: 4%;" rowspan="5">
+        <input class="inputNormal" id="Tassonomia_Ref" name="Tassonomia_Ref" type="checkbox" value="SI" checked="checked" dynamic_check="true" />
+      </td>
+      <td colspan="3">
+        <p class="Labeltabella">
+           di indicare quale referente per la proposta progettuale
+        </p>
+      </td>
+    </tr>
+      
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          Cognome
+        </p>
+      </td>
+       <td>
+        <p class="Labelcella">
+          Nome
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="width: 50%;" >
+       <input type="InputNormal" id="Tassonomia_Cognome_Ref" name="Tassonomia_Cognome_Ref" label="Cognome Referente" style="width: 100%;" mandatory="true"/>
+      </td>
+      <td style="width: 50%;" >
+       <input type="InputNormal" id="Tassonomia_Nome_Ref" name="Tassonomia_Nome_Ref" label="Nome Referente" style="width: 100%;"mandatory="true"/>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          Recapito Tel.
+        </p>
+      </td>
+       <td>
+        <p class="Labelcella">
+          Indirizzo email
+        </p>
+      </td>
+    </tr>
+    <tr mandatory="true">
+      <td style="width: 50%;" >
+       <input type="InputNormal" id="Tassonomia_Rec_Ref" name="Tassonomia_Rec_Ref" label="Recapito telefonico Referente" style="width: 100%;" mandatory="true"/>
+      </td>
+      <td style="width: 50%;" >
+       <input type="InputNormal" id="Tassonomia_Email_Ref" name="Tassonomia_Email_Ref" label="Email Referente" style="width: 100%;" format="mail_ordinaria" mandatory="true"/>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<br>
+
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          Eventuali annotazioni
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <textarea class="inputNormal" id="Parametri_Annotazioni" name="Parametri_Annotazioni" style="width: 100%; height: 5cm;" label="Eventuali annotazioni"></textarea>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<br>
+<table class="Modulo" name="Allegati" style="border: 1px solid grey">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="2">
+        <p style="text-align: center;">
+          <b>
+          Elenco degli allegati
+          </b>
+          <br/>
+          <span style="font-size:70%">
+          <i>(barrare tutti gli allegati richiesti in fase di presentazione della pratica ed elencati sul portale)</i>
+          </span>
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="DIC_MAN_INT" name="DIC_MAN_INT" type="checkbox" value="OBBLIGATORIO" cheched="checked" dynamic_check="true"/>
+      </td>
+      <td>
+        <p>
+          Dichiarazione ai sensi del Decreto Legislativo 18 aprile 2016, n. 50, art. 80
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="PROP_PROG" name="PROP_PROG" type="checkbox" value="OBBLIGATORIO" cheched="checked" dynamic_check="true"/>
+      </td>
+      <td>
+        <p>
+          Proposta progettuale
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="ALTRI-ALLEGATI" name="ALTRI-ALLEGATI" type="checkbox" value="OBBLIGATORIO"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          altri allegati
+          <span style="font-size:70%">(specificare)</span>
+          <input class="" label="Altri allegati" id="AltriAllegati" mandatory_enabled="#ALTRI_ALLEGATI.checked()" name="AltriAllegati" style="width:79%;"/>
+        </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<br>
+{{ utils.trattamento_dati_personali() }}
+<br/>
+  {{ utils.firma_hidden() }}
+<br/>
+
+<p class="Modulo">
+  <input id="SalvaModulo" name="SalvaModulo" style="height:30px;width:120px;" title="Verifica la corretta compilazione dei campi e salva il modulo nel faldone virtuale dell'istanza." type="submit" value="Salva modulo"/>
+</p>
+
+<input destinatario_amministrazione="getParameter('Ente')" id="GLOBO_modulo_c{{ CodiceModulo }}" name="GLOBO_modulo_c{{ CodiceModulo }}" type="hidden" value=""/>
+<input firmare="'P7M_ELETTRONICA'" id="GLOBO_modulofiglio_cINCARICO_PROCURA" name="GLOBO_modulofiglio_cINCARICO_PROCURA" type="hidden" value=""/>
+<input id="GLOBO_modulofiglio_cDIC_MAN_INT" name="GLOBO_modulofiglio_cDIC_MAN_INT" type="hidden" value="" obbligatorio="#DIC_MAN_INT.checked() ? 'OBBLIGATORIO' : ''"/>
+<input id="GLOBO_modulofiglio_cPROP_PROG" name="GLOBO_modulofiglio_cPROP_PROG" type="hidden" value="" obbligatorio="#PROP_PROG.checked() ? 'OBBLIGATORIO' : ''"/>
+<input id="GLOBO_allegato_cALTRI-ALLEGATI" name="GLOBO_allegato_cALTRI-ALLEGATI" obbligatorio="#ALTRI_ALLEGATI.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+
+<input id="GLOBO_id_padre" name="GLOBO_id_padre" type="hidden"/>
+<input id="GLOBO_recupera_dati" name="GLOBO_recupera_dati" type="hidden"/>
+<input id="GLOBO_codice_modulo" name="GLOBO_codice_modulo" type="hidden" value="{{ CodiceModulo }}"/>
+
+{% endblock content %}

@@ -1,0 +1,401 @@
+{% set CodiceModulo = "DOM_RED_AUTO" %}
+{% set Urn = "document:c_a794:ambito.territoriale;domanda.reddito.autonomia" %}
+{% extends "base.html" %}
+
+{% block meta %}
+
+<meta campi_firma="Titolare_CodiceFiscale"
+campi_firma_label="il dichiarante"
+classi_modulo="Ambito territoriale"
+codice_modulo="{{ CodiceModulo }}"
+urn="{% block urn %}{{ Urn }}{% endblock urn %}"
+sub_urn_list=""
+uo_globo_list=""
+descrizione="Domanda di accesso al reddito per l'autonomia"
+destinatario_amministrazione=""
+destinatario_ufficio="UOAMBITOTERRITORIALE"
+dinamico="SI"
+email_a=""
+ente_abilitato="TUTTI"
+filigrana="NO"
+firmare="P7M_ELETTRONICA"
+istruzioni_compilazione=""
+istruzioni_invio="mail_pec"
+metodo_invio="mail"
+name="GLOBO_modulo"
+procura="NO,,"
+tipo_modulo="principale"
+urlhelp="/modulistica/moduli/{{ CodiceModulo }}"
+verifica_pagamento="NO"
+versione="1.0|08/04/2019"/>
+
+<meta codice_modulo_figlio="INCARICO_PROCURA"
+urn_modulo_figlio="document:s_italia:generale;incarico.procura"
+name="GLOBO_modulofiglio"
+numero="1"
+obbligatorio="DINAMICO"/>
+
+<meta codice_modulo_figlio="COM_SCALA_RSS"
+urn_modulo_figlio="document:c_a794:ambito.territoriale;scala.rss"
+name="GLOBO_modulofiglio"
+numero="1"
+obbligatorio="DINAMICO"/>
+
+<meta codice_allegato="COP-CER-INV"
+urn_allegato="document:s_italia:generale;invalidita.civile;certificato.medico"
+descrizione_estesa="Copia del certificato di invalidità civile"
+filename="Copia certificato invalidita.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/COP-CER-INV"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_modulo_figlio="SCH-CGI-ADL"
+urn_modulo_figlio="document:c_a794:scheda.adl"
+name="GLOBO_modulofiglio"
+numero="1"
+obbligatorio="DINAMICO"/>
+
+<meta codice_modulo_figlio="SCH-CGI-IAD"
+urn_modulo_figlio="document:c_a794:scheda.iadl"
+name="GLOBO_modulofiglio"
+numero="1"
+obbligatorio="DINAMICO"/>
+
+<meta codice_allegato="DAE-CDI"
+urn_allegato="document:s_italia:generale;documento.identita;documentazione"
+descrizione_estesa="Documento di identità"
+filename="Documento identita.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/DAE-CDI"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="ALTRI-ALLEGATI"
+urn_allegato="document:s_italia:altri.allegati"
+descrizione_estesa="Altri allegati"
+filename="Altri allegati.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/ALTRI-ALLEGATI"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+
+{% endblock meta %}
+
+{% block title %}
+    Domanda di accesso al reddito per l'autonomia
+{% endblock title %}
+
+{% block content %}
+
+<globo_fondo_pagina areaheight="150" scope="2">
+    {{ utils.firma() }}
+</globo_fondo_pagina>
+
+<input id="Parametri_Comune" name="Parametri_Comune" type="hidden" dynamic_value="#Ente.value()"/>
+<input id="Oggetto" name="Oggetto" type="hidden" dynamic_value="#Titolare_Cognome.value().toUpperCase() + ' ' + #Titolare_Nome.value().toUpperCase() + ' - domanda accesso reddito per autonomia'"/>
+
+{{ intestazioni.intestazione_moduloprincipale_senzabollo() }}
+
+<h1 class="Modulo">
+    Domanda di accesso al reddito per l'autonomia
+</h1>
+
+<input id="Titolare_DatiPersonaObbligatori" name="Titolare_DatiPersonaObbligatori" type="hidden" dynamic_check="true"/>
+<input id="Titolare_Titolo" name="Titolare_Titolo" type="hidden" value="Richiedente"/>
+<input id="Titolare_Ruolo" name="Titolare_Ruolo" type="hidden" value="Richiedente"/>
+{{ anagrafica.persona_fisica("Titolare", "Il sottoscritto", "visibility:visibility", "cursor:pointer", "visibility:visibility", "visibility:visibility", "mail_ordinaria") }}
+
+<h3 class="Modulo">
+    CHIEDE
+</h3>
+
+<p class="Modulo">
+    di poter accedere all'attivazione
+</p>
+
+<div id="Tassonomia_AttivazioneVoucher" name="Tassonomia_AttivazioneVoucher" label="Attivazione voucher" mandatory="true"></div>
+<table class="Modulo" style="border: 1px solid grey;">
+    <tbody>
+        
+        <tr>
+            <td style="vertical-align: top; width: 4%;">
+                <input id="Tassonomia_AttivazioneVoucher1" name="Tassonomia_AttivazioneVoucher" type="radio" value="1" />
+            </td>
+            <td>
+                <p>
+                    del voucher per lo sviluppo dell'autonomia personale e inclusione sociale di persone disabili giovani e adulte
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td style="vertical-align: top; width: 4%;">
+                <input id="Tassonomia_AttivazioneVoucher2" name="Tassonomia_AttivazioneVoucher" type="radio" value="2" />
+            </td>
+            <td>
+                <p>
+                    del voucher per migliorare la qualità della vita delle famiglie delle persone anziane con limitazione dell’autonomia
+                </p>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+{{ anagrafica.soggetto_riferimento_servizi_demografici(prefix='AventeTitolo', testo_altra_persona="per il seguente familiare o tutelato", testo_persona="per se stesso", enabled="true", visibility_intestazione="visibility:hidden", titolo_richiedente="true", altro_titolo="false") }}
+
+{{ immobili.immobile_toponomastica( 'Immobile', "attualmente residente in", "Residenza") }}
+
+{{ utils.Dichiara_445() }}
+
+<div id="Tassonomia_RiconoscimentoInvalidita" name="Tassonomia_RiconoscimentoInvalidita" label="Riconoscimento invalidità" mandatory="true"></div>
+
+<table class="Modulo" style="border: 1px solid grey;">
+    <tbody>
+        <tr class="Rigaintestazione">
+            <td colspan="2">
+                <p class="Labeltabella">
+                    le seguenti informazioni sanitarie del richiedente
+                </p>
+            </td>
+        </tr>
+        <tr class="Rigaintestazioneridotta">
+            <td colspan="2">
+                <p class="Labelcella">
+                    Tipologia di disabilità
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <input class="inputNormal" id="Parametri_TipologiaDisabilita" name="Parametri_TipologiaDisabilita" style="width: 100%;" label="Tipologia disabilità" mandatory="true" />
+            </td>
+        </tr>
+        <tr class="Rigaintestazioneridotta">
+            <td colspan="2">
+                <p class="Labelcella">
+                    Invalidità
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td style="vertical-align: top; width: 4%;">
+                <input id="Tassonomia_RiconoscimentoInvalidita1" name="Tassonomia_RiconoscimentoInvalidita" type="radio" value="1" />
+            </td>
+            <td>
+                <p>
+                    non riconosciuta
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td style="vertical-align: top;">
+                <input id="Tassonomia_RiconoscimentoInvalidita2" name="Tassonomia_RiconoscimentoInvalidita" type="radio" value="2" />
+            </td>
+            <td>
+                <p>
+                    riconosciuta
+                </p>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<globo_salto_pagina></globo_salto_pagina>
+
+<h3 class="Modulo">
+    DICHIARA INOLTRE
+</h3>
+
+<table class="Modulo" style="border: 1px solid grey;">
+    <tbody>
+        <tr class="Rigaintestazione">
+            <td colspan="4">
+                <p class="Labeltabella">
+                    che i componenti del nucleo familiare sono i seguenti
+                </p>
+            </td>
+        </tr>
+        <tr class="Rigaintestazioneridotta">
+            <td style="width: 25%;">
+                <p class="Labelcella">
+                    Cognome
+                </p>
+            </td>
+            <td style="width: 25%;">
+                <p class="Labelcella">
+                    Nome
+                </p>
+            </td>
+            <td style="width: 25%;">
+                <p class="Labelcella">
+                    Codice fiscale
+                </p>
+            </td>
+            <td style="width: 25%;">
+                <p class="Labelcella">
+                    Grado di parentela rispetto al minore
+                </p>
+            </td>
+        </tr>
+        {% for i in range(1, 8) %}
+        <tr>
+            <td>
+                <input class="inputNormal" id="Parametri_ComponenteFamiliare{{i}}_Cognome" name="Parametri_ComponenteFamiliare{{i}}_Cognome" style="width: 100%;" label="Cognome" {% if i==1 %} mandatory="true" {% endif %}/>
+            </td>
+            <td>
+                <input class="inputNormal" id="Parametri_ComponenteFamiliare{{i}}_Nome" name="Parametri_ComponenteFamiliare{{i}}_Nome" style="width: 100%;" label="Nome" mandatory_enabled="#Parametri_ComponenteFamiliare{{i}}_Cognome.value() != '' || {{i}}==1"/>
+            </td>
+            <td>
+                <input class="inputNormal" id="Parametri_ComponenteFamiliare{{i}}_CodiceFiscale" name="Parametri_ComponenteFamiliare{{i}}_CodiceFiscale" style="width: 100%;" label="Codice fiscale" format="cf" mandatory_enabled="#Parametri_ComponenteFamiliare{{i}}_Cognome.value() != '' || {{i}}==1" onkeyup="this.value = this.value.toUpperCase();"/>
+            </td>
+            <td>
+                <input class="inputNormal" id="Parametri_ComponenteFamiliare{{i}}_GradoParentela" name="Parametri_ComponenteFamiliare{{i}}_GradoParentela" style="width: 100%;" label="Grado parentela" mandatory_enabled="#Parametri_ComponenteFamiliare{{i}}_Cognome.value() != '' || {{i}}==1"/>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<br>
+
+{{ utilsservizisociali.isee("true") }}
+
+<br>
+
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          Eventuali annotazioni
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <textarea class="inputNormal" id="Parametri_Annotazioni" name="Parametri_Annotazioni" style="width: 100%; height: 5cm;" label="Eventuali annotazioni"></textarea>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<br>
+
+
+<table class="Modulo" name="Allegati" style="border: 1px solid grey">
+    <tbody>
+        <tr class="Rigaintestazione">
+            <td colspan="2">
+                <p style="text-align: center;">
+                    <b>
+                        Elenco degli allegati
+                    </b>
+                    <br/>
+                    <span style="font-size:70%">
+                        <i>(barrare tutti gli allegati richiesti in fase di presentazione della pratica ed elencati sul portale)</i>
+                    </span>
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 4%; vertical-align: top;">
+                <input id="COP-CER-INV" name="COP-CER-INV" type="checkbox" value="OBBLIGATORIO" mandatory_enabled="#Tassonomia_RiconoscimentoInvalidita2.checked()" dynamic_check="#Tassonomia_RiconoscimentoInvalidita2.checked()"/>
+            </td>
+            <td style="background-color: #eeeeee;">
+                <p>
+                    copia del certificato di invalidità civile
+                </p>
+            </td>
+        </tr>
+         <tr>
+            <td style="vertical-align: top; width: 4%;">
+				<input id="SCH-CGI-IAD" name="SCH-CGI-IAD" type="checkbox" value="OBBLIGATORIO" mandatory_enabled="#Tassonomia_AttivazioneVoucher2.checked()" dynamic_check="#Tassonomia_AttivazioneVoucher2.checked()"/>
+            </td>
+            <td style="background-color: #eeeeee;">
+                <p>
+                    scheda IADL
+                </p>
+            </td>
+        </tr>
+		<tr>
+            <td style="vertical-align: top; width: 4%;">
+				<input id="SCH-CGI-ADL" name="SCH-CGI-ADL" type="checkbox" value="OBBLIGATORIO" mandatory_enabled="#Tassonomia_AttivazioneVoucher2.checked()" dynamic_check="#Tassonomia_AttivazioneVoucher2.checked()"/>
+            </td>
+            <td style="background-color: #eeeeee;">
+                <p>
+                    scheda ADL
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 4%; vertical-align: top;">
+                <input id="COM_SCALA_RSS" name="COM_SCALA_RSS" type="checkbox" value="OBBLIGATORIO" mandatory_enabled="#Tassonomia_AttivazioneVoucher2.checked()" dynamic_check="#Tassonomia_AttivazioneVoucher2.checked()"/>
+            </td>
+            <td style="background-color: #eeeeee;">
+                <p>
+                    scala RSS (Relative Stress Scale)
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td style="vertical-align: top; width: 4%;">
+                <input id="DAE-CDI" name="DAE-CDI" type="checkbox" value="OBBLIGATORIO" />
+            </td>
+            <td style="background-color: #eeeeee;">
+                <p>
+                    copia del documento d'identità
+                    <br/>
+                    <span style="font-size:70%">
+                        <i>(da allegare se il modulo è sottoscritto con firma autografa)</i>
+                    </span>
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td style="vertical-align: top; width: 4%;">
+                <input id="ALTRI-ALLEGATI" name="ALTRI-ALLEGATI" type="checkbox" value="OBBLIGATORIO"/>
+            </td>
+            <td style="background-color: #eeeeee;">
+                <p>
+                    altri allegati
+                    <span style="font-size:70%">(specificare)</span>
+                    <input class="" label="Altri allegati" id="AltriAllegati" mandatory_enabled="#ALTRI_ALLEGATI.checked()" name="AltriAllegati" style="width:79%;"/>
+                </p>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+
+
+
+<br/>
+    {{ utils.firma_hidden() }}
+<br/>
+
+<p class="Modulo">
+    <input id="SalvaModulo" name="SalvaModulo" style="height:30px;width:120px;" title="Verifica la corretta compilazione dei campi e salva il modulo nel faldone virtuale dell'istanza." type="submit" value="Salva modulo"/>
+</p>
+
+<input destinatario_amministrazione="getParameter('Ente')" id="GLOBO_modulo_c{{ CodiceModulo }}" name="GLOBO_modulo_c{{ CodiceModulo }}" type="hidden" value=""/>
+<input firmare="'P7M_ELETTRONICA'" id="GLOBO_modulofiglio_cINCARICO_PROCURA" name="GLOBO_modulofiglio_cINCARICO_PROCURA" type="hidden" value=""/>
+
+<input id="GLOBO_allegato_cDAE-CDI" name="GLOBO_allegato_cDAE-CDI" obbligatorio="#DAE_CDI.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+<input id="GLOBO_allegato_cCOP-CER-INV" name="GLOBO_allegato_cCOP-CER-INV" type="hidden" value="" obbligatorio="#COP_CER_INV.checked() ? 'OBBLIGATORIO' : ''"/>
+<input id="GLOBO_allegato_cSCH-CGI-IAD" name="GLOBO_allegato_cSCH-CGI-IAD" type="hidden" value="" obbligatorio="#SCH_CGI_IAD.checked() ? 'OBBLIGATORIO' : ''"/>
+<input id="GLOBO_allegato_cSCH-CGI-ADL" name="GLOBO_allegato_cSCH-CGI-ADL" type="hidden" value="" obbligatorio="#SCH_CGI_ADL.checked() ? 'OBBLIGATORIO' : ''"/>
+<input id="GLOBO_modulofiglio_cCOM_SCALA_RSS" name="GLOBO_modulofiglio_cCOM_SCALA_RSS" type="hidden" value="" obbligatorio="#COM_SCALA_RSS.checked() ? 'OBBLIGATORIO' : ''"/>
+<input id="GLOBO_allegato_cALTRI-ALLEGATI" name="GLOBO_allegato_cALTRI-ALLEGATI" obbligatorio="#ALTRI_ALLEGATI.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_id_padre" name="GLOBO_id_padre" type="hidden"/>
+<input id="GLOBO_recupera_dati" name="GLOBO_recupera_dati" type="hidden"/>
+<input id="GLOBO_codice_modulo" name="GLOBO_codice_modulo" type="hidden" value="{{ CodiceModulo }}"/>
+
+{% endblock content %}

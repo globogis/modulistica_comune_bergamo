@@ -1,0 +1,409 @@
+{% set CodiceModulo = "DOM_CONGEDO_104" %}
+{% set Urn = "document:c_a794:permesso.retribuito.104;domanda" %}
+{% extends "base.html" %}
+
+{% set direzioni = ["Avvocatura comunale",
+                    "Direzione affari generali e staff del sindaco",
+                    "Direzione bilancio tributi società partecipate e retribuzioni",
+                    "Direzione commercio e servizi cimiteriali",
+                    "Direzione edilizia scolastica sportiva e grandi opere pubbliche di riqualificazione",
+                    "Direzione gare appalti e contratti di opere servizi e forniture",
+                    "Direzione generale",
+                    "Direzione lavori pubblici infrastrutture strade coord. reti e opere pubbliche",
+                    "Direzione patrimonio ed espropri",
+                    "Direzione pianificazione strategica e organizzazione",
+                    "Direzione risorse umane e servizi alla persona",
+                    "Direzione servizi polifunzionali partecipazione e cultura",
+                    "Direzione sicurezza ambiente e mobilità",
+                    "Direzione urbanistica edilizia privata e SUEAP",
+                    "Direzione verde pubblico servizio abitativo pubblico edifici e impianti",
+                    "Polizia locale e protezione civile",
+                    "Segreteria generale"] %}
+
+{% block meta %}
+
+<meta campi_firma="Titolare_CodiceFiscale"
+campi_firma_label="il dichiarante"
+classi_modulo="Lavoro"
+codice_modulo="{{ CodiceModulo }}"
+urn="{% block urn %}{{ Urn }}{% endblock urn %}"
+sub_urn_list="avvocatura,affari,bilancio,commercio,edilizia,gare,generale,infrastrutture,patrimonio,pianificazione,risorse,polifunzionali,sicurezza,urbanistica,verde,polizia,segreteria"
+uo_globo_list=""
+descrizione="Domanda di permesso retribuito (Legge 104)"
+destinatario_amministrazione=""
+destinatario_ufficio="UOLAVORO"
+dinamico="SI"
+email_a=""
+ente_abilitato="TUTTI"
+filigrana="SI"
+firmare="AUTENTICATO"
+istruzioni_compilazione=""
+istruzioni_invio="mail_pec"
+metodo_invio="mail"
+name="GLOBO_modulo"
+procura="NO,,"
+tipo_modulo="principale"
+urlhelp="/modulistica/moduli/{{ CodiceModulo }}"
+verifica_pagamento="NO"
+versione="1.0|14/01/2019"/>
+
+<meta codice_modulo_figlio="INCARICO_PROCURA"
+urn_modulo_figlio="document:s_italia:generale;incarico.procura"
+name="GLOBO_modulofiglio"
+numero="1"
+obbligatorio="DINAMICO"/>
+
+<meta codice_allegato="DAE-CDI"
+urn_allegato="document:s_italia:generale;documento.identita;documentazione"
+descrizione_estesa="Documento di identità"
+filename="Documento identita.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/DAE-CDI"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="VER_104"
+urn_allegato="document:c_a794:copia.verbale.104"
+descrizione_estesa="Copia del verbale attestante il diritto di usufruire dei permessi previsti dalla L. 104"
+filename="Copia verbale 104.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/VER_104"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="ALTRI-ALLEGATI"
+urn_allegato="document:s_italia:altri.allegati"
+descrizione_estesa="Altri allegati"
+filename="Altri allegati.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/ALTRI-ALLEGATI"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+{% endblock meta %}
+
+{% block title %}
+  Domanda di permesso retribuito (Legge 104)
+{% endblock title %}
+
+{% block content %}
+
+<globo_fondo_pagina areaheight="150" scope="2">
+  {{ utils.firma() }}
+</globo_fondo_pagina>
+
+<input id="Parametri_Comune" name="Parametri_Comune" type="hidden" dynamic_value="#Ente.value()"/>
+<input id="Oggetto" name="Oggetto" type="hidden" dynamic_value="#Titolare_Cognome.value().toUpperCase() + ' ' + #Titolare_Nome.value().toUpperCase() + ' - Domanda di permesso retribuito (Legge 104)'"/>
+
+{{ intestazioni.intestazione_moduloprincipale_senzabollo() }}
+
+<h1 class="Modulo">
+  Domanda di permesso retribuito (Legge 104)
+</h1>
+<h2 class="Modulo">
+  Ai sensi dell’art.33 della legge n.104/92
+</h2>
+<input id="Titolare_DatiPersonaObbligatori" name="Titolare_DatiPersonaObbligatori" type="hidden" dynamic_check="true"/>
+<input id="Titolare_Titolo" name="Titolare_Titolo" type="hidden" value="Richiedente"/>
+<input id="Titolare_Ruolo" name="Titolare_Ruolo" type="hidden" value="Richiedente"/>
+{{ anagrafica.persona_fisica("Titolare", "Il sottoscritto", "visibility:visibility", "cursor:pointer", "visibility:visibility", "visibility:visibility", "mail_ordinaria") }}
+<table class="Modulo" style="border: 1px solid grey;margin-top: -1px;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="3">
+        <p class="Labeltabella"> dipendente del Comune di Bergamo </p>
+      </td>
+    </tr>
+     <tr class="Rigaintestazioneridotta">
+       <td style="width: 20%">
+          <p>Num.matricola </p>
+        </td>
+      <td style="width: 50%">
+          <p>Direzione</p>
+        </td>
+      <td style="width: 30%">
+          <p>Servizio</p>
+        </td>
+        </tr>
+    <tr mandatory_enabled="#Titolare_DatiPersonaObbligatori.checked()">
+      <td>
+        <input class="inputNormal" id="Parametri_Num_Matricola" name="Parametri_Num_Matricola" style="width:100%;" label="Numero Matricola"/>
+      </td>
+      <td>
+        <select name="Parametri_Direzioni" id="Parametri_Direzioni" style="width: 100%;" label="Direzioni" >
+                    <option value=""></option>
+                    {% for direzione in direzioni %}
+                    <option value="{{direzione}}">{{direzione}}</option>
+                    {% endfor %}
+         </select>
+       </td>
+      <td>
+        <input class="inputNormal"id="Paramentri_Servizio" name="Servizio" style="width: 100%;" label="Servizio"/>
+      </td>
+      </tr>
+   </tbody>
+</table>
+
+<br>
+<h3 class="Modulo">
+  CHIEDE
+</h3>
+<p class="Modulo">
+  di poter usufruire dei permessi retribuiti dalla Legge 104/92
+</p>
+<div id="Tassonomia_permesso" name="Tassonomia_permesso" label="Permesso retribuito" mandatory="true"></div>
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    {% set chos = [("per se stesso",1), ("per l'assistito",4)] %}
+    {% for c,rpan in chos %}        
+      <tr>
+        <td rowspan="{{rpan}}" style="vertical-align: top; width: 4%;background-color: white">
+          <input id="Tassonomia_permesso{{loop.index}}" name="Tassonomia_permesso" type="radio" value="{{loop.index}}" />
+        </td>
+        <td colspan="6">
+          <p> {{ c }} </p>
+        </td>
+      </tr>
+    {% endfor %}
+    {% set assistito = [("Cognome","Cognome",28), ("Nome","Nome",25), ("Data di nascita","DataNascita",10),("Codice Fiscale", "CodFiscale", 23), ("Grado di parentela","Parentela",23), ("Lavoratore","Lavoratore",4)] %}
+    <tr class="Rigaintestazioneridotta">
+      {% for nam,par,dim in assistito %}
+        <td style="width: {{dim}}%">
+          <p class="Labelcella"> {{ nam }} </p>
+        </td>
+      {% endfor %}
+    </tr>    
+    <tr mandatory_enabled="#Tassonomia_permesso2.checked()" >
+      {% for nam,par,dim in assistito %}
+        <td>
+          {% if loop.last %}
+            <input id="AventeTitolo{{i}}_{{par}}" name="AventeTitolo{{i}}_{{par}}" type="checkbox" value="SI" />
+          {% else %}
+            <input class="inputNormal" id="AventeTitolo{{i}}_{{par}}" name="AventeTitolo{{i}}_{{par}}" style="width: 100%;" label="{{nam}}" />
+          {% endif %}
+        </td>
+      {% endfor %}
+    </tr>
+  </tbody>
+</table>
+
+<br>
+{{ utils.Dichiara_445() }}
+<br>
+<div id="Tassonomia_Ricovero" name="Tassonomia_Ricovero" label="Ricovero" mandatory="true"></div>
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top; width: 4%;"rowspan="3">
+        <input id="Dichiara1" name="Dichiara1" type="checkbox" value="SI" checked="checked" dynamic_check="true"/>
+      </td>
+      <td colspan="7">
+        <p>che l'assistito è residente in</p>
+      </td>
+      </tr>
+       <tr class="Rigaintestazioneridotta">
+          <td style="width:9%;">
+            <p class="Labelcella">Provincia</p>
+          </td>
+          <td style="width:29%;" colspan="2">
+            <p class="Labelcella">Comune</p>
+          </td>
+          <td style="width:33%;" colspan="2">
+            <p class="Labelcella">Indirizzo</p>
+          </td>
+          <td style="width:9%;">
+            <p class="Labelcella">Civico</p>
+          </td>
+          <td style="width:16%;">
+            <p class="Labelcella">CAP</p>
+          </td>
+        </tr>
+        <tr>
+          <td mandatory="true">
+            {{ utils.provincie( 'AventeTitolo_ProvinciaResidenza', label="Provincia di residenza") }}
+          </td>
+          <td colspan="2" mandatory="true">
+            <select class="inputNormal" id="AventeTitolo_ComuneResidenza" name="AventeTitolo_ComuneResidenza" style="width:100%" label="Comune di residenza" dynamic_value="getComuniFromProvincia( #AventeTitolo_ProvinciaResidenza.value(), 'AventeTitolo_ComuneResidenza')"></select>
+          </td>
+          <td colspan="2" mandatory="true">
+            <input class="" id="AventeTitolo_ViaResidenza" name="AventeTitolo_ViaResidenza" style="width:100%;" label="Via di residenza" format="regular_expression" expression="^(.+)\s(.+)$"/>
+          </td>
+          <td mandatory="true">
+            <input class="" id="AventeTitolo_CivicoResidenza" name="AventeTitolo_CivicoResidenza" style="width:100%;" label="Civico di residenza" maxlength="10"/>
+          </td>
+          <td mandatory="true">
+            <input class="" id="AventeTitolo_CAPResidenza" name="AventeTitolo_CAPResidenza" style="width:100%;" format="cap" label="CAP di residenza" />
+          </td>
+        </tr>
+        <tr>
+          <td style="vertical-align: top; width: 4%;" >
+            <input class="" id="Tassonomia_Ricovero1" name="Tassonomia_Ricovero" type="radio" value="1"/>
+          </td>
+          <td colspan="7">
+            che l'assistito non è ricoverato
+          </td>
+        </tr>
+        <tr>
+          <td style="vertical-align: top; width: 4%;" >
+            <input class="" id="Tassonomia_Ricovero2" name="Tassonomia_Ricovero" type="radio" value="2"/>
+          </td>
+          <td colspan="7">
+            che l'assistito è ricoverato a tempo pieno in stato vegetativo persistente e/o fase terminale
+          </td>
+        </tr>
+        <tr>
+          <td style="vertical-align: top; width: 4%;" >
+            <input class="" id="Tassonomia_Ricovero3" name="Tassonomia_Ricovero" type="radio" value="3"/>
+          </td>
+          <td colspan="7" >
+            che l'assistito è ricoverato e necessita di terapie/visite presso struttura esterna
+          </td>
+        </tr>
+       </tbody>
+</table>
+
+<br>
+<h3 class="Modulo">
+  DICHIARA INOLTRE
+</h3>
+<br>
+<div id="Tassonomia_Assistenza" name="Tassonomia_Assistenza" label="Ricovero" mandatory="true"></div>
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr>
+      <td>
+        <input class="" id="Tassonomia_Assistenza1" name="Tassonomia_Assistenza" type="radio" value="1"/>
+    </td>
+    <td>
+      di svolgere con continuità l’assistenza al familiare per le necessità quotidiane
+    </td> 
+    </tr>
+    <tr>
+      <td>
+        <input class="" id="Tassonomia_Assistenza2" name="Tassonomia_Assistenza" type="radio" value="2"/>
+    </td>
+    <td>
+      di svolgere l'assistenza al familiare nei giorni in cui si reca presso la sua residenza
+    </td> 
+    </tr>
+    <tr>
+      <td>
+        <input class="" id="Tassonomia_Nofamiliare" name="Tassonomia_Nofamiliare" type="checkbox" checked="checked"value="si" dynamic_check="true"/>   
+      </td>
+      <td>
+        che nessun altro familiare beneficia dei permessi in base alla legge 104/1992
+      </td>
+      </tr>
+     <tr>
+      <td>
+        <input class="" id="Tassonomia_Comunicazione" name="Tassonomia_Comunicazione" type="checkbox" checked="checked"value="si" dynamic_check="true"/>   
+      </td>
+      <td>
+        di essere a conoscenza che ogni comunicazione relativa alle assenze dovrà essere inoltrata, di volta in volta, al proprio responsabile del servizio, senza la produzione 
+          di ulteriore documentazione e che eventuali variazioni alla situazione odierna dovranno essere prontamente comunicate all'ufficio del personale.
+      </td>
+      </tr>   
+     </tbody>
+</table>
+
+<br>
+<globo_salto_pagina></globo_salto_pagina>
+<table class="Modulo" name="Allegati" style="border: 1px solid grey">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="2">
+        <p style="text-align: center;">
+          <b>
+            Elenco degli allegati
+          </b>
+          <br/>
+          <span style="font-size:70%">
+            <i>(barrare tutti gli allegati richiesti in fase di presentazione della pratica ed elencati sul portale)</i>
+          </span>
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="DAE-CDI" name="DAE-CDI" type="checkbox" value="OBBLIGATORIO" />
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          copia del documento d'identità
+          <br/>
+          <span style="font-size:70%">
+            <i>(da allegare se il modulo è sottoscritto con firma autografa)</i>
+          </span>
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="VER_104" name="VER_104" type="checkbox" checked="checked" dynamic_check="true" value="OBBLIGATORIO" />
+      </td>
+      <td style="background-color: #eeeeee;">
+        
+         Copia del verbale ATS
+          
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="ALTRI-ALLEGATI" name="ALTRI-ALLEGATI" type="checkbox" value="OBBLIGATORIO"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          altri allegati
+          <span style="font-size:70%">(specificare)</span>
+          <input class="" label="Altri allegati" id="AltriAllegati" mandatory_enabled="#ALTRI_ALLEGATI.checked()" name="AltriAllegati" style="width:79%;"/>
+        </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+{{ utils.trattamento_dati_personali() }}
+<br/>
+  {{ utils.firma_hidden() }}
+<br/>
+
+<p class="Modulo">
+  <input id="SalvaModulo" name="SalvaModulo" style="height:30px;width:120px;" title="Verifica la corretta compilazione dei campi e salva il modulo nel faldone virtuale dell'istanza." type="submit" value="Salva modulo"/>
+</p>
+
+<input destinatario_amministrazione="getParameter('Ente')" id="GLOBO_modulo_c{{ CodiceModulo }}" name="GLOBO_modulo_c{{ CodiceModulo }}" type="hidden" value=""/>
+<input firmare="'P7M_ELETTRONICA'" id="GLOBO_modulofiglio_cINCARICO_PROCURA" name="GLOBO_modulofiglio_cINCARICO_PROCURA" type="hidden" value=""/>
+<input id="GLOBO_sub_urn" name="GLOBO_sub_urn" type="hidden" dynamic_value="
+#Parametri_Direzioni.value()  == '{{direzioni[0]}}' ? 'avvocatura' :
+(#Parametri_Direzioni.value() == '{{direzioni[1]}}' ? 'affari' :
+(#Parametri_Direzioni.value() == '{{direzioni[2]}}' ? 'bilancio' :
+(#Parametri_Direzioni.value() == '{{direzioni[3]}}' ? 'commercio' :
+(#Parametri_Direzioni.value() == '{{direzioni[4]}}' ? 'edilizia' :
+(#Parametri_Direzioni.value() == '{{direzioni[5]}}' ? 'gare' :
+(#Parametri_Direzioni.value() == '{{direzioni[6]}}' ? 'generale' :
+(#Parametri_Direzioni.value() == '{{direzioni[7]}}' ? 'infrastrutture' :
+(#Parametri_Direzioni.value() == '{{direzioni[8]}}' ? 'patrimonio' :
+(#Parametri_Direzioni.value() == '{{direzioni[9]}}' ? 'pianificazione' :
+(#Parametri_Direzioni.value() == '{{direzioni[10]}}' ? 'risorse' :
+(#Parametri_Direzioni.value() == '{{direzioni[11]}}' ? 'polifunzionali' :
+(#Parametri_Direzioni.value() == '{{direzioni[12]}}' ? 'sicurezza' :
+(#Parametri_Direzioni.value() == '{{direzioni[13]}}' ? 'urbanistica' :
+(#Parametri_Direzioni.value() == '{{direzioni[14]}}' ? 'verde' :
+(#Parametri_Direzioni.value() == '{{direzioni[15]}}' ? 'polizia' :
+(#Parametri_Direzioni.value() == '{{direzioni[16]}}' ? 'segreteria' : ''))))))))))))))))" />
+
+<input id="GLOBO_allegato_cDAE-CDI" name="GLOBO_allegato_cDAE-CDI" obbligatorio="#DAE_CDI.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+<input id="GLOBO_allegato_cALTRI-ALLEGATI" name="GLOBO_allegato_cALTRI-ALLEGATI" obbligatorio="#ALTRI_ALLEGATI.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+<input id="GLOBO_allegato_cVER_104" name="GLOBO_allegato_cVER_104" obbligatorio="#VER_104.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_id_padre" name="GLOBO_id_padre" type="hidden"/>
+<input id="GLOBO_recupera_dati" name="GLOBO_recupera_dati" type="hidden"/>
+<input id="GLOBO_codice_modulo" name="GLOBO_codice_modulo" type="hidden" value="{{ CodiceModulo }}"/>
+
+{% endblock content %}

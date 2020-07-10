@@ -1,0 +1,493 @@
+{% set CodiceModulo = "DOM_AMMISSIONE_CENERIRESTI" %}
+{% set Urn = "document:c_a794:tumulazione.ceneri.resti.mortali;domanda" %}{% extends "base.html" %}
+{% block meta %}
+
+<meta campi_firma="Titolare_CodiceFiscale"
+campi_firma_label="il dichiarante"
+classi_modulo="Servizi cimiteriali"
+codice_modulo="{{ CodiceModulo }}"
+urn="{% block urn %}{{ Urn }}{% endblock urn %}"
+sub_urn_list=""
+uo_globo_list=""
+descrizione="Domanda di tumulazione di cadaveri, ceneri o resti mortali in posto già in concessione"
+destinatario_amministrazione=""
+destinatario_ufficio="UOSERVIZICIMITERIALI"
+dinamico="SI"
+email_a=""
+ente_abilitato="TUTTI"
+filigrana="NO"
+firmare="P7M_ELETTRONICA"
+istruzioni_compilazione=""
+istruzioni_invio="mail_pec"
+metodo_invio="mail"
+name="GLOBO_modulo"
+procura="NO,,"
+tipo_modulo="principale"
+urlhelp="/modulistica/moduli/{{ CodiceModulo }}"
+verifica_pagamento="NO"
+versione="1.0|13/03/2019"/>
+
+<meta codice_modulo_figlio="INCARICO_PROCURA"
+urn_modulo_figlio="document:s_italia:generale;incarico.procura"
+name="GLOBO_modulofiglio"
+numero="1"
+obbligatorio="DINAMICO"/>
+
+<meta codice_modulo_figlio="MARCA_BOLLO"
+urn_modulo_figlio="document:s_italia:pagamento.imposta.bollo;apposizione.domanda;dichiarazione.sostitutiva"
+name="GLOBO_modulofiglio"
+numero="1"
+obbligatorio="DINAMICO"/>
+
+<meta codice_allegato="DAE-CDI"
+urn_allegato="document:s_italia:generale;documento.identita;documentazione"
+descrizione_estesa="Documento di identità"
+filename="Documento identita.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/DAE-CDI"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="ALTRI-ALLEGATI"
+urn_allegato="document:s_italia:altri.allegati"
+descrizione_estesa="Altri allegati"
+filename="Altri allegati.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/ALTRI-ALLEGATI"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+{% endblock meta %}
+
+{% block title %}
+  Domanda di tumulazione di cadaveri, ceneri o resti mortali in posto già in concessione
+{% endblock title %}
+
+{% block content %}
+
+<globo_fondo_pagina areaheight="150" scope="2">
+{{ utils.firma() }}
+</globo_fondo_pagina>
+
+<input dynamic_value="#Ente.value()" id="Parametri_Comune" name="Parametri_Comune" type="hidden"/>
+
+<input dynamic_value="#Titolare_Cognome.value().toUpperCase() + ' ' + #Titolare_Nome.value().toUpperCase() + ' - tumulazione di ceneri o resti mortali'" id="Oggetto" name="Oggetto" type="hidden"/>
+
+<div id="Tassonomia_aut_cim_dom" name="Tassonomia_aut_cim_dom" label="Label"></div>
+<input id="Tassonomia_aut_cim_dom6" name="Tassonomia_aut_cim_dom" type="radio" value="6" dynamic_check="true" style="display: none;"/>
+
+{{ intestazioni.intestazione_moduloprincipale_conbollo() }}
+
+<h1 class="Modulo">
+  Domanda di tumulazione di cadaveri, ceneri o resti mortali in posto già in concessione
+</h1>
+
+<h2 class="Modulo">
+  Ai sensi del Decreto del Presidente della Repubblica 10/09/1990, n. 285
+</h2>
+
+<input dynamic_check="true" id="Titolare_DatiPersonaObbligatori" name="Titolare_DatiPersonaObbligatori" type="hidden"/>
+<input id="Titolare_Titolo" name="Titolare_Titolo" type="hidden" value="Concessionario sepoltura"/>
+<input id="Titolare_Ruolo" name="Titolare_Ruolo" type="hidden" value="Concessionario sepoltura"/>
+{{ anagrafica.persona_fisica("Titolare", "Il sottoscritto", "visibility:visibility", "cursor:pointer", "visibility:visibility", "visibility:visibility", "mail_ordinaria") }}
+
+<table class="Modulo" style="border:1px solid grey; margin-top: -1px;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td>
+        <p class="Labeltabella">
+          in qualità di
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">Ruolo (*)</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <select class="inputNormal" id="Titolare_Note" name="Titolare_Note" style="width: 100%;" label="Ruolo" mandatory="true">
+          <option value=""></option>
+          <option value="coniuge del defunto">coniuge del defunto</option>
+          <option value="convivente del defunto">convivente del defunto</option>
+          <option value="esecutore testamentario del defunto">esecutore testamentario del defunto</option>
+          <option value="figlio del defunto">figlio del defunto</option>
+          <option value="genitore del defunto">genitore del defunto</option>
+          <option value="titolare della concessione cimiteriale">titolare della concessione cimiteriale</option>
+        </select>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<p class="Modulo" style="font-size:80%">
+  <i>Ruolo (*)</i>:<br/>
+  coniuge del defunto, convivente del defunto, esecutore testamentario del defunto, figlio del defunto, genitore del defunto, titolare della concessione cimiteriale
+</p>
+
+<h3 class="Modulo">
+  CHIEDE
+</h3>
+
+<p class="Modulo">la tumulazione di</p>
+
+<div id="Tassonomia_FormaDefunto" name="Tassonomia_FormaDefunto" label="Forma del defunto" mandatory="true"></div>
+<table class="Modulo" style="border:1px solid grey;">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="Tassonomia_FormaDefunto1" name="Tassonomia_FormaDefunto" type="radio" value="1"/>
+      </td>
+      <td colspan="3">
+        <p>
+          cadaveri
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="Tassonomia_FormaDefunto2" name="Tassonomia_FormaDefunto" type="radio" value="2"/>
+      </td>
+      <td colspan="3">
+        <p>
+          ceneri
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td rowspan="4" style="vertical-align: top; width: 4%; background-color: white;">
+        <input id="Tassonomia_FormaDefunto3" name="Tassonomia_FormaDefunto" type="radio" value="3"/>
+      </td>
+      <td colspan="3">
+        <p>
+          resti mortali o resti ossei
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td colspan="3">
+        <p class="Labelcella">
+          Titolo autorizzativo alla esumazione/estumulazione
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td style="width:23%">
+        <p class="Labelcella">
+          Numero
+        </p>
+      </td>
+      <td style="width:23%">
+        <p class="Labelcella">
+          Data
+        </p>
+      </td>
+      <td>
+        <p class="Labelcella">
+          Ente
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input class="inputNormal" id="Parametri_Titolo_auto_esumestum" name="Parametri_Titolo_auto_esumestum" style="width: 100%;" label="Numero autorizzazione alla alla esumazione/estumulazione" mandatory_enabled="#Tassonomia_FormaDefunto3.checked()">
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_Titolo_auto_esumestum_Data" name="Parametri_Titolo_auto_esumestum_Data" style="width: 100%;" label="Data autorizzazione alla alla esumazione/estumulazione" format="date" mandatory_enabled="#Tassonomia_FormaDefunto3.checked()">
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_Titolo_auto_esumestum_Note" name="Parametri_Titolo_auto_esumestum_Note" style="width: 100%;" label="Ente di riferimento autorizzazione alla alla esumazione/estumulazione" mandatory_enabled="#Tassonomia_FormaDefunto3.checked()">
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<input id="AventeTitolo1_DatiObbligatori" name="AventeTitolo1_DatiObbligatori" type="checkbox" dynamic_check="true" style="display: none;">
+{{ utilscimiteriali.defunto( "AventeTitolo1", "del defunto", "Defunto" ) }}
+
+<table class="Modulo" style="border:1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="4">
+        <p class="Labeltabella">
+          presso il cimitero
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td colspan="4">
+        <p class="Labelcella">
+          Denominazione del cimitero
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="4">
+        <input class="inputNormal" id="Parametri_Cimitero_di_sepoltura" name="Parametri_Cimitero_di_sepoltura" style="width: 100%;" label="Denominazione del cimitero" mandatory="true">
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td colspan="3" style="width: 50%;">
+        <p class="Labelcella">
+          Luogo di sepoltura
+        </p>
+      </td>
+      <td style="width: 50%;">
+        <p class="Labelcella">
+          Posizione di sepoltura
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="Tassonomia_luogo_sepoltura2" name="Tassonomia_luogo_sepoltura" type="radio" value="2"/>
+      </td>
+      <td colspan="2">
+        <p>
+          loculo/colombario
+        </p>
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_Codice_sepoltura2" name="Parametri_Codice_sepoltura2" style="width: 100%;" label="Posizione di sepoltura" mandatory_enabled="#Tassonomia_luogo_sepoltura2.checked()">
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="Tassonomia_luogo_sepoltura3" name="Tassonomia_luogo_sepoltura" type="radio" value="3"/>
+      </td>
+      <td colspan="2">
+        <p>
+          tomba
+        </p>
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_Codice_sepoltura3" name="Parametri_Codice_sepoltura3" style="width: 100%;" label="Posizione di sepoltura" mandatory_enabled="#Tassonomia_luogo_sepoltura3.checked()">
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="Tassonomia_luogo_sepoltura4" name="Tassonomia_luogo_sepoltura" type="radio" value="4"/>
+      </td>
+      <td colspan="2">
+        <p>
+          cappella di famiglia
+        </p>
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_Codice_sepoltura4" name="Parametri_Codice_sepoltura4" style="width: 100%;" label="Posizione di sepoltura" mandatory_enabled="#Tassonomia_luogo_sepoltura4.checked()">
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="Tassonomia_luogo_sepoltura6" name="Tassonomia_luogo_sepoltura" type="radio" value="6"/>
+      </td>
+      <td colspan="2">
+        <p>
+          celletta ossario
+        </p>
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_Codice_sepoltura6" name="Parametri_Codice_sepoltura6" style="width: 100%;" label="Posizione di sepoltura" mandatory_enabled="#Tassonomia_luogo_sepoltura6.checked()">
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="Tassonomia_luogo_sepoltura7" name="Tassonomia_luogo_sepoltura" type="radio" value="7"/>
+      </td>
+      <td colspan="2">
+        <p>
+          nicchia cineraria
+        </p>
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_Codice_sepoltura7" name="Parametri_Codice_sepoltura7" style="width: 100%;" label="Posizione di sepoltura" mandatory_enabled="#Tassonomia_luogo_sepoltura7.checked()">
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="Tassonomia_luogo_sepoltura8" name="Tassonomia_luogo_sepoltura" type="radio" value="8"/>
+      </td>
+      <td style="border-right: 0; width: 13%;">
+        <p>
+          altro
+          <span style="font-size: 70%;">(specificare)</span>
+        </p>
+      </td>
+      <td style="border-left: 0; width: 33%;">
+        <input class="inputNormal" id="Tassonomia_luogo_sepoltura8_Note" name="Tassonomia_luogo_sepoltura8_Note" style="width: 95%;" label="Altro luogo di speoltura" mandatory_enabled="#Tassonomia_luogo_sepoltura8.checked()">
+      </td>
+      <td style="width: 50%;">
+        <input class="inputNormal" id="Parametri_Codice_sepoltura8" name="Parametri_Codice_sepoltura8" style="width: 100%;" label="Posizione di sepoltura" mandatory_enabled="#Tassonomia_luogo_sepoltura8.checked()">
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<table class="Modulo" style="border:1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="3">
+        <p class="Labeltabella">
+          in posto già in concessione
+        </p>
+      </td>
+    </tr>
+        <tr class="Rigaintestazioneridotta">
+          <td style="width: 25%;">
+            <p class="Labelcella">
+              Numero
+            </p>
+          </td>
+          <td style="width: 25%;">
+            <p class="Labelcella">
+              Data
+            </p>
+          </td>
+          <td>
+            <p class="Labelcella">
+              Ente di riferimento
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <input class="inputNormal" id="Parametri_Concessione_cimiteriale" name="Parametri_Concessione_cimiteriale" style="width: 100%;" label="Numero concessione cimiteriale" mandatory="true">
+          </td>
+          <td>
+            <input class="inputNormal" id="Parametri_Concessione_cimiteriale_Data" name="Parametri_Concessione_cimiteriale_Data" style="width: 100%;" label="Data concessione cimiteriale" format="date" mandatory="true">
+          </td>
+          <td>
+            <input class="inputNormal" id="Parametri_Concessione_cimiteriale_Note" name="Parametri_Concessione_cimiteriale_Note" style="width: 100%;" label="Ente di riferimento concessione cimiteriale" mandatory="true">
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+{{ utils.Dichiara_445() }}
+
+<table class="Modulo" style="border:0px">
+  <tbody>
+    <tr style="border:0px">
+      <td style="vertical-align: top; width: 4%; border:0px">
+        <input id="Parametri_Dichiara3" name="Parametri_Dichiara3" type="checkbox" value="SI" checked="checked" dynamic_check="true"/>
+      </td>
+      <td style="border:0px">
+        <p>
+          di essere a conoscenza e di accettare che resterà invariata la scadenza della concessione
+        </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<br/>
+
+<table class="Modulo" style="border:1px solid grey">
+ <tbody>
+  <tr class="Rigaintestazioneridotta">
+   <td colspan="2">
+    <p class="Labelcella">
+     Eventuali annotazioni
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td colspan="2">
+    <textarea class="inputNormal" id="Parametri_Annotazioni" name="Parametri_Annotazioni" style="width:100%;height:5cm;">
+    </textarea>
+   </td>
+  </tr>
+ </tbody>
+</table>
+
+<br/>
+
+<table class="Modulo" name="Allegati" style="border: 1px solid grey">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="2">
+        <p style="text-align: center;">
+          <b>Elenco degli allegati</b>
+          <br/>
+          <span style="font-size:70%">
+            <i>(barrare tutti gli allegati richiesti in fase di presentazione della pratica ed elencati sul portale)</i>
+          </span>
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input id="MARCA_BOLLO" name="MARCA_BOLLO" type="checkbox" value="OBBLIGATORIO" checked="checked" dynamic_check="true"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          pagamento dell'imposta di bollo
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="DAE-CDI" name="DAE-CDI" type="checkbox" value="OBBLIGATORIO" />
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          copia del documento d'identità
+          <br/>
+          <span style="font-size:70%">
+            <i>
+              (da allegare se il modulo è sottoscritto con firma autografa)
+            </i>
+          </span>
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="ALTRI-ALLEGATI" name="ALTRI-ALLEGATI" type="checkbox" value="OBBLIGATORIO"/>
+      </td>
+        <td style="background-color: #eeeeee;">
+          <p>
+            altri allegati
+            <span style="font-size:70%">
+              (specificare)
+            </span>
+            <input class="" label="Altri allegati" id="AltriAllegati" mandatory_enabled="#ALTRI_ALLEGATI.checked()" name="AltriAllegati" style="width:79%;"/>
+          </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<br/>
+
+{{ utils.trattamento_dati_personali() }}
+
+<br/>
+  {{ utils.firma_hidden() }}
+<br/>
+
+<p class="Modulo">
+  <input id="SalvaModulo" name="SalvaModulo" style="height:30px;width:120px;" title="Verifica la corretta compilazione dei campi e salva il modulo nel faldone virtuale dell'istanza." type="submit" value="Salva modulo"/>
+</p>
+
+<input class="inputNormal" id="Parametri_Codice_inumtumul" name="Parametri_Codice_inumtumul" label="Posizione di sepoltura" dynamic_value="#Parametri_Codice_sepoltura2.value() + #Parametri_Codice_sepoltura3.value() + #Parametri_Codice_sepoltura4.value() + #Parametri_Codice_sepoltura5.value() + #Parametri_Codice_sepoltura6.value() + #Parametri_Codice_sepoltura7.value() + #Parametri_Codice_sepoltura8.value() + #Parametri_Codice_sepoltura9.value()" style="width: 100%; display: none;">
+
+<input destinatario_amministrazione="getParameter('Ente')" id="GLOBO_modulo_c{{ CodiceModulo }}" name="GLOBO_modulo_c{{ CodiceModulo }}" type="hidden" value=""/>
+<input firmare="'P7M_ELETTRONICA'" id="GLOBO_modulofiglio_cINCARICO_PROCURA" name="GLOBO_modulofiglio_cINCARICO_PROCURA" type="hidden" value=""/>
+
+<input id="GLOBO_modulofiglio_cMARCA_BOLLO" name="GLOBO_modulofiglio_cMARCA_BOLLO" obbligatorio="#MARCA_BOLLO.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_allegato_cDAE-CDI" name="GLOBO_allegato_cDAE-CDI" obbligatorio="#DAE_CDI.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+<input id="GLOBO_allegato_cALTRI-ALLEGATI" name="GLOBO_allegato_cALTRI-ALLEGATI" obbligatorio="#ALTRI_ALLEGATI.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value="" />
+
+<input id="GLOBO_id_padre" name="GLOBO_id_padre" type="hidden"/>
+<input id="GLOBO_recupera_dati" name="GLOBO_recupera_dati" type="hidden"/>
+<input id="GLOBO_codice_modulo" name="GLOBO_codice_modulo" type="hidden" value="{{ CodiceModulo }}"/>
+
+{% endblock content %}

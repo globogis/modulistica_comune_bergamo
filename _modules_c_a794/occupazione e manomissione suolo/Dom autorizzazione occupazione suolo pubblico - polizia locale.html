@@ -1,0 +1,697 @@
+{% set CodiceModulo =  "PL_VIAB_CANTIERE" %}{% extends "base.html" %}
+{% set Urn = "document:c_a794:occupare.suolo.pubblico.meno.dodici.ore;domanda" %}
+{% block meta %}<meta campi_firma="Titolare_CodiceFiscale"
+campi_firma_label="il dichiarante"
+classi_modulo="Commercio"
+codice_modulo="{{ CodiceModulo }}"
+urn="{% block urn %}{{ Urn }}{% endblock urn %}"
+sub_urn_list=""
+uo_globo_list=""
+descrizione="Domanda di occupazione temporanea suolo pubblico - inferiore 12 ore"
+destinatario_amministrazione=""
+destinatario_ufficio="UOPROTOCOLLO"
+dinamico="SI"
+email_a=""
+ente_abilitato="TUTTI"
+filigrana="NO"
+firmare="P7M_ELETTRONICA"
+istruzioni_compilazione=""
+istruzioni_invio=""
+metodo_invio=""
+name="GLOBO_modulo"
+procura="NO,,"
+tipo_modulo="principale"
+ufficio=""
+urlhelp="DomandeRisposte/FAQ"
+verifica_pagamento="NO"
+versione="1.2|19/04/2019"/>
+
+<meta codice_modulo_figlio="Incarico_procura"
+urn_modulo_figlio="document:s_italia:generale;incarico.procura"
+name="GLOBO_modulofiglio"
+numero="1"
+obbligatorio="DINAMICO"/>
+
+<meta codice_modulo_figlio="MARCA_BOLLO"
+urn_modulo_figlio="document:s_italia:pagamento.imposta.bollo;apposizione.domanda;dichiarazione.sostitutiva"
+name="GLOBO_modulofiglio"
+numero="1"
+obbligatorio="DINAMICO"/>
+
+<!--
+<meta codice_modulo_figlio="AUT_DEROGA"
+urn_modulo_figlio="document:s_italia:acustica;deroga;attivita.produttive;domanda;secondario"
+name="GLOBO_modulofiglio"
+numero="1"
+obbligatorio="DINAMICO"/>
+
+
+<meta codice_modulo_figlio="ult_strutture"
+name="GLOBO_modulofiglio"
+numero="1"
+obbligatorio="DINAMICO"/>
+-->
+
+<meta codice_modulo_figlio="ult_occupazione_meno12"
+urn_modulo_figlio="document:c_a794:occupare.suolo.pubblico;ulteriori.occupazioni.oggetto.procedimento"
+name="GLOBO_modulofiglio"
+numero="1"
+obbligatorio="DINAMICO"/>
+
+<meta codice_allegato="schemi_cds"
+urn_allegato="document:c_a794:occupazione.suolo.pubblico;schemi.codice.strada"
+descrizione_estesa="Schemi codice della strada"
+filename="Schemi codice.pdf"
+firmato="SI"
+istruzioni="/modulistica/moduli/schemi_cds"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="OCC-PLA"
+urn_allegato="document:s_italia:occupazione.suolo.pubblico;planimetria.area;planimetria"
+descrizione_estesa="Planimetria occupazione"
+filename="Planimetria occupazione.pdf"
+firmato="SI"
+istruzioni="/modulistica/moduli/OCC-PLA"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="Ncarte_Allegate"
+urn_allegato="document:c_a794:occupazione.suolo.pubblico;carta.circolazione.automezzo"
+descrizione_estesa="carta di circolazione automezzo"
+filename="carta di circolazione.pdf"
+firmato="SI"
+istruzioni="/modulistica/moduli/Ncarte_Allegate"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<!--
+<meta codice_allegato="OCC-ASS-ATT"
+urn_allegato="document:s_italia:associazionismo;atto.costitutivo.statuto.registrati;atto"
+descrizione_estesa="Copia dell'atto costitutivo o statuto"
+filename="Copia atto costitutivo.pdf"
+firmato="SI"
+istruzioni="/modulistica/moduli/OCC-ASS-ATT"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+-->
+
+<meta codice_allegato="RIC-DIR-SEG"
+urn_allegato="document:s_italia:diritti.segreteria.istruttoria;ricevuta"
+descrizione_estesa="Ricevuta diritti segreteria/istruttoria"
+filename="Ricev. diritti segreteria.pdf"
+firmato="SI"
+istruzioni="/modulistica/moduli/RIC-DIR-SEG"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="ALTRI-ALLEGATI"
+urn_allegato="document:s_italia:altri.allegati"
+descrizione_estesa="Altri allegati"
+filename="Altri allegati.pdf"
+firmato="SI"
+istruzioni="/modulistica/moduli/ALTRI-ALLEGATI"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<!--
+<meta codice_allegato="DAE-CDI"
+urn_allegato="document:s_italia:generale;documento.identita;documentazione"
+descrizione_estesa="Documento di identità"
+filename="Documento identita.pdf"
+firmato="SI"
+istruzioni="/modulistica/moduli/DAE-CDI"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+-->
+
+{% endblock meta %}
+{% block title %}
+   Domanda di occupazione temporanea suolo pubblico - inferiore 12 ore
+  {% endblock title %}
+{% block content %}
+ <globo_fondo_pagina areaheight="150" scope="4">
+ {{ utils.firma() }}
+</globo_fondo_pagina>
+
+<input id="Tassonomia_Occ2" name="Tassonomia_Occ" type="hidden" value="2"/>
+
+<input dynamic_value="'[{{ CodiceModulo }}]: ' + #Titolare_Cognome.value().toUpperCase() + ' - domanda occupazione suolo pubblico inf. 12 ore'" id="Oggetto" name="Oggetto" type="hidden"/>
+
+<input dynamic_value="#Ente.value()" id="Parametri_Comune" name="Parametri_Comune" type="hidden"/>
+
+ {{ intestazioni.intestazione_moduloprincipale_conbollo() }}
+ <h1 class="Modulo">
+Domanda di occupazione temporanea suolo pubblico
+</h1>
+<h2 class="Modulo">
+inferiore alle 12 ore
+</h2>
+
+
+{{anagrafica.societa("Titolare", "Il sottoscritto", ["Persona fisica","Titolare", "Legale rappresentante"], "Richiedente", "visibility:visibility", "cursor:pointer", "mail_ordinaria", "false")}}
+
+
+<globo_salto_pagina>
+</globo_salto_pagina>
+
+<h3 class="Modulo">
+ CHIEDE L'AUTORIZZAZIONE PER OCCUPAZIONE DI SUOLO PUBBLICO
+</h3>
+
+<table class="Modulo" style="border:1px solid grey; margin-top:-1px">
+ <tbody>
+   <tr class="Rigaintestazione">
+    <td colspan="4">
+    <p class="">
+      <b>
+     per l'esecuzione di:
+      </b>
+    </p>
+   </td>
+  </tr>	
+  <tr class="Rigaintestazioneridotta">
+   <td style="width:40%;">
+    <p class="Labelcella">
+     Finalità
+    </p>
+   </td>
+   <td>
+    <p class="Labelcella">
+     Giorno
+    </p>
+   </td>
+   <td>
+    <p class="Labelcella">
+     dalle ore
+    </p>
+   </td>
+   <td>
+    <p class="Labelcella">
+     alle ore
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td>
+   <p>
+     <select class="" id="Parametri_TipoOccupazione2" label="Carattere occupazione" mandatory="true" name="Parametri_TipoOccupazione2" style="width:100%;">
+      <option value="">
+      </option>
+      <option value="traslocco">
+       traslocco
+      </option>
+      <option value="opere edili">
+       opere edili
+	   </option>
+    <option value="potatura">
+       potatura alberi
+      </option>
+    <option value="carico/scarico">
+       carico/scarico
+      </option>
+	  <option value="altro">
+       Altro
+      </option>
+     </select>
+    </p>
+   </td>
+   <td>
+    <input class="" id="Parametri_TempoOccupazione_dal" label="Periodo" mandatory_enabled="true" name="Parametri_TempoOccupazione_dal" format="date" style="width:100%;" />
+   </td>
+    <td>
+    <input class="" id="Parametri_TempoOccupazione_dalleore" label="dalle ore" mandatory_enabled="true" name="Parametri_TempoOccupazione_dalleore" style="width:100%;" />
+   </td>
+    <td>
+    <input class="" id="Parametri_TempoOccupazione_alleore" label="alle ore" mandatory_enabled="true" name="Parametri_TempoOccupazione_alleore"  style="width:100%;"/>
+   </td>
+  </tr>
+ </tbody>
+</table>
+
+<table class="Modulo" style="border:1px solid grey">
+ <tbody>
+  <tr class="Rigaintestazione">
+    <td colspan="5">
+    <p class="">
+      <b>
+     superficie totale 
+      </b>
+    </p>
+   </td>
+  </tr>
+  <tr mandatory_enabled="true">
+   <td colspan="5">
+    <input class="" id="Parametri_Superficie_cosap" label="Superficie totale ai fini COSAP" name="Parametri_Superficie_cosap"/>  m²
+   </td>
+   </tr>
+ </tbody>
+</table>
+
+
+<input checked="checked" dynamic_check="true" style="display:none" id="Immobile_DatiCatastaliObbligatori" name="Immobile_DatiCatastaliObbligatori" type="checkbox" value="si"/>
+{{ immobili.immobile_toponomastica( "Immobile", "collocata in", "Collocazione occupazione", "display:visibility", "visibility:hidden", "cursor:default", "true" ) }}
+
+ <table class="Modulo" style="border:1px solid grey; margin-top:-1px">
+ <tbody>
+  <tr class="Rigaintestazioneridotta">
+   <td colspan="2">
+    <p class="Labelcella">
+     Descrizione occupazione
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td style="width:4%">
+    <div id="desoccupazione" label="Titolo sottoscrivente" mandatory="true">
+    </div>
+    <input id="desoccupazione_unica" name="desoccupazione" type="radio" value="unica occupazione"/>
+   </td>
+   <td>
+    <p>
+     unica occupazione
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td>
+    <input id="desoccupazione_ulteriore" name="desoccupazione" type="radio" value="ulteriori occupazioni"/>
+   </td>
+   <td>
+    <p>
+     ulteriori occupazioni (entro le 12 ore)
+    </p>
+   </td>
+  </tr>
+ </tbody>
+</table>
+
+
+ <br/>
+ <table class="Modulo" style="border:1px solid grey">
+  <tbody>
+  	<tr class="Rigaintestazione">
+   <td colspan="2">
+    <p class="">
+      <b>
+     Nelle modalità specificate negli elaborati grafici allegati e nel seguente schema
+      </b>
+    </p>
+   </td>
+  	</tr>
+  	<tr class="Rigaintestazioneridotta">
+   <td colspan="2">
+    <p  class="Labelcella">
+      <b>
+     Indicare il caso al quale è riconducibile l’occupazione; qualora la tipologia dell’occupazione non sia riconducibile ad alcuno degli schemi riportati, ovvero vi siano ulteriori specificazioni, si utilizzi lo spazio per descrivere compiutamente le caratteristiche dell’occupazione
+      </b>
+    </p>
+   </td>
+  	</tr>  		
+     <tr>
+    <td style="width:4%; vertical-align:top">
+     <div id="Tassonomia_Casistiche" label="Casistiche" mandatory="true">
+     </div>
+      <input id="Tassonomia_Casistiche1" name="Tassonomia_Casistiche" type="radio" value="1"/>
+    </td>
+    <td colspan="4">
+     
+      caso 1<br><span style="font-size:70%">
+   L’occupazione investe solo parzialmente il marciapiede; rimane spazio libero sufficiente per il transito dei pedoni (almeno 1,5 m.).
+     </span>
+   <p style="text-align: center">
+    <img  alt="Caso 1" src="./appoggio/img/caso1_BG.jpg"/></p>
+	
+    </td>
+   </tr>
+   <tr>
+    <td style="vertical-align:top">
+      <input id="Tassonomia_Casistiche2" name="Tassonomia_Casistiche" type="radio" value="2"/>
+    </td>
+    <td colspan="4">
+
+     caso 2<br><span style="font-size:70%">
+   L’occupazione riguarda tutto il marciapiede: è necessario deviare il transito dei pedoni sulla carreggiata con passaggio a margine della occupazione. 
+     </span>
+	    <p style="text-align: center">
+    <img  alt="Caso 2" src="./appoggio/img/caso2_BG.jpg"/></p>
+
+    </td>
+   </tr>
+   <tr>
+    <td style="vertical-align:top">
+      <input id="Tassonomia_Casistiche3" name="Tassonomia_Casistiche" type="radio" value="3"/>
+    </td>
+    <td colspan="4">
+   
+      caso 3<br><span style="font-size:70%">
+   L’occupazione investe solo la carreggiata; il marciapiedi è libero al transito e su di esso non transitano carichi sospesi: non è necessario deviare il transito dei pedoni. 
+     </span>
+	    <p style="text-align: center">
+    <img  alt="Caso 3" src="./appoggio/img/caso3_BG.jpg"/></p>
+	
+    </td>
+   </tr>
+   <tr>
+    <td style="vertical-align:top">
+      <input id="Tassonomia_Casistiche4" name="Tassonomia_Casistiche" type="radio" value="4"/>
+    </td>
+    <td colspan="4">
+
+      caso 4<br><span style="font-size:70%">
+    L’occupazione investe la carreggiata e/o parte del transito dei pedoni vi sono carichi sospesi: è necessario deviare il transito dei pedoni su passaggio a margine o coperto. 
+  </span>
+     <p style="text-align: center">
+    <img  alt="Caso 4" src="./appoggio/img/caso4_BG.jpg"/></p>
+
+    </td>
+   </tr>
+
+    <tr>
+	    <td style="vertical-align:top">
+      <input id="Tassonomia_Casistiche5" name="Tassonomia_Casistiche" type="radio" value="5"/>
+    </td>
+   <td colspan="2">
+    <p>
+     Altro (Specificare)
+   </p>
+   </td>
+  </tr>
+  </tbody>
+</table> 
+
+<table class="Modulo" style="border: 1px solid grey; margin-top:-1px">
+ <tbody>
+  <tr class="Rigaintestazioneridotta">
+   <td>
+    <p class="Labelcella">
+      descrizione degli aspetti tecnici del'occupazione:
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td>
+    <textarea class="inputnormal" id="Parametri_Casistiche5" label="descrizione occupazione" mandatory_enabled="#Tassonomia_Casistiche5.checked()" name="Parametri_Casistiche5" style="width:100%; height:5cm;">
+    </textarea>
+   </td>
+  </tr>
+ </tbody>
+</table>
+<br/> 
+
+<h3 class="Modulo">
+CHIEDE L'EMISSIONE DI ORDINANZA DI DISCIPLINA DELLA CIRCOLAZIONE PER
+</h3>
+
+<table class="Modulo" style="border: 1px solid grey">
+ <tbody>
+  <tr class="Rigaintestazione">
+    <td colspan="2">
+     <strong>ottenere le seguenti tipologie di limitazioni:</strong>
+    </td>
+</tr>
+  <tr>
+   <td style="width:4%">
+    <div id="Tassonomia_TipoOrdinanza" label="Tipo ordinanza" mandatory="true">
+    </div>
+    <input class="" id="Tassonomia_TipoOrdinanza1" name="Tassonomia_TipoOrdinanza1" type="checkbox" value="1"/>
+   </td>
+   <td colspan="2">
+    <p>
+     divieto di sosta con rimozione forzata in stalli di sosta regolamentata
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td>
+    <input class="" id="Tassonomia_TipoOrdinanza2" name="Tassonomia_TipoOrdinanza2" type="checkbox" value="2"/>
+   </td>
+   <td colspan="2">
+    <p>
+     istituzione di senso unico alternato ( carreggiata libera con ampiezza min. inferiore a mt 5,60 )
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td>
+    <input class="" id="Tassonomia_TipoOrdinanza3" name="Tassonomia_TipoOrdinanza3" type="checkbox" value="3"/>
+   </td>
+   <td colspan="2">
+    <p>
+     restringimento di carreggiata
+    </p>
+   </td>
+  </tr>
+  <tr>
+  <td>
+ <input class="" id="Tassonomia_TipoOrdinanza4" name="Tassonomia_TipoOrdinanza4" type="checkbox" value="4"/>
+   </td>
+   <td colspan="2">
+    <p>
+     divieto di transito veicolare e/o pedonale
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td>
+       <input id="Tassonomia_TipoOrdinanza5" name="Tassonomia_TipoOrdinanza5" type="checkbox" value="5"/>
+   </td>
+   <td colspan="2">
+    <p>
+     Altro
+    <span style="font-size:70%">
+      (specificare)
+     </span>
+     <input class="" id="TipoOrdinanza_altro" label="Altro ordinanza"  mandatory_enabled="#Tassonomia_TipoOrdinanza5.checked()" name="TipoOrdinanza_altro" style="width:79%;"/>
+    </p>
+   </td>
+  </tr>
+  </tbody>
+</table>  
+
+
+<br/> 
+
+<h3 class="Modulo">
+ DICHIARA DI ESSERE A CONOSCENZA CHE
+</h3>
+
+<table class="Modulo" style="border: 0px;">
+  <tbody>
+   <tr style="border: 0px;">
+    <td style="width: 20px; border: 0px; vertical-align: top;">
+     <input id="Parametri_Dichiarainoltre" name="Parametri_Dichiarainoltre" type="checkbox" dynamic_check="true" checked="checked" value="SI"/>
+    </td>
+    <td colspan="2" style="border: 0px;">
+     <p>
+      Ai sensi dell’art. 9 comma 1 del “Regolamento per le occupazioni di spazi ed aree pubbliche e per
+l’applicazione del relativo canone”, approvato dal Consiglio Comunale con deliberazione  N. 172 Reg./75 Prop. Del. 
+nella seduta del 16/11/2015, e successive modificazioni e integrazioni, la mancata occupazione del suolo è motivo di decadenza dell’autorizzazione viabilistica.
+     </p>
+    </td>
+   </tr>
+   </tbody>
+ </table>
+<br/>
+
+<h3 class="Modulo">
+ COMUNICA CHE
+</h3>
+
+ <table class="Modulo" style="border:1px solid grey; margin-top:-1px">
+ <tbody>
+  <tr class="Rigaintestazione">
+   <td colspan="2">
+    <p class="Labelcella">
+     l'impresa esecutrice dei lavori
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td style="width:4%">
+    <div id="ImpresaEsecutrice" label="Impresa esecutrice" mandatory="true">
+    </div>
+    <input id="ImpresaEsecutrice_richiedente" name="ImpresaEsecutrice" type="radio" value="Impresa esecutrice richiedente"/>
+   </td>
+   <td>
+    <p>
+     coincide con il richiedente della domanda di occupazione suolo pubblico
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td>
+    <input id="ImpresaEsecutrice_altra" name="ImpresaEsecutrice" type="radio" value="Impresa esecutrice altra"/>
+   </td>
+   <td>
+    <p>
+     è la seguente
+    </p>
+   </td>
+  </tr>
+ </tbody>
+</table>
+
+
+  <input type="hidden" id="Referente9_DatiSocietaObbligatori" name="Referente9_DatiSocietaObbligatori" dynamic_check="#referente9checkbox.checked()"/>
+ {{ anagrafica.societa_secondaria("Referente9","<input id='referente9checkbox' name='referente9checkbox' type='checkbox' value='si' enabled='#ImpresaEsecutrice_altra.checked()' dynamic_check='#ImpresaEsecutrice_altra.checked()'/>
+       rappresentata da", ["Titolare", "Legale rappresentante"], "Impresa esecutrice", "visibility:visibility", "cursor:pointer",) }}   
+ 
+
+<table class="Modulo" name="Allegati" style="border:1px solid grey">
+ <tbody>
+  <tr class="Rigaintestazione">
+   <td colspan="2">
+    <p style="text-align: center;">
+     <b>
+      Elenco degli allegati
+     </b>
+     <br/>
+     <span style="font-size:70%">
+      <i>
+       (barrare tutti gli allegati richiesti in fase di presentazione della pratica ed elencati sul portale)
+      </i>
+     </span>
+    </p>
+   </td>
+  </tr>
+    <tr>
+   <td>
+    <input dynamic_check="#desoccupazione.value() == 'ulteriori occupazioni'" enabled="#desoccupazione.value() == 'ulteriori occupazioni'" id="ult_occupazioni" name="ult_occuapazioni" type="checkbox" value="OBBLIGATORIO"/>
+   </td>
+   <td style="background-color: #eeeeee;">
+    <p>
+     n°
+     <input class="" format="number" id="Noccupazioni" label="Numero ulteriori occupazioni" mandatory_enabled="#ult_occupazioni.checked()" name="Noccupazioni" size="1"/>
+      ulteriori occupazioni
+    </p>
+   </td>
+ </tr> 
+  <tr>
+   <td style="vertical-align:top">
+  <input dynamic_check="true" checked="checked" id="OCC_PLA" name="OCC_PLA" type="checkbox" value="OBBLIGATORIO"/>
+   </td>
+   <td style="background-color: #eeeeee;">
+    <p>
+     elaborati grafici decrittivi l'occupazione
+    </p>
+    </td>
+  </tr>
+  <tr>
+   <td>
+      <input id="schemi_cds" name="schemi_cds" type="checkbox" value="OBBLIGATORIO"/>
+   </td>
+   <td style="background-color: #eeeeee;">
+    <p>
+     schemi  previsti dall’art. 21 del Codice della Strada, necessari per il corretto posizionamento della segnaletica temporanea di cantiere
+   </p>
+   </td>
+  </tr>
+  <tr>
+   <td>
+    <input enabled="true"   id="Ncarte_Allegate" name="Ncarte_Allegate" type="checkbox" value="OBBLIGATORIO"/>
+   </td>
+    <td colspan="2" style="background-color: #eeeeee;">
+    <p>
+     N°
+     <input class="" format="number" id="NcarteAllegate" label="Numero carte allegate" mandatory_enabled="#Ncarte_Allegate.checked()" name="NcarteAllegate" size="1"/>
+     carta di circolazione dei mezzi per i quali viene richiesto il permesso d’occupazione e/o transito.
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td>
+    <input checked="checked" dynamic_check="true" id="MARCA_BOLLO" name="MARCA_BOLLO" type="checkbox" value="OBBLIGATORIO"/>
+   </td>
+   <td style="background-color: #eeeeee;">
+    <p>
+     pagamento dell'imposta di bollo
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td style="vertical-align: top;">
+    <input id="RIC-DIR-SEG" name="RIC-DIR-SEG" type="checkbox" value="OBBLIGATORIO"/>
+   </td>
+   <td style="background-color: #eeeeee;">
+    <p>
+     ricevuta dei diritti di segreteria/istruttoria<br/><span style="font-size:70%"><i>(da allegare se previsti)</i></span>
+    </p>
+   </td>
+  </tr>
+    <tr>
+   <td>
+    <input id="ALTRI-ALLEGATI" name="ALTRI-ALLEGATI" type="checkbox" value="OBBLIGATORIO"/>
+   </td>
+   <td style="background-color: #eeeeee;">
+    <p>
+     altri allegati
+     <span style="font-size:70%">
+      (specificare)
+     </span>
+     <input class="" id="AltriAllegati" label="Altri allegati" mandatory_enabled="#ALTRI_ALLEGATI.checked()" name="AltriAllegati" style="width:79%;"/>
+    </p>
+   </td>
+  </tr>
+ </tbody>
+</table>
+
+<br/>
+
+{{ utils.trattamento_dati_personali() }}
+
+<br/>
+
+{{ utils.firma_hidden() }}
+ <br/>
+
+<p class="Modulo">
+ <input id="SalvaModulo" name="SalvaModulo" style="height:30px;width:120px;" title="Verifica la corretta compilazione dei campi e salva il modulo nel faldone virtuale dell'istanza." type="submit" value="Salva modulo"/>
+</p>
+
+<input destinatario_amministrazione="getParameter('Ente')" id="GLOBO_modulo_c{{ CodiceModulo }}" name="GLOBO_modulo_c{{ CodiceModulo }}" type="hidden" value=""/>
+
+<input id="GLOBO_modulofiglio_cMARCA_BOLLO" name="GLOBO_modulofiglio_cMARCA_BOLLO" obbligatorio="#MARCA_BOLLO.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_allegato_cOCC-PLA" name="GLOBO_allegato_cOCC-PLA" obbligatorio="#OCC_PLA.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_allegato_cNcarte_Allegate" name="GLOBO_allegato_cNcarte_Allegate" obbligatorio="#Ncarte_Allegate.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_modulofiglio_cult_occupazione_meno12" name="GLOBO_modulofiglio_cult_occupazione_meno12" numero="#Noccupazioni.value()" obbligatorio="#ult_occupazioni.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_allegato_cschemi_cds" name="GLOBO_allegato_cschemi_cds" obbligatorio="#schemi_cds.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_allegato_cRIC-DIR-SEG" name="GLOBO_allegato_cRIC-DIR-SEG" obbligatorio="#RIC_DIR_SEG.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<!--
+<input id="GLOBO_allegato_cRelTecnica" name="GLOBO_allegato_cRelTecnica" obbligatorio="#RelTecnica.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_allegato_cParticolari" name="GLOBO_allegato_cParticolari" obbligatorio="#Particolari.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+-->
+
+<input id="GLOBO_allegato_cALTRI-ALLEGATI" name="GLOBO_allegato_cALTRI-ALLEGATI" obbligatorio="#ALTRI_ALLEGATI.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input firmare="'P7M_ELETTRONICA'" id="GLOBO_modulofiglio_cIncarico_procura" name="GLOBO_modulofiglio_cIncarico_procura" type="hidden" value=""/>
+
+<input id="GLOBO_id_padre" name="GLOBO_id_padre" type="hidden"/>
+
+<input id="GLOBO_recupera_dati" name="GLOBO_recupera_dati" type="hidden"/>
+
+<input id="GLOBO_codice_modulo" name="GLOBO_codice_modulo" type="hidden" value="{{ CodiceModulo }}"/>
+
+
+{% endblock content %}

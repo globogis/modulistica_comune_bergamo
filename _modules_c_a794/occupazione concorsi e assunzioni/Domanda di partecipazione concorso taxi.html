@@ -1,0 +1,790 @@
+{% set CodiceModulo = "CON_TAXI" %}
+{% set Urn = "document:c_a794:concorso.taxi;domanda" %}
+{% extends "base.html" %}
+
+{% block meta %}
+
+<meta campi_firma="Titolare_CodiceFiscale"
+campi_firma_label="il dichiarante"
+classi_modulo="Occupazione concorsi e assunzione"
+codice_modulo="{{ CodiceModulo }}"
+urn="{% block urn %}{{ Urn }}{% endblock urn %}"
+sub_urn_list=""
+uo_globo_list=""
+descrizione="Domanda di partecipazione al concorso per l’assegnazione di cinque licenze Taxi"
+destinatario_amministrazione=""
+destinatario_ufficio="UOLAVORO"
+dinamico="SI"
+email_a=""
+ente_abilitato="TUTTI"
+filigrana="SI"
+firmare="P7M_ELETTRONICA"
+istruzioni_compilazione=""
+istruzioni_invio="mail_pec"
+metodo_invio="mail"
+name="GLOBO_modulo"
+procura="NO,,"
+tipo_modulo="principale"
+urlhelp="/modulistica/moduli/{{ CodiceModulo }}"
+verifica_pagamento="NO"
+versione="1.0|18/02/2020"/>
+
+<meta codice_modulo_figlio="INCARICO_PROCURA"
+urn_modulo_figlio="document:s_italia:generale;incarico.procura"
+name="GLOBO_modulofiglio"
+numero="1"
+obbligatorio="DINAMICO"/>
+
+<meta codice_allegato="COP_SOST_TAXI"
+urn_allegato="document:c_a794:copia.documentazione.servizio.sostituto.taxi;allegato"
+descrizione_estesa="Copia documentazione servizio sostituto TAXI"
+filename="Copia documentazione servizio sostituto TAXI.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/COP_SOST_TAXI"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="COP_DIP_IMP"
+urn_allegato="document:c_a794:copia.documentazione.dipendente.impresa;allegato"
+descrizione_estesa="Copia documentazione dipendente impresa noleggio con conducente"
+filename="Copia documentazione dipendente impresa noleggio con conducente.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/COP_DIP_IMP"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="COP_COLL_FAM"
+urn_allegato="document:c_a794:copia.documentazione.collaboratore.familiare;allegato"
+descrizione_estesa="Copia documentazione servizio taxi come collaboratore familiare"
+filename="Copia documentazione servizio taxi come collaboratore familiare.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/COP_COLL_FAM"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="ALTRI-ALLEGATI"
+urn_allegato="document:s_italia:altri.allegati"
+descrizione_estesa="Altri allegati"
+filename="Altri allegati.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/ALTRI-ALLEGATI"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+{% endblock meta %}
+
+{% block title %}
+    Domanda di partecipazione al concorso per l’assegnazione di cinque licenze Taxi{% endblock title %}
+ 
+{% block content %}
+
+<globo_fondo_pagina areaheight="150" scope="4">
+  {{ utils.firma() }}
+</globo_fondo_pagina>
+
+<input id="Parametri_Comune" name="Parametri_Comune" type="hidden" dynamic_value="#Ente.value()"/>
+<input id="Oggetto" name="Oggetto" type="hidden" dynamic_value="#Titolare_Cognome.value().toUpperCase() + ' ' + #Titolare_Nome.value().toUpperCase() + ' - Domanda di partecipazione concorso cinque licenze TAXI'"/>
+
+{{ intestazioni.intestazione_moduloprincipale_senzabollo() }}
+
+<h1 class="Modulo">
+Domanda di partecipazione al concorso per l’assegnazione di cinque licenze Taxi
+</h1>
+
+<h1 class="Modulo">
+( per veicoli a basso impatto inquinante )
+</h1>
+
+{{ anagrafica.societa("Titolare", "Il sottoscritto", ["Persona fisica", "Titolare", "Legale rappresentante"], "Richiedente", "visibility:visibility", "cursor:pointer", "mail_ordinaria", "false") }}
+
+<br>
+<h3 class="Modulo">
+  CHIEDE
+</h3>
+<p class="Modulo">
+   di essere ammesso al  bando di concorso pubblico per l’assegnazione di n. 5 licenze Taxi
+</p>
+
+
+<h3 class="Modulo">
+  DICHIARA 
+</h3>
+
+<div id="Tassonomia_Cittadinanza" name="Tassonomia_Cittadinanza" label="Cittadinanza" mandatory="true"></div>
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr>
+        <td style="vertical-align: top; width: 4%;">
+          <input id="Tassonomia_Cittadinanza1" name="Tassonomia_Cittadinanza" type="radio" value="1"/>
+        </td>
+        <td colspan="3">
+            di essere cittadino italiano
+        </td>
+      </tr>
+   <tr>
+        <td style="vertical-align: top; width: 4%;">
+          <input id="Tassonomia_Cittadinanza2" name="Tassonomia_Cittadinanza" type="radio" value="2"/>
+        </td>
+        <td colspan="3">
+            di essere cittadino di uno Stato membro dell’Unione Europea o di uno stato aderente all’accordo SEE o di altro stato purchè in possesso di regolare permesso di soggiorno ai sensi della normativa vigente
+        </td>
+      </tr>
+    <tr>
+        <td style="vertical-align: top; width: 4%;">
+          <input id="Tassonomia_Eta" name="Tassonomia_Eta" type="checkbox" value="Si" checked="checked" dynamic_check="true"/>
+        </td>
+        <td colspan="3">
+            di avere un età non superiore ai 55 anni all’atto della pubblicazione del bando
+        </td>
+      </tr>
+      <tr>
+        <td style="vertical-align: top; width: 4%;">
+          <input id="Tassonomia_Residenza" name="Tassonomia_Residenza" type="checkbox" value="Si" checked="checked" dynamic_check="true"/>
+        </td>
+        <td colspan="3">
+            di essere residente in un comune italiano
+        </td>
+      </tr>
+      <div id="Tassonomia_Vettura" name="Tassonomia_Vettura" label="Vettura" mandatory="true"></div>
+      <tr>
+        <td style="vertical-align: top; width: 4%;" rowspan="6">
+          <input id="Tassonomia_Veicolo" name="Tassonomia_Veicolo" type="checkbox" value="Si" checked="checked" dynamic_check="true"/>
+        </td>
+        <td  colspan="3">
+            di essere proprietario o avere la disponibilità esclusiva di idonea autovettura da adibire al servizio o, pena decadenza della licenza, di impegnarsi ad acquisirne la disponibilità al momento dell’effettivo rilascio della licenza, ai sensi delle Direttive 2016/427/UE, 2016/646/UE e 2017/1347/UE e come da caratteristiche del veicolo previste nel Regolamento di bacino aereoportuale nr. 2/2014, art. 23 e 24. 
+        </td>
+      </tr>
+      <tr class="Rigaintestazioneridotta">
+      <td colspan="3">
+       Nello specifico di classe non inferiore a:
+       </td>
+       </tr>
+       <tr>
+      <td style="vertical-align: top; width: 4%;">
+      <input id="Tassonomia_Vettura1" name="Tassonomia_Vettura" type="radio" value="1"/>
+      </td>
+      <td colspan="5">
+         Euro 6 D FULL 
+      </td>
+      </tr>
+      <tr>
+      <td style="vertical-align: top; width: 4%;">
+      <input id="Tassonomia_Vettura2" name="Tassonomia_Vettura" type="radio" value="2"/>
+      </td>
+      <td colspan="5">
+         Elettrico - Termico
+      </td>
+      </tr>
+      <tr>
+      <td style="vertical-align: top; width: 4%;">
+      <input id="Tassonomia_Vettura3" name="Tassonomia_Vettura" type="radio" value="3"/>
+      </td>
+      <td colspan="5">
+         Ibrido
+      </td>
+      </tr>
+       <div id="Dichiarazione_Impegno" name="Dichiarazione_Impegno" label="Dichiarazione di impegno" mandatory="true"></div>
+      <tr mandatory_enabled="#Tassonomia_Vettura2.checked() || #Tassonomia_Vettura3.checked()" >
+         <td style="vertical-align: top; width: 4%;">
+         <input group="Dichiarazione_Impegno" id="Dichiarazione_Impegno1" name="Dichiarazione_Impegno1" type="checkbox" label="dichiarazione di impegno vettura" value="Si"/>
+         </td>
+         <td colspan="3">
+            si impegna, fin da ora, a pena di decadenza dalla licenza e di esclusione dal bando,  a svolgere il servizio utilizzando uno dei veicoli sopraindicati
+         </td>
+      </tr>
+     </tbody>
+     </table>
+     <table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+      <tr>
+      <td style="vertical-align: top; width: 4%;" rowspan="3" >
+      <input id="Tassonomia_Patente" name="Tassonomia_Patente" type="checkbox" value="si" mandatory="true" checked="checked" dynamic_check="true"/>
+      </td>
+      <td colspan="4">
+         di essere in possesso della seguente patente di guida
+      </td>
+      </tr>
+      <tr class="Rigaintestazioneridotta">
+      <td style="width: 40%;">
+         <p class="Labelcella">
+           Numero
+           </p>
+         </td>
+         <td style="width: 40%;">
+           <p class="labelcella">
+            rilasciata da
+            </p>
+         </td>
+         <td style="width: 20%;">
+           <p class="labelcella">
+            Data rilascio
+            </p>
+         </td>
+      </tr>
+      <tr class="Rigaintestazioneridotta">
+         <td style="width: 40%;">
+         <input class="InputNormal" id="Tassonomia_Numero_Pat" name="Tassonomia_Numero_Pat" label="Numero patente" style="width: 100%;" mandatory="true"/>
+         </td>
+         <td style="width: 40%;">
+           <input class="InputNormal" id="Tassonomia_Rilascio_Pat" name="Tassonomia_Rilascio_Pat" label="Rilascio patente" style="width: 100%;" mandatory="true"/>
+         </td>
+         <td style="width: 20%;">
+           <input class="InputNormal" id="Tassonomia_Data_Pat" name="Tassonomia_Data_Pat" label="Data patente" style="width: 100%;" mandatory="true" format="date"/>
+         </td>
+      </tr>
+      <tr>
+      <td style="vertical-align: top; width: 4%;" rowspan="3">
+      <input id="Tassonomia_CAP" name="Tassonomia_CAP" type="checkbox" value="si" mandatory="true" checked="checked" dynamic_check="true"/>
+      </td>
+      <td colspan="4">
+         di essere in possesso della seguente Certificazione di Abilitazione Professionale (C.A.P.)
+      </td>
+      </tr>
+      <tr class="Rigaintestazioneridotta">
+      <td style="width: 40%;">
+         <p class="Labelcella">
+           Numero
+           </p>
+         </td>
+         <td style="width: 40%;">
+           <p class="labelcella">
+            rilasciata da
+            </p>
+         </td>
+         <td style="width: 20%;">
+           <p class="labelcella">
+            Data rilascio
+            </p>
+         </td>
+      </tr>
+      <tr>
+         <td style="width: 40%;">
+         <input class="InputNormal" id="Tassonomia_Numero_CAP" name="Tassonomia_Numero_CAP" label="Numero C.A.P." style="width: 100%;" mandatory="true"/>
+         </td>
+         <td style="width: 40%;">
+           <input class="InputNormal" id="Tassonomia_Rilascio_CAP" name="Tassonomia_Rilascio_CAP" label="Rilascio C.A.P." style="width: 100%;" mandatory="true"/>
+         </td>
+         <td style="width: 20%;">
+           <input class="InputNormal" id="Tassonomia_Data_CAP" name="Tassonomia_Data_CAP" label="Data C.A.P." style="width: 100%;" mandatory="true" format="date"/>
+         </td>
+      </tr>
+  </tbody>
+</table>
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+      <tr>
+        <td style="vertical-align: top; width: 4%;" rowspan="3">
+          <input id="Tassonomia_Iscritto" name="Tassonomia_Iscritto" type="checkbox" value="Si" checked="checked" dynamic_check="true"/>
+        </td>
+        <td colspan="3">
+          di essere iscritto “Ruolo dei conducenti di veicoli o natanti adibiti ad autoservizi pubblici non di linea”, ai sensi dell’art. 6 della Legge n. 21/1992 e s.m.i., istituito presso la competente Camera di Commercio, Industria, Artigianato e Agricoltura della Provincia di Bergamo
+        </td>
+        </tr>
+        <tr class="Rigaintestazioneridotta">
+        <td>
+        Numero iscrizione
+        </td>
+        <td>
+        Data iscrizione
+        </td>
+        </tr>
+        <tr>
+        <td style="width: 20%;">
+        <input class="InputNormal" id="Tassonomia_Num_Cam" name="Tassonomia_Num_Cam" style="width: 100%;" label="Numero iscrizione ruolo" mandatory="true" />
+        </td>
+        <td style="width: 80%;">
+        <input class="InputNormal" id="Tassonomia_Data_Cam" name="Tassonomia_Data_Cam" style="width: 100%;" label="Data iscrizione ruolo" format="date" mandatory="true" />
+        </td>
+        </tr>
+       </tbody>
+      </table>    
+      <table class="Modulo" style="border: 1px solid grey;">
+       <tbody>
+       <tr class="Rigaintestazioneridotta">
+        <td style="vertical-align: top; width: 4%;" rowspan="5">
+          <input id="Tassonomia_Impedimenti" name="Tassonomia_Impedimenti" type="checkbox" value="Si" checked="checked" dynamic_check="true"/>
+        </td>
+        <td colspan="2">
+         di essere esente dagli impedimenti soggettivi ai sensi dell’art. 8 del Regolamento Regionale del Bacino Aereoportuale 2/2014 ed in particolare:
+        </td>
+       {% set dichiara = ["di non aver subito condanne definitive per reati che comportino l’interdizione dalla professione, salvo che sia intervenuta riabilitazione",
+                        "di non aver subito provvedimenti adottati ai sensi del Decreto Legislativo del 6 settembre 2011, n. 159 <i>decreto antimafia</i>",
+                        "di non essere stato dichiarato fallito, fatta salva la cessazione degli effetti del fallimento, ai sensi del Decreto Regio del 16 marzo 1942, n. 267 art. 120",
+                        "di non aver subito condanne definitive per reati non colposi che comportino la condanna a pene restrittive della libertà personale per un periodo complessivamente superiore a due anni e salvi i casi di riabilitazione o altro atto avente valenza riabilitativa"
+                        ] %}
+    {% for i in dichiara %}
+    <tr>
+        <td style="vertical-align: top; width: 4%;">
+          <input id="dichiara{{ loop.index }}" name="dichiara{{ loop.index }}" type="checkbox" value="SI" checked="checked" dynamic_check="true"/>
+        </td>
+        <td>
+          {{ i }}
+        </td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+ <table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    {% set impegna = [  "di non essere titolare di più licenze per l’esercizio del servizio taxi, oppure il cumulo della licenza per l’esercizio del servizio taxi e dell’autorizzazione per l’esercizio del servizio di noleggio con conducente, anche se rilasciato da amministrazioni comunali diverse",
+                        "di non essere stati titolari di licenza taxi o autorizzazione da noleggio con conducente rilasciata da un Comune a titolo gratuito e dichiarata decaduta o trasferita ad altro soggetto",
+                        "di non essere stato titolare di licenza taxi o autorizzazione da noleggio con conducente , acquisita mediante bando a titolo oneroso o mediante il trasferimento da altro soggetto, ai sensi della Legge del 15 gennaio 1992, n. 21, art. 9, dichiarata decaduta o trasferita ad altro soggetto, nei cinque anni precedenti la data di pubblicazione del bando"
+                        ] %}
+    {% for i in impegna %}
+      <tr>
+        <td style="vertical-align: top; width: 4%;">
+          <input id="Impegna{{ loop.index }}" name="Impegna{{ loop.index }}" type="checkbox" value="SI" checked="checked" dynamic_check="true"/>
+        </td>
+        <td>
+          {{ i }}
+        </td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+    
+    <div id="Tassonomia_Autorizzazione" name="Tassonomia_Autorizzazione" label="Autorizzazione" mandatory="true"></div>
+    <div id="Tassonomia_Cam_Com" name="Tassonomia_Cam_Com" label="Camera Commercio" mandatory="true"></div>
+    <table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr>
+        <td style="vertical-align: top; width: 4%;"  >
+         <input id="Tassonomia_Autorizzazione1" name="Tassonomia_Autorizzazione" type="radio" value="1"/>
+         </td>
+         <td>
+          di non essere titolare contemporaneamente di altra autorizzazione o concessione amministrativa che riguarda l’esercizio di attività economiche e, comunque, non svolgere con carattere di continuità e professionalità altra attività
+         </td>
+         </tr>
+         <tr>
+         <td style="vertical-align: top; width: 4%;" >
+         <input id="Tassonomia_Autorizzazione2" name="Tassonomia_Autorizzazione" type="radio" value="2"/>
+         </td>
+         <td>
+          di impegnarsi a non essere titolare contemporaneamente di altra autorizzazione o concessione amministrativa che riguarda l’esercizio di attività economiche e, comunque, non svolgere con carattere di continuità e professionalità altra attività, al momento dell’effettivo rilascio del titolo
+         </td>
+     </tr>
+     <tr>
+         <td style="vertical-align: top; width: 4%;">
+         <input id="Tassonomia_Cam_Com1" name="Tassonomia_Cam_Com" type="radio" value="1"/>
+         </td>
+         <td>
+           di essere iscritto alla Camera di Commercio 
+         </td>
+     </tr>
+     <tr>
+        <td style="vertical-align: top; width: 4%;" >
+         <input id="Tassonomia_Cam_Com2" name="Tassonomia_Cam_Com" type="radio" value="2"/>
+     </td>
+     <td>
+           di impegnarsi ad acquisire l’iscrizione al momento dell’effettivo rilascio del titolo
+        </td>
+    </tr>
+  </tbody>
+</table>
+
+<br>
+<h3 class="Modulo">
+  DICHIARA INOLTRE
+</h3>
+<br>
+
+<div id="Tassonomia_Titoli_Valutativi" name="Tassonomia_Titoli_Valutativi" label="Tipo titoli valutativi" mandatory_enabled="#Tassonomia_Req_Val.checked()"></div>
+<div id="Tassonomia_Titoli_Preferenziali" name="Tassonomia_Titoli_Preferenziali" label="Tipo titoli preferenziali" mandatory_enabled="#Tassonomia_Req_Pref.checked()"></div>
+<div id="Tassonomia_Studio" name="Tassonomia_Studio" label="Tipo titoli di studio" mandatory_enabled="#Tassonomia_Tit_Studio.checked()"></div>
+
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+   <tr class="Rigaintestazioneridotta">
+        <td style="vertical-align: top; width: 4%;" rowspan="16">
+          <Input class="InputNormal" id="Tassonomia_Req_Val" name="Tassonomia_Req_Val" label="Possesso requisiti" type="checkbox" value="si"/>
+        </td>
+        <td colspan="20">
+          di essere in possesso dei seguenti titoli valutativi 
+        </td>
+      </tr>
+      <tr>
+      <td style="vertical-align: top; width: 4%;" rowspan="5">
+          <Input group="Tassonomia_Titoli_Valutativi" id="Tassonomia_Sost" name="Tassonomia_Sost" label="Sostituto" type="checkbox" value="si"/>
+      </td>       
+      <td colspan="20">
+       di aver esercitato servizio di taxi in qualità di sostituto per almeno sei mesi <i>allegare idonea documentazione comprovante l'anzianità di servizio maturata</i>
+      </td>
+     </tr>
+     <tr class="Rigaintestazioneridotta">
+     <td style="width: 50%;" >
+     Dal
+     </td>
+     <td style="width: 50%;" colspan="20">
+     al
+     </td>
+     </tr>
+     <tr>
+     <td >
+      <Input class="InputNormal" id="Tassonomia_Data_Dal" name="Tassonomia_Data_Dal" label="Data Dal sostituto" mandatory_enabled="#Tassonomia_Sost.checked()" format="date" style="width:100%;"/>
+      </td>
+      <td style="width: 50%;" colspan="20">
+      <Input class="InputNormal" id="Tassonomia_Data_Al" name="Tassonomia_Data_Al" label="Data Al sostituto" mandatory_enabled="#Tassonomia_Sost.checked()" format="date" style="width:100%;"/>
+      </td>
+      </tr>
+      <tr>
+      <td style="width: 50%;">
+      <Input class="InputNormal" id="Tassonomia_Data_Dal2" name="Tassonomia_Data_Dal2" label="Data Dal sostituto"  format="date" style="width:100%;"/>
+      </td>
+      <td style="width: 50%;" colspan="20">
+      <Input class="InputNormal" id="Tassonomia_Data_Al2" name="Tassonomia_Data_Al2" label="Data Al sostituto"  format="date" style="width:100%;"/>
+      </td>
+      </tr>
+      <tr>
+      <td style="width: 50%;">
+      <Input class="InputNormal" id="Tassonomia_Data_Dal3" name="Tassonomia_Data_Dal3" label="Data Dal sostituto"  format="date" style="width:100%;"/>
+      </td>
+      <td style="width: 50%;" colspan="20">
+      <Input class="InputNormal" id="Tassonomia_Data_Al3" name="Tassonomia_Data_Al3" label="Data Al sostituto"  format="date" style="width:100%;"/>
+      </td>
+      </tr>
+      <tr>
+      <td style="vertical-align: top; width: 4%;" rowspan="5">
+        <Input group="Tassonomia_Titoli_Valutativi" id="Tassonomia_Ser" name="Tassonomia_Ser" label="Servizio" type="checkbox" value="si"/>
+      </td>       
+      <td colspan="20">
+       di aver prestato servizio in qualità di dipendente di un’impresa di noleggio con conducente per un periodo di tempo complessivo di almeno sei mesi <i>allegare idonea documentazione comprovante l'anzianità di servizio maturata</i>
+      </td>
+     </tr>
+     <tr class="Rigaintestazioneridotta">
+     <td>
+     Dal
+     </td>
+     <td colspan="20">
+     al
+     </td>
+     </tr>
+     <tr>
+     <td>
+      <Input class="InputNormal" id="Tassonomia_Data_Dal4" name="Tassonomia_Data_Dal4" label="Data Dal servizio" mandatory_enabled="#Tassonomia_Ser.checked()" format="date" style="width:100%;"/>
+      </td>
+      <td colspan="20">
+      <Input class="InputNormal" id="Tassonomia_Data_Al4" name="Tassonomia_Data_Al4" label="Data Al servizio" mandatory_enabled="#Tassonomia_Ser.checked()" format="date" style="width:100%;"/>
+      </td>
+      </tr>
+      <tr>
+      <td>
+      <Input class="InputNormal" id="Tassonomia_Data_Dal5" name="Tassonomia_Data_Dal5" label="Data Dal servizio"  format="date" style="width:100%;"/>
+      </td>
+      <td colspan="20">
+      <Input class="InputNormal" id="Tassonomia_Data_Al5" name="Tassonomia_Data_Al5" label="Data Al servizio"  format="date" style="width:100%;"/>
+      </td>
+      </tr>
+      <tr>
+      <td>
+      <Input class="InputNormal" id="Tassonomia_Data_Dal6" name="Tassonomia_Data_Dal6" label="Data Dal servizio"  format="date" style="width:100%;"/>
+      </td>
+      <td colspan="20">
+      <Input class="InputNormal" id="Tassonomia_Data_Al6" name="Tassonomia_Data_Al6" label="Data Al servizio"  format="date" style="width:100%;"/>
+      </td>
+      </tr>      
+      
+      <tr>
+       <td style="vertical-align: top; width: 4%;" rowspan="5">
+          <Input group="Tassonomia_Titoli_Valutativi" id="Tassonomia_Tit_Studio" name="Tassonomia_Tit_Studio"  type="checkbox" value="si" />
+      </td>    
+      <td colspan="20">
+        grado di istruzione 
+      </td>
+      </tr>
+      
+      <tr >
+        <td style="vertical-align: top; width: 4%;">
+          <Input  id="Tassonomia_Studio1" name="Tassonomia_Studio" type="radio" value="1"/>
+        
+        Laurea
+        
+        </td>
+        <td style="vertical-align: top; width: 4%;" colspan="20">
+        <Input  id="Tassonomia_Studio2" name="Tassonomia_Studio" type="radio" value="2"/>
+              
+        Diploma
+        
+        </td>
+      </tr>
+      <tr class="Rigaintestazioneridotta">
+      <td style="width: 80%;" colspan="7">
+      <p class="Labelcella">
+      Tipo di laurea o diploma
+      </p>
+      </td>
+      <td style="width: 20%;" colspan="2">
+      <p class="labelcella">
+      conseguito nell'anno
+      </p>
+      </td>
+      </tr>
+      <tr>
+      <td style="width: 80%" colspan="7">
+      <input class="InputNormal"id="Tassonomia_Tipo_Titolo" name="Tassonomia_Tipo_Titolo" label="Tipo Titolo" style="width:100%" mandatory_enabled="#Tassonomia_Studio1.checked() || #Tassonomia_Studio2.checked()">
+      </td>
+      <td style="width: 20%">
+      <input class="InputNormal"id="Tassonomia_Anno_Titolo" name="Tassonomia_Anno_Titolo" label="Anno Titolo" style="width:100%" mandatory_enabled="#Tassonomia_Studio1.checked() || #Tassonomia_Studio2.checked()">
+      </td>
+      </tr>
+    </tbody>
+    </table>
+    <table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+      <tr class="Rigaintestazioneridotta">
+        <td style="vertical-align: top; width: 4%;" rowspan="19">
+          <Input class="InputNormal" id="Tassonomia_Req_Pref" name="Tassonomia_Req_Pref" label="Possesso requisiti preferenziali" type="checkbox" value="si"/>
+        </td>
+        <td colspan="4">
+          di essere in possesso dei seguenti titoli preferenziali 
+        </td>
+      </tr>
+      <tr>
+      <td style="vertical-align: top; width: 4%;" rowspan="5">
+          <Input group="Tassonomia_Titoli_Preferenziali" id="Tassonomia_Fam" name="Tassonomia_Fam" label="Collaboratore familiare" type="checkbox" value="si"/>
+      </td>       
+      <td colspan="5">
+        di aver esercitato servizio di taxi in qualità di collaboratore familiare e/o di sostituto e/o di seconda guida del titolare della licenza oppure di essere stato dipendente di un’impresa di noleggio con conducente per un periodo di tempo complessivo di almeno sei mesi <i>l’anzianità di servizio maturata deve risultare da idonea documentazione </i> <i> Regolamento di Bacino degli art. 18,19 e 20 del  </i> <i>allegare idonea documentazione comprovante l'anzianità di servizio maturata</i>
+      </td>
+     </tr>
+     <tr class="Rigaintestazioneridotta">
+     <td>
+     Dal
+     </td>
+     <td>
+     al
+     </td>
+     </tr>
+     <tr>
+     <td>
+      <Input class="InputNormal" id="Tassonomia_Data_Dal7" name="Tassonomia_Data_Dal7" label="Data Dal collaborazione familiare" mandatory_enabled="#Tassonomia_Fam.checked()" format="date" style="width:100%;"/>
+      </td>
+      <td>
+      <Input class="InputNormal" id="Tassonomia_Data_Al7" name="Tassonomia_Data_Al7" label="Data Al collaborazione familiare" mandatory_enabled="#Tassonomia_Fam.checked()" format="date" style="width:100%;"/>
+      </td>
+      </tr>
+      <tr>
+      <td>
+      <Input class="InputNormal" id="Tassonomia_Data_Dal8" name="Tassonomia_Data_Dal8" label="Data Dal sostituto"  format="date" style="width:100%;"/>
+      </td>
+      <td>
+      <Input class="InputNormal" id="Tassonomia_Data_Al8" name="Tassonomia_Data_Al8" label="Data Al sostituto"  format="date" style="width:100%;"/>
+      </td>
+      </tr>
+      <tr>
+      <td>
+      <Input class="InputNormal" id="Tassonomia_Data_Dal9" name="Tassonomia_Data_Dal9" label="Data Dal sostituto"  format="date" style="width:100%;"/>
+      </td>
+      <td>
+      <Input class="InputNormal" id="Tassonomia_Data_Al9" name="Tassonomia_Data_Al9" label="Data Al sostituto"  format="date" style="width:100%;"/>
+      </td>
+      </tr>
+      
+      <tr>
+        <td style="vertical-align: top; width: 4%;" >
+          <Input group="Tassonomia_Titoli_Preferenziali" id="Tassonomia_Figli" name="Tassonomia_Figli" type="checkbox" value="si"/>
+      </td>    
+      <td colspan="5">
+        N. figli a carico <i>Indipendentemente se si è coniugati oppure no</i>
+      </td>
+      </tr>
+      <tr>
+        <td colspan="5">
+          <Input class="InputNormal" id="Tassonomia_Num_Figli" name="Tassonomia_Num_Figli" label="Numero figli a carico" mandatory_enabled="#Tassonomia_Figli.checked()" style="width: 100%;"/>
+        </td>
+      </tr>
+      </tbody>
+  </table>
+<br>
+
+<h3 class="Modulo">
+  DICHIARA INFINE
+</h3>
+
+ <table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="2">
+        <p class="Labeltabella">
+          sottoscrizione della domanda e dei relativi allegati
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+		<div id="FirmaRichiesta" name="FirmaRichiesta" mandatory="true" label="Sottoscrizione della domanda e dei relativi allegati"/>
+        <input id="FirmaRichiesta1" name="FirmaRichiesta" type="radio" value="1" />
+      </td>
+      <td>
+        <p>
+          di trasmettere la presente domanda sottoscritta con firma elettronica avanzata o firma qualificata
+        </p>
+      </td>
+    </tr>	
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="FirmaRichiesta2" name="FirmaRichiesta" type="radio" value="2" />
+      </td>
+      <td>
+        <p>
+          che, non sottoscrivendo la domanda con firma elettronica avanzata o firma qualificata, il giorno della prima prova consegnerà al personale addetto all'identificazione dei candidati la domanda di selezione e i relativi allegati firmati con firma autografa
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="Tassonomia_Consapevole" name="Tassonomia_Consapevole" type="checkbox" value="si" mandatory_"true" checked="checked" dynamic_check="true" />
+      </td>
+      <td>
+        <p>
+           di essere consapevole che tutte le comunicazioni relative alla procedura saranno pubblicate all’albo pretorio e nella sezione Bandi di concorso del sito web del Comune di Bergamo con valore di notifica a tutti gli effetti di Legge
+        </p>
+      </td>
+    </tr>	
+  </tbody>
+</table>
+<br>
+
+<h3 class="Modulo">
+  CHIEDE
+</h3>
+ <table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="5">
+        <p class="Labeltabella">
+          <input id="UlterioreDomicilio" name="UlterioreDomicilio" type="checkbox" value="si"/> di inviare eventuali comunicazioni cartacee  (non per via telematica) al seguente indirizzo, diverso da quello di residenza
+        </p>
+      </td>
+    </tr>
+          <tr class="Rigaintestazioneridotta">
+            <td style="width:9%;">
+              <p class="Labelcella">Provincia</p>
+            </td>
+            <td style="width:33%;">
+              <p class="Labelcella">Comune</p>
+            </td>
+            <td style="width:33%;">
+              <p class="Labelcella">Indirizzo</p>
+            </td>
+            <td style="width:9%;">
+              <p class="Labelcella">Civico</p>
+            </td>
+            <td style="width:16%;">
+              <p class="Labelcella">CAP</p>
+            </td>
+          </tr>
+          <tr mandatory_enabled="#UlterioreDomicilio.checked()">
+            <td>
+              {{ utils.provincie( 'Domicilio_ProvinciaDomicilio', label="Provincia del domicilio") }}
+            </td>
+            <td>
+              <select class="inputNormal" id="Domicilio_ComuneDomicilio" name="Domicilio_ComuneDomicilio" style="width:100%" label="Comune del domicilio" dynamic_value="getComuniFromProvincia( #Domicilio_ProvinciaDomicilio.value(), 'Domicilio_ComuneDomicilio')"></select>
+            </td>
+            <td>
+              <input class="" id="Domicilio_ViaDomicilio" name="Domicilio_ViaDomicilio" style="width:100%;" label="Via del domicilio" maxlength="60" format="regular_expression" expression="^(.+)\s(.+)$"/>
+            </td>
+            <td>
+              <input class="" id="Domicilio_CivicoDomicilio" name="Domicilio_CivicoDomicilio" style="width:100%;" label="Civico del domicilio" maxlength="10"/>
+            </td>
+            <td>
+              <input class="" id="Domicilio_CAPDomicilio" name="Domicilio_CAPDomicilio" style="width:100%;" format="cap" label="CAP del domicilio" enabled="#UlterioreDomicilio.checked()" mandatory="#UlterioreDomicilio.checked() and #Domicilio_ProvinciaDomicilio.value() != 'EE'"/>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+     
+
+<br>
+
+<br>
+<table class="Modulo" name="Allegati" style="border: 1px solid grey">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="2">
+        <p style="text-align: center;">
+          <b>
+            Elenco degli allegati
+          </b>
+          <br/>
+          <span style="font-size:70%">
+            <i>(barrare tutti gli allegati richiesti in fase di presentazione della pratica ed elencati sul portale)</i>
+          </span>
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="COP_SOST_TAXI" name="COP_SOST_TAXI" type="checkbox" value="OBBLIGATORIO" mandatory_enabled="#Tassonomia_Sost.checked()" dynamic_check="true"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          Copia documentazione che attesti il servizio di taxi prestato come sostituto per almeno 6 mesi <i>da allegare se selezionata la relativa voce</i>
+        </p>
+      </td>
+    </tr>
+    
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="COP_DIP_IMP" name="COP_DIP_IMP" type="checkbox" value="OBBLIGATORIO" mandatory_enabled="#Tassonomia_Ser.checked()" dynamic_check="true"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          Copia documentazione che attesti il servizio di dipendente di un'impresa di noleggio con conducente per almeno 6 mesi <i>da allegare se selezionata la relativa voce</i>
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="COP_COLL_FAM" name="COP_COLL_FAM" type="checkbox" value="OBBLIGATORIO" mandatory_enabled="#Tassonomia_Fam.checked()" dynamic_check="true"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          Copia documentazione che attesti il servizio di taxi in qualità di collaboratore familiare per almeno 6 mesi <i>da allegare se selezionata la relativa voce</i>
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="ALTRI-ALLEGATI" name="ALTRI-ALLEGATI" type="checkbox" value="OBBLIGATORIO"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          altri allegati
+          <span style="font-size:70%">(specificare)</span>
+          <input class="" label="Altri allegati" id="AltriAllegati" mandatory_enabled="#ALTRI_ALLEGATI.checked()" name="AltriAllegati" style="width:79%;" mandatory_enabled="#ALTRI_ALLEGATI.checked()"/>
+        </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<br>
+{{ utils.trattamento_dati_personali() }}
+<br/>
+  {{ utils.firma_hidden() }}
+<br/>
+
+<p class="Modulo">
+  <input id="SalvaModulo" name="SalvaModulo" style="height:30px;width:120px;" title="Verifica la corretta compilazione dei campi e salva il modulo nel faldone virtuale dell'istanza." type="submit" value="Salva modulo"/>
+</p>
+<input destinatario_amministrazione="getParameter('Ente')" id="GLOBO_modulo_c{{ CodiceModulo }}" name="GLOBO_modulo_c{{ CodiceModulo }}" type="hidden" value="" firmare="#FirmaRichiesta1.checked() ? 'P7M_ELETTRONICA' : 'NO'"/>
+
+<input firmare="'P7M_ELETTRONICA'" id="GLOBO_modulofiglio_cINCARICO_PROCURA" name="GLOBO_modulofiglio_cINCARICO_PROCURA" type="hidden" value="" firmato="#FirmaRichiesta1.checked() ? 'SI' : 'NO'"/>
+<input id="GLOBO_allegato_cCOP_SOST_TAXI" name="GLOBO_allegato_cCOP_SOST_TAXI" obbligatorio="#COP_SOST_TAXI.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value="" firmato="#FirmaRichiesta1.checked() ? 'SI' : 'NO'"/>
+<input id="GLOBO_allegato_cCOP_DIP_IMP" name="GLOBO_allegato_cCOP_DIP_IMP" obbligatorio="#COP_DIP_IMP.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value="" firmato="#FirmaRichiesta1.checked() ? 'SI' : 'NO'"/>
+<input id="GLOBO_allegato_cCOP_COLL_FAM" name="GLOBO_allegato_cCOP_COLL_FAM" obbligatorio="#COP_COLL_FAM.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value="" firmato="#FirmaRichiesta1.checked() ? 'SI' : 'NO'"/>
+<input id="GLOBO_allegato_cALTRI-ALLEGATI" name="GLOBO_allegato_cALTRI-ALLEGATI" obbligatorio="#ALTRI_ALLEGATI.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value="" firmato="#FirmaRichiesta1.checked() ? 'SI' : 'NO'"/>
+
+<input id="GLOBO_id_padre" name="GLOBO_id_padre" type="hidden"/>
+<input id="GLOBO_recupera_dati" name="GLOBO_recupera_dati" type="hidden"/>
+<input id="GLOBO_codice_modulo" name="GLOBO_codice_modulo" type="hidden" value="{{ CodiceModulo }}"/>
+
+{% endblock content %}

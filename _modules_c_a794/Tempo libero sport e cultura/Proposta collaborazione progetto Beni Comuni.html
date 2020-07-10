@@ -1,0 +1,401 @@
+{% set CodiceModulo = "PROP_COLL_BEN_COM" %}
+{% set Urn = "document:c_a794:beni.comuni.urbani;gestione.condivisa;partecipare" %}
+{% extends "base.html" %}
+
+{% block meta %}
+
+<meta campi_firma="Titolare_CodiceFiscale"
+campi_firma_label="il dichiarante"
+classi_modulo="Affari istituzionali"
+codice_modulo="{{ CodiceModulo }}"
+urn="{% block urn %}{{ Urn }}{% endblock urn %}"
+sub_urn_list="polgiov,publistru,turi,ecolog,verdpubbl"
+uo_globo_list=""
+descrizione="Proposta di collaborazione al progetto Beni Comuni"
+destinatario_amministrazione=""
+destinatario_ufficio="UOTEMPOLIBEROSPORTECULTURA"
+dinamico="SI"
+email_a=""
+ente_abilitato="TUTTI"
+filigrana="NO"
+firmare="P7M_ELETTRONICA"
+istruzioni_compilazione=""
+istruzioni_invio="mail_pec"
+metodo_invio="mail"
+name="GLOBO_modulo"
+procura="NO,,"
+tipo_modulo="principale"
+urlhelp="/modulistica/moduli/{{ CodiceModulo }}"
+verifica_pagamento="NO"
+versione="1.0|16/03/2019"/>
+
+<meta codice_modulo_figlio="INCARICO_PROCURA"
+urn_modulo_figlio="document:s_italia:generale;incarico.procura"
+name="GLOBO_modulofiglio"
+numero="1"
+obbligatorio="DINAMICO"/>
+
+<meta codice_allegato="PAT-REL-ILL"
+urn_allegato="document:s_italia:patrocinio;relazione.illustrativa.iniziativa;relazione"
+descrizione_estesa="Relazione illustrativa della manifestazione o iniziativa"
+filename="Relazione illustrativa.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/PAT-REL-ILL"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="OCC-ASS-ATT"
+urn_allegato="document:s_italia:associazionismo;atto.costitutivo.statuto.registrati;atto"
+descrizione_estesa="Copia dell'atto costitutivo e statuto registrati"
+filename="Atto costitutivo.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/OCC-ASS-ATT"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="DAE-CDI"
+urn_allegato="document:s_italia:generale;documento.identita;documentazione"
+descrizione_estesa="Documento di identità"
+filename="Documento identita.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/DAE-CDI"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="ALTRI-ALLEGATI"
+urn_allegato="document:s_italia:altri.allegati"
+descrizione_estesa="Altri allegati"
+filename="Altri allegati.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/ALTRI-ALLEGATI"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+{% endblock meta %}
+
+{% block title %}
+    Proposta di collaborazione al progetto Beni Comuni
+{% endblock title %}
+
+{% block content %}
+
+<globo_fondo_pagina areaheight="150" scope="2">
+    {{ utils.firma() }}
+</globo_fondo_pagina>
+
+<input id="Parametri_Comune" name="Parametri_Comune" type="hidden" dynamic_value="#Ente.value()"/>
+<input id="Oggetto" name="Oggetto" type="hidden" dynamic_value="#Titolare_Cognome.value().toUpperCase() + ' ' + #Titolare_Nome.value().toUpperCase() + ' - collaborazione progetto Beni Comuni'"/>
+
+{{ intestazioni.intestazione_moduloprincipale_senzabollo() }}
+
+<h1 class="Modulo">
+    Proposta di collaborazione al progetto Beni Comuni
+</h1>
+
+{{ anagrafica.societa("Titolare", "Il sottoscritto", ["Persona fisica", "Titolare", "Legale rappresentante"], "Richiedente", "visibility:visibility", "cursor:pointer", "mail_ordinaria", "false", "false") }}
+
+
+<h3 class="Modulo">
+    CHIEDE
+</h3>
+
+<p class="Modulo">
+    di poter collaborare al progetto “Beni Comuni”
+</p>
+
+<div id="Tassonomia_LiberaDomandaAvviso" name="Tassonomia_LiberaDomandaAvviso" label="Collaborazione progetto" mandatory="true"></div>
+<table class="Modulo" style="border: 1px solid grey;">
+    <tbody>
+        <tr>
+            <td style="vertical-align: top; width: 4%;">
+                <input id="Tassonomia_LiberaDomandaAvviso1" name="Tassonomia_LiberaDomandaAvviso" type="radio" value="1" />
+            </td>
+            <td colspan="2">
+                <p>
+                    su libera domanda
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td rowspan="3" style="vertical-align: top; width: 4%; background-color: #fff;">
+                <input id="Tassonomia_LiberaDomandaAvviso2" name="Tassonomia_LiberaDomandaAvviso" type="radio" value="2" />
+            </td>
+            <td colspan="2">
+                <p>
+                    in relazione all’avviso
+                </p>
+            </td>
+        </tr>
+        <tr class="Rigaintestazioneridotta">
+            <td style="width: 48%;">
+                <p class="Labelcella">
+                    Numero avviso
+                </p>
+            </td>
+            <td style="width: 48%;">
+                <p class="Labelcella">
+                    Anno di riferimento
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input class="inputNormal" id="Parametri_NumeroAvviso" name="Parametri_NumeroAvviso" style="width: 100%;" label="Numero avviso" mandatory_enabled="#Tassonomia_LiberaDomandaAvviso2.checked()"/>
+            </td>
+            <td>
+                <input class="inputNormal" id="Parametri_AnnoRiferimento" name="Parametri_AnnoRiferimento" style="width: 100%;" label="Anno di riferimento" mandatory_enabled="#Tassonomia_LiberaDomandaAvviso2.checked()" format="number" maxlength="4" />
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<div id="Tassonomia_Collaborazione" name="Tassonomia_Collaborazione" label="Collaborazione" mandatory="true"></div>
+<table class="Modulo" style="border: 1px solid grey;margin-top: -1px;">
+    <tbody>
+        <tr class="Rigaintestazione">
+            <td colspan="2">
+                <p class="Labeltabella">
+                    propone la sua collaborazione
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td style="vertical-align: top; width: 4%;">
+                <input id="Tassonomia_Collaborazione1" name="Tassonomia_Collaborazione" type="radio" value="1" />
+            </td>
+            <td>
+                <p>
+                    per interventi di cura
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td style="vertical-align: top; width: 4%;">
+                <input id="Tassonomia_Collaborazione2" name="Tassonomia_Collaborazione" type="radio" value="2" />
+            </td>
+            <td>
+                <p>
+                    per la gestione condivisa
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td style="vertical-align: top; width: 4%;">
+                <input id="Tassonomia_Collaborazione3" name="Tassonomia_Collaborazione" type="radio" value="3" />
+            </td>
+            <td>
+                <p>
+                    per interventi di rigenerazione
+                </p>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<div id="Tassonomia_DenominazioneBeneComunale" name="Tassonomia_DenominazioneBeneComunale" label="Denominazione bene comunale" mandatory="true"></div>
+<table class="Modulo" style="border: 1px solid grey;margin-top: -1px;">
+    <tbody>
+        <tr class="Rigaintestazione">
+            <td colspan="2">
+                <p class="Labeltabella">
+                    del bene comunale
+                </p>
+            </td>
+        </tr>
+        <tr class="Rigaintestazioneridotta">
+            <td colspan="2">
+                <p class="Labelcella">
+                    Denominazione del bene comunale
+                </p>
+            </td>
+        </tr>
+        {% set beni_comunali = ["immobile ex Gres (escluso il PT e le porzioni già occupate) in via S.Bernardino",
+        "porta S. Alessandro",
+        "ex negozio in via San Lorenzo, 12/B",
+        "ex spogliatoi in Via Fara, 5",
+        "ex ufficio postale in Via Rosa, 30",
+        "mediateca Tiraboschi in via San Giorgio, 19",
+        "padiglione nel Parco Beata Cittadini",
+        "padiglione nel Parco Goisis",
+        "orti sociali nel Parco del Quintino (da realizzare a cura dell’amministrazione comunale)",
+        "orti sociali nell’area verde in Via Maestri del Lavoro/Via Spino (da realizzare a cura dell’amministrazione comunale)",
+        "area cani",
+        "area verde in via Mozart detta “il bosco” per attività di animazione",
+        "pista ciclabile tra Via Gavazzeni e la Circonvallazione"] %}
+        {% for bene in beni_comunali %}
+        <tr>
+            <td style="vertical-align: top; width: 4%;">
+                <input id="Tassonomia_DenominazioneBeneComunale{{loop.index}}" name="Tassonomia_DenominazioneBeneComunale" type="radio" value="{{loop.index}}" />
+            </td>
+            <td>
+                <p>
+                    {{ bene }}
+                </p>
+            </td>
+        </tr>
+        {% endfor %}
+
+    </tbody>
+</table>
+
+<div id="Tassonomia_Finalita" name="Tassonomia_Finalita" label="Finalità" mandatory="true"></div>
+<table class="Modulo" style="border: 1px solid grey;margin-top: -1px;">
+    <tbody>
+        <tr class="Rigaintestazione">
+            <td colspan="2">
+                <p class="Labeltabella">
+                    per le seguenti finalità
+                </p>
+            </td>
+        </tr>
+
+        {% set finalita = ["iniziativa con finalità sportiva, ricreativa e del tempo libero",
+        "iniziativa con finalità sociale",
+        "iniziativa con finalità educativa",
+        "iniziativa con finalità culturale e turistica",
+        "iniziativa con finalità ambientale",
+        "iniziativa a tutela e valorizzazione del verde pubblico"] %}
+
+        {% for f in finalita %}
+        <tr>
+            <td style="vertical-align: top; width: 4%;">
+                <input id="Tassonomia_Finalita{{loop.index}}" name="Tassonomia_Finalita" type="radio" value="{{loop.index}}" />
+            </td>
+            <td>
+                <p>
+                    {{ f }}
+                </p>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<br>
+
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          Eventuali annotazioni
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <textarea class="inputNormal" id="Parametri_Annotazioni" name="Parametri_Annotazioni" style="width: 100%; height: 5cm;" label="Eventuali annotazioni"></textarea>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<br>
+
+
+
+<table class="Modulo" name="Allegati" style="border: 1px solid grey">
+    <tbody>
+        <tr class="Rigaintestazione">
+            <td colspan="2">
+                <p style="text-align: center;">
+                    <b>
+                        Elenco degli allegati
+                    </b>
+                    <br/>
+                    <span style="font-size:70%">
+                        <i>(barrare tutti gli allegati richiesti in fase di presentazione della pratica ed elencati sul portale)</i>
+                    </span>
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 4%; vertical-align: top;">
+                <input id="PAT-REL-ILL" name="PAT-REL-ILL" type="checkbox" value="OBBLIGATORIO" checked="checked" dynamic_check="true"/>
+            </td>
+            <td style="background-color: #eeeeee;">
+                <p>
+                    relazione illustrativa della manifestazione o iniziativa
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 4%; vertical-align: top;">
+                <input id="OCC-ASS-ATT" name="OCC-ASS-ATT" type="checkbox" value="OBBLIGATORIO"/>
+            </td>
+            <td style="background-color: #eeeeee;">
+                <p>
+                    copia dell’atto costitutivo e statuto registrati<br>
+                    <span style="font-size: 70%;"><i>(da allegare se il Comune ne è in possesso)</i></span>
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td style="vertical-align: top; width: 4%;">
+                <input id="DAE-CDI" name="DAE-CDI" type="checkbox" value="OBBLIGATORIO" />
+            </td>
+            <td style="background-color: #eeeeee;">
+                <p>
+                    copia del documento d'identità
+                    <br/>
+                    <span style="font-size:70%">
+                        <i>(da allegare se il modulo è sottoscritto con firma autografa)</i>
+                    </span>
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td style="vertical-align: top; width: 4%;">
+                <input id="ALTRI-ALLEGATI" name="ALTRI-ALLEGATI" type="checkbox" value="OBBLIGATORIO"/>
+            </td>
+            <td style="background-color: #eeeeee;">
+                <p>
+                    altri allegati
+                    <span style="font-size:70%">(specificare)</span>
+                    <input class="" label="Altri allegati" id="AltriAllegati" mandatory_enabled="#ALTRI_ALLEGATI.checked()" name="AltriAllegati" style="width:79%;"/>
+                </p>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+
+<br>
+{{ utils.trattamento_dati_personali() }}
+<br/>
+    {{ utils.firma_hidden() }}
+<br/>
+
+<p class="Modulo">
+    <input id="SalvaModulo" name="SalvaModulo" style="height:30px;width:120px;" title="Verifica la corretta compilazione dei campi e salva il modulo nel faldone virtuale dell'istanza." type="submit" value="Salva modulo"/>
+</p>
+
+<input destinatario_amministrazione="getParameter('Ente')" id="GLOBO_modulo_c{{ CodiceModulo }}" name="GLOBO_modulo_c{{ CodiceModulo }}" type="hidden" value=""/>
+<input firmare="'NO'" id="GLOBO_modulofiglio_cINCARICO_PROCURA" name="GLOBO_modulofiglio_cINCARICO_PROCURA" type="hidden" value=""/>
+<input id="GLOBO_sub_urn" name="GLOBO_sub_urn" type="hidden" dynamic_value="
+#Tassonomia_Finalita1.checked() ? 'polgiov' :
+(#Tassonomia_Finalita2.checked() ? 'polgiov' :
+(#Tassonomia_Finalita3.checked() ? 'publinstru' :
+(#Tassonomia_Finalita4.checked() ? 'turi' :
+(#Tassonomia_Finalita5.checked() ? 'ecolog' :
+(#Tassonomia_Finalita6.checked() ? 'verdpubbl' : '')))))
+" />
+
+<input id="GLOBO_allegato_cPAT-REL-ILL" name="GLOBO_allegato_cPAT-REL-ILL" type="hidden" value="" obbligatorio="#PAT_REL_ILL.checked() ? 'OBBLIGATORIO' : ''"/>
+<input id="GLOBO_allegato_cOCC-ASS-ATT" name="GLOBO_allegato_cOCC-ASS-ATT" type="hidden" value="" obbligatorio="#OCC_ASS_ATT.checked() ? 'OBBLIGATORIO' : ''"/>
+<input id="GLOBO_allegato_cDAE-CDI" name="GLOBO_allegato_cDAE-CDI" obbligatorio="#DAE_CDI.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+<input id="GLOBO_allegato_cALTRI-ALLEGATI" name="GLOBO_allegato_cALTRI-ALLEGATI" obbligatorio="#ALTRI_ALLEGATI.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_id_padre" name="GLOBO_id_padre" type="hidden"/>
+<input id="GLOBO_recupera_dati" name="GLOBO_recupera_dati" type="hidden"/>
+<input id="GLOBO_codice_modulo" name="GLOBO_codice_modulo" type="hidden" value="{{ CodiceModulo }}"/>
+
+{% endblock content %}

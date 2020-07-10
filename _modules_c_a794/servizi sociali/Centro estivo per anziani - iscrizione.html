@@ -1,0 +1,461 @@
+{% set CodiceModulo = "ISCR_CRE_ANZIANI" %}
+{% set Urn = "document:c_a794:centro.estivo.ricreativo;anziani" %}
+{% extends "base.html" %}
+
+{% block meta %}
+
+<meta campi_firma="Titolare_CodiceFiscale"
+campi_firma_label="il dichiarante"
+classi_modulo="Servizi sociali"
+codice_modulo="{{ CodiceModulo }}"
+urn="{% block urn %}{{ Urn }}{% endblock urn %}"
+sub_urn_list=""
+uo_globo_list=""
+descrizione="Domanda di iscrizione al centro estivo per anziani"
+destinatario_amministrazione=""
+destinatario_ufficio="UOSERVIZISOCIALI"
+dinamico="SI"
+email_a=""
+ente_abilitato="TUTTI"
+filigrana="NO"
+firmare="P7M_ELETTRONICA"
+istruzioni_compilazione=""
+istruzioni_invio="mail_pec"
+metodo_invio="mail"
+name="GLOBO_modulo"
+procura="NO,,"
+tipo_modulo="principale"
+urlhelp="/modulistica/moduli/{{ CodiceModulo }}"
+verifica_pagamento="NO"
+versione="1.2|10/05/2019"/>
+
+<meta codice_modulo_figlio="Incarico_procura"
+urn_modulo_figlio="document:s_italia:generale;incarico.procura"
+name="GLOBO_modulofiglio"
+numero="1"
+obbligatorio="DINAMICO"/>
+
+<meta codice_allegato="DAE-CDI"
+urn_allegato="document:s_italia:generale;documento.identita;documentazione"
+descrizione_estesa="Documento di identità"
+filename="Documento identita.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/DAE-CDI"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="ALTRI-ALLEGATI"
+urn_allegato="document:s_italia:altri.allegati"
+descrizione_estesa="Altri allegati"
+filename="Altri allegati.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/ALTRI-ALLEGATI"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+{% endblock meta %}
+
+{% block title %}
+  Domanda di iscrizione al centro estivo per anziani
+{% endblock title %}
+
+{% block content %}
+
+<globo_fondo_pagina areaheight="150" scope="3">
+  {{ utils.firma() }}
+</globo_fondo_pagina>
+
+<input id="Parametri_Comune" name="Parametri_Comune" type="hidden" dynamic_value="#Ente.value()"/>
+<input id="Oggetto" name="Oggetto" type="hidden" dynamic_value="#Titolare_Cognome.value().toUpperCase() + ' ' + #Titolare_Nome.value().toUpperCase() + ' - Domanda di iscrizione al centro estivo per anziani'"/>
+
+{{ intestazioni.intestazione_moduloprincipale_senzabollo() }}
+
+<h1 class="Modulo">
+  Domanda di iscrizione al centro estivo per anziani
+</h1>
+<input id="Titolare_DatiPersonaObbligatori" name="Titolare_DatiPersonaObbligatori" type="hidden" dynamic_check="true"/>
+<input id="Titolare_Titolo" name="Titolare_Titolo" type="hidden" value="Richiedente"/>
+<input id="Titolare_Ruolo" name="Titolare_Ruolo" type="hidden" value="Richiedente"/>
+{{ anagrafica.persona_fisica("Titolare", "Il sottoscritto", "visibility:visibility", "cursor:pointer", "visibility:visibility", "visibility:visibility", "mail_ordinaria") }}
+
+<br>
+<h3 class="Modulo">
+  CHIEDE
+</h3>
+<p class="Modulo">
+  l'iscrizione al centro estivo anziani
+</p>
+{{ anagrafica.soggetto_riferimento_servizi_demografici("AventeTitolo", "per il seguente familiare o tutelato", "per se stesso", "true") }}
+
+<br>
+<input id="Immobile_DatiImmobileRichiesti" name="Immobile_DatiImmobileRichiesti" type="checkbox" style="display: none;" value="si" dynamic_check="true"/>
+{{ immobili.immobile_toponomastica_secondario("Immobile", "attualmente residente in", "residenza familiare", "display:dispaly") }}
+
+  <p class="Modulo" style="font-size:80%">
+    <i>In qualità di (*)</i>:<br/>
+    curatore, esercente responsabilità genitoriale, familiare, tutore legale 
+  </p>
+
+<br>
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="3">
+        <p class="Labeltabella"> con frequenza </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td colspan="3">
+        <p class="Labelcella"> Periodo di frequenza </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <div id="Tassonomia_per_freq" name="Tassonomia_per_freq" label="Periodo di frequenza" mandatory="true"></div>
+        <input id="Tassonomia_per_freq1" name="Tassonomia_per_freq" type="radio" value="1" />
+      </td>
+      <td colspan="2">
+        <p> intero periodo </p>
+      </td>
+    </tr>
+    <tr>
+      <td rowspan="3" style="vertical-align: top; width: 4%;background-color: white">
+        <input id="Tassonomia_per_freq2" name="Tassonomia_per_freq" type="radio" value="2" />
+      </td>
+      <td colspan="2">
+        <p> parziale </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella"> Data inizio </p>
+      </td>
+      <td>
+        <p class="Labelcella"> Data fine </p>
+      </td>
+    </tr>
+    <tr mandatory_enabled="#Tassonomia_per_freq2.checked()">
+      <td>
+        <input class="inputNormal" id="Parametri_per_par_dinizio" name="Parametri_per_par_dinizio" style="width: 100%;" label="Data inizio" format="date" />
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_per_par_dfine" name="Parametri_per_par_dfine" style="width: 100%;" label="Data fine" format="date" />
+      </td>
+    </tr>
+  </tbody>
+</table>
+<table class="Modulo" style="border: 1px solid grey;margin-top: -1px;">
+  <tbody>
+    <tr class="Rigaintestazioneridotta">
+      <td colspan="11">
+        <p class="Labelcella"> Giorni di frequenza </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <div id="Tassonomia_gior_freq" name="Tassonomia_gior_freq" label="Giorni di frequenza" mandatory="true"></div>
+        <input id="Tassonomia_gior_freq1" name="Tassonomia_gior_freq" type="radio" value="1" />
+      </td>
+      <td colspan="10">
+        <p> intera settimana </p>
+      </td>
+    </tr>
+    <tr>
+      <td rowspan="3" style="vertical-align: top; width: 4%;">
+        <input id="Tassonomia_gior_freq2" name="Tassonomia_gior_freq" type="radio" value="2" />
+      </td>
+      <td colspan="10">
+        <p> giornaliero </p>
+      </td>
+    </tr>
+    {% set days = ["lunedì","martedì","mercoledì","giovedì","venerdì"] %}
+    <div id="Tassonomia_gior_sing" name="Tassonomia_gior_sing" label="label" mandatory_enabled="#Tassonomia_gior_freq2.checked()"></div>
+    <tr>      
+      {% for day in days %}
+        <td style="width: 4%;vertical-align: top">
+          <input group="Tassonomia_gior_sing" id="Tassonomia_gior_sing{{loop.index}}" name="Tassonomia_gior_sing{{loop.index}}" type="checkbox" value="SI" />
+        </td>
+        <td style="width: 15.2%;">
+          <p> {{ day }} </p>
+        </td>
+      {% endfor %}
+    </tr>
+  </tbody>
+</table>
+
+<br>
+<globo_salto_pagina></globo_salto_pagina>
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="2">
+        <p class="Labeltabella"> l’accesso ai seguenti servizi aggiuntivi </p>
+      </td>
+    </tr>
+    {% set travs = ["andata verso la struttura","ritorno verso la residenza","trasporto andata e ritorno"] %}
+    <div id="Tassonomia_trav" name="Tassonomia_trav" enabledd="true"></div>
+    {% for trav in travs %}  
+      <tr>
+        <td style="vertical-align: top; width: 4%;">
+          <input id="Tassonomia_trav{{loop.index}}" name="Tassonomia_trav" type="radio" value="{{loop.index}}" />
+        </td>
+        <td>
+          <p> {{ trav }} </p>
+        </td>
+      </tr>
+    {% endfor %}
+    <!------------------------------------------------------------------------------------>
+    <tr class="Rigaintestazioneridotta">
+      <td colspan="2">
+        <p class="Labelcella"> Pasti </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="Tassonomia_pasto1" name="Tassonomia_pasto1" type="checkbox" value="SI" enabled="!#Tassonomia_pasto2.checked()"/>
+      </td>
+      <td>
+        <p> richiede la fruizione del pasto gratuito </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="Tassonomia_pasto2" name="Tassonomia_pasto2" type="checkbox" value="SI" enabled="!#Tassonomia_pasto1.checked()"/>
+      </td>
+      <td>
+        <p> richiede la fruizione del pasto a pagamento </p>
+      </td>
+    </tr>
+    <!------------------------------------------------------------------------------------>
+  </tbody>
+</table>
+
+<br>
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td>
+        <p class="Labeltabella"> per il seguente motivo </p>
+      </td>
+    </tr>
+    <tr>
+      <td mandatory="true">
+        <textarea class="inputNormal" id="Parametri_motivazioni" name="Parametri_motivazioni" style="width: 100%; height: 5cm;" label="Motivazione servizi aggiuntivi"></textarea>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<br>
+<h3 class="Modulo">
+COMUNICA
+</h3>
+
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="3">
+        <p class="Labeltabella"> i famigliari di riferimento </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td style="width: 33%">
+        <p class="Labelcella"> Cognome </p>
+      </td>
+      <td style="width: 34%">
+        <p class="Labelcella"> Nome </p>
+      </td>
+      <td>
+        <p class="Labelcella"> Recapito telefonico </p>
+      </td>
+    </tr>
+    {% for i in range(1, 6) %}
+      <tr {% if i == 1 %} mandatory_enabled="true" {% endif %}>
+        <td>
+          <input class="inputNormal" id="Referente{{i}}_Cognome" name="Referente{{i}}_Cognome" style="width: 100%;" label="Cognome familiare"/>
+        </td>
+        <td>
+          <input class="inputNormal" id="Referente{{i}}_Nome" name="Referente{{i}}_Nome" style="width: 100%;" label="Nome familiare"  
+          {% if i > 1 %} mandatory_enabled="#Referente{{i}}_Cognome.value()!=''" {% endif %}/>
+        </td>
+        <td>
+          <input class="inputNormal" id="Referente{{i}}_Telefono" name="Referente{{i}}_Telefono" style="width: 100%;" label="Telefono familiare" format="regular_expression" expression="^(0|3)\d{4,11}$"  
+          {% if i > 1 %} mandatory_enabled="#Referente{{i}}_Cognome.value()!=''" {% endif %}/>
+        </td>
+      </tr>
+    {% endfor %}
+    <tr class="Rigaintestazione">
+      <td>
+        <p class="Labeltabella"> il medico curante </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td style="width: 33%">
+        <p class="Labelcella"> Cognome </p>
+      </td>
+      <td style="width: 34%">
+        <p class="Labelcella"> Nome </p>
+      </td>
+      <td>
+        <p class="Labelcella"> Recapito telefonico </p>
+      </td>
+    </tr>
+    <tr mandatory="true">
+        <td>
+          <input class="inputNormal" id="Referente20_Cognome" name="Referente20_Cognome" style="width: 100%;" label="Cognome medico"/>
+        </td>
+        <td>
+          <input class="inputNormal" id="Referente20_Nome" name="Referente20_Nome" style="width: 100%;" label="Nome medico"/>
+        </td>
+        <td>
+          <input class="inputNormal" id="Referente20_Telefono" name="Referente20_Telefono" style="width: 100%;" label="Telefono medico" format="regular_expression" expression="^(0|3)\d{4,11}$"/>
+        </td>
+      </tr>
+  </tbody>
+</table>
+<table class="Modulo" style="border: 1px solid grey;margin-top: -1px;">
+  <tbody>
+     <!------------------------------------------------------------------------------------>
+    <tr class="Rigaintestazione">
+      <td colspan="2">
+        <p class="Labeltabella"> di essere già utilizzatore dei seguenti servizi: </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="Tassonomia_serv_SAD" name="Tassonomia_serv_SAD" type="checkbox" value="SI" />
+      </td>
+      <td>
+        <p> attivazione SAD </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="Tassonomia_cust_soc" name="Tassonomia_cust_soc" type="checkbox" value="SI" />
+      </td>
+      <td>
+        <p> attivazione della custodia sociale </p>
+      </td>
+    </tr>
+    <!------------------------------------------------------------------------------------>
+  </tbody>
+</table>
+<table class="Modulo" style="border: 1px solid grey;margin-top: -1px;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="2">
+        <p class="Labeltabella"> di essere venuto a conoscenza dell'iniziativa </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td colspan="2">
+        <p class="Labelcella"> Canale di comunicazione </p>
+      </td>
+    </tr>
+    {% set cans = ["opuscolo","assistente sociale di riferimento","articoli di giornale o tv","già frequentata in passato","altro"] %}
+    <div id="Tassonomia_can_comun" name="Tassonomia_can_comun" label="Canale di comunicazione" mandatory="true"></div>
+    {% for can in cans %}
+      <tr>
+        <td style="vertical-align: top; width: 4%;">
+          <input group="Tassonomia_can_comun" id="Tassonomia_can_comun{{loop.index}}" name="Tassonomia_can_comun{{loop.index}}" type="checkbox" value="SI" />
+        </td>
+        <td>
+          <p> {{ can }} {% if loop.last %} <span style="font-size: 70%;"><i>(specificare)</i></span> <input class="inputNormal" id="Tassonomia_can_comun{{loop.index}}_Note" name="Tassonomia_can_comun{{loop.index}}_Note" style="width: 70%;" label="Altro" mandatory_enabled="#Tassonomia_can_comun{{loop.index}}.checked()"> {% endif %}</p>
+        </td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<br>
+<globo_salto_pagina></globo_salto_pagina>
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          Eventuali annotazioni (*)
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <textarea class="inputNormal" id="Parametri_Annotazioni" name="Parametri_Annotazioni" style="width: 100%; height: 5cm;" label="Eventuali annotazioni"></textarea>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<p class="Modulo" style="font-size:80%">
+  <i>(*)</i>
+  comunicare eventuali compromissioni psico/fisiche, particolari esigenze alimentari, assunzioni di terapie farmacogliche ed ogni altra informazione sensibile
+</p>
+
+<br>
+<table class="Modulo" name="Allegati" style="border: 1px solid grey">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="2">
+        <p style="text-align: center;">
+          <b>
+            Elenco degli allegati
+          </b>
+          <br/>
+          <span style="font-size:70%">
+            <i>(barrare tutti gli allegati richiesti in fase di presentazione della pratica ed elencati sul portale)</i>
+          </span>
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="DAE-CDI" name="DAE-CDI" type="checkbox" value="OBBLIGATORIO" />
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          copia del documento d'identità
+          <br/>
+          <span style="font-size:70%">
+            <i>(da allegare se il modulo è sottoscritto con firma autografa)</i>
+          </span>
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="ALTRI-ALLEGATI" name="ALTRI-ALLEGATI" type="checkbox" value="OBBLIGATORIO"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          altri allegati
+          <span style="font-size:70%">(specificare)</span>
+          <input class="" label="Altri allegati" id="AltriAllegati" mandatory_enabled="#ALTRI_ALLEGATI.checked()" name="AltriAllegati" style="width:79%;"/>
+        </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+{{ utils.trattamento_dati_personali() }}
+<br/>
+  {{ utils.firma_hidden() }}
+<br/>
+
+<p class="Modulo">
+  <input id="SalvaModulo" name="SalvaModulo" style="height:30px;width:120px;" title="Verifica la corretta compilazione dei campi e salva il modulo nel faldone virtuale dell'istanza." type="submit" value="Salva modulo"/>
+</p>
+
+<input destinatario_amministrazione="getParameter('Ente')" id="GLOBO_modulo_c{{ CodiceModulo }}" name="GLOBO_modulo_c{{ CodiceModulo }}" type="hidden" value=""/>
+<input firmare="'P7M_ELETTRONICA'" id="GLOBO_modulofiglio_cIncarico_procura" name="GLOBO_modulofiglio_cIncarico_procura" type="hidden" value=""/>
+
+<input id="GLOBO_allegato_cDAE-CDI" name="GLOBO_allegato_cDAE-CDI" obbligatorio="#DAE_CDI.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+<input id="GLOBO_allegato_cALTRI-ALLEGATI" name="GLOBO_allegato_cALTRI-ALLEGATI" obbligatorio="#ALTRI_ALLEGATI.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_id_padre" name="GLOBO_id_padre" type="hidden"/>
+<input id="GLOBO_recupera_dati" name="GLOBO_recupera_dati" type="hidden"/>
+<input id="GLOBO_codice_modulo" name="GLOBO_codice_modulo" type="hidden" value="{{ CodiceModulo }}"/>
+
+{% endblock content %}

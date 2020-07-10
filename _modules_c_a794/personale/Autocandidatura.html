@@ -1,0 +1,333 @@
+{% set CodiceModulo = "AUT-NOM" %}
+{% set Urn = "document:c_a794:rappresentare.comune;autocandidarsi" %}
+{% extends "base.html" %}
+
+{% block meta %}
+
+<meta campi_firma="Titolare_CodiceFiscale"
+campi_firma_label="il dichiarante"
+classi_modulo="Lavoro"
+codice_modulo="{{ CodiceModulo }}"
+urn="{% block urn %}{{ Urn }}{% endblock urn %}"
+sub_urn_list=""
+uo_globo_list=""
+descrizione="Autocandidatura per enti, aziende, istituzioni e società"
+destinatario_amministrazione=""
+destinatario_ufficio="UOLAVORO"
+dinamico="SI"
+email_a=""
+ente_abilitato="TUTTI"
+filigrana="NO"
+firmare="P7M_ELETTRONICA"
+istruzioni_compilazione=""
+istruzioni_invio="mail_pec"
+metodo_invio="mail"
+name="GLOBO_modulo"
+procura="NO,,"
+tipo_modulo="principale"
+urlhelp="/modulistica/moduli/{{ CodiceModulo }}"
+verifica_pagamento="NO"
+versione="1.1|17/06/2019"/>
+
+<meta codice_modulo_figlio="INCARICO_PROCURA"
+urn_modulo_figlio="document:s_italia:generale;incarico.procura"
+name="GLOBO_modulofiglio"
+numero="1"
+obbligatorio="DINAMICO"/>
+
+<meta codice_allegato="LAV-CUR-VIT"
+urn_allegato="document:s_italia:concorsi.selezioni;curriculum.professionale;documentazione"
+descrizione_estesa="Curriculum vitae redatto secondo il modello europeo"
+filename="Curriculum vitae.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/LAV-CUR-VIT"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="ELENCO-CARICHE-RICOPERTE"
+urn_allegato="document:c_a794:elenco.cariche.pubbliche.ricoperte"
+descrizione_estesa="elenco delle cariche pubbliche, degli incarichi ricoperti in società a partecipazione pubblica, in enti, associazioni, società private iscritte nei pubblici registri"
+filename="elenco cariche.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/ELENCO-CARICHE-RICOPERTE"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="DAE-CDI"
+urn_allegato="document:s_italia:generale;documento.identita;documentazione"
+descrizione_estesa="Documento di identità"
+filename="Documento identita.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/DAE-CDI"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="ALTRI-ALLEGATI"
+urn_allegato="document:s_italia:altri.allegati"
+descrizione_estesa="Altri allegati"
+filename="Altri allegati.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/ALTRI-ALLEGATI"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+{% endblock meta %}
+
+{% block title %}
+  Autocandidatura per enti, aziende, istituzioni e società
+{% endblock title %}
+
+{% block content %}
+
+<globo_fondo_pagina areaheight="150" scope="2">
+  {{ utils.firma() }}
+</globo_fondo_pagina>
+
+<input id="Parametri_Comune" name="Parametri_Comune" type="hidden" dynamic_value="#Ente.value()"/>
+<input id="Oggetto" name="Oggetto" type="hidden" dynamic_value="#Titolare_Cognome.value().toUpperCase() + ' ' + #Titolare_Nome.value().toUpperCase() + ' - Autocandidatura per enti, aziende, istituzioni e società'"/>
+
+{{ intestazioni.intestazione_moduloprincipale_senzabollo() }}
+
+<h1 class="Modulo">
+  Autocandidatura per enti, aziende, istituzioni e società
+</h1>
+<h2 class="Modulo">
+  Decreto legislativo 19/08/2006, n.175, art.11
+</h2>
+
+<input id="Titolare_DatiPersonaObbligatori" name="Titolare_DatiPersonaObbligatori" type="hidden" dynamic_check="true"/>
+<input id="Titolare_Titolo" name="Titolare_Titolo" type="hidden" value="Richiedente"/>
+{{ anagrafica.persona_fisica("Titolare", "Il sottoscritto", "visibility:visibility", "cursor:pointer", "visibility:visibility", "visibility:visibility", "mail_ordinaria") }}
+<table class="Modulo" style="border:1px solid grey; margin-top:-1px;" mandatory_enabled="true">
+  <tbody>
+    <tr class="Rigaintestazioneridotta">
+      <td colspan="5">
+        <p class="Labelcella">Residenza</p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td style="width:9%;">
+        <p class="Labelcella"> Provincia </p>
+      </td>
+      <td style="width:33%;">
+        <p class="Labelcella"> Comune </p>
+      </td>
+      <td style="width:33%;">
+        <p class="Labelcella"> Indirizzo </p>
+      </td>
+      <td style="width:9%;">
+        <p class="Labelcella"> Civico </p>
+      </td>
+      <td style="width:16%;">
+        <p class="Labelcella"> CAP </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        {{ utils.provincie( 'Titolare_ProvinciaSede', 'Provincia di sede' )}}
+      </td>
+      <td>
+        <select class="inputNormal" id="Titolare_ComuneSede" name="Titolare_ComuneSede" style="width:100%" label="Comune di sede del {{ Solo1 }}" dynamic_value="getComuniFromProvincia( #Titolare_ProvinciaSede.value(), 'Titolare_ComuneSede')"> </select>
+      </td>
+      <td>
+        <input class="" id="Titolare_ViaSede" name="Titolare_ViaSede" style="width:100%;" label="Via di sede del {{ Solo1 }}" maxlength="60" format="regular_expression" expression="^(.+)\s(.+)$"/>
+      </td>
+      <td>
+        <input class="" id="Titolare_CivicoSede" name="Titolare_CivicoSede" style="width:100%;" label="Civico di sede del {{ Solo1 }}" maxlength="10"/>
+      </td>
+      <td>
+        <input class="" id="Titolare_CAPSede" name="Titolare_CAPSede" style="width:100%;" format="cap" label="CAP di sede del {{ Solo1 }}" mandatory="#Titolare_ProvinciaSede.value() != 'EE'"/>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<br>
+<h3 class="Modulo"> PROPONE </h3>
+<p class="Modulo"> La propria candidatura, in rappresentanza del Comune di Bergamo, per</p>
+<div id="Tassonomia_CandidaturaEnteAzienda" name="Tassonomia_CandidaturaEnteAzienda" label="Candidatura per ente o azienda" mandatory="true"></div>
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td style="vertical-align: top; width: 4%;" rowspan="3">
+        <input id="Tassonomia_CandidaturaEnteAzienda1" name="Tassonomia_CandidaturaEnteAzienda" type="radio" value="1" />
+      </td>
+      <td>
+        <p class="Labeltabella">
+          Ente o istituzione
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          Denominazione
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input class="inputNormal" id="Parametri_DenominazioneEnte" name="Parametri_DenominazioneEnte" style="width: 100%;" label="Denominazione ente" mandatory_enabled="#Tassonomia_CandidaturaEnteAzienda1.checked()"/>
+      </td>
+    </tr>
+    <tr class="Rigaintestazione">
+        <td style="vertical-align: top; width: 4%;" rowspan="3">
+          <input id="Tassonomia_CandidaturaEnteAzienda2" name="Tassonomia_CandidaturaEnteAzienda" type="radio" value="2" />
+        </td>
+        <td>
+          <p class="Labeltabella">
+            Azienda o società
+          </p>
+        </td>
+      </tr>
+      <tr class="Rigaintestazioneridotta">
+        <td>
+          <p class="Labelcella">
+            Denominazione
+          </p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <input class="inputNormal" id="Parametri_AziendaSocieta" name="Parametri_AziendaSocieta" style="width: 100%;" label="Denominazione azienda" mandatory_enabled="#Tassonomia_CandidaturaEnteAzienda2.checked()"/>
+        </td>
+      </tr>
+  </tbody>
+</table>
+
+
+<br>
+{{ utils.Dichiara_445() }}
+<div id="Tassonomia_Dichiara" name="Tassonomia_Dichiara" mandatory="true" label="Dichiarazioni requisiti"></div>
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="Tassonomia_Dichiara1" name="Tassonomia_Dichiara" type="radio" value="1"/>    
+      </td>
+      <td>
+        <p>
+          che nei propri confronti non sono in corso di applicazione e non sono state applicate misure che comportino cause di incandidabilità, inconferibilità e 
+          incompatibilità di incarichi o cariche presso le pubbliche amministrazioni e presso gli enti in controllo pubblico, nonché di cause di esclusione ai sensi 
+          del Decreto legislativo 31/12/2012, n.235, del Decreto  legislativo 08/04/2015, n.39, del Decreto Legge 06/07/2012, n.95 e Decreto Legge 24/06/2014, n.90
+        </p>
+      </td>
+    </tr>
+	<tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="Tassonomia_Dichiara2" name="Tassonomia_Dichiara" type="radio" value="2"/>    
+      </td>
+      <td>
+        <p>
+          di trovarsi in una delle condizioni di incompatibilità previste dal Decreto Legislativo 08/04/2013, n. 39 e di impegnarsi a sanarla entro 15 giorni dalla nomina
+        </p>
+      </td>
+    </tr>
+	<tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="Tassonomia_Dichiara3" name="Tassonomia_Dichiara3" type="checkbox" value="SI" checked="checked" dynamic_check="true"/>    
+      </td>
+      <td>
+        <p>
+          di non trovarsi in alcuna delle condizioni di esclusione di cui all'art. 1, comma 3 degli indirizzi per la nomina e la designazione dei rappresentanti del Comune 
+		  presso enti, aziende ed istituzioni, approvati dalla Deliberazione del consiglio comunale 25/06/2014, n.108
+        </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<br>
+<globo_salto_pagina></globo_salto_pagina>
+<table class="Modulo" name="Allegati" style="border: 1px solid grey">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="2">
+        <p style="text-align: center;">
+          <b>
+            Elenco degli allegati
+          </b>
+          <br/>
+          <span style="font-size:70%">
+            <i>(barrare tutti gli allegati richiesti in fase di presentazione della pratica ed elencati sul portale)</i>
+          </span>
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="width: 4%; vertical-align: top;">
+        <input id="LAV-CUR-VIT" name="LAV-CUR-VIT" type="checkbox" value="OBBLIGATORIO" checked="checked" dynamic_check="true"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p> curriculum vitae redatto secondo il modello europeo </p>
+      </td>
+    </tr>
+	<tr>
+      <td style="width: 4%; vertical-align: top;">
+        <input id="ELENCO-CARICHE-RICOPERTE" name="ELENCO-CARICHE-RICOPERTE" type="checkbox" value="OBBLIGATORIO" checked="checked" dynamic_check="true"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p> elenco delle cariche pubbliche, degli incarichi ricoperti in società a partecipazione pubblica, in enti, associazioni, società private iscritte nei pubblici registri </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="DAE-CDI" name="DAE-CDI" type="checkbox" value="OBBLIGATORIO" />
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          copia del documento d'identità
+          <br/>
+          <span style="font-size:70%">
+            <i>(da allegare se il modulo è sottoscritto con firma autografa)</i>
+          </span>
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="ALTRI-ALLEGATI" name="ALTRI-ALLEGATI" type="checkbox" value="OBBLIGATORIO"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          altri allegati
+          <span style="font-size:70%">(specificare)</span>
+          <input class="" label="Altri allegati" id="AltriAllegati" mandatory_enabled="#ALTRI_ALLEGATI.checked()" name="AltriAllegati" style="width:79%;"/>
+        </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<br>
+{{ utils.trattamento_dati_personali() }}
+<br/>
+  {{ utils.firma_hidden() }}
+<br/>
+
+<p class="Modulo">
+  <input id="SalvaModulo" name="SalvaModulo" style="height:30px;width:120px;" title="Verifica la corretta compilazione dei campi e salva il modulo nel faldone virtuale dell'istanza." type="submit" value="Salva modulo"/>
+</p>
+
+<input destinatario_amministrazione="getParameter('Ente')" id="GLOBO_modulo_c{{ CodiceModulo }}" name="GLOBO_modulo_c{{ CodiceModulo }}" type="hidden" value=""/>
+<input firmare="'P7M_ELETTRONICA'" id="GLOBO_modulofiglio_cINCARICO_PROCURA" name="GLOBO_modulofiglio_cINCARICO_PROCURA" type="hidden" value=""/>
+
+<input id="GLOBO_allegato_cLAV-CUR-VIT" name="GLOBO_allegato_cLAV-CUR-VIT" type="hidden" value="" obbligatorio="#LAV_CUR_VIT.checked() ? 'OBBLIGATORIO' : ''"/>
+<input id="GLOBO_allegato_cELENCO-CARICHE-RICOPERTE" name="GLOBO_allegato_cELENCO-CARICHE-RICOPERTE" type="hidden" value="" obbligatorio="#ELENCO_CARICHE_RICOPERTE.checked() ? 'OBBLIGATORIO' : ''"/>
+<input id="GLOBO_allegato_cDAE-CDI" name="GLOBO_allegato_cDAE-CDI" obbligatorio="#DAE_CDI.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+<input id="GLOBO_allegato_cALTRI-ALLEGATI" name="GLOBO_allegato_cALTRI-ALLEGATI" obbligatorio="#ALTRI_ALLEGATI.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_id_padre" name="GLOBO_id_padre" type="hidden"/>
+<input id="GLOBO_recupera_dati" name="GLOBO_recupera_dati" type="hidden"/>
+<input id="GLOBO_codice_modulo" name="GLOBO_codice_modulo" type="hidden" value="{{ CodiceModulo }}"/>
+
+{% endblock content %}

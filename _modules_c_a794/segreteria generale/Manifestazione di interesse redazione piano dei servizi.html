@@ -1,0 +1,796 @@
+{% set CodiceModulo = "MAN-INT-PGT" %}
+{% set Urn = "document:c_a794:manifestazione.interesse.pgt;domanda" %}
+{% extends "base.html" %}
+
+{% block meta %}
+
+<meta campi_firma="Titolare_CodiceFiscale"
+campi_firma_label="il dichiarante"
+classi_modulo="Segreteria Generale"
+codice_modulo="{{ CodiceModulo }}"
+urn="{% block urn %}{{ Urn }}{% endblock urn %}"
+sub_urn_list=""
+uo_globo_list=""
+descrizione="Manifestazione d’interesse a partecipare alla redazione nuovo piano di governo del territorio"
+destinatario_amministrazione=""
+destinatario_ufficio="SUEAP"
+dinamico="SI"
+email_a=""
+ente_abilitato="TUTTI"
+filigrana="NO"
+firmare="firmare="P7M_DIGITALE"
+istruzioni_compilazione=""
+istruzioni_invio="mail_pec"
+metodo_invio="mail"
+name="GLOBO_modulo"
+procura="NO,,"
+tipo_modulo="principale"
+urlhelp="/modulistica/moduli/{{ CodiceModulo }}"
+verifica_pagamento="NO"
+versione="1.0|11/02/2020"/>
+
+<meta codice_modulo_figlio="INCARICO_PROCURA"
+urn_modulo_figlio="document:s_italia:generale;incarico.procura"
+name="GLOBO_modulofiglio"
+numero="1"
+obbligatorio="DINAMICO"/>
+
+<meta codice_modulo_figlio="ULT_SOGG_MAN"
+urn_modulo_figlio="document:c_a794:ulteriori.soggetti.manifestazione;allegato"
+name="GLOBO_modulofiglio"
+numero="1"
+obbligatorio="DINAMICO"/>
+
+<meta codice_allegato="DIC_REQ_ULT"
+urn_allegato="document:c_a794:dichiarazione.possesso.requisiti;dichiarazione"
+descrizione_estesa="Dichiarazione integrativa possesso dei requisiti richiesti"
+filename="Dichiarazione integrativa possesso requisiti.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/DIC_REQ_ULT"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="LAV-CUR-VIT"
+urn_allegato="document:s_italia:concorsi.selezioni;curriculum.professionale;documentazione"
+descrizione_estesa="Curriculum vitae redatto secondo il modello europeo"
+filename="Curriculum vitae.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/LAV-CUR-VIT"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="ALTRI-ALLEGATI"
+urn_allegato="document:s_italia:altri.allegati"
+descrizione_estesa="Altri allegati"
+filename="Altri allegati.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/ALTRI-ALLEGATI"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+{% endblock meta %}
+
+{% block title %}
+  Avviso di indagine di mercato per l'affidamento dei servizi necessari per la redazione del nuovo Piano di Governo del Territorio (PGT) 
+{% endblock title %}
+ 
+{% block content %}
+
+<globo_fondo_pagina areaheight="150" scope="4">
+  {{ utils.firma() }}
+</globo_fondo_pagina>
+
+<input id="Parametri_Comune" name="Parametri_Comune" type="hidden" dynamic_value="#Ente.value()"/>
+<input id="Oggetto" name="Oggetto" type="hidden" dynamic_value="#Titolare_Cognome.value().toUpperCase() + ' ' + #Titolare_Nome.value().toUpperCase() + ' - Partecipazione indagine di mercato affidamento servizi redazione PGT'"/>
+
+{{ intestazioni.intestazione_moduloprincipale_senzabollo() }}
+
+<h1 class="Modulo">
+  Avviso di indagine di mercato per l'affidamento dei servizi necessari per la redazione del nuovo Piano di Governo del Territorio (PGT) 
+</h1>
+
+<h2 class="Modulo">
+     Decreto Legislativo 18 aprile 2016, n. 50,  art. 36 comma 2 lett. b) 
+</h2>
+
+{{ anagrafica.societa("Titolare", "Il sottoscritto", ["Persona fisica", "Titolare", "Legale rappresentante"], "Richiedente", "visibility:visibility", "cursor:pointer", "mail_ordinaria", "false") }}
+
+<br>
+<h3 class="Modulo">
+  MANIFESTA L'INTERESSE
+</h3>
+<p class="Modulo">
+  a partecipare all'indagine di mercato per l'affidamento dei servizi necessari per la redazione del nuovo Piano di Governo del Territorio (PGT)
+</p>
+<br>
+<div id="Tassonomia_Forma" name="Tassonomia_Forma" label="Forma partecipazione" mandatory="true"></div>
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="2">
+         in forma
+      </td>
+      </tr>
+      <tr>
+      <td style="vertical-align: top; width: 4%;"> 
+        <input id="Tassonomia_Forma1" name="Tassonomia_Forma" type="radio" value="1"/>
+      </td>
+      <td>
+      <p>
+         individuale
+      </p>
+      </td>
+      </tr>
+        <tr>
+      <td style="vertical-align: top; width: 4%;"> 
+        <input id="Tassonomia_Forma2" name="Tassonomia_Forma" type="radio" value="2"/>
+      </td>
+      <td>
+      <p>
+         associata con i soggetti elencati in allegato
+      </p>
+      </td>
+      </tr>
+      </tbody>
+</table>
+
+{{ utils.Dichiara_445() }}
+ 
+<br>
+
+<table class="Modulo" style="border: 1px solid grey;">
+<tbody>
+  <tr>
+    <td style="vertical-align: top; width: 4%;"> 
+      <input id="dichiara" name="dichiara" type="checkbox" value="SI" checked="checked" dynamic_check="true"/> 
+    </td>
+    <td colspan="4">
+       di aver letto le condizioni poste dall'avviso relativo all'oggetto e di accettarne tutti i contenuti, con la consapevolezza che la procedura in atto non vincola in alcun modo l'Amministrazione
+    </td>
+  </tr>
+  <tr>
+      <td style="vertical-align: top; width: 4%;" > 
+        <input id="dichiara1" name="dichiara1" type="checkbox" value="SI" checked="checked" dynamic_check="true" />
+      </td>
+      <td colspan="4">
+        di non trovarsi nelle condizioni previste dal Decreto Legislativo 18/04/2016, n. 50, articolo 80, e più precisamente:
+      </td>
+    </tr>
+  <tr>
+      <td style="vertical-align: top; width: 4%;" rowspan="8" > 
+        <input id="dichiara2" name="dichiara2" type="checkbox" value="SI" checked="checked" dynamic_check="true" />
+      </td>
+      <td colspan="4">
+        Non avere riportato condanna con sentenza definitiva o decreto penale di condanna divenuto irrevocabile o sentenza di applicazione della pena su richiesta ai sensi dell’art. 444 c.p.p., per uno dei seguenti reati:
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;"> 
+        <input id="dichiara3" name="dichiara3" type="checkbox" value="SI" checked="checked" dynamic_check="true"/>
+      </td>
+      <td colspan="3">
+        delitti, consumati o tentati, di cui agli artt. 416 e 416-bis del codice penale ovvero delitti commessi avvalendosi delle condizioni previste dal predetto art. 416-bis ovvero al fine di agevolare l’attività delle associazioni previste dallo stesso articolo, nonché per i delitti, consumati o tentati, previsti dal Decreto del Presidente della Repubblica 9 ottobre 1990, n. 309, art. 74, dal Decreto del Presidente della Repubblica 23 gennaio 1973, n. 43,  art. 291-quater e dal Decreto Legislativo 3 aprile 2006, n. 152, art. 260, in quanto riconducibili alla partecipazione ad un’organizzazione criminale
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input class="inputNormal" id="dichiara4" name="dichiara4" type="checkbox" value="SI" checked="checked" dynamic_check="true"/>
+      </td>
+      <td colspan="3">
+        delitti, consumati o tentati, di cui agli artt. 317, 318, 319, 319-ter, 319-quater, 320, 321, 322, 322-bis, 346-bis, 353, 353-bis, 354, 355 e 356 del codice penale, nonché all’art. 2635 del codice civile
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input class="inputNormal" id="dichiara5" name="dichiara5" type="checkbox" value="SI" checked="checked" dynamic_check="true"/>
+      </td>
+      <td colspan="3">
+        frode ai sensi dell’art. 1 della convenzione relativa alla tutela degli interessi finanziari delle Comunità europee
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input class="inputNormal" id="dichiara6" name="dichiara6" type="checkbox" value="SI" checked="checked" dynamic_check="true"/>
+      </td>
+      <td colspan="3">
+       delitti, consumati o tentati, commessi con finalità di terrorismo, anche internazionale, e di eversione dell’ordine costituzionale reati terroristici o reati connessi alle attività terroristiche
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input class="inputNormal" id="dichiara7" name="dichiara7" type="checkbox" value="SI" checked="checked" dynamic_check="true"/>
+      </td>
+      <td colspan="3">
+       delitti di cui agli artt. 648-bis, 648-ter e 648-ter.1 codice penale, riciclaggio di proventi di attività criminose o finanziamento del terrorismo, quali definiti dal Decreto Legislativo 22 giugno 2007, n. 109, articolo 1 e successive modificazioni
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input class="inputNormal" id="dichiara8" name="dichiara8" type="checkbox" value="SI" checked="checked" dynamic_check="true"/>
+      </td>
+      <td colspan="3">
+       sfruttamento del lavoro minorile e altre forme di tratta di esseri umani definite con il Decreto Legislativo 4 marzo 2014, n. 24
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input class="inputNormal" id="dichiara9" name="dichiara9" type="checkbox" value="SI" checked="checked" dynamic_check="true"/>
+      </td>
+      <td colspan="3">
+       ogni altro delitto da cui derivi, quale pena accessoria, l’incapacità di contrattare con la pubblica amministrazione
+      </td>
+    </tr>
+    <tr>
+    <td style="vertical-align: top; width: 4%;"> 
+      <input class="inputNormal" id="dichiara10" name="dichiara10" type="checkbox" value="SI" checked="checked" dynamic_check="true"/> 
+    </td>
+    <td colspan="4">
+       Insussistenza, ai sensi del Decreto Legislativo  18 aprile 2016, n. 50, art. 80, comma 2,  delle cause di decadenza, di sospensione o di divieto previste dal Decreto Legislativo 6 settembre 2011, n. 159,  art. 67 o di un tentativo di infiltrazione mafiosa di cui all’art. 84, comma 4, del medesimo decreto
+    </td>
+  </tr>
+  <tr>
+    <td style="vertical-align: top; width: 4%;"> 
+      <input class="inputNormal" id="dichiara11" name="dichiara11" type="checkbox" value="SI" checked="checked" dynamic_check="true"/> 
+    </td>
+    <td colspan="4">
+       Non aver commesso, ai sensi del Decreto Legislativo 18 aprile 2016, n. 50 art. 80, comma 4, violazioni gravi, definitivamente accertate, rispetto agli obblighi relativi al pagamento delle imposte e tasse o i contributi previdenziali, secondo la legislazione italiana o quella dello Stato in cui sono stabiliti
+    </td>
+  </tr>
+  <tr>
+    <td style="vertical-align: top; width: 4%;"  rowspan="15" > 
+      <input class="inputNormal" id="dichiara12" name="dichiara12" type="checkbox" value="SI" checked="checked" dynamic_check="true"/> 
+    </td>
+    <td colspan="4">
+      Non incorrere in nessuna delle cause di esclusione dalle procedure di affidamento di appalti pubblici di cui al Decreto Legislativo 18 aprile 2016, art. 80, comma 5, e in particolare:
+    </td>
+  </tr>
+  <tr>
+    <td style="vertical-align: top; width: 4%;"> 
+      <input class="inputNormal" id="dichiara13" name="dichiara13" type="checkbox" value="SI" checked="checked" dynamic_check="true"/> 
+    </td>
+    <td colspan="4">
+       di non aver commesso gravi infrazioni debitamente accertate alle norme in materia di salute e sicurezza sul lavoro nonché agli obblighi di cui al Decreto Legislativo 18 aprile 2016, n. 5, art. 30, comma 3 
+    </td>
+  </tr>
+  <tr>
+    <td style="vertical-align: top; width: 4%;"> 
+      <input class="inputNormal" id="dichiara14" name="dichiara14" type="checkbox" value="SI" checked="checked" dynamic_check="true"/> 
+    </td>
+    <td colspan="4">
+       di non trovarsi in stato di fallimento, di liquidazione coatta, di concordato preventivo, salvo il caso di concordato con continuità aziendale, né di trovarsi in un procedimento per la dichiarazione di una di tali situazioni, fermo restando quanto previsto dal Decreto Legislativo 18 aprile 2016, n. 50, art. 110
+    </td>
+  </tr>
+  <tr>
+    <td style="vertical-align: top; width: 4%;"> 
+      <input class="inputNormal" id="dichiara15" name="dichiara15" type="checkbox" value="SI" checked="checked" dynamic_check="true"/> 
+    </td>
+    <td colspan="4">
+       di non aver commesso gravi illeciti professionali, tali da rendere dubbia la sua integrità o affidabilità <i>(tra questi rientrano: le significative carenze nell’esecuzione di un precedente contratto di appalto o di concessione che ne hanno causato la risoluzione anticipata, non contestata in giudizio, ovvero hanno dato luogo ad una condanna al risarcimento del danno o ad altre sanzioni; il tentativo di influenzare indebitamente il processo decisionale della stazione appaltante o di ottenere informazioni riservate ai fini di proprio vantaggio; il fornire, anche per negligenza, informazioni false o fuorvianti suscettibili di influenzare le decisioni sull’esclusione, la selezione o l’aggiudicazione ovvero l’omettere le informazioni dovute ai fini del corretto svolgimento della procedura di selezione)</i>
+    </td>
+  </tr>
+  <tr>
+    <td style="vertical-align: top; width: 4%;"> 
+      <input class="inputNormal" id="dichiara16" name="dichiara16" type="checkbox" value="SI" checked="checked" dynamic_check="true"/> 
+    </td>
+    <td colspan="4">
+       che la partecipazione alla presente procedura non comporta situazioni di conflitto di interesse ai sensi del Decreto Legislativo 18 aprile 2016, n. 50, art. 42, non diversamente risolvibile
+    </td>
+  </tr>
+  <tr>
+    <td style="vertical-align: top; width: 4%;"> 
+      <input class="inputNormal" id="dichiara17" name="dichiara17" type="checkbox" value="SI" checked="checked" dynamic_check="true"/> 
+    </td>
+    <td colspan="4">
+       che non sussiste una distorsione della concorrenza ai sensi del Decreto Legislativo 18 aprile 2016, n. 50, art. 80, comma 5, lettera e)
+    </td>
+  </tr>
+  <tr>
+    <td style="vertical-align: top; width: 4%;"> 
+      <input class="inputNormal" id="dichiara18" name="dichiara18" type="checkbox" value="SI" checked="checked" dynamic_check="true"/> 
+    </td>
+    <td colspan="4">
+       di non essere stato soggetto alla sanzione interdittiva di cui al Decreto Legislativo 8 giugno 2001, n. 231, art. 9, comma 2, lettera c) o ad altra sanzione che comporta il divieto di contrarre con la pubblica amministrazione, compresi i provvedimenti interdittivi di cui al Decreto Legislativo 9 aprile 2008, n. 81, art. 14 
+    </td>
+  </tr>
+  <tr>
+    <td style="vertical-align: top; width: 4%;"> 
+      <input id="dichiara19" name="dichiara19" type="checkbox" value="SI" checked="checked" dynamic_check="true"/> 
+    </td>
+    <td colspan="4">
+       di non avere presentato nella procedura di gara in corso e negli affidamenti di subappalti documentazione o dichiarazioni non veritiere
+    </td>
+  </tr>
+  <tr>
+    <td style="vertical-align: top; width: 4%;"> 
+      <input id="dichiara20" name="dichiara20" type="checkbox" value="SI" checked="checked" dynamic_check="true"/> 
+    </td>
+    <td colspan="4">
+       di non  essere iscritto nel casellario informatico tenuto dall'Osservatorio dell'ANAC per aver presentato false dichiarazioni o falsa documentazione nelle procedure di gara e negli affidamenti di subappalti
+    </td>
+  </tr>
+  <tr>
+    <td style="vertical-align: top; width: 4%;"> 
+      <input class="inputNormal" id="dichiara21" name="dichiara21" type="checkbox" value="SI" checked="checked" dynamic_check="true"/> 
+    </td>
+    <td colspan="4">
+       di non essere iscritto nel casellario informatico tenuto dall’Osservatorio dell’ANAC per aver presentato false dichiarazioni o falsa documentazione ai fini del rilascio dell’attestazione di qualificazione
+    </td>
+  </tr>
+  <tr>
+    <td style="vertical-align: top; width: 4%;"> 
+      <input class="inputNormal" id="dichiara22" name="dichiara22" type="checkbox" value="SI" checked="checked" dynamic_check="true"/> 
+    </td>
+    <td colspan="4">
+       di non aver violato il divieto di intestazione fiduciaria di cui alla Legge 19 marzo 1990, n. 55, art. 17
+    </td>
+  </tr>
+  <tr>
+    <td style="vertical-align: top; width: 4%;"> 
+      <input class="inputNormal" id="dichiara23" name="dichiara23" type="checkbox" value="SI" checked="checked" dynamic_check="true"/> 
+    </td>
+    <td colspan="4">
+        di essere in regola con le norme che disciplinano il diritto al lavoro dei disabili di cui alla Legge 12 marzo 1999, n. 68, art. 17
+    </td>
+  </tr>
+  <tr>
+    <td style="vertical-align: top; width: 4%;"> 
+      <input class="inputNormal" id="dichiara24" name="dichiara24" type="checkbox" value="SI" checked="checked" dynamic_check="true"/> 
+    </td>
+    <td colspan="4">
+        di essere in regola con gli obblighi relativi al pagamento dei contributi assicurativi e previdenziali (INPS – INAIL) a favore dei lavoratori, secondo la vigente legislazione e applicare le norme contrattuali di settore
+    </td>
+  </tr>
+  <tr>
+    <td style="vertical-align: top; width: 4%;"> 
+      <input class="inputNormal" id="dichiara25" name="dichiara25" type="checkbox" value="SI" checked="checked" dynamic_check="true"/> 
+    </td>
+    <td colspan="4">
+       di essere in regola con le norme di cui alla Legge 18 ottobre 2001 n. 383 e successive modificazioni
+    </td>
+  </tr>
+  <tr>
+    <td style="vertical-align: top; width: 4%;"> 
+      <input class="inputNormal" id="dichiara26" name="dichiara26" type="checkbox" value="SI" checked="checked" dynamic_check="true"/> 
+    </td>
+    <td colspan="4">
+       di non essere stato vittima dei reati previsti e puniti dagli artt. 317 e 629 codice penale aggravati ai sensi del decreto legge 13 maggio 1991, n. 152, art. 7, convertito con modificazioni dalla Legge 12 luglio 1991, n. 203
+    </td>
+  </tr>
+   <tr>
+    <td style="vertical-align: top; width: 4%;"> 
+      <input class="inputNormal" id="dichiara27" name="dichiara27" type="checkbox" value="SI" checked="checked" dynamic_check="true"/> 
+    </td>
+    <td colspan="4">
+       di non trovarsi in alcuna situazione di controllo di cui all’art. 2359 codice civile con alcun soggetto
+    </td>
+  </tr>
+   <tr>
+    <td style="vertical-align: top; width: 4%;"> 
+      <input class="inputNormal" id="dichiara28" name="dichiara28" type="checkbox" value="SI" checked="checked" dynamic_check="true"/> 
+    </td>
+    <td colspan="4">
+       di non avere reso false comuncazioni sociali di cui agli artt. 2621 e 2622 codice civile <i>Decreto Legislativo 18 aprile 2016, n. 50, art. 80 comma 1 lett. B-bis</i> 
+    </td>
+  </tr>
+  </tbody>
+</table>
+<br>
+<h3 class="Modulo">
+  DICHIARA INOLTRE
+</h3>
+<br>
+<table class="Modulo" style="border: 1px solid grey;">
+<tbody>
+  <tr>
+    <td style="vertical-align: top; width: 4%;" > 
+       <input class="inputNormal" id="dichiara29" name="dichiara29" type="checkbox" value="SI" checked="checked" dynamic_check="true"/>
+    </td>
+    <td colspan="3">
+      di non aver concluso contratti di lavoro subordinato o autonomo e comunque di non aver attribuito incarichi ad ex dipendenti che hanno esercitato poteri autoritativi o negoziali per conto delle Pubbliche amministrazioni nei loro confronti per il triennio successivo alla cessazione del rapporto ai sensi del Decreto Legislativo 30 marzo 2001, n. 165, art. 53, comma 16 ter
+    </td>
+  </tr>
+  <tr>
+    <td style="vertical-align: top; width: 4%;" rowspan="32"> 
+       <input class="inputNormal" id="dichiara30" name="dichiara30" type="checkbox" value="SI" checked="checked" dynamic_check="true"/>
+    </td>
+    <td colspan="3">
+     di possedere idonea capacità e competenza nell’esecuzione del servizio oggetto d’appalto e, a tal fine indica anche ai fini del’individuazione della dimostrazione dei Requisiti di capacità economica e finanziaria le seguenti commesse svolte nell'ultimo quinquennio (2014, 2015, 2016, 2017 e 2018)
+    </td>
+  </tr>
+  <tr class="Rigaintestazioneridotta">
+    <td>
+      <p class="Labelcella">
+        committente
+      </p>
+    </td>
+    <td>
+      <p class="Labelcella">
+        oggetto
+      </p>
+    </td>
+    </tr>
+  <tr>
+    <td style="width:40%;">
+      <input class="inputNormal" id="Tassonomia_Committente" name="Tassonomia_Committente" label="Committente" style="width: 100%;" mandatory="true"/>
+    </td>
+    <td style="width:60%;">
+      <input class="inputNormal" id="Tassonomia_Oggetto" name="Tassonomia_Oggetto" label="Oggetto" style="width: 100%;" mandatory="true"/>
+    </td>
+     
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+    <td>
+      <p class="Labelcella">
+        corrispettivo   
+      </p>
+    </td>
+    <td>
+      <p class="Labelcella">
+        esito
+      </p>
+    </td>
+    </tr>
+   <tr>
+    <td style="width:40%;">
+      <input class="inputNormal" id="Tassonomia_corrispettivo" name="Tassonomia_corrispettivo" label="corrispettivo" format="value" style="width: 100%;" mandatory="true"/>
+    </td>
+    <td style="width:60%;">
+     <p>regolare</p>
+    </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+    <td>
+      <p class="Labelcella">
+        Referente   
+      </p>
+    </td>
+    <td>
+      <p class="Labelcella">
+        durata
+      </p>
+    </td>
+    </tr>
+    <tr>
+    <td style="width:40%;">
+      <input class="inputNormal" id="Tassonomia_Referente" name="Tassonomia_Referente" label="Referente" style="width: 100%;" mandatory="true"/>
+    </td>
+    <td style="width:60%;">
+      <input class="inputNormal" id="Tassonomia_Durata" name="Tassonomia_Durata" label="Durata" style="width: 100%;" mandatory="true"/>
+    </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+    <td>
+      <p class="Labelcella">
+        committente
+      </p>
+    </td>
+    <td>
+      <p class="Labelcella">
+        oggetto
+      </p>
+    </td>
+    </tr>
+  <tr>
+    <td style="width:40%;">
+      <input class="inputNormal" id="Tassonomia_Committente2" name="Tassonomia_Committente2" label="Committente" style="width: 100%;" />
+    </td>
+    <td style="width:60%;">
+      <input class="inputNormal" id="Tassonomia_Oggetto2" name="Tassonomia_Oggetto2" label="Oggetto" style="width: 100%;"/>
+    </td>
+     
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+    <td>
+      <p class="Labelcella">
+        corrispettivo   
+      </p>
+    </td>
+    <td>
+      <p class="Labelcella">
+        esito
+      </p>
+    </td>
+    </tr>
+   <tr>
+    <td style="width:40%;">
+      <input class="inputNormal" id="Tassonomia_corrispettivo2" name="Tassonomia_corrispettivo2" label="corrispettivo" format="value" style="width: 100%;" />
+    </td>
+    <td style="width:60%;">
+      <p>regolare</p>
+    </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+    <td>
+      <p class="Labelcella">
+        Referente   
+      </p>
+    </td>
+    <td>
+      <p class="Labelcella">
+        durata
+      </p>
+    </td>
+    </tr>
+    <tr>
+    <td style="width:40%;">
+      <input class="inputNormal" id="Tassonomia_Referente2" name="Tassonomia_Referente2" label="Referente" style="width: 100%;" />
+    </td>
+    <td style="width:60%;">
+      <input class="inputNormal" id="Tassonomia_Durata2" name="Tassonomia_Durata2" label="Durata" style="width: 100%;" />
+    </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+    <td>
+      <p class="Labelcella">
+        committente
+      </p>
+    </td>
+    <td>
+      <p class="Labelcella">
+        oggetto
+      </p>
+    </td>
+    </tr>
+  <tr>
+    <td style="width:40%;">
+      <input class="inputNormal" id="Tassonomia_Committente3" name="Tassonomia_Committente3" label="Committente" style="width: 100%;" />
+    </td>
+    <td style="width:60%;">
+      <input class="inputNormal" id="Tassonomia_Oggetto3" name="Tassonomia_Oggetto3" label="Oggetto" style="width: 100%;"/>
+    </td>
+     
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+    <td>
+      <p class="Labelcella">
+        corrispettivo   
+      </p>
+    </td>
+    <td>
+      <p class="Labelcella">
+        esito
+      </p>
+    </td>
+    </tr>
+   <tr>
+    <td style="width:40%;">
+      <input class="inputNormal" id="Tassonomia_corrispettivo3" name="Tassonomia_corrispettivo3" label="corrispettivo" format="value" style="width: 100%;" />
+    </td>
+    <td style="width:60%;">
+      <p>regolare</p>
+    </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+    <td>
+      <p class="Labelcella">
+        Referente   
+      </p>
+    </td>
+    <td>
+      <p class="Labelcella">
+        durata
+      </p>
+    </td>
+    </tr>
+    <tr>
+    <td style="width:40%;">
+      <input class="inputNormal" id="Tassonomia_Referente3" name="Tassonomia_Referente3" label="Referente" style="width: 100%;" />
+    </td>
+    <td style="width:60%;">
+      <input class="inputNormal" id="Tassonomia_Durata3" name="Tassonomia_Referente3" label="Durata" style="width: 100%;" />
+    </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+    <td>
+      <p class="Labelcella">
+        committente
+      </p>
+    </td>
+    <td>
+      <p class="Labelcella">
+        oggetto
+      </p>
+    </td>
+    </tr>
+  <tr>
+    <td style="width:40%;">
+      <input class="inputNormal" id="Tassonomia_Committente4" name="Tassonomia_Committente4" label="Committente" style="width: 100%;" />
+    </td>
+    <td style="width:60%;">
+      <input class="inputNormal" id="Tassonomia_Oggetto4" name="Tassonomia_Oggetto4" label="Oggetto" style="width: 100%;"/>
+    </td>
+     
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+    <td>
+      <p class="Labelcella">
+        corrispettivo   
+      </p>
+    </td>
+    <td>
+      <p class="Labelcella">
+        esito
+      </p>
+    </td>
+    </tr>
+   <tr>
+    <td style="width:40%;">
+      <input class="inputNormal" id="Tassonomia_corrispettivo4" name="Tassonomia_corrispettivo4" label="corrispettivo" format="value" style="width: 100%;" />
+    </td>
+    <td style="width:60%;">
+      <p>regolare</p>
+    </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+    <td>
+      <p class="Labelcella">
+        Referente   
+      </p>
+    </td>
+    <td>
+      <p class="Labelcella">
+        durata
+      </p>
+    </td>
+    </tr>
+    <tr>
+    <td style="width:40%;">
+      <input class="inputNormal" id="Tassonomia_Referente4" name="Tassonomia_Referente4" label="Referente" style="width: 100%;" />
+    </td>
+    <td style="width:60%;">
+      <input class="inputNormal" id="Tassonomia_Durata4" name="Tassonomia_Durata4" label="Durata" style="width: 100%;" />
+    </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+    <td>
+      <p class="Labelcella">
+        committente
+      </p>
+    </td>
+    <td>
+      <p class="Labelcella">
+        oggetto
+      </p>
+    </td>
+    </tr>
+  <tr>
+    <td style="width:40%;">
+      <input class="inputNormal" id="Tassonomia_Committente5" name="Tassonomia_Committente5" label="Committente" style="width: 100%;" />
+    </td>
+    <td style="width:60%;">
+      <input class="inputNormal" id="Tassonomia_Oggetto5" name="Tassonomia_Oggetto5" label="Oggetto" style="width: 100%;"/>
+    </td>
+     
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+    <td>
+      <p class="Labelcella">
+        corrispettivo   
+      </p>
+    </td>
+    <td>
+      <p class="Labelcella">
+        esito
+      </p>
+    </td>
+    </tr>
+   <tr>
+    <td style="width:40%;">
+      <input class="inputNormal" id="Tassonomia_corrispettivo5" name="Tassonomia_corrispettivo5" label="corrispettivo" format="value" style="width: 100%;" />
+    </td>
+    <td style="width:60%;">
+       <p>regolare</p>
+    </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+    <td>
+      <p class="Labelcella">
+        Referente   
+      </p>
+    </td>
+    <td>
+      <p class="Labelcella">
+        durata
+      </p>
+    </td>
+    </tr>
+    <tr>
+    <td style="width:40%;">
+      <input class="inputNormal" id="Tassonomia_Referente5" name="Tassonomia_Referente5" label="Referente" style="width: 100%;" />
+    </td>
+    <td style="width:60%;">
+      <input class="inputNormal" id="Tassonomia_Durata5" name="Tassonomia_Durata5" label="Durata" style="width: 100%;" />
+    </td>
+    </tr>
+    </tbody>
+</table>
+
+
+<table class="Modulo" name="Allegati" style="border: 1px solid grey">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="2">
+        <p style="text-align: center;">
+          <b>
+          Elenco degli allegati
+          </b>
+          <br/>
+          <span style="font-size:70%">
+          <i>(barrare tutti gli allegati richiesti in fase di presentazione della pratica ed elencati sul portale)</i>
+          </span>
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input mandatory_enabled="#Tassonomia_Forma2.checked()" type="checkbox" dynamic_check="true"  id="ULT_SOGG_MAN" name="ULT_SOGG_MAN" type="checkbox" value="si"/>
+      </td>
+      <td colspan="1" style="background-color: #eeeeee;">
+        <p> 
+           ulteriori soggetti 
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;" >
+        <input id="LAV-CUR-VIT" name="LAV-CUR-VIT" type="checkbox" value="OBBLIGATORIO" mandatory="true" checked="checked"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          Curriculum vitae redatto secondo il modello europeo
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;" >
+        <input id="DIC_REQ_ULT" name="DIC_REQ_ULT" type="checkbox" value="OBBLIGATORIO"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          Eventuale dichiarazione integrativa rispetto il possesso dei requisiti richiesti
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="ALTRI-ALLEGATI" name="ALTRI-ALLEGATI" type="checkbox" value="OBBLIGATORIO"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          altri allegati
+          <span style="font-size:70%">(specificare)</span>
+          <input class="" label="Altri allegati" id="AltriAllegati" mandatory_enabled="#ALTRI_ALLEGATI.checked()" name="AltriAllegati" style="width:79%;"/>
+        </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<br>
+{{ utils.trattamento_dati_personali() }}
+<br/>
+  {{ utils.firma_hidden() }}
+<br/>
+
+<p class="Modulo">
+  <input id="SalvaModulo" name="SalvaModulo" style="height:30px;width:120px;" title="Verifica la corretta compilazione dei campi e salva il modulo nel faldone virtuale dell'istanza." type="submit" value="Salva modulo"/>
+</p>
+
+<input destinatario_amministrazione="getParameter('Ente')" id="GLOBO_modulo_c{{ CodiceModulo }}" name="GLOBO_modulo_c{{ CodiceModulo }}" type="hidden" value=""/>
+<input firmare="'P7M_ELETTRONICA'" id="GLOBO_modulofiglio_cINCARICO_PROCURA" name="GLOBO_modulofiglio_cINCARICO_PROCURA" type="hidden" value=""/>
+<input id="GLOBO_allegato_cDIC_REQ_ULT" name="GLOBO_allegato_cDIC_REQ_ULT" obbligatorio="#DIC_REQ_ULT.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+<input id="GLOBO_allegato_cLAV-CUR-VIT" name="GLOBO_allegato_cLAV-CUR-VIT" obbligatorio="#LAV_CUR_VIT.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+<input id="GLOBO_allegato_cALTRI-ALLEGATI" name="GLOBO_allegato_cALTRI-ALLEGATI" obbligatorio="#ALTRI_ALLEGATI.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+<input id="GLOBO_modulofiglio_cULT_SOGG_MAN" name="GLOBO_modulofiglio_cULT_SOGG_MAN" type="hidden" value="" obbligatorio="#ULT_SOGG_MAN.checked() ? 'OBBLIGATORIO' : ''"/>
+
+<input id="GLOBO_id_padre" name="GLOBO_id_padre" type="hidden"/>
+<input id="GLOBO_recupera_dati" name="GLOBO_recupera_dati" type="hidden"/>
+<input id="GLOBO_codice_modulo" name="GLOBO_codice_modulo" type="hidden" value="{{ CodiceModulo }}"/>
+
+{% endblock content %}

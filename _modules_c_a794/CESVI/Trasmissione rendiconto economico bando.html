@@ -1,0 +1,261 @@
+{% set CodiceModulo = "REND-MICHE-RAFF" %}
+{% set Urn = "document:c_a794:rendiconto.economico;michelangelo.raffaello" %}
+{% extends "base.html" %}
+
+{% block meta %}
+
+<meta campi_firma=""
+campi_firma_label=""
+classi_modulo="Generale"
+codice_modulo="{{ CodiceModulo }}"
+urn="{% block urn %}{{ Urn }}{% endblock urn %}"
+sub_urn_list=""
+uo_globo_list=""
+descrizione="Trasmissione del rendiconto economico del contributo per il Bando Michelangelo e Raffaello"
+destinatario_amministrazione=""
+destinatario_ufficio="UOCESVI"
+dinamico="SI"
+email_a=""
+ente_abilitato="TUTTI"
+filigrana="NO"
+firmare="NO"
+in_bollo="NO"
+istruzioni_compilazione=""
+istruzioni_invio="mail_pec"
+metodo_invio="mail"
+name="GLOBO_modulo"
+procura="NO,,"
+tipo_modulo="principale"
+ufficio=""
+urlhelp="/modulistica/moduli/{{ CodiceModulo }}"
+verifica_pagamento="NO"
+versione="1.1|03/07/2020"/>
+
+<meta codice_modulo_figlio="INCARICO_PROCURA"
+urn_modulo_figlio="document:s_italia:generale;incarico.procura"
+name="GLOBO_modulofiglio"
+numero="1"
+obbligatorio="DINAMICO"/>
+
+<meta codice_allegato="RENDI-MICHE-RAFFA"
+urn_allegato="document:c_a794:distinta.spese.effettuate.bando;documentazione"
+descrizione_estesa="Distinta delle spese effettuate, utilizzando il modello  xls ricevuto via mail da CESVI"
+filename="Distinta spese effettuate.xls"
+firmato="NO"
+istruzioni="/modulistica/moduli/RENDI-MICHE-RAFFA"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="OBBLIGATORIO"
+tipo_mime="application/vnd.ms-excel"/>
+
+<meta codice_allegato="FATT-MICHE-RAFFA"
+urn_allegato="document:c_a794:spese.effettuate;documentazione"
+descrizione_estesa="Documentazione attestante le spese effettuate (scontrini, fatture, ricevute e quietanze)"
+filename="Documentazione attestante spese.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/FATT-MICHE-RAFFA"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="OBBLIGATORIO"
+tipo_mime="application/pdf"/>
+
+{% endblock meta %}
+
+{% block title %} Trasmissione del rendiconto economico del contributo per il Bando Michelangelo e Raffaello {% endblock title %}
+
+{% block content %}
+ <globo_fondo_pagina areaheight="150" scope="2">
+ {{ utils.firma() }}
+</globo_fondo_pagina>
+
+{{intestazioni.intestazione_moduloprincipale_senzabollo()}}
+
+<input dynamic_value="#Titolare_Cognome.value().toUpperCase() + ' ' + #Titolare_Nome.value().toUpperCase()  + ' - rendiconto economico contributo Bando Michelangelo e Raffaello'" id="Oggetto" name="Oggetto" type="hidden"/>
+
+<h1 class="Modulo">
+ Trasmissione del rendiconto economico del contributo per il Bando Michelangelo e Raffaello
+</h1>
+
+<div type="Anagrafica_Cognome_Nome">
+  {% if definizioneSolo1 == 'true' %}
+    <input id="Titolare_Titolo" name="Titolare_Titolo" type="hidden" value="Commercialista"/>
+    <input id="Titolare_Ruolo"  name="Titolare_Ruolo"  type="hidden" value="Commercialista"/>
+  {% endif %}
+  <table class="Modulo" style="border:1px solid grey; visibility:visibility">
+    <tbody>
+      <tr class="Rigaintestazione">
+        <td style="border-right: 0px;">
+          <p class="Labeltabella"> 
+            <input id="Tassonomia_AltroSoggetto" name="Tassonomia_AltroSoggetto" type="checkbox" value="SI" style="margin-right: 4px;"/>
+            L'istanza è trasmessa da un soggetto diverso dal quello che richiede il finanziamento 
+          </p>
+        </td>
+        <td style="width:3%; border-left:0px; cursor:pointer">
+          <span style="pd4ml-visibility: hidden; pd4ml-display: none;">
+            {{ utils.recupero_dati( "Presentatore", "visibility:visibility" ) }}
+          </span>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <table class="Modulo" style="border:1px solid grey; margin-top:-1px;" mandatory_enabled="#Tassonomia_AltroSoggetto.checked()">
+    <tbody>
+      <tr class="Rigaintestazioneridotta">
+        <td>
+          <p class="Labelcella">Cognome</p>
+        </td>
+        <td style="width: 30%;">
+          <p class="Labelcella">Nome</p>
+        </td>
+        <td style="width: 34%;">
+          <p class="Labelcella">Codice Fiscale</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <input id="Presentatore_Cognome" name="Presentatore_Cognome" style="width:100%" label="Cognome del Richiedente sostituto"/>
+        </td>
+        <td>
+          <input id="Presentatore_Nome" name="Presentatore_Nome" style="width:100%" label="Nome del Richiedente sostituto"/>
+        </td>
+        <td>
+          <input format="cf" id="Presentatore_CodiceFiscale" name="Presentatore_CodiceFiscale" style="width:100%; " onkeyup="this.value = this.value.toUpperCase();" label="Il codice fiscale del Richiedente sostituto"/>
+        </td>
+      </tr>
+      <tr class="Rigaintestazioneridotta">
+        <td colspan="3">
+          <p class="Labelcella"> In qualità di </p>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="3" mandatory_enabled="#Tassonomia_AltroSoggetto.checked()">
+          <input class="inputNormal" id="Presentatore_Ruolo" name="Presentatore_Ruolo" style="width: 100%;" label="Ruolo del richiedente" />
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<input type="hidden" id="Firmatario_CodiceFiscale" name="Firmatario_CodiceFiscale" dynamic_value="#Tassonomia_AltroSoggetto.checked() ? #Presentatore_CodiceFiscale.value() : #Titolare_CodiceFiscale.value()"/>
+
+{{ anagrafica.societa("Titolare", "Il sottoscritto", ["Persona fisica", "Titolare", "Legale rappresentante"], "Richiedente", "visibility:visibility", "cursor:pointer", "mail_ordinaria", "false", "true") }}
+
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="3">
+        <p class="Labeltabella">
+         in relazione al bando
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          Denominazione bando
+        </p>
+      </td>
+      <td>
+        <p class="Labelcella">
+          Numero domanda <i>(fornito dal portale al momento dell'invio)</i>
+        </p>
+      </td>
+      <td>
+        <p class="Labelcella">
+          Data invio
+        </p>
+      </td>
+    </tr>
+    <tr mandatory="true">
+      <td>
+          <input class="inputNormal" id="Parametri_DenominazioneBando" name="Parametri_DenominazioneBando" style="width: 100%;" label="Denominazione bando" />
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_NumeroDomanda" name="Parametri_NumeroDomanda" style="width: 100%;" label="Numero domanda" />
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_DataInvio" name="Parametri_DataInvio" style="width: 100%;" label="Data invio" format="date"/>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 class="Modulo">
+  TRASMETTE
+</h3>
+
+<table class="Modulo" style="border: 0px;">
+  <tbody>    
+    <tr style="border: 0px;">
+      <td style="vertical-align: top; width: 4%;border: 0px;">
+        <input id="RENDI-MICHE-RAFFA" name="RENDI-MICHE-RAFFA" type="checkbox" value="OBBLIGATORIO" checked="checked" dynamic_check="true"/>
+      </td>
+      <td style="border: 0px;">
+        <p>
+          distinta delle spese effettuate, utilizzando il modello xls ricevuto via mail da CESVI
+        </p>
+      </td>
+    </tr>
+    <tr style="border: 0px;">
+      <td style="vertical-align: top; width: 4%;border: 0px;">
+        <input id="FATT-MICHE-RAFFA" name="FATT-MICHE-RAFFA" type="checkbox" value="OBBLIGATORIO" checked="checked" dynamic_check="true"/>
+      </td>
+      <td style="border: 0px;">
+        <p>
+         documentazione attestante le spese effettuate (scontrini, fatture, ricevute e quietanze)
+        </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<br/>
+
+<table class="Modulo" style="border:1px solid grey">
+ <tbody>
+  <tr class="Rigaintestazioneridotta">
+   <td>
+    <p class="Labelcella">
+     Eventuali annotazioni
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td>
+    <textarea class="inputNormal" id="Parametri_Annotazioni" name="Parametri_Annotazioni" style="width:100%;height:5cm;"></textarea>
+   </td>
+  </tr>
+ </tbody>
+</table>
+
+<globo_salto_pagina></globo_salto_pagina>
+
+<br/>
+
+{{ utils.trattamento_dati_personali() }}
+
+<br/>
+
+  {{ utils.firma_hidden() }}
+  <br/>
+
+<p class="Modulo">
+ <input id="SalvaModulo" name="SalvaModulo" style="height:30px;width:120px;" title="Verifica la corretta compilazione dei campi e salva il modulo nel faldone virtuale dell'istanza." type="submit" value="Salva modulo"/>
+</p>
+
+<input destinatario_amministrazione="getParameter('Ente')" id="GLOBO_modulo_c{{ CodiceModulo }}" name="GLOBO_modulo_c{{ CodiceModulo }}" type="hidden" value=""/>
+
+
+<input id="GLOBO_allegato_cRENDI-MICHE-RAFFA" name="GLOBO_allegato_cRENDI-MICHE-RAFFA" obbligatorio="#RENDI_MICHE_RAFFA.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_allegato_cFATT-MICHE-RAFFA" name="GLOBO_allegato_cFATT-MICHE-RAFFA" obbligatorio="#FATT_MICHE_RAFFA.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input firmare="'P7M_ELETTRONICA'" id="GLOBO_modulofiglio_cINCARICO_PROCURA" name="GLOBO_modulofiglio_cINCARICO_PROCURA" type="hidden" value=""/>
+
+<input id="GLOBO_id_padre" name="GLOBO_id_padre" type="hidden"/>
+
+<input id="GLOBO_recupera_dati" name="GLOBO_recupera_dati" type="hidden"/>
+
+<input id="GLOBO_codice_modulo" name="GLOBO_codice_modulo" type="hidden" value="{{ CodiceModulo }}"/>
+
+{% endblock content %}

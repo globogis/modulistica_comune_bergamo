@@ -1,0 +1,1738 @@
+{% set CodiceModulo =  "001-051" %}{% extends "base.html" %}
+{% set Urn = "document:c_a794:occupare.suolo.pubblico;dehors;domanda" %}
+{% block meta %}<meta campi_firma="Titolare_CodiceFiscale"
+campi_firma_label="il dichiarante"
+classi_modulo="Commercio"
+codice_modulo="{{ CodiceModulo }}"
+urn="{% block urn %}{{ Urn }}{% endblock urn %}"
+sub_urn_list=""
+uo_globo_list=""
+descrizione="Domanda di concessione per l'occupazione di suolo pubblico"
+destinatario_amministrazione=""
+destinatario_ufficio="U0058"
+dinamico="SI"
+email_a=""
+ente_abilitato="TUTTI"
+filigrana="NO"
+firmare="P7M_ELETTRONICA"
+in_bollo="SI"
+istruzioni_compilazione="ATTENZIONE: questo modulo deve essere compilato con i dati del richiedente, cambiare i dati di intestazione se necessario."
+istruzioni_invio="mail_pec"
+metodo_invio="mail"
+name="GLOBO_modulo"
+procura="NO,,"
+tipo_modulo="principale"
+ufficio=""
+urlhelp="DomandeRisposte/FAQ"
+verifica_pagamento="NO"
+versione="1.1|28/02/2019"/>
+
+<!--
+<meta codice_modulo_figlio="STU-EDI-IMM"
+urn_modulo_figlio="document:s_italia:edilizia.privata;ulteriori.immobili;dichiarazione.sostitutiva"
+name="GLOBO_modulofiglio"
+numero="0"
+obbligatorio="DINAMICO"/>
+
+<!--
+<meta codice_modulo_figlio="Incarico_procura"
+name="GLOBO_modulofiglio"
+numero="1"
+obbligatorio="DINAMICO"/>
+-->
+<meta codice_modulo_figlio="MARCA_BOLLO"
+urn_modulo_figlio="document:s_italia:pagamento.imposta.bollo;apposizione.domanda;dichiarazione.sostitutiva"
+name="GLOBO_modulofiglio"
+numero="1"
+obbligatorio="DINAMICO"/>
+
+<meta codice_modulo_figlio="STU-EDI-SOG"
+urn_modulo_figlio="document:r_lombar:edilizia.privata;soggetti.coinvolti;dichiarazione.sostitutiva"
+name="GLOBO_modulofiglio"
+numero="1"
+obbligatorio="DINAMICO"/>
+
+<meta codice_allegato="OCC-PLA"
+urn_allegato="document:s_italia:occupazione.suolo.pubblico;planimetria.area;planimetria"
+descrizione_estesa="Planimetrie di progetto"
+filename="Planimetrie progetto.pdf"
+firmato="SI"
+istruzioni="/modulistica/moduli/OCC-PLA"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="RelTecnica"
+urn_allegato="document:c_a794:occupazione.suolo.pubblico;relazione.tecnica"
+descrizione_estesa="Relazione tecnica descrittiva dell'intervento"
+filename="Relazione Tecnica.pdf"
+firmato="SI"
+istruzioni="/modulistica/moduli/RelTecnica"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="Particolari"
+urn_allegato="document:c_a794:occupazione.suolo.pubblico;particolari.costruttivi"
+descrizione_estesa="Particolari costruttivi"
+filename="Particolari costruttivi.pdf"
+firmato="SI"
+istruzioni="/modulistica/moduli/Particolari"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="DOC_FOTO"
+urn_allegato="document:s_italia:generale;colori;documentazione.fotografica"
+descrizione_estesa="Documentazione fotografica"
+filename="Documentazione fotografica.pdf"
+firmato="SI"
+istruzioni="/modulistica/moduli/DOC_FOTO"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="RIC-DIR-SEG"
+urn_allegato="document:s_italia:diritti.segreteria.istruttoria;ricevuta"
+descrizione_estesa="Ricevuta diritti segreteria/istruttoria"
+filename="Ricev. diritti segreteria.pdf"
+firmato="SI"
+istruzioni="/modulistica/moduli/RIC-DIR-SEG"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+
+<meta codice_allegato="ALTRI-ALLEGATI"
+urn_allegato="document:s_italia:altri.allegati"
+descrizione_estesa="Altri allegati"
+filename="Altri allegati.pdf"
+firmato="SI"
+istruzioni="/modulistica/moduli/ALTRI-ALLEGATI"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+<!--
+<meta codice_allegato="VAL-PRE-IAA"
+descrizione_estesa="Valutazione previsionale di impatto acustico"
+filename="Impatto acustico.pdf"
+firmato="SI"
+istruzioni="/modulistica/moduli/VAL-PRE-IAA"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="CES-ATT-CAN"
+descrizione_estesa="Copia dell'atto di cessione o dichiarazione notarile"
+filename="Atto notarile.pdf"
+firmato="SI"
+istruzioni="/modulistica/moduli/CES-ATT-CAN"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="PER-SOG"
+descrizione_estesa="Permesso di soggiorno"
+filename="Permesso soggiorno.pdf"
+firmato="SI"
+istruzioni="/modulistica/moduli/PER-SOG"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="OCC-ASS-DEP"
+descrizione_estesa="Attestazione di versamento del deposito cauzionale e rimborso per l'utilizzo della rete elettrica"
+filename="Deposito cauz. colonnina.pdf"
+firmato="SI"
+istruzioni="/modulistica/moduli/OCC-ASS-DEP"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+-->
+
+{% endblock meta %}
+{% block title %}
+   Domanda per il rilascio/modifica/rinnovo/volturazione di concessione per l'occupazione di suolo pubblico per attività economiche
+  {% endblock title %}
+{% block content %}
+ <globo_fondo_pagina areaheight="150" scope="3">
+ {{ utils.firma() }}
+</globo_fondo_pagina>
+
+<input id="Tassonomia_Occ1" name="Tassonomia_Occ" type="hidden" value="1"/>
+
+<input dynamic_value="#Titolare_Cognome.value().toUpperCase() + ' - occupazione suolo pubblico DEHORS'
+ +(#Tassonomia_TipoOccupazione1.checked() ? ' (nuova concessione)' : '')
+ +(#Tassonomia_TipoOccupazione2.checked() ? ' (rinnovo concessione)' : '')
+ +(#Tassonomia_TipoOccupazione5.checked() ? ' (modifica concessione)' : '') " id="Oggetto" name="Oggetto" type="hidden"/>
+
+<input dynamic_value="#Ente.value()" id="Parametri_Comune" name="Parametri_Comune" type="hidden"/>
+
+
+ {{ intestazioni.intestazione_moduloprincipale_conbollo() }}
+ <h1 class="Modulo">
+ Domanda di concessione per l'occupazione di suolo pubblico
+</h1>
+
+<h2 class="Modulo">
+ per l'installazione di DEHORS (tavoli, sedie, ombrelloni, fioriere, gazebo, ecc) 
+</h2>
+
+
+{{anagrafica.societa("Titolare","Il sottoscritto",["Titolare", "Legale rappresentante"], "Richiedente")}}
+
+<table class="Modulo" name="TitoloSomministrazione" style="border: 1px solid grey">
+ <tbody>
+  <tr class="Rigaintestazione">
+   <td colspan="4">
+    <p class="Labeltabella">
+     In relazione all'attività commerciale avviata con:
+    </p>
+   </td>
+  </tr>
+  <tr class="Rigaintestazioneridotta">
+   <td colspan="2">
+    <p class="Labelcella">
+     Titolo autorizzativo
+    </p>
+   </td>
+   <td style="width:18%;">
+    <p class="Labelcella">
+     Numero
+    </p>
+   </td>
+   <td style="width:18%;">
+    <p class="Labelcella">
+     Data
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td>
+    <div id="Tassonomia_titolo_somm" label="Titolo autorizzativo somministrazione" value="Titolo autorizzativo somministrazione">
+    </div>
+    <input id="Tassonomia_titolo_somm1" name="Tassonomia_titolo_somm" type="radio" value="1"/>
+   </td>
+   <td >
+    <p>
+     Segnalazione Certificata Inizio Attività
+    </p>
+   </td>
+   <td>
+    <input class="" mandatory_enabled= "#Tassonomia_titolo_somm1.checked()" id="Parametri_titolo_somm1Num" label="Numero titolo autorizzativo somministrazione" name="Parametri_titolo_somm1Num" style="width:100%"/>
+   </td>
+   <td>
+    <input class="" mandatory_enabled= "#Tassonomia_titolo_somm1.checked()" format="date" id="Parametri_titolo_somm1Num_Data" label="Data titolo autorizzativo somministrazione" name="Parametri_titolo_somm1Num_Data" style="width:100%"/>
+   </td>
+  </tr>
+  <tr>
+   <td style="width:4%">
+    <input id="Tassonomia_titolo_somm99" name="Tassonomia_titolo_somm" type="radio" value="99"/>
+   </td>
+   <td>
+    <p>
+     altro
+     <span style="font-size: 70%; font-style: italic"> (indicare il provvedimento) </span>
+     <input type="text" id="Tassonomia_titolo_somm99_note" name="Tassonomia_titolo_somm99_note" style="width:60%" value="" mandatory_enabled="#Tassonomia_titolo_somm99.checked()" label="Altro"/>
+    </p>
+   </td>
+    <td>
+    <input class="" mandatory_enabled="#Tassonomia_titolo_somm99.checked()" id="Parametri_titolo_somm99Num" label="Numero titolo autorizzativo somministrazione" name="Parametri_titolo_somm99Num" style="width:100%"/>
+   </td>
+   <td>
+    <input class="" mandatory_enabled="#Tassonomia_titolo_somm99.checked()" format="date" id="Parametri_titolo_somm99_Data" label="Data titolo autorizzativo somministrazione" name="Parametri_titolo_somm99_Data" style="width:100%"/>
+   </td>
+     </tr>
+    </tbody>
+</table>
+
+ <h3 class="Modulo">
+ CHIEDE LA CONCESSIONE PER
+</h3>
+
+
+<table class="Modulo" style="border:1px solid grey">
+ <tbody>
+  <tr>
+   <td style="width:4%">
+    <div id="Tassonomia_TipoOccupazione" label="Tipo istanza" mandatory="true">
+    </div>
+    <input class="" id="Tassonomia_TipoOccupazione1" name="Tassonomia_TipoOccupazione" type="radio" value="1"/>
+   </td>
+   <td colspan="2">
+    <p>
+     nuova occupazione di suolo pubblico
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td>
+    <input class="" id="Tassonomia_TipoOccupazione5" name="Tassonomia_TipoOccupazione" type="radio" value="5"/>
+   </td>
+   <td colspan="2">
+    <p>
+     modifica dell'occupazione di suolo pubblico
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td rowspan="3" style="vertical-align:top">
+    <input class="" id="Tassonomia_TipoOccupazione2" name="Tassonomia_TipoOccupazione" type="radio" value="2"/>
+   </td>
+   <td colspan="2">
+    <p>
+     rinnovo dell'occupazione di suolo pubblico
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td>
+    <div id="Tassonomia_OccSuo3PModifiche" label="Presenza/Assenza modifiche" mandatory_enabled="#Tassonomia_TipoOccupazione.check_value(['2'])">
+    </div>
+    <input class="" id="Tassonomia_OccSuo3Modifiche1" name="Tassonomia_OccSuo3PModifiche" type="radio" value="1"/>
+   </td>
+   <td>
+    <p>
+     senza modifiche
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td style="width:4%">
+    <input class="" id="Tassonomia_OccSuo3Modifiche2" name="Tassonomia_OccSuo3PModifiche" type="radio" value="2"/>
+   </td>
+   <td>
+    <p>
+     con modifiche
+    </p>
+   </td>
+  </tr>
+ 
+ </tbody>
+</table> 
+
+<table class="Modulo" style="border: 1px solid grey">
+ <tbody>
+  <tr class="Rigaintestazione">
+   <td colspan="3">
+    <p>
+     <b>
+      in precedenza ottenuta tramite concessione
+     </b>
+     <br/>
+     <span style="font-size:70%">
+      <i>
+       (da compilare in caso di concessione già ottenuta)
+      </i>
+     </span>
+    </p>
+   </td>
+  </tr>
+  <tr class="Rigaintestazioneridotta">
+   <td colspan="3">
+    <p class="Labelcella">
+     Titolo autorizzativo
+    </p>
+   </td>
+  </tr>
+  <tr class="Rigaintestazioneridotta">
+   <td>
+    <p class="Labelcella">
+     Numero
+    </p>
+   </td>
+   <td>
+    <p class="Labelcella">
+     Data
+    </p>
+   </td>
+   <td>
+    <p class="Labelcella">
+     Ente di riferimento
+    </p>
+   </td>
+  </tr>
+  <tr mandatory_enabled="#Tassonomia_TipoOccupazione2.checked() || #Tassonomia_TipoOccupazione5.checked()">
+   <td style="width:25%">
+    <input class="" id="Parametri_Autorizzazione_corrente" label="Numero autorizzazione" name="Parametri_Autorizzazione_corrente" style="width:100%"/>
+   </td>
+   <td style="width:25%">
+    <input class="" format="date" id="Parametri_Autorizzazione_corrente_Data" label="Data autorizzazione" name="Parametri_Autorizzazione_corrente_Data" style="width:100%"/>
+   </td>
+   <td>
+    <input class="" id="Parametri_Autorizzazione_corrente_Note" label="Ente di riferimento autorizzazione" name="Parametri_Autorizzazione_corrente_Note" style="width:100%"/>
+   </td>
+  </tr>
+ </tbody>
+</table>
+
+<globo_salto_pagina>
+</globo_salto_pagina>
+
+<input checked="checked" dynamic_check="true" style="display:none" id="Immobile_DatiCatastaliObbligatori" name="Immobile_DatiCatastaliObbligatori" type="checkbox" value="si"/>
+{{ immobili.immobile_toponomastica( "Immobile", "collocata in", "Collocazione occupazione", "display:visibility", "visibility:hidden", "cursor:default", "true" ) }}
+
+ 
+ <table class="Modulo" style="border:1px solid grey; margin-top:-1px">
+ <tbody>
+  <tr class="Rigaintestazioneridotta">
+   <td style="width:40%;">
+    <p class="Labelcella">
+     Carattere occupazione
+    </p>
+   </td>
+   <td>
+    <p class="Labelcella">
+     Periodo dal
+    </p>
+   </td>
+   <td>
+    <p class="Labelcella">
+     al
+    </p>
+   </td>
+   <td>
+    <p class="Labelcella">
+     totale giorni
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td>
+    <p>
+     <select class="" id="Parametri_TempoOccupazione" label="Carattere occupazione" mandatory="true" name="Parametri_TempoOccupazione" style="width:100%;">
+      <option value="">
+      </option>
+      <option value="temporaneo">
+       temporaneo (specificare)
+      </option>
+      <option value="permanente">
+       permanente
+      </option>
+    <option value="anno">
+       per un anno
+      </option>
+     </select>
+    </p>
+   </td>
+   <td>
+    <input class="" id="Parametri_TempoOccupazione_dal" label="Periodo" mandatory_enabled="#Parametri_TempoOccupazione.check_value(['temporaneo']) || #Parametri_TempoOccupazione.check_value(['anno'])" name="Parametri_TempoOccupazione_dal" format="date" style="width:100%;" />
+   </td>
+    <td>
+    <input class="" id="Parametri_TempoOccupazione_al" label="Periodo" mandatory_enabled="#Parametri_TempoOccupazione.check_value(['temporaneo']) || #Parametri_TempoOccupazione.check_value(['anno'])" name="Parametri_TempoOccupazione_al"  format="date" style="width:100%;"/>
+   </td>
+    <td>
+    <input class="" id="Parametri_TempoOccupazione_totGG" label="Periodo" mandatory_enabled="#Parametri_TempoOccupazione.check_value(['temporaneo'])" name="Parametri_TempoOccupazione_totGG" style="width:100%;"/>
+   </td>
+  </tr>
+ </tbody>
+</table>
+
+<!--
+<table class="Modulo" style="border:1px solid grey; margin-top:-1px">
+ <tbody>
+  <tr class="Rigaintestazioneridotta">
+   <td style="width:40%;">
+    <p class="Labelcella">
+     Tipologia
+    </p>
+   </td>
+   <td>
+    <p class="Labelcella">
+     finitura
+    </p>
+   </td>
+   <td>
+    <p class="Labelcella">
+     finitura
+    </p>
+   </td>
+   <td>
+    <p class="Labelcella">
+     metri x metri
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td>
+    <p>
+     <select class="" id="Parametri_TipologiaOccupazione" label="Carattere occupazione" mandatory="true" name="Parametri_TipologiaOccupazione" style="width:100%;">
+      <option value="">
+      </option>
+      <option value="Carreggiata">
+       Carreggiata finita con:
+      </option>
+      <option value="Marciapiede">
+       Marciapiede finito con:
+      </option>
+    <option value="aiuola">
+       Aiuola
+      </option>
+     </select>
+    </p>
+   </td>
+   <td>
+    <input class="" id="Parametri_TipologiaOccupazione_finitura1" label="finitura" mandatory_enabled="#Parametri_TipologiaOccupazione.check_value(['Marciapiede']) || #Parametri_TipologiaOccupazione.check_value(['Carreggiata']) " name="Parametri_TipologiaOccupazione_finitura1" style="width:100%;"/>
+   </td>
+    <td>
+    <input class="" id="Parametri_TipologiaOccupazione_finitura2" label="finitura" mandatory_enabled="#Parametri_TipologiaOccupazione.check_value(['Marciapiede']) || #Parametri_TipologiaOccupazione.check_value(['Carreggiata']) " name="Parametri_TipologiaOccupazione_finitura2" style="width:100%;"/>
+   </td>
+    <td>
+    <input class="" id="Parametri_TipologiaOccupazione_mxm" label="m x m occupazione" mandatory_enabled="#Parametri_TipologiaOccupazione.check_value(['Marciapiede']) || #Parametri_TipologiaOccupazione.check_value(['Carreggiata']) " name="Parametri_TipologiaOccupazione_mxm" style="width:100%;"/>
+   </td>
+  </tr>
+ </tbody>
+</table>
+-->
+
+<table class="Modulo" style="border:1px solid grey">
+ <tbody>
+  <tr class="Rigaintestazione">
+    <td>
+    <p>
+      <b>
+        In particolare le aree richieste saranno occupate, così come meglio descritto nella relazione e/o nelle tavole progettuali allegate, per una superficie
+      </b>
+    </p>
+    </td>        
+  </tr>
+  <tr class="Rigaintestazioneridotta">
+    <td>
+    <p class="Labelcella">
+     superficie totale ai fini COSAP/calcolata sulla base della proiezione a terra delle strutture
+    </p>
+   </td>
+  </tr>
+  <tr mandatory_enabled="true">
+   <td>
+    <input class="" id="Parametri_Superficie_cosap" label="Superficie totale ai fini COSAP" name="Parametri_Superficie_cosap"/> metri quadri
+   </td>
+   </tr>
+ </tbody>
+</table>
+
+
+<!--
+<table class="Modulo" name="Tavoli" style="border:1px solid grey">
+ <tbody>
+  <tr class="Rigaintestazione">
+   <td>
+    <div id="TipologiaOccupazione" label="Tipologia occupazione" mandatory="true">
+    </div>
+    <p class="Labeltabella">
+     <input group="TipologiaOccupazione" id="Tassonomia_OSPTavoli" name="Tassonomia_OSPTavoli" type="checkbox" value="si"/>
+     tavoli, sedie ed altre attrezzature per attività di somministrazione o commerciale
+    </p>
+   </td>
+  </tr>
+  <tr class="Rigaintestazioneridotta">
+   <td>
+    <p class="Labelcella">
+     Descrizione tavoli e sedie: materiale e colore
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td>
+    <textarea class="" id="Parametri_OSPDescrizioneTavoli" label="Descrizione materiale e colore tavoli e sedie" mandatory_enabled="#Tassonomia_OSPTavoli.checked()" name="Parametri_OSPDescrizioneTavoli" style="width:100%;height:5cm;">
+    </textarea>
+   </td>
+  </tr>
+  <tr class="Rigaintestazioneridotta">
+   <td>
+    <p class="Labelcella">
+     Descrizione altre attrezzature o elementi di arredo urbano collocati nell'area, ad esempio carrelli, ombrelloni, vasi, fioriere, ecc.: tipo di oggetto, numero e colore
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td>
+    <textarea class="" id="Parametri_OSPAltriTavoli" name="Parametri_OSPAltriTavoli" style="width:100%;height:5cm;" enabled="#Tassonomia_OSPTavoli.checked()">
+    </textarea>
+   </td>
+  </tr>
+  <tr class="Rigaintestazioneridotta">
+   <td>
+    <p class="Labelcella">
+     Superficie occupata
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td>
+    <p>
+     <input class="" format="floating" id="Parametri_OSPSuperficie1" label="Superficie occupata" mandatory_enabled="#Tassonomia_OSPTavoli.checked()" name="Parametri_OSPSuperficie1" style="width:15%;" />
+     m
+     <sup>
+      2
+     </sup>
+    </p>
+   </td>
+  </tr>
+ </tbody>
+</table>
+<table class="Modulo" style="border:1px solid grey; margin-top:-1px">
+ <tbody>
+  <tr class="Rigaintestazioneridotta">
+   <td colspan="5">
+    <p class="Labelcella">
+     Assoggettabilità alla presentazione di valutazione di impatto acustico <br/><i>(da compilare in caso di domanda di rilascio di concessione per l'occupazione di suolo pubblico per una nuova occupazione e per la modifica dell'occupazione)</i>
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <div id="Tassonomia_Impatto_acustico" label="Assoggettabilità impatto acustico" mandatory_enabled="(#Tassonomia_OSPTavoli.checked() and (#Tassonomia_TipoOccupazione1.checked()||#Tassonomia_TipoOccupazione5.checked()||#Tassonomia_OccSuo3Modifiche2.checked()||#Tassonomia_OccSuo4PModifiche2.checked()))">
+   </div>
+   <td rowspan="2" style="width:4%; vertical-align:top;">
+    <input id="Tassonomia_Impatto_acustico2" name="Tassonomia_Impatto_acustico" style="margin-top:5px" type="radio" value="2"/>
+   </td>
+   <td colspan="4">
+    <p>
+     non soggetto a presentazione di valutazione di impatto acustico
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td style="width:4%">
+    <input dynamic_check="#Tassonomia_Impatto_acustico2.checked()" enabled="#Tassonomia_Impatto_acustico2.checked()" id="Parametri_autocert1" name="Parametri_autocert1" type="checkbox" value="si"/>
+   </td>
+   <td colspan="3">
+    <p>
+     durante l'esercizio dell'attività saranno rispettati i limiti fissati dalla vigente normativa
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td rowspan="6" style="vertical-align:top; background-color:white">
+    <input id="Tassonomia_Impatto_acustico1" name="Tassonomia_Impatto_acustico" style="margin-top:5px" type="radio" value="1"/>
+   </td>
+   <td colspan="4">
+    <p>
+     soggetto a presentazione di valutazione di impatto acustico
+    </p>
+   </td>
+  </tr>
+  <tr class="Rigaintestazioneridotta">
+   <td colspan="2">
+    <p class="Labelcella">
+     Titolo autorizzativo
+    </p>
+   </td>
+   <td style="width:14%;">
+    <p class="Labelcella">
+     Numero
+    </p>
+   </td>
+   <td style="width:14%;">
+    <p class="Labelcella">
+     Data
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td>
+    <div id="Tassonomia_VIAClassificazione" label="Titolo autorizzativo impatto acustico" mandatory_enabled="#Tassonomia_Impatto_acustico1.checked()" value="Titolo autorizzativo impatto acustico">
+    </div>
+    <input id="Tassonomia_VIAClassificazione1" name="Tassonomia_VIAClassificazione" type="radio" value="1"/>
+   </td>
+   <td>
+    <p>
+     ottenuto parere favorevole ARPA sulla documentazione di impatto acustico
+    </p>
+   </td>
+   <td>
+    <input class="" id="Parametri_VIAClassificazione1Num" label="Numero parere impatto acustico" mandatory_enabled="#Tassonomia_VIAClassificazione.check_value(['1'])" name="Parametri_VIAClassificazione1Num" style="width:100%"/>
+   </td>
+   <td>
+    <input class="" format="date" id="Parametri_VIAClassificazione1Num_Data" label="Data parere impatto acustico" mandatory_enabled="#Tassonomia_VIAClassificazione.check_value(['1'])" name="Parametri_VIAClassificazione1Num_Data" style="width:100%"/>
+   </td>
+  </tr>
+  <tr>
+   <td style="width:4%">
+    <input id="Tassonomia_VIAClassificazione10" name="Tassonomia_VIAClassificazione" type="radio" value="10"/>
+   </td>
+   <td>
+    <p>
+     ottenuto autorizzazione unica ambientale (AUA)
+    </p>
+   </td>
+   <td>
+    <input class="" id="Parametri_VIAClassificazione10Num" label="Numero autorizzazione unica ambientale (AUA)" mandatory_enabled="#Tassonomia_VIAClassificazione.check_value(['10'])" name="Parametri_VIAClassificazione10Num" style="width:100%"/>
+   </td>
+   <td>
+    <input class="" format="date" id="Parametri_VIAClassificazione10Num_Data" label="Data autorizzazione unica ambientale (AUA)" mandatory_enabled="#Tassonomia_VIAClassificazione.check_value(['10'])" name="Parametri_VIAClassificazione10Num_Data" style="width:100%"/>
+   </td>
+  </tr>
+  <tr>
+   <td>
+    <input id="Tassonomia_VIAClassificazione8" name="Tassonomia_VIAClassificazione" type="radio" value="8"/>
+   </td>
+   <td colspan="2">
+    <p>
+     ha presentato valutazione previsionale di impatto acustico
+    </p>
+   </td>
+   <td>
+    <input class="" format="date" id="Parametri_VIAClassificazione8Data" label="Data parere impatto acustico" mandatory_enabled="#Tassonomia_VIAClassificazione8.checked()" name="Parametri_VIAClassificazione8Data" style="width:100%"/>
+   </td>
+  </tr>
+  <tr>
+   <td>
+    <input id="Tassonomia_VIAClassificazione3" name="Tassonomia_VIAClassificazione" type="radio" value="3"/>
+   </td>
+   <td colspan="3">
+    <p>
+     presenta congiuntamente valutazione previsionale di impatto acustico
+    </p>
+   </td>
+  </tr>
+ </tbody>
+</table>
+
+<table class="Modulo" name="Fiori" style="border:1px solid grey">
+ <tbody>
+  <tr class="Rigaintestazione">
+   <td>
+    <p class="Labeltabella">
+     <input group="TipologiaOccupazione" id="Tassonomia_OSPFioriere" name="Tassonomia_OSPFioriere" type="checkbox" value="si"/>
+     vasi, fioriere e altri elementi di arredo urbano
+    </p>
+   </td>
+  </tr>
+  <tr class="Rigaintestazioneridotta">
+   <td>
+    <p class="Labelcella">
+     Descrizione vasi, fioriere e altri elementi di arredo urbano: tipo di oggetto, dimensioni (larghezza, lunghezza e altezza), numero e colore
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td>
+    <textarea class="" id="Parametri_OSPFiori" label="Descrizione vasi, fioriere e altri elementi di arredo urbano" mandatory_enabled="#Tassonomia_OSPFioriere.checked()" name="Parametri_OSPFiori" style="width:100%;height:5cm;">
+    </textarea>
+   </td>
+  </tr>
+ </tbody>
+</table>
+
+<table class="Modulo" name="Fiori" style="border:1px solid grey">
+ <tbody>
+ <tr class="Rigaintestazioneridotta">
+   <td>
+    <p class="Labelcella">
+     Descrizione specie di piante ornamentali contenute (se si tratta di vasi da fiori o fioriere)
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td>
+    <textarea class="" id="Parametri_OSPSpecieFiori" name="Parametri_OSPSpecieFiori" style="width:100%;height:5cm;">
+    </textarea>
+   </td>
+  </tr>
+  <tr class="Rigaintestazioneridotta">
+   <td>
+    <p class="Labelcella">
+     Superficie occupata
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td>
+    <p>
+     <input class="" format="floating" id="Parametri_OSPSuperficie2" label="Superficie occupata" mandatory_enabled="#Tassonomia_OSPFioriere.checked()" name="Parametri_OSPSuperficie2" style="width:15%;"/>
+     m
+     <sup>
+      2
+     </sup>
+    </p>
+   </td>
+  </tr>
+ </tbody>
+</table>
+
+<table class="Modulo" style="border:1px solid grey">
+ <tbody>
+  <tr class="Rigaintestazione">
+   <td colspan="2">
+    <p class="Labeltabella">
+     <input group="TipologiaOccupazione" id="Tassonomia_OSPManifestazioni" name="Tassonomia_OSPManifestazioni" type="checkbox" value="si"/>
+     manifestazioni ed eventi
+    </p>
+   </td>
+  </tr>
+  <tr class="Rigaintestazioneridotta">
+   <td colspan="2">
+    <p class="Labelcella">
+     Denominazione manifestazione
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td colspan="2">
+    <input class="" id="Parametri_OSPManifestazione" label="Denominazione manifestazione" mandatory_enabled="#Tassonomia_OSPManifestazioni.checked()" name="Parametri_OSPManifestazione" style="width:100%"/>
+   </td>
+  </tr>
+  <tr class="Rigaintestazioneridotta">
+   <td colspan="2">
+    <p class="Labelcella">
+     Descrizione dettagliata relativa all'occupazione, ad esempio strutture, materiali, banchi, ecc.
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td colspan="2">
+    <textarea id="Parametri_OSPDescrDett" label=" Descrizione dettagliata relativa all'occupazione" mandatory_enabled="#Tassonomia_OSPManifestazioni.checked()" name="Parametri_OSPDescrDett" style="width:100%;height:5cm;">
+    </textarea>
+   </td>
+  </tr>
+  <tr class="Rigaintestazioneridotta">
+   <td colspan="2">
+    <p class="Labelcella">
+     Date e orari di svolgimento di svolgimento manifestazione
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td colspan="2">
+    <textarea class="" id="Parametri_ManifUlterioriEco" label="Date e orari di svolgimento di svolgimento manifestazione" mandatory_enabled="#Tassonomia_OSPManifestazioni.checked()" name="Parametri_ManifUlterioriEco" style="width:100%;height:5cm;">
+    </textarea>
+   </td>
+  </tr>
+  <tr class="Rigaintestazioneridotta">
+   <td>
+    <p class="Labelcella">
+     Giorno iniziale montaggio attrezzature
+    </p>
+   </td>
+   <td>
+    <p class="Labelcella">
+     Giorno finale montaggio attrezzature
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td>
+    <input class="" format="date" id="Parametri_OSPGiornoInizioMontaggio" label="Giorno iniziale montaggio attrezzature" enabled="#Tassonomia_OSPManifestazioni.checked()" mandatory="#Parametri_OSPGiornoFineMontaggio.value() != '' and #Parametri_OSPGiornoFineMontaggio.value() != 'gg/mm/aaaa'" name="Parametri_OSPGiornoInizioMontaggio" style="width:100%"/>
+   </td>
+   <td>
+    <input class="" format="date" id="Parametri_OSPGiornoFineMontaggio" label="Giorno finale montaggio attrezzature" enabled="#Tassonomia_OSPManifestazioni.checked()" mandatory="#Parametri_OSPGiornoInizioMontaggio.value() != '' and #Parametri_OSPGiornoInizioMontaggio.value() != 'gg/mm/aaaa'" name="Parametri_OSPGiornoFineMontaggio" style="width:100%"/>
+   </td>
+  </tr>
+  <tr class="Rigaintestazioneridotta">
+   <td>
+    <p class="Labelcella">
+     Giorno iniziale smontaggio attrezzature
+    </p>
+   </td>
+   <td>
+    <p class="Labelcella">
+     Giorno finale smontaggio attrezzature
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td>
+    <input class="" format="date" id="Parametri_OSPGiornoInizioSmontaggio" label="Giorno iniziale smontaggio attrezzature" enabled="#Tassonomia_OSPManifestazioni.checked()" mandatory="#Parametri_OSPGiornoFineSmontaggio.value() != '' and #Parametri_OSPGiornoFineSmontaggio.value() != 'gg/mm/aaaa'" name="Parametri_OSPGiornoInizioSmontaggio" style="width:100%"/>
+   </td>
+   <td>
+    <input class="" format="date" id="Parametri_OSPGiornoFineSmontaggio" label="Giorno finale smontaggio attrezzature" enabled="#Tassonomia_OSPManifestazioni.checked()" mandatory="#Parametri_OSPGiornoInizioSmontaggio.value() != '' and #Parametri_OSPGiornoInizioSmontaggio.value() != 'gg/mm/aaaa'" name="Parametri_OSPGiornoFineSmontaggio" style="width:100%"/>
+   </td>
+  </tr>
+  <tr class="Rigaintestazioneridotta">
+   <td colspan="2">
+    <p class="Labelcella">
+     Data domanda/ottenimento patrocinio Amministrazione comunale a titolo oneroso o gratuito
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td colspan="2">
+    <input class="" enabled="#Tassonomia_OSPManifestazioni.checked()" format="date" id="Parametri_OSPAEDataContributo" name="Parametri_OSPAEDataContributo" style="width:100%;"/>
+   </td>
+  </tr>
+  <tr class="Rigaintestazioneridotta">
+   <td colspan="2">
+    <p class="Labelcella">
+     Superficie occupata
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td colspan="2">
+    <p>
+     <input class="" format="floating" id="Parametri_OSPSuperficie3" label="Superficie occupata" mandatory_enabled="#Tassonomia_OSPManifestazioni.checked()" name="Parametri_OSPSuperficie3" style="width:15%;"/>
+     m
+     <sup>
+      2
+     </sup>
+    </p>
+   </td>
+  </tr>
+ </tbody>
+</table>
+-->
+
+
+{{ utils.Dichiara_445() }}
+
+<p class="Modulo">
+ ai sensi del Decreto Legislativo 22/01/2004, n. 42 e della Legge Regionale 11/03/2005, n. 12, che l'intervento
+</p>
+
+<table class="Modulo" style="border:1px solid grey">
+ <tbody>
+  <tr>
+   <div id="Tassonomia_vincolibeni" label="Tutela beni culturali" mandatory="true">
+   </div>
+   <td colspan="1" style="width: 4%">
+    <input id="Tassonomia_vincolibeni1" name="Tassonomia_vincolibeni" type="radio" value="1"/>
+   </td>
+   <td colspan="3">
+    <p>
+     non riguarda un immobile tutelato (articolo 10 del Decreto Legislativo 22/01/2004, n. 42)
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td rowspan="3" style="vertical-align:top; background:white">
+    <input id="Tassonomia_vincolibeni2" name="Tassonomia_vincolibeni" type="radio" value="2"/>
+   </td>
+   <td colspan="3">
+    <p>
+     riguarda beni immobili con più di settanta anni, opera di autore deceduto, di proprietà di enti o istituzioni pubbliche, persone giuridiche private senza fini di lucro, pertanto ha ottenuto verifica dell'insussistenza dell'interesse artistico, storico, archeologico o etnoantropologico
+    </p>
+   </td>
+  </tr>
+  <tr class="Rigaintestazioneridotta">
+   <td>
+    <p class="Labelcella">
+     Protocollo
+    </p>
+   </td>
+   <td>
+    <p class="Labelcella">
+     Data
+    </p>
+   </td>
+   <td>
+    <p class="Labelcella">
+     Ente di riferimento
+    </p>
+   </td>
+  </tr>
+  <tr style="background-color: white">
+   <td style="width:21%">
+    <input class="" id="Parametri_p20titolo1" mandatory_enabled="#Tassonomia_vincolibeni2.checked()" name="Parametri_p20titolo1" style="width: 100%" label="Protocollo verifica dell'insussistenza dell'interesse artistico, storico, archeologico o etnoantropologico"/>
+   </td>
+   <td style="width:21%">
+    <input class="" format="date" id="Parametri_p20titolo1_data" mandatory_enabled="#Tassonomia_vincolibeni2.checked()" name="Parametri_p20titolo1_data" style="width: 100%" label="Data verifica dell'insussistenza dell'interesse artistico, storico, archeologico o etnoantropologico"/>
+   </td>
+   <td>
+    <input class="" id="Parametri_p20titolo1_note" mandatory_enabled="#Tassonomia_vincolibeni2.checked()" name="Parametri_p20titolo1_note" style="width: 100%" label="Ente di riferimento verifica dell'insussistenza dell'interesse artistico, storico, archeologico o etnoantropologico"/>
+   </td>
+  </tr>
+
+
+  <tr>
+   <td rowspan="3" style="vertical-align:top; background:white">
+    <input id="Tassonomia_vincolibeni3" name="Tassonomia_vincolibeni" type="radio" value="3"/>
+   </td>
+   <td colspan="3">
+    <p>
+     riguarda beni culturali tutelati (articolo 10 del Decreto Legislativo 22/01/2004, n. 42), pertanto ha ottenuto nulla osta
+    </p>
+   </td>
+  </tr>
+  <tr class="Rigaintestazioneridotta">
+   <td>
+    <p class="Labelcella">
+     Protocollo
+    </p>
+   </td>
+   <td>
+    <p class="Labelcella">
+     Data
+    </p>
+   </td>
+   <td>
+    <p class="Labelcella">
+     Ente di riferimento
+    </p>
+   </td>
+  </tr>
+  <tr style="background-color: white">
+   <td>
+    <input class="" id="Parametri_p21titolo1" mandatory_enabled="#Tassonomia_vincolibeni3.checked()" name="Parametri_p21titolo1" style="width: 100%" label="Protocollo nulla osta"/>
+   </td>
+   <td>
+    <input class="" format="date" id="Parametri_p21titolo1_data" mandatory_enabled="#Tassonomia_vincolibeni3.checked()" name="Parametri_p21titolo1_data" style="width: 100%" label="Data nulla osta"/>
+   </td>
+   <td>
+    <input class="" id="Parametri_p21titolo1_note" mandatory_enabled="#Tassonomia_vincolibeni3.checked()" name="Parametri_p21titolo1_note" style="width: 100%" label="Ente di riferimento nulla osta"/>
+   </td>
+  </tr> <!--
+  <tr>
+   <td rowspan="3" style="vertical-align:top; background:white">
+    <input id="Tassonomia_vincolibeni4" name="Tassonomia_vincolibeni" type="radio" value="4"/>
+   </td>
+   <td colspan="3">
+    <p>
+     riguarda beni immobili e/o beni culturali tutelati, di cui sopra, per i quali ha presentato  <a href="http://territorio.comune.bergamo.it/node/778"
+ target="_blank">domanda di parere per l'ottenimento di atto di assenso</a>. Il titolare dichiara di essere a conoscenza che l'intervento può essere iniziato solo dopo la comunicazione, da parte dello sportello unico, dell'avvenuta acquisizione degli atti di assenso presupposti.
+    </p>
+   </td>
+  </tr>
+  <tr class="Rigaintestazioneridotta">
+   <td>
+    <p class="Labelcella">
+     Protocollo
+    </p>
+   </td>
+   <td>
+    <p class="Labelcella">
+     Data
+    </p>
+   </td>
+   <td>
+    <p class="Labelcella">
+     Ente di riferimento
+    </p>
+   </td>
+  </tr>
+  <tr style="background-color: white">
+   <td>
+    <input class="" id="Parametri_p22titolo1" mandatory_enabled="#Tassonomia_vincolibeni4.checked()" name="Parametri_p22titolo1" style="width: 100%" label="Protocollo nulla osta"/>
+   </td>
+   <td>
+    <input class="" format="date" id="Parametri_p22titolo1_data" mandatory_enabled="#Tassonomia_vincolibeni4.checked()" name="Parametri_p22titolo1_data" style="width: 100%" label="Data nulla osta"/>
+   </td>
+   <td>
+    <input class="" id="Parametri_p22titolo1_note" mandatory_enabled="#Tassonomia_vincolibeni4.checked()" name="Parametri_p22titolo1_note" style="width: 100%" label="Ente di riferimento nulla osta"/>
+   </td>
+  </tr> -->
+ </tbody>
+</table>
+
+
+<p class="Modulo">
+  ai sensi del Decreto Legislativo 22/01/2004, n. 42, della Legge Regionale 11/03/2005, n. 12, della Deliberazione della Giunta Regionale 15/03/2006, n. 8/2121 e del Decreto del Presidente della Repubblica 13/02/2017, n. 31, che l'intervento
+</p>
+
+<table class="Modulo" style="border:1px solid grey">
+ <tbody>
+  <tr>
+   <td colspan="1" style="width: 2%;background-color:white">
+    <div id="Tassonomia_new_vincoli_paes" label="Vincolo paesaggistico" mandatory_enabled="true">
+    </div>
+    <input id="Tassonomia_new_vincoli_paes1" name="Tassonomia_new_vincoli_paes" type="radio" value="1"/>
+   </td>
+   <td colspan="4">
+    <p>
+     non riguarda un'area o immobile tutelati
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td colspan="1" rowspan="5" style="width: 2%;vertical-align:top; background-color: white;">
+    <input id="Tassonomia_new_vincoli_paes2" name="Tassonomia_new_vincoli_paes" type="radio" value="2"/>
+   </td>
+   <td colspan="4">
+    <p>
+     riguarda un'area o immobile tutelati
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td colspan="1" style="width: 2%;">
+    <div id="Tassonomia_vincoli2_paes_incidenza" label="Vincolo paesaggistico" mandatory_enabled="#Tassonomia_new_vincoli_paes2.checked()">
+    </div>
+    <input id="Tassonomia_vincoli2_paes_incidenza1" name="Tassonomia_vincoli2_paes_incidenza" type="radio" value="1"/>
+   </td>
+   <td colspan="3">
+    <p>
+     e il dehor è costituito da elementi facilmente amovibili quali tende, pedane, paratie laterali frangivento, manufatti ornamentali, elementi ombreggianti o altre strutture leggere di copertura e prive di parti in muratura o strutture ancorate stabilmente al suolo
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td colspan="1" rowspan="3" style="width: 2%;vertical-align:top; background-color: white;">
+    <input id="Tassonomia_vincoli2_paes_incidenza2" name="Tassonomia_vincoli2_paes_incidenza" type="radio" value="2"/>
+   </td>
+   <td colspan="3">
+    <p>
+      e il dehor è composto di parti in muratura o strutture stabilmente ancorate al suolo; pertanto ha ottenuto autorizzazione paesaggistica
+    </p>
+   </td>
+  </tr>
+  <tr class="Rigaintestazioneridotta">
+   <td style="width:19%">
+    <p class="Labelcella">
+     Numero
+    </p>
+   </td>
+   <td style="width:19%">
+    <p class="Labelcella">
+     Data
+    </p>
+   </td>
+   <td>
+    <p class="Labelcella">
+     Ente di riferimento
+    </p>
+   </td>
+  </tr>
+  <tr style="background-color: white">
+   <td>
+    <input class="inputNormal" id="Parametri_p21titolo2" label="Numero autorizzazione paesaggistica" mandatory_enabled="#Tassonomia_vincoli2_paes_incidenza2.checked()" name="Parametri_p21titolo2" style="width: 100%"/>
+   </td>
+   <td>
+    <input class="inputNormal" format="date" id="Parametri_p21titolo2_data" label="Data autorizzazione paesaggistica" mandatory_enabled="#Tassonomia_vincoli2_paes_incidenza2.checked()" name="Parametri_p21titolo2_data" style="width: 100%"/>
+   </td>
+   <td>
+    <input class="inputNormal" id="Parametri_p21titolo2_note" label="Ente di riferimento autorizzazione paesaggistica" mandatory_enabled="#Tassonomia_vincoli2_paes_incidenza2.checked()" name="Parametri_p21titolo2_note" style="width: 100%"/>
+   </td>
+<!--
+ <tr>
+   <td rowspan="3" style="vertical-align:top; background:white">
+    <input id="Tassonomia_new_vincoli_paes3" name="Tassonomia_new_vincoli_paes" type="radio" value="4"/>
+   </td>
+   <td colspan="4">
+    <p>
+      riguarda un area o immobile tutelati, di cui sopra, per i quali ha presentato  <a href="http://territorio.comune.bergamo.it/node/770" >istanza.</a> Il titolare dichiara di essere a conoscenza che l'intervento può essere iniziato solo dopo la comunicazione, da parte dello sportello unico, dell'avvenuta acquisizione degli atti di assenso presupposti.
+    </p>
+   </td>
+  </tr>
+  <tr class="Rigaintestazioneridotta">
+   <td colspan="2">
+    <p class="Labelcella">
+     Protocollo
+    </p>
+   </td>
+   <td>
+    <p class="Labelcella">
+     Data
+    </p>
+   </td>
+   <td>
+    <p class="Labelcella">
+     Ente di riferimento
+    </p>
+   </td>
+  </tr>
+  <tr style="background-color: white">
+   <td colspan="2">
+    <input class="" id="Parametri_p22titolo2" mandatory_enabled="#Tassonomia_new_vincoli_paes3.checked()" name="Parametri_p22titolo2" style="width: 100%" label="Protocollo nulla osta"/>
+   </td>
+   <td>
+    <input class="" format="date" id="Parametri_p22titolo2_data" mandatory_enabled="#Tassonomia_new_vincoli_paes3.checked()" name="Parametri_p22titolo2_data" style="width: 100%" label="Data nulla osta"/>
+   </td>
+   <td>
+    <input class="" id="Parametri_p22titolo2_note" mandatory_enabled="#Tassonomia_new_vincoli_paes3.checked()" name="Parametri_p22titolo2_note" style="width: 100%" label="Ente di riferimento nulla osta"/>
+   </td>-->
+  </tr> 
+ </tbody>
+</table>
+<!--
+<globo_salto_pagina>
+</globo_salto_pagina>
+-->
+<!-- <p class="Modulo">
+  che per l'intervento
+</p>
+<table class="Modulo" style="border:1px solid grey">
+ <tbody>
+  <tr>
+   <div id="Tassonomia_assenso" label="Atti di assenso" mandatory="true">
+   </div>
+   <td colspan="1" style="width: 4%">
+    <input id="Tassonomia_assenso1" name="Tassonomia_assenso" type="radio" value="1"/>
+   </td>
+   <td colspan="3">
+    <p>
+     non sono necessari altri atti di assenso
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td rowspan="5" style="vertical-align:top; background:white">
+    <input id="Tassonomia_assenso2" name="Tassonomia_assenso" type="radio" value="2"/>
+   </td>
+   <td colspan="3">
+    <p>
+     sono necessari altri atti di assenso, già rilasciati dalle competenti amministrazioni
+    </p>
+   </td>
+  </tr>
+  <tr class="Rigaintestazioneridotta">
+   <td>
+    <p class="Labelcella">
+     Protocollo
+    </p>
+   </td>
+   <td>
+    <p class="Labelcella">
+     Data
+    </p>
+   </td>
+   <td>
+    <p class="Labelcella">
+     Ente di riferimento
+    </p>
+   </td>
+  </tr>
+  <tr style="background-color: white">
+   <td>
+    <input class="" id="Parametri_p22titolo" mandatory_enabled="#Tassonomia_assenso2.checked()" name="Parametri_p22titolo" style="width: 100%" label="Protocollo nulla osta"/>
+   </td>
+   <td>
+    <input class="" format="date" id="Parametri_p22titolo_data" mandatory_enabled="#Tassonomia_assenso2.checked()" name="Parametri_p22titolo3data" style="width: 100%" label="Data nulla osta"/>
+   </td>
+   <td>
+    <input class="" id="Parametri_p22titolo_note" mandatory_enabled="#Tassonomia_assenso2.checked()" name="Parametri_p22titolo_note" style="width: 100%" label="Ente di riferimento nulla osta"/>
+   </td>
+    </tr>
+
+ <tr style="background-color: white">
+   <td>
+    <input class="" id="Parametri_p23titolo" name="Parametri_p23titolo" style="width: 100%" label="Protocollo nulla osta"/>
+   </td>
+   <td>
+    <input class="" format="date" id="Parametri_p23titolo_data"  name="Parametri_p23titolo3data" style="width: 100%" label="Data nulla osta"/>
+   </td>
+   <td>
+    <input class="" id="Parametri_p23titolo_note"  name="Parametri_p23titolo_note" style="width: 100%" label="Ente di riferimento nulla osta"/>
+   </td>
+    </tr>
+
+     <tr style="background-color: white">
+   <td>
+    <input class="" id="Parametri_p24titolo"  name="Parametri_p24titolo" style="width: 100%" label="Protocollo nulla osta"/>
+   </td>
+   <td>
+    <input class="" format="date" id="Parametri_p24titolo_data"  name="Parametri_p24titolo3data" style="width: 100%" label="Data nulla osta"/>
+   </td>
+   <td>
+    <input class="" id="Parametri_p24titolo_note"  name="Parametri_p24titolo_note" style="width: 100%" label="Ente di riferimento nulla osta"/>
+   </td>
+    </tr>
+	-->
+<!--
+ <tr>
+   <td rowspan="3" style="vertical-align:top; background:white">
+    <input id="Tassonomia_assenso3" name="Tassonomia_assenso" type="radio" value="3"/>
+   </td>
+   <td colspan="3">
+    <p> ha presentato  <a href="http://territorio.comune.bergamo.it/node/778" target="_blank">domanda di parere per l'ottenimento di atto di assenso</a>. Il titolare dichiara di essere a conoscenza che l'intervento può essere iniziato solo dopo la comunicazione, da parte dello sportello unico, dell'avvenuta acquisizione degli atti di assenso presupposti.
+    </p>
+   </td>
+  </tr>
+  <tr class="Rigaintestazioneridotta">
+   <td>
+    <p class="Labelcella">
+     Protocollo
+    </p>
+   </td>
+   <td>
+    <p class="Labelcella">
+     Data
+    </p>
+   </td>
+   <td>
+    <p class="Labelcella">
+     Ente di riferimento
+    </p>
+   </td>
+  </tr>
+  <tr style="background-color: white">
+   <td>
+    <input class="" id="Parametri_p25titolo" mandatory_enabled="#Tassonomia_assenso3.checked()" name="Parametri_p25titolo" style="width: 100%" label="Protocollo nulla osta"/>
+   </td>
+   <td>
+    <input class="" format="date" id="Parametri_p25titolo_data" mandatory_enabled="#Tassonomia_assenso3.checked()" name="Parametri_p25titolo_data" style="width: 100%" label="Data nulla osta"/>
+   </td>
+   <td>
+    <input class="" id="Parametri_p25titolo_note" mandatory_enabled="#Tassonomia_assenso3.checked()" name="Parametri_p25titolo_note" style="width: 100%" label="Ente di riferimento nulla osta"/>
+   </td>
+  </tr>
+ </tbody>
+</table>
+-->
+
+
+
+<table class="Modulo" style="border: 0px;">
+ <tbody>
+  <tr style="border:0px;">
+    <td style="width: 4%; border:0px; vertical-align:top; background-color:white;">
+      <div id="Tassonomia_Dichiara1" name="Tassonomia_Dichiara1" mandatory_enabled="true" label="Dichiarazione 1"> </div>
+      <input group="Tassonomia_Dichiara1" id="Tassonomia_Dichiara11" name="Tassonomia_Dichiara11" type="checkbox" value="SI"/>
+    </td>
+    <td style="border:0px;">
+      <p>
+      di essere a conoscenza che, nel caso in cui l’occupazione venga concessa, prima del ritiro della concessione dovrà essere versato il deposito cauzionale, se richiesto, ed esibito il bollettino di versamento del canone dovuto per l’occupazione.    
+      </p>
+    </td>
+   </tr >
+   <tr style="border:0px;">
+   <td style="width: 4%; border:0px; vertical-align:top; background-color:white;">
+      <div id="Tassonomia_Dichiara2" name="Tassonomia_Dichiara2" mandatory_enabled="true" label="Dichiarazione 2"> </div>
+      <input group="Tassonomia_Dichiara2" id="Tassonomia_Dichiara21" name="Tassonomia_Dichiara21" type="checkbox" value="SI"/>
+    </td>
+    <td style="border:0px;">
+      <p>
+        di essere a conoscenza che, ad installazione effettuata dovrà essere esibito il certificato di conformità degli impianti eventualmente installati      
+      </p>
+    </td>
+   </tr>
+   </tbody>
+</table>
+   
+<br/>
+<!--
+<p class="Modulo">relativamente all'interferenza con la viabilità stradale, dichiara inoltre<br/>
+     <span style="font-size:70%; font-weight:normal">
+      <i>
+       (da compilare in caso di domanda di rilascio di concessione per l'occupazione di suolo pubblico per una nuova occupazione e per la modifica dell'occupazione)
+      </i>
+</p>
+ <table class="Modulo" style="border:1px solid grey">
+ <tbody>
+  <tr>
+   <div id="Tassonomia_InterferenzaTraffico" label="Interferenza con la viabilità stradale" mandatory_enabled="#Tassonomia_TipoOccupazione1.checked() || #Tassonomia_TipoOccupazione5.checked() || #Tassonomia_OccSuo4PModifiche2.checked() || #Tassonomia_TipoOccupazione2.checked()">
+   </div>
+   <td>
+    <input id="Tassonomia_InterferenzaTraffico1" name="Tassonomia_InterferenzaTraffico" style="margin-top:5px" type="radio" value="1"/>
+   </td>
+   <td colspan="3">
+    <p>
+     che l'occupazione non interferisce con la viabilità stradale 
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td rowspan="9" style="width:4%; vertical-align:top; background-color:white">
+    <input id="Tassonomia_InterferenzaTraffico2" name="Tassonomia_InterferenzaTraffico" style="margin-top:5px" type="radio" value="2"/>
+   </td>
+   <td colspan="3">
+    <p>
+     che l'occupazione interferisce con la viabilità stradale
+    </p>
+   </td>
+  </tr>
+  
+     <tr class="Rigaintestazioneridotta">
+      <td colspan="3">
+       <p class="Labelcella">
+        Titolo autorizzativo
+       </p>
+      </td>
+     </tr>
+     <tr>
+      <td rowspan="3" style="width: 2%; vertical-align: top; background-color: white;">
+       <div id="Tassonomia_TitoloViabilita" label="Titolo autorizzativo ordinanza di viabilità" mandatory_enabled="#Tassonomia_InterferenzaTraffico2.checked()"></div>
+	   <input id="Tassonomia_TitoloViabilita1" name="Tassonomia_TitoloViabilita" type="radio" value="1"/>
+      </td>
+      <td colspan="2">
+       <p>
+        ha ottenuto ordinanza per la modifica della viabilità
+       </p>
+      </td>
+     </tr>
+     <tr class="Rigaintestazioneridotta">
+      <td>
+       <p class="Labelcella">
+        Numero
+       </p>
+      </td>
+      <td>
+       <p class="Labelcella">
+        Data
+       </p>
+      </td>
+     </tr>
+     <tr style="background-color: white">
+      <td>
+       <input class="inputNormal" id="Parametri_ordinanza1" label="Numero ordinanza" mandatory_enabled="#Tassonomia_TitoloViabilita1.checked()" name="Parametri_ordinanza1" style="width: 100%"/>
+      </td>
+      <td>
+       <input class="inputNormal" id="Parametri_ordinanza1_data" label="Data ordinanza" format="date" mandatory_enabled="#Tassonomia_TitoloViabilita1.checked()" name="Parametri_ordinanza1_data" style="width: 100%"/>
+      </td>
+     </tr>
+     <tr>
+      <td colspan="1" rowspan="3" style="width: 2%; vertical-align: top; background:white">
+       <input id="Tassonomia_TitoloViabilita2" name="Tassonomia_TitoloViabilita" type="radio" value="2"/>
+      </td>
+      <td colspan="2">
+       <p>
+        ha richiesto ordinanza per la modifica della viabilità
+       </p>
+      </td>
+     </tr>
+     <tr class="Rigaintestazioneridotta">
+      <td colspan="2">
+       <p class="Labelcella">
+        Data
+       </p>
+      </td>
+     </tr>
+     <tr style="background-color: white">
+      <td colspan="2">
+       <input class="inputNormal" id="Parametri_ordinanza2" label="Data domanda ordinanza" format="date" mandatory_enabled="#Tassonomia_TitoloViabilita2.checked()" name="Parametri_ordinanza2" style="width: 100%"/>
+      </td>
+     </tr>
+     <tr>
+      <td colspan="1" style="width: 2%; vertical-align: top; background:white">
+       <input id="Tassonomia_TitoloViabilita3" name="Tassonomia_TitoloViabilita" type="radio" value="3"/>
+      </td>
+      <td colspan="2">
+       <p>
+        chiede congiuntamente l'emissione di ordinanza per la modifica della viabilità (divieto di sosta, diminuzione della carreggata, senso unico alternato, ecc.) 
+       </p>
+      </td>
+     </tr> 
+ </tbody>
+</table>
+
+<br/>
+
+<br/>
+
+<p class="Modulo">relativamente all'occupazione di aree di sosta a pagamento, dichiara inoltre<br/>
+     <span style="font-size:70%; font-weight:normal">
+      <i>
+       (da compilare in caso di domanda di rilascio di concessione per l'occupazione di suolo pubblico per una nuova occupazione e per la modifica dell'occupazione)
+      </i>
+</p>
+ <table class="Modulo" style="border:1px solid grey">
+ <tbody>
+  <tr>
+   <div id="Tassonomia_AreeSostaOcc" label="Occupazione aree di sosta a pagamento" mandatory_enabled="#Tassonomia_TipoOccupazione1.checked() || #Tassonomia_TipoOccupazione5.checked() || #Tassonomia_OccSuo4PModifiche2.checked() || #Tassonomia_TipoOccupazione2.checked()">
+   </div>
+   <td>
+    <input id="Tassonomia_AreeSostaOcc1" name="Tassonomia_AreeSostaOcc" style="margin-top:5px" type="radio" value="1"/>
+   </td>
+   <td colspan="1">
+    <p>
+     che l’occupazione non interferisce con aree di sosta e a pagamento
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td style="width:4%; vertical-align:top">
+    <input id="Tassonomia_AreeSostaOcc2" name="Tassonomia_AreeSostaOcc" style="margin-top:5px" type="radio" value="2"/>
+   </td>
+   <td colspan="1">
+    <p>
+     che l’occupazione interferisce con aree di sosta e a pagamento
+    </p>
+   </td>
+  </tr>
+ </tbody>
+</table>
+
+<br/>
+
+<input dynamic_check="#Tassonomia_TipoOccupazione6.checked()" id="AventeTitolo_DatiSubingressoObbligatori" name="AventeTitolo_DatiSubingressoObbligatori" type="hidden" value="si"/>
+
+{{ porzioni_scia.suap_subingresso_semplificato("AventeTitolo" , "VOLTURAZIONE AUTORIZZAZIONE - subingresso a") }}
+
+<br/>
+-->
+<table class="Modulo" name="Allegati" style="border:1px solid grey">
+ <tbody>
+  <tr class="Rigaintestazione">
+   <td colspan="2">
+    <p style="text-align: center;">
+     <b>
+      Elenco degli allegati
+     </b>
+     <br/>
+     <span style="font-size:70%">
+      <i>
+       (barrare tutti gli allegati richiesti in fase di presentazione della pratica ed elencati sul portale)
+      </i>
+     </span>
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td>
+    <input dynamic_check="#Tassonomia_TipoOccupazione.value() == '1' || #Tassonomia_TipoOccupazione.value() == '5' || #Tassonomia_OccSuo3PModifiche.value() == '2' " enabled="#Tassonomia_TipoOccupazione.value() == '1' || #Tassonomia_TipoOccupazione.value() == '5' || #Tassonomia_OccSuo3PModifiche.value() == '2' " id="DOC_FOTO" name="DOC_FOTO" type="checkbox" value="OBBLIGATORIO"/>
+   </td>
+   <td style="background-color: #eeeeee;">
+    <p>
+     documentazione fotografica esplicativa a colori che illustra lo stato attuale dei luoghi e l'ambiente circostante
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td style="vertical-align:top">
+    <input dynamic_check="#Tassonomia_TipoOccupazione.value() == '1' || #Tassonomia_TipoOccupazione.value() == '5' || #Tassonomia_OccSuo3PModifiche.value() == '2' " enabled="#Tassonomia_TipoOccupazione.value() == '1' || #Tassonomia_TipoOccupazione.value() == '5' || #Tassonomia_OccSuo3PModifiche.value() == '2' " id="OCC-PLA" name="OCC-PLA" type="checkbox" value="OBBLIGATORIO"/>
+   </td>
+   <td style="background-color: #eeeeee;">
+    <p>
+     Disegni di progetto contenenti:
+    </p>
+  <p> 
+a) Estratto mappa o aerofotogrammetrico, in scala ≥ 1:1000 ,con evidenziata l’area pubblica che si intende occupare; 
+ </p>
+ <p> 
+b) Planimetrie, piante sezioni e prospetti significativi in scala ≥ 1:100 integralmente quotate relative all’occupazione da realizzare, con indicate le strade circostanti complete della larghezza della carreggiata e l'eventuale presenza di segnaletica stradale che necessita di integrazione, ovvero la eventuale presenza di fermate del mezzo pubblico, e/o di passaggi pedonali, e/o di chiusini per sottoservizi, i marciapiedi e la loro larghezza, le aiuole, le alberature, la cartellonistica stradale, i semafori, con ben evidenziato lo spazio rimanente per il pubblico transito veicolare e pedonale, individuando anche il percorso per i pedoni, 
+ </p>
+  </td>
+  </tr>
+  <tr>
+   <td>
+    <input dynamic_check="#Tassonomia_TipoOccupazione.value() == '1' || #Tassonomia_TipoOccupazione.value() == '5' || #Tassonomia_OccSuo3PModifiche.value() == '2' " enabled="#Tassonomia_TipoOccupazione.value() == '1' || #Tassonomia_TipoOccupazione.value() == '5' || #Tassonomia_OccSuo3PModifiche.value() == '2' " id="RelTecnica" name="RelTecnica" type="checkbox" value="OBBLIGATORIO"/>
+   </td>
+   <td style="background-color: #eeeeee;">
+    <p>
+     Breve relazione tecnica descrittiva dell’intervento, con indicazione della disciplina viabilistica vigente nell’ambito interessato dalla proposta di occupazione e indicazioni relative a tutti gli elementi significativi di arredo (tavoli, sedie e, se previsti, pedane, delimitazioni, coperture, elementi per il riscaldamento, fioriere, cestini per rifiuti), anche attraverso riproduzioni fotografiche o copie di estratti di catalogo.
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td>
+    <input enabled="#Tassonomia_TipoOccupazione.value() == '1' || #Tassonomia_TipoOccupazione.value() == '5' || #Tassonomia_OccSuo3PModifiche.value() == '2' " id="Particolari" name="Particolari" type="checkbox" value="OBBLIGATORIO"/>
+   </td>
+   <td style="background-color: #eeeeee;">
+    <p>
+     Eventuali particolari costruttivi
+   </p>
+   </td>
+  </tr>
+   <tr>
+   <td>
+    <input checked="checked" dynamic_check="true" id="MARCA_BOLLO" name="MARCA_BOLLO" type="checkbox" value="OBBLIGATORIO"/>
+   </td>
+   <td style="background-color: #eeeeee;">
+    <p>
+     pagamento dell'imposta di bollo
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td style="vertical-align: top;">
+    <input checked="checked" dynamic_check="true" id="RIC-DIR-SEG" name="RIC-DIR-SEG" type="checkbox" value="OBBLIGATORIO"/>
+   </td>
+   <td style="background-color: #eeeeee;">
+    <p>
+     ricevuta dei diritti di segreteria/istruttoria<br/><span style="font-size:70%"><i>(da allegare se previsti)</i></span>
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td>
+    <input id="STU-EDI-SOG" name="STU-EDI-SOG" type="checkbox" value="OBBLIGATORIO"/>
+   </td>
+      <td style="background-color: #eeeeee;">
+    <p>
+     soggetti coinvolti nel procedimento<br/><span style="font-size:70%"><i>(da allegare solo se l'oiccupazione prevede anche la manomissione di suolo pubblico)</i></span>
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td>
+    <input id="ALTRI-ALLEGATI" name="ALTRI-ALLEGATI" type="checkbox" value="OBBLIGATORIO"/>
+   </td>
+   <td style="background-color: #eeeeee;">
+    <p>
+     altri allegati
+     <span style="font-size:70%">
+      (specificare)
+     </span>
+     <input class="" id="AltriAllegati" label="Altri allegati" mandatory_enabled="#ALTRI_ALLEGATI.checked()" name="AltriAllegati" style="width:79%;"/>
+    </p>
+   </td>
+  </tr>
+ </tbody>
+</table>
+
+<!--
+<table class="Modulo" name="Allegati" style="border:1px solid grey">
+ <tbody>
+  <tr class="Rigaintestazione">
+   <td colspan="2">
+    <p style="text-align: center;">
+     <b>
+      Elenco degli allegati
+     </b>
+     <br/>
+     <span style="font-size:70%">
+      <i>
+       (barrare tutti gli allegati richiesti in fase di presentazione della pratica ed elencati sul portale)
+      </i>
+     </span>
+    </p>
+   </td>
+  </tr>
+   <tr>
+    <td style="vertical-align:top">
+     <input dynamic_check="#Immobile1_DatiImmobileRichiesti.checked()" enabled="#Immobile1_DatiImmobileRichiesti.checked()" id="OCC-ASS-DEP" name="OCC-ASS-DEP" type="checkbox" value="OBBLIGATORIO"/>
+    </td>
+    <td style="background-color: #eeeeee;">
+     <p>
+      attestazione di versamento del deposito cauzionale e rimborso per l'utilizzo della rete elettrica
+     </p>
+    </td>
+   </tr>
+   <tr>
+   <td>
+    <input dynamic_check="#Parametri_Motivo_subingresso.check_value( ['successione per atto tra vivi'] ) || #Parametri_Motivo_subingresso.check_value( ['compravendita'] ) || #Parametri_Motivo_subingresso.check_value( ['donazione'] ) || #Parametri_Motivo_subingresso.check_value( ['fusione di azienda'] ) || #Parametri_Motivo_subingresso.check_value( ['affitto di azienda/ramo di azienda'] ) || #Parametri_Motivo_subingresso.check_value( ['altre cause'] )" enabled="#Tassonomia_TipoOccupazione6.checked()" id="CES-ATT-CAN" name="CES-ATT-CAN" type="checkbox" value="OBBLIGATORIO"/>
+   </td>
+   <td style="background-color: #eeeeee;">
+    <p>
+     copia dell'atto di cessione o dichiarazione notarile
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td>
+    <input dynamic_check="#Tassonomia_TipoOccupazione.value() == '1' || #Tassonomia_TipoOccupazione.value() == '5' || #Tassonomia_OccSuo3PModifiche.value() == '2' || #Tassonomia_OccSuo4PModifiche.value() == '2'" enabled="#Tassonomia_TipoOccupazione.value() == '1' || #Tassonomia_TipoOccupazione.value() == '5' || #Tassonomia_OccSuo3PModifiche.value() == '2' || #Tassonomia_OccSuo4PModifiche.value() == '2'" id="DOC_FOTO" name="DOC_FOTO" type="checkbox" value="OBBLIGATORIO"/>
+   </td>
+   <td style="background-color: #eeeeee;">
+    <p>
+     documentazione fotografica esplicativa a colori che illustra lo stato attuale dei luoghi e l'ambiente circostante
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td style="vertical-align:top">
+    <input dynamic_check="#Tassonomia_TipoOccupazione.value() == '1' || #Tassonomia_TipoOccupazione.value() == '5' || #Tassonomia_OccSuo3PModifiche.value() == '2' || #Tassonomia_OccSuo4PModifiche.value() == '2'" enabled="#Tassonomia_TipoOccupazione.value() == '1' || #Tassonomia_TipoOccupazione.value() == '5' || #Tassonomia_OccSuo3PModifiche.value() == '2' || #Tassonomia_OccSuo4PModifiche.value() == '2'" id="OCC-PLA" name="OCC-PLA" type="checkbox" value="OBBLIGATORIO"/>
+   </td>
+   <td style="background-color: #eeeeee;">
+    <p>
+     planimetria in scala non inferiore a 1:100, quotata, dell'area interessata dalla occupazione con indicazione dei limiti sul fronte strada
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td style="width:3%">
+    <input dynamic_check="#Tassonomia_VIAClassificazione.value() == '3'" enabled="#Tassonomia_VIAClassificazione.value() == '3'" id="VAL-PRE-IAA" name="VAL-PRE-IAA" type="checkbox" value="OBBLIGATORIO"/>
+   </td>
+   <td style="background-color: #eeeeee;">
+    <p>
+     valutazione previsionale di impatto acustico
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td>
+    <input checked="checked" dynamic_check="true" id="MARCA_BOLLO" name="MARCA_BOLLO" type="checkbox" value="OBBLIGATORIO"/>
+   </td>
+   <td style="background-color: #eeeeee;">
+    <p>
+     pagamento dell'imposta di bollo
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td style="vertical-align: top;">
+    <input id="RIC-DIR-SEG" name="RIC-DIR-SEG" type="checkbox" value="OBBLIGATORIO"/>
+   </td>
+   <td style="background-color: #eeeeee;">
+    <p>
+     ricevuta dei diritti di segreteria/istruttoria<br/><span style="font-size:70%"><i>(da allegare se previsti)</i></span>
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td style="vertical-align: top;">
+    <input dynamic_check="#Titolare_Cittadinanza.element.options[#Titolare_Cittadinanza.element.selectedIndex].parentNode.label == 'NON Unione Europea'" enabled="#Titolare_Cittadinanza.element.options[#Titolare_Cittadinanza.element.selectedIndex].parentNode.label == 'NON Unione Europea'" id="PER-SOG" name="PER-SOG" type="checkbox" value="OBBLIGATORIO"/>
+   </td>
+   <td style="background-color: #eeeeee;">
+    <p>
+     documentazione relativa al permesso di soggiorno
+     <br/>
+     <span style="font-size:70%">
+      <i>
+       (da allegare solo in caso di cittadino extracomunitario)
+      </i>
+     </span>
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td>
+    <input dynamic_check="(parseInt(#Immobile_NumeroAltriImmobili.value()) / 16) &gt; 0" enabled="(parseInt(#Immobile_NumeroAltriImmobili.value()) / 16) &gt; 0" id="STU-EDI-IMM" name="STU-EDI-IMM" type="checkbox" value="OBBLIGATORIO"/>
+   </td>
+   <td colspan="1" style="background-color: #eeeeee;">
+    <p>
+     ulteriori particelle o subalterni oggetto del procedimento
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td>
+    <input id="ALTRI-ALLEGATI" name="ALTRI-ALLEGATI" type="checkbox" value="OBBLIGATORIO"/>
+   </td>
+   <td style="background-color: #eeeeee;">
+    <p>
+     altri allegati
+     <span style="font-size:70%">
+      (specificare)
+     </span>
+     <input class="" id="AltriAllegati" label="Altri allegati" mandatory_enabled="#ALTRI_ALLEGATI.checked()" name="AltriAllegati" style="width:79%;"/>
+    </p>
+   </td>
+  </tr>
+ </tbody>
+</table>
+
+<br/>
+-->
+
+<br/>
+
+{{ utils.trattamento_dati_personali() }}
+
+<br/>
+
+{{ utils.firma_hidden() }}
+ <br/>
+
+<p class="Modulo">
+ <input id="SalvaModulo" name="SalvaModulo" style="height:30px;width:120px;" title="Verifica la corretta compilazione dei campi e salva il modulo nel faldone virtuale dell'istanza." type="submit" value="Salva modulo"/>
+</p>
+
+<input destinatario_amministrazione="getParameter('Ente')" id="GLOBO_modulo_c{{ CodiceModulo }}" name="GLOBO_modulo_c{{ CodiceModulo }}" type="hidden" value=""/>
+
+<input id="GLOBO_modulofiglio_cMARCA_BOLLO" name="GLOBO_modulofiglio_cMARCA_BOLLO" obbligatorio="#MARCA_BOLLO.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_allegato_cOCC-PLA" name="GLOBO_allegato_cOCC-PLA" obbligatorio="#OCC_PLA.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_allegato_cDOC_FOTO" name="GLOBO_allegato_cDOC_FOTO" obbligatorio="#DOC_FOTO.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_modulofiglio_cSTU-EDI-SOG" name="GLOBO_modulofiglio_cSTU-EDI-SOG" obbligatorio="#STU_EDI_SOG.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_allegato_cRelTecnica" name="GLOBO_allegato_cRelTecnica" obbligatorio="#RelTecnica.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_allegato_cParticolari" name="GLOBO_allegato_cParticolari" obbligatorio="#Particolari.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_allegato_cRIC-DIR-SEG" name="GLOBO_allegato_cRIC-DIR-SEG" obbligatorio="#RIC_DIR_SEG.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_allegato_cALTRI-ALLEGATI" name="GLOBO_allegato_cALTRI-ALLEGATI" obbligatorio="#ALTRI_ALLEGATI.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input firmare="'P7M_ELETTRONICA'" id="GLOBO_modulofiglio_cIncarico_procura" name="GLOBO_modulofiglio_cIncarico_procura" type="hidden" value=""/>
+
+
+
+<input id="GLOBO_id_padre" name="GLOBO_id_padre" type="hidden"/>
+
+<input id="GLOBO_recupera_dati" name="GLOBO_recupera_dati" type="hidden"/>
+
+<input id="GLOBO_codice_modulo" name="GLOBO_codice_modulo" type="hidden" value="{{ CodiceModulo }}"/>
+
+
+{% endblock content %}

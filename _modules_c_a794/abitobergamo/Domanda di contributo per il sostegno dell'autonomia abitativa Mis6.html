@@ -1,0 +1,359 @@
+{% set CodiceModulo = "SOS_MIS_SEI" %}
+{% set Urn = "document:c_a794:sostegno.autonomia.abitativa.mis6;domanda" %}
+{% extends "base.html" %}
+
+{% block meta %}
+
+<meta campi_firma="Titolare_CodiceFiscale"
+campi_firma_label="il dichiarante"
+classi_modulo="Generale"
+codice_modulo="{{ CodiceModulo }}"
+urn="{% block urn %}{{ Urn }}{% endblock urn %}"
+sub_urn_list=""
+uo_globo_list=""
+descrizione="Domanda di contributo per il sostegno dell'autonomia abitativa Mis6"
+destinatario_amministrazione=""
+destinatario_ufficio="UOHOUSINGSOCIALE"
+dinamico="SI"
+email_a=""
+ente_abilitato="TUTTI"
+filigrana="SI"
+firmare="P7M_ELETTRONICA"
+istruzioni_compilazione=""
+istruzioni_invio="mail_pec"
+metodo_invio="mail"
+name="GLOBO_modulo"
+procura="NO,,"
+tipo_modulo="principale"
+urlhelp="/modulistica/moduli/{{ CodiceModulo }}"
+verifica_pagamento="NO"
+versione="1.0|03/03/2020"/>
+
+<meta codice_modulo_figlio="INCARICO_PROCURA"
+urn_modulo_figlio="document:s_italia:generale;incarico.procura"
+name="GLOBO_modulofiglio"
+numero="1"
+obbligatorio="DINAMICO"/>
+
+<meta codice_allegato="DIC_ISEE"
+urn_allegato="document:s_italia:generale;dichiarazione.isee;documentazione"
+descrizione_estesa="copia della dichiarazione ISEE"
+filename="Attestazione ISEE.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/DIC_ISEE"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="DAE-CDI"
+urn_allegato="document:s_italia:generale;documento.identita;documentazione"
+descrizione_estesa="Documento di identità"
+filename="Documento identita.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/DAE-CDI"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="AL-CON-LOC"
+urn_allegato="document:s_italia:generale;contratto.locazione;contratto"
+descrizione_estesa="Copia del contratto di locazione"
+filename="Contratto locazione.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/AL-CON-LOC"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="COP_PROG_AUT"
+urn_allegato="document:c_a794:copia.progetto.accompagnamento.autonomia;allegato"
+descrizione_estesa="Copia del progetto dei Servizi sociali di accompagnamento all’autonomia abitativa"
+filename="Copia progetto accompagnamento autonomia.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/COP_PROG_AUT"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="ALTRI-ALLEGATI"
+urn_allegato="document:s_italia:altri.allegati"
+descrizione_estesa="Altri allegati"
+filename="Altri allegati.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/ALTRI-ALLEGATI"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+{% endblock meta %}
+
+{% block title %}
+ Domanda di contributo per il sostegno dell'autonomia abitativa Mis6
+
+{% endblock title %}
+ 
+{% block content %}
+
+<globo_fondo_pagina areaheight="150" scope="2">
+  {{ utils.firma() }}
+</globo_fondo_pagina>
+
+<input id="Parametri_Comune" name="Parametri_Comune" type="hidden" dynamic_value="#Ente.value()"/>
+<input id="Oggetto" name="Oggetto" type="hidden" dynamic_value="#Titolare_Cognome.value().toUpperCase() + ' ' + #Titolare_Nome.value().toUpperCase() + ' - bando morosità incolpevole senza sfratto'"/>
+
+{{ intestazioni.intestazione_moduloprincipale_senzabollo() }}
+
+<h1 class="Modulo">
+  Domanda di contributo per il sostegno dell'autonomia abitativa di famiglie in uscita dal progetto di accoglienza    
+</h1>
+
+<h2 class="Modulo">
+  (Misura 6 - DGR n. XI/2065 2019)
+</h2>
+
+
+<input id="Titolare_DatiPersonaObbligatori" name="Titolare_DatiPersonaObbligatori" type="hidden" dynamic_check="true"/>
+<input id="Titolare_Titolo" name="Titolare_Titolo" type="hidden" value="Richiedente"/>
+<input id="Titolare_Ruolo" name="Titolare_Ruolo" type="hidden" value="Richiedente"/>
+{{ anagrafica.persona_fisica("Titolare", "Il sottoscritto ", "visibility:visibility", "cursor:pointer", "visibility:visibility", "visibility:visibility", "mail_ordinaria") }}
+
+<br>
+
+<table class="Modulo" style="border: 1px solid grey;" mandatory="true">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="5">
+        <p class="Labeltabella"> Titolare/sottoscrittore del contratto di locazione di alloggio sito in: </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+     <td>
+        <p class="Labelcella">Indirizzo</p>
+      </td>
+      <td style="width:8%;">
+        <p class="Labelcella">Civico</p>
+      </td>
+      <td style="width:13%;">
+        <p class="Labelcella">CAP</p>
+      </td>
+       <td style="width:8%;">
+        <p class="Labelcella">Provincia</p>
+      </td>
+      <td style="width:28%;">
+        <p class="Labelcella">Comune</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input class="" id="AventeTitolo1_ViaResidenza" name="AventeTitolo1_ViaResidenza" style="width:100%;" label="Via di residenza del titolare/sottoscrittore del contratto" format="regular_expression" expression="^(.+)\s(.+)$" mandatory="true"/>
+      </td>
+      <td>
+        <input class="" id="AventeTitolo1_CivicoResidenza" name="AventeTitolo1_CivicoResidenza" style="width:100%;" label="Civico di residenza del titolare/sottoscrittore del contratto" maxlength="10" mandatory="true"/>
+      </td>
+      <td>
+        <input class="" id="AventeTitolo1_CAPResidenza" name="AventeTitolo1_CAPResidenza" style="width:100%;" format="cap" label="CAP di residenza del titolare/sottoscrittore del contratto" mandatory="true"/>
+      </td>
+      <td>
+        {{ utils.provincie( 'AventeTitolo1_ProvinciaResidenza', "Provincia di residenza del titolare/sottoscrittore del contratto") }}
+      </td>
+      <td>
+        <select class="inputNormal" id="AventeTitolo1_ComuneResidenza" name="AventeTitolo1_ComuneResidenza" style="width:100%" label="Comune di residenza del titolare/sottoscrittore del contratto" dynamic_value="getComuniFromProvincia( #AventeTitolo1_ProvinciaResidenza.value(), 'AventeTitolo1_ComuneResidenza')"></select>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          Cognome proprietario alloggio
+        </p>
+      </td>
+      <td colspan="2">
+        <p class="Labelcella">
+          Nome proprietario alloggio
+        </p>
+      </td>
+      <td>
+        <p class="Labelcella">
+          Telefono proprietario alloggio
+        </p>
+      </td>
+      <td >
+        <p class="Labelcella">
+          Email proprietario alloggio
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input class="inputNormal" id="Parametri_CognomeProprietario" name="Parametri_CognomeProprietario" style="width: 100%;" label="Cognome proprietario" mandatory="true"/>
+      </td>
+      <td colspan="2">
+        <input class="inputNormal" id="Parametri_NomeProprietario" name="Parametri_NomeProprietario" style="width: 100%;" label="Nome proprietario" mandatory="true"/>
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_TelefonoProprietario" name="Parametri_TelefonoProprietario" style="width: 100%;" label="Telefono proprietario" mandatory="true"/>
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_EmailProprietario" name="Parametri_EmailProprietario" style="width: 100%;" label="Email proprietario" format="mail_ordinaria" mandatory="true"/>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+
+<h3 class="Modulo">
+  CHIEDE
+</h3>
+<br>
+
+<p class="Modulo">
+  l’erogazione di un contributo, da liquidare direttamente al proprietario di casa, a scomputo dei canoni di locazione futuri (massimo 3 mensilità).
+</p>
+
+<br>
+
+{{ utils.Dichiara_445() }}
+
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    {% set dichiara = [ "di essere residente, o che un membro del nucleo familiare è residente, da almeno 5 anni, (anche non continuativi) in Regione  Lombardia",
+                        "di non essere in possesso di alloggio adeguato in Regione Lombardia",
+                        "di non essere sottoposto a procedure di rilascio dell’abitazione ",
+                        "di avere un ISEE fino a euro 15.000,00",
+                        "di avere reperito un alloggio adeguato ai propri bisogni sul libero mercato",
+                        "di avere aderito ad un progetto dei Servizi Sociali finalizzato al raggiungimento dell’autonomia abitativa" ] %}
+    {% for i in dichiara %}
+      <tr>
+        <td style="vertical-align: top; width: 4%;">
+          <input id="Dichiara{{ loop.index }}" name="Dichiara{{ loop.index }}" type="checkbox" value="SI" checked="checked" dynamic_check="true"/>
+        </td>
+        <td>
+          {{ i }}
+        </td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<br>
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          Eventuali annotazioni
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <textarea class="inputNormal" id="Parametri_Annotazioni" name="Parametri_Annotazioni" style="width: 100%; height: 5cm;" label="Eventuali annotazioni"></textarea>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<br>
+<table class="Modulo" name="Allegati" style="border: 1px solid grey">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="2">
+        <p style="text-align: center;">
+          <b>
+            Elenco degli allegati
+          </b>
+          <br/>
+          <span style="font-size:70%">
+            <i>(barrare tutti gli allegati richiesti in fase di presentazione della pratica ed elencati sul portale)</i>
+          </span>
+        </p>
+      </td>
+    </tr>
+    <tr>
+            <td style="vertical-align: top; width: 4%;">
+                <input id="DAE-CDI" name="DAE-CDI" type="checkbox" value="OBBLIGATORIO" />
+            </td>
+            <td style="background-color: #eeeeee;">
+                <p>
+                    copia del documento d'identità
+                    <br/>
+                    <span style="font-size:70%">
+                        <i>(da allegare se il modulo è sottoscritto con firma autografa)</i>
+                    </span>
+                </p>
+            </td>
+        </tr>
+    <tr>
+      <td style="width: 4%; vertical-align: top;">
+        <input id="DIC_ISEE" name="DIC_ISEE" type="checkbox" value="OBBLIGATORIO" dynamic_check="true" checked="checked"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          copia attestazione ISEE
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="width: 4%; vertical-align: top;">
+        <input id="AL-CON-LOC" name="AL-CON-LOC" type="checkbox" value="OBBLIGATORIO" dynamic_check="true" checked="checked"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          copia contratto locazione
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="width: 4%; vertical-align: top;">
+        <input id="COP_PROG_AUT" name="COP_PROG_AUT" type="checkbox" value="OBBLIGATORIO" dynamic_check="true" checked="checked"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          Copia del progetto dei Servizi sociali di accompagnamento all’autonomia abitativa
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="ALTRI-ALLEGATI" name="ALTRI-ALLEGATI" type="checkbox" value="OBBLIGATORIO"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          altri allegati
+          <span style="font-size:70%">(specificare)</span>
+          <input class="" label="Altri allegati" id="AltriAllegati" mandatory_enabled="#ALTRI_ALLEGATI.checked()" name="AltriAllegati" style="width:79%;"/>
+        </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<br>
+{{ utils.trattamento_dati_personali() }}
+<br/>
+  {{ utils.firma_hidden() }}
+<br/>
+
+<p class="Modulo">
+  <input id="SalvaModulo" name="SalvaModulo" style="height:30px;width:120px;" title="Verifica la corretta compilazione dei campi e salva il modulo nel faldone virtuale dell'istanza." type="submit" value="Salva modulo"/>
+</p>
+
+<input destinatario_amministrazione="getParameter('Ente')" id="GLOBO_modulo_c{{ CodiceModulo }}" name="GLOBO_modulo_c{{ CodiceModulo }}" type="hidden" value=""/>
+<input firmare="'P7M_ELETTRONICA'" id="GLOBO_modulofiglio_cINCARICO_PROCURA" name="GLOBO_modulofiglio_cINCARICO_PROCURA" type="hidden" value=""/>
+<input id="GLOBO_allegato_cDAE-CDI" name="GLOBO_allegato_cDAE-CDI" type="hidden" value="" obbligatorio="#DAE_CDI.checked() ? 'OBBLIGATORIO' : ''"/>
+<input id="GLOBO_allegato_cDIC_ISEE" name="GLOBO_allegato_cDIC_ISEE" type="hidden" value="" obbligatorio="#DIC_ISEE.checked() ? 'OBBLIGATORIO' : ''"/>
+<input id="GLOBO_allegato_cAL-CON-LOC" name="GLOBO_allegato_cAL-CON-LOC" type="hidden" value="" obbligatorio="#AL_CON_LOC.checked() ? 'OBBLIGATORIO' : ''"/>
+<input id="GLOBO_allegato_cCOP_PROG_AUT" name="GLOBO_allegato_cCOP_PROG_AUT" type="hidden" value="" obbligatorio="#COP_PROG_AUT.checked() ? 'OBBLIGATORIO' : ''"/>
+
+<input id="GLOBO_allegato_cALTRI-ALLEGATI" name="GLOBO_allegato_cALTRI-ALLEGATI" obbligatorio="#ALTRI_ALLEGATI.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_id_padre" name="GLOBO_id_padre" type="hidden"/>
+<input id="GLOBO_recupera_dati" name="GLOBO_recupera_dati" type="hidden"/>
+<input id="GLOBO_codice_modulo" name="GLOBO_codice_modulo" type="hidden" value="{{ CodiceModulo }}"/>
+
+{% endblock content %}

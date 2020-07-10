@@ -1,0 +1,793 @@
+{% set CodiceModulo =  "001-050" %}{% extends "base.html" %}
+{% set Urn = "document:c_a794:occupare.suolo.pubblico.attività.benefiche.culturali.sportive.religiose;domanda" %}
+{% block meta %}<meta campi_firma="Titolare_CodiceFiscale"
+campi_firma_label="il dichiarante"
+classi_modulo="Commercio"
+codice_modulo="{{ CodiceModulo }}"
+urn="{% block urn %}{{ Urn }}{% endblock urn %}"
+sub_urn_list=""
+uo_globo_list=""
+descrizione="Domanda per il rilascio/proroga di concessione per l'occupazione di suolo pubblico da parte di associazioni"
+destinatario_amministrazione=""
+destinatario_ufficio="U0058"
+dinamico="SI"
+email_a=""
+ente_abilitato="TUTTI"
+filigrana="NO"
+firmare="P7M_ELETTRONICA"
+istruzioni_compilazione=""
+istruzioni_invio="mail_pec"
+metodo_invio="mail"
+name="GLOBO_modulo"
+procura="NO,,"
+tipo_modulo="principale"
+ufficio=""
+urlhelp="DomandeRisposte/FAQ"
+verifica_pagamento="NO"
+versione="1.0|01/01/2015"/>
+
+<meta codice_modulo_figlio="MARCA_BOLLO"
+urn_modulo_figlio="document:s_italia:pagamento.imposta.bollo;apposizione.domanda;dichiarazione.sostitutiva"
+name="GLOBO_modulofiglio"
+numero="1"
+obbligatorio="DINAMICO"/>
+
+<meta codice_modulo_figlio="001-159s"
+urn_modulo_figlio="document:c_a794:occupazione.suolo.pubblico;comunicazione.deroga.manifestazione"
+name="GLOBO_modulofiglio"
+numero="1"
+obbligatorio="DINAMICO"/>
+
+<meta codice_modulo_figlio="001-156s"
+urn_modulo_figlio="document:c_a794:occupazione.suolo.pubblico;autorizzazione.manifestazioni.deroga.limiti.acustici"
+name="GLOBO_modulofiglio"
+numero="1"
+obbligatorio="DINAMICO"/>
+
+<meta codice_modulo_figlio="PL_MANIFEST_S"
+urn_modulo_figlio="document:c_a794:occupazione.suolo.pubblico;emissione.ordinanza;domanda"
+name="GLOBO_modulofiglio"
+numero="1"
+obbligatorio="DINAMICO"/>
+
+<meta codice_modulo_figlio="UNIAP-SCIA-SOM-S"
+urn_modulo_figlio="document:r_lombar:somministrazione.alimenti.bevande;temporanea;segnalazione.certificata;secondario"
+name="GLOBO_modulofiglio"
+numero="1"
+obbligatorio="DINAMICO"/>
+
+<meta codice_allegato="DOC_manifestazione"
+urn_allegato="document:c_a794:occupazione.suolo.pubblico;programma.manifestazione"
+descrizione_estesa="Programma manifestazione"
+filename="programma manifestazione.pdf"
+firmato="SI"
+istruzioni="/modulistica/moduli/DOC_manifestazione"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="DOC_relazione"
+urn_allegato="document:c_a794:occupazione.suolo.pubblico:relazione.tecnica.allestimento"
+descrizione_estesa="Relazione tecnica dell'allestimento"
+filename="relazione allestimento.pdf"
+firmato="SI"
+istruzioni="/modulistica/moduli/DOC_relazione"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+
+<meta codice_allegato="OCC-PLA"
+urn_allegato="document:s_italia:occupazione.suolo.pubblico;planimetria.area;planimetria"
+descrizione_estesa="Planimetria occupazione"
+filename="Planimetria occupazione.pdf"
+firmato="SI"
+istruzioni="/modulistica/moduli/OCC-PLA"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="OCC-ASS-ATT"
+urn_allegato="document:s_italia:associazionismo;atto.costitutivo.statuto.registrati;atto"
+descrizione_estesa="Copia dell'atto costitutivo o statuto"
+filename="Copia atto costitutivo.pdf"
+firmato="SI"
+istruzioni="/modulistica/moduli/OCC-ASS-ATT"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<!--
+<meta codice_allegato="ALTRI-ALLEGATI"
+descrizione_estesa="Altri allegati"
+filename="Altri allegati.pdf"
+firmato="SI"
+istruzioni="/modulistica/moduli/ALTRI-ALLEGATI"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+-->
+
+<meta codice_allegato="DAE-CDI"
+urn_allegato="document:s_italia:generale;documento.identita;documentazione"
+descrizione_estesa="Documento di identità"
+filename="Documento identita.pdf"
+firmato="SI"
+istruzioni="/modulistica/moduli/DAE-CDI"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+{% endblock meta %}
+{% block title %}
+   Domanda di autorizzazione all'occupazione di  suolo pubblico - associazioni
+  {% endblock title %}
+{% block content %}
+ <globo_fondo_pagina areaheight="150" scope="3">
+ {{ utils.firma() }}
+</globo_fondo_pagina>
+
+<input id="Tassonomia_Occ2" name="Tassonomia_Occ" type="hidden" value="2"/>
+
+<input dynamic_value="#Titolare_Cognome.value().toUpperCase() + ' - occupazione suolo pubblico associazione'" id="Oggetto" name="Oggetto" type="hidden"/>
+
+<input dynamic_value="#Ente.value()" id="Parametri_Comune" name="Parametri_Comune" type="hidden"/>
+
+ {{ intestazioni.intestazione_moduloprincipale_conbollo() }}
+ <h1 class="Modulo">
+Domanda di autorizzazione all'occupazione di  suolo pubblico  per attività culturali, sportive, religiose, del tempo libero e benefiche
+</h1>
+
+<h3 class="Modulo">
+ Ai sensi del vigente Regolamento per le occupazioni di spazi ed aree pubbliche <br/> e per l’applicazione del relativo canone
+</h3>
+<h2 class="Modulo">
+ La domanda deve essere presentata almeno 30 giorni prima della data prevista per l’evento
+</h2>
+
+
+
+ {{anagrafica.societa("Titolare","Il sottoscritto",["Persona fisica", "Titolare", "Legale rappresentante"], "Richiedente", "visibility:visibility", "cursor:pointer", "mail_ordinaria", "false")}}
+
+<h3 class="Modulo">
+ CHIEDE L'OCCUPAZIONE TEMPORANEA DI SUOLO PUBBLICO
+</h3>
+
+<input checked="checked" dynamic_check="true" style="display:none" id="Immobile_DatiCatastaliObbligatori" name="Immobile_DatiCatastaliObbligatori" type="checkbox" value="si"/>
+{{ immobili.immobile_toponomastica( "Immobile", "Localizzata in:", "Collocazione occupazione", "display:visibility", "visibility:hidden", "cursor:default", "true" ) }}
+<globo_salto_pagina>
+</globo_salto_pagina>
+
+<table class="Modulo" style="border:1px solid grey">
+ <tbody>
+  <tr class="Rigaintestazione">
+    <td colspan="3">
+    <p>
+     <b>per una superficie:</b>
+    </p>
+   </td>
+ </tr>
+ <tr class="Rigaintestazioneridotta">
+     <td>
+    <p class="Labelcella">
+     lunghezza (mt)
+    </p>
+   </td>
+   <td>
+    <p class="Labelcella">
+     larghezza (mt)
+    </p>
+   </td>
+    <td>
+    <p class="Labelcella">
+     superficie totale occupazione (mq)
+    </p>
+    </td>        
+  <tr mandatory_enabled="true">
+   <td>
+    <input class="" id="Parametri_TempoOccupazione_lunghezza" label="Superficie totale ai fini COSAP" name="Parametri_TempoOccupazione_lunghezza" style="width:100%;"/>
+   </td>
+   <td>
+    <input class="" id="Parametri_TempoOccupazione_larghezza" label="Superficie totale ai fini COSAP" name="Parametri_TempoOccupazione_larghezza" style="width:100%;"/>
+   </td>
+   <td>
+    <input class="" id="Parametri_Superficie_cosap" label="Superficie totale ai fini COSAP" name="Parametri_Superficie_cosap" style="width:100%;"/>
+   </td>
+   </tr>
+ </tbody>
+</table>
+
+ <table class="Modulo" style="border:1px solid grey; margin-top:-1px">
+ <tbody>  
+  <tr class="Rigaintestazioneridotta">
+   <td>
+    <p class="Labelcella">
+     Periodo dal
+    </p>
+   </td>
+   <td>
+    <p class="Labelcella">
+     al
+    </p>
+   </td>
+   <td>
+    <p class="Labelcella">
+     totale giorni
+    </p>
+   </td>
+    <td>
+    <p class="Labelcella">
+     dalle ore
+    </p>
+   </td>
+   <td>
+    <p class="Labelcella">
+     alle ore
+    </p>
+   </td>
+    </tr>
+  <tr mandatory_enabled="true">
+   <td>
+    <input class="" id="Parametri_TempoOccupazione_dal" label="Periodo" name="Parametri_TempoOccupazione_dal" format="date" style="width:100%;" />
+   </td>
+    <td>
+    <input class="" id="Parametri_TempoOccupazione_al" label="Periodo" name="Parametri_TempoOccupazione_al"  format="date" style="width:100%;"/>
+   </td>
+    <td>
+    <input class="" id="Parametri_TempoOccupazione_totGG" label="Periodo" name="Parametri_TempoOccupazione_totGG" style="width:100%;"/>
+   </td>
+     <td>
+    <input class="" id="Parametri_TempoOccupazione_dalle" label="Periodo" name="Parametri_TempoOccupazione_dalle" style="width:100%;"/>
+   </td>
+     <td>
+    <input class="" id="Parametri_TempoOccupazione_alle" label="Periodo" name="Parametri_TempoOccupazione_alle" style="width:100%;"/>
+   </td>
+  </tr>
+ </tbody>
+</table>
+
+
+<table class="Modulo" style="border: 1px solid grey">
+ <tbody>
+  <tr class="Rigaintestazione">
+    <td colspan="2">
+     <strong>Per svolgere attività:</strong>
+    </td>
+</tr>
+  <tr>
+   <td style="width:4%">
+    <div id="Tassonomia_TipoEvento" label="Tipo evento" mandatory="true">
+    </div>
+    <input class="" id="Tassonomia_TipoEvento1" name="Tassonomia_TipoEvento1" type="checkbox" value="1"/>
+   </td>
+   <td colspan="2">
+    <p>
+     Culturali
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td>
+    <input class="" id="Tassonomia_TipoEvento2" name="Tassonomia_TipoEvento2" type="checkbox" value="2"/>
+   </td>
+   <td colspan="2">
+    <p>
+     Sportive
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td>
+    <input class="" id="Tassonomia_TipoEvento3" name="Tassonomia_TipoEvento3" type="checkbox" value="3"/>
+   </td>
+   <td colspan="2">
+    <p>
+     Religiose
+    </p>
+   </td>
+  </tr>
+    <tr>
+   <td>
+    <input class="" id="Tassonomia_TipoEvento4" name="Tassonomia_TipoEvento4" type="checkbox" value="4"/>
+   </td>
+   <td colspan="2">
+    <p>
+     Tempo libero
+    </p>
+   </td>
+  </tr>
+    <tr>
+   <td>
+    <input class="" id="Tassonomia_TipoEvento5" name="Tassonomia_TipoEvento5" type="checkbox" value="5"/>
+   </td>
+   <td colspan="2">
+    <p>
+     Beneficenza
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td>
+       <input id="Tassonomia_TipoEvento99" name="Tassonomia_TipoEvento99" type="checkbox" value="6"/>
+   </td>
+   <td colspan="2">
+    <p>
+     Altro
+    <span style="font-size:70%">
+      (specificare)
+     </span>
+     <input class="" id="TipoEvento_altro" label="Altro evento"  mandatory_enabled="#Tassonomia_TipoEvento99.checked()" name="TipoEvento_altro" style="width:79%;"/>
+    </p>
+   </td>
+  </tr>
+  </tbody>
+</table> 
+<table class="Modulo" style="border: 1px solid grey; margin-top:-1px">
+ <tbody>
+  <tr class="Rigaintestazione">
+   <td>
+    <p>
+      <b>Descrizione della zona occupata, delle strutture utilizzate e dell’iniziativa:</b>
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td>
+    <textarea class="inputnormal" id="Parametri_DescrAtt" label="descrizione attività" mandatory="true" name="Parametri_DescrAtt" style="width:100%; height:5cm;">
+    </textarea>
+   </td>
+  </tr>
+ </tbody>
+</table> 
+
+
+
+ <!--
+<table class="Modulo" style="border:1px solid grey; margin-top:-1px">
+ <tbody>
+  <tr class="Rigaintestazioneridotta">
+   <td style="width:40%;">
+    <p class="Labelcella">
+     Tipologia
+    </p>
+   </td>
+   <td>
+    <p class="Labelcella">
+     finitura
+    </p>
+   </td>
+   <td>
+    <p class="Labelcella">
+     finitura
+    </p>
+   </td>
+   <td>
+    <p class="Labelcella">
+     metri x metri
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td>
+    <p>
+     <select class="" id="Parametri_TipologiaOccupazione" label="Carattere occupazione" mandatory="true" name="Parametri_TipologiaOccupazione" style="width:100%;">
+      <option value="">
+      </option>
+      <option value="Carreggiata">
+       Carreggiata finita con:
+      </option>
+      <option value="Marciapiede">
+       Marciapiede finito con:
+      </option>
+    <option value="aiuola">
+       Aiuola
+      </option>
+     </select>
+    </p>
+   </td>
+   <td>
+    <input class="" id="Parametri_TipologiaOccupazione_finitura1" label="finitura" mandatory_enabled="#Parametri_TipologiaOccupazione.check_value(['Marciapiede']) || #Parametri_TipologiaOccupazione.check_value(['Carreggiata']) " name="Parametri_TipologiaOccupazione_finitura1" style="width:100%;"/>
+   </td>
+    <td>
+    <input class="" id="Parametri_TipologiaOccupazione_finitura2" label="finitura" mandatory_enabled="#Parametri_TipologiaOccupazione.check_value(['Marciapiede']) || #Parametri_TipologiaOccupazione.check_value(['Carreggiata']) " name="Parametri_TipologiaOccupazione_finitura2" style="width:100%;"/>
+   </td>
+    <td>
+    <input class="" id="Parametri_TipologiaOccupazione_mxm" label="m x m occupazione" mandatory_enabled="#Parametri_TipologiaOccupazione.check_value(['Marciapiede']) || #Parametri_TipologiaOccupazione.check_value(['Carreggiata']) " name="Parametri_TipologiaOccupazione_mxm" style="width:100%;"/>
+   </td>
+  </tr>
+ </tbody>
+</table>
+<br/>
+-->
+
+
+<h3 class="Modulo">
+CHIEDE INOLTRE
+</h3>
+
+<table class="Modulo" style="border:1px solid grey; margin-top:-1px">
+   <tbody>
+    <tr  class="Rigaintestazione">
+      <td colspan="2" style="vertical-align: top;">
+        <p><strong>ai sensi degli art. 12 e 13 del vigente Regolamento per l’occupazione di spazi ed aree pubbliche e per l’applicazione del relativo canone:</strong></p>
+      </td>
+    </tr>       
+<!-- 
+<table class="Modulo" style="border:1px solid grey">
+ <tbody>
+ -->
+  <tr>
+   <div id="Tassonomia_chiede" label="Chiede inoltre" mandatory_enabled="true">
+   </div>
+   <td>
+    <input id="Tassonomia_Chiede1" name="Tassonomia_chiede" style="margin-top:5px" type="radio" value="1"/>
+   </td>
+   <td >
+    <p>
+     la non applicazione del canone in quanto il soggetto è associazione ONLUS o O.N.G. 
+    </p>
+   </td>
+  </tr>
+  <tr>
+     <td>
+    <input id="Tassonomia_Chiede2" name="Tassonomia_chiede" style="margin-top:5px" type="radio" value="2"/>
+   </td>
+   <td >
+    <p>
+    la riduzione dell’80% dell’ammontare del canone in quanto trattasi di beneficienza o di assistenza  e che non comporta attività di vendita;
+    </p>
+   </td>
+  </tr>
+   <tr>
+   <td>
+    <input id="Tassonomia_Chiede3" name="Tassonomia_chiede" style="margin-top:5px" type="radio" value="3"/>
+   </td>
+   <td >
+    <p>
+   la riduzione del 50% dell’ammontare del canone in quanto trattasi di occupazione culturale e sportiva e che non comporta attività di vendita. 
+    </p>
+   </td>
+  </tr>
+   <tr>
+   <td>
+   <input id="Tassonomia_Chiede4" name="Tassonomia_chiede" style="margin-top:5px" type="radio" value="4"/>
+   </td>
+   <td >
+    <p>
+   la riduzione del 25% dell’ammontare del canone in quanto trattasi di occupazione di natura commerciale  ma che presenta anche caratteristiche di interesse socio-culturale, che consistono nelle iniziative ed eventi non direttamente collegati all’attività di vendita.
+   </p>
+   <p><i> Indicare le motivazioni che, secondo il richiedente, giustificano la richiesta di abbattimento del canone (la richiesta verrà valutata ed eventualmente acconsetita ad insindacabile giudizio dell'Amministrazione Comunale).</i></p>
+   <textarea class="inputnormal" id="Tassonomia_ChiedeSpecifica" label=" Descrizione attività di vendita" name="Tassonomia_ChiedeSpecifica" style="width:99%;height:2cm;"mandatory_enabled="#Tassonomia_chiede.check_value(['4'])">
+     </textarea> 
+	 
+    </td>
+  </tr>
+ </tbody>
+</table>
+<br/>
+
+<h3 class="Modulo">
+DICHIARA DI ESSERE A CONOSCENZA CHE
+</h3>
+
+<table class="Modulo" style="border: 0px;">
+ <tbody>
+  <tr style="border:0px;">
+    <td style="width: 4%; border:0px; vertical-align:top; background-color:white;">
+      <div id="Tassonomia_Dichiara1" name="Tassonomia_Dichiara1" mandatory_enabled="true" label="Dichiarazione 1"> </div>
+      <input group="Tassonomia_Dichiara1" id="Tassonomia_Dichiara11" name="Tassonomia_Dichiara11" type="checkbox" value="SI"/>
+    </td>
+    <td style="border:0px;">
+      <p>
+        nel caso in cui l’occupazione venga autorizzata, prima del ritiro della concessione dovrà essere esibita la ricevuta del  versamento del canone dovuto per l’occupazione nonché la ricevuta di pagamento della tariffa rifiuti;
+      </p>
+    </td>
+   </tr >
+   <tr style="border:0px;">
+    <td style="width: 4%; border:0px; vertical-align:top; background-color:white;">
+      <div id="Tassonomia_Dichiara2" name="Tassonomia_Dichiara2" mandatory_enabled="true" label="Dichiarazione 2"> </div>
+      <input group="Tassonomia_Dichiara2" id="Tassonomia_Dichiara21" name="Tassonomia_Dichiara21" type="checkbox" value="SI"/>
+    </td>
+    <td style="border:0px;">
+      <p>
+        per le occupazioni con più di 10 gazebo nel centro cittadino o in città alta è obbligatorio l’utilizzo delle strutture di proprietà comunale personalizzate con i colori e lo stemma della città, che vengono montate e smontate dalla società che le gestisce (il costo del noleggio è di venti euro al giorno + IVA per ogni struttura);
+      </p>
+    </td>
+   </tr>
+      <tr style="border:0px;">
+    <td style="border:0px; vertical-align:top">
+      <div id="Tassonomia_Dichiara3" name="Tassonomia_Dichiara3" mandatory_enabled="true" label="Dichiarazione 3"> </div>
+      <input group="Tassonomia_Dichiara3" id="Tassonomia_Dichiara31" name="Tassonomia_Dichiara31" type="checkbox" value="SI"/>
+    </td>
+    <td style="border:0px;">
+      <p>
+       qualora nell’ambito dell’occupazione siano previsti l’installazione di bombole e/o impianti a gas, nonché l’allestimento di impianti elettrici, questi dovranno essere effettuati nel rispetto della normativa vigente e dovrà essere prodotta dichiarazione di conformità degli impianti redatta da tecnico abilitato;
+      </p>
+    </td>
+   </tr>
+  <tr style="border:0px;">
+    <td style="border:0px; vertical-align:top">
+      <div id="Tassonomia_Dichiara4" name="Tassonomia_Dichiara4" mandatory_enabled="true" label="Dichiarazione 4"> </div>
+      <input group="Tassonomia_Dichiara4" id="Tassonomia_Dichiara41" name="Tassonomia_Dichiara41" type="checkbox" value="SI"/>
+    </td>
+    <td style="border:0px;">
+      <p>
+        qualora nell’ambito dell’occupazione sia prevista l’installazione di strutture (palco, tensostrutture etc…) è necessaria, oltre alla relativa documentazione tecnica, la dichiarazione di corretto montaggio delle stesse, redatta da tecnico abilitato;
+      </p>
+    </td>
+   </tr>
+   <tr style="border:0px;">
+    <td style="border:0px; vertical-align:top">
+      <div id="Tassonomia_Dichiara5" name="Tassonomia_Dichiara5" mandatory_enabled="true" label="Dichiarazione 5"> </div>
+      <input group="Tassonomia_Dichiara5" id="Tassonomia_Dichiara51" name="Tassonomia_Dichiara51" type="checkbox" value="SI"/>
+    </td>
+    <td style="border:0px;">
+      <p>
+         nel caso in cui l’occupazione venga effettuata con l’impiego di più di un gazebo e/o di altre strutture, il richiedente dovrà dotarsi di polizza assicurativa di responsabilità civile per eventuali danni arrecati a terzi durante il montaggio delle strutture e lo svolgimento dell’evento, e consegnarne copia prima dell’inizio dell’occupazione.
+      </p>
+    </td>
+   </tr>
+   </tbody>
+</table>
+
+<br/>
+
+<table class="Modulo" style="border:1px solid grey; margin-top:-1px">
+   <tbody>
+    <tr  class="Rigaintestazione">
+      <td colspan="3" style="vertical-align: top;">
+        <p><strong>nell'ambito dell'occupazione:</strong></p>
+      </td>
+    </tr>       
+    <tr>
+       <td style="width:4%">
+    <div id="Tassonomia_somministrazione" label="scia somministrazione" mandatory="true">
+    </div>
+    <input class="" id="Tassonomia_somministrazione1" name="Tassonomia_somministrazione" type="radio" value="1"/>
+   </td>
+   <td colspan="2">
+    <p>
+    non è prevista la trasformazione e/o vendita di alimenti
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td rowspan="4" style="vertical-align:top">
+    <input class="" id="Tassonomia_somministrazione2" name="Tassonomia_somministrazione" type="radio" value="2"/>
+   </td>
+   <td colspan="2">
+    <p>
+    è  prevista la trasformazione e/o vendita di alimenti
+    </p>
+   </td>
+  </tr>
+ </tbody>
+</table> 
+
+<table class="Modulo" style="border:1px solid grey; margin-top:-1px">
+   <tbody>
+    <tr  class="Rigaintestazione">
+      <td colspan="2" style="vertical-align: top;">
+        <p><strong>altresì</strong></p>
+      </td>
+    </tr>       
+    <tr>
+       <td style="width:4%">
+    <div id="Tassonomia_LimitiAcust" label="Limiti acustici" mandatory="true">
+    </div>
+    <input class="" id="Tassonomia_LimitiAcust1" name="Tassonomia_LimitiAcust" type="radio" value="1"/>
+   </td>
+   <td>
+    <p>
+    saranno superati i limiti acustici previsti dal regolamento comunale, pertanto si allega istanza di deroga acustica
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td style="vertical-align:top">
+    <input class="" id="Tassonomia_LimitiAcust2" name="Tassonomia_LimitiAcust" type="radio" value="2"/>
+   </td>
+   <td>
+    <p>
+     saranno rispettati i limiti acustici e gli orari previsti dal regolamento comunale, pertanto si allega comunicazione di deroga acustica 
+    </p>
+   </td>
+  </tr>
+    <tr>
+   <td style="vertical-align:top">
+    <input class="" id="Tassonomia_LimitiAcust3" name="Tassonomia_LimitiAcust" type="radio" value="3"/>
+   </td>
+   <td>
+    <p>
+     saranno rispettati i limiti previsti dal Piano di zonizzazione acustica comunale, pertanto non è necessaria alcuna deroga acustica
+    </p>
+   </td>
+  </tr>
+   </tbody>
+</table> 
+
+<table class="Modulo" style="border:1px solid grey; margin-top:-1px">
+   <tbody>
+    <tr  class="Rigaintestazione">
+      <td colspan="3" style="vertical-align: top;">
+        <p><strong>altresì</strong></p>
+      </td>
+    </tr>       
+    <tr>
+       <td style="width:4%">
+    <div id="Tassonomia_Limitiviabilistici" label="Limiti viabilistici" mandatory="true">
+    </div>
+    <input class="" id="Tassonomia_Limitiviabilistici1" name="Tassonomia_Limitiviabilistici" type="radio" value="1"/>
+   </td>
+   <td colspan="2">
+    <p>
+   non è prevista e/o sarà richiesta successivamente all'ottenimento dell'autorizzazione l'adozione di ordinanza di disciplina viabilistica
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td rowspan="4" style="vertical-align:top">
+    <input class="" id="Tassonomia_Limitiviabilistici2" name="Tassonomia_Limitiviabilistici" type="radio" value="2"/>
+   </td>
+   <td colspan="2">
+    <p>
+    richiede contestualmente l'adozione di ordinanza di disciplina viabilistica
+    </p>
+   </td>
+  </tr>
+ </tbody>
+</table> 
+ <br/>
+ 
+ <table class="Modulo" name="Allegati" style="border:1px solid grey">
+  <tbody>
+   <tr class="Rigaintestazione">
+    <td colspan="2">
+     <p style="text-align: center;">
+      <b>
+       Elenco degli allegati
+      </b>
+      <br/>
+      <span style="font-size:70%">
+       <i>
+        (barrare tutti gli allegati richiesti in fase di presentazione della pratica ed elencati sul portale)
+       </i>
+      </span>
+     </p>
+    </td>
+   </tr>
+   <tr>
+    <td style="vertical-align:top">
+     <input dynamic_check="true" enabled="true" id="OCC-PLA" name="OCC-PLA" type="checkbox" value="OBBLIGATORIO"/>
+    </td>
+    <td style="background-color: #eeeeee;">
+     <p>
+      planimetria quotata in scala non inferiore a 1:500 relativa alla superficie occupata dove risulti chiara l'area interessata dalla occupazione<br/>
+    </p>
+    </td>
+   </tr>
+    <tr>
+   <td>
+    <input enabled="true" id="DOC_relazione" name="DOC_relazione" type="checkbox" value="OBBLIGATORIO"/>
+   </td>
+   <td style="background-color: #eeeeee;">
+    <p>
+     fotografie e disegni di eventuali strutture e se necessaria breve relazione tecnico-descrittiva
+    </p>
+   </td>
+  </tr>
+  <tr>  
+   <td style="vertical-align:top">
+     <input dynamic_check="#Tassonomia_somministrazione.check_value(['2'])" enabled="#Tassonomia_somministrazione.check_value(['2'])" id="UNIAP_SCIA_SOM_S" name="UNIAP_SCIA-SOM-S" type="checkbox" value="OBBLIGATORIO"/>
+    </td>
+    <td style="background-color: #eeeeee;">
+   <p>
+     segnalazione certificata di inizio attività per somministrazione temporanea
+    </p>
+   </td>
+  </tr>
+   <tr>
+    <td style="width:3%; vertical-align:top">
+     <input dynamic_check="#Tassonomia_chiede.check_value(['1'])" enabled="true" id="OCC-ASS-ATT" name="OCC-ASS-ATT" type="checkbox" value="OBBLIGATORIO"/>
+    </td>
+    <td style="background-color: #eeeeee;">
+     <p>
+      copia dello statuto dell'associazione e/o iscrizione nel registro delle Associazioni onlus
+     </p>
+    </td>
+   </tr>
+     <tr>
+    <td style="vertical-align:top">
+     <input dynamic_check="#Tassonomia_LimitiAcust.check_value(['1'])" enabled="#Tassonomia_LimitiAcust.check_value(['1'])" id="AUT_DEROGA" name="AUT_DEROGA" type="checkbox" value="OBBLIGATORIO"/>
+    </td>
+    <td style="background-color: #eeeeee;">
+     <p>
+      domanda di autorizzazione per manifestazioni in deroga ai limiti acustici
+     </p>
+    </td>
+   </tr>
+    <tr>
+    <td style="vertical-align:top">
+     <input dynamic_check="#Tassonomia_LimitiAcust.check_value(['2'])" enabled="#Tassonomia_LimitiAcust.check_value(['2'])" id="Com_Limiti" name="Com_Limiti" type="checkbox" value="OBBLIGATORIO"/>
+    </td>
+    <td style="background-color: #eeeeee;">
+     <p>
+      comunicazione per manifestazioni nel rispetto dei limiti acustici
+     </p>
+    </td>
+   </tr>
+   <tr>
+	<td style="vertical-align:top">
+     <input dynamic_check="#Tassonomia_Limitiviabilistici.check_value(['2'])" enabled="#Tassonomia_Limitiviabilistici.check_value(['2'])" id="PL_MANIFEST_S" name="PL_MANIFEST_S" type="checkbox" value="OBBLIGATORIO"/>
+    </td>
+    <td style="background-color: #eeeeee;">
+     <p>
+      istanza per l'adozione di provvedimenti viabilistici e del servizio di scorta
+     </p>
+    </td>
+   </tr>
+     <tr>
+    <td style="vertical-align:top">
+     <input checked="checked" dynamic_check="!#Tassonomia_chiede.check_value(['1'])" id="MARCA_BOLLO" name="MARCA_BOLLO" type="checkbox" value="OBBLIGATORIO"/>
+    </td>
+    <td style="background-color: #eeeeee;">
+     <p>
+      pagamento dell'imposta di bollo
+     </p>
+    </td>
+   </tr>
+   <tr>
+   <td style="vertical-align: top;">
+    <input enabled="false" id="DAE-CDI" name="DAE-CDI" type="checkbox" value="OBBLIGATORIO"/>
+   </td>
+   <td style="background-color: #eeeeee;">
+    <p>
+     copia del documento d'identità
+     <br/>
+     <span style="font-size:70%">
+      <i>
+       (da non allegare se il modulo è sottoscritto con firma elettronica o se la firma autografa è apposta in presenza del dipendente addetto alla ricezione) 
+      </i>
+     </span>
+    </p>
+   </td>
+  </tr>
+  </tbody>
+ </table>
+ 
+<br/>
+
+{{ utils.trattamento_dati_personali() }}
+
+<br/>
+
+{{ utils.firma_hidden() }}
+ <br/>
+ 
+ <p class="Modulo">
+  <input id="SalvaModulo" name="SalvaModulo" style="height:30px;width:120px;" title="Verifica la corretta compilazione dei campi e salva il modulo nel faldone virtuale dell'istanza." type="submit" value="Salva modulo"/>
+ </p>
+ <input destinatario_amministrazione="getParameter('Ente')" id="GLOBO_modulo_c{{ CodiceModulo }}" name="GLOBO_modulo_c{{ CodiceModulo }}" type="hidden" value=""/>
+ <input id="GLOBO_modulofiglio_cMARCA_BOLLO" name="GLOBO_modulofiglio_cMARCA_BOLLO" obbligatorio="#MARCA_BOLLO.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>   
+  <input id="GLOBO_modulofiglio_c001-156s" name="GLOBO_modulofiglio_c001-156s" obbligatorio="#AUT_DEROGA.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/> 
+  <input id="GLOBO_modulofiglio_c001-159s" name="GLOBO_modulofiglio_c001-159s" obbligatorio="#Com_Limiti.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/> 
+<input id="GLOBO_allegato_cDOC_manifestazione" name="GLOBO_allegato_cDOC_manifestazione" obbligatorio="#DOC_manifestazione.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+   <input id="GLOBO_allegato_cDOC_relazione" name="GLOBO_allegato_cDOC_relazione" obbligatorio="#DOC_relazione.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+ <input id="GLOBO_modulofiglio_cPL_MANIFEST_S" name="GLOBO_modulofiglio_cPL_MANIFEST_S" obbligatorio="#PL_MANIFEST_S.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+  <input id="GLOBO_modulofiglio_cUNIAP-SCIA-SOM-S" name="GLOBO_modulofiglio_cUNIAP-SCIA-SOM-S" obbligatorio="#UNIAP_SCIA_SOM_S.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+ <input id="GLOBO_allegato_cOCC-PLA" name="GLOBO_allegato_cOCC-PLA" obbligatorio="#OCC_PLA.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+ <input id="GLOBO_allegato_cOCC-ASS-ATT" name="GLOBO_allegato_cOCC-ASS-ATT" obbligatorio="#OCC_ASS_ATT.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+ <!--<input id="GLOBO_allegato_cALTRI-ALLEGATI" name="GLOBO_allegato_cALTRI-ALLEGATI" obbligatorio="#ALTRI_ALLEGATI.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/> -->
+ <input firmare="'P7M_ELETTRONICA'" id="GLOBO_modulofiglio_cIncarico_procura" name="GLOBO_modulofiglio_cIncarico_procura" type="hidden" value=""/>
+ <input id="GLOBO_allegato_cDAE-CDI" name="GLOBO_allegato_cDAE-CDI" obbligatorio="#DAE_CDI.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+ <input id="GLOBO_id_padre" name="GLOBO_id_padre" type="hidden"/>
+ <input id="GLOBO_recupera_dati" name="GLOBO_recupera_dati" type="hidden"/>
+ <input id="GLOBO_codice_modulo" name="GLOBO_codice_modulo" type="hidden" value="{{ CodiceModulo }}"/>
+ {% endblock content %}
+<br/>

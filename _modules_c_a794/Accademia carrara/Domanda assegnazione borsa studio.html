@@ -1,0 +1,648 @@
+{% set CodiceModulo = "DOM_BENE_BORSA" %}
+{% set Urn = "document:c_a794:frequentare.accademica.carrara;borsa.studio" %}
+{% extends "base.html" %}
+
+{% block meta %}
+
+<meta campi_firma="Titolare_CodiceFiscale"
+campi_firma_label="il dichiarante"
+classi_modulo="Tempo libero sport e cultura"
+codice_modulo="{{ CodiceModulo }}"
+urn="{% block urn %}{{ Urn }}{% endblock urn %}"
+sub_urn_list=""
+uo_globo_list=""
+descrizione="Domanda di assegnazione di borsa di studio, benefici e servizi banditi"
+destinatario_amministrazione=""
+destinatario_ufficio="UOTEMPOLIBEROSPORTECULTURA"
+dinamico="SI"
+email_a=""
+ente_abilitato="TUTTI"
+filigrana="NO"
+firmare="NO"
+istruzioni_compilazione=""
+istruzioni_invio="mail_pec"
+metodo_invio="mail"
+name="GLOBO_modulo"
+procura="NO,,"
+tipo_modulo="principale"
+urlhelp="/modulistica/moduli/{{ CodiceModulo }}"
+verifica_pagamento="NO"
+versione="1.3|06/09/2019"/>
+
+<meta codice_modulo_figlio="INCARICO_PROCURA"
+urn_modulo_figlio="document:s_italia:generale;incarico.procura"
+name="GLOBO_modulofiglio"
+numero="1"
+obbligatorio="DINAMICO"/>
+
+<meta codice_allegato="DAE-CDI"
+urn_allegato="document:s_italia:generale;documento.identita;documentazione"
+descrizione_estesa="Documento di identità"
+filename="Documento identita.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/DAE-CDI"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="DIC_ISEE"
+urn_allegato="document:s_italia:generale;dichiarazione.isee;documentazione"
+descrizione_estesa="Copia della dichiarazione ISEE"
+filename="Dichiarazione ISEE.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/DIC_ISEE"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="COP-CER-INV"
+urn_allegato="document:s_italia:generale;invalidita.civile;certificato.medico"
+descrizione_estesa="Copia del certificato di invalidità civile"
+filename="Copia certificato invalidita.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/COP-CER-INV"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="ALTRI-ALLEGATI"
+urn_allegato="document:s_italia:altri.allegati"
+descrizione_estesa="Altri allegati"
+filename="Altri allegati.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/ALTRI-ALLEGATI"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+{% endblock meta %}
+
+{% block title %}
+    Domanda di assegnazione di borsa di studio, benefici e servizi banditi
+{% endblock title %}
+
+{% block content %}
+
+<style>
+    .noBorder{
+        border: 0 !important;
+    }
+
+    @media pdf{
+       .borderInPDF{
+            border-bottom: 1px solid black;
+        }   
+    }
+</style>
+
+<globo_fondo_pagina areaheight="150" scope="3">
+    {{ utils.firma() }}
+</globo_fondo_pagina>
+
+<input id="Parametri_Comune" name="Parametri_Comune" type="hidden" dynamic_value="#Ente.value()"/>
+<input id="Oggetto" name="Oggetto" type="hidden" dynamic_value="#Titolare_Cognome.value().toUpperCase() + ' ' + #Titolare_Nome.value().toUpperCase() + ' - domanda assegnazione borsa studio, benefici e servizi banditi'"/>
+
+{{ intestazioni.intestazione_moduloprincipale_senzabollo() }}
+
+<h1 class="Modulo">
+    Domanda di assegnazione di borsa di studio, benefici e servizi banditi
+</h1>
+
+<input id="Titolare_DatiPersonaObbligatori" name="Titolare_DatiPersonaObbligatori" type="hidden" dynamic_check="true"/>
+<input id="Titolare_Titolo" name="Titolare_Titolo" type="hidden" value="Richiedente"/>
+<input id="Titolare_Ruolo" name="Titolare_Ruolo" type="hidden" value="Richiedente"/>
+{{ anagrafica.persona_fisica("Titolare", "Il sottoscritto", "visibility:visibility", "cursor:pointer", "visibility:visibility", "visibility:visibility", "mail_ordinaria", "", "true", "false", "false", "", "false", "true", "visibility:visibility") }}
+
+<h3 class="Modulo">
+    CHIEDE
+</h3>
+
+<table class="Modulo noBorder">
+    <tbody class="noBorder">
+        <tr class="noBorder">
+            <td class="noBorder" style="width:23%">
+                
+                per l’anno accademico 20
+                
+            </td>
+            <td class="noBorder" style="width:4%">
+                <div class="borderInPDF">
+                    <input class="inputNormal" id="Parametri_SuffissoAnno1" name="Parametri_SuffissoAnno1" style="width:100%; border-bottom: 1px solid black !important" label="Anno inizio" mandatory="true" format="number" />
+                </div>
+            </td>
+            <td class="noBorder" style="width:5%">
+                <p>
+                    / 20
+                </p>
+            </td>
+            <td class="noBorder" style="width:4%">
+                <div class="borderInPDF">
+                    <input class="inputNormal" id="Parametri_SuffissoAnno2" name="Parametri_SuffissoAnno2" style="width:100%; border-bottom: 1px solid black !important" label="Anno fine" mandatory="true" format="number" />
+                </div>
+            </td>
+            <td class="noBorder" style="width: 64%">
+                <p>
+                    , di beneficiare della borsa di studio.
+                </p>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+{{ utils.Dichiara_445() }}
+
+<p class="Modulo">
+    di essere regolarmente iscritto, o di volersi iscrivere entro scadenza all’Accademia di Belle Arti G. Carrara di Bergamo
+</p>
+
+<table class="Modulo" style="border: 1px solid grey;">
+    <tbody>
+        
+        <tr class="Rigaintestazione">
+            <td>
+                <p class="Labeltabella">
+                    per l’anno accademico iscritto all’anno (*)
+                </p>
+            </td>
+        </tr>
+        <tr>
+           <td>
+                <select class="inputNormal" id="Parametri_AnnoIscrizione" name="Parametri_AnnoIscrizione" style="width: 100%;" label="Anno iscrizione" mandatory="true">
+                        {% set anni = ["", "primo anno", "secondo anno", "terzo anno", "1° fuori corso", "2° fuori corso", "3° fuori corso", "4° fuori corso"] %}
+                        {% for anno in anni %}
+                            <option value="{{anno}}"> {{anno}} </option>
+                        {% endfor %}
+                </select>
+           </td>
+        </tr>
+    </tbody>
+</table>
+
+<div id="Tassonomia_TipoCorsoAccademico" name="Tassonomia_TipoCorsoAccademico" label="Tipo corso accademico" mandatory="true"></div>
+<table class="Modulo" style="border: 1px solid grey; margin-top: -1px">
+    <tbody>
+        <tr class="Rigaintestazione">
+            <td colspan="2">
+                <p class="Labeltabella">
+                    al corso accademico di primo livello di
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td style="vertical-align: top; width: 4%;">
+                <input id="Tassonomia_TipoCorsoAccademico1" name="Tassonomia_TipoCorsoAccademico" type="radio" value="1" />
+            </td>
+            <td>
+                <p>pittura</p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input id="Tassonomia_TipoCorsoAccademico2" name="Tassonomia_TipoCorsoAccademico" type="radio" value="2" />
+            </td>
+            <td>
+                <p>nuove tecnologie per l’arte</p>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<table class="Modulo" style="border: 1px solid grey; margin-top: -1px">
+    <tbody>
+        <tr class="Rigaintestazione">
+            <td colspan="4">
+                <p class="Labeltabella">
+                    per la prima volta immatricolato nell’anno accademico (**)
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td class="noBorder" style="width: 7%;">
+                <div class="borderInPDF" style="width: 100%">
+                    <input class="inputNormal" id="Parametri_AnnoImmatricolazione1" name="Parametri_AnnoImmatricolazione1" style="width: 100%;" label="Anno immatricolazione" mandatory="true" format="number" />
+                </div>
+            </td>
+            <td class="noBorder" style="width: 2%">
+                <p>
+                    /
+                </p>
+            </td>
+            <td class="noBorder" style="width: 7%;">
+                <div class="borderInPDF" style="width:100%;">
+                    <input class="inputNormal" id="Parametri_AnnoImmatricolazione2" name="Parametri_AnnoImmatricolazione2" style="width: 100%;" label="Anno immatricolazione" mandatory="true" format="number" />
+                </div>
+                
+            </td>
+            <td class="noBorder" style="width: 84%"></td>
+        </tr>
+    </tbody>
+</table>
+
+<p class="Modulo" style="font-size:80%;">
+    <i>opzioni (*)</i>:
+    primo anno, secondo anno, terzo anno, 1° fuori corso, 2° fuori corso, 3° fuori corso, 4° fuori corso
+</p>
+<p class="Modulo">
+    <span style="font-size: 70%;"><i>(**) per prima immatricolazione assoluta va intesa qualunque iscrizione a qualunque corso di laurea o di diploma accademico (anche diverso da quello frequentato nell'anno accademico 2018/2019) del medesimo livello di studi per i quali si è iscritti per l'anno accademico 2018/2019, in qualunque Università o Accademia italiana o straniera, indipendentemente dall'esito di tale carriera (rinuncia agli studi, trasferimento, laurea, ecc.) </i></span>
+</p>
+
+{% set dichiarazioni = ["di non essere in possesso di un titolo di studio di livello pari o superiore all’attuale corso di studi frequentato.", "di non beneficiare per lo stesso anno di corso di borsa di studio erogata da altri enti pubblici o privati.", "di non essere o essere stato iscritto ad un anno ripetente.", "di non aver rinnovato l’iscrizione dopo aver effettuato una rinuncia agli studi.", "di non effettuare o avere effettuato un passaggio di corso di diploma o di corso di laurea con ripetizione di iscrizione a un anno di corso già frequentato.", "di non aver effettuato un trasferimento di sede accademica con ripetizione di iscrizione a un anno di corso già frequentato.", "di impegnarsi ad informare il Servizio per il Diritto allo Studio di ogni successiva variazione (ritiro dagli studi, conseguimento altra borsa, ecc.) che si verifichi successivamente alla data di presentazione della domanda."] %}
+<div id="Tassonomia_Dichiara" name="Tassonomia_Dichiara" label="Dichiarazione" mandatory="true"></div>
+<table class="Modulo noBorder" style="border: 1px solid grey;">
+    <tbody>
+        {% for dichiarazione in dichiarazioni %}
+        <tr class="noBorder">
+            <td class="noBorder" style="vertical-align: top; width: 4%;">
+                <input group="Tassonomia_Dichiara" id="Tassonomia_Dichiara{{loop.index}}" name="Tassonomia_Dichiara{{loop.index}}" type="checkbox" value="SI" checked="checked" dynamic_check="true">
+            </td>
+            <td class="noBorder">
+                <p>
+                    {{dichiarazione}}
+                </p>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<globo_salto_pagina></globo_salto_pagina>
+
+{{ utilsservizisociali.isee("true") }}
+
+<h3 class="Modulo">
+    DICHIARA INOLTRE
+</h3>
+
+<div id="Tassonomia_DichiaraInoltre" name="Tassonomia_DichiaraInoltre" label="label"></div>
+<table class="Modulo noBorder" style="border: 1px solid grey;">
+    <tbody>
+        
+        <tr class="noBorder">
+            <td class="noBorder" style="vertical-align: top; width: 4%;">
+                <input group="Tassonomia_DichiaraInoltre" id="Tassonomia_DichiaraInoltre1" name="Tassonomia_DichiaraInoltre1" type="checkbox" value="SI" />
+            </td>
+            <td class="noBorder">
+                <p>
+                    che il richiedente è portatore di disabilità avente un riconoscimento dello stato di handicap ai sensi dell'articolo 3, comma 1 della Legge 05/02/1992, n. 104, con esclusione dei disturbi di cui alla Legge 08/10/2010, n.170, o con un’invalidità riconosciuta pari o superiore al 66%, debitamente documentati, e dichiara di aver preso visione del punto 5 "Integrazioni delle borse di studio" del bando di concorso.
+                </p>
+            </td>
+        </tr>
+        <tr class="noBorder">
+            <td class="noBorder" style="vertical-align: top;">
+                <input group="Tassonomia_DichiaraInoltre" id="Tassonomia_DichiaraInoltre2" name="Tassonomia_DichiaraInoltre2" type="checkbox" value="SI" />
+            </td>
+            <td class="noBorder">
+                <p>
+                    che il sottoscritto possiede i requisiti previsti dal bando per essere considerato "studente autonomo".
+                </p>
+            </td>
+        </tr>
+            
+    </tbody>
+</table>
+
+<table class="Modulo" style="border: 1px solid grey;">
+    <tbody>
+        <tr class="Rigaintestazione">
+            <td colspan="5">
+                <p class="Labeltabella">
+                    requisiti di merito
+                </p>
+            </td>
+        </tr>
+        <tr class="Rigaintestazioneridotta">
+            <td colspan="5">
+                <p class="Labelcella">
+                    Anno conseguimento maturità
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="5">
+                <input class="inputNormal" id="Parametri_AnnoMaturita" name="Parametri_AnnoMaturita" style="width: 100%;" label="Anno conseguimento maturità"  format="number" />
+            </td>
+        </tr>        
+        <tr class="Rigaintestazioneridotta">
+            <td colspan="5">
+                <p class="Labelcella">
+                    Crediti conseguiti entro la sessione estiva
+                </p>
+            </td>
+        </tr>
+        <tr class="Rigaintestazioneridotta">
+            <td style="width:15%;">
+                <p class="Labelcella">
+                    Numero
+                </p>
+            </td>
+            <td style="width:20%;">
+                <p class="Labelcella">
+                    Data
+                </p>
+            </td>
+            <td style="width:30%;">
+                <p class="Labelcella">
+                    Denominazione crediti
+                </p>
+            </td>
+            <td style="width:15%;">
+                <p class="Labelcella">
+                    Votazione
+                </p>
+            </td>
+            <td style="width:20%;">
+                <p class="Labelcella">
+                    Crediti
+                </p>
+            </td>
+        </tr>
+        {% for i in range(1, 28) %}
+            <tr {% if i == 1 %}  {% endif %}>
+                <td>
+                    <input class="inputNormal" id="Parametri_CreditiNumero{{i}}" name="Parametri_CreditiNumero{{i}}" style="width: 100%;" label="Numero crediti" format="number" {% if i == 1 %} {% endif %} />
+                </td>
+                <td>
+                    <input class="inputNormal" id="Parametri_CreditiData{{i}}" name="Parametri_CreditiData{{i}}" style="width: 100%;" label="Data crediti" format="date" mandatory_enabled="#Parametri_CreditiNumero{{i}}.value() != ''" />
+                </td>
+                <td>
+                    <input class="inputNormal" id="Parametri_CreditiDenominazione{{i}}" name="Parametri_CreditiDenominazione{{i}}" style="width: 100%;" label="Denominazione crediti" mandatory_enabled="#Parametri_CreditiNumero{{i}}.value() != ''" />
+                </td>
+                <td>
+                    <input class="inputNormal" id="Parametri_CreditiVotazione{{i}}" name="Parametri_CreditiVotazione{{i}}" style="width: 100%;" label="Votazione crediti" mandatory_enabled="#Parametri_CreditiNumero{{i}}.value() != ''" />
+                </td>
+                <td>
+                    <input class="inputNormal" id="Parametri_CreditiCrediti{{i}}" name="Parametri_CreditiCrediti{{i}}" style="width: 100%;" label="Crediti" mandatory_enabled="#Parametri_CreditiNumero{{i}}.value() != ''" format="numero" />
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<table class="Modulo" style="border: 1px solid grey; margin-top: -1px;">
+    <tbody>
+        
+        <tr>
+            <td class="noBorder" style="width: 25%;">
+                <p>
+                    <b>
+                        Totale crediti conseguiti al
+                    </b>
+                </p>
+            </td>
+            <td class="noBorder" style="width: 19%;">
+                <div class="borderInPDF">
+                   <input class="inputNormal" id="Parametri_DataConseguimentoCrediti" name="Parametri_DataConseguimentoCrediti" style="width: 100%;" label="" format="date"  />
+                </div>
+            </td>
+            <td class="noBorder" style="width: 36%;"></td>
+            <td style="width: 20%;">
+               <input class="inputNormal" id="Parametri_TotaleCrediti" name="Parametri_TotaleCrediti" style="width: 100%;" label="Totale crediti"  dynamic_value="
+                ({% for i in range(1, 28) -%}
+                   (#Parametri_CreditiNumero{{i}}.value()!='' ? parseInt(#Parametri_CreditiNumero{{i}}.value()) : 0) +
+                {%- endfor %} 0) >= 0 
+                ?
+                ({% for i in range(1, 28) -%}
+                    (#Parametri_CreditiNumero{{i}}.value()!='' ? parseInt(#Parametri_CreditiNumero{{i}}.value()) : 0) +
+                {%- endfor %} 0) 
+                : 
+                0" readonly/> 
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<div id="Tassonomia_Bonus" name="Tassonomia_Bonus" label="Bonus"></div>
+<table class="Modulo" style="border: 1px solid grey;">
+    <tbody>
+        <tr class="Rigaintestazione">
+            <td colspan="3">
+                <p class="Labeltabella">
+                    di usufruire o aver usufruito dei seguenti bonus
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td style="vertical-align: top; width: 4%;">
+                <input group="Tassonomia_Bonus" id="Tassonomia_Bonus1" name="Tassonomia_Bonus1" type="checkbox" value="SI" />
+            </td>
+            <td class="noBorder" style="width: 86%;">
+                <p>
+                    di voler utilizzare i seguenti punti di bonus esclusivamente per raggiungere il requisito minimo richiesto
+                </p>
+                
+            </td>
+            <td class="noBorder" style="width:10%;">
+                <div class="borderInPDF">
+                    <input class="inputNormal" id="Parametri_MinimoCreditiRichiesto" name="Parametri_MinimoCreditiRichiesto" style="width: 100%;" label="Minimo richiesto" mandatory_enabled="#Tassonomia_Bonus1.checked()"/>
+                </div>
+            </td>
+        </tr>
+        
+    </tbody>
+</table>
+<table class="Modulo" style="border: 1px solid grey; margin-top: -1px;">
+    <tbody>
+        <tr>
+            <td style="vertical-align: top; width: 4%;">
+                <input group="Tassonomia_Bonus" id="Tassonomia_Bonus2" name="Tassonomia_Bonus2" type="checkbox" value="SI" />
+            </td>
+            <td class="noBorder" style="width:60%;">
+                <p>
+                    di aver già utilizzato punti bonus negli anni precedenti per il valore di      
+                </p>
+            </td>
+            <td class="noBorder" style="width:10%;">
+                <div class="borderInPDF">
+                    <input class="inputNormal" id="Parametri_PuntiBonusUtilizzati" name="Parametri_PuntiBonusUtilizza" style="width:100%;" label="Punti bonus utilizzati" mandatory_enabled="#Tassonomia_Bonus2.checked()"/>
+                </div>
+            </td>
+            <td class="noBorder" style="width:26%"></td>
+        </tr>
+    </tbody>
+</table>
+
+<h3 class="Modulo">
+    COMUNICA
+</h3>
+
+<p class="Modulo">
+    che in caso di accoglimento della domanda l’importo previsto dalla borsa di studio 
+</p>
+
+<div id="Tassonomia_ComunicazioneIBAN" name="Tassonomia_ComunicazioneIBAN" label="Comunicazione IBAN" mandatory="true"></div>
+<table class="Modulo" style="border: 0;">
+    <tbody>
+        
+        <tr>
+            <td style="vertical-align: top; width: 4%;">
+                <input id="Tassonomia_ComunicazioneIBAN1" name="Tassonomia_ComunicazioneIBAN" type="radio" value="1" />
+            </td>
+            <td colspan="2">
+                <p>
+                    che renderà noto successivamenrte l’IBAN al quale accreditare l’importo assegnato
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td rowspan="5" style="vertical-align: top; width: 4%; background-color: white;">
+                <input id="Tassonomia_ComunicazioneIBAN2" name="Tassonomia_ComunicazioneIBAN" type="radio" value="2" />
+            </td>
+            <td colspan="2">
+                <p>
+                    venga accreditato su conto corrente intestato al richiedente di seguito indicato
+                </p>
+            </td>
+        </tr>
+        <tr class="Rigaintestazioneridotta" style="border:0px;">
+            <td style="width: 48%;" >
+                <p class="Labelcella"> Istituto </p>
+            </td>
+            <td style="width: 48%;">
+                <p class="Labelcella"> Numero conto corrente </p>
+            </td>
+        </tr>
+        <tr>
+            <td style="background-color: white;">
+                <input class="inputNormal" id="Parametri_Istituto" name="Parametri_Istituto" style="width: 100%;" label="Istituto" mandatory_enabled="#Tassonomia_ComunicazioneIBAN2.checked()">
+            </td>
+            <td style="background-color: white;">
+                <input class="inputNormal" id="Parametri_Numero_CC" name="Parametri_Numero_CC" style="width: 100%;" label="Numero conto corrente" format="regular_expression" expression="^[a-zA-Z0-9]{12}$" onblur="PadCC()" mandatory_enabled="#Tassonomia_ComunicazioneIBAN2.checked()">
+            </td>
+        </tr>
+        <tr class="Rigaintestazioneridotta">
+            <td>
+                <p class="Labelcella"> Coordinate IBAN </p>
+            </td>
+            <td>
+                <p class="Labelcella"> Codice BIC (swift) </p>
+            </td>
+        </tr>
+        <tr>
+            <td style="background-color: white;">
+                <input class="inputNormal" id="Parametri_IBAN" name="Parametri_IBAN" style="width: 100%;" label="Coordinate IBAN" mandatory_enabled="#Tassonomia_ComunicazioneIBAN2.checked()">
+            </td>
+            <td style="background-color: white;">
+                <input class="inputNormal" id="Parametri_BIC_swift" name="Parametri_BIC_swift" style="width: 100%;" label="Codice BIC (swift)" mandatory_enabled="#Parametri_IBAN.value() != '' and (!#Parametri_IBAN.value().toUpperCase().startsWith('IT'))">
+            </td>
+        </tr>
+    </tbody>
+</table>
+<input type="hidden" id="CheckIBAN1" name="CheckIBAN1" dynamic_check="(#Parametri_IBAN.value().toUpperCase().startsWith('IT')) and (#Parametri_IBAN.value().toString().length != 27)">
+<input type="hidden" id="CheckIBAN2" name="CheckIBAN2" dynamic_check="(#Parametri_IBAN.value().toUpperCase().startsWith('IT')) and (#Parametri_IBAN.value().toString().length == 27) and (!/^IT[0-9]{2}[a-zA-Z][a-zA-Z0-9]{22}$/.test(#Parametri_IBAN.value()))">
+<input type="hidden" id="CheckIBAN3" name="CheckIBAN3" dynamic_check="(#Parametri_IBAN.value().toUpperCase().startsWith('IT')) and (#Parametri_IBAN.value().toString().length == 27) and (#Parametri_IBAN.value().substring(15, 27) != #Parametri_Numero_CC.value())">
+<input type="hidden" id="CheckIBANInput1" name="CheckIBANInput1" label="Controlla la lunghezza del codice IBAN" mandatory="#CheckIBAN1.checked()">
+<input type="hidden" id="CheckIBANInput2" name="CheckIBANInput2" label="Controlla il formato del codice IBAN" mandatory="#CheckIBAN2.checked()">
+<input type="hidden" id="CheckIBANInput3" name="CheckIBANInput3" label="Le ultime 12 cifre dell'IBAN non corrispondono al numero di conto corrente" mandatory="#CheckIBAN3.checked()">
+
+<br>
+
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          Eventuali annotazioni
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <textarea class="inputNormal" id="Parametri_Annotazioni" name="Parametri_Annotazioni" style="width: 100%; height: 5cm;" label="Eventuali annotazioni"></textarea>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<br>
+
+<table class="Modulo" name="Allegati" style="border: 1px solid grey">
+    <tbody>
+        <tr class="Rigaintestazione">
+            <td colspan="2">
+                <p style="text-align: center;">
+                    <b>
+                        Elenco degli allegati
+                    </b>
+                    <br/>
+                    <span style="font-size:70%">
+                        <i>(barrare tutti gli allegati richiesti in fase di presentazione della pratica ed elencati sul portale)</i>
+                    </span>
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 4%; vertical-align: top;">
+                <input id="COP-CER-INV" name="COP-CER-INV" type="checkbox" value="OBBLIGATORIO" mandatory_enabled="#Tassonomia_DichiaraInoltre1.checked()" dynamic_check="#Tassonomia_DichiaraInoltre1.checked()" />
+            </td>
+            <td style="background-color: #eeeeee;">
+                <p>
+                    copia del certificato di invalidità civile
+                </p>
+            </td>
+        </tr>
+		<tr>
+      <td style="width: 4%; vertical-align: top;">
+        <input id="DIC_ISEE" name="DIC_ISEE" type="checkbox" value="OBBLIGATORIO" checked="checked" dynamic_check="true"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p> copia della dichiarazione ISEE </p>
+      </td>
+		</tr>
+        <tr>
+            <td style="vertical-align: top; width: 4%;">
+                <input id="DAE-CDI" name="DAE-CDI" type="checkbox" value="OBBLIGATORIO" />
+            </td>
+            <td style="background-color: #eeeeee;">
+                <p>
+                    copia del documento d'identità
+                    <br/>
+                    <span style="font-size:70%">
+                        <i>(da allegare se il modulo è sottoscritto con firma autografa)</i>
+                    </span>
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td style="vertical-align: top; width: 4%;">
+                <input id="ALTRI-ALLEGATI" name="ALTRI-ALLEGATI" type="checkbox" value="OBBLIGATORIO"/>
+            </td>
+            <td style="background-color: #eeeeee;">
+                <p>
+                    altri allegati
+                    <span style="font-size:70%">(specificare)</span>
+                    <input class="" label="Altri allegati" id="AltriAllegati" mandatory_enabled="#ALTRI_ALLEGATI.checked()" name="AltriAllegati" style="width:79%;"/>
+                </p>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+
+<br>
+{{ utils.trattamento_dati_personali() }}
+<br/>
+    {{ utils.firma_hidden() }}
+<br/>
+
+<p class="Modulo">
+    <input id="SalvaModulo" name="SalvaModulo" style="height:30px;width:120px;" title="Verifica la corretta compilazione dei campi e salva il modulo nel faldone virtuale dell'istanza." type="submit" value="Salva modulo"/>
+</p>
+
+<input destinatario_amministrazione="getParameter('Ente')" id="GLOBO_modulo_c{{ CodiceModulo }}" name="GLOBO_modulo_c{{ CodiceModulo }}" type="hidden" value=""/>
+<input firmare="'P7M_ELETTRONICA'" id="GLOBO_modulofiglio_cINCARICO_PROCURA" name="GLOBO_modulofiglio_cINCARICO_PROCURA" type="hidden" value=""/>
+
+
+<input id="GLOBO_allegato_cDIC_ISEE" name="GLOBO_allegato_cDIC_ISEE" type="hidden" value="" obbligatorio="#DIC_ISEE.checked() ? 'OBBLIGATORIO' : ''"/>
+<input id="GLOBO_allegato_cDAE-CDI" name="GLOBO_allegato_cDAE-CDI" obbligatorio="#DAE_CDI.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+<input id="GLOBO_allegato_cCOP-CER-INV" name="GLOBO_allegato_cCOP-CER-INV" type="hidden" value="" obbligatorio="#COP_CER_INV.checked() ? 'OBBLIGATORIO' : ''"/>
+<input id="GLOBO_allegato_cALTRI-ALLEGATI" name="GLOBO_allegato_cALTRI-ALLEGATI" obbligatorio="#ALTRI_ALLEGATI.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_id_padre" name="GLOBO_id_padre" type="hidden"/>
+<input id="GLOBO_recupera_dati" name="GLOBO_recupera_dati" type="hidden"/>
+<input id="GLOBO_codice_modulo" name="GLOBO_codice_modulo" type="hidden" value="{{ CodiceModulo }}"/>
+
+{% endblock content %}

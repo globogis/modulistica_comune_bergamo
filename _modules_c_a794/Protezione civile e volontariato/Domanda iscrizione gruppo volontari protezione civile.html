@@ -1,0 +1,908 @@
+{% set CodiceModulo = "DOM_CAND_PROT_CIV" %}
+{% set Urn = "document:c_a794:volontari.protezione.civile;iscrizione;domanda" %}
+{% extends "base.html" %}
+
+{% block meta %}
+
+<meta campi_firma="Titolare_CodiceFiscale"
+campi_firma_label="il dichiarante"
+classi_modulo="Generale"
+codice_modulo="{{ CodiceModulo }}"
+urn="{% block urn %}{{ Urn }}{% endblock urn %}"
+sub_urn_list=""
+uo_globo_list=""
+descrizione="Domanda di iscrizione al gruppo di volontari di protezione civile"
+destinatario_amministrazione=""
+destinatario_ufficio="UOPROTEZIONECIVILE"
+dinamico="SI"
+email_a=""
+ente_abilitato="TUTTI"
+filigrana="NO"
+firmare="P7M_ELETTRONICA"
+istruzioni_compilazione=""
+istruzioni_invio="mail_pec"
+metodo_invio="mail"
+name="GLOBO_modulo"
+procura="NO,,"
+tipo_modulo="principale"
+urlhelp="/modulistica/moduli/{{ CodiceModulo }}"
+verifica_pagamento="NO"
+versione="1.0|23/03/2019"/>
+
+<meta codice_modulo_figlio="INCARICO_PROCURA"
+urn_modulo_figlio="document:s_italia:generale;incarico.procura"
+name="GLOBO_modulofiglio"
+numero="1"
+obbligatorio="DINAMICO"/>
+
+<meta codice_allegato="VOL_CER_VAC"
+urn_allegato="document:s_italia:volontari.protezione.civile;vaccinazioni.eseguite;certificato.medico"
+descrizione_estesa="Copia del certificato relativo alle vaccinazioni eseguite"
+filename="Certificato vaccinazioni.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/VOL_CER_VAC"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="PER-SOG"
+urn_allegato="document:s_italia:generale;permesso.soggiorno;documentazione"
+descrizione_estesa="Copia del permesso di soggiorno"
+filename="Permesso di soggiorno.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/PER-SOG"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="COP_PATENT_ABI"
+urn_allegato="document:c_a794:generale;patenti.patentini;documentazione"
+descrizione_estesa="Copia della patente di guida o altri patentini abilitativi alla guida di mezzi speciali"
+filename="Patenti di guida.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/COP_PATENT_ABI"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="DAE-CDI"
+urn_allegato="document:s_italia:generale;documento.identita;documentazione"
+descrizione_estesa="Documento di identità"
+filename="Documento identita.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/DAE-CDI"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="ALTRI-ALLEGATI"
+urn_allegato="document:s_italia:altri.allegati"
+descrizione_estesa="Altri allegati"
+filename="Altri allegati.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/ALTRI-ALLEGATI"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+{% endblock meta %}
+
+{% block title %}
+  Domanda di iscrizione al gruppo di volontari di protezione civile
+{% endblock title %}
+
+{% block content %}
+
+<style>
+  .noBorder{
+    border: 0 !important;
+  }
+</style>
+
+<globo_fondo_pagina areaheight="150" scope="3">
+  {{ utils.firma() }}
+</globo_fondo_pagina>
+
+<input id="Parametri_Comune" name="Parametri_Comune" type="hidden" dynamic_value="#Ente.value()"/>
+<input id="Oggetto" name="Oggetto" type="hidden" dynamic_value="#Titolare_Cognome.value().toUpperCase() + ' ' + #Titolare_Nome.value().toUpperCase() + ' - iscrizione gruppo volontari di protezione civile'"/>
+
+{{ intestazioni.intestazione_moduloprincipale_senzabollo() }}
+
+<h1 class="Modulo">
+  Domanda di iscrizione al gruppo di volontari di protezione civile
+</h1>
+
+<input id="Titolare_DatiPersonaObbligatori" name="Titolare_DatiPersonaObbligatori" type="hidden" dynamic_check="true"/>
+<input id="Titolare_Titolo" name="Titolare_Titolo" type="hidden" value="Richiedente"/>
+<input id="Titolare_Ruolo" name="Titolare_Ruolo" type="hidden" value="Richiedente"/>
+{{ anagrafica.persona_fisica("Titolare", "Il sottoscritto", "visibility:visibility", "cursor:pointer", "visibility:visibility", "visibility:visibility", "mail_ordinaria") }}
+
+<h3 class="Modulo">
+  CHIEDE
+</h3>
+
+<p class="Modulo">
+  di essere iscritto al gruppo comunale dei volontari di protezione civile del Comune di Bergamo
+</p>
+
+{{ utils.Dichiara_445() }}
+
+{% set dichiarazioni = ["di voler prestare la propria opera in modo volontario e gratuito",
+"di sottoporsi alle verifiche periodiche previste dal Decreto Legislativo 09/04/2008, n.81",
+"di essere operativo a favore della sola organizzazione di protezione civile sopracitata, come previsto dall’articolo 6 comma 1 del Regolamento Regionale 18/10/2010, n.9",
+"di aver preso visione del Regolamento comunale e delle disposizioni dirigenziali vigenti",
+"di essere disposto a frequentare i corsi di preparazione e di aggiornamento previsti",
+"di dare la sua disponibilità ad operare nel gruppo di protezione civile secondo le disposizioni organizzative interne previste",
+"di comunicare ogni eventuale variazione dei documenti allegati",
+"in caso il sovrascrivente sia di sesso femminile, di informare tempestivamente il medico competente dell’eventuale stato di gravidanza",
+"di essere a conoscenza che l’operatività può essere revocata o sospesa per l’inosservanza da parte del sottoscritto delle disposizioni di cui all’articolo 7, comma 1 e 3 del Regolamento Regionale 18/10/2010, n.9"] %}
+<div id="Tassonomia_Dichiara" name="Tassonomia_Dichiara" label="Dichiarazione" mandatory="true"></div>
+<table class="Modulo noBorder">
+    <tbody>
+        {% for dichiarazione in dichiarazioni %}
+        <tr class="noBorder">
+            <td class="noBorder" style="vertical-align: top; width: 4%;">
+                <input group="Tassonomia_Dichiara" id="Tassonomia_Dichiara{{loop.index}}" name="Tassonomia_Dichiara{{loop.index}}" type="checkbox" value="SI" checked="checked" dynamic_check="true">
+            </td>
+            <td class="noBorder">
+                <p>
+                    {{dichiarazione}}.
+                </p>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<table class="Modulo noBorder">
+  <tbody>
+    <tr class="noBorder">
+      <td class="noBorder" rowspan="3" style="vertical-align: top; width: 4%; background-color: white;">
+        <div id="Tassonomia_Dichiara10" name="Tassonomia_Dichiara10" label="Dichiara" mandatory="true"></div>
+        <input group="Tassonomia_Dichiara10" id="Tassonomia_Dichiara101" name="Tassonomia_Dichiara101" type="checkbox" value="SI" checked="checked" dynamic_check="true"/>
+      </td>
+      <td class="noBorder" colspan="2">
+        <p>
+          di avere gruppo sanguigno
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td style="width: 50%;">
+        <p class="Labelcella">
+          Tipo
+        </p>
+      </td>
+      <td style="width: 50%;">
+        <p class="Labelcella">
+          RH
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input class="inputNormal" id="Parametri_TipoGruppoSanguigno" name="Parametri_TipoGruppoSanguigno" style="width: 100%;" label="Tipo di gruppo sanguigno" mandatory="true" />
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_RH" name="Parametri_RH" style="width: 100%;" label="RH" mandatory="true" />
+      </td>
+    </tr>
+  </tbody>
+</table>
+<table class="Modulo noBorder">
+  <tbody>
+    <tr class="noBorder">
+      <td class="noBorder" rowspan="10" style="vertical-align: top; width: 4%; background-color: white;">
+        <div id="Tassonomia_Dichiara11" name="Tassonomia_Dichiara11" label="Dichiara" mandatory="true"></div>
+        <input group="Tassonomia_Dichiara11" id="Tassonomia_Dichiara111" name="Tassonomia_Dichiara111" type="checkbox" value="SI" checked="checked" dynamic_check="true"/>
+      </td>
+      <td class="noBorder" colspan="3">
+        <p>
+          di essersi sottoposto alle seguenti vaccinazioni con i periodici richiami
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td colspan="2" style="width: 70%;">
+        <p class="Labelcella">
+          Tipologia
+        </p>
+      </td>
+      <td style="width: 30%;">
+        <p class="Labelcella">
+          Data
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <div id="Tassonomia_Vaccinazioni" name="Tassonomia_Vaccinazioni" label="Vaccinazioni" mandatory="true"></div>
+        <input group="Tassonomia_Vaccinazioni" id="Tassonomia_Vaccinazioni1" name="Tassonomia_Vaccinazioni1" type="checkbox" value="SI" checked="checked" dynamic_check="true" />
+      </td>
+      <td>
+        <p>
+          antitetanica <span style="font-size: 80%;">(obbligatoria)</span>
+        </p>
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_DataVaccinazione1" name="Parametri_DataVaccinazione1" style="width: 100%;" label="Data" format="date" mandatory_enabled="#Tassonomia_Vaccinazioni1.checked()"/>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input group="Tassonomia_Vaccinazioni" id="Tassonomia_Vaccinazioni2" name="Tassonomia_Vaccinazioni2" type="checkbox" value="SI"/>
+      </td>
+      <td>
+        <p>
+          antiepatite A <span style="font-size: 80%;">(consigliata)</span>
+        </p>
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_DataVaccinazione2" name="Parametri_DataVaccinazione2" style="width: 100%;" label="Data" format="date" mandatory_enabled="#Tassonomia_Vaccinazioni2.checked()"/>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input group="Tassonomia_Vaccinazioni" id="Tassonomia_Vaccinazioni3" name="Tassonomia_Vaccinazioni3" type="checkbox" value="SI"/>
+      </td>
+      <td>
+        <p>
+          antiepatite B <span style="font-size: 80%;">(consigliata)</span>
+        </p>
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_DataVaccinazione3" name="Parametri_DataVaccinazione3" style="width: 100%;" label="Data" format="date" mandatory_enabled="#Tassonomia_Vaccinazioni3.checked()"/>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input group="Tassonomia_Vaccinazioni" id="Tassonomia_Vaccinazioni4" name="Tassonomia_Vaccinazioni4" type="checkbox" value="SI"/>
+      </td>
+      <td>
+        <p>
+          antitifica <span style="font-size: 80%;">(consigliata)</span>
+        </p>
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_DataVaccinazione4" name="Parametri_DataVaccinazione4" style="width: 100%;" label="Data" format="date" mandatory_enabled="#Tassonomia_Vaccinazioni4.checked()"/>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input group="Tassonomia_Vaccinazioni" id="Tassonomia_Vaccinazioni5" name="Tassonomia_Vaccinazioni5" type="checkbox" value="SI"/>
+      </td>
+      <td>
+        <p>
+          paratifica <span style="font-size: 80%;">(consigliata)</span>
+        </p>
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_DataVaccinazione5" name="Parametri_DataVaccinazione5" style="width: 100%;" label="Data" format="date" mandatory_enabled="#Tassonomia_Vaccinazioni5.checked()"/>
+      </td>
+    </tr>
+    {% for i in range(1, 4) %}
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input group="Tassonomia_Vaccinazioni" id="Tassonomia_Vaccinazioni{{i+5}}" name="Tassonomia_Vaccinazioni{{i+5}}" type="checkbox" value="SI"/>
+      </td>
+      <td>
+        <p>
+          altra vaccinazione <span style="font-size: 80%;">(specificare)</span> &nbsp;
+          <input class="inputNormal" id="Parametri_AltraVaccinazione_Specificare{{i+5}}" name="Parametri_AltraVaccinazione_Specificare{{i+5}}" style="width: 55%;" label="Specificare" mandatory_enabled="#Tassonomia_Vaccinazioni{{i+5}}.checked()"/>
+        </p>
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_DataVaccinazione{{i+5}}" name="Parametri_DataVaccinazione{{i+5}}" style="width: 100%;" label="Data" format="date" mandatory_enabled="#Tassonomia_Vaccinazioni{{i+5}}.checked()"/>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<table class="Modulo noBorder">
+  <tbody>
+    <tr class="noBorder">
+      <td class="noBorder" rowspan="3" style="vertical-align: top; width: 4%; background-color: white;">
+        <div id="Tassonomia_Dichiara12" name="Tassonomia_Dichiara12" label="Dichiara"></div>
+        <input group="Tassonomia_Dichiara12" id="Tassonomia_Dichiara121" name="Tassonomia_Dichiara121" type="checkbox" value="SI" />
+      </td>
+      <td class="noBorder" colspan="2">
+        <p>
+          di avere le seguenti allergie o intolleranze alimentari
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td style="width: 100%;">
+        <p class="Labelcella">
+          intolleranze o allergie alimentari riconosciute
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <textarea class="inputNormal" id="Parametri_IntolleranzeAllergie" name="Parametri_IntolleranzeAllergie" style="width: 100%; height: 5cm;" label="Intolleranze o allergie alimentari" mandatory_enabled="#Tassonomia_Dichiara121.checked()"></textarea>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<table class="Modulo noBorder">
+  <tbody>
+    <tr class="noBorder">
+      <td class="noBorder" rowspan="6" style="vertical-align: top; width: 4%; background-color: white;">
+        <div id="Tassonomia_Dichiara13" name="Tassonomia_Dichiara13" label="Dichiara"></div>
+        <input group="Tassonomia_Dichiara13" id="Tassonomia_Dichiara131" name="Tassonomia_Dichiara131" type="checkbox" value="SI" />
+      </td>
+      <td class="noBorder" colspan="6">
+        <p>
+          di essere in possesso delle seguenti patenti di guida
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td style="width: 15%;">
+        <p class="Labelcella">
+          Categoria
+        </p>
+      </td>
+      <td style="width: 15%;">
+        <p class="Labelcella">
+          Numero
+        </p>
+      </td>
+      <td style="width: 20%;">
+        <p class="Labelcella">
+          Ente di riferimento
+        </p>
+      </td>
+      <td style="width: 15%;">
+        <p class="Labelcella">
+          Data di emissione
+        </p>
+      </td>
+      <td style="width: 15%;">
+        <p class="Labelcella">
+          Data di scadenza
+        </p>
+      </td>
+      <td style="width: 20%;">
+        <p class="Labelcella">
+          Eventuali limitazioni
+        </p>
+      </td>
+    </tr>
+    {% for i in range(1, 5) %}
+    <tr>
+      <td>
+        <input class="inputNormal" id="Parametri_Patente{{i}}_Categoria" name="Parametri_Patente{{i}}_Categoria" style="width: 100%;" label="Categoria" {% if i==1 %} mandatory_enabled="#Tassonomia_Dichiara131.checked()" {% else %} enabled="#Parametri_Patente{{i-1}}_Categoria.value() != ''" {% endif %} />
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_Patente{{i}}_Numero" name="Parametri_Patente{{i}}_Numero" style="width: 100%;" label="Numero di patente" mandatory_enabled="#Parametri_Patente{{i}}_Categoria.value() != ''"/>
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_Patente{{i}}_EnteRiferimento" name="Parametri_Patente{{i}}_EnteRiferimento" style="width: 100%;" label="Ente di riferimento" mandatory_enabled="#Parametri_Patente{{i}}_Categoria.value() != ''"/>
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_Patente{{i}}_DataEmissione" name="Parametri_Patente{{i}}_DataEmissione" style="width: 100%;" label="Data di emissione" format="date" mandatory_enabled="#Parametri_Patente{{i}}_Categoria.value() != ''"/>
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_Patente{{i}}_DataScadenza" name="Parametri_Patente{{i}}_DataScadenza" style="width: 100%;" label="Data di scadenza" format="date" mandatory_enabled="#Parametri_Patente{{i}}_Categoria.value() != ''"/>
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_Patente{{i}}_EventualiLimitazioni" name="Parametri_Patente{{i}}_EventualiLimitazioni" style="width: 100%;" label="Eventuali limitazioni" enabled="#Parametri_Patente{{i}}_Categoria.value() != ''"/>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<table class="Modulo noBorder">
+  <tbody>
+    <tr class="noBorder">
+      <td class="noBorder" rowspan="6" style="vertical-align: top; width: 4%; background-color: white;">
+        <div id="Tassonomia_Dichiara14" name="Tassonomia_Dichiara14" label="Dichiara"></div>
+        <input group="Tassonomia_Dichiara14" id="Tassonomia_Dichiara141" name="Tassonomia_Dichiara141" type="checkbox" value="SI" />
+      </td>
+      <td class="noBorder" colspan="3">
+        <p>
+          di essere in possesso dei seguenti titoli di studio
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td style="width: 40%;">
+        <p class="Labelcella">
+          Titolo
+        </p>
+      </td>
+      <td style="width: 40%;">
+        <p class="Labelcella">
+          Istituto conseguimento
+        </p>
+      </td>
+      <td style="width: 20%;">
+        <p class="Labelcella">
+          Anno del conseguimento
+        </p>
+      </td>
+    </tr>
+    {% for i in range(1, 5) %}
+    <tr enabled="!(!#Tassonomia_Dichiara141.checked() || !({{i}}==1))" >
+      <td>
+        <input class="inputNormal" id="Parametri_Titolo{{i}}_Nome" name="Parametri_Titolo{{i}}_Nome" style="width: 100%;" label="Titolo" {% if i==1 %} mandatory="true" {% else %} enabled="#Parametri_Titolo{{i-1}}_Nome.value() != ''" {% endif %}/>
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_Titolo{{i}}_IstitutoConseguimento" name="Parametri_Titolo{{i}}_IstitutoConseguimento" style="width: 100%;" label="Istituto conseguimento" mandatory_enabled="#Parametri_Titolo{{i}}_Nome.value() != ''"  />
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_Titolo{{i}}_AnnoConseguimento" name="Parametri_Titolo{{i}}_AnnoConseguimento" style="width: 100%;" label="Anno del conseguimento" format="number" maxlength="4" mandatory_enabled="#Parametri_Titolo{{i}}_Nome.value() != ''"/>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<table class="Modulo noBorder" style="border: 1px solid grey;">
+  <tbody>
+    <colgroup>
+      <col style="width: 4%;">
+      <col style="width: 46%;">
+      <col style="width: 25%;">
+      <col style="width: 25%;">
+    </colgroup>
+    <tr class="noBorder">
+      <td class="noBorder" rowspan="3" style="vertical-align: top; width: 4%; background-color: white;">
+        <div id="Tassonomia_Dichiara15" name="Tassonomia_Dichiara15" label="Dichiara"></div>
+        <input group="Tassonomia_Dichiara15" id="Tassonomia_Dichiara151" name="Tassonomia_Dichiara151" type="checkbox" value="SI" />
+      </td>
+      <td class="noBorder" colspan="3">
+        <p>
+          di svolgere la propria attività lavorativa presso
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          Denominazione\ragione sociale
+        </p>
+      </td>
+      <td>
+        <p class="Labelcella">
+          Tipologia
+        </p>
+      </td>
+      <td>
+        <p class="Labelcella">
+          Mansione
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input class="inputNormal" id="Parametri_DenominazioneAttivitaLavorativa" name="Parametri_DenominazioneAttivitaLavorativa" style="width: 100%;" label="Denominazione attività lavorativa" mandatory_enabled="#Tassonomia_Dichiara151.checked()" />
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_TipologiaAttivitaLavorativa" name="Parametri_TipologiaAttivitaLavorativa" style="width: 100%;" label="Tipologia attività lavorativa" mandatory_enabled="#Tassonomia_Dichiara151.checked()" />
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_MansioneAttivitaLavorativa" name="Parametri_MansioneAttivitaLavorativa" style="width: 100%;" label="Mansione attività lavorativa" mandatory_enabled="#Tassonomia_Dichiara151.checked()" />
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<table class="Modulo noBorder" style="border: 1px solid grey; margin-top: -1px;">
+  <tbody>
+    <colgroup>
+      <col style="width: 4%;">
+      <col style="width: 19%;">
+      <col style="width: 19%;">
+      <col style="width: 20%;">
+      <col style="width: 19%;">
+      <col style="width: 19%;">
+
+    </colgroup>
+    <tr class="Rigaintestazioneridotta noBorder">
+      <td class="noBorder" rowspan="3" style="background-color: white;">
+
+      </td>
+      <td colspan="5">
+        <p class="Labelcella">
+          Sede operativa
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          Provincia
+        </p>
+      </td>
+      <td>
+        <p class="Labelcella">
+          Comune
+        </p>
+      </td>
+      <td>
+        <p class="Labelcella">
+          Indirizzo
+        </p>
+      </td>
+      <td>
+        <p class="Labelcella">
+          Civico
+        </p>
+      </td>
+      <td>
+        <p class="Labelcella">
+          CAP
+        </p>
+      </td>
+    </tr>
+    <tr style="background-color: white;">
+      <td mandatory_enabled="#Tassonomia_Dichiara151.checked()">
+        {{ utils.provincie( 'Parametri_SedeOperativa_Provincia', label="Provincia della sede operativa")}}
+      </td>
+      <td mandatory_enabled="#Tassonomia_Dichiara151.checked()" style="background-color: white;">
+        <select class="inputNormal" id="Parametri_SedeOperativa_Comune" name="Parametri_SedeOperativa_Comune" style="width:100%" label="Comune della sede operativa" dynamic_value="getComuniFromProvincia( #Parametri_SedeOperativa_Provincia.value(), 'Parametri_SedeOperativa_Comune')"> </select>
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_IndirizzoSedeOperativa" name="Parametri_IndirizzoSedeOperativa" style="width: 100%;" label="Indirizzo della sede operativa" mandatory_enabled="#Tassonomia_Dichiara151.checked()" />
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_CivicoSedeOperativa" name="Parametri_CivicoSedeOperativa" style="width: 100%;" label="Civico della sede operativa" mandatory_enabled="#Tassonomia_Dichiara151.checked()" />
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_CAPSedeeOperativa" name="Parametri_CAPSedeeOperativa" style="width: 100%;" label="CAP della sede operativa" mandatory_enabled="#Tassonomia_Dichiara151.checked()" />
+      </td>
+    </tr>
+  </tbody>
+</table>
+<table class="Modulo noBorder" style="border: 1px solid grey; margin-top: -1px;">
+  <tbody>
+    <colgroup>
+      <col style="width: 4%;">
+      <col style="width: 32%;">
+      <col style="width: 32%;">
+      <col style="width: 32%;">
+    </colgroup>
+    <tr class="Rigaintestazioneridotta noBorder">
+      <td class="noBorder" style="background-color: white;" rowspan="2">
+
+      </td>
+      <td>
+        <p class="Labelcella">
+          Telefono
+        </p>
+      </td>
+      <td>
+        <p class="Labelcella">
+          Posta elettronica ordinaria
+        </p>
+      </td>
+      <td>
+        <p class="Labelcella">
+          Posta elettronica certificata (domicilio digitale)
+        </p>
+      </td>
+    </tr>
+    <tr style="background-color: white;">
+      <td>
+        <input class="inputNormal" id="Parametri_SedeOperativa_Telefono" name="Parametri_SedeOperativa_Telefono" style="width: 100%;" label="Telefono della sede operativa" mandatory_enabled="#Tassonomia_Dichiara151.checked()" />
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_SedeOperativa_PostaElettronicaOrdinaria" name="Parametri_SedeOperativa_PostaElettronicaOrdinaria" style="width: 100%;" label="Posta elettronica ordinaria della sede operativa" />
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_SedeOperativa_MailPEC" name="Parametri_SedeOperativa_MailPEC" style="width: 100%;" label="Posta elettronica certificata della sede operativa" />
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<table class="Modulo noBorder">
+  <tbody>
+    <tr class="noBorder">
+      <td class="noBorder" rowspan="5" style="vertical-align: top; width: 4%; background-color: white;">
+        <div id="Tassonomia_Dichiara16" name="Tassonomia_Dichiara16" label="Dichiara"></div>
+        <input group="Tassonomia_Dichiara16" id="Tassonomia_Dichiara161" name="Tassonomia_Dichiara161" type="checkbox" value="SI" />
+      </td>
+      <td class="noBorder" colspan="2">
+        <p>
+          di essere in possesso delle seguenti esperienze professionali
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td style="width: 50%;">
+        <p class="Labelcella">
+          Esperienza professionale
+        </p>
+      </td>
+      <td style="width: 50%;">
+        <p class="Labelcella">
+          Durata esperienza
+        </p>
+      </td>
+    </tr>
+    <tr enabled="#Tassonomia_Dichiara161.checked()">
+      <td>
+        <input class="inputNormal" id="Parametri_EsperienzaPersonale1" name="Parametri_EsperienzaPersonale1" style="width: 100%;" label="Esperienza personale" mandatory_enabled="#Tassonomia_Dichiara161.checked()" />
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_DurataEsperienza1" name="Parametri_DurataEsperienza1" style="width: 100%;" label="Durata esperienza" mandatory_enabled="#Parametri_EsperienzaPersonale1.value() != ''"/>
+      </td>
+    </tr>
+    <tr enabled="#Tassonomia_Dichiara161.checked()">
+      <td>
+        <input class="inputNormal" id="Parametri_EsperienzaPersonale2" name="Parametri_EsperienzaPersonale2" style="width: 100%;" label="Esperienza personale" />
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_DurataEsperienza2" name="Parametri_DurataEsperienza2" style="width: 100%;" label="Durata esperienza" mandatory_enabled="#Parametri_EsperienzaPersonale2.value() != ''"/>
+      </td>
+    </tr>
+    <tr enabled="#Tassonomia_Dichiara161.checked()">
+      <td>
+        <input class="inputNormal" id="Parametri_EsperienzaPersonale3" name="Parametri_EsperienzaPersonale3" style="width: 100%;" label="Esperienza personale" />
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_DurataEsperienza3" name="Parametri_DurataEsperienza3" style="width: 100%;" label="Durata esperienza" mandatory_enabled="#Parametri_EsperienzaPersonale3.value() != ''"/>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<table class="Modulo noBorder">
+  <tbody>
+    <tr class="noBorder">
+      <td class="noBorder" rowspan="5" style="vertical-align: top; width: 4%; background-color: white;">
+        <div id="Tassonomia_Dichiara17" name="Tassonomia_Dichiara17" label="Dichiara"></div>
+        <input group="Tassonomia_Dichiara17" id="Tassonomia_Dichiara171" name="Tassonomia_Dichiara171" type="checkbox" value="SI" />
+      </td>
+      <td class="noBorder">
+        <p>
+          di essere in possesso delle seguenti specializzazioni e/o attitudini, anche non professionali
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          Specializzazioni e/o attitudini
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input class="inputNormal" id="Parametri_Specializzazione1" name="Parametri_Specializzazione1" style="width: 100%;" label="Specializzazione" mandatory_enabled="#Tassonomia_Dichiara171.checked()" />
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input class="inputNormal" id="Parametri_Specializzazione2" name="Parametri_Specializzazione2" style="width: 100%;" label="Specializzazione" enabled="#Tassonomia_Dichiara171.checked()" />
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input class="inputNormal" id="Parametri_Specializzazione3" name="Parametri_Specializzazione3" style="width: 100%;" label="Specializzazione" enabled="#Tassonomia_Dichiara171.checked()" />
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<table class="Modulo noBorder">
+  <tbody>
+    <tr class="noBorder">
+      <td class="noBorder" rowspan="5" style="vertical-align: top; width: 4%; background-color: white;">
+        <div id="Tassonomia_Dichiara18" name="Tassonomia_Dichiara18" label="Dichiara" mandatory="true"></div>
+        <input group="Tassonomia_Dichiara18" id="Tassonomia_Dichiara181" name="Tassonomia_Dichiara181" type="checkbox" value="SI" />
+      </td>
+      <td class="noBorder" colspan="2">
+        <p>
+          di conoscere le seguenti lingue estere
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td style="width: 48%;">
+        <p class="Labelcella">
+          Lingua estera
+        </p>
+      </td>
+      <td style="width: 48%;">
+        <p class="Labelcella">
+          Livello di conoscenza
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input class="inputNormal" id="Parametri_LinguaEstera1" name="Parametri_LinguaEstera1" style="width: 100%;" label="Lingua estera" mandatory_enabled="#Tassonomia_Dichiara181.checked()"/>
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_LivelloConoscenzaLingua1" name="Parametri_LivelloConoscenzaLingua1" style="width: 100%;" label="Livello di conoscenza" mandatory_enabled="#Parametri_LinguaEstera1.value() != ''"/>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input class="inputNormal" id="Parametri_LinguaEstera2" name="Parametri_LinguaEstera2" style="width: 100%;" label="Lingua estera" enabled="#Tassonomia_Dichiara181.checked()"/>
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_LivelloConoscenzaLingua2" name="Parametri_LivelloConoscenzaLingua2" style="width: 100%;" label="Livello di conoscenza" mandatory_enabled="#Parametri_LinguaEstera2.value() != ''"/>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input class="inputNormal" id="Parametri_LinguaEstera3" name="Parametri_LinguaEstera3" style="width: 100%;" label="Lingua estera" enabled="#Tassonomia_Dichiara181.checked()"/>
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_LivelloConoscenzaLingua3" name="Parametri_LivelloConoscenzaLingua3" style="width: 100%;" label="Livello di conoscenza" mandatory_enabled="#Parametri_LinguaEstera3.value() != ''"/>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<table class="Modulo noBorder">
+  <tbody>
+    <tr class="noBorder">
+      <td class="noBorder" rowspan="5" style="vertical-align: top; width: 4%; background-color: white;">
+        <div id="Tassonomia_Dichiara19" name="Tassonomia_Dichiara19" label="Dichiara"></div>
+        <input group="Tassonomia_Dichiara19" id="Tassonomia_Dichiara191" name="Tassonomia_Dichiara191" type="checkbox" value="SI" />
+      </td>
+      <td class="noBorder">
+        <p>
+          di partecipare attivamente alle seguenti organizzazioni o associazioni di volontariato
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          Denominazione organizzazione o associazione
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input class="inputNormal" id="Parametri_DenominazioneOrganizzazionePartecipazione1" name="Parametri_DenominazioneOrganizzazionePartecipazione1" style="width: 100%;" label="Denominazione organizzazione o associazione" mandatory_enabled="#Tassonomia_Dichiara191.checked()"/>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input class="inputNormal" id="Parametri_DenominazioneOrganizzazionePartecipazione2" name="Parametri_DenominazioneOrganizzazionePartecipazione2" style="width: 100%;" label="Denominazione organizzazione o associazione" enabled="#Tassonomia_Dichiara191.checked()"/>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input class="inputNormal" id="Parametri_DenominazioneOrganizzazionePartecipazione3" name="Parametri_DenominazioneOrganizzazionePartecipazione3" style="width: 100%;" label="Denominazione organizzazione o associazione" enabled="#Tassonomia_Dichiara191.checked()"/>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<br>
+
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          Eventuali annotazioni
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <textarea class="inputNormal" id="Parametri_Annotazioni" name="Parametri_Annotazioni" style="width: 100%; height: 5cm;" label="Eventuali annotazioni"></textarea>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<br>
+
+<table class="Modulo" name="Allegati" style="border: 1px solid grey">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="2">
+        <p style="text-align: center;">
+          <b>
+            Elenco degli allegati
+          </b>
+          <br/>
+          <span style="font-size:70%">
+            <i>(barrare tutti gli allegati richiesti in fase di presentazione della pratica ed elencati sul portale)</i>
+          </span>
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="width: 4%; vertical-align: top;">
+        <input id="VOL_CER_VAC" name="VOL_CER_VAC" type="checkbox" value="OBBLIGATORIO" checked="checked" dynamic_check="true"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          copia del certificato relativo alle vaccinazioni eseguite
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="width: 4%; vertical-align: top;">
+        <input id="PER-SOG" name="PER-SOG" type="checkbox" value="OBBLIGATORIO"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          copia del permesso di soggiorno <br>
+          <span style="font-size: 70%; font-weight: normal;"><i>(da allegare in caso di cittadino extracomunitario)</i></span>
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="width: 4%; vertical-align: top;">
+        <input id="COP_PATENT_ABI" name="COP_PATENT_ABI" type="checkbox" value="OBBLIGATORIO" enabled="#Tassonomia_Dichiara131.checked()" dynamic_check="#Tassonomia_Dichiara131.checked()"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          copia della patente di guida o altri patentini abilitativi alla guida di mezzi speciali <br>
+          <span style="font-size: 70%; font-weight: normal;"><i>(da allegare se in possesso di patenti di guida)</i></span>
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="DAE-CDI" name="DAE-CDI" type="checkbox" value="OBBLIGATORIO" />
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          copia del documento d'identità
+          <br/>
+          <span style="font-size:70%">
+            <i>(da allegare se il modulo è sottoscritto con firma autografa)</i>
+          </span>
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="ALTRI-ALLEGATI" name="ALTRI-ALLEGATI" type="checkbox" value="OBBLIGATORIO"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          altri allegati
+          <span style="font-size:70%">(specificare)</span>
+          <input class="" label="Altri allegati" id="AltriAllegati" mandatory_enabled="#ALTRI_ALLEGATI.checked()" name="AltriAllegati" style="width:79%;"/>
+        </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<br>
+{{ utils.trattamento_dati_personali() }}
+<br/>
+  {{ utils.firma_hidden() }}
+<br/>
+
+<p class="Modulo">
+  <input id="SalvaModulo" name="SalvaModulo" style="height:30px;width:120px;" title="Verifica la corretta compilazione dei campi e salva il modulo nel faldone virtuale dell'istanza." type="submit" value="Salva modulo"/>
+</p>
+
+<input destinatario_amministrazione="getParameter('Ente')" id="GLOBO_modulo_c{{ CodiceModulo }}" name="GLOBO_modulo_c{{ CodiceModulo }}" type="hidden" value=""/>
+<input firmare="'P7M_ELETTRONICA'" id="GLOBO_modulofiglio_cINCARICO_PROCURA" name="GLOBO_modulofiglio_cINCARICO_PROCURA" type="hidden" value=""/>
+
+<input id="GLOBO_allegato_cVOL_CER_VAC" name="GLOBO_allegato_cVOL_CER_VAC" type="hidden" value="" obbligatorio="#VOL_CER_VAC.checked() ? 'OBBLIGATORIO' : ''"/>
+<input id="GLOBO_allegato_cPER-SOG" name="GLOBO_allegato_cPER-SOG" type="hidden" value="" obbligatorio="#PER_SOG.checked() ? 'OBBLIGATORIO' : ''"/>
+<input id="GLOBO_allegato_cCOP_PATENT_ABI" name="GLOBO_allegato_cCOP_PATENT_ABI" type="hidden" value="" obbligatorio="#COP_PATENT_ABI.checked() ? 'OBBLIGATORIO' : ''"/>
+<input id="GLOBO_allegato_cDAE-CDI" name="GLOBO_allegato_cDAE-CDI" obbligatorio="#DAE_CDI.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+<input id="GLOBO_allegato_cALTRI-ALLEGATI" name="GLOBO_allegato_cALTRI-ALLEGATI" obbligatorio="#ALTRI_ALLEGATI.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_id_padre" name="GLOBO_id_padre" type="hidden"/>
+<input id="GLOBO_recupera_dati" name="GLOBO_recupera_dati" type="hidden"/>
+<input id="GLOBO_codice_modulo" name="GLOBO_codice_modulo" type="hidden" value="{{ CodiceModulo }}"/>
+
+{% endblock content %}

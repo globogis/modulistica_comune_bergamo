@@ -1,0 +1,3829 @@
+{% set CodiceModulo = "RAPP-ISP-TER" %}
+{% set Urn = "document:c_a794:rapporto.ispezione.sintetico" %}
+{% extends "base.html" %}
+{% block meta %}
+<meta
+campi_firma="Titolare_CodiceFiscale"
+campi_firma_label="il dichiarante"
+classi_modulo="Ecologia"
+contesto_procedurale="ECOLOGIA_IMPIANTI_TERMICI"
+codice_modulo="{{ CodiceModulo }}"
+urn="{% block urn %}{{ Urn }}{% endblock urn %}"
+descrizione="Sintesi del rapporto di ispezione per impianti termici a combustione "
+destinatario_amministrazione=""
+destinatario_ufficio="UOAMBIENTE"
+dinamico="SI"
+email_a=""
+ente_abilitato="TUTTI"
+filigrana="SI"
+firmare="P7M_ELETTRONICA"
+in_bollo="SI"
+istruzioni_compilazione=""
+istruzioni_invio="mail_pec"
+metodo_invio="MINIMALE"
+name="GLOBO_modulo"
+procura="NO,,"
+tipo_modulo="principale"
+ufficio=""
+urlhelp="DomandeRisposte/FAQ"
+verifica_pagamento="NO"
+versione="1.1|08/05/2019"/>
+
+<meta codice_modulo_figlio="INCARICO_PROCURA"
+urn_modulo_figlio="document:s_italia:generale;incarico.procura"
+name="GLOBO_modulofiglio"
+numero="1"
+obbligatorio="DINAMICO"/>
+
+<meta codice_allegato="RAPP-COP-TER"
+urn_allegato=""
+descrizione_estesa="Rapporto di ispezione scansionato"
+filename="RapportoIspezione.pdf"
+firmato="NO"
+istruzioni="DomandeRisposte/FAQ"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="OBBLIGATORIO"
+tipo_mime="application/pdf"/>
+
+<script language="function_code" type="text/javascript">
+    
+    function Numerico(valorecampo){
+
+      var numero = valorecampo
+      if(!isNaN(numero)){
+          if(numero>0 && numero<35){
+            return "SI";
+          }else{
+            return "NO";
+          }
+      }else{
+        return "NO";
+      }
+    }
+</script>
+  
+{% endblock meta %}
+{% block title %}
+   Sintesi rapporto di controllo di impianti termici 
+  {% endblock title %}
+{% block content %}
+ <globo_fondo_pagina areaheight="150" scope="5">
+ {{ utils.firma() }}
+</globo_fondo_pagina>
+<input id="DatiNominali_PTFocolareHidden" name="DatiNominali_PTFocolareHidden" dynamic_value="Numerico(#DatiNominali_PTFocolare.value())" />
+<input dynamic_value="'Impianto  ' + #DatiGenerali_CodiceCatastoImpianti.value() + ' verifica n°  ' + #DatiGenerali_Numero.value() + ' del ' + #DatiGenerali_DataVerifica.value() + ' - sito in ' + #Immobile_Via.value() + ' ' + #Immobile_Civico.value()" id="Oggetto" name="Oggetto" type="hidden"/>
+
+ {{ intestazioni.intestazione_moduloprincipale_senzabollo() }}
+ 
+ <input checked="checked" dynamic_check="true" id="SempreSI" name="SempreSI" style="display:none;" type="checkbox" value="si"/>
+
+<input dynamic_value="#Ente.value()" id="Parametri_Comune" name="Parametri_Comune" type="hidden"/>
+
+<h1 class="Modulo">
+ Sintesi del Rapporto di ispezione per impianti termici a combustione
+</h1>
+
+<h2 class="Modulo">
+ ai sensi Decreto Presidente della Repubblica 16/04/2013, n.74 e Delibera di Giunta Regionale 3965/2015
+</h2>
+
+{{anagrafica.societa("Titolare","Il sottoscritto",["Persona fisica", "Titolare", "Legale rappresentante", "Delegato"], "Richiedente")}}
+
+<br/>
+{{ utils.Dichiara_445() }}
+
+<p class="Modulo">che i dati di sintesi, di seguito riportati, sono conformi a quanto riportato nel rapporto di ispezione allegato</p>
+<br/>
+
+<table class="Modulo">
+ <tbody>
+  <tr class="Rigaintestazione">
+   <td colspan="4">
+    <p class="Labeltabella">
+     1. Dati generali
+    </p>
+   </td>
+  </tr>
+  <tr class="Rigaintestazioneridotta">
+   <td>
+    <p class="Labelcella">
+     Catasto impianti/codice
+    </p>
+   </td>
+   <td>
+    <p class="Labelcella">
+     Progressivo generatore
+    </p>
+   </td>
+   <td>
+    <p class="Labelcella">
+     Numero
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td>
+    <input id="DatiGenerali_CodiceCatastoImpianti" label="Catasto impianti/codice" mandatory="true" name="DatiGenerali_CodiceCatastoImpianti" style="width:100%;" type="text"/>
+   </td>
+    <td>
+       <input class="inputNormal" id="DatiGenerali_ProgressivoGeneratore" name="DatiGenerali_ProgressivoGeneratore" style="width:100%;" type="text" mandatory="true" label="Progressivo generatore"/>
+     </td>
+   <td>
+    <input id="DatiGenerali_Numero" mandatory="true" name="DatiGenerali_Numero" style="width:100%;" type="text"/>
+   </td>
+  </tr>
+  <tr class="Rigaintestazioneridotta">
+    <td>
+       <p class="Labelcella">
+        Data verifica
+       </p>
+      </td>
+      <td>
+       <p class="Labelcella">
+        Ora inizio verifica
+       </p>
+      </td>
+      <td>
+       <p class="Labelcella">
+        Ora fine verifica
+       </p>
+      </td>
+     </tr>
+     <tr>
+      <td>
+       <input id="DatiGenerali_DataVerifica" name="DatiGenerali_DataVerifica" style="width:100%;" type="text" mandatory="true" format="date" label="Data verifica"/>
+     </td>
+      <td>
+       <input id="DatiGenerali_OraIniVerifica" name="DatiGenerali_OraIniVerifica" style="width:100%;" type="text" format="time" label="Ora inizio verifica"/>
+     </td>
+      <td>
+       <input id="DatiGenerali_OraFineVerifica" name="DatiGenerali_OraFineVerifica" style="width:100%;" type="text" format="time" label="Ora fine verifica"/>
+     </td>
+  </tr>
+  <tr class="Rigaintestazioneridotta">
+   <td>
+    <p class="Labelcella">
+     Autodichiarato
+    </p>
+   </td>
+   <td>
+    <p class="Labelcella">
+     Numero Bollino
+    </p>
+   </td>
+   <td>
+    <p class="Labelcella">
+     Data dichiarazione
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td>
+    <select id="Autodichiarato" name="Autodichiarato" style="width:100%;">
+     <option value="">
+     </option>
+     <option value="Sì">
+      Sì
+     </option>
+     <option value="No">
+      No
+     </option>
+    </select>
+   </td>
+   <td>
+    <input id="NumeroVerificaBollino" name="NumeroVerificaBollino" style="width:100%;" type="text"/>
+   </td>
+   <td>
+    <input id="DataDichiarazione" name="DataDichiarazione" style="width:100%;" format="date" type="text"/>
+   </td>
+  </tr>
+ </tbody>
+</table>
+
+<table class="Modulo" style="border:1px solid grey; margin-top:-1px" >
+        <tbody>
+           <tr class="Rigaintestazione">
+              <td colspan="3">
+               <p class="Labeltabella">
+                     Verificatore
+               </p>
+              </td>
+           </tr>
+            <tr class="Rigaintestazioneridotta">
+                <td >
+                    <p class="Labelcella">Cognome</p>
+                </td>
+                <td>
+                    <p class="Labelcella">Nome</p>
+                </td>
+                <td>
+                    <p class="Labelcella">Codice Fiscale</p>
+                </td>
+            </tr>
+            <tr>
+                <td >
+                    <input class="" id="Verificatore_Cognome" name="Verificatore_Cognome" style="width:100%" label="Cognome" mandatory_enabled="true"/>
+                </td>
+                <td>
+                    <input class="" id="Verificatore_Nome" name="Verificatore_Nome" style="width:100%" label="Nome" mandatory_enabled="true"/>
+                </td>
+                <td>
+                    <input class="" id="Verificatore_CodiceFiscale" name="Verificatore_CodiceFiscale" style="width:100%" format="cf" label="Il codice fiscale del Verificatore" mandatory_enabled="true"/>
+                </td>
+            </tr>
+        </tbody>    
+</table>    
+
+
+
+{{ immobili.immobile_toponomastica("Immobile", "Ubicazione impianto")}}
+
+<table class="Modulo" name="Titolare_Titolare">
+ <tbody>
+  <tr class="Rigaintestazione">
+   <td colspan="3">
+    <p class="Labeltabella">
+     Delegato
+    </p>
+   </td>
+  </tr>
+  <tr class="Rigaintestazioneridotta">
+   <td style="width:33%;">
+    <p class="Labelcella">
+     Cognome
+    </p>
+   </td>
+   <td style="width:33%;">
+    <p class="Labelcella">
+     Nome
+    </p>
+   </td>
+   <td>
+    <p class="Labelcella">
+     Indirizzo
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td>
+    <input id="Delegato_Cognome" name="Delegato_Cognome" size="20" style="width:100%;"/>
+   </td>
+   <td>
+    <input id="Delegato_Nome" name="Delegato_Nome" size="20" style="width:100%;"/>
+   </td>
+   <td>
+    <input id="Delegato_Indirizzo" name="Delegato_Indirizzo" size="8" style="width:100%;"/>
+   </td>
+  </tr>
+ </tbody>
+</table>
+<table class="Modulo">
+ <tbody>
+  <tr class="Rigaintestazione">
+   <td>
+    <p class="Labeltabella">
+     Responsabile impianto
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td>
+    <select id="ResponsabileImpianto" label="Responsabile impianto" mandatory="true" name="ResponsabileImpianto" style="width:100%;">
+     <option value="">
+     </option>
+     <option value="Occupante">
+      Occupante
+     </option>
+     <!--<option value="Terzo responsabile (manutentore)">
+      Terzo responsabile (manutentore)
+     </option> -->
+     <option value="Proprietario">
+      Proprietario/i
+     </option>
+     <!-- <option value="Amministratore">
+      Amministratore
+     </option> -->
+    </select>
+   </td>
+  </tr>
+ </tbody>
+</table>
+
+<div>
+ <table class="Modulo">
+  <tbody>
+   <tr class="Rigaintestazione">
+    <td colspan="9">
+     <p class="Labeltabella">
+      Occupante
+     </p>
+    </td>
+   </tr>
+   <tr class="Rigaintestazioneridotta">
+    <td colspan="3" style="width: 33%;">
+     <p class="Labelcella">
+      Cognome
+     </p>
+    </td>
+    <td colspan="3" style="width: 33%;">
+     <p class="Labelcella">
+      Nome
+     </p>
+    </td>
+    <td colspan="3" style="width: 34%;">
+     <p class="Labelcella">
+      Codice Fiscale
+     </p>
+    </td>
+   </tr>
+   <tr>
+    <td colspan="3">
+     <input id="Referente1_Cognome" name="Referente1_Cognome" style="width:100%" mandatory="#ResponsabileImpianto.check_value(['Occupante'])"/>
+    </td>
+    <td colspan="3">
+     <input id="Referente1_Nome" name="Referente1_Nome" style="width:100%" mandatory="#ResponsabileImpianto.check_value(['Occupante'])"/>
+    </td>
+    <td colspan="3">
+     <input id="Referente1_CodiceFiscale" name="Referente1_CodiceFiscale" style="width:100%" mandatory="#ResponsabileImpianto.check_value(['Occupante'])"/>
+    </td>
+   </tr>
+   <tr class="Rigaintestazioneridotta">
+    <td colspan="2" style="width: 25%;">
+     <p class="Labelcella">
+      Data di nascita
+     </p>
+    </td>
+    <td colspan="1" style="width: 8%;">
+     <p class="Labelcella">
+      Sesso
+     </p>
+    </td>
+    <td colspan="3" style="width: 33%;">
+     <p class="Labelcella">
+      Cittadinanza
+     </p>
+    </td>
+    <td colspan="3" style="width: 34%;">
+     <p class="Labelcella">
+      Luogo di nascita
+     </p>
+    </td>
+   </tr>
+   <tr>
+    <td colspan="2">
+     <input id="Referente1_DataNascita" name="Referente1_DataNascita" style="width:100%"/>
+    </td>
+    <td colspan="1">
+     <select id="Referente1_Sesso" name="Referente1_Sesso" style="width:100%">
+      <option value="">
+      </option>
+      <option value="M">
+       M
+      </option>
+      <option value="F">
+       F
+      </option>
+     </select>
+    </td>
+    <td colspan="3">
+     <input id="Referente1_Cittadinanza" name="Referente1_Cittadinanza" style="width:100%"/>
+    </td>
+    <td colspan="3">
+     <input id="Referente1_LuogoNascita" name="Referente1_LuogoNascita" style="width:100%"/>
+    </td>
+   </tr>
+   <tr class="Rigaintestazioneridotta">
+    <td colspan="2" style="width: 25%;">
+     <p class="Labelcella">
+      Telefono
+     </p>
+    </td>
+    <td colspan="2" style="width: 25%;">
+     <p class="Labelcella">
+      Fax
+     </p>
+    </td>
+    <td colspan="5" style="width: 50%;">
+     <p class="Labelcella">
+      E-mail PEC
+     </p>
+    </td>
+   </tr>
+   <tr>
+    <td colspan="2">
+     <input id="Referente1_Telefono" name="Referente1_Telefono" style="width:100%"/>
+    </td>
+    <td colspan="2">
+     <input id="Referente1_Fax" name="Referente1_Fax" style="width:100%"/>
+    </td>
+    <td colspan="5">
+     <input id="Referente1_EMail" name="Referente1_EMail" style="width:100%" format="pec" label="E-mail PEC"/>
+    </td>
+   </tr>
+   <tr class="Rigaintestazioneridotta">
+    <td colspan="9">
+     <p class="Labelcella">
+      Residente in
+     </p>
+    </td>
+   </tr>
+   <tr class="Rigaintestazioneridotta">
+    <td colspan="3" style="width:25%;">
+     <p class="Labelcella">
+      Comune
+     </p>
+    </td>
+    <td colspan="3" style="width:41%;">
+     <p class="Labelcella">
+      Indirizzo
+     </p>
+    </td>
+    <td colspan="1" style="width:9%;">
+     <p class="Labelcella">
+      Civico
+     </p>
+    </td>
+    <td colspan="1" style="width:16%;">
+     <p class="Labelcella">
+      CAP
+     </p>
+    </td>
+    <td colspan="1" style="width:9%;">
+     <p class="Labelcella">
+      Provincia
+     </p>
+    </td>
+   </tr>
+   <tr>
+    <td colspan="3">
+     <input id="Referente1_ComuneResidenza" name="Referente1_ComuneResidenza" style="width:100%" mandatory="#ResponsabileImpianto.check_value(['Occupante'])"/>
+    </td>
+    <td colspan="3">
+     <input id="Referente1_ViaResidenza" name="Referente1_ViaResidenza" style="width:100%" mandatory="#ResponsabileImpianto.check_value(['Occupante'])"/>
+    </td>
+    <td colspan="1">
+     <input id="Referente1_CivicoResidenza" name="Referente1_CivicoResidenza" style="width:100%" mandatory="#ResponsabileImpianto.check_value(['Occupante'])"/>
+    </td>
+    <td colspan="1">
+     <input id="Referente1_CAPResidenza" name="Referente1_CAPResidenza" style="width:100%" mandatory="#ResponsabileImpianto.check_value(['Occupante'])"/>
+    </td>
+    <td colspan="1">
+     <input id="Referente1_ProvinciaResidenza" name="Referente1_ProvinciaResidenza" style="width:100%" mandatory="#ResponsabileImpianto.check_value(['Occupante'])"/>
+    </td>
+   </tr>
+   <input id="Referente1_Ruolo" name="Referente1_Ruolo" type="hidden" value="Occupante"/>
+   <tr class="Rigaintestazioneridotta">
+    <td colspan="9">
+     <p class="Labelcella">
+      La sezione seguente deve essere compilata solo se il dichiarante non è la persona fisica
+     </p>
+    </td>
+   </tr>
+   <tr>
+    <td colspan="3">
+      <div id="Referente1_Titolo" label="Ruolo" mandatory="false" name="Referente1_Titolo"/>
+     <p>
+      <input id="Referente1_Titolo1" name="Referente1_Titolo" type="radio" value="Titolare"/>
+      Titolare
+     </p>
+    </td>
+    <td colspan="3">
+     <p>
+      <input id="Referente1_Titolo2" name="Referente1_Titolo" type="radio" value="Legale Rappresentante"/>
+      Legale rappresentante
+     </p>
+    </td>
+    <td colspan="3">
+     <p>
+      <input id="Referente1_Titolo3" name="Referente1_Titolo" type="radio" value="Per conto di"/>
+      Per conto di
+     </p>
+    </td>
+   </tr>
+   <tr class="Rigaintestazioneridotta">
+    <td colspan="5">
+     <p class="Labelcella">
+      Denominazione/Ragione sociale
+     </p>
+    </td>
+    <td colspan="4">
+     <p class="Labelcella">
+      Codice fiscale/Partita IVA
+     </p>
+    </td>
+   </tr>
+   <tr>
+    <td colspan="5">
+     <input id="Referente1_Denominazione" name="Referente1_Denominazione" style="width:100%"/>
+    </td>
+    <td colspan="4">
+     <input id="Referente1_CFPIVA" name="Referente1_CFPIVA" style="width:100%"/>
+    </td>
+   </tr>
+   <tr class="Rigaintestazioneridotta">
+    <td colspan="3" style="width:27%;">
+     <p class="Labelcella">
+      Comune sede legale
+     </p>
+    </td>
+    <td colspan="3" style="width:35%;">
+     <p class="Labelcella">
+      Indirizzo
+     </p>
+    </td>
+    <td style="width:9%;">
+     <p class="Labelcella">
+      Civico
+     </p>
+    </td>
+    <td colspan="1" style="width:12%;">
+     <p class="Labelcella">
+      CAP
+     </p>
+    </td>
+    <td colspan="1" style="width:15%;">
+     <p class="Labelcella">
+      Provincia
+     </p>
+    </td>
+   </tr>
+   <tr>
+    <td colspan="3">
+     <input id="Referente1_ComuneSede" name="Referente1_ComuneSede" style="width:100%"/>
+    </td>
+    <td colspan="3">
+     <input id="Referente1_ViaSede" name="Referente1_ViaSede" style="width:100%"/>
+    </td>
+    <td>
+     <input id="Referente1_CivicoSede" name="Referente1_CivicoSede" style="width:100%"/>
+    </td>
+    <td colspan="1">
+     <input id="Referente1_CAPSede" name="Referente1_CAPSede" style="width:100%"/>
+    </td>
+    <td colspan="1">
+     <input id="Referente1_ProvinciaSede" name="Referente1_ProvinciaSede" style="width:100%"/>
+    </td>
+   </tr>
+   <tr class="Rigaintestazioneridotta">
+    <td colspan="2">
+     <p class="Labelcella">
+      Telefono
+     </p>
+    </td>
+    <td colspan="2">
+     <p class="Labelcella">
+      Fax
+     </p>
+    </td>
+    <td colspan="5">
+     <p class="Labelcella">
+      e-mail PEC
+     </p>
+    </td>
+   </tr>
+   <tr>
+    <td colspan="2">
+     <input id="Referente1_TelefonoSede" name="Referente1_TelefonoSede" style="width:100%"/>
+    </td>
+    <td colspan="2">
+     <input id="Referente1_FaxSede" name="Referente1_FaxSede" style="width:100%"/>
+    </td>
+    <td colspan="5">
+     <input id="Referente1_EMailSede" name="Referente1_EMailSede" style="width:100%" format="pec" label="e-mail PEC"/>
+    </td>
+   </tr>
+   <tr class="Rigaintestazioneridotta">
+    <td colspan="5">
+     <p class="Labelcella">
+      Tipologia iscrizione
+     </p>
+    </td>
+    <td colspan="2">
+     <p class="Labelcella">
+      Provincia
+     </p>
+    </td>
+    <td colspan="2">
+     <p class="Labelcella">
+      Numero iscrizione
+     </p>
+    </td>
+   </tr>
+   <tr style="border-bottom: 0px;">
+    <td colspan="5">
+     <select id="Referente1_Attributi_IscrittoCCIAA" name="Referente1_Attributi_IscrittoCCIAA" style="width:100%;">
+      <option value="">
+      </option>
+      <option value="Iscritto al Registro alla CCIIAA">
+       Iscritto al Registro Imprese alla CCIIAA
+      </option>
+      <option value="In attesa di iscrizione al R.I. pologia iscrizione">
+       In attesa di iscrizione al Registro Imprese alla CCIIAA
+      </option>
+      <option value="Non tenuto all'iscrizione in quanto Ente o altra struttura">
+       Non tenuto all'iscrizione in quanto Ente o altra struttura
+      </option>
+     </select>
+    </td>
+    <td colspan="2">
+     <input id="Referente1_Attributi_CCIAAProv" name="Referente1_Attributi_CCIAAProv" style="width:100%"/>
+    </td>
+    <td colspan="2">
+     <input id="Referente1_Attributi_CCIAANumero" name="Referente1_Attributi_CCIAANumero" style="width:100%"/>
+    </td>
+   </tr>
+  </tbody>
+ </table>
+</div>
+<div>
+ <table class="Modulo">
+  <tbody>
+   <tr class="Rigaintestazione">
+    <td colspan="9">
+     <p class="Labeltabella">
+      Proprietario
+     </p>
+    </td>
+   </tr>
+   <tr class="Rigaintestazioneridotta">
+    <td colspan="3" style="width: 33%;">
+     <p class="Labelcella">
+      Cognome
+     </p>
+    </td>
+    <td colspan="3" style="width: 33%;">
+     <p class="Labelcella">
+      Nome
+     </p>
+    </td>
+    <td colspan="3" style="width: 34%;">
+     <p class="Labelcella">
+      Codice Fiscale
+     </p>
+    </td>
+   </tr>
+   <tr>
+    <td colspan="3">
+     <input id="Referente2_Cognome" name="Referente2_Cognome" style="width:100%" mandatory="#ResponsabileImpianto.check_value(['Proprietario'])"/>
+    </td>
+    <td colspan="3">
+     <input id="Referente2_Nome" name="Referente2_Nome" style="width:100%" mandatory="#ResponsabileImpianto.check_value(['Proprietario'])"/>
+    </td>
+    <td colspan="3">
+     <input id="Referente2_CodiceFiscale" name="Referente2_CodiceFiscale" style="width:100%" mandatory="#ResponsabileImpianto.check_value(['Proprietario'])"/>
+    </td>
+   </tr>
+   <tr class="Rigaintestazioneridotta">
+    <td colspan="2" style="width: 25%;">
+     <p class="Labelcella">
+      Data di nascita
+     </p>
+    </td>
+    <td colspan="1" style="width: 8%;">
+     <p class="Labelcella">
+      Sesso
+     </p>
+    </td>
+    <td colspan="3" style="width: 33%;">
+     <p class="Labelcella">
+      Cittadinanza
+     </p>
+    </td>
+    <td colspan="3" style="width: 34%;">
+     <p class="Labelcella">
+      Luogo di nascita
+     </p>
+    </td>
+   </tr>
+   <tr>
+    <td colspan="2">
+     <input id="Referente2_DataNascita" name="Referente2_DataNascita" style="width:100%"/>
+    </td>
+    <td colspan="1">
+     <select id="Referente2_Sesso" name="Referente2_Sesso" style="width:100%">
+      <option value="">
+      </option>
+      <option value="M">
+       M
+      </option>
+      <option value="F">
+       F
+      </option>
+     </select>
+    </td>
+    <td colspan="3">
+     <input id="Referente2_Cittadinanza" name="Referente2_Cittadinanza" style="width:100%"/>
+    </td>
+    <td colspan="3">
+     <input id="Referente2_LuogoNascita" name="Referente2_LuogoNascita" style="width:100%"/>
+    </td>
+   </tr>
+   <tr class="Rigaintestazioneridotta">
+    <td colspan="2" style="width: 25%;">
+     <p class="Labelcella">
+      Telefono
+     </p>
+    </td>
+    <td colspan="2" style="width: 25%;">
+     <p class="Labelcella">
+      Fax
+     </p>
+    </td>
+    <td colspan="5" style="width: 50%;">
+     <p class="Labelcella">
+      E-mail PEC
+     </p>
+    </td>
+   </tr>
+   <tr>
+    <td colspan="2">
+     <input id="Referente2_Telefono" name="Referente2_Telefono" style="width:100%"/>
+    </td>
+    <td colspan="2">
+     <input id="Referente2_Fax" name="Referente2_Fax" style="width:100%"/>
+    </td>
+    <td colspan="5">
+     <input id="Referente2_EMail" name="Referente2_EMail" style="width:100%" format="pec" label="E-mail PEC"/>
+    </td>
+   </tr>
+   <tr class="Rigaintestazioneridotta">
+    <td colspan="9">
+     <p class="Labelcella">
+      Residente in
+     </p>
+    </td>
+   </tr>
+   <tr class="Rigaintestazioneridotta">
+    <td colspan="3" style="width:25%;">
+     <p class="Labelcella">
+      Comune
+     </p>
+    </td>
+    <td colspan="3" style="width:41%;">
+     <p class="Labelcella">
+      Indirizzo
+     </p>
+    </td>
+    <td colspan="1" style="width:9%;">
+     <p class="Labelcella">
+      Civico
+     </p>
+    </td>
+    <td colspan="1" style="width:16%;">
+     <p class="Labelcella">
+      CAP
+     </p>
+    </td>
+    <td colspan="1" style="width:9%;">
+     <p class="Labelcella">
+      Provincia
+     </p>
+    </td>
+   </tr>
+   <tr>
+    <td colspan="3">
+     <input id="Referente2_ComuneResidenza" name="Referente2_ComuneResidenza" style="width:100%" mandatory="#ResponsabileImpianto.check_value(['Proprietario'])"/>
+    </td>
+    <td colspan="3">
+     <input id="Referente2_ViaResidenza" name="Referente2_ViaResidenza" style="width:100%" mandatory="#ResponsabileImpianto.check_value(['Proprietario'])"/>
+    </td>
+    <td colspan="1">
+     <input id="Referente2_CivicoResidenza" name="Referente2_CivicoResidenza" style="width:100%" mandatory="#ResponsabileImpianto.check_value(['Proprietario'])"/>
+    </td>
+    <td colspan="1">
+     <input id="Referente2_CAPResidenza" name="Referente2_CAPResidenza" style="width:100%" mandatory="#ResponsabileImpianto.check_value(['Proprietario'])"/>
+    </td>
+    <td colspan="1">
+     <input id="Referente2_ProvinciaResidenza" name="Referente2_ProvinciaResidenza" style="width:100%" mandatory="#ResponsabileImpianto.check_value(['Proprietario'])"/>
+    </td>
+   </tr>
+   <input id="Referente2_Ruolo" name="Referente2_Ruolo" type="hidden" value="Proprietario"/>
+   <tr class="Rigaintestazioneridotta">
+    <td colspan="9">
+     <p class="Labelcella">
+      La sezione seguente deve essere compilata solo se il dichiarante non è la persona fisica
+     </p>
+    </td>
+   </tr>
+   <tr>
+    <td colspan="3">
+      <div id="Referente2_Titolo" label="Ruolo" mandatory="false" name="Referente2_Titolo"/>
+     <p>
+      <input id="Referente2_Titolo1" name="Referente2_Titolo" type="radio" value="Titolare"/>
+      Titolare
+     </p>
+    </td>
+    <td colspan="3">
+     <p>
+      <input id="Referente2_Titolo2" name="Referente2_Titolo" type="radio" value="Legale Rappresentante"/>
+      Legale rappresentante
+     </p>
+    </td>
+    <td colspan="3">
+     <p>
+      <input id="Referente2_Titolo3" name="Referente2_Titolo" type="radio" value="Per conto di"/>
+      Per conto di
+     </p>
+    </td>
+   </tr>
+   <tr class="Rigaintestazioneridotta">
+    <td colspan="5">
+     <p class="Labelcella">
+      Denominazione/Ragione sociale
+     </p>
+    </td>
+    <td colspan="4">
+     <p class="Labelcella">
+      Codice fiscale/Partita IVA
+     </p>
+    </td>
+   </tr>
+   <tr>
+    <td colspan="5">
+     <input id="Referente2_Denominazione" name="Referente2_Denominazione" style="width:100%"/>
+    </td>
+    <td colspan="4">
+     <input id="Referente2_CFPIVA" name="Referente2_CFPIVA" style="width:100%"/>
+    </td>
+   </tr>
+   <tr class="Rigaintestazioneridotta">
+    <td colspan="3" style="width:27%;">
+     <p class="Labelcella">
+      Comune sede legale
+     </p>
+    </td>
+    <td colspan="3" style="width:35%;">
+     <p class="Labelcella">
+      Indirizzo
+     </p>
+    </td>
+    <td style="width:9%;">
+     <p class="Labelcella">
+      Civico
+     </p>
+    </td>
+    <td colspan="1" style="width:12%;">
+     <p class="Labelcella">
+      CAP
+     </p>
+    </td>
+    <td colspan="1" style="width:15%;">
+     <p class="Labelcella">
+      Provincia
+     </p>
+    </td>
+   </tr>
+   <tr>
+    <td colspan="3">
+     <input id="Referente2_ComuneSede" name="Referente2_ComuneSede" style="width:100%"/>
+    </td>
+    <td colspan="3">
+     <input id="Referente2_ViaSede" name="Referente2_ViaSede" style="width:100%"/>
+    </td>
+    <td>
+     <input id="Referente2_CivicoSede" name="Referente2_CivicoSede" style="width:100%"/>
+    </td>
+    <td colspan="1">
+     <input id="Referente2_CAPSede" name="Referente2_CAPSede" style="width:100%"/>
+    </td>
+    <td colspan="1">
+     <input id="Referente2_ProvinciaSede" name="Referente2_ProvinciaSede" style="width:100%"/>
+    </td>
+   </tr>
+   <tr class="Rigaintestazioneridotta">
+    <td colspan="2">
+     <p class="Labelcella">
+      Telefono
+     </p>
+    </td>
+    <td colspan="2">
+     <p class="Labelcella">
+      Fax
+     </p>
+    </td>
+    <td colspan="5">
+     <p class="Labelcella">
+      e-mail PEC
+     </p>
+    </td>
+   </tr>
+   <tr>
+    <td colspan="2">
+     <input id="Referente2_TelefonoSede" name="Referente2_TelefonoSede" style="width:100%"/>
+    </td>
+    <td colspan="2">
+     <input id="Referente2_FaxSede" name="Referente2_FaxSede" style="width:100%"/>
+    </td>
+    <td colspan="5">
+     <input id="Referente2_EMailSede" name="Referente2_EMailSede" style="width:100%" format="pec" label="e-mail PEC"/>
+    </td>
+   </tr>
+   <tr class="Rigaintestazioneridotta">
+    <td colspan="5">
+     <p class="Labelcella">
+      Tipologia iscrizione
+     </p>
+    </td>
+    <td colspan="2">
+     <p class="Labelcella">
+      Provincia
+     </p>
+    </td>
+    <td colspan="2">
+     <p class="Labelcella">
+      Numero iscrizione
+     </p>
+    </td>
+   </tr>
+   <tr style="border-bottom: 0px;">
+    <td colspan="5">
+     <select id="Referente2_Attributi_IscrittoCCIAA" name="Referente2_Attributi_IscrittoCCIAA" style="width:100%;">
+      <option value="">
+      </option>
+      <option value="Iscritto al Registro alla CCIIAA">
+       Iscritto al Registro Imprese alla CCIIAA
+      </option>
+      <option value="In attesa di iscrizione al R.I. pologia iscrizione">
+       In attesa di iscrizione al Registro Imprese alla CCIIAA
+      </option>
+      <option value="Non tenuto all'iscrizione in quanto Ente o altra struttura">
+       Non tenuto all'iscrizione in quanto Ente o altra struttura
+      </option>
+     </select>
+    </td>
+    <td colspan="2">
+     <input id="Referente2_Attributi_CCIAAProv" name="Referente2_Attributi_CCIAAProv" style="width:100%"/>
+    </td>
+    <td colspan="2">
+     <input id="Referente2_Attributi_CCIAANumero" name="Referente2_Attributi_CCIAANumero" style="width:100%"/>
+    </td>
+   </tr>
+  </tbody>
+ </table>
+</div>
+<div>
+ <table class="Modulo">
+  <tbody>
+   <tr class="Rigaintestazione">
+    <td colspan="9">
+     <p class="Labeltabella">
+      Terzo responsabile / Manutentore
+     </p>
+    </td>
+   </tr>
+   <tr class="Rigaintestazioneridotta">
+    <td colspan="3" style="width: 33%;">
+     <p class="Labelcella">
+      Cognome
+     </p>
+    </td>
+    <td colspan="3" style="width: 33%;">
+     <p class="Labelcella">
+      Nome
+     </p>
+    </td>
+    <td colspan="3" style="width: 34%;">
+     <p class="Labelcella">
+      Codice Fiscale
+     </p>
+    </td>
+   </tr>
+   <tr>
+    <td colspan="3">
+     <input id="Referente3_Cognome" name="Referente3_Cognome" style="width:100%"/>
+    </td>
+    <td colspan="3">
+     <input id="Referente3_Nome" name="Referente3_Nome" style="width:100%"/>
+    </td>
+    <td colspan="3">
+     <input id="Referente3_CodiceFiscale" name="Referente3_CodiceFiscale" style="width:100%"/>
+    </td>
+   </tr>
+   <tr class="Rigaintestazioneridotta">
+    <td colspan="2" style="width: 25%;">
+     <p class="Labelcella">
+      Data di nascita
+     </p>
+    </td>
+    <td colspan="1" style="width: 8%;">
+     <p class="Labelcella">
+      Sesso
+     </p>
+    </td>
+    <td colspan="3" style="width: 33%;">
+     <p class="Labelcella">
+      Cittadinanza
+     </p>
+    </td>
+    <td colspan="3" style="width: 34%;">
+     <p class="Labelcella">
+      Luogo di nascita
+     </p>
+    </td>
+   </tr>
+   <tr>
+    <td colspan="2">
+     <input id="Referente3_DataNascita" name="Referente3_DataNascita" style="width:100%"/>
+    </td>
+    <td colspan="1">
+     <select id="Referente3_Sesso" name="Referente3_Sesso" style="width:100%">
+      <option value="">
+      </option>
+      <option value="M">
+       M
+      </option>
+      <option value="F">
+       F
+      </option>
+     </select>
+    </td>
+    <td colspan="3">
+     <input id="Referente3_Cittadinanza" name="Referente3_Cittadinanza" style="width:100%"/>
+    </td>
+    <td colspan="3">
+     <input id="Referente3_LuogoNascita" name="Referente3_LuogoNascita" style="width:100%"/>
+    </td>
+   </tr>
+   <tr class="Rigaintestazioneridotta">
+    <td colspan="2" style="width: 25%;">
+     <p class="Labelcella">
+      Telefono
+     </p>
+    </td>
+    <td colspan="2" style="width: 25%;">
+     <p class="Labelcella">
+      Fax
+     </p>
+    </td>
+    <td colspan="5" style="width: 50%;">
+     <p class="Labelcella">
+      E-mail PEC
+     </p>
+    </td>
+   </tr>
+   <tr>
+    <td colspan="2">
+     <input id="Referente3_Telefono" name="Referente3_Telefono" style="width:100%"/>
+    </td>
+    <td colspan="2">
+     <input id="Referente3_Fax" name="Referente3_Fax" style="width:100%"/>
+    </td>
+    <td colspan="5">
+     <input id="Referente3_EMail" name="Referente3_EMail" style="width:100%" format="pec" label="E-mail PEC"/>
+    </td>
+   </tr>
+   <tr class="Rigaintestazioneridotta">
+    <td colspan="9">
+     <p class="Labelcella">
+      Residente in
+     </p>
+    </td>
+   </tr>
+   <tr class="Rigaintestazioneridotta">
+    <td colspan="3" style="width:25%;">
+     <p class="Labelcella">
+      Comune
+     </p>
+    </td>
+    <td colspan="3" style="width:41%;">
+     <p class="Labelcella">
+      Indirizzo
+     </p>
+    </td>
+    <td colspan="1" style="width:9%;">
+     <p class="Labelcella">
+      Civico
+     </p>
+    </td>
+    <td colspan="1" style="width:16%;">
+     <p class="Labelcella">
+      CAP
+     </p>
+    </td>
+    <td colspan="1" style="width:9%;">
+     <p class="Labelcella">
+      Provincia
+     </p>
+    </td>
+   </tr>
+   <tr>
+    <td colspan="3">
+     <input id="Referente3_ComuneResidenza" name="Referente3_ComuneResidenza" style="width:100%"/>
+    </td>
+    <td colspan="3">
+     <input id="Referente3_ViaResidenza" name="Referente3_ViaResidenza" style="width:100%"/>
+    </td>
+    <td colspan="1">
+     <input id="Referente3_CivicoResidenza" name="Referente3_CivicoResidenza" style="width:100%"/>
+    </td>
+    <td colspan="1">
+     <input id="Referente3_CAPResidenza" name="Referente3_CAPResidenza" style="width:100%"/>
+    </td>
+    <td colspan="1">
+     <input id="Referente3_ProvinciaResidenza" name="Referente3_ProvinciaResidenza" style="width:100%"/>
+    </td>
+   </tr>
+   <input id="Referente3_Ruolo" name="Referente3_Ruolo" type="hidden" value="Terzo responsabile (manutentore)"/>
+   <tr class="Rigaintestazioneridotta">
+    <td colspan="9">
+     <p class="Labelcella">
+      La sezione seguente deve essere compilata solo se il dichiarante non è la persona fisica
+     </p>
+    </td>
+   </tr>
+   <tr>
+    <td colspan="3">
+      <div id="Referente3_Titolo" label="Ruolo" mandatory="false" name="Referente3_Titolo"/>
+     <p>
+      <input id="Referente3_Titolo1" name="Referente3_Titolo" type="radio" value="Titolare"/>
+      Titolare
+     </p>
+    </td>
+    <td colspan="3">
+     <p>
+      <input id="Referente3_Titolo2" name="Referente3_Titolo" type="radio" value="Legale Rappresentante"/>
+      Legale rappresentante
+     </p>
+    </td>
+    <td colspan="3">
+     <p>
+      <input id="Referente3_Titolo3" name="Referente3_Titolo" type="radio" value="Per conto di"/>
+      Per conto di
+     </p>
+    </td>
+   </tr>
+   <tr class="Rigaintestazioneridotta">
+    <td colspan="5">
+     <p class="Labelcella">
+      Denominazione/Ragione sociale
+     </p>
+    </td>
+    <td colspan="4">
+     <p class="Labelcella">
+      Codice fiscale/Partita IVA
+     </p>
+    </td>
+   </tr>
+   <tr>
+    <td colspan="5">
+     <input id="Referente3_Denominazione" name="Referente3_Denominazione" style="width:100%"/>
+    </td>
+    <td colspan="4">
+     <input id="Referente3_CFPIVA" name="Referente3_CFPIVA" style="width:100%"/>
+    </td>
+   </tr>
+   <tr class="Rigaintestazioneridotta">
+    <td colspan="3" style="width:27%;">
+     <p class="Labelcella">
+      Comune sede legale
+     </p>
+    </td>
+    <td colspan="3" style="width:35%;">
+     <p class="Labelcella">
+      Indirizzo
+     </p>
+    </td>
+    <td style="width:9%;">
+     <p class="Labelcella">
+      Civico
+     </p>
+    </td>
+    <td colspan="1" style="width:12%;">
+     <p class="Labelcella">
+      CAP
+     </p>
+    </td>
+    <td colspan="1" style="width:15%;">
+     <p class="Labelcella">
+      Provincia
+     </p>
+    </td>
+   </tr>
+   <tr>
+    <td colspan="3">
+     <input id="Referente3_ComuneSede" name="Referente3_ComuneSede" style="width:100%"/>
+    </td>
+    <td colspan="3">
+     <input id="Referente3_ViaSede" name="Referente3_ViaSede" style="width:100%"/>
+    </td>
+    <td>
+     <input id="Referente3_CivicoSede" name="Referente3_CivicoSede" style="width:100%"/>
+    </td>
+    <td colspan="1">
+     <input id="Referente3_CAPSede" name="Referente3_CAPSede" style="width:100%"/>
+    </td>
+    <td colspan="1">
+     <input id="Referente3_ProvinciaSede" name="Referente3_ProvinciaSede" style="width:100%"/>
+    </td>
+   </tr>
+   <tr class="Rigaintestazioneridotta">
+    <td colspan="2">
+     <p class="Labelcella">
+      Telefono
+     </p>
+    </td>
+    <td colspan="2">
+     <p class="Labelcella">
+      Fax
+     </p>
+    </td>
+    <td colspan="5">
+     <p class="Labelcella">
+      e-mail PEC
+     </p>
+    </td>
+   </tr>
+   <tr>
+    <td colspan="2">
+     <input id="Referente3_TelefonoSede" name="Referente3_TelefonoSede" style="width:100%"/>
+    </td>
+    <td colspan="2">
+     <input id="Referente3_FaxSede" name="Referente3_FaxSede" style="width:100%"/>
+    </td>
+    <td colspan="5">
+     <input id="Referente3_EMailSede" name="Referente3_EMailSede" style="width:100%" format="pec" label="e-mail PEC"/>
+    </td>
+   </tr>
+   <tr class="Rigaintestazioneridotta">
+    <td colspan="5">
+     <p class="Labelcella">
+      Tipologia iscrizione
+     </p>
+    </td>
+    <td colspan="2">
+     <p class="Labelcella">
+      Provincia
+     </p>
+    </td>
+    <td colspan="2">
+     <p class="Labelcella">
+      Numero iscrizione
+     </p>
+    </td>
+   </tr>
+   <tr style="border-bottom: 0px;">
+    <td colspan="5">
+     <select id="Referente3_Attributi_IscrittoCCIAA" name="Referente3_Attributi_IscrittoCCIAA" style="width:100%;">
+      <option value="">
+      </option>
+      <option value="Iscritto al Registro alla CCIIAA">
+       Iscritto al Registro Imprese alla CCIIAA
+      </option>
+      <option value="In attesa di iscrizione al R.I. pologia iscrizione">
+       In attesa di iscrizione al Registro Imprese alla CCIIAA
+      </option>
+      <option value="Non tenuto all'iscrizione in quanto Ente o altra struttura">
+       Non tenuto all'iscrizione in quanto Ente o altra struttura
+      </option>
+     </select>
+    </td>
+    <td colspan="2">
+     <input id="Referente3_Attributi_CCIAAProv" name="Referente3_Attributi_CCIAAProv" style="width:100%"/>
+    </td>
+    <td colspan="2">
+     <input id="Referente3_Attributi_CCIAANumero" name="Referente3_Attributi_CCIAANumero" style="width:100%"/>
+    </td>
+   </tr>
+  </tbody>
+ </table>
+</div>
+<div>
+ <table class="Modulo">
+  <tbody>
+   <tr class="Rigaintestazione">
+    <td colspan="9">
+     <p class="Labeltabella">
+      Amministratore
+     </p>
+    </td>
+   </tr>
+   <tr class="Rigaintestazioneridotta">
+    <td colspan="3" style="width: 33%;">
+     <p class="Labelcella">
+      Cognome
+     </p>
+    </td>
+    <td colspan="3" style="width: 33%;">
+     <p class="Labelcella">
+      Nome
+     </p>
+    </td>
+    <td colspan="3" style="width: 34%;">
+     <p class="Labelcella">
+      Codice Fiscale
+     </p>
+    </td>
+   </tr>
+   <tr>
+    <td colspan="3">
+     <input id="Referente4_Cognome" name="Referente4_Cognome" style="width:100%"/>
+    </td>
+    <td colspan="3">
+     <input id="Referente4_Nome" name="Referente4_Nome" style="width:100%"/>
+    </td>
+    <td colspan="3">
+     <input id="Referente4_CodiceFiscale" name="Referente4_CodiceFiscale" style="width:100%"/>
+    </td>
+   </tr>
+   <tr class="Rigaintestazioneridotta">
+    <td colspan="2" style="width: 25%;">
+     <p class="Labelcella">
+      Data di nascita
+     </p>
+    </td>
+    <td colspan="1" style="width: 8%;">
+     <p class="Labelcella">
+      Sesso
+     </p>
+    </td>
+    <td colspan="3" style="width: 33%;">
+     <p class="Labelcella">
+      Cittadinanza
+     </p>
+    </td>
+    <td colspan="3" style="width: 34%;">
+     <p class="Labelcella">
+      Luogo di nascita
+     </p>
+    </td>
+   </tr>
+   <tr>
+    <td colspan="2">
+     <input id="Referente4_DataNascita" name="Referente4_DataNascita" style="width:100%"/>
+    </td>
+    <td colspan="1">
+     <select id="Referente4_Sesso" name="Referente4_Sesso" style="width:100%">
+      <option value="">
+      </option>
+      <option value="M">
+       M
+      </option>
+      <option value="F">
+       F
+      </option>
+     </select>
+    </td>
+    <td colspan="3">
+     <input id="Referente4_Cittadinanza" name="Referente4_Cittadinanza" style="width:100%"/>
+    </td>
+    <td colspan="3">
+     <input id="Referente4_LuogoNascita" name="Referente4_LuogoNascita" style="width:100%"/>
+    </td>
+   </tr>
+   <tr class="Rigaintestazioneridotta">
+    <td colspan="2" style="width: 25%;">
+     <p class="Labelcella">
+      Telefono
+     </p>
+    </td>
+    <td colspan="2" style="width: 25%;">
+     <p class="Labelcella">
+      Fax
+     </p>
+    </td>
+    <td colspan="5" style="width: 50%;">
+     <p class="Labelcella">
+      E-mail PEC
+     </p>
+    </td>
+   </tr>
+   <tr>
+    <td colspan="2">
+     <input id="Referente4_Telefono" name="Referente4_Telefono" style="width:100%"/>
+    </td>
+    <td colspan="2">
+     <input id="Referente4_Fax" name="Referente4_Fax" style="width:100%"/>
+    </td>
+    <td colspan="5">
+     <input id="Referente4_EMail" name="Referente4_EMail" style="width:100%" format="pec" label="E-mail PEC"/>
+    </td>
+   </tr>
+   <tr class="Rigaintestazioneridotta">
+    <td colspan="9">
+     <p class="Labelcella">
+      Residente in
+     </p>
+    </td>
+   </tr>
+   <tr class="Rigaintestazioneridotta">
+    <td colspan="3" style="width:25%;">
+     <p class="Labelcella">
+      Comune
+     </p>
+    </td>
+    <td colspan="3" style="width:41%;">
+     <p class="Labelcella">
+      Indirizzo
+     </p>
+    </td>
+    <td colspan="1" style="width:9%;">
+     <p class="Labelcella">
+      Civico
+     </p>
+    </td>
+    <td colspan="1" style="width:16%;">
+     <p class="Labelcella">
+      CAP
+     </p>
+    </td>
+    <td colspan="1" style="width:9%;">
+     <p class="Labelcella">
+      Provincia
+     </p>
+    </td>
+   </tr>
+   <tr>
+    <td colspan="3">
+     <input id="Referente4_ComuneResidenza" name="Referente4_ComuneResidenza" style="width:100%"/>
+    </td>
+    <td colspan="3">
+     <input id="Referente4_ViaResidenza" name="Referente4_ViaResidenza" style="width:100%"/>
+    </td>
+    <td colspan="1">
+     <input id="Referente4_CivicoResidenza" name="Referente4_CivicoResidenza" style="width:100%"/>
+    </td>
+    <td colspan="1">
+     <input id="Referente4_CAPResidenza" name="Referente4_CAPResidenza" style="width:100%"/>
+    </td>
+    <td colspan="1">
+     <input id="Referente4_ProvinciaResidenza" name="Referente4_ProvinciaResidenza" style="width:100%"/>
+    </td>
+   </tr>
+   <input id="Referente4_Ruolo" name="Referente4_Ruolo" type="hidden" value="Amministratore"/>
+   <tr class="Rigaintestazioneridotta">
+    <td colspan="9">
+     <p class="Labelcella">
+      La sezione seguente deve essere compilata solo se il dichiarante non è la persona fisica
+     </p>
+    </td>
+   </tr>
+   <tr>
+    <td colspan="3">
+      <div id="Referente4_Titolo" label="Ruolo" mandatory="false" name="Referente4_Titolo"/>
+     <p>
+      <input id="Referente4_Titolo1" name="Referente4_Titolo" type="radio" value="Titolare"/>
+      Titolare
+     </p>
+    </td>
+    <td colspan="3">
+     <p>
+      <input id="Referente4_Titolo2" name="Referente4_Titolo" type="radio" value="Legale Rappresentante"/>
+      Legale rappresentante
+     </p>
+    </td>
+    <td colspan="3">
+     <p>
+      <input id="Referente4_Titolo3" name="Referente4_Titolo" type="radio" value="Per conto di"/>
+      Per conto di
+     </p>
+    </td>
+   </tr>
+   <tr class="Rigaintestazioneridotta">
+    <td colspan="5">
+     <p class="Labelcella">
+      Denominazione/Ragione sociale
+     </p>
+    </td>
+    <td colspan="4">
+     <p class="Labelcella">
+      Codice fiscale/Partita IVA
+     </p>
+    </td>
+   </tr>
+   <tr>
+    <td colspan="5">
+     <input id="Referente4_Denominazione" name="Referente4_Denominazione" style="width:100%"/>
+    </td>
+    <td colspan="4">
+     <input id="Referente4_CFPIVA" name="Referente4_CFPIVA" style="width:100%"/>
+    </td>
+   </tr>
+   <tr class="Rigaintestazioneridotta">
+    <td colspan="3" style="width:27%;">
+     <p class="Labelcella">
+      Comune sede legale
+     </p>
+    </td>
+    <td colspan="3" style="width:35%;">
+     <p class="Labelcella">
+      Indirizzo
+     </p>
+    </td>
+    <td style="width:9%;">
+     <p class="Labelcella">
+      Civico
+     </p>
+    </td>
+    <td colspan="1" style="width:12%;">
+     <p class="Labelcella">
+      CAP
+     </p>
+    </td>
+    <td colspan="1" style="width:15%;">
+     <p class="Labelcella">
+      Provincia
+     </p>
+    </td>
+   </tr>
+   <tr>
+    <td colspan="3">
+     <input id="Referente4_ComuneSede" name="Referente4_ComuneSede" style="width:100%"/>
+    </td>
+    <td colspan="3">
+     <input id="Referente4_ViaSede" name="Referente4_ViaSede" style="width:100%"/>
+    </td>
+    <td>
+     <input id="Referente4_CivicoSede" name="Referente4_CivicoSede" style="width:100%"/>
+    </td>
+    <td colspan="1">
+     <input id="Referente4_CAPSede" name="Referente4_CAPSede" style="width:100%"/>
+    </td>
+    <td colspan="1">
+     <input id="Referente4_ProvinciaSede" name="Referente4_ProvinciaSede" style="width:100%"/>
+    </td>
+   </tr>
+   <tr class="Rigaintestazioneridotta">
+    <td colspan="2">
+     <p class="Labelcella">
+      Telefono
+     </p>
+    </td>
+    <td colspan="2">
+     <p class="Labelcella">
+      Fax
+     </p>
+    </td>
+    <td colspan="5">
+     <p class="Labelcella">
+      e-mail PEC
+     </p>
+    </td>
+   </tr>
+   <tr>
+    <td colspan="2">
+     <input id="Referente4_TelefonoSede" name="Referente4_TelefonoSede" style="width:100%"/>
+    </td>
+    <td colspan="2">
+     <input id="Referente4_FaxSede" name="Referente4_FaxSede" style="width:100%"/>
+    </td>
+    <td colspan="5">
+     <input id="Referente4_EMailSede" name="Referente4_EMailSede" style="width:100%" format="pec" label="e-mail PEC"/>
+    </td>
+   </tr>
+   <tr class="Rigaintestazioneridotta">
+    <td colspan="5">
+     <p class="Labelcella">
+      Tipologia iscrizione
+     </p>
+    </td>
+    <td colspan="2">
+     <p class="Labelcella">
+      Provincia
+     </p>
+    </td>
+    <td colspan="2">
+     <p class="Labelcella">
+      Numero iscrizione
+     </p>
+    </td>
+   </tr>
+   <tr style="border-bottom: 0px;">
+    <td colspan="5">
+     <select id="Referente4_Attributi_IscrittoCCIAA" name="Referente4_Attributi_IscrittoCCIAA" style="width:100%;">
+      <option value="">
+      </option>
+      <option value="Iscritto al Registro alla CCIIAA">
+       Iscritto al Registro Imprese alla CCIIAA
+      </option>
+      <option value="In attesa di iscrizione al R.I. pologia iscrizione">
+       In attesa di iscrizione al Registro Imprese alla CCIIAA
+      </option>
+      <option value="Non tenuto all'iscrizione in quanto Ente o altra struttura">
+       Non tenuto all'iscrizione in quanto Ente o altra struttura
+      </option>
+     </select>
+    </td>
+    <td colspan="2">
+     <input id="Referente4_Attributi_CCIAAProv" name="Referente4_Attributi_CCIAAProv" style="width:100%"/>
+    </td>
+    <td colspan="2">
+     <input id="Referente4_Attributi_CCIAANumero" name="Referente4_Attributi_CCIAANumero" style="width:100%"/>
+    </td>
+   </tr>
+  </tbody>
+ </table>
+</div>
+
+
+<table class="Modulo">
+ <tbody>
+  <tr class="Rigaintestazione">
+   <td colspan="8">
+    <p class="Labeltabella">
+     9. Risultati dell'ispezione
+    </p>
+   </td>
+  </tr>
+  <tr class="Rigaintestazione">
+   <td colspan="8">
+    <p class="Labeltabella">
+     a) Monossido di carbonio nei fumi secchi e senz'aria
+     <span style="font-size:60%;">
+      (deve essere inferiore o uguale a 1000 ppm = 0,1%)
+     </span>
+    </p>
+   </td>
+  </tr>
+  <tr class="Rigaintestazioneridotta">
+   <td colspan="1" style="width:50%;">
+    <p class="Labelcella">
+     Valore rilevato (ppm)
+    </p>
+   </td>
+   <td colspan="3" style="width:50%;">
+    <p class="Labelcella">
+     Esito
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td colspan="1">
+    <input id="Monossido_Valore" name="Monossido_Valore" style="width:100%;" type="text" format="positive_float" label="Valore rilevato"/>
+   </td>
+   <td colspan="3">
+    <p>
+     <select id="Monossido_EsitoRegolare" label="Esito" mandatory="true" name="Monossido_EsitoRegolare" style="width:100%;" >
+      <option value="">
+      </option>
+      <option value="Regolare">
+       Regolare
+      </option>
+      <option value="Irregolare">
+       Irregolare
+      </option>
+     </select>
+    </p>
+   </td>
+  </tr>
+  <tr class="Rigaintestazione">
+   <td colspan="8">
+    <p class="Labeltabella">
+     b) Indice di fumosità
+     <span style="font-size:60%;">
+      ( N° di Bacharach, deve essere: per l'olio combustibile inferiore o uguale a 6, per il gasolio inferiore o uguale a 2)
+     </span>
+    </p>
+   </td>
+  </tr>
+  <tr class="Rigaintestazioneridotta">
+   <td colspan="1" style="width:50%;">
+    <p class="Labelcella">
+     Valore rilevato
+    </p>
+   </td>
+   <td colspan="3" style="width:50%;">
+    <p class="Labelcella">
+     Esito
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td colspan="1">
+    <input id="Fumosita_Valore" name="Fumosita_Valore" style="width:100%;" type="text" format="positive_float" label="Valore rilevato"/>
+   </td>
+   <td colspan="3">
+    <p>
+     <select id="Fumosita_Regolare" label="Esito" mandatory="true" name="Fumosita_Regolare" style="width:100%;" >
+      <option value="">
+      </option>
+      <option value="Regolare">
+       Regolare
+      </option>
+      <option value="Irregolare">
+       Irregolare
+      </option>
+     </select>
+    </p>
+   </td>
+  </tr> 
+  
+  <tr class="Rigaintestazione">
+   <td colspan="8">
+    <p class="Labeltabella">
+     c) Rendimento di combustione
+    </p>
+   </td>
+  </tr>
+  <tr class="Rigaintestazioneridotta">
+   <td style="width:10%;">
+    <p class="Labelcella">
+     Valore minimo richiesto (%)
+    </p>
+   </td>
+   <td style="width:30%;">
+    <p class="Labelcella">
+     Valore rilevato (%)
+    </p>
+   </td>
+   <td style="width:30%;">
+    <p class="Labelcella">
+     Valore rilevato + 2 (%)
+    </p>
+   </td>
+   <td style="width:30%;">
+    <p class="Labelcella">
+     Esito
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td>
+    <input id="RendimentoCombustione_MinimoRichiesto" name="RendimentoCombustione_MinimoRichiesto" style="width:100%;" type="text" format="positive_float" label="Valore minimo richiesto (%)"/>
+   </td>
+   <td>
+    <input id="RendimentoCombustione_Rilevato" name="RendimentoCombustione_Rilevato" style="width:100%;" type="text" format="positive_float" label="Valore rilevato (%)"/>
+   </td>
+   <td>
+    <input id="RendimentoCombustione_Piu2" name="RendimentoCombustione_Piu2" format="positive_float" style="width:100%;" type="text"/>
+   </td>
+   <td>
+    <select id="RendimentoCombustione_Esito" name="RendimentoCombustione_Esito" width="100%" mandatory="true" label="Esito">
+     <option value="">
+     </option>
+     <option value="Sufficiente">
+      Sufficiente
+     </option>
+     <option value="Insufficiente">
+      Insufficiente
+     </option>
+    </select>
+   </td>
+  </tr>
+  <tr class="Rigaintestazione">
+  <td colspan="8">
+    <p class="Labeltabella">
+     d) L'impianto rispetta la normativa
+     <span style="font-size:60%;">
+      relativamente al DPR 74/2013 e DGR 3965/2015
+     </span>
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td colspan="4" style="border-left:0px;">
+    <select id="Rispetta_Normativa" label="Esito della prova" mandatory="true" name="Rispetta_Normativa" style="width: 100%">
+     <option value="">
+     </option>
+     <option value="Si">
+      Si
+     </option>
+     <option value="No">
+      No
+     </option>
+    </select>
+   </td>
+  </tr>
+  <tr class="Rigaintestazione">
+   <td colspan="8">
+    <p class="Labeltabella">
+     e) L'impianto rispetta quanto previsto ai punti del presente rapporto:
+    </p>
+   </td>
+  </tr>
+  <tr style="border-top:1px;border-bottom: 0px;">
+   <td colspan="4" style="border-left:1px;">
+    <table style="cellspacing: 0px; width: 100%; border-collapse: collapse;   margin-bottom: 10pt;margin-right: 10pt;margin-top: 10px">
+     <tbody>
+      <tr class="Rigaintestazioneridotta">
+       <td style="width:10%;">
+        <p class="Labelcella">
+         Punto
+        </p>
+       </td>
+       <td>
+        <p class="Labelcella">
+         Note
+        </p>
+       </td>
+      </tr>
+      <tr>
+       <td>
+        <p>
+         <input id="EsitoVerifica_a7Punto" name="EsitoVerifica_a7Punto" type="checkbox" value="SI"/>
+         7.a
+        </p>
+       </td>
+       <td>
+        <input id="EsitoVerifica_a7Note" name="EsitoVerifica_a7Note" enabled="#EsitoVerifica_a7Punto.checked()" style="width:100%;" type="text"/>
+       </td>
+      </tr>
+      <tr>
+       <td>
+        <p>
+         <input id="EsitoVerifica_a9Punto" name="EsitoVerifica_a9Punto" type="checkbox" value="SI"/>
+         9.a
+        </p>
+       </td>
+       <td>
+        <input id="EsitoVerifica_a9Note" name="EsitoVerifica_a9Note" enabled="#EsitoVerifica_a9Punto.checked()" style="width:100%;" type="text"/>
+       </td>
+      </tr>
+      <tr>
+       <td>
+        <p>
+         <input id="EsitoVerifica_b9Punto" name="EsitoVerifica_b9Punto" type="checkbox" value="SI"/>
+         9.b
+        </p>
+       </td>
+       <td>
+        <input id="EsitoVerifica_b9Note" name="EsitoVerifica_b9Note" enabled="#EsitoVerifica_b9Punto.checked()" style="width:100%;" type="text"/>
+       </td>
+      </tr>
+      <tr>
+       <td>
+        <p>
+         <input id="EsitoVerifica_c9Punto" name="EsitoVerifica_c9Punto" type="checkbox" value="SI"/>
+         9.c
+        </p>
+       </td>
+       <td>
+        <input id="EsitoVerifica_c9Note" name="EsitoVerifica_c9Note" enabled="#EsitoVerifica_c9Punto.checked()" style="width:100%;" type="text"/>
+       </td>
+      </tr>
+     </tbody>
+    </table>
+   </td>
+  </tr>  
+ </tbody>
+</table>
+
+<table class="Modulo">
+ <tbody>
+  <tr class="Rigaintestazione">
+   <td colspan="2">
+    <p class="Labeltabella">
+     10. Osservazioni dell'ispettore
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td colspan="2" style="padding: 5px;">
+    <textarea id="OsservazioniIspettore" label="Osservazioni dell'ispettore" name="OsservazioniIspettore" style="width: 100%; resize: none;">
+    </textarea>
+   </td>
+  </tr>
+ </tbody>
+</table>
+
+
+
+
+<table class="Modulo">
+ <tbody>
+  <tr class="Rigaintestazione">
+   <td colspan="4">
+    <p class="Labeltabella">
+     11. Prescrizioni dell'ispettore
+    </p>
+   </td>
+  </tr>
+  <tr class="Rigaintestazioneridotta">
+   <td colspan="4">
+    <p class="Labelcella">
+     Note
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td colspan="4" style="padding: 5px;">
+    <textarea id="Prescrizioni_ispettore" name="Prescrizioni_ispettore" style="width:100%;height:100px;resize: none;" value="SI">
+    </textarea>
+   </td>
+  </tr>
+  <tr class="Rigaintestazioneridotta">
+   <td colspan="4">
+    <p class="Labelcella">
+     Codici elenco non conformità
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td>
+    <select id="Osservazioni_Codici0" name="Osservazioni_Codici0" style="width:100%">
+     <option value="">
+     </option>
+     <option value="A01">
+      A01 - Presenza di apparecchi di tipo A, di cottura e B e assenza ventilazione permanente nel locale
+     </option>
+     <option value="A02">
+      A02 - Presenza di apparecchi di tipo A, di cottura e B con ventilazione permanente insufficiente
+     </option>
+     <option value="A03">
+      A03 - Presenza di apparecchi di tipo A, di cottura e B con sistema ventilazione ostruito
+     </option>
+     <option value="A04">
+      A04 - Errata ubicazione (bagno/camera da letto) di apparecchi a gas di tipo A o B
+     </option>
+     <option value="A05">
+      A05 - Errata ubicazione (es. autorimessa ecc.) di apparecchi a gas di tipo B o C
+     </option>
+     <option value="A06">
+      A06 - Errata ubicazione (ambienti non ventilabili) di apparecchi di tipo C
+     </option>
+     <option value="A07">
+      A07 - Rigurgito di fumi in ambiente da apparecchi di tipo B
+     </option>
+     <option value="A08">
+      A08 - Presenza di caminetti, aspiratori ecc. che, in funzione, provocano rigurgiti fumi in ambiente da apparecchi di tipo B
+     </option>
+     <option value="A09">
+      A09 - Termostato fumi, presente in origine, che risulta cortocircuitato o manomesso
+     </option>
+     <option value="A10">
+      A10 - Caldaie di tipo C collegate a camini non idonei, non contigui a locali abitati
+     </option>
+     <option value="A11">
+      A11 - Caldaie di tipo C collegate a camini non idonei, contigui a locali abitati
+     </option>
+     <option value="A12">
+      A12 - Caldaie di tipo C collegate a canne collettive ramificate (C.C.R.) in cui scaricano apparecchi di tipo B o viceversa
+     </option>
+     <option value="A13">
+      A13 - Scarichi a parete di apparecchi di tipo B irregolari o posizionati irregolarmente
+     </option>
+     <option value="A14">
+      A14 - Scarichi a parete di apparecchi di tipo C irregolari o posizionati irregolarmente
+     </option>
+     <option value="A15">
+      A15 - Linea di adduzione gas irregolare
+     </option>
+     <option value="A16">
+      A16 - Mancanza del rubinetto di intercettazione generale del gas all'interno dell'abitazione
+     </option>
+     <option value="A17">
+      A17 - Mancanza del rubinetto intercettazione del gas a monte dell'apparecchio
+     </option>
+     <option value="A18">
+      A18 - Canali da fumo irregolari in apparecchi di tipo B
+     </option>
+     <option value="A19">
+      A19 - Valore di CO superiore a 1000 ppm in locale con areazione insufficiente
+     </option>
+     <option value="A20">
+      A20 - Impianto con perdite evidenti di combustibile
+     </option>
+     <option value="A21">
+      A21 - Canali da fumo con rotture evidenti
+     </option>
+     <option value="A22">
+      A22 - Mancanza apparecchiature di sicurezza ISPESL
+     </option>
+     <option value="A23">
+      A23 - Perdite di fluido termovettore
+     </option>
+     <option value="C01">
+      C01 - Ubicazione del locale centrale termica non conforme alle prescrizioni di legge
+     </option>
+     <option value="C02">
+      C02 - Accesso alla centrale termica non conforme alle prescrizioni di legge
+     </option>
+     <option value="C03">
+      C03 - Apertura di areazione del locale caldaie assente
+     </option>
+     <option value="C04">
+      C04 - Apertura di areazione del locale caldaie insufficiente
+     </option>
+     <option value="C05">
+      C05 - Apertura di areazione del locale caldaie collocata in modo errato
+     </option>
+     <option value="C06">
+      C06 - Assenza degli strumenti antincendio
+     </option>
+     <option value="C07">
+      C07 - Manutenzione dei sistemi antincendio non effettuata
+     </option>
+     <option value="C08">
+      C08 - Segnaletica di sicurezza assente o incompleta
+     </option>
+     <option value="C09">
+      C09 - Interruttore elettrico generale esterno assente o non accessibile
+     </option>
+     <option value="C10">
+      C10 - Assenza del rubinetto di intercettazione manuale esterno (dove previsto)
+     </option>
+     <option value="C11">
+      C11 - Rigurgiti di fumi nel locale ove sono presenti apparecchi a tiraggio naturale
+     </option>
+     <option value="C12">
+      C12 - Presenza di perdite nei condotti di scarico di apparecchi a tiraggio forzato
+     </option>
+     <option value="C13">
+      C13 - Dall'esame visivo risultano perdite di combustibile liquido
+     </option>
+     <option value="C14">
+      C14 - Dall'esame visivo risultano perdite di fluido termovettore
+     </option>
+     <option value="C15">
+      C15 - Errata ubicazione (bagno/camera da letto) di apparecchi a gas di tipo A o B
+     </option>
+     <option value="C16">
+      C16 - Valore di CO superiore a 1000 ppm in locale con areazione insufficiente
+     </option>
+     <option value="C17">
+      C17 - Mancanza apparecchiature di sicurezza ISPESL
+     </option>
+     <option value="C18">
+      C18 - Errata ubicazione (es. autorimessa ecc.) di apparecchi a gas di tipo B o C
+     </option>
+     <option value="C19">
+      C19 - Errata ubicazione (ambienti non ventilabili) di apparecchi di tipo C
+     </option>
+     <option value="C20">
+      C20 - Presenza di caminetti, aspiratori ecc. che, in funzione, provocano rigurgiti fumi in ambiente da apparecchi di tipo B
+     </option>
+     <option value="C21">
+      C21 - Termostato fumi, presente in origine, che risulta cortocircuitato o manomesso
+     </option>
+     <option value="C22">
+      C22 - Linea di adduzione gas irregolare
+     </option>
+     <option value="C23">
+      C23 - Mancanza del rubinetto di intercet. del combustibile a monte dell'apparecchio
+     </option>
+     <option value="C24">
+      C24 - Canali da fumo irregolari in apparecchi di tipo B
+     </option>
+     <option value="C25">
+      C25 - Assenza di qualsiasi tipo di regolazione climatica dell'impianto
+     </option>
+     <option value="C26">
+      C26 - Mancanza libretto uso e manutenzione della caldaia e/o bruciatore
+     </option>
+     <option value="F01">
+      F01 - Il generatore di calore di età superiore a 15 anni e &gt;=116 kW
+     </option>
+     <option value="G01">
+      G01 - La caldaia o scaldabagno scaricano i prodotti della combustione nello stesso camino
+     </option>
+     <option value="G02">
+      G02 - Tubazione gas attraversante il muro senza guaina
+     </option>
+     <option value="G04">
+      G04 - Assenza coibentazione canale da fumo
+     </option>
+     <option value="G05">
+      G05 - Assenza rivestimento incombustibile o almeno autoestinguente per la fognatura
+     </option>
+     <option value="G06">
+      G06 - Non è stato possibile verificare il rendimento di combustione del generatore
+     </option>
+     <option value="G07">
+      G07 - Il rendimento di combustione del generatore di calore era inferiore ai limiti prrevisti dalla normativa regionale
+     </option>
+     <option value="G08">
+      G08 - Valore di CO superiore a 1000 ppm
+     </option>
+     <option value="G09">
+      G09 - I condotti di aspirazione aria ed evacuazione dei prodotti della combustione sono corrugati
+     </option>
+     <option value="G10">
+      G10 - Tiraggio inferiore al valore minimo ammesso dalla norma UNI 10845.
+     </option>
+     <option value="G11">
+      G11 - Indice di Bacharach superiore a 2 (gasolio)
+     </option>
+     <option value="G12">
+      G12 - Mancanza della dichiarazione di conformità
+     </option>
+     <option value="G13">
+      G13 - Mancanza rapp. di man .(All. G/F) e/o prova fumi
+     </option>
+     <option value="G14">
+      G14 - Allegato G/F senza attestazione di pagamento (bollino)
+     </option>
+     <option value="G15">
+G15 - Manutenzione non effettuata nell'anno/biennio in corso
+</option>
+<option value="G16">
+G16 - Mancanza del libretto d'impianto
+</option>
+<option value="G17">
+G17 - Chiusura foro di prelievo non corretta
+</option>
+<option value="G18">
+G18 - Assenza CPI
+</option>
+<option value="G19">
+G19 - Altezza efficace del camino insufficiente
+</option>
+<option value="G20">
+G20 - Conformazione sistema fumario irregolare
+</option>
+<option value="G21">
+G21 - Assenza di areazione piano di cottura
+</option>
+<option value="G22">
+G22 - Caldaia installata in locale non idoneo
+</option>
+<option value="G23">
+G23 - Caldaia tipo "B" con presenza camino a legna in locale adiacente
+</option>
+<option value="G24">
+G24 - Mancata registrazione Dichiarazione di avvenuta manutenzione
+</option>
+<option value="G25">
+G25 - Mancata targatura
+</option>
+    </select>
+   </td>
+  </tr>
+  <tr>
+   <td>
+    <select id="Osservazioni_Codici1" name="Osservazioni_Codici1" style="width:100%">
+     <option value="">
+     </option>
+     <option value="A01">
+      A01 - Presenza di apparecchi di tipo A, di cottura e B e assenza ventilazione permanente nel locale
+     </option>
+     <option value="A02">
+      A02 - Presenza di apparecchi di tipo A, di cottura e B con ventilazione permanente insufficiente
+     </option>
+     <option value="A03">
+      A03 - Presenza di apparecchi di tipo A, di cottura e B con sistema ventilazione ostruito
+     </option>
+     <option value="A04">
+      A04 - Errata ubicazione (bagno/camera da letto) di apparecchi a gas di tipo A o B
+     </option>
+     <option value="A05">
+      A05 - Errata ubicazione (es. autorimessa ecc.) di apparecchi a gas di tipo B o C
+     </option>
+     <option value="A06">
+      A06 - Errata ubicazione (ambienti non ventilabili) di apparecchi di tipo C
+     </option>
+     <option value="A07">
+      A07 - Rigurgito di fumi in ambiente da apparecchi di tipo B
+     </option>
+     <option value="A08">
+      A08 - Presenza di caminetti, aspiratori ecc. che, in funzione, provocano rigurgiti fumi in ambiente da apparecchi di tipo B
+     </option>
+     <option value="A09">
+      A09 - Termostato fumi, presente in origine, che risulta cortocircuitato o manomesso
+     </option>
+     <option value="A10">
+      A10 - Caldaie di tipo C collegate a camini non idonei, non contigui a locali abitati
+     </option>
+     <option value="A11">
+      A11 - Caldaie di tipo C collegate a camini non idonei, contigui a locali abitati
+     </option>
+     <option value="A12">
+      A12 - Caldaie di tipo C collegate a canne collettive ramificate (C.C.R.) in cui scaricano apparecchi di tipo B o viceversa
+     </option>
+     <option value="A13">
+      A13 - Scarichi a parete di apparecchi di tipo B irregolari o posizionati irregolarmente
+     </option>
+     <option value="A14">
+      A14 - Scarichi a parete di apparecchi di tipo C irregolari o posizionati irregolarmente
+     </option>
+     <option value="A15">
+      A15 - Linea di adduzione gas irregolare
+     </option>
+     <option value="A16">
+      A16 - Mancanza del rubinetto di intercettazione generale del gas all'interno dell'abitazione
+     </option>
+     <option value="A17">
+      A17 - Mancanza del rubinetto intercettazione del gas a monte dell'apparecchio
+     </option>
+     <option value="A18">
+      A18 - Canali da fumo irregolari in apparecchi di tipo B
+     </option>
+     <option value="A19">
+      A19 - Valore di CO superiore a 1000 ppm in locale con areazione insufficiente
+     </option>
+     <option value="A20">
+      A20 - Impianto con perdite evidenti di combustibile
+     </option>
+     <option value="A21">
+      A21 - Canali da fumo con rotture evidenti
+     </option>
+     <option value="A22">
+      A22 - Mancanza apparecchiature di sicurezza ISPESL
+     </option>
+     <option value="A23">
+      A23 - Perdite di fluido termovettore
+     </option>
+     <option value="C01">
+      C01 - Ubicazione del locale centrale termica non conforme alle prescrizioni di legge
+     </option>
+     <option value="C02">
+      C02 - Accesso alla centrale termica non conforme alle prescrizioni di legge
+     </option>
+     <option value="C03">
+      C03 - Apertura di areazione del locale caldaie assente
+     </option>
+     <option value="C04">
+      C04 - Apertura di areazione del locale caldaie insufficiente
+     </option>
+     <option value="C05">
+      C05 - Apertura di areazione del locale caldaie collocata in modo errato
+     </option>
+     <option value="C06">
+      C06 - Assenza degli strumenti antincendio
+     </option>
+     <option value="C07">
+      C07 - Manutenzione dei sistemi antincendio non effettuata
+     </option>
+     <option value="C08">
+      C08 - Segnaletica di sicurezza assente o incompleta
+     </option>
+     <option value="C09">
+      C09 - Interruttore elettrico generale esterno assente o non accessibile
+     </option>
+     <option value="C10">
+      C10 - Assenza del rubinetto di intercettazione manuale esterno (dove previsto)
+     </option>
+     <option value="C11">
+      C11 - Rigurgiti di fumi nel locale ove sono presenti apparecchi a tiraggio naturale
+     </option>
+     <option value="C12">
+      C12 - Presenza di perdite nei condotti di scarico di apparecchi a tiraggio forzato
+     </option>
+     <option value="C13">
+      C13 - Dall'esame visivo risultano perdite di combustibile liquido
+     </option>
+     <option value="C14">
+      C14 - Dall'esame visivo risultano perdite di fluido termovettore
+     </option>
+     <option value="C15">
+      C15 - Errata ubicazione (bagno/camera da letto) di apparecchi a gas di tipo A o B
+     </option>
+     <option value="C16">
+      C16 - Valore di CO superiore a 1000 ppm in locale con areazione insufficiente
+     </option>
+     <option value="C17">
+      C17 - Mancanza apparecchiature di sicurezza ISPESL
+     </option>
+     <option value="C18">
+      C18 - Errata ubicazione (es. autorimessa ecc.) di apparecchi a gas di tipo B o C
+     </option>
+     <option value="C19">
+      C19 - Errata ubicazione (ambienti non ventilabili) di apparecchi di tipo C
+     </option>
+     <option value="C20">
+      C20 - Presenza di caminetti, aspiratori ecc. che, in funzione, provocano rigurgiti fumi in ambiente da apparecchi di tipo B
+     </option>
+     <option value="C21">
+      C21 - Termostato fumi, presente in origine, che risulta cortocircuitato o manomesso
+     </option>
+     <option value="C22">
+      C22 - Linea di adduzione gas irregolare
+     </option>
+     <option value="C23">
+      C23 - Mancanza del rubinetto di intercet. del combustibile a monte dell'apparecchio
+     </option>
+     <option value="C24">
+      C24 - Canali da fumo irregolari in apparecchi di tipo B
+     </option>
+     <option value="C25">
+      C25 - Assenza di qualsiasi tipo di regolazione climatica dell'impianto
+     </option>
+     <option value="C26">
+      C26 - Mancanza libretto uso e manutenzione della caldaia e/o bruciatore
+     </option>
+     <option value="F01">
+      F01 - Il generatore di calore di età superiore a 15 anni e &gt;=116 kW
+     </option>
+     <option value="G01">
+      G01 - La caldaia o scaldabagno scaricano i prodotti della combustione nello stesso camino
+     </option>
+     <option value="G02">
+      G02 - Tubazione gas attraversante il muro senza guaina
+     </option>
+     <option value="G04">
+      G04 - Assenza coibentazione canale da fumo
+     </option>
+     <option value="G05">
+      G05 - Assenza rivestimento incombustibile o almeno autoestinguente per la fognatura
+     </option>
+     <option value="G06">
+      G06 - Non è stato possibile verificare il rendimento di combustione del generatore
+     </option>
+     <option value="G07">
+      G07 - Il rendimento di combustione del generatore di calore era inferiore ai limiti prrevisti dalla normativa regionale
+     </option>
+     <option value="G08">
+      G08 - Valore di CO superiore a 1000 ppm
+     </option>
+     <option value="G09">
+      G09 - I condotti di aspirazione aria ed evacuazione dei prodotti della combustione sono corrugati
+     </option>
+     <option value="G10">
+      G10 - Tiraggio inferiore al valore minimo ammesso dalla norma UNI 10845.
+     </option>
+     <option value="G11">
+      G11 - Indice di Bacharach superiore a 2 (gasolio)
+     </option>
+     <option value="G12">
+      G12 - Mancanza della dichiarazione di conformità
+     </option>
+     <option value="G13">
+      G13 - Mancanza rapp. di man .(All. G/F) e/o prova fumi
+     </option>
+     <option value="G14">
+      G14 - Allegato G/F senza attestazione di pagamento (bollino)
+     </option>
+       <option value="G15">
+G15 - Manutenzione non effettuata nell'anno/biennio in corso
+</option>
+<option value="G16">
+G16 - Mancanza del libretto d'impianto
+</option>
+<option value="G17">
+G17 - Chiusura foro di prelievo non corretta
+</option>
+<option value="G18">
+G18 - Assenza CPI
+</option>
+<option value="G19">
+G19 - Altezza efficace del camino insufficiente
+</option>
+<option value="G20">
+G20 - Conformazione sistema fumario irregolare
+</option>
+<option value="G21">
+G21 - Assenza di areazione piano di cottura
+</option>
+<option value="G22">
+G22 - Caldaia installata in locale non idoneo
+</option>
+<option value="G23">
+G23 - Caldaia tipo "B" con presenza camino a legna in locale adiacente
+</option>
+<option value="G24">
+G24 - Mancata registrazione Dichiarazione di avvenuta manutenzione
+</option>
+<option value="G25">
+G25 - Mancata targatura
+</option>
+  </select>
+   </td>
+  </tr>
+  <tr>
+   <td>
+    <select id="Osservazioni_Codici2" name="Osservazioni_Codici2" style="width:100%">
+     <option value="">
+     </option>
+     <option value="A01">
+      A01 - Presenza di apparecchi di tipo A, di cottura e B e assenza ventilazione permanente nel locale
+     </option>
+     <option value="A02">
+      A02 - Presenza di apparecchi di tipo A, di cottura e B con ventilazione permanente insufficiente
+     </option>
+     <option value="A03">
+      A03 - Presenza di apparecchi di tipo A, di cottura e B con sistema ventilazione ostruito
+     </option>
+     <option value="A04">
+      A04 - Errata ubicazione (bagno/camera da letto) di apparecchi a gas di tipo A o B
+     </option>
+     <option value="A05">
+      A05 - Errata ubicazione (es. autorimessa ecc.) di apparecchi a gas di tipo B o C
+     </option>
+     <option value="A06">
+      A06 - Errata ubicazione (ambienti non ventilabili) di apparecchi di tipo C
+     </option>
+     <option value="A07">
+      A07 - Rigurgito di fumi in ambiente da apparecchi di tipo B
+     </option>
+     <option value="A08">
+      A08 - Presenza di caminetti, aspiratori ecc. che, in funzione, provocano rigurgiti fumi in ambiente da apparecchi di tipo B
+     </option>
+     <option value="A09">
+      A09 - Termostato fumi, presente in origine, che risulta cortocircuitato o manomesso
+     </option>
+     <option value="A10">
+      A10 - Caldaie di tipo C collegate a camini non idonei, non contigui a locali abitati
+     </option>
+     <option value="A11">
+      A11 - Caldaie di tipo C collegate a camini non idonei, contigui a locali abitati
+     </option>
+     <option value="A12">
+      A12 - Caldaie di tipo C collegate a canne collettive ramificate (C.C.R.) in cui scaricano apparecchi di tipo B o viceversa
+     </option>
+     <option value="A13">
+      A13 - Scarichi a parete di apparecchi di tipo B irregolari o posizionati irregolarmente
+     </option>
+     <option value="A14">
+      A14 - Scarichi a parete di apparecchi di tipo C irregolari o posizionati irregolarmente
+     </option>
+     <option value="A15">
+      A15 - Linea di adduzione gas irregolare
+     </option>
+     <option value="A16">
+      A16 - Mancanza del rubinetto di intercettazione generale del gas all'interno dell'abitazione
+     </option>
+     <option value="A17">
+      A17 - Mancanza del rubinetto intercettazione del gas a monte dell'apparecchio
+     </option>
+     <option value="A18">
+      A18 - Canali da fumo irregolari in apparecchi di tipo B
+     </option>
+     <option value="A19">
+      A19 - Valore di CO superiore a 1000 ppm in locale con areazione insufficiente
+     </option>
+     <option value="A20">
+      A20 - Impianto con perdite evidenti di combustibile
+     </option>
+     <option value="A21">
+      A21 - Canali da fumo con rotture evidenti
+     </option>
+     <option value="A22">
+      A22 - Mancanza apparecchiature di sicurezza ISPESL
+     </option>
+     <option value="A23">
+      A23 - Perdite di fluido termovettore
+     </option>
+     <option value="C01">
+      C01 - Ubicazione del locale centrale termica non conforme alle prescrizioni di legge
+     </option>
+     <option value="C02">
+      C02 - Accesso alla centrale termica non conforme alle prescrizioni di legge
+     </option>
+     <option value="C03">
+      C03 - Apertura di areazione del locale caldaie assente
+     </option>
+     <option value="C04">
+      C04 - Apertura di areazione del locale caldaie insufficiente
+     </option>
+     <option value="C05">
+      C05 - Apertura di areazione del locale caldaie collocata in modo errato
+     </option>
+     <option value="C06">
+      C06 - Assenza degli strumenti antincendio
+     </option>
+     <option value="C07">
+      C07 - Manutenzione dei sistemi antincendio non effettuata
+     </option>
+     <option value="C08">
+      C08 - Segnaletica di sicurezza assente o incompleta
+     </option>
+     <option value="C09">
+      C09 - Interruttore elettrico generale esterno assente o non accessibile
+     </option>
+     <option value="C10">
+      C10 - Assenza del rubinetto di intercettazione manuale esterno (dove previsto)
+     </option>
+     <option value="C11">
+      C11 - Rigurgiti di fumi nel locale ove sono presenti apparecchi a tiraggio naturale
+     </option>
+     <option value="C12">
+      C12 - Presenza di perdite nei condotti di scarico di apparecchi a tiraggio forzato
+     </option>
+     <option value="C13">
+      C13 - Dall'esame visivo risultano perdite di combustibile liquido
+     </option>
+     <option value="C14">
+      C14 - Dall'esame visivo risultano perdite di fluido termovettore
+     </option>
+     <option value="C15">
+      C15 - Errata ubicazione (bagno/camera da letto) di apparecchi a gas di tipo A o B
+     </option>
+     <option value="C16">
+      C16 - Valore di CO superiore a 1000 ppm in locale con areazione insufficiente
+     </option>
+     <option value="C17">
+      C17 - Mancanza apparecchiature di sicurezza ISPESL
+     </option>
+     <option value="C18">
+      C18 - Errata ubicazione (es. autorimessa ecc.) di apparecchi a gas di tipo B o C
+     </option>
+     <option value="C19">
+      C19 - Errata ubicazione (ambienti non ventilabili) di apparecchi di tipo C
+     </option>
+     <option value="C20">
+      C20 - Presenza di caminetti, aspiratori ecc. che, in funzione, provocano rigurgiti fumi in ambiente da apparecchi di tipo B
+     </option>
+     <option value="C21">
+      C21 - Termostato fumi, presente in origine, che risulta cortocircuitato o manomesso
+     </option>
+     <option value="C22">
+      C22 - Linea di adduzione gas irregolare
+     </option>
+     <option value="C23">
+      C23 - Mancanza del rubinetto di intercet. del combustibile a monte dell'apparecchio
+     </option>
+     <option value="C24">
+      C24 - Canali da fumo irregolari in apparecchi di tipo B
+     </option>
+     <option value="C25">
+      C25 - Assenza di qualsiasi tipo di regolazione climatica dell'impianto
+     </option>
+     <option value="C26">
+      C26 - Mancanza libretto uso e manutenzione della caldaia e/o bruciatore
+     </option>
+     <option value="F01">
+      F01 - Il generatore di calore di età superiore a 15 anni e &gt;=116 kW
+     </option>
+     <option value="G01">
+      G01 - La caldaia o scaldabagno scaricano i prodotti della combustione nello stesso camino
+     </option>
+     <option value="G02">
+      G02 - Tubazione gas attraversante il muro senza guaina
+     </option>
+     <option value="G04">
+      G04 - Assenza coibentazione canale da fumo
+     </option>
+     <option value="G05">
+      G05 - Assenza rivestimento incombustibile o almeno autoestinguente per la fognatura
+     </option>
+     <option value="G06">
+      G06 - Non è stato possibile verificare il rendimento di combustione del generatore
+     </option>
+     <option value="G07">
+      G07 - Il rendimento di combustione del generatore di calore era inferiore ai limiti prrevisti dalla normativa regionale
+     </option>
+     <option value="G08">
+      G08 - Valore di CO superiore a 1000 ppm
+     </option>
+     <option value="G09">
+      G09 - I condotti di aspirazione aria ed evacuazione dei prodotti della combustione sono corrugati
+     </option>
+     <option value="G10">
+      G10 - Tiraggio inferiore al valore minimo ammesso dalla norma UNI 10845.
+     </option>
+     <option value="G11">
+      G11 - Indice di Bacharach superiore a 2 (gasolio)
+     </option>
+     <option value="G12">
+      G12 - Mancanza della dichiarazione di conformità
+     </option>
+     <option value="G13">
+      G13 - Mancanza rapp. di man .(All. G/F) e/o prova fumi
+     </option>
+     <option value="G14">
+      G14 - Allegato G/F senza attestazione di pagamento (bollino)
+     </option>
+       <option value="G15">
+G15 - Manutenzione non effettuata nell'anno/biennio in corso
+</option>
+<option value="G16">
+G16 - Mancanza del libretto d'impianto
+</option>
+<option value="G17">
+G17 - Chiusura foro di prelievo non corretta
+</option>
+<option value="G18">
+G18 - Assenza CPI
+</option>
+<option value="G19">
+G19 - Altezza efficace del camino insufficiente
+</option>
+<option value="G20">
+G20 - Conformazione sistema fumario irregolare
+</option>
+<option value="G21">
+G21 - Assenza di areazione piano di cottura
+</option>
+<option value="G22">
+G22 - Caldaia installata in locale non idoneo
+</option>
+<option value="G23">
+G23 - Caldaia tipo "B" con presenza camino a legna in locale adiacente
+</option>
+<option value="G24">
+G24 - Mancata registrazione Dichiarazione di avvenuta manutenzione
+</option>
+<option value="G25">
+G25 - Mancata targatura
+</option>
+  
+  </select>
+   </td>
+  </tr>
+  <tr>
+   <td>
+    <select id="Osservazioni_Codici3" name="Osservazioni_Codici3" style="width:100%">
+     <option value="">
+     </option>
+     <option value="A01">
+      A01 - Presenza di apparecchi di tipo A, di cottura e B e assenza ventilazione permanente nel locale
+     </option>
+     <option value="A02">
+      A02 - Presenza di apparecchi di tipo A, di cottura e B con ventilazione permanente insufficiente
+     </option>
+     <option value="A03">
+      A03 - Presenza di apparecchi di tipo A, di cottura e B con sistema ventilazione ostruito
+     </option>
+     <option value="A04">
+      A04 - Errata ubicazione (bagno/camera da letto) di apparecchi a gas di tipo A o B
+     </option>
+     <option value="A05">
+      A05 - Errata ubicazione (es. autorimessa ecc.) di apparecchi a gas di tipo B o C
+     </option>
+     <option value="A06">
+      A06 - Errata ubicazione (ambienti non ventilabili) di apparecchi di tipo C
+     </option>
+     <option value="A07">
+      A07 - Rigurgito di fumi in ambiente da apparecchi di tipo B
+     </option>
+     <option value="A08">
+      A08 - Presenza di caminetti, aspiratori ecc. che, in funzione, provocano rigurgiti fumi in ambiente da apparecchi di tipo B
+     </option>
+     <option value="A09">
+      A09 - Termostato fumi, presente in origine, che risulta cortocircuitato o manomesso
+     </option>
+     <option value="A10">
+      A10 - Caldaie di tipo C collegate a camini non idonei, non contigui a locali abitati
+     </option>
+     <option value="A11">
+      A11 - Caldaie di tipo C collegate a camini non idonei, contigui a locali abitati
+     </option>
+     <option value="A12">
+      A12 - Caldaie di tipo C collegate a canne collettive ramificate (C.C.R.) in cui scaricano apparecchi di tipo B o viceversa
+     </option>
+     <option value="A13">
+      A13 - Scarichi a parete di apparecchi di tipo B irregolari o posizionati irregolarmente
+     </option>
+     <option value="A14">
+      A14 - Scarichi a parete di apparecchi di tipo C irregolari o posizionati irregolarmente
+     </option>
+     <option value="A15">
+      A15 - Linea di adduzione gas irregolare
+     </option>
+     <option value="A16">
+      A16 - Mancanza del rubinetto di intercettazione generale del gas all'interno dell'abitazione
+     </option>
+     <option value="A17">
+      A17 - Mancanza del rubinetto intercettazione del gas a monte dell'apparecchio
+     </option>
+     <option value="A18">
+      A18 - Canali da fumo irregolari in apparecchi di tipo B
+     </option>
+     <option value="A19">
+      A19 - Valore di CO superiore a 1000 ppm in locale con areazione insufficiente
+     </option>
+     <option value="A20">
+      A20 - Impianto con perdite evidenti di combustibile
+     </option>
+     <option value="A21">
+      A21 - Canali da fumo con rotture evidenti
+     </option>
+     <option value="A22">
+      A22 - Mancanza apparecchiature di sicurezza ISPESL
+     </option>
+     <option value="A23">
+      A23 - Perdite di fluido termovettore
+     </option>
+     <option value="C01">
+      C01 - Ubicazione del locale centrale termica non conforme alle prescrizioni di legge
+     </option>
+     <option value="C02">
+      C02 - Accesso alla centrale termica non conforme alle prescrizioni di legge
+     </option>
+     <option value="C03">
+      C03 - Apertura di areazione del locale caldaie assente
+     </option>
+     <option value="C04">
+      C04 - Apertura di areazione del locale caldaie insufficiente
+     </option>
+     <option value="C05">
+      C05 - Apertura di areazione del locale caldaie collocata in modo errato
+     </option>
+     <option value="C06">
+      C06 - Assenza degli strumenti antincendio
+     </option>
+     <option value="C07">
+      C07 - Manutenzione dei sistemi antincendio non effettuata
+     </option>
+     <option value="C08">
+      C08 - Segnaletica di sicurezza assente o incompleta
+     </option>
+     <option value="C09">
+      C09 - Interruttore elettrico generale esterno assente o non accessibile
+     </option>
+     <option value="C10">
+      C10 - Assenza del rubinetto di intercettazione manuale esterno (dove previsto)
+     </option>
+     <option value="C11">
+      C11 - Rigurgiti di fumi nel locale ove sono presenti apparecchi a tiraggio naturale
+     </option>
+     <option value="C12">
+      C12 - Presenza di perdite nei condotti di scarico di apparecchi a tiraggio forzato
+     </option>
+     <option value="C13">
+      C13 - Dall'esame visivo risultano perdite di combustibile liquido
+     </option>
+     <option value="C14">
+      C14 - Dall'esame visivo risultano perdite di fluido termovettore
+     </option>
+     <option value="C15">
+      C15 - Errata ubicazione (bagno/camera da letto) di apparecchi a gas di tipo A o B
+     </option>
+     <option value="C16">
+      C16 - Valore di CO superiore a 1000 ppm in locale con areazione insufficiente
+     </option>
+     <option value="C17">
+      C17 - Mancanza apparecchiature di sicurezza ISPESL
+     </option>
+     <option value="C18">
+      C18 - Errata ubicazione (es. autorimessa ecc.) di apparecchi a gas di tipo B o C
+     </option>
+     <option value="C19">
+      C19 - Errata ubicazione (ambienti non ventilabili) di apparecchi di tipo C
+     </option>
+     <option value="C20">
+      C20 - Presenza di caminetti, aspiratori ecc. che, in funzione, provocano rigurgiti fumi in ambiente da apparecchi di tipo B
+     </option>
+     <option value="C21">
+      C21 - Termostato fumi, presente in origine, che risulta cortocircuitato o manomesso
+     </option>
+     <option value="C22">
+      C22 - Linea di adduzione gas irregolare
+     </option>
+     <option value="C23">
+      C23 - Mancanza del rubinetto di intercet. del combustibile a monte dell'apparecchio
+     </option>
+     <option value="C24">
+      C24 - Canali da fumo irregolari in apparecchi di tipo B
+     </option>
+     <option value="C25">
+      C25 - Assenza di qualsiasi tipo di regolazione climatica dell'impianto
+     </option>
+     <option value="C26">
+      C26 - Mancanza libretto uso e manutenzione della caldaia e/o bruciatore
+     </option>
+     <option value="F01">
+      F01 - Il generatore di calore di età superiore a 15 anni e &gt;=116 kW
+     </option>
+     <option value="G01">
+      G01 - La caldaia o scaldabagno scaricano i prodotti della combustione nello stesso camino
+     </option>
+     <option value="G02">
+      G02 - Tubazione gas attraversante il muro senza guaina
+     </option>
+     <option value="G04">
+      G04 - Assenza coibentazione canale da fumo
+     </option>
+     <option value="G05">
+      G05 - Assenza rivestimento incombustibile o almeno autoestinguente per la fognatura
+     </option>
+     <option value="G06">
+      G06 - Non è stato possibile verificare il rendimento di combustione del generatore
+     </option>
+     <option value="G07">
+      G07 - Il rendimento di combustione del generatore di calore era inferiore ai limiti prrevisti dalla normativa regionale
+     </option>
+     <option value="G08">
+      G08 - Valore di CO superiore a 1000 ppm
+     </option>
+     <option value="G09">
+      G09 - I condotti di aspirazione aria ed evacuazione dei prodotti della combustione sono corrugati
+     </option>
+     <option value="G10">
+      G10 - Tiraggio inferiore al valore minimo ammesso dalla norma UNI 10845.
+     </option>
+     <option value="G11">
+      G11 - Indice di Bacharach superiore a 2 (gasolio)
+     </option>
+     <option value="G12">
+      G12 - Mancanza della dichiarazione di conformità
+     </option>
+     <option value="G13">
+      G13 - Mancanza rapp. di man .(All. G/F) e/o prova fumi
+     </option>
+     <option value="G14">
+      G14 - Allegato G/F senza attestazione di pagamento (bollino)
+     </option>
+       <option value="G15">
+G15 - Manutenzione non effettuata nell'anno/biennio in corso
+</option>
+<option value="G16">
+G16 - Mancanza del libretto d'impianto
+</option>
+<option value="G17">
+G17 - Chiusura foro di prelievo non corretta
+</option>
+<option value="G18">
+G18 - Assenza CPI
+</option>
+<option value="G19">
+G19 - Altezza efficace del camino insufficiente
+</option>
+<option value="G20">
+G20 - Conformazione sistema fumario irregolare
+</option>
+<option value="G21">
+G21 - Assenza di areazione piano di cottura
+</option>
+<option value="G22">
+G22 - Caldaia installata in locale non idoneo
+</option>
+<option value="G23">
+G23 - Caldaia tipo "B" con presenza camino a legna in locale adiacente
+</option>
+<option value="G24">
+G24 - Mancata registrazione Dichiarazione di avvenuta manutenzione
+</option>
+<option value="G25">
+G25 - Mancata targatura
+</option>
+  
+  </select>
+   </td>
+  </tr>
+  <tr>
+   <td>
+    <select id="Osservazioni_Codici5" name="Osservazioni_Codici5" style="width:100%">
+     <option value="">
+     </option>
+     <option value="A01">
+      A01 - Presenza di apparecchi di tipo A, di cottura e B e assenza ventilazione permanente nel locale
+     </option>
+     <option value="A02">
+      A02 - Presenza di apparecchi di tipo A, di cottura e B con ventilazione permanente insufficiente
+     </option>
+     <option value="A03">
+      A03 - Presenza di apparecchi di tipo A, di cottura e B con sistema ventilazione ostruito
+     </option>
+     <option value="A04">
+      A04 - Errata ubicazione (bagno/camera da letto) di apparecchi a gas di tipo A o B
+     </option>
+     <option value="A05">
+      A05 - Errata ubicazione (es. autorimessa ecc.) di apparecchi a gas di tipo B o C
+     </option>
+     <option value="A06">
+      A06 - Errata ubicazione (ambienti non ventilabili) di apparecchi di tipo C
+     </option>
+     <option value="A07">
+      A07 - Rigurgito di fumi in ambiente da apparecchi di tipo B
+     </option>
+     <option value="A08">
+      A08 - Presenza di caminetti, aspiratori ecc. che, in funzione, provocano rigurgiti fumi in ambiente da apparecchi di tipo B
+     </option>
+     <option value="A09">
+      A09 - Termostato fumi, presente in origine, che risulta cortocircuitato o manomesso
+     </option>
+     <option value="A10">
+      A10 - Caldaie di tipo C collegate a camini non idonei, non contigui a locali abitati
+     </option>
+     <option value="A11">
+      A11 - Caldaie di tipo C collegate a camini non idonei, contigui a locali abitati
+     </option>
+     <option value="A12">
+      A12 - Caldaie di tipo C collegate a canne collettive ramificate (C.C.R.) in cui scaricano apparecchi di tipo B o viceversa
+     </option>
+     <option value="A13">
+      A13 - Scarichi a parete di apparecchi di tipo B irregolari o posizionati irregolarmente
+     </option>
+     <option value="A14">
+      A14 - Scarichi a parete di apparecchi di tipo C irregolari o posizionati irregolarmente
+     </option>
+     <option value="A15">
+      A15 - Linea di adduzione gas irregolare
+     </option>
+     <option value="A16">
+      A16 - Mancanza del rubinetto di intercettazione generale del gas all'interno dell'abitazione
+     </option>
+     <option value="A17">
+      A17 - Mancanza del rubinetto intercettazione del gas a monte dell'apparecchio
+     </option>
+     <option value="A18">
+      A18 - Canali da fumo irregolari in apparecchi di tipo B
+     </option>
+     <option value="A19">
+      A19 - Valore di CO superiore a 1000 ppm in locale con areazione insufficiente
+     </option>
+     <option value="A20">
+      A20 - Impianto con perdite evidenti di combustibile
+     </option>
+     <option value="A21">
+      A21 - Canali da fumo con rotture evidenti
+     </option>
+     <option value="A22">
+      A22 - Mancanza apparecchiature di sicurezza ISPESL
+     </option>
+     <option value="A23">
+      A23 - Perdite di fluido termovettore
+     </option>
+     <option value="C01">
+      C01 - Ubicazione del locale centrale termica non conforme alle prescrizioni di legge
+     </option>
+     <option value="C02">
+      C02 - Accesso alla centrale termica non conforme alle prescrizioni di legge
+     </option>
+     <option value="C03">
+      C03 - Apertura di areazione del locale caldaie assente
+     </option>
+     <option value="C04">
+      C04 - Apertura di areazione del locale caldaie insufficiente
+     </option>
+     <option value="C05">
+      C05 - Apertura di areazione del locale caldaie collocata in modo errato
+     </option>
+     <option value="C06">
+      C06 - Assenza degli strumenti antincendio
+     </option>
+     <option value="C07">
+      C07 - Manutenzione dei sistemi antincendio non effettuata
+     </option>
+     <option value="C08">
+      C08 - Segnaletica di sicurezza assente o incompleta
+     </option>
+     <option value="C09">
+      C09 - Interruttore elettrico generale esterno assente o non accessibile
+     </option>
+     <option value="C10">
+      C10 - Assenza del rubinetto di intercettazione manuale esterno (dove previsto)
+     </option>
+     <option value="C11">
+      C11 - Rigurgiti di fumi nel locale ove sono presenti apparecchi a tiraggio naturale
+     </option>
+     <option value="C12">
+      C12 - Presenza di perdite nei condotti di scarico di apparecchi a tiraggio forzato
+     </option>
+     <option value="C13">
+      C13 - Dall'esame visivo risultano perdite di combustibile liquido
+     </option>
+     <option value="C14">
+      C14 - Dall'esame visivo risultano perdite di fluido termovettore
+     </option>
+     <option value="C15">
+      C15 - Errata ubicazione (bagno/camera da letto) di apparecchi a gas di tipo A o B
+     </option>
+     <option value="C16">
+      C16 - Valore di CO superiore a 1000 ppm in locale con areazione insufficiente
+     </option>
+     <option value="C17">
+      C17 - Mancanza apparecchiature di sicurezza ISPESL
+     </option>
+     <option value="C18">
+      C18 - Errata ubicazione (es. autorimessa ecc.) di apparecchi a gas di tipo B o C
+     </option>
+     <option value="C19">
+      C19 - Errata ubicazione (ambienti non ventilabili) di apparecchi di tipo C
+     </option>
+     <option value="C20">
+      C20 - Presenza di caminetti, aspiratori ecc. che, in funzione, provocano rigurgiti fumi in ambiente da apparecchi di tipo B
+     </option>
+     <option value="C21">
+      C21 - Termostato fumi, presente in origine, che risulta cortocircuitato o manomesso
+     </option>
+     <option value="C22">
+      C22 - Linea di adduzione gas irregolare
+     </option>
+     <option value="C23">
+      C23 - Mancanza del rubinetto di intercet. del combustibile a monte dell'apparecchio
+     </option>
+     <option value="C24">
+      C24 - Canali da fumo irregolari in apparecchi di tipo B
+     </option>
+     <option value="C25">
+      C25 - Assenza di qualsiasi tipo di regolazione climatica dell'impianto
+     </option>
+     <option value="C26">
+      C26 - Mancanza libretto uso e manutenzione della caldaia e/o bruciatore
+     </option>
+     <option value="F01">
+      F01 - Il generatore di calore di età superiore a 15 anni e &gt;=116 kW
+     </option>
+     <option value="G01">
+      G01 - La caldaia o scaldabagno scaricano i prodotti della combustione nello stesso camino
+     </option>
+     <option value="G02">
+      G02 - Tubazione gas attraversante il muro senza guaina
+     </option>
+     <option value="G04">
+      G04 - Assenza coibentazione canale da fumo
+     </option>
+     <option value="G05">
+      G05 - Assenza rivestimento incombustibile o almeno autoestinguente per la fognatura
+     </option>
+     <option value="G06">
+      G06 - Non è stato possibile verificare il rendimento di combustione del generatore
+     </option>
+     <option value="G07">
+      G07 - Il rendimento di combustione del generatore di calore era inferiore ai limiti prrevisti dalla normativa regionale
+     </option>
+     <option value="G08">
+      G08 - Valore di CO superiore a 1000 ppm
+     </option>
+     <option value="G09">
+      G09 - I condotti di aspirazione aria ed evacuazione dei prodotti della combustione sono corrugati
+     </option>
+     <option value="G10">
+      G10 - Tiraggio inferiore al valore minimo ammesso dalla norma UNI 10845.
+     </option>
+     <option value="G11">
+      G11 - Indice di Bacharach superiore a 2 (gasolio)
+     </option>
+     <option value="G12">
+      G12 - Mancanza della dichiarazione di conformità
+     </option>
+     <option value="G13">
+      G13 - Mancanza rapp. di man .(All. G/F) e/o prova fumi
+     </option>
+     <option value="G14">
+      G14 - Allegato G/F senza attestazione di pagamento (bollino)
+     </option>
+       <option value="G15">
+G15 - Manutenzione non effettuata nell'anno/biennio in corso
+</option>
+<option value="G16">
+G16 - Mancanza del libretto d'impianto
+</option>
+<option value="G17">
+G17 - Chiusura foro di prelievo non corretta
+</option>
+<option value="G18">
+G18 - Assenza CPI
+</option>
+<option value="G19">
+G19 - Altezza efficace del camino insufficiente
+</option>
+<option value="G20">
+G20 - Conformazione sistema fumario irregolare
+</option>
+<option value="G21">
+G21 - Assenza di areazione piano di cottura
+</option>
+<option value="G22">
+G22 - Caldaia installata in locale non idoneo
+</option>
+<option value="G23">
+G23 - Caldaia tipo "B" con presenza camino a legna in locale adiacente
+</option>
+<option value="G24">
+G24 - Mancata registrazione Dichiarazione di avvenuta manutenzione
+</option>
+<option value="G25">
+G25 - Mancata targatura
+</option>
+  </select>
+   </td>
+  </tr>
+  <tr>
+   <td>
+    <select id="Osservazioni_Codici6" name="Osservazioni_Codici6" style="width:100%">
+     <option value="">
+     </option>
+     <option value="A01">
+      A01 - Presenza di apparecchi di tipo A, di cottura e B e assenza ventilazione permanente nel locale
+     </option>
+     <option value="A02">
+      A02 - Presenza di apparecchi di tipo A, di cottura e B con ventilazione permanente insufficiente
+     </option>
+     <option value="A03">
+      A03 - Presenza di apparecchi di tipo A, di cottura e B con sistema ventilazione ostruito
+     </option>
+     <option value="A04">
+      A04 - Errata ubicazione (bagno/camera da letto) di apparecchi a gas di tipo A o B
+     </option>
+     <option value="A05">
+      A05 - Errata ubicazione (es. autorimessa ecc.) di apparecchi a gas di tipo B o C
+     </option>
+     <option value="A06">
+      A06 - Errata ubicazione (ambienti non ventilabili) di apparecchi di tipo C
+     </option>
+     <option value="A07">
+      A07 - Rigurgito di fumi in ambiente da apparecchi di tipo B
+     </option>
+     <option value="A08">
+      A08 - Presenza di caminetti, aspiratori ecc. che, in funzione, provocano rigurgiti fumi in ambiente da apparecchi di tipo B
+     </option>
+     <option value="A09">
+      A09 - Termostato fumi, presente in origine, che risulta cortocircuitato o manomesso
+     </option>
+     <option value="A10">
+      A10 - Caldaie di tipo C collegate a camini non idonei, non contigui a locali abitati
+     </option>
+     <option value="A11">
+      A11 - Caldaie di tipo C collegate a camini non idonei, contigui a locali abitati
+     </option>
+     <option value="A12">
+      A12 - Caldaie di tipo C collegate a canne collettive ramificate (C.C.R.) in cui scaricano apparecchi di tipo B o viceversa
+     </option>
+     <option value="A13">
+      A13 - Scarichi a parete di apparecchi di tipo B irregolari o posizionati irregolarmente
+     </option>
+     <option value="A14">
+      A14 - Scarichi a parete di apparecchi di tipo C irregolari o posizionati irregolarmente
+     </option>
+     <option value="A15">
+      A15 - Linea di adduzione gas irregolare
+     </option>
+     <option value="A16">
+      A16 - Mancanza del rubinetto di intercettazione generale del gas all'interno dell'abitazione
+     </option>
+     <option value="A17">
+      A17 - Mancanza del rubinetto intercettazione del gas a monte dell'apparecchio
+     </option>
+     <option value="A18">
+      A18 - Canali da fumo irregolari in apparecchi di tipo B
+     </option>
+     <option value="A19">
+      A19 - Valore di CO superiore a 1000 ppm in locale con areazione insufficiente
+     </option>
+     <option value="A20">
+      A20 - Impianto con perdite evidenti di combustibile
+     </option>
+     <option value="A21">
+      A21 - Canali da fumo con rotture evidenti
+     </option>
+     <option value="A22">
+      A22 - Mancanza apparecchiature di sicurezza ISPESL
+     </option>
+     <option value="A23">
+      A23 - Perdite di fluido termovettore
+     </option>
+     <option value="C01">
+      C01 - Ubicazione del locale centrale termica non conforme alle prescrizioni di legge
+     </option>
+     <option value="C02">
+      C02 - Accesso alla centrale termica non conforme alle prescrizioni di legge
+     </option>
+     <option value="C03">
+      C03 - Apertura di areazione del locale caldaie assente
+     </option>
+     <option value="C04">
+      C04 - Apertura di areazione del locale caldaie insufficiente
+     </option>
+     <option value="C05">
+      C05 - Apertura di areazione del locale caldaie collocata in modo errato
+     </option>
+     <option value="C06">
+      C06 - Assenza degli strumenti antincendio
+     </option>
+     <option value="C07">
+      C07 - Manutenzione dei sistemi antincendio non effettuata
+     </option>
+     <option value="C08">
+      C08 - Segnaletica di sicurezza assente o incompleta
+     </option>
+     <option value="C09">
+      C09 - Interruttore elettrico generale esterno assente o non accessibile
+     </option>
+     <option value="C10">
+      C10 - Assenza del rubinetto di intercettazione manuale esterno (dove previsto)
+     </option>
+     <option value="C11">
+      C11 - Rigurgiti di fumi nel locale ove sono presenti apparecchi a tiraggio naturale
+     </option>
+     <option value="C12">
+      C12 - Presenza di perdite nei condotti di scarico di apparecchi a tiraggio forzato
+     </option>
+     <option value="C13">
+      C13 - Dall'esame visivo risultano perdite di combustibile liquido
+     </option>
+     <option value="C14">
+      C14 - Dall'esame visivo risultano perdite di fluido termovettore
+     </option>
+     <option value="C15">
+      C15 - Errata ubicazione (bagno/camera da letto) di apparecchi a gas di tipo A o B
+     </option>
+     <option value="C16">
+      C16 - Valore di CO superiore a 1000 ppm in locale con areazione insufficiente
+     </option>
+     <option value="C17">
+      C17 - Mancanza apparecchiature di sicurezza ISPESL
+     </option>
+     <option value="C18">
+      C18 - Errata ubicazione (es. autorimessa ecc.) di apparecchi a gas di tipo B o C
+     </option>
+     <option value="C19">
+      C19 - Errata ubicazione (ambienti non ventilabili) di apparecchi di tipo C
+     </option>
+     <option value="C20">
+      C20 - Presenza di caminetti, aspiratori ecc. che, in funzione, provocano rigurgiti fumi in ambiente da apparecchi di tipo B
+     </option>
+     <option value="C21">
+      C21 - Termostato fumi, presente in origine, che risulta cortocircuitato o manomesso
+     </option>
+     <option value="C22">
+      C22 - Linea di adduzione gas irregolare
+     </option>
+     <option value="C23">
+      C23 - Mancanza del rubinetto di intercet. del combustibile a monte dell'apparecchio
+     </option>
+     <option value="C24">
+      C24 - Canali da fumo irregolari in apparecchi di tipo B
+     </option>
+     <option value="C25">
+      C25 - Assenza di qualsiasi tipo di regolazione climatica dell'impianto
+     </option>
+     <option value="C26">
+      C26 - Mancanza libretto uso e manutenzione della caldaia e/o bruciatore
+     </option>
+     <option value="F01">
+      F01 - Il generatore di calore di età superiore a 15 anni e &gt;=116 kW
+     </option>
+     <option value="G01">
+      G01 - La caldaia o scaldabagno scaricano i prodotti della combustione nello stesso camino
+     </option>
+     <option value="G02">
+      G02 - Tubazione gas attraversante il muro senza guaina
+     </option>
+     <option value="G04">
+      G04 - Assenza coibentazione canale da fumo
+     </option>
+     <option value="G05">
+      G05 - Assenza rivestimento incombustibile o almeno autoestinguente per la fognatura
+     </option>
+     <option value="G06">
+      G06 - Non è stato possibile verificare il rendimento di combustione del generatore
+     </option>
+     <option value="G07">
+      G07 - Il rendimento di combustione del generatore di calore era inferiore ai limiti prrevisti dalla normativa regionale
+     </option>
+     <option value="G08">
+      G08 - Valore di CO superiore a 1000 ppm
+     </option>
+     <option value="G09">
+      G09 - I condotti di aspirazione aria ed evacuazione dei prodotti della combustione sono corrugati
+     </option>
+     <option value="G10">
+      G10 - Tiraggio inferiore al valore minimo ammesso dalla norma UNI 10845.
+     </option>
+     <option value="G11">
+      G11 - Indice di Bacharach superiore a 2 (gasolio)
+     </option>
+     <option value="G12">
+      G12 - Mancanza della dichiarazione di conformità
+     </option>
+     <option value="G13">
+      G13 - Mancanza rapp. di man .(All. G/F) e/o prova fumi
+     </option>
+     <option value="G14">
+      G14 - Allegato G/F senza attestazione di pagamento (bollino)
+     </option>
+       <option value="G15">
+G15 - Manutenzione non effettuata nell'anno/biennio in corso
+</option>
+<option value="G16">
+G16 - Mancanza del libretto d'impianto
+</option>
+<option value="G17">
+G17 - Chiusura foro di prelievo non corretta
+</option>
+<option value="G18">
+G18 - Assenza CPI
+</option>
+<option value="G19">
+G19 - Altezza efficace del camino insufficiente
+</option>
+<option value="G20">
+G20 - Conformazione sistema fumario irregolare
+</option>
+<option value="G21">
+G21 - Assenza di areazione piano di cottura
+</option>
+<option value="G22">
+G22 - Caldaia installata in locale non idoneo
+</option>
+<option value="G23">
+G23 - Caldaia tipo "B" con presenza camino a legna in locale adiacente
+</option>
+<option value="G24">
+G24 - Mancata registrazione Dichiarazione di avvenuta manutenzione
+</option>
+<option value="G25">
+G25 - Mancata targatura
+</option>
+  
+  </select>
+   </td>
+  </tr>
+  <tr>
+   <td>
+    <select id="Osservazioni_Codici7" name="Osservazioni_Codici7" style="width:100%">
+     <option value="">
+     </option>
+     <option value="A01">
+      A01 - Presenza di apparecchi di tipo A, di cottura e B e assenza ventilazione permanente nel locale
+     </option>
+     <option value="A02">
+      A02 - Presenza di apparecchi di tipo A, di cottura e B con ventilazione permanente insufficiente
+     </option>
+     <option value="A03">
+      A03 - Presenza di apparecchi di tipo A, di cottura e B con sistema ventilazione ostruito
+     </option>
+     <option value="A04">
+      A04 - Errata ubicazione (bagno/camera da letto) di apparecchi a gas di tipo A o B
+     </option>
+     <option value="A05">
+      A05 - Errata ubicazione (es. autorimessa ecc.) di apparecchi a gas di tipo B o C
+     </option>
+     <option value="A06">
+      A06 - Errata ubicazione (ambienti non ventilabili) di apparecchi di tipo C
+     </option>
+     <option value="A07">
+      A07 - Rigurgito di fumi in ambiente da apparecchi di tipo B
+     </option>
+     <option value="A08">
+      A08 - Presenza di caminetti, aspiratori ecc. che, in funzione, provocano rigurgiti fumi in ambiente da apparecchi di tipo B
+     </option>
+     <option value="A09">
+      A09 - Termostato fumi, presente in origine, che risulta cortocircuitato o manomesso
+     </option>
+     <option value="A10">
+      A10 - Caldaie di tipo C collegate a camini non idonei, non contigui a locali abitati
+     </option>
+     <option value="A11">
+      A11 - Caldaie di tipo C collegate a camini non idonei, contigui a locali abitati
+     </option>
+     <option value="A12">
+      A12 - Caldaie di tipo C collegate a canne collettive ramificate (C.C.R.) in cui scaricano apparecchi di tipo B o viceversa
+     </option>
+     <option value="A13">
+      A13 - Scarichi a parete di apparecchi di tipo B irregolari o posizionati irregolarmente
+     </option>
+     <option value="A14">
+      A14 - Scarichi a parete di apparecchi di tipo C irregolari o posizionati irregolarmente
+     </option>
+     <option value="A15">
+      A15 - Linea di adduzione gas irregolare
+     </option>
+     <option value="A16">
+      A16 - Mancanza del rubinetto di intercettazione generale del gas all'interno dell'abitazione
+     </option>
+     <option value="A17">
+      A17 - Mancanza del rubinetto intercettazione del gas a monte dell'apparecchio
+     </option>
+     <option value="A18">
+      A18 - Canali da fumo irregolari in apparecchi di tipo B
+     </option>
+     <option value="A19">
+      A19 - Valore di CO superiore a 1000 ppm in locale con areazione insufficiente
+     </option>
+     <option value="A20">
+      A20 - Impianto con perdite evidenti di combustibile
+     </option>
+     <option value="A21">
+      A21 - Canali da fumo con rotture evidenti
+     </option>
+     <option value="A22">
+      A22 - Mancanza apparecchiature di sicurezza ISPESL
+     </option>
+     <option value="A23">
+      A23 - Perdite di fluido termovettore
+     </option>
+     <option value="C01">
+      C01 - Ubicazione del locale centrale termica non conforme alle prescrizioni di legge
+     </option>
+     <option value="C02">
+      C02 - Accesso alla centrale termica non conforme alle prescrizioni di legge
+     </option>
+     <option value="C03">
+      C03 - Apertura di areazione del locale caldaie assente
+     </option>
+     <option value="C04">
+      C04 - Apertura di areazione del locale caldaie insufficiente
+     </option>
+     <option value="C05">
+      C05 - Apertura di areazione del locale caldaie collocata in modo errato
+     </option>
+     <option value="C06">
+      C06 - Assenza degli strumenti antincendio
+     </option>
+     <option value="C07">
+      C07 - Manutenzione dei sistemi antincendio non effettuata
+     </option>
+     <option value="C08">
+      C08 - Segnaletica di sicurezza assente o incompleta
+     </option>
+     <option value="C09">
+      C09 - Interruttore elettrico generale esterno assente o non accessibile
+     </option>
+     <option value="C10">
+      C10 - Assenza del rubinetto di intercettazione manuale esterno (dove previsto)
+     </option>
+     <option value="C11">
+      C11 - Rigurgiti di fumi nel locale ove sono presenti apparecchi a tiraggio naturale
+     </option>
+     <option value="C12">
+      C12 - Presenza di perdite nei condotti di scarico di apparecchi a tiraggio forzato
+     </option>
+     <option value="C13">
+      C13 - Dall'esame visivo risultano perdite di combustibile liquido
+     </option>
+     <option value="C14">
+      C14 - Dall'esame visivo risultano perdite di fluido termovettore
+     </option>
+     <option value="C15">
+      C15 - Errata ubicazione (bagno/camera da letto) di apparecchi a gas di tipo A o B
+     </option>
+     <option value="C16">
+      C16 - Valore di CO superiore a 1000 ppm in locale con areazione insufficiente
+     </option>
+     <option value="C17">
+      C17 - Mancanza apparecchiature di sicurezza ISPESL
+     </option>
+     <option value="C18">
+      C18 - Errata ubicazione (es. autorimessa ecc.) di apparecchi a gas di tipo B o C
+     </option>
+     <option value="C19">
+      C19 - Errata ubicazione (ambienti non ventilabili) di apparecchi di tipo C
+     </option>
+     <option value="C20">
+      C20 - Presenza di caminetti, aspiratori ecc. che, in funzione, provocano rigurgiti fumi in ambiente da apparecchi di tipo B
+     </option>
+     <option value="C21">
+      C21 - Termostato fumi, presente in origine, che risulta cortocircuitato o manomesso
+     </option>
+     <option value="C22">
+      C22 - Linea di adduzione gas irregolare
+     </option>
+     <option value="C23">
+      C23 - Mancanza del rubinetto di intercet. del combustibile a monte dell'apparecchio
+     </option>
+     <option value="C24">
+      C24 - Canali da fumo irregolari in apparecchi di tipo B
+     </option>
+     <option value="C25">
+      C25 - Assenza di qualsiasi tipo di regolazione climatica dell'impianto
+     </option>
+     <option value="C26">
+      C26 - Mancanza libretto uso e manutenzione della caldaia e/o bruciatore
+     </option>
+     <option value="F01">
+      F01 - Il generatore di calore di età superiore a 15 anni e &gt;=116 kW
+     </option>
+     <option value="G01">
+      G01 - La caldaia o scaldabagno scaricano i prodotti della combustione nello stesso camino
+     </option>
+     <option value="G02">
+      G02 - Tubazione gas attraversante il muro senza guaina
+     </option>
+     <option value="G04">
+      G04 - Assenza coibentazione canale da fumo
+     </option>
+     <option value="G05">
+      G05 - Assenza rivestimento incombustibile o almeno autoestinguente per la fognatura
+     </option>
+     <option value="G06">
+      G06 - Non è stato possibile verificare il rendimento di combustione del generatore
+     </option>
+     <option value="G07">
+      G07 - Il rendimento di combustione del generatore di calore era inferiore ai limiti prrevisti dalla normativa regionale
+     </option>
+     <option value="G08">
+      G08 - Valore di CO superiore a 1000 ppm
+     </option>
+     <option value="G09">
+      G09 - I condotti di aspirazione aria ed evacuazione dei prodotti della combustione sono corrugati
+     </option>
+     <option value="G10">
+      G10 - Tiraggio inferiore al valore minimo ammesso dalla norma UNI 10845.
+     </option>
+     <option value="G11">
+      G11 - Indice di Bacharach superiore a 2 (gasolio)
+     </option>
+     <option value="G12">
+      G12 - Mancanza della dichiarazione di conformità
+     </option>
+     <option value="G13">
+      G13 - Mancanza rapp. di man .(All. G/F) e/o prova fumi
+     </option>
+     <option value="G14">
+      G14 - Allegato G/F senza attestazione di pagamento (bollino)
+     </option>
+       <option value="G15">
+G15 - Manutenzione non effettuata nell'anno/biennio in corso
+</option>
+<option value="G16">
+G16 - Mancanza del libretto d'impianto
+</option>
+<option value="G17">
+G17 - Chiusura foro di prelievo non corretta
+</option>
+<option value="G18">
+G18 - Assenza CPI
+</option>
+<option value="G19">
+G19 - Altezza efficace del camino insufficiente
+</option>
+<option value="G20">
+G20 - Conformazione sistema fumario irregolare
+</option>
+<option value="G21">
+G21 - Assenza di areazione piano di cottura
+</option>
+<option value="G22">
+G22 - Caldaia installata in locale non idoneo
+</option>
+<option value="G23">
+G23 - Caldaia tipo "B" con presenza camino a legna in locale adiacente
+</option>
+<option value="G24">
+G24 - Mancata registrazione Dichiarazione di avvenuta manutenzione
+</option>
+<option value="G25">
+G25 - Mancata targatura
+</option>
+  </select>
+   </td>
+  </tr>
+  <tr>
+   <td>
+    <select id="Osservazioni_Codici8" name="Osservazioni_Codici8" style="width:100%">
+     <option value="">
+     </option>
+     <option value="A01">
+      A01 - Presenza di apparecchi di tipo A, di cottura e B e assenza ventilazione permanente nel locale
+     </option>
+     <option value="A02">
+      A02 - Presenza di apparecchi di tipo A, di cottura e B con ventilazione permanente insufficiente
+     </option>
+     <option value="A03">
+      A03 - Presenza di apparecchi di tipo A, di cottura e B con sistema ventilazione ostruito
+     </option>
+     <option value="A04">
+      A04 - Errata ubicazione (bagno/camera da letto) di apparecchi a gas di tipo A o B
+     </option>
+     <option value="A05">
+      A05 - Errata ubicazione (es. autorimessa ecc.) di apparecchi a gas di tipo B o C
+     </option>
+     <option value="A06">
+      A06 - Errata ubicazione (ambienti non ventilabili) di apparecchi di tipo C
+     </option>
+     <option value="A07">
+      A07 - Rigurgito di fumi in ambiente da apparecchi di tipo B
+     </option>
+     <option value="A08">
+      A08 - Presenza di caminetti, aspiratori ecc. che, in funzione, provocano rigurgiti fumi in ambiente da apparecchi di tipo B
+     </option>
+     <option value="A09">
+      A09 - Termostato fumi, presente in origine, che risulta cortocircuitato o manomesso
+     </option>
+     <option value="A10">
+      A10 - Caldaie di tipo C collegate a camini non idonei, non contigui a locali abitati
+     </option>
+     <option value="A11">
+      A11 - Caldaie di tipo C collegate a camini non idonei, contigui a locali abitati
+     </option>
+     <option value="A12">
+      A12 - Caldaie di tipo C collegate a canne collettive ramificate (C.C.R.) in cui scaricano apparecchi di tipo B o viceversa
+     </option>
+     <option value="A13">
+      A13 - Scarichi a parete di apparecchi di tipo B irregolari o posizionati irregolarmente
+     </option>
+     <option value="A14">
+      A14 - Scarichi a parete di apparecchi di tipo C irregolari o posizionati irregolarmente
+     </option>
+     <option value="A15">
+      A15 - Linea di adduzione gas irregolare
+     </option>
+     <option value="A16">
+      A16 - Mancanza del rubinetto di intercettazione generale del gas all'interno dell'abitazione
+     </option>
+     <option value="A17">
+      A17 - Mancanza del rubinetto intercettazione del gas a monte dell'apparecchio
+     </option>
+     <option value="A18">
+      A18 - Canali da fumo irregolari in apparecchi di tipo B
+     </option>
+     <option value="A19">
+      A19 - Valore di CO superiore a 1000 ppm in locale con areazione insufficiente
+     </option>
+     <option value="A20">
+      A20 - Impianto con perdite evidenti di combustibile
+     </option>
+     <option value="A21">
+      A21 - Canali da fumo con rotture evidenti
+     </option>
+     <option value="A22">
+      A22 - Mancanza apparecchiature di sicurezza ISPESL
+     </option>
+     <option value="A23">
+      A23 - Perdite di fluido termovettore
+     </option>
+     <option value="C01">
+      C01 - Ubicazione del locale centrale termica non conforme alle prescrizioni di legge
+     </option>
+     <option value="C02">
+      C02 - Accesso alla centrale termica non conforme alle prescrizioni di legge
+     </option>
+     <option value="C03">
+      C03 - Apertura di areazione del locale caldaie assente
+     </option>
+     <option value="C04">
+      C04 - Apertura di areazione del locale caldaie insufficiente
+     </option>
+     <option value="C05">
+      C05 - Apertura di areazione del locale caldaie collocata in modo errato
+     </option>
+     <option value="C06">
+      C06 - Assenza degli strumenti antincendio
+     </option>
+     <option value="C07">
+      C07 - Manutenzione dei sistemi antincendio non effettuata
+     </option>
+     <option value="C08">
+      C08 - Segnaletica di sicurezza assente o incompleta
+     </option>
+     <option value="C09">
+      C09 - Interruttore elettrico generale esterno assente o non accessibile
+     </option>
+     <option value="C10">
+      C10 - Assenza del rubinetto di intercettazione manuale esterno (dove previsto)
+     </option>
+     <option value="C11">
+      C11 - Rigurgiti di fumi nel locale ove sono presenti apparecchi a tiraggio naturale
+     </option>
+     <option value="C12">
+      C12 - Presenza di perdite nei condotti di scarico di apparecchi a tiraggio forzato
+     </option>
+     <option value="C13">
+      C13 - Dall'esame visivo risultano perdite di combustibile liquido
+     </option>
+     <option value="C14">
+      C14 - Dall'esame visivo risultano perdite di fluido termovettore
+     </option>
+     <option value="C15">
+      C15 - Errata ubicazione (bagno/camera da letto) di apparecchi a gas di tipo A o B
+     </option>
+     <option value="C16">
+      C16 - Valore di CO superiore a 1000 ppm in locale con areazione insufficiente
+     </option>
+     <option value="C17">
+      C17 - Mancanza apparecchiature di sicurezza ISPESL
+     </option>
+     <option value="C18">
+      C18 - Errata ubicazione (es. autorimessa ecc.) di apparecchi a gas di tipo B o C
+     </option>
+     <option value="C19">
+      C19 - Errata ubicazione (ambienti non ventilabili) di apparecchi di tipo C
+     </option>
+     <option value="C20">
+      C20 - Presenza di caminetti, aspiratori ecc. che, in funzione, provocano rigurgiti fumi in ambiente da apparecchi di tipo B
+     </option>
+     <option value="C21">
+      C21 - Termostato fumi, presente in origine, che risulta cortocircuitato o manomesso
+     </option>
+     <option value="C22">
+      C22 - Linea di adduzione gas irregolare
+     </option>
+     <option value="C23">
+      C23 - Mancanza del rubinetto di intercet. del combustibile a monte dell'apparecchio
+     </option>
+     <option value="C24">
+      C24 - Canali da fumo irregolari in apparecchi di tipo B
+     </option>
+     <option value="C25">
+      C25 - Assenza di qualsiasi tipo di regolazione climatica dell'impianto
+     </option>
+     <option value="C26">
+      C26 - Mancanza libretto uso e manutenzione della caldaia e/o bruciatore
+     </option>
+     <option value="F01">
+      F01 - Il generatore di calore di età superiore a 15 anni e &gt;=116 kW
+     </option>
+     <option value="G01">
+      G01 - La caldaia o scaldabagno scaricano i prodotti della combustione nello stesso camino
+     </option>
+     <option value="G02">
+      G02 - Tubazione gas attraversante il muro senza guaina
+     </option>
+     <option value="G04">
+      G04 - Assenza coibentazione canale da fumo
+     </option>
+     <option value="G05">
+      G05 - Assenza rivestimento incombustibile o almeno autoestinguente per la fognatura
+     </option>
+     <option value="G06">
+      G06 - Non è stato possibile verificare il rendimento di combustione del generatore
+     </option>
+     <option value="G07">
+      G07 - Il rendimento di combustione del generatore di calore era inferiore ai limiti prrevisti dalla normativa regionale
+     </option>
+     <option value="G08">
+      G08 - Valore di CO superiore a 1000 ppm
+     </option>
+     <option value="G09">
+      G09 - I condotti di aspirazione aria ed evacuazione dei prodotti della combustione sono corrugati
+     </option>
+     <option value="G10">
+      G10 - Tiraggio inferiore al valore minimo ammesso dalla norma UNI 10845.
+     </option>
+     <option value="G11">
+      G11 - Indice di Bacharach superiore a 2 (gasolio)
+     </option>
+     <option value="G12">
+      G12 - Mancanza della dichiarazione di conformità
+     </option>
+     <option value="G13">
+      G13 - Mancanza rapp. di man .(All. G/F) e/o prova fumi
+     </option>
+     <option value="G14">
+      G14 - Allegato G/F senza attestazione di pagamento (bollino)
+     </option>   
+   <option value="G15">
+G15 - Manutenzione non effettuata nell'anno/biennio in corso
+</option>
+<option value="G16">
+G16 - Mancanza del libretto d'impianto
+</option>
+<option value="G17">
+G17 - Chiusura foro di prelievo non corretta
+</option>
+<option value="G18">
+G18 - Assenza CPI
+</option>
+<option value="G19">
+G19 - Altezza efficace del camino insufficiente
+</option>
+<option value="G20">
+G20 - Conformazione sistema fumario irregolare
+</option>
+<option value="G21">
+G21 - Assenza di areazione piano di cottura
+</option>
+<option value="G22">
+G22 - Caldaia installata in locale non idoneo
+</option>
+<option value="G23">
+G23 - Caldaia tipo "B" con presenza camino a legna in locale adiacente
+</option>
+<option value="G24">
+G24 - Mancata registrazione Dichiarazione di avvenuta manutenzione
+</option>
+<option value="G25">
+G25 - Mancata targatura
+</option>
+    </select>
+   </td>
+  </tr>
+ </tbody>
+</table>
+
+<table class="Modulo">
+ <tbody>
+  <tr class="Rigaintestazione">
+   <td colspan="2">
+    <p class="Labeltabella">
+     11. Dichiarazioni del responsabile impianto
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td colspan="2" style="padding: 5px;">
+    <textarea id="DichiarazioniResponsabile" label="Dichiarazioni del responsabile impianto" name="DichiarazioniResponsabile" style="width: 100%; resize: none;">
+    </textarea>
+   </td>
+  </tr>
+ </tbody>
+</table>
+
+<table class="Modulo" name="Allegati" style="border:1px solid grey">
+ <tbody>
+  <tr class="Rigaintestazione">
+   <td colspan="2">
+    <p style="text-align: center;">
+     <b>
+      Elenco degli allegati
+     </b>
+     <br/>
+     <span style="font-size:70%">
+      <i>
+       (barrare tutti gli allegati richiesti in fase di presentazione della pratica ed elencati sul portale)
+      </i>
+     </span>
+    </p>
+   </td>
+  </tr>
+    <tr>
+   <td style="vertical-align: top;">
+    <input checked="checked" dynamic_check="true" id="RAPP-COP-TER" name="RAPP-COP-TER" type="checkbox" value="OBBLIGATORIO"/>
+   </td>
+   <td style="background-color: #eeeeee;">
+    <p>
+     Scansione rapporto di ispezione
+    </p>
+   </td>
+  </tr>
+ </tbody>
+</table>
+
+
+<br/>
+
+{{ utils.trattamento_dati_personali() }}
+
+<br/>
+ {{ utils.firma_hidden() }}
+ <br/>
+
+<p class="Modulo">
+ <input id="SalvaModulo" name="SalvaModulo" style="height:30px;width:120px;" title="Verifica la corretta compilazione dei campi e salva il modulo nel faldone virtuale dell'istanza." type="submit" value="Salva modulo"/>
+</p>
+
+<input destinatario_amministrazione="getParameter('Ente')" id="GLOBO_modulo_c{{ CodiceModulo }}" name="GLOBO_modulo_c{{ CodiceModulo }}" type="hidden" value=""/>
+
+<input firmare="'P7M_ELETTRONICA'" id="GLOBO_modulofiglio_cSTU-EDI-IMM" name="GLOBO_modulofiglio_cSTU-EDI-IMM" numero="#Immobile_NumeroUlterioriImmobili.value()" obbligatorio="#STU_EDI_IMM.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input firmare="'P7M_ELETTRONICA'" id="GLOBO_modulofiglio_cIncarico_procura" name="GLOBO_modulofiglio_cIncarico_procura" type="hidden" value=""/>
+
+<input id="GLOBO_id_padre" name="GLOBO_id_padre" type="hidden"/>
+
+<input id="GLOBO_recupera_dati" name="GLOBO_recupera_dati" type="hidden"/>
+
+<input id="GLOBO_codice_modulo" name="GLOBO_codice_modulo" type="hidden" value="{{ CodiceModulo }}"/>
+{% endblock content %}

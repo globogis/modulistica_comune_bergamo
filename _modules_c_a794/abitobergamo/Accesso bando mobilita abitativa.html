@@ -1,0 +1,414 @@
+{% set CodiceModulo = "DOM_MOB_LOC" %}
+{% set Urn = "document:c_a794:bando.erogazione.contributi" %}
+{% extends "base.html" %}
+
+{% block meta %}
+
+<meta campi_firma="Titolare_CodiceFiscale"
+campi_firma_label="il dichiarante"
+classi_modulo="Generale"
+codice_modulo="{{ CodiceModulo }}"
+urn="{% block urn %}{{ Urn }}{% endblock urn %}"
+sub_urn_list=""
+uo_globo_list=""
+descrizione="Domanda di accesso al bando per la mobilità abitativa"
+destinatario_amministrazione=""
+destinatario_ufficio="UOHOUSINGSOCIALE"
+dinamico="SI"
+email_a=""
+ente_abilitato="TUTTI"
+filigrana="NO"
+firmare="P7M_ELETTRONICA"
+istruzioni_compilazione=""
+istruzioni_invio="mail_pec"
+metodo_invio="mail"
+name="GLOBO_modulo"
+procura="NO,,"
+tipo_modulo="principale"
+urlhelp="/modulistica/moduli/{{ CodiceModulo }}"
+verifica_pagamento="NO"
+versione="1.0|09/05/2019"/>
+
+<meta codice_modulo_figlio="INCARICO_PROCURA"
+urn_modulo_figlio="document:s_italia:generale;incarico.procura"
+name="GLOBO_modulofiglio"
+numero="1"
+obbligatorio="DINAMICO"/>
+
+
+<meta codice_allegato="IAL-CON-LOC"
+urn_allegato="document:s_italia:generale;contratto.locazione;contratto"
+descrizione_estesa="Copia del contratto di locazione"
+filename="Contratto locazione.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/IAL-CON-LOC"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="DAE-CDI"
+urn_allegato="document:s_italia:generale;documento.identita;documentazione"
+descrizione_estesa="Documento di identità"
+filename="Documento identita.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/DAE-CDI"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="ALTRI-ALLEGATI"
+urn_allegato="document:s_italia:altri.allegati"
+descrizione_estesa="Altri allegati"
+filename="Altri allegati.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/ALTRI-ALLEGATI"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+
+{% endblock meta %}
+
+{% block title %}
+  Domanda di accesso al bando per la mobilità abitativa
+{% endblock title %}
+
+{% block content %}
+
+<globo_fondo_pagina areaheight="150" scope="2">
+  {{ utils.firma() }}
+</globo_fondo_pagina>
+
+<input id="Parametri_Comune" name="Parametri_Comune" type="hidden" dynamic_value="#Ente.value()"/>
+<input id="Oggetto" name="Oggetto" type="hidden" dynamic_value="#Titolare_Cognome.value().toUpperCase() + ' ' + #Titolare_Nome.value().toUpperCase() + ' - accesso bando mobilità abitativa'"/>
+
+{{ intestazioni.intestazione_moduloprincipale_senzabollo() }}
+
+<h1 class="Modulo">
+  Domanda di accesso al bando per la mobilità abitativa
+</h1>
+
+<h2 class="Modulo">
+  Ai sensi dell'articolo 11, comma 3 della Legge 09/12/1998, n. 431 e della Legge 23/05/2014, n. 80
+</h2>
+
+
+<input id="Titolare_DatiPersonaObbligatori" name="Titolare_DatiPersonaObbligatori" type="hidden" dynamic_check="true"/>
+<input id="Titolare_Titolo" name="Titolare_Titolo" type="hidden" value="Richiedente"/>
+<input id="Titolare_Ruolo" name="Titolare_Ruolo" type="hidden" value="Richiedente"/>
+{{ anagrafica.persona_fisica("Titolare", "Il sottoscritto", "visibility:visibility", "cursor:pointer", "visibility:visibility", "visibility:visibility", "mail_ordinaria") }}
+
+
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="4">
+        <p class="Labeltabella">
+          in qualità di proprietario dell'unità immobiliare collocata, ai sensi dell'Accordo territoriale per il Comune di Bergamo del 13 giugno 2017 in
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td colspan="2">
+        <p class="Labelcella">
+          Area
+        </p>
+      </td>
+      <td>
+        <p class="Labelcella">
+          Sub-fascia
+        </p>
+      </td>
+      <td>
+        <p class="Labelcella">
+          Superficie convenzionale
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2">
+        <input class="inputNormal" id="Parametri_Area" name="Parametri_Area" style="width: 100%;" label="Area" mandatory="true"/>
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_Sub-fascia" name="Parametri_Sub-fascia" style="width: 100%;" label="Sub-fascia" mandatory="true"/>
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_SuperficieConvenzionale" name="Parametri_SuperficieConvenzionale" style="width: 80%;" label="Superficie convenzionale" mandatory="true"/> m2
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td colspan="4">
+        <p class="Labelcella">
+          Classe energetica
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="4">
+        <div id="Tassonomia_ClasseEnergetica" name="Tassonomia_ClasseEnergetica" label="Classe energetica" mandatory="true"></div>
+        <p>
+          <input id="Tassonomia_ClasseEnergetica1" name="Tassonomia_ClasseEnergetica" type="radio" value="1" />  A
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="4">
+        <p>
+          <input id="Tassonomia_ClasseEnergetica2" name="Tassonomia_ClasseEnergetica" type="radio" value="2" />  B
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="4">
+        <p>
+          <input id="Tassonomia_ClasseEnergetica3" name="Tassonomia_ClasseEnergetica" type="radio" value="3" />  C
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="4">
+        <p>
+          <input id="Tassonomia_ClasseEnergetica4" name="Tassonomia_ClasseEnergetica" type="radio" value="4" />  D
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="4">
+        <p>
+          <input id="Tassonomia_ClasseEnergetica5" name="Tassonomia_ClasseEnergetica" type="radio" value="5" />  E
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="4">
+        <p>
+          <input id="Tassonomia_ClasseEnergetica6" name="Tassonomia_ClasseEnergetica" type="radio" value="6" />  F
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="4">
+        <p>
+          <input id="Tassonomia_ClasseEnergetica7" name="Tassonomia_ClasseEnergetica" type="radio" value="7" />  G
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazione">
+      <td colspan="4">
+        <p class="Labeltabella">
+          Durata contrattuale
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="width: 25%;">
+        <div id="Tassonomia_DurataContratto" name="Tassonomia_DurataContratto" label="Durata contratto" mandatory="true"></div>
+        <p>
+          <input id="Tassonomia_DurataContratto1" name="Tassonomia_DurataContratto" type="radio" value="1" /> 3 anni + 2 anni
+        </p>
+      </td>
+      <td style="width: 25%;">
+        <p>
+          <input id="Tassonomia_DurataContratto2" name="Tassonomia_DurataContratto" type="radio" value="2" /> 4 anni + 2 anni
+        </p>
+      </td>
+      <td style="width: 25%;">
+        <p>
+          <input id="Tassonomia_DurataContratto3" name="Tassonomia_DurataContratto" type="radio" value="3" /> 5 anni + 2 anni
+        </p>
+      </td>
+      <td style="width: 25%;">
+        <p>
+          <input id="Tassonomia_DurataContratto4" name="Tassonomia_DurataContratto" type="radio" value="4" /> 6 anni e oltre + 2 anni
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="4">
+        <p>
+          <input id="Ubicazione" name="Ubicazione" type="checkbox" value="SI" />
+          ubicato in immobile di cui l'articolo 1, comma 2, lettera a) della Legge 9/12/1998, n. 431, ovvero ai sensi della Legge 1/6/1939, n. 1089, o inclusi nelle categorie catastali A/1, A/8 e A/9.
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td colspan="4">
+        <p class="Labelcella">
+          Arredato*
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="4">
+        <p>
+          <input class="inputNormal" id="Parametri_Arredato" name="Parametri_Arredato" style="width: 80%;" format="number" label="Arredato" mandatory="true"/> % <br/>
+          * indicare un valore da 0% a 15%, dove lo 0% indica non arredata, mentre 15% completamente arredata.
+          Per gli alloggi parzialmente arredati la maggiorazione dovrà essere inferiore al massimo e proporzionale all'arredo effettivamente presente
+          e che dovrà in ogni caso presente una cucina, o un angolo cottura, totalmente attrezzata di elettrodomestici e mobili pensili
+        </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<h3 class="Modulo">
+  CHIEDE
+</h3>
+
+
+<p class="Modulo">
+  di poter beneficiare del contributo a sostegno delle famiglie in grave disagio economico per il pagamento dell'affitto e iniziative per favorire la mobilità nel settore della locazione, 
+  di cui al bando pubblico approvato con Determinazione dirigenziale 22/06/2015, n 1160-15.
+</p>
+
+
+{{ utils.Dichiara_445() }}
+
+
+<p class="Modulo">
+  di essere proprietario
+</p>
+
+
+<input id="Immobile1_DatiImmobileRichiesti" name="Immobile1_DatiImmobileRichiesti" type="checkbox" style="display: none;" value="si" dynamic_check="true"/>
+<input id="Immobile1_DatiCatastaliObbligatori" name="Immobile1_DatiCatastaliObbligatori" type="checkbox" style="display: none;" value="si"/>
+{{ immobili.immobile_secondario("Immobile1", "del seguente immobile", "Collocazione immobile" ) }}
+
+
+<p class="Modulo">
+  di aver preso visione del Bando mobilità Abitativa (dgr 2207-14) e di accettarne integralmente le condizioni
+</p>
+
+
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr>
+      <td>
+        <div id="Tassonomia_Contratto" name="Tassonomia_Contratto" label="Contratto" mandatory="true"></div>
+        <p>
+          <input id="Tassonomia_Contratto1" name="Tassonomia_Contratto" type="radio" value="1" />
+          con contratto a canone concordato alle condizioni di cui all'art. 3.2 del precitato bando
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <p>
+          <input id="Tassonomia_Contratto2" name="Tassonomia_Contratto" type="radio" value="2" />
+          con contratto di cui intende procedere alla rinegoziazione alle condizioni di cui all'art. 3.1 del precitato bando
+        </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<p class="Modulo">
+  <input id="ControlliaCampione" name="ControlliaCampione" type="checkbox" value="SI" dynamic_check="true" checked="checked"/>
+  di essere a conoscenza che il comune di residenza procederà, ai sensi della norma vigente , ad effettuare controlli a campione sul 20% delle domande presentate,
+  al fine di verificare le informazioni dichiarate nella presente dichiarazione. Qualora a seguito dei controlli, il contributo risultasse indebitamente riconosciuto,
+  ovvero in caso di dichiarazioni mendaci del beneficiario, il Comune procederà alla revoca del beneficio e ne darà comunicazione a Regione Lombardia.
+</p>
+
+
+<br>
+
+
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          Eventuali annotazioni
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <textarea class="inputNormal" id="Parametri_Annotazioni" name="Parametri_Annotazioni" style="width: 100%; height: 5cm;" label="Eventuali annotazioni"></textarea>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<br/>
+
+
+<table class="Modulo" name="Allegati" style="border: 1px solid grey">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="2">
+        <p style="text-align: center;">
+          <b>
+            Elenco degli allegati
+          </b>
+          <br/>
+          <span style="font-size:70%"><i>(barrare tutti gli allegati richiesti in fase di presentazione della pratica ed elencati sul portale)</i></span>
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="width: 4%; vertical-align: top;">
+        <input id="IAL-CON-LOC" name="IAL-CON-LOC" type="checkbox" value="OBBLIGATORIO" mandatory_enabled="#Tassonomia_Contratto2.checked()" dynamic_check="true" checked="checked"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          copia del contratto di locazione
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="DAE-CDI" name="DAE-CDI" type="checkbox" value="OBBLIGATORIO" dynamic_check="true" checked="checked"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          copia del documento d'identità personale della parte locatrice
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="ALTRI-ALLEGATI" name="ALTRI-ALLEGATI" type="checkbox" value="OBBLIGATORIO"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          altri allegati
+          <span style="font-size:70%">(specificare)</span>
+          <input class="" label="Altri allegati" id="AltriAllegati" mandatory_enabled="#ALTRI_ALLEGATI.checked()" name="AltriAllegati" style="width:79%;"/>
+        </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<br/>
+{{ utils.trattamento_dati_personali() }}
+<br/>
+  {{ utils.firma_hidden() }}
+<br/>
+
+<p class="Modulo">
+  <input id="SalvaModulo" name="SalvaModulo" style="height:30px;width:120px;" title="Verifica la corretta compilazione dei campi e salva il modulo nel faldone virtuale dell'istanza." type="submit" value="Salva modulo"/>
+</p>
+
+
+<input id="GLOBO_allegato_cIAL-CON-LOC" name="GLOBO_allegato_cIAL-CON-LOC" type="hidden" value="" obbligatorio="#IAL_CON_LOC.checked() ? 'OBBLIGATORIO' : ''"/>
+<input id="GLOBO_allegato_cDAE-CDI" name="GLOBO_allegato_cDAE-CDI" obbligatorio="#DAE_CDI.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+<input id="GLOBO_allegato_cALTRI-ALLEGATI" name="GLOBO_allegato_cALTRI-ALLEGATI" obbligatorio="#ALTRI_ALLEGATI.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+
+<input destinatario_amministrazione="getParameter('Ente')" id="GLOBO_modulo_c{{ CodiceModulo }}" name="GLOBO_modulo_c{{ CodiceModulo }}" type="hidden" value=""/>
+<input firmare="'P7M_ELETTRONICA'" id="GLOBO_modulofiglio_cINCARICO_PROCURA" name="GLOBO_modulofiglio_cINCARICO_PROCURA" type="hidden" value=""/>
+
+<input id="GLOBO_id_padre" name="GLOBO_id_padre" type="hidden"/>
+<input id="GLOBO_recupera_dati" name="GLOBO_recupera_dati" type="hidden"/>
+<input id="GLOBO_codice_modulo" name="GLOBO_codice_modulo" type="hidden" value="{{ CodiceModulo }}"/>
+
+{% endblock content %}

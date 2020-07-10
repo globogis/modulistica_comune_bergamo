@@ -1,0 +1,630 @@
+{% set CodiceModulo = "DOM_MIS_4" %}
+{% set Urn = "document:c_a794:chiedere.contributo.pensionati" %}
+{% extends "base.html" %}
+
+{% block meta %}
+
+<meta campi_firma="Titolare_CodiceFiscale"
+campi_firma_label="il dichiarante"
+classi_modulo="Generale"
+codice_modulo="{{ CodiceModulo }}"
+urn="{% block urn %}{{ Urn }}{% endblock urn %}"
+sub_urn_list=""
+uo_globo_list=""
+descrizione="Domanda di accesso al bando per pensionati in disagio economico (misura 4)"
+destinatario_amministrazione=""
+destinatario_ufficio="UOHOUSINGSOCIALE"
+dinamico="SI"
+email_a=""
+ente_abilitato="TUTTI"
+filigrana="SI"
+firmare="P7M_ELETTRONICA"
+istruzioni_compilazione=""
+istruzioni_invio="mail_pec"
+metodo_invio="mail"
+name="GLOBO_modulo"
+procura="NO,,"
+tipo_modulo="principale"
+urlhelp="/modulistica/moduli/{{ CodiceModulo }}"
+verifica_pagamento="NO"
+versione="1.0|09/05/2019"/>
+
+<meta codice_modulo_figlio="INCARICO_PROCURA"
+urn_modulo_figlio="document:s_italia:generale;incarico.procura"
+name="GLOBO_modulofiglio"
+numero="1"
+obbligatorio="DINAMICO"/>
+
+
+<meta codice_allegato="IAL-CON-LOC"
+urn_allegato="document:s_italia:generale;contratto.locazione;contratto"
+descrizione_estesa="Copia del contratto di locazione"
+filename="Contratto locazione.pdf"
+firmato="SI"
+istruzioni="/modulistica/moduli/IAL-CON-LOC"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="DIC_ISEE"
+urn_allegato="document:s_italia:generale;dichiarazione.isee;documentazione"
+descrizione_estesa="Copia della dichiarazione ISEE"
+filename="Attestazione ISEE.pdf"
+firmato="SI"
+istruzioni="/modulistica/moduli/DIC_ISEE"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="DOC-IDE-FIS"
+urn_allegato="document:c_a794:copia.documento.identita.codice.fiscale.nucleo.familiare"
+descrizione_estesa="Copia documento di identità e codice fiscale dei membri del nucleo familiare"
+filename="Documento identita.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/DOC-IDE-FIS"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="DOC_DIS_ECO"
+urn_allegato="document:c_a794:documentazione.attestante.disagio.economico"
+descrizione_estesa="Documentazione attestante il disagio economico"
+filename="Documentazione disagio economico.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/DOC_DIS_ECO"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="DOC-PENS"
+urn_allegato="document:c_a794:percepimento.pensione;documentazione"
+descrizione_estesa="Documento attestante il percepimento della pensione"
+filename="Documento percepimento pensione.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/DOC-PENS"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="MOD-C2_STO"
+urn_allegato="document:c_a794:modello.c.2.storico"
+descrizione_estesa="Modello C/2 Storico"
+filename="Modello C2.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/MOD-C2_STO"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="ALTRI-ALLEGATI"
+urn_allegato="document:s_italia:altri.allegati"
+descrizione_estesa="Altri allegati"
+filename="Altri allegati.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/ALTRI-ALLEGATI"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+
+{% endblock meta %}
+
+{% block title %}
+  Domanda di accesso al bando per pensionati in disagio economico (misura 4)
+{% endblock title %}
+
+{% block content %}
+
+<globo_fondo_pagina areaheight="150" scope="3">
+  {{ utils.firma() }}
+</globo_fondo_pagina>
+
+<input id="Parametri_Comune" name="Parametri_Comune" type="hidden" dynamic_value="#Ente.value()"/>
+<input id="Oggetto" name="Oggetto" type="hidden" dynamic_value="#Titolare_Cognome.value().toUpperCase() + ' ' + #Titolare_Nome.value().toUpperCase() + ' - accesso bando pensionati disagio economico'"/>
+
+{{ intestazioni.intestazione_moduloprincipale_senzabollo() }}
+
+<h1 class="Modulo">
+  Domanda di accesso al bando per pensionati in disagio economico (misura 4)
+</h1>
+
+<h2 class="Modulo">
+  Ai sensi della Deliberazione della Giunta regionale 31/07/2019, n. 2065
+</h2>
+
+
+<input id="Titolare_DatiPersonaObbligatori" name="Titolare_DatiPersonaObbligatori" type="hidden" dynamic_check="true"/>
+<input id="Titolare_Titolo" name="Titolare_Titolo" type="hidden" value="Richiedente"/>
+<input id="Titolare_Ruolo" name="Titolare_Ruolo" type="hidden" value="Richiedente"/>
+{{ anagrafica.persona_fisica("Titolare", "Il sottoscritto", "visibility:visibility", "cursor:pointer", "visibility:visibility", "visibility:visibility", "mail_ordinaria") }}
+
+
+<h3 class="Modulo">
+  CHIEDE
+</h3>
+
+
+<p class="Modulo">
+  di poter beneficiare del contributo previsto dalla misura 4 della Deliberazione della Giunta regionale 31/07/2019, n. 2065 volta a sostenere nuclei familiari per il mantenimento dell'alloggio in locazione, 
+  il cui reddito provenga esclusivamente da pensione in grave disagio economico o in condizione di particolare vulnerabilità
+</p>
+
+{{ utils.Dichiara_445() }}
+<table class="Modulo" style="border: 0px;">
+  <tbody>
+    <tr style="border: 0px;">
+      <td style="vertical-align: top; width: 4%; border: 0px;">
+        <input id="FamigliareResidenteLombardia" name="FamigliareResidenteLombardia" type="checkbox" value="SI" dynamic_check="true" checked="checked"/>
+      </td>
+      <td style="border: 0px;">
+        <p>
+          che almeno un membro del nucleo famigliare è residente sul territorio di Regione Lombardia da almeno 5 anni
+        </p>
+      </td>
+    </tr>
+    <tr style="border: 0px;">
+      <td style="vertical-align: top; width: 4%; border: 0px;">
+        <input id="TitolareContrattoLocazione" name="TitolareContrattoLocazione" type="checkbox" value="SI" dynamic_check="true" checked="checked"/>
+      </td>
+      <td style="border: 0px;">
+        <p>
+          di essere titolare di un contratto di locazione alla data di presentazione della richiesta
+        </p>
+      </td>
+    </tr>
+    <tr style="border: 0px;">
+      <td style="vertical-align: top; width: 4%; border: 0px;">
+        <input id="ContrattoUnitàImmobiliare" name="ContrattoUnitàImmobiliare" type="checkbox" value="SI" dynamic_check="true" checked="checked"/>
+      </td>
+      <td style="border: 0px;">
+        <p>
+          che il contratto di locazione è relativo ad unità immobiliare ad uso residenziale, sita nel Comune di residenza e occupata alla data di apertura del presente bando 
+          a titolo di residenza esclusiva o principale da parte del dichiarante e del nucleo familiare
+        </p>
+      </td>
+    </tr>
+    <tr style="border: 0px;">
+      <td style="vertical-align: top; width: 4%; border: 0px;">
+        <input id="CondizioneMorositàAssente" name="CondizioneMorositàAssente" type="checkbox" value="SI" dynamic_check="true" checked="checked"/>
+      </td>
+      <td style="border: 0px;">
+        <p>
+          di non essere in condizione di morosità
+        </p>
+      </td>
+    </tr>
+    <tr style="border: 0px;">
+      <td style="vertical-align: top; width: 4%; border: 0px;">
+        <input id="NonSottopostoaSfratto" name="NonSottopostoaSfratto" type="checkbox" value="SI" dynamic_check="true" checked="checked"/>
+      </td>
+      <td style="border: 0px;">
+        <p>
+          di non essere sottoposti a procedure di rilascio dell'abitazione ovvero non essere destinatario di un atto di intimidazione di sfratto con citazione della convalida
+        </p>
+      </td>
+    </tr>
+    <tr style="border: 0px;">
+      <td style="vertical-align: top; width: 4%; border: 0px;">
+        <input id="NoFuturaVendita" name="NoFuturaVendita" type="checkbox" value="SI" dynamic_check="true" checked="checked"/>
+      </td>
+      <td style="border: 0px;">
+        <p>
+          di non aver sottoscritto un contratto di affitto con patto di futura vendita
+        </p>
+      </td>
+    </tr>
+    <tr style="border: 0px;">
+      <td style="vertical-align: top; width: 4%; border: 0px;">
+        <input id="TitolareProprietàAbitazione" name="TitolareProprietàAbitazione" type="checkbox" value="SI" dynamic_check="true" checked="checked"/>
+      </td>
+      <td style="border: 0px;">
+        <p>
+          che nessun componente del nucleo familiare è titolare del diritto di proprietà o di altri diritti reali di godimento su alloggio adeguato e idoneo alle esigenze del nucleo familiare nell'ambito della Regione Lombardia
+        </p>
+      </td>
+    </tr>
+    <tr style="border: 0px;">
+      <td style="vertical-align: top; width: 4%; border: 0px;">
+        <input id="RedditoPensione" name="RedditoPensione" type="checkbox" value="SI" dynamic_check="true" checked="checked"/>
+      </td>
+      <td style="border: 0px;">
+        <p>
+          che almeno un componente del nucleo familiare percepisce un reddito da pensione
+        </p>
+      </td>
+    </tr>
+    <tr style="border: 0px;">
+      <td style="vertical-align: top; width: 4%; border: 0px;">
+        <input id="RedditoLavoro" name="RedditoLavoro" type="checkbox" value="SI" dynamic_check="true" checked="checked"/>
+      </td>
+      <td style="border: 0px;">
+        <p>
+          che nessun componente del nucleo familiare percepisce un reddito da lavoro oppure un'indennità per disoccupazione
+        </p>
+      </td>
+    </tr>
+    <tr style="border: 0px;">
+      <td style="vertical-align: top; width: 4%; border: 0px;">
+        <input id="AttestazioneISEE" name="AttestazioneISEE" type="checkbox" value="SI" dynamic_check="true" checked="checked"/>
+      </td>
+      <td style="border: 0px;">
+        <p>
+          di essere in possesso dell'attestazione ISEE riferita al proprio nucleo familiare, in corso di validità con un valore ISEE (Indicatore della Situazione Economica Equivalente) non superiore a 15.000,00 €
+        </p>
+      </td>
+    </tr>
+    <tr style="border: 0px;">
+      <td style="vertical-align: top; width: 4%; border: 0px;">
+        <input id="AnagraficaISEE" name="AnagraficaISEE" type="checkbox" value="SI" dynamic_check="true" checked="checked"/>
+      </td>
+      <td style="border: 0px;">
+        <p>
+          che la composizione anagrafica del proprio nucleo familiare corrisponda alla composizione anagrafica presente nell'attestazione ISEE allegata alla presente domanda
+        </p>
+      </td>
+    </tr>
+    <tr style="border: 0px;">
+      <td style="vertical-align: top; width: 4%; border: 0px;">
+        <input id="RequisitiPartecipazioneBando" name="RequisitiPartecipazioneBando" type="checkbox" value="SI" dynamic_check="true" checked="checked"/>
+      </td>
+      <td style="border: 0px;">
+        <p>
+          di aver preso visione del bando pensionati in disagio economico (Misura 4), di accettarne integralmente le condizioni e di possedere tutti i requisiti di partecipazione 
+          in esso indicati, nonchè la propria disponibilità a fornire idonea documentazione atta a dimostrare la completezza e la veridicità dei dati dichiarati
+        </p>
+      </td>
+    </tr>
+    <tr style="border: 0px;">
+      <td style="vertical-align: top; width: 4%; border: 0px;">
+        <input id="ControlliaCampione" name="ControlliaCampione" type="checkbox" value="SI" dynamic_check="true" checked="checked"/>
+      </td>
+      <td style="border: 0px;">
+        <p>
+          di essere a conoscenza che il Comune di residenza procederà, ai sensi della norma vigente, ad effettuare controlli a campione sul 20% delle domande presentate, al fine di verificare le informazioni dichiarate nella presente 
+          dichiarazione. Qualora a seguito dei controlli, il contributo risultasse indebitamente riconosciuto, ovvero in caso di dichiarazioni mendaci del beneficiario, il Comune procederà alla revoca del beneficio e ne darà comunicazione a 
+          Regione Lombardia
+        </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<p>
+  <input id="CanoneAnnuoLocazione" name="CanoneAnnuoLocazione" type="checkbox" value="SI" dynamic_check="true" checked="checked"/>
+  che il canone annuo di locazione alla data odierna è
+</p>
+
+
+<div id="Tassonomia_TipologiaContratto" name="Tassonomia_TipologiaContratto" label="Tipologia Contratto" mandatory="true"></div>
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazioneridotta">
+      <td colspan="2">
+        <p class="Labelcella">
+          Canone annuo
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;" colspan="2">
+        <p>
+          <input class="inputNormal" id="Parametri_CanoneAnnuo" name="Parametri_CanoneAnnuo" format="valuta_positiva" style="width:100%;" label="Canone annuo locazione" mandatory="true"/> 
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta" >
+      <td colspan="2">
+        <p class="Labelcella">
+          Tipo di contratto
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="Parametri_CanoneAnnuo1" name="Parametri_CanoneAnnuo" type="radio" value="1"/> 
+      </td>
+      <td>
+        <p>
+          canone concordato stipulato ai sensi della legge 431/98
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="Parametri_CanoneAnnuo2" name="Parametri_CanoneAnnuo" type="radio" value="2"/> 
+      </td>
+      <td>
+        <p>
+          regime di libero mercato
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="Parametri_CanoneAnnuo3" name="Parametri_CanoneAnnuo" type="radio" value="3"/> 
+      </td>
+      <td mandatory_enabled="#Parametri_CanoneAnnuo3.checked()">
+        <p>
+         altro <i>specificare</i> <input class="InputNormal" id="Parametri_contratto" name="Paramentri_contratto" label="altro tipo di contratto"  style="width:85%;" mandatory="true"/>
+        </p>
+      </td>
+    </tr>
+
+  </tbody>
+</table>
+
+
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="9">
+        <p class="Labeltabella">
+          proprietario di casa
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td  style="width: 50;">
+        <p class="Labelcella">
+          Tipologia
+        </p>
+      </td>
+      <td colspan="4">
+        <p class="Labelcella">
+          Cognome e nome/ragione sociale
+        </p>
+      </td>
+    </tr>
+    <tr>
+        <td >
+            <select class="inputNormal" id="Parametri_Tipologia_Proprietario" name="Parametri_Tipologia_Proprietario" style="width: 100%;" label="Tipologia Proprietario" mandatory="true">
+              <option value=""></option>
+              <option value="Persona Fisica">Persona Fisica</option>
+              <option value="Societa">Società</option>
+              <option value="Cooperativa">Cooperativa</option>
+          </td>
+
+      <td colspan="6">
+        <input class="inputNormal" id="Parametri_NomeCognome" name="Parametri_NomeCognome" style="width: 100%;" label="Nome e cognome" mandatory="true"/>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td colspan="6">
+        <p class="Labelcella">
+          indirizzo
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          Comune
+        </p>
+      </td>
+      <td>
+        <p class="Labelcella">
+          Indirizzo
+        </p>
+      </td>
+      <td style="width: 10%;">
+        <p class="Labelcella">
+          Civico
+        </p>
+      </td>
+      <td style="width: 15%;">
+        <p class="Labelcella">
+          CAP
+        </p>
+      </td>
+      <td style="width: 10%;">
+        <p class="Labelcella">
+          Provinciale
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input class="inputNormal" id="Parametri_ComuneProprietario" name="Parametri_ComuneProprietario" style="width: 100%;" label="Comune proprietario" mandatory="true"/>
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_IndirizzoProprietario" name="Parametri_IndirizzoProprietario" style="width: 100%;" label="Indirizzo proprietario" mandatory="true"/>
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_CivicoProprietario" name="Parametri_CivicoProprietario" format="number" style="width: 100%;" label="Civico proprietario" mandatory="true"/>
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_CAPProprietario" name="Parametri_CAPProprietario" format="number" style="width: 100%;" label="CAP proprietario" mandatory="true"/>
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_ProvinciaProprietario" name="Parametri_ProvinciaProprietario" style="width: 100%;" label="Provincia proprietario" mandatory="true"/>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          Telefono
+        </p>
+      </td>
+      <td>
+        <p class="Labelcella">
+          Cellulare
+        </p>
+      </td>
+      <td colspan="3">
+        <p class="Labelcella">
+          Posta elettronica ordinaria
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input class="inputNormal" id="Parametri_TelefonoProprietario" name="Parametri_TelefonoProprietario" style="width: 100%;" label="Telefono proprietario" mandatory="true"/>
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_CellulareProprietario" name="Parametri_CellulareProprietario" style="width: 100%;" label="Cellulare proprietario" mandatory="true"/>
+      </td>
+      <td colspan="3">
+        <input class="inputNormal" id="Parametri_MailProprietario" name="Parametri_MailProprietario" style="width: 100%;" label="Mail proprietario" mandatory="true"/>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<input id="Referente_Titolo" name="Referente_Titolo" type="hidden" value="Richiedente"/>
+<input id="Referente_Ruolo" name="Referente_Ruolo" type="hidden" value="Richiedente"/>
+{{ anagrafica.persona_fisica("Referente"~i, "<input id='Referente"~i~"_DatiPersonaObbligatori' name='Referente"~i~"_DatiPersonaObbligatori' type='checkbox'/> dati anagrafici del delegato  <span style='font-size: 70%;'><i>(da compilare solo se la dichiarazione è resa dal delegato per conto del dichiarante)</i></span>", "visibility:visibility", "cursor:pointer", "visibility:visibility", "visibility:visibility", "mail_ordinaria") }}
+
+
+<br/>
+
+
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          Eventuali annotazioni
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <textarea class="inputNormal" id="Parametri_Annotazioni" name="Parametri_Annotazioni" style="width: 100%; height: 5cm;" label="Eventuali annotazioni"></textarea>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<br/>
+
+
+<table class="Modulo" name="Allegati" style="border: 1px solid grey">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="2">
+        <p style="text-align: center;">
+          <b>
+            Elenco degli allegati
+          </b>
+          <br/>
+          <span style="font-size:70%">
+            <i>(barrare tutti gli allegati richiesti in fase di presentazione della pratica ed elencati sul portale)</i>
+          </span>
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="width: 4%; vertical-align: top;">
+        <input id="IAL-CON-LOC" name="IAL-CON-LOC" type="checkbox" value="OBBLIGATORIO" dynamic_check="true" checked="checked"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          copia del contratto di locazione
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="width: 4%; vertical-align: top;">
+        <input id="DIC_ISEE" name="DIC_ISEE" type="checkbox" value="OBBLIGATORIO" dynamic_check="true" checked="checked"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          copia della dichiarazione ISEE
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="width: 4%; vertical-align: top;">
+        <input id="DOC-IDE-FIS" name="DOC-IDE-FIS" type="checkbox" value="OBBLIGATORIO" dynamic_check="true" checked="checked"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          copia documento di identità e codice fiscale dei membri del nucleo familiare
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="width: 4%; vertical-align: top;">
+        <input id="DOC-DIS-ECO" name="DOC-DIS-ECO" type="checkbox" value="OBBLIGATORIO"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          documentazione attestante il disagio economico
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="width: 4%; vertical-align: top;">
+        <input id="DOC-PENS" name="DOC-PENS" type="checkbox" value="OBBLIGATORIO" dynamic_check="true" checked="checked"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          documentazione attestante il percepimento della pensione
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="width: 4%; vertical-align: top;">
+        <input id="MOD-C2-STO" name="MOD-C2-STO" type="checkbox" value="OBBLIGATORIO" dynamic_check="true" checked="checked"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          modello C/2 Storico
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="ALTRI-ALLEGATI" name="ALTRI-ALLEGATI" type="checkbox" value="OBBLIGATORIO"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          altri allegati
+          <span style="font-size:70%">(specificare)</span>
+          <input class="" label="Altri allegati" id="AltriAllegati" mandatory_enabled="#ALTRI_ALLEGATI.checked()" name="AltriAllegati" style="width:79%;"/>
+        </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<br/>
+{{ utils.trattamento_dati_personali() }}
+<br/>
+  {{ utils.firma_hidden() }}
+<br/>
+
+
+<p class="Modulo">
+  <input id="SalvaModulo" name="SalvaModulo" style="height:30px;width:120px;" title="Verifica la corretta compilazione dei campi e salva il modulo nel faldone virtuale dell'istanza." type="submit" value="Salva modulo"/>
+</p>
+
+<input destinatario_amministrazione="getParameter('Ente')" id="GLOBO_modulo_c{{ CodiceModulo }}" name="GLOBO_modulo_c{{ CodiceModulo }}" type="hidden" value=""/>
+<input firmare="'P7M_ELETTRONICA'" id="GLOBO_modulofiglio_cINCARICO_PROCURA" name="GLOBO_modulofiglio_cINCARICO_PROCURA" type="hidden" value=""/>
+
+
+<input id="GLOBO_allegato_cIAL-CON-LOC" name="GLOBO_allegato_cIAL-CON-LOC" type="hidden" value="" obbligatorio="#IAL_CON_LOC.checked() ? 'OBBLIGATORIO' : ''"/>
+<input id="GLOBO_allegato_cDIC_ISEE" name="GLOBO_allegato_cDIC_ISEE" type="hidden" value="" obbligatorio="#DIC_ISEE.checked() ? 'OBBLIGATORIO' : ''"/>
+<input id="GLOBO_allegato_cDOC-IDE-FIS" name="GLOBO_allegato_cDOC-IDE-FIS" type="hidden" value="" obbligatorio="#DOC_IDE_FIS.checked() ? 'OBBLIGATORIO' : ''"/>
+<input id="GLOBO_allegato_cDOC-DIS-ECO" name="GLOBO_allegato_cDOC-DIS-ECO" type="hidden" value="" obbligatorio="#DOC_DIS_ECO.checked() ? 'OBBLIGATORIO' : ''"/>
+<input id="GLOBO_allegato_cDOC-PENS" name="GLOBO_allegato_cDOC-PENS" type="hidden" value="" obbligatorio="#DOC_PENS.checked() ? 'OBBLIGATORIO' : ''"/>
+<input id="GLOBO_allegato_cMOD-C2-STO" name="GLOBO_allegato_cMOD-C2-STO" type="hidden" value="" obbligatorio="#MOD_C2_STO.checked() ? 'OBBLIGATORIO' : ''"/>
+<input id="GLOBO_allegato_cALTRI-ALLEGATI" name="GLOBO_allegato_cALTRI-ALLEGATI" obbligatorio="#ALTRI_ALLEGATI.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+
+<input id="GLOBO_id_padre" name="GLOBO_id_padre" type="hidden"/>
+<input id="GLOBO_recupera_dati" name="GLOBO_recupera_dati" type="hidden"/>
+<input id="GLOBO_codice_modulo" name="GLOBO_codice_modulo" type="hidden" value="{{ CodiceModulo }}"/>
+
+{% endblock content %}

@@ -1,0 +1,437 @@
+{% set CodiceModulo = "DOM_IMM_ALTRO" %}
+{% set Urn = "document:c_a794:frequentare.accademica.carrara;immatricolazione.altro" %}
+{% extends "base.html" %}
+
+{% block meta %}
+
+<meta campi_firma="Titolare_CodiceFiscale"
+campi_firma_label="il dichiarante"
+classi_modulo="Tempo libero sport e cultura"
+codice_modulo="{{ CodiceModulo }}"
+urn="{% block urn %}{{ Urn }}{% endblock urn %}"
+sub_urn_list=""
+uo_globo_list=""
+descrizione="Domanda di immatricolazione per trasferimento, riassegnazione o ad altro titolo"
+destinatario_amministrazione=""
+destinatario_ufficio="UOTEMPOLIBEROSPORTECULTURA"
+dinamico="SI"
+email_a=""
+ente_abilitato="TUTTI"
+filigrana="NO"
+firmare="P7M_ELETTRONICA"
+istruzioni_compilazione=""
+istruzioni_invio="mail_pec"
+metodo_invio="mail"
+name="GLOBO_modulo"
+procura="NO,,"
+tipo_modulo="principale"
+urlhelp="/modulistica/moduli/{{ CodiceModulo }}"
+verifica_pagamento="NO"
+versione="1.2|02/10/2019"/>
+
+<meta codice_modulo_figlio="INCARICO_PROCURA"
+urn_modulo_figlio="document:s_italia:generale;incarico.procura"
+name="GLOBO_modulofiglio"
+numero="1"
+obbligatorio="DINAMICO"/>
+
+<meta codice_modulo_figlio="MARCA_BOLLO"
+urn_modulo_figlio="document:s_italia:pagamento.imposta.bollo;apposizione.domanda;dichiarazione.sostitutiva"
+name="GLOBO_modulofiglio"
+numero="1"
+obbligatorio="DINAMICO"/>
+
+<meta codice_allegato="DAE-CDI"
+urn_allegato="document:s_italia:generale;documento.identita;documentazione"
+descrizione_estesa="Documento di identità"
+filename="Documento identita.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/DAE-CDI"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="ALTRI-ALLEGATI"
+urn_allegato="document:s_italia:altri.allegati"
+descrizione_estesa="Altri allegati"
+filename="Altri allegati.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/ALTRI-ALLEGATI"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+{% endblock meta %}
+
+{% block title %}
+    Domanda di immatricolazione per trasferimento, riassegnazione o ad altro titolo
+{% endblock title %}
+
+{% block content %}
+
+<style>
+
+    .noBorder{
+        border: 0! important;
+    }
+
+    @media pdf{
+       .borderInPDF{
+          border-bottom: 1px solid black;
+       }
+    }
+</style>
+
+<globo_fondo_pagina areaheight="150" scope="2">
+    {{ utils.firma() }}
+</globo_fondo_pagina>
+
+<input id="Parametri_Comune" name="Parametri_Comune" type="hidden" dynamic_value="#Ente.value()"/>
+<input id="Oggetto" name="Oggetto" type="hidden" dynamic_value="#Titolare_Cognome.value().toUpperCase() + ' ' + #Titolare_Nome.value().toUpperCase() + ' - domanda immatricolazione trasferimento, riassegnazione o altro titolo'"/>
+
+{{ intestazioni.intestazione_moduloprincipale_conbollo() }}
+
+<h1 class="Modulo">
+    Domanda di immatricolazione per trasferimento, riassegnazione o ad altro titolo
+</h1>
+
+<input id="Titolare_DatiPersonaObbligatori" name="Titolare_DatiPersonaObbligatori" type="hidden" dynamic_check="true"/>
+<input id="Titolare_Titolo" name="Titolare_Titolo" type="hidden" value="Richiedente"/>
+<input id="Titolare_Ruolo" name="Titolare_Ruolo" type="hidden" value="Richiedente"/>
+{{ anagrafica.persona_fisica("Titolare", "Il sottoscritto", "visibility:visibility", "cursor:pointer", "visibility:visibility", "visibility:visibility", "mail_ordinaria") }}
+
+
+<h3 class="Modulo">
+        CHIEDE
+</h3>
+
+<table class="Modulo noBorder">
+    <tbody class="noBorder">
+        <tr class="noBorder">
+            <td class="noBorder" style="width:42%">
+                di essere immatricolato per l’anno accademico 20
+            </td>
+            <td class="noBorder" style="width:4%">
+                <div class="borderInPDF">
+                    <input class="inputNormal" id="Parametri_SuffissoAnno1" name="Parametri_SuffissoAnno1" style="width:100%; border-bottom: 1px solid black !important" label="Anno inizio" mandatory="true" format="number" />
+                </div>
+            </td>
+            <td class="noBorder" style="width:5%">
+                <p>
+                    / 20
+                </p>
+            </td>
+            <td class="noBorder" style="width:4%">
+                <div class="borderInPDF">
+                    <input class="inputNormal" id="Parametri_SuffissoAnno2" name="Parametri_SuffissoAnno2" style="width:100%; border-bottom: 1px solid black !important" label="Anno fine" mandatory="true" format="number" />
+                </div>
+            </td>
+            <td class="noBorder" style="width: 49%">
+                <p>
+                    , se ne esistono le condizioni
+                </p>
+            </td>
+        </tr>   
+    </tbody>
+</table>
+
+<table class="Modulo" style="border: 1px solid grey;">
+    <tbody>
+        
+        <tr class="Rigaintestazione">
+            <td>
+                <p class="Labeltabella">
+                    per l’anno (*)
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <select class="inputNormal" id="Parametri_AnnoIscrizione" name="Parametri_AnnoIscrizione" style="width: 100%;" label="Anno iscrizione" mandatory="true">
+                        {% set anni = ["", "primo anno", "secondo anno", "terzo anno"] %}
+                        {% for anno in anni %}
+                            <option value="{{anno}}"> {{anno}} </option>
+                        {% endfor %}
+                </select>
+            </td>
+        </tr>
+    </tbody>
+</table>
+    
+<div id="Tassonomia_TipoCorsoAccademico" name="Tassonomia_TipoCorsoAccademico" label="Tipo corso accademico" mandatory="true"></div>
+<table class="Modulo" style="border: 1px solid grey; margin-top: -1px">
+    <tbody>
+        <tr class="Rigaintestazione">
+            <td colspan="2">
+                <p class="Labeltabella">
+                    al corso accademico di primo livello di
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td style="vertical-align: top; width: 4%;">
+                <input id="Tassonomia_TipoCorsoAccademico1" name="Tassonomia_TipoCorsoAccademico" type="radio" value="1" />
+            </td>
+            <td>
+                <p>pittura</p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input id="Tassonomia_TipoCorsoAccademico2" name="Tassonomia_TipoCorsoAccademico" type="radio" value="2" />
+            </td>
+            <td>
+                <p>nuove tecnologie per l’arte</p>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<div id="Tassonomia_MotivoImmatricolazione" name="Tassonomia_MotivoImmatricolazione" label="Motivo immatricolazione" mandatory="true"></div>
+<table class="Modulo" style="border: 1px solid grey; margin-top: -1px;">
+    <tbody>
+        <tr class="Rigaintestazione">
+            <td colspan="3">
+                <p class="Labeltabella">
+                    in quanto
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td style="vertical-align: top; width: 4%;">
+                <input id="Tassonomia_MotivoImmatricolazione1" name="Tassonomia_MotivoImmatricolazione" type="radio" value="1" />
+            </td>
+            <td colspan="2">
+                <p>
+                    trasferito da altra accademia
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td style="vertical-align: top; width: 4%;">
+                <input id="Tassonomia_MotivoImmatricolazione2" name="Tassonomia_MotivoImmatricolazione" type="radio" value="2" />
+            </td>
+            <td colspan="2">
+                <p>
+                    riassegnato all’accademia di belle arti
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td style="vertical-align: top; width: 4%;">
+                <input id="Tassonomia_MotivoImmatricolazione3" name="Tassonomia_MotivoImmatricolazione" type="radio" value="3" />
+            </td>
+            <td class="noBorder" style="width:15%">
+                <p>
+                    altro <span style="font-size: 70%;">(specificare)</span>
+                </p>
+            </td>
+            <td class="noBorder" style="width:81%">
+                <div>
+                    <input class="inputNormal" id="Parametri_MotivoImmatricolazione_Altro" name="Parametri_MotivoImmatricolazione_Altro" style="width: 100%;" label="Specificare" mandatory_enabled="#Tassonomia_MotivoImmatricolazione3.checked()"/>
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<p class="Modulo" style="font-size:80%;">
+    <i>Opzioni (*)</i>:
+    primo anno, secondo anno, terzo anno.
+</p>
+
+{{ utils.Dichiara_445() }}
+
+<table class="Modulo" style="border: 1px solid grey;">
+    <tbody>
+        <tr class="Rigaintestazione">
+            <td colspan="4">
+                <p class="Labeltabella">
+                    di essere in possesso dei seguenti titoli di studio o accademici
+                </p>
+            </td>
+        </tr>
+        <tr class="Rigaintestazioneridotta">
+            <td style="width:35%;">
+                <p class="Labelcella">
+                    Titolo
+                </p>
+            </td>
+            <td style="width: 35%;">
+                <p class="Labelcella">
+                    Conseguito presso
+                </p>
+            </td>
+            <td style="width: 15%;">
+                <p class="Labelcella">
+                    In data
+                </p>
+            </td>
+            <td style="width: 15%;">
+                <p class="Labelcella">
+                    Con votazione
+                </p>
+            </td>
+        </tr>
+        {% for i in range(1, 7) %}
+        <tr {% if i == 1 %} mandatory="true" {% endif %}>
+            <td>
+                <input class="inputNormal" id="Parametri_TitoloStudio{{i}}_Titolo" name="Parametri_TitoloStudio{{i}}_Titolo" style="width: 100%;" label="Titolo di studio" />
+            </td>
+            <td>
+                <input class="inputNormal" id="Parametri_TitoloStudio{{i}}_ConseguimentoSede" name="Parametri_TitoloStudio{{i}}_ConseguimentoSede" style="width: 100%;" label="Sede conseguimento titolo"
+                mandatory_enabled="{% if i == 1 %} true {% else %} #Parametri_TitoloStudio{{i}}_Titolo.value() != '' {% endif %}"/>
+            </td>
+            <td>
+                <input class="inputNormal" id="Parametri_TitoloStudio{{i}}_Data" name="Parametri_TitoloStudio{{i}}_Data" style="width: 100%;" label="Data conseguimento titolo" mandatory_enabled="{% if i == 1 %} true {% else %} #Parametri_TitoloStudio{{i}}_Titolo.value() != '' {% endif %}" format="date" />
+            </td>
+            <td>
+                <input class="inputNormal" id="Parametri_TitoloStudio{{i}}_Votazione" name="Parametri_TitoloStudio{{i}}_Votazione" style="width: 100%;" label="Votazione titolo"
+                mandatory_enabled="{% if i == 1 %} true {% else %} #Parametri_TitoloStudio{{i}}_Titolo.value() != '' {% endif %}"/>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<table class="Modulo" style="border: 1px solid grey;">
+    <tbody>
+        <tr class="Rigaintestazione">
+            <td colspan="2">
+                <p class="Labeltabella">
+                    di aver sostenuto i seguenti esami:
+                </p>
+            </td>
+        </tr>
+        <tr class="Rigaintestazioneridotta">
+            <td style="width:70%;">
+                <p class="Labelcella">
+                    Prova
+                </p>
+            </td>
+            <td style="width:30%">
+                <p class="Labelcella">
+                    Valutazione
+                </p>
+            </td>
+        </tr>
+        {% for i in range(1, 16) %}
+            <tr>
+                <td>
+                    <input class="inputNormal" id="Parametri_Esame{{i}}_Prova" name="Parametri_Esame{{i}}_Prova" style="width: 100%;" label="Prova" {% if i == 1 %} mandatory="true"
+                    {% endif %}/>
+                </td>
+                <td>
+                    <input class="inputNormal" id="Parametri_Esame{{i}}_Valutazione" name="Parametri_Esame{{i}}_Valutazione" style="width: 100%;" label="Valutazione" mandatory_enabled="{% if i == 1 %}
+                        true
+                    {% else %}
+                       #Parametri_Esame{{i}}_Prova.value() != ''
+                    {% endif %}"/>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<br>
+
+{{ utilsservizisociali.isee("true") }}
+
+<br>
+
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          Eventuali annotazioni
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <textarea class="inputNormal" id="Parametri_Annotazioni" name="Parametri_Annotazioni" style="width: 100%; height: 5cm;" label="Eventuali annotazioni"></textarea>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<br>
+
+<table class="Modulo" name="Allegati" style="border: 1px solid grey">
+    <tbody>
+        <tr class="Rigaintestazione">
+            <td colspan="2">
+                <p style="text-align: center;">
+                    <b>
+                        Elenco degli allegati
+                    </b>
+                    <br/>
+                    <span style="font-size:70%">
+                        <i>(barrare tutti gli allegati richiesti in fase di presentazione della pratica ed elencati sul portale)</i>
+                    </span>
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input checked="checked" dynamic_check="true" id="MARCA_BOLLO" name="MARCA_BOLLO" type="checkbox" value="OBBLIGATORIO"/>
+            </td>
+            <td style="background-color: #eeeeee;">
+                <p>
+                    pagamento dell'imposta di bollo
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td style="vertical-align: top; width: 4%;">
+                <input id="DAE-CDI" name="DAE-CDI" type="checkbox" value="OBBLIGATORIO" checked="checked" dynamic_check="true" />
+            </td>
+            <td style="background-color: #eeeeee;">
+                <p>
+                    copia del documento d'identità
+                    <br/>
+                    <span style="font-size:70%">
+                        <i>(da allegare se il modulo è sottoscritto con firma autografa)</i>
+                    </span>
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td style="vertical-align: top; width: 4%;">
+                <input id="ALTRI-ALLEGATI" name="ALTRI-ALLEGATI" type="checkbox" value="OBBLIGATORIO"/>
+            </td>
+            <td style="background-color: #eeeeee;">
+                <p>
+                    altri allegati
+                    <span style="font-size:70%">(specificare)</span>
+                    <input class="" label="Altri allegati" id="AltriAllegati" mandatory_enabled="#ALTRI_ALLEGATI.checked()" name="AltriAllegati" style="width:79%;"/>
+                </p>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+
+
+<br/>
+    {{ utils.firma_hidden() }}
+<br/>
+
+<p class="Modulo">
+    <input id="SalvaModulo" name="SalvaModulo" style="height:30px;width:120px;" title="Verifica la corretta compilazione dei campi e salva il modulo nel faldone virtuale dell'istanza." type="submit" value="Salva modulo"/>
+</p>
+
+<input destinatario_amministrazione="getParameter('Ente')" id="GLOBO_modulo_c{{ CodiceModulo }}" name="GLOBO_modulo_c{{ CodiceModulo }}" type="hidden" value=""/>
+<input firmare="'P7M_ELETTRONICA'" id="GLOBO_modulofiglio_cINCARICO_PROCURA" name="GLOBO_modulofiglio_cINCARICO_PROCURA" type="hidden" value=""/>
+
+<input id="GLOBO_allegato_cDAE-CDI" name="GLOBO_allegato_cDAE-CDI" type="hidden" value="" obbligatorio="#DAE_CDI.checked() ? 'OBBLIGATORIO' : ''"/>
+<input id="GLOBO_modulofiglio_cMARCA_BOLLO" name="GLOBO_modulofiglio_cMARCA_BOLLO" obbligatorio="#MARCA_BOLLO.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+<input id="GLOBO_allegato_cALTRI-ALLEGATI" name="GLOBO_allegato_cALTRI-ALLEGATI" obbligatorio="#ALTRI_ALLEGATI.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_id_padre" name="GLOBO_id_padre" type="hidden"/>
+<input id="GLOBO_recupera_dati" name="GLOBO_recupera_dati" type="hidden"/>
+<input id="GLOBO_codice_modulo" name="GLOBO_codice_modulo" type="hidden" value="{{ CodiceModulo }}"/>
+
+{% endblock content %}

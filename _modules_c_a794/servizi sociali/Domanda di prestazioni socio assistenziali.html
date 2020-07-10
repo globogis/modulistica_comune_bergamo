@@ -1,0 +1,502 @@
+{% set CodiceModulo = "SOC_RICH_SER" %}
+{% set Urn = "document:c_a794:assistenza.persona;prestazioni.socio.assistenziali;domanda" %}
+{% extends "base.html" %}
+{% block meta %}
+
+<meta campi_firma="Titolare_CodiceFiscale"
+campi_firma_label="il dichiarante"
+classi_modulo="Servizi sociali"
+codice_modulo="{{ CodiceModulo }}"
+urn="{% block urn %}{{ Urn }}{% endblock urn %}"
+sub_urn_list=""
+uo_globo_list=""
+descrizione="Domanda di prestazioni socio assistenziali"
+destinatario_amministrazione=""
+destinatario_ufficio="UOSERVIZISOCIALI"
+dinamico="SI"
+email_a=""
+ente_abilitato="TUTTI"
+filigrana="NO"
+firmare="P7M_ELETTRONICA"
+istruzioni_compilazione=""
+istruzioni_invio="mail_pec"
+metodo_invio="mail"
+name="GLOBO_modulo"
+procura="NO,,"
+tipo_modulo="principale"
+urlhelp="/modulistica/moduli/{{ CodiceModulo }}"
+verifica_pagamento="NO"
+versione="1.1|15/03/2019"/>
+
+<meta codice_modulo_figlio="INCARICO_PROCURA"
+urn_modulo_figlio="document:s_italia:generale;incarico.procura"
+name="GLOBO_modulofiglio"
+numero="1"
+obbligatorio="DINAMICO"/>
+
+<meta codice_allegato="DAE-CDI"
+urn_allegato="document:s_italia:generale;documento.identita;documentazione"
+descrizione_estesa="Documento di identità"
+filename="Documento identita.pdf"
+firmato="SI"
+istruzioni="/modulistica/moduli/DAE-CDI"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="ALTRI-ALLEGATI"
+urn_allegato="document:s_italia:altri.allegati"
+descrizione_estesa="Altri allegati"
+filename="Altri allegati.pdf"
+firmato="SI"
+istruzioni="/modulistica/moduli/ALTRI-ALLEGATI"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+{% endblock meta %}
+
+{% block title %}
+  Domanda di prestazioni socio assistenziali
+{% endblock title %}
+
+{% block content %}
+
+<globo_fondo_pagina areaheight="150" scope="3">
+{{ utils.firma() }}
+</globo_fondo_pagina>
+
+<input dynamic_value="#Ente.value()" id="Parametri_Comune" name="Parametri_Comune" type="hidden"/>
+
+<input dynamic_value="#Titolare_Cognome.value().toUpperCase() + ' ' + #Titolare_Nome.value().toUpperCase() + ' - Domanda di prestazioni socio assistenziali'" id="Oggetto" name="Oggetto" type="hidden"/>
+
+{{ intestazioni.intestazione_moduloprincipale_senzabollo() }}
+
+<h1 class="Modulo">
+  Domanda di prestazioni socio assistenziali
+</h1>
+
+<input dynamic_check="true" id="Titolare_DatiPersonaObbligatori" name="Titolare_DatiPersonaObbligatori" type="hidden"/>
+<input id="Titolare_Titolo" name="Titolare_Titolo" type="hidden" value="Richiedente"/>
+<input id="Titolare_Ruolo" name="Titolare_Ruolo" type="hidden" value="Richiedente"/>
+{{ anagrafica.persona_fisica("Titolare", "Il sottoscritto", "visibility:visibility", "cursor:pointer", "visibility:visibility", "visibility:visibility", "mail_ordinaria") }}
+
+<table class="Modulo" style="border:1px solid grey; margin-top: -1px;">
+  <tbody>
+    <tr class="Rigaintestazioneridotta">
+      <td colspan="5">
+        <p class="Labelcella">
+          Soggetto interessato
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <div id="Tassonomia_Soggetto_interessato" name="Tassonomia_Soggetto_interessato" label="Soggetto interessato"></div>
+        <input id="Tassonomia_Soggetto_interessato1" name="Tassonomia_Soggetto_interessato" type="radio" value="1"/>
+      </td>
+      <td colspan="4">
+        <p>
+          per se stesso
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td rowspan="8" style="vertical-align: top; width: 4%; background-color: white;">
+        <input id="Tassonomia_Soggetto_interessato2" name="Tassonomia_Soggetto_interessato" type="radio" value="2"/>
+      </td>
+      <td colspan="4">
+        <p>
+          per la persona di seguito specificata
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td colspan="2">
+        <p class="Labelcella">
+          Cognome
+        </p>
+      </td>
+      <td>
+        <p class="Labelcella">
+          Nome
+        </p>
+      </td>
+      <td>
+        <p class="Labelcella">
+          Codice fiscale
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2">
+        <input class="inputNormal" id="AventeTitolo1_Cognome" name="AventeTitolo1_Cognome" style="width: 100%;" label="Cognome" mandatory_enabled="#Tassonomia_Soggetto_interessato2.checked()">
+      </td>
+      <td>
+        <input class="inputNormal" id="AventeTitolo1_Nome" name="AventeTitolo1_Nome" style="width: 100%;" label="Nome" mandatory_enabled="#Tassonomia_Soggetto_interessato2.checked()">
+      </td>
+      <td>
+        <input class="inputNormal" id="AventeTitolo1_CodiceFiscale" name="AventeTitolo1_CodiceFiscale" style="width: 100%; " onkeyup="this.value = this.value.toUpperCase();" label="Codice fiscale" format="cf" mandatory_enabled="#Tassonomia_Soggetto_interessato2.checked()">
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td style="width: 23%;">
+        <p class="Labelcella">
+          Data di nascita
+        </p>
+      </td>
+      <td style="width: 9%;">
+        <p class="Labelcella">
+          Sesso (M/F)
+        </p>
+      </td>
+      <td style="width: 32%;">
+        <p class="Labelcella">
+          Cittadinanza
+        </p>
+      </td>
+      <td style="width: 32%;">
+        <p class="Labelcella">
+          Luogo di nascita
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input class="inputNormal" id="AventeTitolo1_DataNascita" name="AventeTitolo1_DataNascita" style="width: 100%;" label="Data di nascita" format="date" mandatory_enabled="#Tassonomia_Soggetto_interessato2.checked()">
+      </td>
+      <td>
+        <select class="inputNormal" id="AventeTitolo1_Sesso" name="AventeTitolo1_Sesso" style="width:100%;" label="Sesso" mandatory_enabled="#Tassonomia_Soggetto_interessato2.checked()">
+          <option value=""></option>
+          <option value="M">M</option>
+          <option value="F">F</option>
+        </select>
+      </td>
+      <td mandatory_enabled="#Tassonomia_Soggetto_interessato2.checked()">
+        {{ utils.nazionalita('AventeTitolo1_Cittadinanza', 'Cittadinanza') }}
+      </td>
+      <td>
+        <input class="inputNormal" id="AventeTitolo1_LuogoNascita" name="AventeTitolo1_LuogoNascita" style="width: 100%;" label="Luogo di nascita" mandatory_enabled="#Tassonomia_Soggetto_interessato2.checked()">
+      </td>
+    </tr>
+    <tr class="Rigaintestazione">
+      <td colspan="4">
+        <p class="Labeltabella">
+          in qualità di
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td colspan="4">
+        <p class="Labelcella">
+          Ruolo
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="4">
+        <select class="inputNormal" id="AventeTitolo1_Ruolo" name="AventeTitolo1_Ruolo" style="width: 100%;" label="Ruolo" mandatory_enabled="#Tassonomia_Soggetto_interessato2.checked()">
+          <option value=""></option>
+          <option value="famigliare">famigliare</option>
+          <option value="tutore">tutore</option>
+          <option value="curatore">curatore</option>
+          <option value="legale rappresentante">legale rappresentante</option>
+          <option value="amministratore di sostegno">amministratore di sostegno</option>
+        </select>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 class="Modulo">
+  CHIEDE
+</h3>
+
+<p class="Modulo">
+  di valutare la possibilità che il soggetto interessato possa usufruire dei seguenti servizi o contributi socio assistenziali
+</p>
+
+<table class="Modulo" style="border:1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazioneridotta">
+      <td colspan="3">
+        <p class="Labelcella">
+          Servizio o contributo
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <div id="Tassonomia_Servizi_contributi" name="Tassonomia_Servizi_contributi" label="Servizi o contributi" mandatory="true"> </div>
+        <input group="Tassonomia_Servizi_contributi" id="Tassonomia_Servizi_contributi1" name="Tassonomia_Servizi_contributi1" type="checkbox" value="SI"/>
+      </td>
+      <td colspan="2">
+        <p>
+          accedere al servizio di telesoccorso
+        </p>
+      </td>
+    </tr>
+  <td style="vertical-align: top; width: 4%;">
+    <input group="Tassonomia_Servizi_contributi" id="Tassonomia_Servizi_contributi13" name="Tassonomia_Servizi_contributi13" type="checkbox" value="SI"/>
+  </td>
+  <td colspan="2">
+    <p>
+      accedere al Servizio di Assistenza Domiciliare (SAD)
+    </p>
+  </td>
+  <td>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input group="Tassonomia_Servizi_contributi" id="Tassonomia_Servizi_contributi2" name="Tassonomia_Servizi_contributi2" type="checkbox" value="SI"/>
+      </td>
+      <td colspan="2">
+        <p>
+          accedere al servizio integrato minori e famiglia
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input group="Tassonomia_Servizi_contributi" id="Tassonomia_Servizi_contributi5" name="Tassonomia_Servizi_contributi5" type="checkbox" value="SI"/>
+      </td>
+      <td colspan="2">
+        <p>
+          chiedere la concessione del reddito di inclusione (REI)
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input group="Tassonomia_Servizi_contributi" id="Tassonomia_Servizi_contributi6" name="Tassonomia_Servizi_contributi6" type="checkbox" value="SI"/>
+      </td>
+      <td colspan="2">
+        <p>
+          chiedere la concessione dell'assegno comunale per la maternità
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input group="Tassonomia_Servizi_contributi" id="Tassonomia_Servizi_contributi7" name="Tassonomia_Servizi_contributi7" type="checkbox" value="SI"/>
+      </td>
+      <td colspan="2">
+        <p>
+          chiedere la concessione dell'assegno per nucleo familiare
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input group="Tassonomia_Servizi_contributi" id="Tassonomia_Servizi_contributi8" name="Tassonomia_Servizi_contributi8" type="checkbox" value="SI"/>
+      </td>
+      <td colspan="2">
+        <p>
+          contributi economici individuali <span style="font-size: 70%;"><i>(specificare nelle note il periodo di assistenza richiesto)</i></span>
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input group="Tassonomia_Servizi_contributi" id="Tassonomia_Servizi_contributi9" name="Tassonomia_Servizi_contributi9" type="checkbox" value="SI"/>
+      </td>
+      <td colspan="2">
+        <p>
+          chiedere la concessione di un contributo economico individuale
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input group="Tassonomia_Servizi_contributi" id="Tassonomia_Servizi_contributi10" name="Tassonomia_Servizi_contributi10" type="checkbox" value="SI"/>
+      </td>
+      <td colspan="2">
+        <p>
+          chiedere la consegna dei  pasti a domicilio
+        </p>
+      </td>
+    </tr>
+	<tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input group="Tassonomia_Servizi_contributi" id="Tassonomia_Servizi_contributi11" name="Tassonomia_Servizi_contributi11" type="checkbox" value="SI"/>
+      </td>
+      <td colspan="2">
+        <p>
+          partecipare al servizio socio-occupazionale per persone disabili
+        </p>
+      </td>
+    </tr>
+	<tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input group="Tassonomia_Servizi_contributi" id="Tassonomia_Servizi_contributi12" name="Tassonomia_Servizi_contributi12" type="checkbox" value="SI"/>
+      </td>
+      <td colspan="2">
+        <p>
+          partecipare ai laboratori delle autonomie 
+        </p>
+      </td>
+	<tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input group="Tassonomia_Servizi_contributi" id="Tassonomia_Servizi_contributi13" name="Tassonomia_Servizi_contributi13" type="checkbox" value="SI"/>
+      </td>
+      <td colspan="2">
+        <p>
+          partecipare ad interventi di integrazione sociale per persone disabili 
+        </p>
+      </td>
+    </tr>
+	<tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input group="Tassonomia_Servizi_contributi" id="Tassonomia_Servizi_contributi14" name="Tassonomia_Servizi_contributi13" type="checkbox" value="SI"/>
+      </td>
+      <td colspan="2">
+        <p>
+          accedere al servizio di formazione all'autonomia (SFA)  
+        </p>
+      </td>
+    </tr>
+	<tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input group="Tassonomia_Servizi_contributi" id="Tassonomia_Servizi_contributi16" name="Tassonomia_Servizi_contributi15" type="checkbox" value="SI"/>
+      </td>
+      <td colspan="2">
+        <p>
+          accedere al servizio di Assistenza Domiciliare Educativa SADED  
+        </p>
+      </td>
+    </tr>
+	<tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input group="Tassonomia_Servizi_contributi" id="Tassonomia_Servizi_contributi17" name="Tassonomia_Servizi_contributi15" type="checkbox" value="SI"/>
+      </td>
+      <td colspan="2">
+        <p>
+          accedere al Centro Socio Educativo (CSE)  
+        </p>
+      </td>
+    </tr>
+		<tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input group="Tassonomia_Servizi_contributi" id="Tassonomia_Servizi_contributi18" name="Tassonomia_Servizi_contributi15" type="checkbox" value="SI"/>
+      </td>
+      <td colspan="2">
+        <p>
+          accedere al Centro Diurno Disabili (CDD)   
+        </p>
+      </td>
+    </tr
+    <tr>
+      <td>
+        <input group="Tassonomia_Servizi_contributi" id="Tassonomia_Servizi_contributi32" name="Tassonomia_Servizi_contributi32" type="checkbox" value="SI"/>
+      </td>
+      <td style="border-right: 0; width: 16%;">
+        <p>
+          altro <span style="font-size: 70%;"><i>(specificare):</i></span>
+        </p>
+      </td>
+      <td style="border-left: 0; width: 80%;">
+        <input class="inputNormal" id="Parametri_Altro_servizio" name="Parametri_Altro_servizio" style="width: 100%;" label="Specificare altro servizio/contributo" mandatory_enabled="#Tassonomia_Servizi_contributi32.checked()">
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<table class="Modulo" style="border:1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td>
+        <p class="Labeltabella">
+          in quanto
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          Descrizione della situazione che motiva la richiesta del servizio o contributo
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <textarea class="inputNormal" id="Parametri_Descrizione_situazione" name="Parametri_Descrizione_situazione" label="Descrizione della situazione che motiva la richiesta del servizio o contributo" style="width:100%;height:5cm;" mandatory="true"></textarea>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<br/>
+
+<table class="Modulo" name="Allegati" style="border: 1px solid grey">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="2">
+        <p style="text-align: center;">
+          <b>
+            Elenco degli allegati
+          </b>
+          <br/>
+          <span style="font-size:70%">
+            <i>(barrare tutti gli allegati richiesti in fase di presentazione della pratica ed elencati sul portale)</i>
+          </span>
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">
+        <input id="DAE-CDI" name="DAE-CDI" type="checkbox" value="OBBLIGATORIO" />
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          copia del documento d'identità
+          <br/>
+          <span style="font-size:70%">
+            <i>(da allegare se il modulo è sottoscritto con firma autografa)</i>
+          </span>
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td width="4%">
+        <input id="ALTRI-ALLEGATI" name="ALTRI-ALLEGATI" type="checkbox" value="OBBLIGATORIO"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          altri allegati
+          <span style="font-size:70%">
+            (specificare)
+          </span>
+          <input class="" label="Altri allegati" id="AltriAllegati" mandatory_enabled="#ALTRI_ALLEGATI.checked()" name="AltriAllegati" style="width:79%;"/>
+        </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<br/>
+
+<globo_salto_pagina></globo_salto_pagina>
+
+{{ utils.trattamento_dati_personali() }}
+
+<br/>
+  {{ utils.firma_hidden() }}
+<br/>
+
+<p class="Modulo">
+  <input id="SalvaModulo" name="SalvaModulo" style="height:30px;width:120px;" title="Verifica la corretta compilazione dei campi e salva il modulo nel faldone virtuale dell'istanza." type="submit" value="Salva modulo"/>
+</p>
+
+<input destinatario_amministrazione="getParameter('Ente')" id="GLOBO_modulo_c{{ CodiceModulo }}" name="GLOBO_modulo_c{{ CodiceModulo }}" type="hidden" value=""/>
+<input firmare="'P7M_ELETTRONICA'" id="GLOBO_modulofiglio_cINCARICO_PROCURA" name="GLOBO_modulofiglio_cINCARICO_PROCURA" type="hidden" value=""/>
+
+<input id="GLOBO_allegato_cDAE-CDI" name="GLOBO_allegato_cDAE-CDI" obbligatorio="#DAE_CDI.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+<input id="GLOBO_allegato_cALTRI-ALLEGATI" name="GLOBO_allegato_cALTRI-ALLEGATI" obbligatorio="#ALTRI_ALLEGATI.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value="" />
+
+<input id="GLOBO_id_padre" name="GLOBO_id_padre" type="hidden"/>
+<input id="GLOBO_recupera_dati" name="GLOBO_recupera_dati" type="hidden"/>
+<input id="GLOBO_codice_modulo" name="GLOBO_codice_modulo" type="hidden" value="{{ CodiceModulo }}"/>
+
+{% endblock content %}

@@ -1,0 +1,1485 @@
+{% set CodiceModulo = "ISCR-ALBO-FORN" %}
+{% set Urn = "document:c_a794:iscrizione.albo.fornitori.sintel;domanda" %}
+{% extends "base.html" %}
+
+{% block meta %}
+
+<meta campi_firma="Titolare_CodiceFiscale"
+campi_firma_label="il dichiarante"
+classi_modulo="generale"
+codice_modulo="{{ CodiceModulo }}"
+urn="{% block urn %}{{ Urn }}{% endblock urn %}"
+sub_urn_list=""
+uo_globo_list=""
+descrizione="Iscrizione albo fornitori"
+destinatario_amministrazione=""
+destinatario_ufficio=""
+dinamico="SI"
+email_a=""
+ente_abilitato="TUTTI"
+filigrana="SI"
+firmare="P7M_ELETTRONICA"
+istruzioni_compilazione=""
+istruzioni_invio="mail_pec"
+metodo_invio="mail"
+name="GLOBO_modulo"
+procura="NO,,"
+tipo_modulo="principale"
+urlhelp="/modulistica/moduli/{{ CodiceModulo }}"
+verifica_pagamento="NO"
+versione="1.2|24/06/2020"/>
+
+<meta codice_modulo_figlio="INCARICO_PROCURA"
+urn_modulo_figlio="document:s_italia:generale;incarico.procura"
+name="GLOBO_modulofiglio"
+numero="1"
+obbligatorio="DINAMICO"/>
+
+<meta codice_modulo_figlio="ULT_SOGG_ALBO"
+urn_modulo_figlio="document:c_a794:ulteriori.soggetti.albo.fornitori;allegato"
+name="GLOBO_modulofiglio"
+numero="1"
+obbligatorio="DINAMICO"/>
+
+<meta codice_modulo_figlio="DICH-ART-80"
+urn_modulo_figlio="document:c_a794:dichiarazione.art80;allegato"
+name="GLOBO_modulofiglio"
+numero="1"
+obbligatorio="DINAMICO"/>
+
+<meta codice_allegato="ALTRI-ALLEGATI"
+urn_allegato="document:s_italia:altri.allegati"
+descrizione_estesa="Altri allegati"
+filename="Altri allegati.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/ALTRI-ALLEGATI"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+{% endblock meta %}
+
+{% block title %}
+  Domanda di iscrizione all'albo fornitori gestito in modalità telematica su piattaforma Sintel 
+{% endblock title %}
+ 
+{% block content %}
+
+<globo_fondo_pagina areaheight="150" scope="2">
+  {{ utils.firma() }}
+</globo_fondo_pagina>
+
+<input id="Parametri_Comune" name="Parametri_Comune" type="hidden" dynamic_value="#Ente.value()"/>
+<input id="Oggetto" name="Oggetto" type="hidden" dynamic_value="#Titolare_Cognome.value().toUpperCase() + ' ' + #Titolare_Nome.value().toUpperCase() + ' - iscrizione albo fornitori'"/>
+
+{{ intestazioni.intestazione_moduloprincipale_senzabollo() }}
+
+<h1 class="Modulo">
+ Domanda di iscrizione all'albo fornitori gestito in modalità telematica su piattaforma Sintel
+</h1>
+
+
+{{anagrafica.societa("Titolare","Il sottoscritto",["Titolare", "Legale rappresentante"], "Richiedente")}}
+<br>
+<h3 class="Modulo">
+  CHIEDE
+</h3>
+
+<br>
+
+<p class="Modulo">
+   l’accreditamento all’albo fornitori del comune di Bergamo gestito in modalità telematica sulla piattaforma Sintel per:
+</p>
+
+<div id="Tassonomia_Tipo_Iscrizione" name="Tassonomia_Tipo_Iscrizione" label="Tipo iscrizione" mandatory_enabled="true"></div>
+
+<table class="Modulo" style="border: 1px solid grey;" mandatory="true" >
+  <tbody>
+    <tr >
+      <td style="vertical-align: top; width: 4%;" >
+      <input group="Tassonomia_Tipo_Iscrizione" id="Parametri_Lavori" name="Parametri_Lavori" type="checkbox" value="SI" />
+      </td>
+      <td>
+        Lavori <i>(per le categorie SOA di sotto dichiarate)</i>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;" >
+      <input group="Tassonomia_Tipo_Iscrizione" id="Parametri_Forniture" name="Parametri_Forniture" type="checkbox" value="SI" />
+      </td>
+      <td>
+        Forniture <i> (per i codici ATECO/cpv già dichiarati in piattaforma Sintel</i>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;" >
+      <input group="Tassonomia_Tipo_Iscrizione" id="Parametri_Servizi" name="Parametri_Servizi" type="checkbox" value="SI" />
+      </td>
+      <td>
+        Servizi <i>(per i codici ATECO/cpv già dichiarati in piattaforma Sintel</i>
+      </td>     
+    </tr>
+    </tbody>
+    </table>
+
+<br>
+
+<h3 class="Modulo">
+  DICHIARA 
+</h3>
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+     <div id="Tassonomia_Illeciti" name="Tassonomia_Illeciti" label="Illeciti" mandatory="true"></div>
+     <div id="Tassonomia_Influenzare" name="Tassonomia_Influenzare" label="Influenzare" mandatory="true"></div>
+     <div id="Tassonomia_Fornire" name="Tassonomia_Fornire" label="Fornire" mandatory="true"></div>
+       <div id="Tassonomia_Carenze" name="Tassonomia_Carenze" label="Carenze" mandatory="true"></div>
+     <div id="Tassonomia_Inadempimento" name="Tassonomia_Inadempimento" label="Inadempimento" mandatory="true"></div>
+    {% set dichiara = [ "di essersi registrato in piattaforma, qualificato e accreditato per il comune di Bergamo mediante trasmissione della presente documentazione, in conformità a quanto previsto nella delibera del Consiglio Comunale del 23/09/2019, n. 127  che ha approvato il regolamento per l’istituzione dell’albo fornitori telematico del comune di Bergamo;",
+                        "di non trovarsi in alcuna delle cause di esclusione di cui all’art. 80 del D.Lgs. n. 50/2016",
+                        "che <input class ='InputNormal' id='Tassonomia_IllecitiSi' name='Tassonomia_Illeciti' label='Si illeciti' type='radio' value='1'/>si è reso <input class ='InputNormal' id='Tassonomia_IllecitiNo' name='Tassonomia_Illeciti' label='Illeciti' type='radio' value='2'/> non si è reso colpevole di gravi illeciti professionali, tali da rendere dubbia la su integrità o affidabilità; <i>(ai sensi dell’art. 80 comma 5 lett. c) , c-bis) , c-ter), c-quater) del D. Lgs. 50/2016)</i>;",
+                        "che <input class ='InputNormal' id='Tassonomia_InfluenzareSi' name='Tassonomia_Influenzare' label='Si influenzare' type='radio' value='1'/> ha tentato <input class ='InputNormal' id='Tassonomia_InfluenzareNo' name='Tassonomia_Influenzare' label='No influenzare' type='radio' value='2'/> non ha tentato di influenzare indebitamente il processo decisionale della stazione appaltante o di ottenere informazioni riservate a fini di proprio vantaggio oppure <input class ='InputNormal' id='Tassonomia_FornireSi' name='Tassonomia_Fornire' label='Si Fornire' type='radio' value='1'/> ha fornito <input class ='InputNormal' id='Tassonomia_FornireNo' name='Tassonomia_Fornire' label='Fornire No' type='radio' value='2'/> non ha fornito, anche per negligenza, informazioni false o fuorvianti suscettibili di influenzare le decisioni sull'esclusione, la selezione o l'aggiudicazione, ovvero abbia omesso le informazioni dovute ai fini del corretto svolgimento della procedura di selezione;",
+                        "che <input class ='InputNormal' id='Tassonomia_CarenzeSi' name='Tassonomia_Carenze' type='radio' value='1'/> ha dimostrato <input class ='InputNormal' id='Tassonomia_CarenzeNo' name='Tassonomia_Carenze'  type='radio' value='2'/>non ha dimostrato significative o persistenti carenze nell'esecuzione di un precedente contratto di appalto o di concessione che ne hanno causato la risoluzione per inadempimento ovvero la condanna al risarcimento del danno o altre sanzioni comparabili;"
+                        "che <input class ='InputNormal' id='Tassonomia_InadempimentoSi' name='Tassonomia_Inadempimento' type='radio' value='1'/> ha commesso <input class ='InputNormal' id='Tassonomia_InadempimentoNo' name='Tassonomia_Inadempimento' type='radio' value='2'/>non ha commesso grave inadempimento nei confronti di uno o più subappaltatori riconosciuto o accertato con sentenza passata in giudicato",
+                        "che nei confronti suoi e dei soggetti di cui alla precedente lettera f) non sussiste alcuna delle cause di esclusione previste dall’art. 80 comma 1 lettere a), b), b-bis), c), d), e), f) e g) e comma 2) del D.lgs. 50/2016;",
+                        "di non aver avuto provvedimenti di risoluzione contrattuale, a pena di esclusione, negli ultimi 3 anni, <i> (incluso l’anno corrente farà fede la data del provvedimento di aggiudicazione) </i> da parte del comune di Bergamo per inadempimento dell’appaltatore ovvero assenza di situazioni conflittuali in relazione ad un precedente appalto del comune di Bergamo " ] %}
+    {% for i in dichiara %}
+      <tr>
+        <td style="vertical-align: top; width: 4%;">
+          <input id="Dichiara{{ loop.index }}" name="Dichiara{{ loop.index }}" type="checkbox" value="SI" checked="checked" dynamic_check="true"/>
+        </td>
+        <td>
+          {{ i|safe }}
+        </td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+<p class="Modulo">
+  <i> In caso di risposta affermativa, il concorrente dovrà fornire ogni più ampia e circostanziata dichiarazione anche in relazione al tempo trascorso dalla violazione e alla gravità della stessa. Su tali circostanze la Stazione Appaltante motiva anche con riferimento al tempo trascorso dalla violazione e alla gravità della stessa.</i>
+</p>
+<br>
+
+<h3 class="Modulo">
+  DICHIARA INOLTRE
+</h3>
+<BR>
+
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top; width: 4%;"  >
+      <input id="Parametri_Soggetti" name="Parametri_Soggetti" type="checkbox" value="SI" />
+      </td>
+      <td colspan="5" >
+        che nell’impresa operano i seguente soci, amministratori muniti di poteri di rappresentanza o comunque altri soggetti indicati nell’articolo  80 comma 3 del D.lgs. 50/2016 
+         <i>Indicare anche i soggetti cessati dalla carica nell’anno antecedente alla data di pubblicazione del bando di gara</i>
+      </td>
+    </tr>
+    </tbody>
+    </table>
+    <table class="Modulo" style="border: 1px solid grey;" enabled="#Parametri_Soggetti.checked()" >
+      <tbody>
+    <tr>
+       <td style="width: 35%;">
+        Cognome
+      </td>
+      <td style="width: 35%;">
+        Nome
+      </td>
+      <td style="width: 30%;">
+        Data di nascita
+      </td>
+    </tr>
+    <tr>
+      <td style="width: 35%;">
+       <input class="InputNormal" id="Parametri_Cognome_Soggetto" name="Parametri_Cognome_Soggetto" label="Cognome Soggetto" style="width: 100%;" mandatory_enabled="#Parametri_Soggetti.checked()" />
+      </td>
+      <td style="width: 35%;">
+        <input class="InputNormal" id="Parametri_Nome_Soggetto" name="Parametri_Nome_Soggetto" label="Nome Soggetto" style="width: 100%;" mandatory_enabled="#Parametri_Soggetti.checked()"/>
+      </td>
+      <td style="width: 30%;">
+        <input class="InputNormal" id="Parametri_Data_Nascita_Soggetto" name="Parametri_Data_Nascita_Soggetto" label="Data di Nascita Soggetto" style="width: 100%;" mandatory_enabled="#Parametri_Soggetti.checked()"/>
+      </td>
+    </tr>
+    <tr>
+        <td style="width: 35%;">
+       <input class="InputNormal" id="Parametri_Cognome_Soggetto1" name="Parametri_Cognome_Soggetto1" label="Cognome Soggetto1" style="width: 100%;" />
+      </td>
+      <td style="width: 35%;">
+        <input class="InputNormal" id="Parametri_Nome_Soggetto1" name="Parametri_Nome_Soggetto1" label="Nome Soggetto1" style="width: 100%;"/>
+      </td>
+      <td style="width: 30%;">
+        <input class="InputNormal" id="Parametri_Data_Nascita_Soggetto1" name="Parametri_Data_Nascita_Soggetto1" label="Data di Nascita Soggetto1" style="width: 100%;"/>
+      </td>
+    </tr>
+    <tr>
+        <td style="width: 35%;">
+       <input class="InputNormal" id="Parametri_Cognome_Soggetto2" name="Parametri_Cognome_Soggetto2" label="Cognome Soggetto2" style="width: 100%;" />
+      </td>
+      <td style="width: 35%;">
+        <input class="InputNormal" id="Parametri_Nome_Soggetto2" name="Parametri_Nome_Soggetto2" label="Nome Soggetto2" style="width: 100%;"/>
+      </td>
+      <td style="width: 30%;">
+        <input class="InputNormal" id="Parametri_Data_Nascita_Soggetto2" name="Parametri_Data_Nascita_Soggetto2" label="Data di Nascita Soggetto2" style="width: 100%;"/>
+      </td>
+    </tr>
+    <tr>
+        <td style="width: 35%;">
+       <input class="InputNormal" id="Parametri_Cognome_Soggetto3" name="Parametri_Cognome_Soggetto3" label="Cognome Soggetto3" style="width: 100%;" />
+      </td>
+      <td style="width: 35%;">
+        <input class="InputNormal" id="Parametri_Nome_Soggetto3" name="Parametri_Nome_Soggetto3" label="Nome Soggetto3" style="width: 100%;"/>
+      </td>
+      <td style="width: 30%;">
+        <input class="InputNormal" id="Parametri_Data_Nascita_Soggetto3" name="Parametri_Data_Nascita_Soggetto3" label="Data di Nascita Soggetto3" style="width: 100%;"/>
+      </td>
+    </tr>
+    <tr>
+        <td style="width: 35%;">
+       <input class="InputNormal" id="Parametri_Cognome_Soggetto4" name="Parametri_Cognome_Soggetto4" label="Cognome Soggetto4" style="width: 100%;" />
+      </td>
+      <td style="width: 35%;">
+        <input class="InputNormal" id="Parametri_Nome_Soggetto4" name="Parametri_Nome_Soggetto4" label="Nome Soggetto4" style="width: 100%;"/>
+      </td>
+      <td style="width: 30%;">
+        <input class="InputNormal" id="Parametri_Data_Nascita_Soggetto4" name="Parametri_Data_Nascita_Soggetto4" label="Data di Nascita Soggetto4" style="width: 100%;"/>
+      </td>
+    </tr>
+    <tr>
+        <td style="width: 35%;">
+       <input class="InputNormal" id="Parametri_Cognome_Soggetto5" name="Parametri_Cognome_Soggetto5" label="Cognome Soggetto5" style="width: 100%;" />
+      </td>
+      <td style="width: 35%;">
+        <input class="InputNormal" id="Parametri_Nome_Soggetto5" name="Parametri_Nome_Soggetto5" label="Nome Soggetto5" style="width: 100%;"/>
+      </td>
+      <td style="width: 30%;">
+        <input class="InputNormal" id="Parametri_Data_Nascita_Soggetto5" name="Parametri_Data_Nascita_Soggetto5" label="Data di Nascita Soggetto5" style="width: 100%;"/>
+      </td>
+    </tr>
+    </tbody>
+    </table>
+    <table class="Modulo" style="border: 1px solid grey;margin-top: -1px;" enabled="#Parametri_Cognome_Soggetto5.value()">
+  <tbody>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella"> Ulteriori soggetti indicati nell'articolo  80 comma 3 del D.lgs. 50/2016 (allegare il modulo "ulteriori soggetti")</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <p> 
+          nell'impresa sono presenti
+          <input class="" id="Parametri_num_altr_sogg" name="Parametri_num_altr_sogg" style="width:5%;" value="0" label="Numero ulteriori Soggeti" format="number"/> 
+          ulteriori soggetti
+        </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <div id="Tassonomia_Condanna" name="Tassonomia_Condanna" label="Condanna" mandatory="true"></div>
+       {% set dichiara2 = ["che nell’impresa non operano altri soci o amministratori muniti di poteri di rappresentanza né altri soggetti indicati nell’articolo 80 comma 3 del D.lgs. 50/2016",
+                           "<input class ='InputNormal' id='Tassonomia_CondannaSi' name='Tassonomia_Condanna' label='Si condanna' type='radio' value='1'/> di aver subito <input class ='InputNormal' id='Tassonomia_CondannaNo' name='Tassonomia_Condanna' label='No condanna' type='radio' value='2'/> di non aver subito una sentenza di condanna passata in giudicato oppure decreto penale di condanna divenuto irrevocabile oppure sentenza di applicazione della pena su richiesta ai sensi dell’art. 444 del codice di procedura penale"] %}
+    {% for i in dichiara2 %}
+      <tr>
+        <td style="vertical-align: top; width: 4%;">
+          <input id="dichiara2{{ loop.index }}" name="dichiara2{{ loop.index }}" type="checkbox" value="SI" checked="checked" dynamic_check="true"/>
+        </td>
+        <td>
+          {{ i }}
+        </td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          Indicare quale anche se è stato concesso il beneficio della non menzione
+        </p>
+      </td>
+     </tr>
+    <tr mandatory_enabled="#Tassonomia_CondannaSi.checked()">
+      <td>
+        <textarea  class="InputNormal" id="Parametri_Tipo_Condanna1" name="Parametri_Tipo_Condanna1" label="Tipo Condanna Soggetti" style="width: 100%;" rows="5"></textarea>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<div id="Tassonomia_Sentenza_Sogg" name="Tassonomia_Sentenza_Sogg" label="Sentenza altri soggetti" mandatory_enabled="#Parametri_Condanne_Sogg.checked()"></div>
+<div id="Tassonomia_Esclusione_Sogg" name="Tassonomia_Esclusione_Sogg" label="Esclusione art. 80" mandatory="true"></div> 
+<table class="Modulo" style="border: 1px solid grey;">
+ <tbody>
+   <tr class="Rigaintestazione">
+     <td style="vertical-align: top; width: 4%;">
+      <input id="Parametri_Condanne_Sogg" name="Parametri_Condanne_Sogg" type="checkbox" value="SI" mandatory_enabled="#Parametri_Soggetti.checked()" dynamic_check="true"/>
+     </td>
+     <td>
+       <p class="Labeltabella">
+         che nei confronti dei soggetti dichiarati quali soci, amministratori muniti di poteri di rappresentanza o altri soggetti indicati nell'art. 80 comme 3 D.Lgs 50/2016
+       </p>
+     </td>
+   </tr>
+   <tr>
+     <td style="vertical-align: top; width: 4%;">
+      
+     <input id="Tassonomia_Sentenza_Sogg_No" name="Tassonomia_Sentenza_Sogg" type="radio" value="1" /></td>
+     <td>
+       non è stata pronunciata sentenza di condanna passata in giudicato, oppure emesso decreto penale di condanna divenuto irrevocabile oppure sentenza di applicazione della pena su richiesta ai sensi dell’art. 444 del codice di procedura penale 
+     </td>
+   </tr>
+   <tr>
+     <td style="vertical-align: top; width: 4%;" >
+    <input id="Tassonomia_Sentenza_Sogg_Si" name="Tassonomia_Sentenza_Sogg" type="radio" value="2" />
+    </td>
+    <td>
+       è stata pronunciata sentenza di condanna passata in giudicato, oppure emesso decreto penale di condanna divenuto irrevocabile oppure sentenza di applicazione della pena su richiesta ai sensi dell’art. 444 del codice di procedura penale
+   </td>
+   </tr>
+     <tr class="Rigaintestazioneridotta">
+     <td colspan="2" >
+       <p class="Labelcella">
+         Indicare quale anche se è stato concesso il beneficio della non menzione
+       </p>
+     </td>
+     </tr>
+     <tr mandatory_enabled="#Tassonomia_Sentenza_Sogg_Si.checked()" >
+     <td colspan="2">
+       <textarea class="InputNormal" id="Parametri_Tipo_Condanna2" name="Parametri_Tipo_Condanna2" label="Tipo Condanna Soggetti" style="width: 100%;" rows="5"></textarea>
+     </td>
+   </tr>
+   <tr>
+     <td style="vertical-align: top; width: 4%;">
+     <input id="Parametri_Esclusione_art80" name="Parametri_Esclusione_art80" type="checkbox" value="SI" checked="checked" dynamic_check="true"/>
+     </td>
+     <td>
+       che nei confronti suoi e dei soggetti dichiarati quali soci, amministratori muniti di poteri di rappresentanza o altri soggetti indicati nell'art. 80 comme 3 D.Lgs 50/2016 <input id="Tassonomia_Esclusione_SoggSi" name="Tassonomia_Esclusione_Sogg" type="radio" value="1" label="Esclusione si"/>sussiste <input id="Tassonomia_Esclusione_SoggNo" name="Tassonomia_Esclusione_Sogg" type="radio" value="2" label="Esclusione no"/> non sussiste alcuna delle cause di esclusione previste dall’art. 80 comma 4 e 80 comma 5 lettere a), b), c), c-bis), c-ter), d), e), f), f-bis), f-ter), g), h), i), l) e m) del D.lgs. 50/2016
+     </td>
+   </tr>
+   <tr>
+     <td colspan="2">
+     <p class="Labelcella">
+   <i>nel caso in cui ricorra anche una sola delle condizioni previste dall’art. 80 comma 5 lett. c), c-bis), c-ter del D.Lgs. 50/2016, come novellato dall'art. 5 del d.l. n. 135 del 2018, convertito nella legge 11 febbraio 2019, n. 12, deve essere resa, obbligatoriamente, puntuale dichiarazione in ordine alle singole situazioni di cui alle lettere c), c- bis), c-ter) dell'art. 80 del DLgs. 50/2016; poiché ogni situazione dovrà essere oggetto di valutazione da parte della Stazione Appaltante, il concorrente è tenuto a non occultare alcuna informazione che sia soggetta al sindacato della Stazione Appaltante in osservanza della novella normativa</i>
+   </p>
+   </td>
+   </tr>
+   </tbody>
+   </table>
+<br>
+<div id="Tassonomia_Tipo_categorie" name="Tassonomia_Tipo_categorie" label="Tipo categorie" mandatory_enabled="#Parametri_Lavori.checked()"></div>
+<div id="Tassonomia_Tipo_Lavori_" name="Tassonomia_Tipo_Lavori_" label="Tipo lavori" mandatory_enabled="#Parametri_Lavori.checked()"></div>
+<div id="Tassonomia_Tipo_Verde" name="Tassonomia_Tipo_Verde" label="Tipo Lavori verde pubblico" mandatory_enabled="#Tassonomia_Tipo_Lavori_Sup.checked()"></div>
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td style="vertical-align: top; width: 4%;" rowspan="6"  >
+        <input group="Tassonomia_Tipo_Lavori_" id="Tassonomia_Tipo_Lavori_Sup" name="Tassonomia_Tipo_Lavori_Sup" type="checkbox" value="SI" >
+      </td>
+      <td colspan="8">
+      <strong>In particolare chiede di voler partecipare per lavori di importo pari o superiore a 150.000 Euro con le seguenti categorie generali</strong>  <i>( vedi categorie SOA)</i>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="8">
+        <p>
+          <i>l’Operatore Economico potrà iscriversi all’Albo per massimo tre categorie generali e tre categorie specialistiche</i>
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td style="width: 50%;">
+        <p class="Labelcella">
+          Categoria generale
+        </p>
+      </td>
+      <td>
+        <p class="Labelcella">
+          Categoria specialistica
+        </p>
+      </td>
+    </tr>
+
+        {% set categorieg = ["", "OG 1", "OG 2", "OG 3", "OG 4", "OG 5", "OG 6", "OG 7", "OG 8", "OG 9", "OG 10", "OG 11", "OG 12", "OG 13"] %}
+        {% set categories = ["", "OS 1", "OS 2-A", "OS 2-B", "OS 3", "OS 4", "OS 5", "OS 6", "OS 7", "OS 8", "OS 9", "OS 10", "OS 11", "OS 12-A", "OS 12-B", "OS 13", "OS 14", "OS 15", "OS 16", "OS 17", "OS 18-A", "OS 18-B", "OS 19", "OS 20-A", "OS 20-B", "OS 21", "OS 22", "OS 23", "OS 24", "OS 25", "OS 26", "OS 27", "OS 28", "OS 29", "OS 30", "OS 31", "OS 32", "OS 33", "OS 34", "OS 35"] %}
+        {% set classifiche = ["", "I classifica", "II classifica", "III classifica", "III-bis classifica", "IV classifica", "IV-bis", "V classifica", "VI classifica", "VII classifica", "VIII classifica"] %}
+
+
+        {% for i in range(1, 4) %}
+          <tr enabled="#Tassonomia_Tipo_Lavori_Sup.checked()">
+            <td>
+              <select name="Parametri_Categorieg{{i}}" id="Parametri_Categorieg{{i}}" style="width: 100%;" label="Categorie generali" {% if i == 1 %} mandatory="#Parametri_Categories{{i}}.value()==''" {% endif %} >          
+                {% for categoriag in categorieg %}
+                  <option value="{{categoriag}}">{{categoriag}}</option>
+                {% endfor %}
+              </select>
+            </td>
+            <td>
+              <select name="Parametri_Categories{{i}}" id="Parametri_Categories{{i}}" style="width: 100%;" label="Categorie specialistiche" {% if i == 1 %} mandatory="#Parametri_Categorieg{{i}}.value()==''" {% endif %}>          
+                {% for categorias in categories %}
+                  <option value="{{categorias}}">{{categorias}}</option>
+                {% endfor %}
+              </select>
+            </td>
+          </tr>
+        {% endfor %}
+          
+           <tr class="Rigaintestazioneridotta">
+             <td colspan="2">
+               <p class="Labelcella">
+                 Riportare la categoria scelta
+               </p>
+             </td>
+             <td>
+               <p class="Labelcella">
+                 Indicare la classifica
+               </p>
+             </td>
+           </tr> 
+   
+          <tr>
+            <td style="width: 50%;" colspan="2" >
+             <input class="InputNormal" id="categorieg_scelta_sup1" name="categorieg_scelta_sup1"style="width:100%;" label="categoria scelta" dynamic_value="#Parametri_Categorieg1.value()" readonly/>
+            </td>    
+            <td  style="width: 50%;" >
+                <select name="Parametri_classificag_sup1" id="Parametri_classificag_sup1" style="width: 100%;" label="Classifica" mandatory_enabled="#categorieg_scelta_sup1.value()!=''">          
+                {% for classifica in classifiche %}
+                  <option value="{{classifica}}">{{classifica}}</option>
+                {% endfor %}
+              </select>
+            </td>
+          </tr>   
+          <tr>
+            <td style="width: 50%;" colspan="2" >
+             <input class="InputNormal" id="categories_scelta_sup1" name="categories_scelta_sup1"style="width:100%;" label="categoria scelta"  dynamic_value="#Parametri_Categories1.value()" readonly/>
+            </td>    
+            <td  style="width: 50%;" >
+                <select name="Parametri_classificas_sup1" id="Parametri_classificas_sup1" style="width: 100%;" label="Classifica" mandatory_enabled="#categories_scelta_sup1.value()!=''">          
+                {% for classifica in classifiche %}
+                  <option value="{{classifica}}">{{classifica}}</option>
+                {% endfor %}
+              </select>
+            </td>
+          </tr>   
+          <tr>
+            <td style="width: 50%;" colspan="2" >
+             <input class="InputNormal" id="categorieg_scelta_sup2" name="categorieg_scelta_sup2"style="width:100%;" label="categoria scelta" dynamic_value="#Parametri_Categorieg2.value()" readonly/>
+            </td>    
+            <td  style="width: 50%;" >
+                <select name="Parametri_classificag_sup2" id="Parametri_classificag_sup2" style="width: 100%;" label="Classifica" mandatory_enabled="#categorieg_scelta_sup2.value()!=''">          
+                {% for classifica in classifiche %}
+                  <option value="{{classifica}}">{{classifica}}</option>
+                {% endfor %}
+              </select>
+            </td>
+          </tr>   
+          <tr>
+            <td style="width: 50%;" colspan="2" >
+             <input class="InputNormal" id="categories_scelta_sup2" name="categories_scelta_sup2"style="width:100%;" label="categoria scelta" dynamic_value="#Parametri_Categories2.value()"  readonly/>
+            </td>    
+            <td  style="width: 50%;" >
+                <select name="Parametri_classificas_sup2" id="Parametri_classificas_sup2" style="width: 100%;" label="Classifica" mandatory_enabled="#categories_scelta_sup2.value()!=''">          
+                {% for classifica in classifiche %}
+                  <option value="{{classifica}}">{{classifica}}</option>
+                {% endfor %}
+              </select>
+            </td>
+          </tr>   
+          <tr>
+            <td style="width: 50%;" colspan="2" >
+             <input class="InputNormal" id="categorieg_scelta_sup3" name="categorieg_scelta_sup3"style="width:100%;" label="categoria scelta" dynamic_value="#Parametri_Categorieg3.value()" readonly/>
+            </td>    
+            <td  style="width: 50%;" >
+                <select name="Parametri_classificag_sup3" id="Parametri_classificag_sup3" style="width: 100%;" label="Classifica" mandatory_enabled="#categorieg_scelta_sup3.value()!=''">          
+                {% for classifica in classifiche %}
+                  <option value="{{classifica}}">{{classifica}}</option>
+                {% endfor %}
+              </select>
+            </td>
+          </tr>   
+          <tr>
+            <td style="width: 50%;" colspan="2" >
+             <input class="InputNormal" id="categories_scelta_sup3" name="categories_scelta_sup3"style="width:100%;" label="categoria scelta" dynamic_value="#Parametri_Categories3.value()" readonly/>
+            </td>    
+            <td  style="width: 50%;" >
+                <select name="Parametri_classificas_sup3" id="Parametri_classificas_sup3" style="width: 100%;" label="Classifica" mandatory_enabled="#categories_scelta_sup3.value()!=''">          
+                {% for classifica in classifiche %}
+                  <option value="{{classifica}}">{{classifica}}</option>
+                {% endfor %}
+              </select>
+              <!--<input class="InputNormal" id="Parametri_classifica_sup3" name="classifica_sup3" label="classifica" style="width:100%;" mandatory_enabled="#Parametri_Lavori_Sup.checked()"/>-->
+            </td>
+          </tr>
+
+          <tr>
+            <td colspan="3" >
+          <p>
+  
+          <i>*classifiche:
+                      I classifica
+                      II classifica
+                      III classifica
+                      III-bis classifica
+                      IV classifica
+                      IV-bis
+                      V classifica
+                      VI classifica
+                      VII classifica
+                      VIII classifica</i>
+          </p>
+        </td>
+        </tr>
+    
+
+    <tr>
+    <td style="vertical-align: top; width: 4%;">
+      <input class="inputNormal" id="Tassonomia_Tipo_Verde1" name="Tassonomia_Tipo_Verde" type="radio" value="1" label=" Si verde pubblico" />
+    </td>
+    <td colspan="6" >
+      L'iscrizione è relativa afferenti al verde pubblico (categoria OS24)
+    </td>
+  </tr>
+  <tr>
+    <td style="vertical-align: top; width: 4%;">
+       <input class="inputNormal" id="Tassonomia_Tipo_Verde2" name="Tassonomia_Tipo_Verde" type="radio" value="2" label=" No verde pubblico" />
+    </td>
+    <td colspan="6" >
+      L'iscrizione non è relativa afferenti al verde pubblico (categoria OS24)
+    </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;"rowspan="6" >
+        <input id="Tassonomia_Dip" name="Tassonomia_Dip" type="checkbox" value="Si" label="Numero dipendenti"  mandatory_enabled="#Tassonomia_Tipo_Verde2.checked()" check="checked" dynamic_check="true"/>
+     </td>
+     <td colspan="3" >
+          di avere un numero di dipendenti, operai e/o impiegati, addetti ai cantieri, in una misura minima di 4 (quattro) unità,  con le seguenti qualifiche:
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td style="width: 30%;" >
+        Numero dipendenti
+      </td>
+      <td style="width: 100%;" colspan="6"   >
+        Qualifica
+      </td>
+      </tr>
+    <tr>
+      <td style="width: 30%;" >
+          <input class="InputNormal" id="Parametri_Num_Qua_Dip" name="Parametri_Num_Qua_Dip" label="Numero Dipendenti" style="width: 100%;" format="number" mandatory_enabled="#Tassonomia_Tipo_Verde2.checked()"/>
+      </td>
+      <td colspan="6" >
+          <input class="InputNormal" id="Parametri_Qua_Dip" name="Parametri_Qua_Dip" label="Qualifica Dipendenti" style="width: 100%;" mandatory_enabled="#Tassonomia_Tipo_Verde2.checked()"/>
+      </td>
+      <tr>
+          <td style="width: 30%;"  >
+              <input class="InputNormal" id="Parametri_Num_Qua_Dip2" name="Parametri_Num_Qua_Dip2" label="Numero Dipendenti" style="width: 100%;" format="number" enabled="#Tassonomia_Tipo_Verde2.checked()"/>
+          </td>
+          <td colspan="6" >
+              <input class="InputNormal" id="Parametri_Qua_Dip2" name="Parametri_Qua_Dip2" label="Qualifica Dipendenti" style="width: 100%;" enabled="#Tassonomia_Tipo_Verde2.checked()"/>
+          </td>
+    </tr>
+    <tr>
+        <td style="width: 30%;"  >
+            <input class="InputNormal" id="Parametri_Num_Qua_Dip3" name="Parametri_Num_Qua_Dip3" label="Numero Dipendenti" style="width: 100%;" format="number" enabled="#Tassonomia_Tipo_Verde2.checked()"/>
+        </td>
+        <td colspan="6">
+            <input class="InputNormal" id="Parametri_Qua_Dip3" name="Parametri_Qua_Dip3" label="Qualifica Dipendenti" style="width: 100%;" enabled="#Tassonomia_Tipo_Verde2.checked()"/>
+        </td>
+  </tr>
+  <tr>
+      <td style="width: 30%;"  >
+          <input class="InputNormal" id="Parametri_Num_Qua_Dip4" name="Parametri_Num_Qua_Dip4" label="Numero Dipendenti" style="width: 100%;" format="number" enabled="#Tassonomia_Tipo_Verde2.checked()"/>
+      </td>
+      <td colspan="6" >
+          <input class="InputNormal" id="Parametri_Qua_Dip4" name="Parametri_Qua_Dip4" label="Qualifica Dipendenti" style="width: 100%;" enabled="#Tassonomia_Tipo_Verde2.checked()"/>
+      </td>
+</tr>
+  </tbody>
+</table>
+<table class="Modulo" style="border: 1px solid grey;">
+    <tbody>
+    <tr>
+        <td style="vertical-align: top; width: 4%;" rowspan="14" >
+          <input id="Tassonomia_Lav_Compl" name="Tassonomia_Lav_Compl" type="checkbox" value="Si" label=" Lavori completati" mandatory_enabled="#Tassonomia_Tipo_Verde2.checked()" check="checked" dynamic_check="true"/>
+       </td>
+       <td colspan="8" >
+          di aver svolto e completato, con buon esito, negli ultimi tre anni antecedenti la data di pubblicazione dell’avviso di costituzione dell’elenco operatori economici almeno n. 3 contratti di appalto per un valore complessivo lordo finale pari ad euro 800.000,00 (ottocentomila);
+        </td>
+      </tr>
+      <tr class="Rigaintestazioneridotta">
+        <td colspan="10">
+          Indicare quali con il relativo importo:
+        </td>
+      </tr>
+      <tr class="Rigaintestazioneridotta">
+          <td  style="width: 50%;" >
+              Descrizione
+          </td>
+          <td    style="width: 50%;">
+              Importo
+            </td>
+      </tr>
+      <tr>
+          <td  style="width: 50%;" >
+              <input class="InputNormal" id="Parametri_Lav_Compl1" name="Parametri_Lav_Compl1" label="Lavori completati 1" style="width: 100%;" mandatory_enabled="#Tassonomia_Tipo_Verde2.checked()"/>
+          </td>
+          <td   style="width: 50%;" >
+              <input class="InputNormal" id="Parametri_Imp_Lav_Compl1" name="Parametri_Imp_Lav_Compl1" label="Importo lavori completati 1" style="width: 100%;" format="value" mandatory_enabled="#Tassonomia_Tipo_Verde2.checked()"/>
+          </td>
+      </tr>
+     
+      <tr class="Rigaintestazioneridotta">
+
+          <td  style="width: 50%;"  >
+              Località
+            </td>
+          <td   style="width: 50%;" >
+              Contatto
+            </td>
+        </tr>
+      <tr>
+             <td  style="width: 50%;">
+            <input class="InputNormal" id="Parametri_Loc_Lav_Compl1" name="Parametri_Loc_Lav_Compl1" label=" Località Lavori completati 1" style="width: 100%;" mandatory_enabled="#Tassonomia_Tipo_Verde2.checked()"/>
+        </td>
+        <td  style="width: 50%;">
+            <input class="InputNormal" id="Parametri_Con_Lav_Compl1" name="Parametri_Con_Lav_Compl1" label="Contatto lavori completati 1" style="width: 100%;"  mandatory_enabled="#Tassonomia_Tipo_Verde2.checked()"/>
+        </td>
+      </tr>
+      <tr class="Rigaintestazioneridotta">
+          <td  style="width: 50%;" >
+              Descrizione
+          </td>
+          <td    style="width: 50%;">
+              Importo
+            </td>
+      </tr>
+     
+      <tr>
+          <td style="width: 50%;" >
+              <input class="InputNormal" id="Parametri_Lav_Compl2" name="Parametri_Lav_Compl2" label="Lavori completati 2" style="width: 100%;" />
+          </td>
+          <td  colspan="2" style="width: 50%;">
+              <input class="InputNormal" id="Parametri_Imp_Lav_Compl2" name="Parametri_Imp_Lav_Compl2" label="Importo lavori completati 2" style="width: 100%;" format="value" />
+            </td>
+      </tr>
+       <tr class="Rigaintestazioneridotta">
+
+          <td  style="width: 50%;"  >
+              Località
+            </td>
+          <td   style="width: 50%;" >
+              Contatto
+            </td>
+        </tr>
+          <tr>
+          
+          
+          <td   style="width: 50%;" >
+              <input class="InputNormal" id="Parametri_Loc_Lav_Compl2" name="Parametri_Loc_Lav_Compl2" label="Località Lavori completati 2" style="width: 100%;" />
+          </td>
+          <td style="width: 50%;">
+              <input class="InputNormal" id="Parametri_Con_Lav_Compl2" name="Parametri_Con_Lav_Compl2" label="Contatto lavori completati 2" style="width: 100%;" />
+          </td>
+
+        </tr>
+        <tr class="Rigaintestazioneridotta">
+            <td  style="width: 50%;" >
+                Descrizione
+            </td>
+            <td    style="width: 50%;">
+                Importo
+              </td>
+        </tr>
+        <tr>
+            <td   style="width: 50%;" >
+                <input class="InputNormal" id="Parametri_Lav_Compl3" name="Parametri_Lav_Compl3" label="Lavori completati 2" style="width: 100%;" />
+            </td>
+            <td   style="width: 10%;">
+                <input class="InputNormal" id="Parametri_Imp_Lav_Compl3" name="Parametri_Imp_Lav_Compl3" label="Importo lavori completati 3" style="width: 100%;" format="value" />
+                
+            </td>
+        </tr>
+        <tr class="Rigaintestazioneridotta">
+
+            <td  style="width: 50%;"  >
+                Località
+              </td>
+            <td   style="width: 50%;" >
+                Contatto
+              </td>
+          </tr>
+        <tr>
+            <td  style="width: 50%;">
+                <input class="InputNormal" id="Parametri_Loc_Lav_Compl3" name="Parametri_Loc_Lav_Compl3" label="Località Lavori completati 3" style="width: 100%;" />
+            </td>
+            <td  style="width: 50%;">
+                <input class="InputNormal" id="Parametri_Con_Lav_Compl3" name="Parametri_Con_Lav_Compl3" label="Contatto lavori completati 3" style="width: 100%;"  />
+          </tr>
+          <tr>
+            <td colspan="15">
+              <p>
+                <i>Aggiungere in allegato eventuali ulteriori contratti</i>
+              </p>
+            </td>
+          </tr>
+    </tbody>
+</table>
+<table class="Modulo" style="border: 1px solid grey;">
+    <tbody>
+          <tr>
+              <td style="vertical-align: top; width: 4%;" rowspan="14">
+                <input id="Tassonomia_Lav_Compl_verde" name="Tassonomia_Lav_Compl_verde" type="checkbox" value="Si" label=" Lavori completati verde pubblico" mandatory_enabled="#Tassonomia_Tipo_Verde1.checked()" check="checked" dynamic_check="true"/>
+             </td>
+             <td colspan="6" >
+                di aver svolto e completato, con buon esito, negli ultimi tre anni antecedenti la data di pubblicazione dell’avviso di costituzione dell’Elenco Operatori Economici, almeno n. 3 contratti di appalto per un valore complessivo lordo finale pari ad € 400.000)
+             </td>
+              </tr>
+            <tr class="Rigaintestazioneridotta">
+              <td colspan="2">
+                Indicare quali con il relativo importo:
+              </td>
+            </tr>
+            <tr class="Rigaintestazioneridotta">
+                <td >
+                  Descrizione
+                </td>
+                <td >
+                    Importo
+                  </td>
+              </tr>
+            <tr>
+              <td  style="width: 50%;" >
+                  <input class="InputNormal" id="Parametri_Lav_Compl_verde1" name="Parametri_Lav_Compl_verde1" label="Lavori completati verde pubblico 1" style="width: 100%;" mandatory_enabled="#Tassonomia_Tipo_Verde1.checked()"/>
+              </td>
+              <td  style="width: 50%;">
+                  <input class="InputNormal" id="Parametri_Imp_Lav_Compl_verde1" name="Parametri_Imp_Lav_Compl_verde1" label="Importo lavori completati verde pubblico 1" style="width: 100%;" format="value" mandatory_enabled="#Tassonomia_Tipo_Verde1.checked()"/>
+              </td>
+            </tr>
+            <tr class="Rigaintestazioneridotta">
+
+                <td  style="width: 50%;"  >
+                    Località
+                  </td>
+                <td   style="width: 50%;" >
+                    Contatto
+                  </td>
+              </tr>
+            <tr>
+                <td  style="width: 50%;" >
+                    <input class="InputNormal" id="Parametri_Loc_Compl_verde1" name="Parametri_Loc_Compl_verde1" label="Lavori completati verde Località 1" style="width: 100%;" mandatory_enabled="#Tassonomia_Tipo_Verde1.checked()" />
+                </td>
+                <td  style="width: 50%;">
+                    <input class="InputNormal" id="Parametri_Con_Lav_Compl_verde1" name="Parametri_Con_Lav_Compl_verde1" label="Contatto lavori completati verde 1" style="width: 100%;" mandatory_enabled="#Tassonomia_Tipo_Verde1.checked()" />
+                </td>
+              </tr>
+              <tr class="Rigaintestazioneridotta">
+                  <td >
+                    Descrizione
+                  </td>
+                  <td >
+                      Importo
+                    </td>
+                </tr>
+              <tr>
+                  <td style="width: 50%;" >
+                      <input class="InputNormal" id="Parametri_Lav_Compl_verde2" name="Parametri_Lav_Compl_verde2" label="Lavori completati verde 2" style="width: 100%;" />
+                  </td>
+                  <td style="width: 50%;">
+                      <input class="InputNormal" id="Parametri_Imp_Lav_Compl_verde2" name="Parametri_Imp_Lav_Compl_verde2" label="Importo lavori completati verde 2" style="width: 100%;" format="value" />
+                  </td>
+                </tr>
+                <tr class="Rigaintestazioneridotta">
+
+                    <td  style="width: 50%;"  >
+                        Località
+                      </td>
+                    <td   style="width: 50%;" >
+                        Contatto
+                      </td>
+                  </tr>
+                  <tr>
+                      <td  style="width: 50%;" >
+                          <input class="InputNormal" id="Parametri_Loc_Compl_verde2" name="Parametri_Loc_Compl_verde2" label="Lavori completati verde Località 2" style="width: 100%;" />
+                      </td>
+                      <td  style="width: 50%;">
+                          <input class="InputNormal" id="Parametri_Con_Lav_Compl_verde2" name="Parametri_Con_Lav_Compl_verde2" label="Contatto lavori completati verde 2" style="width: 100%;" />
+                      </td>
+                  </tr>
+                  <tr class="Rigaintestazioneridotta">
+                      <td >
+                        Descrizione
+                      </td>
+                      <td >
+                          Importo
+                        </td>
+                    </tr>
+                  <tr>
+                      <td style="width: 50%;" >
+                          <input class="InputNormal" id="Parametri_Lav_Compl_verde3" name="Parametri_Lav_Compl_verde3" label="Lavori completati verde 3" style="width: 100%;" />
+                      </td>
+                      <td style="width: 50%;">
+                          <input class="InputNormal" id="Parametri_Imp_Lav_Compl_verde3" name="Parametri_Imp_Lav_Compl_verde3" label="Importo lavori completati verde 3" style="width: 100%;" format="value" />
+                      </td>
+                    </tr>
+                    <tr class="Rigaintestazioneridotta">
+    
+                        <td  style="width: 50%;"  >
+                            Località
+                          </td>
+                        <td   style="width: 50%;" >
+                            Contatto
+                          </td>
+                      </tr>
+                      <tr>
+                          <td  style="width: 50%;" >
+                              <input class="InputNormal" id="Parametri_Loc_Compl_verde3" name="Parametri_Loc_Compl_verde3" label="Lavori completati verde Località 3" style="width: 100%;" />
+                          </td>
+                          <td  style="width: 50%;">
+                              <input class="InputNormal" id="Parametri_Con_Lav_Compl_verde3" name="Parametri_Con_Lav_Compl_verde3" label="Contatto lavori completati verde 3" style="width: 100%;" />
+                          </td>
+                      </tr>
+                <tr>
+                  <td colspan="12" >
+                    <p>
+                      <i>Aggiungere in allegato eventuali ulteriori contratti</i>
+                    </p>
+                  </td>
+                </tr>
+    </tbody>
+ </table>
+ 
+
+ 
+<div id="Tassonomia_Tipo_Verde_Inf" name="Tassonomia_Tipo_Verde_Inf" label="Tipo Lavori verde pubblico inferiori alle 150.0000" mandatory="true"></div>
+<div id="Tassonomia_Tipo_Poss_Soa" name="Tassonomia_Tipo_Poss_Soa" label="Possesso SOA" mandatory_enabled="#Tassonomia_Tipo_Lavori_inf.checked()"></div>
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td style="vertical-align: top; width: 4%;" rowspan="6" >
+        <input group="Tassonomia_Tipo_Lavori_" id="Tassonomia_Tipo_Lavori_inf" name="Tassonomia_Tipo_Lavori_inf" type="checkbox" value="SI">
+      </td>
+      <td colspan="3">
+       <strong> In particolare chiede di voler partecipare per lavori di importo inferiore a 150.000 Euro con le seguenti categorie generali </strong> <i>( vedi categorie SOA)</i>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2">
+        <p>
+          <i>l’operatore economico potrà iscriversi all’albo per massimo tre categorie generali e tre categorie specialistiche</i>
+        </p>
+      </td>
+      </tr>
+    <tr class="Rigaintestazioneridotta">
+        <td style="width: 50%"  >
+           <p>Categoria generale  </p>
+         </td>
+       <td style="width: 50%">
+           <p>Categoria specialistica</p>
+         </td>
+         </tr>
+
+        {% set categoriegI = ["", "OG 1", "OG 2", "OG 3", "OG 4", "OG 5", "OG 6", "OG 7", "OG 8", "OG 9", "OG 10", "OG 11", "OG 12", "OG 13"] %}
+        {% set categoriesI = ["", "OS 1", "OS 2-A", "OS 2-B", "OS 3", "OS 4", "OS 5", "OS 6", "OS 7", "OS 8", "OS 9", "OS 10", "OS 11", "OS 12-A", "OS 12-B", "OS 13", "OS 14", "OS 15", "OS 16", "OS 17", "OS 18-A", "OS 18-B", "OS 19", "OS 20-A", "OS 20-B", "OS 21", "OS 22", "OS 23", "OS 24", "OS 25", "OS 26", "OS 27", "OS 28", "OS 29", "OS 30", "OS 31", "OS 32", "OS 33", "OS 34", "OS 35"] %}
+        {% set classificheI = ["", "I classifica", "II classifica", "III classifica", "III-bis classifica", "IV classifica", "IV-bis", "V classifica", "VI classifica", "VII classifica", "VIII classifica"] %}
+
+        {% for i in range(1, 4) %}
+          <tr enabled="#Tassonomia_Tipo_Lavori_inf.checked()">
+            <td>
+              <select name="Parametri_CategoriegI{{loop.index}}" id="Parametri_CategoriegI{{loop.index}}" style="width: 100%;" label="Categorie generali" {% if loop.first %} mandatory="#Parametri_CategoriesI{{loop.index}}.value()==''" {% endif %} >          
+                {% for categoriagI in categoriegI %}
+                  <option value="{{categoriagI}}">{{categoriagI}}</option>
+                {% endfor %}
+              </select>
+            </td>
+            <td>
+              <select name="Parametri_CategoriesI{{loop.index}}" id="Parametri_CategoriesI{{loop.index}}" style="width: 100%;" label="Categorie specialistiche" {% if loop.first %} mandatory="#Parametri_CategoriegI{{loop.index}}.value()==''" {% endif %} >          
+                {% for categoriasI in categoriesI %}
+                  <option value="{{categoriasI}}">{{categoriasI}}</option>
+                {% endfor %}
+              </select>
+            </td>
+          </tr>
+        {% endfor %}
+
+        <tr class="Rigaintestazioneridotta">
+             <td colspan="2">
+               <p class="Labelcella">
+                 Riportare la categoria scelta
+               </p>
+             </td>
+             <td>
+               <p class="Labelcella">
+                 Indicare la classifica
+               </p>
+             </td>
+           </tr> 
+           <tr>
+            <td style="width: 50%;" colspan="2" >
+             <input class="InputNormal" id="categorieg_scelta_inf1" name="categorieg_scelta_inf1"style="width:100%;" label="categoria scelta" dynamic_value="#Parametri_CategoriegI1.value()" readonly/>
+            </td>    
+            <td  style="width: 50%;" >
+                <select name="Parametri_classificag_Inf1" id="Parametri_classificag_Inf1" style="width: 100%;" label="Classifica" mandatory_enabled="#categorieg_scelta_inf1.value()!=''">          
+                {% for classificaI in classificheI %}
+                  <option value="{{classificaI}}">{{classificaI}}</option>
+                {% endfor %}
+              </select>
+            </td>
+          </tr>   
+
+           <tr>
+            <td style="width: 50%;" colspan="2" >
+             <input class="InputNormal" id="categories_scelta_inf1" name="categories_scelta_inf1"style="width:100%;" label="categoria scelta"  dynamic_value="#Parametri_CategoriesI1.value()" readonly/>
+            </td>    
+            <td  style="width: 50%;" >
+                <select name="Parametri_classificas_inf1" id="Parametri_classificas_inf1" style="width: 100%;" label="Classifica" mandatory_enabled="#categories_scelta_inf1.value()!=''">          
+                {% for classifica in classifiche %}
+                  <option value="{{classifica}}">{{classifica}}</option>
+                {% endfor %}
+              </select>
+            </td>
+          </tr>   
+          <tr>
+            <td style="width: 50%;" colspan="2" >
+             <input class="InputNormal" id="categorieg_scelta_inf2" name="categorieg_scelta_inf2"style="width:100%;" label="categoria scelta" dynamic_value="#Parametri_CategoriegI2.value()" readonly/>
+            </td>    
+            <td  style="width: 50%;" >
+                <select name="Parametri_classificag_inf2" id="Parametri_classificag_inf2" style="width: 100%;" label="Classifica" mandatory_enabled="#categorieg_scelta_inf2.value()!=''">          
+                {% for classificaI in classificheI %}
+                  <option value="{{classificaI}}">{{classificaI}}</option>
+                {% endfor %}
+              </select>
+            </td>
+          </tr>   
+          <tr>
+            <td style="width: 50%;" colspan="2" >
+             <input class="InputNormal" id="categories_scelta_inf2" name="categories_scelta_inf2"style="width:100%;" label="categoria scelta" dynamic_value="#Parametri_CategoriesI2.value()"  readonly/>
+            </td>    
+            <td  style="width: 50%;" >
+                <select name="Parametri_classificas_inf2" id="Parametri_classificas_inf2" style="width: 100%;" label="Classifica" mandatory_enabled="#categories_scelta_inf2.value()!=''">          
+                {% for classificaI in classificheI %}
+                  <option value="{{classificaI}}">{{classificaI}}</option>
+                {% endfor %}
+              </select>
+            </td>
+          </tr>   
+          <tr>
+            <td style="width: 50%;" colspan="2" >
+             <input class="InputNormal" id="categorieg_scelta_inf3" name="categorieg_scelta_inf3"style="width:100%;" label="categoria scelta" dynamic_value="#Parametri_CategoriegI3.value()" readonly/>
+            </td>    
+            <td  style="width: 50%;" >
+                <select name="Parametri_classificag_inf3" id="Parametri_classificag_inf3" style="width: 100%;" label="Classifica" mandatory_enabled="#categorieg_scelta_inf3.value()!=''">          
+                {% for classificaI in classificheI %}
+                  <option value="{{classificaI}}">{{classificaI}}</option>
+                {% endfor %}
+              </select>
+            </td>
+          </tr>   
+          <tr>
+            <td style="width: 50%;" colspan="2" >
+             <input class="InputNormal" id="categories_scelta_inf3" name="categories_scelta_inf3"style="width:100%;" label="categoria scelta" dynamic_value="#Parametri_CategoriesI3.value()" readonly/>
+            </td>    
+            <td  style="width: 50%;" >
+                <select name="Parametri_classificas_inf3" id="Parametri_classificas_inf3" style="width: 100%;" label="Classifica" mandatory_enabled="#categories_scelta_inf3.value()!=''">          
+                {% for classificaI in classificheI %}
+                  <option value="{{classificaI}}">{{classificaI}}</option>
+                {% endfor %}
+              </select>
+              <!--<input class="InputNormal" id="Parametri_classifica_sup3" name="classifica_sup3" label="classifica" style="width:100%;" mandatory_enabled="#Parametri_Lavori_Sup.checked()"/>-->
+            </td>
+          </tr>
+
+
+        <tr>
+          <td colspan="3" >
+        <p>
+
+        <i>*classifiche:
+                    I classifica
+                    II classifica
+                    III classifica
+                    III-bis classifica
+                    IV classifica
+                    IV-bis
+                    V classifica
+                    VI classifica
+                    VII classifica
+                    VIII classifica</i>
+        </p>
+      </td>
+      </tr>
+      <tr>
+        <td style="vertical-align: top; width: 4%;"  >
+          <input class="inputNormal" id="Tassonomia_Tipo_Poss_Soa1" name="Tassonomia_Tipo_Poss_Soa" type="radio" value="1" label=" Si SOA" />
+        </td>
+        <td colspan="4">
+          Possesso certificazione SOA
+        </td>
+      </tr>
+      <tr>
+        <td style="vertical-align: top; width: 4%;" >
+            
+           <input class="inputNormal" id="Tassonomia_Tipo_Poss_Soa2" name="Tassonomia_Tipo_Poss_Soa" type="radio" value="2" label=" No SOA" />
+        </td>
+        <td colspan="4">
+           Non in possesso certificazione SOA
+        </td>
+        </tr>
+  </tbody>
+</table>
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+        <tr class="Rigaintestazioneridotta"  >
+            <td style="vertical-align: top; width: 4%;" rowspan="17"  >
+                <input class="inputNormal" id="Tassonomia_Imp_Max_No_SOA" name="Tassonomia_Imp_Max_No_SOA" type="checkbox" value="si" label=" Dichiarazioni NO SOA" mandatory_enabled="#Tassonomia_Tipo_Poss_Soa2.checked()" dynamic_check="true"/>
+              </td>
+           <td colspan="2">
+                Importo massimo dei lavori analoghi eseguiti direttamente nel quinquennio antecedente la data di pubblicazione riferibile alle categorie dichiarate per i lavori di importo inferiore a Euro 150.000
+            </td>
+            </tr>
+            <tr class="Rigaintestazioneridotta">
+                <td >
+                  Descrizione
+                </td>
+                <td >
+                    Importo
+                  </td>
+              </tr>
+            <tr>
+              <td  style="width: 50%;" >
+                  <input class="InputNormal" id="Parametri_Lav_No_SOA1" name="Parametri_Lav_No_SOA1" label="Lavori no SOA" style="width: 100%;" mandatory_enabled="#Tassonomia_Imp_Max_No_SOA.checked()"/>
+              </td>
+              <td  style="width: 50%;">
+                  <input class="InputNormal" id="Parametri_Imp_Lav_No_SOA1" name="Parametri_Imp_Lav_No_SOA1" label="Importo no SOA" style="width: 100%;" format="value" mandatory_enabled="#Tassonomia_Imp_Max_No_SOA.checked()"/>
+              </td>
+            </tr>
+            <tr class="Rigaintestazioneridotta">
+
+                <td  style="width: 50%;"  >
+                    Località
+                  </td>
+                <td   style="width: 50%;" >
+                    Contatto
+                  </td>
+              </tr>
+            <tr>
+                <td  style="width: 50%;" >
+                    <input class="InputNormal" id="Parametri_Loc_No_SOA1" name="Parametri_Loc_No_SOA1" label="Località no SOA" style="width: 100%;" mandatory_enabled="#Tassonomia_Imp_Max_No_SOA.checked()"/>
+                </td>
+                <td  style="width: 50%;">
+                    <input class="InputNormal" id="Parametri_Con_No_SOA1" name="Parametri_Con_No_SOA1" label="Contatto no SOA" style="width: 100%;" mandatory_enabled="#Tassonomia_Imp_Max_No_SOA.checked()" />
+                </td>
+              </tr>
+              <tr class="Rigaintestazioneridotta">
+                  <td >
+                    Descrizione
+                  </td>
+                  <td >
+                      Importo
+                    </td>
+                </tr>
+              <tr>
+                <td  style="width: 50%;" >
+                    <input class="InputNormal" id="Parametri_Lav_No_SOA2" name="Parametri_Lav_No_SOA2" label="Lavori no SOA" style="width: 100%;" />
+                </td>
+                <td  style="width: 50%;">
+                    <input class="InputNormal" id="Parametri_Imp_Lav_No_SOA2" name="Parametri_Imp_Lav_No_SOA2" label="Importo no SOA" style="width: 100%;" format="value" />
+                </td>
+              </tr>
+              <tr class="Rigaintestazioneridotta">
+  
+                  <td  style="width: 50%;"  >
+                      Località
+                    </td>
+                  <td   style="width: 50%;" >
+                      Contatto
+                    </td>
+                </tr>
+              <tr>
+                  <td  style="width: 50%;" >
+                      <input class="InputNormal" id="Parametri_Loc_No_SOA2" name="Parametri_Loc_No_SOA2" label="Località no SOA" style="width: 100%;"/>
+                  </td>
+                  <td  style="width: 50%;">
+                      <input class="InputNormal" id="Parametri_Con_No_SOA2" name="Parametri_Con_No_SOA2" label="Contatto no SOA" style="width: 100%;"/>
+                  </td>
+                </tr>
+                <tr class="Rigaintestazioneridotta">
+                    <td >
+                      Descrizione
+                    </td>
+                    <td >
+                        Importo
+                      </td>
+                  </tr>
+                <tr>
+                  <td  style="width: 50%;" >
+                      <input class="InputNormal" id="Parametri_Lav_No_SOA3" name="Parametri_Lav_No_SOA3" label="Lavori no SOA" style="width: 100%;" />
+                  </td>
+                  <td  style="width: 50%;">
+                      <input class="InputNormal" id="Parametri_Imp_Lav_No_SOA3" name="Parametri_Imp_Lav_No_SOA3" label="Importo no SOA" style="width: 100%;" format="value" />
+                  </td>
+                </tr>
+                <tr class="Rigaintestazioneridotta">
+    
+                    <td  style="width: 50%;"  >
+                        Località
+                      </td>
+                    <td   style="width: 50%;" >
+                        Contatto
+                      </td>
+                  </tr>
+                <tr>
+                    <td  style="width: 50%;" >
+                        <input class="InputNormal" id="Parametri_Loc_No_SOA3" name="Parametri_Loc_No_SOA3" label="Località no SOA" style="width: 100%;"/>
+                    </td>
+                    <td  style="width: 50%;">
+                        <input class="InputNormal" id="Parametri_Con_No_SOA3" name="Parametri_Con_No_SOA3" label="Contatto no SOA" style="width: 100%;"/>
+                    </td>
+                  </tr>
+  </tbody>
+</table>
+<table class="Modulo" style="border: 1px solid grey;" mandatory_enabled="#Tassonomia_Tipo_Poss_Soa2.checked()">
+    <tbody>
+          
+            <tr class="Rigaintestazioneridotta" >
+              <td style="vertical-align: top; width: 4%;" rowspan="2">
+                  <input class="inputNormal" id="Tassonomia_Cos_No_SOA" name="Tassonomia_Cos_No_SOA" type="checkbox" value="si" label=" Costo personale NO SOA" mandatory_enabled="#Tassonomia_Tipo_Poss_Soa2.checked()" dynamic_check="true"/>
+              </td>
+                <td colspan="2">
+                    costo complessivo <strong>percentuale</strong> sostenuto per il personale dipendente non inferiore al quindici per cento dell'importo dei lavori eseguiti nel quinquennio antecedente alla presente dichiarazione;
+                 </td>
+                 </tr>
+                 <tr mandatory_enabled="#Tassonomia_Tipo_Poss_Soa2.checked()" >
+                   <td colspan="2">
+                       <input class="inputNormal" id="Tassonomia_Costo_Pers" name="Tassonomia_Costo_Pers"  label=" Costo personale" format="value" style="width: 100%;"/>
+                   </td>
+                 </tr>
+                 <tr class="Rigaintestazioneridotta" >
+                    <td style="vertical-align: top; width: 4%;" rowspan="6">
+                        <input class="inputNormal" id="Tassonomia_Att_NO_SOA" name="Tassonomia_Att_NO_SOA" type="checkbox" value="si" label=" Dichiarazioni NO SOA" mandatory_enabled="#Tassonomia_Tipo_Poss_Soa2.checked()" dynamic_check="true"/>
+                    </td>
+                    <td colspan="2">
+                        adeguata attrezzatura tecnica:
+                     </td>
+                     </tr>
+                     <tr class="Rigaintestazioneridotta">
+                       <td>
+                         Quantità
+                       </td>
+                       <td>
+                         Tipo di attrezzatura
+                       </td>
+                     </tr>
+                     <tr  >
+
+                       <td >
+                           <input class="inputNormal" id="Tassonomia_Attr_tec_Qua" name="Tassonomia_Attr_tec_Qua"  label=" Quantità Attrezzatura tecnica" format="value" style="width: 100%;" mandatory_enabled="#Tassonomia_Tipo_Poss_Soa2.checked()"/>
+                       </td>
+                       <td >
+                          <input class="inputNormal" id="Tassonomia_Attr_tec_Des" name="Tassonomia_Attr_tec_Des"  label=" Descrizione Attrezzatura tecnica" style="width: 100%;" mandatory_enabled="#Tassonomia_Tipo_Poss_Soa2.checked()" />
+                      </td>
+                     </tr>
+                     <tr  >
+
+                        <td >
+                            <input class="inputNormal" id="Tassonomia_Attr_tec_Qua2" name="Tassonomia_Attr_tec_Qua2"  label=" Quantità Attrezzatura tecnica" format="value" style="width: 100%;"/>
+                        </td>
+                        <td >
+                           <input class="inputNormal" id="Tassonomia_Attr_tec_Des2" name="Tassonomia_Attr_tec_Des2"  label=" Descrizione Attrezzatura tecnica" style="width: 100%;" />
+                       </td>
+                      </tr>
+                      <tr  >
+
+                          <td >
+                              <input class="inputNormal" id="Tassonomia_Attr_tec_Qua3" name="Tassonomia_Attr_tec_Qua3"  label=" Quantità Attrezzatura tecnica" format="value" style="width: 100%;"/>
+                          </td>
+                          <td >
+                             <input class="inputNormal" id="Tassonomia_Attr_tec_Des3" name="Tassonomia_Attr_tec_Des3"  label=" Descrizione Attrezzatura tecnica" style="width: 100%;" />
+                         </td>
+                        </tr>
+                    </tbody>
+</table>
+<table class="Modulo" style="border: 1px solid grey;" enabled="#Tassonomia_Tipo_Poss_Soa1.checked()" >
+    <tbody>
+    <tr>
+        <td style="vertical-align: top; width: 4%;" rowspan="17">
+          <input id="Tassonomia_Lav_Compl_Inf" name="Tassonomia_Lav_Compl_Inf" type="checkbox" value="Si" label=" Lavori completati inf 150.000" mandatory="#Tassonomia_Tipo_Poss_Soa1.checked()" check="checked" dynamic_check="true"/>
+       </td>
+       <td colspan="6"  >
+          di aver svolto e completato, con buon esito, negli ultimi tre anni antecedenti la data di pubblicazione dell’avviso di costituzione dell’elenco operatori economici, almeno n. 3 contratti di appalto per un valore complessivo lordo finale pari ad euro 150.000,00 (centocinquantamila); 
+        </td>
+      </tr>
+      <tr class="Rigaintestazioneridotta">
+        <td colspan="6">
+          Indicare quali con il relativo importo:
+        </td>
+      </tr>
+      <tr class="Rigaintestazioneridotta">
+          <td >
+            Descrizione
+          </td>
+          <td >
+              Importo
+            </td>
+        </tr>
+        
+      <tr>
+        <td  >
+            <input class="InputNormal" id="Parametri_Lav_Compl_Inf1" name="Parametri_Lav_Compl_Inf1" label="Lavori completati inf alle 150.000 1" style="width: 100%;" mandatory="#Tassonomia_Tipo_Poss_Soa1.checked()"/>
+        </td>
+        <td >
+            <input class="InputNormal" id="Parametri_Imp_Lav_Compl_Inf1" name="Parametri_Imp_Lav_Compl_Inf1" label="Importo lavori completati inf alle 150.000" style="width: 100%;" format="value" mandatory="#Tassonomia_Tipo_Poss_Soa1.checked()"/>
+        </td>
+      </tr>
+      <tr class="Rigaintestazioneridotta">
+
+          <td  style="width: 50%;"  >
+              Località
+            </td>
+          <td   style="width: 50%;" >
+              Contatto
+            </td>
+        </tr>
+
+
+      <tr>
+          <td  style="width: 50%;" >
+              <input class="InputNormal" id="Parametri_Loc_Compl_Inf1" name="Parametri_Loc_Compl_Inf1" label="Località completati inf alle 150.000 " style="width: 100%;" mandatory="#Tassonomia_Tipo_Poss_Soa1.checked()" />
+          </td>
+          <td  style="width: 50%;">
+              <input class="InputNormal" id="Parametri_Con_Comp_Inf1" name="Parametri_Con_Comp_Inf1" label="Contatto lavori completati inf alle 150.000  " style="width: 100%;" mandatory="#Tassonomia_Tipo_Poss_Soa1.checked()" />
+          </td>
+        </tr>
+        <tr class="Rigaintestazioneridotta">
+            <td >
+              Descrizione
+            </td>
+            <td >
+                Importo
+              </td>
+          </tr>
+        <tr>
+            <td  style="width: 50%;" >
+                <input class="InputNormal" id="Parametri_Lav_Compl_Inf2" name="Parametri_Lav_Compl_Inf2" label="Lavori completati inf alle 150.000 2" style="width: 100%;" />
+            </td>
+            <td  style="width: 50%;">
+                <input class="InputNormal" id="Parametri_Imp_Lav_Compl_Inf2" name="Parametri_Imp_Lav_Compl_Inf2" label="Importo lavori completati inf alle 150.000 2" style="width: 100%;" format="value" />
+            </td>
+          </tr>
+          <tr class="Rigaintestazioneridotta">
+
+              <td  style="width: 50%;"  >
+                  Località
+                </td>
+              <td   style="width: 50%;" >
+                  Contatto
+                </td>
+            </tr>
+            <tr>
+                <td  style="width: 50%;" >
+                    <input class="InputNormal" id="Parametri_Loc_Compl_Inf2" name="Parametri_Loc_Compl_Inf2" label="Località completati inf alle 150.000 2" style="width: 100%;" />
+                </td>
+                <td  style="width: 50%;">
+                    <input class="InputNormal" id="Parametri_Con_Comp_Inf2" name="Parametri_Con_Comp_Inf2" label="Contatto lavori completati inf alle 150.000  2" style="width: 100%;"  />
+                </td>
+              </tr>
+              <tr class="Rigaintestazioneridotta">
+                  <td >
+                    Descrizione
+                  </td>
+                  <td >
+                      Importo
+                    </td>
+                </tr>
+
+                <tr>
+                    <td  style="width: 50%;" >
+                        <input class="InputNormal" id="Parametri_Lav_Compl_Inf3" name="Parametri_Lav_Compl_Inf3" label="Lavori completati inf alle 150.000 3" style="width: 100%;" />
+                    </td>
+                    <td style="width: 50%;">
+                        <input class="InputNormal" id="Parametri_Imp_Lav_Compl_Inf3" name="Parametri_Imp_Lav_Compl_Inf3" label="Importo lavori completati inf alle 150.000 3" style="width: 100%;" format="value" />
+                    </td>
+                  </tr>
+                  <tr class="Rigaintestazioneridotta">
+
+                      <td  style="width: 50%;"  >
+                          Località
+                        </td>
+                      <td   style="width: 50%;" >
+                          Contatto
+                        </td>
+                    </tr>
+                    <tr>
+                        <td  style="width: 50%;" >
+                            <input class="InputNormal" id="Parametri_Loc_Compl_Inf23" name="Parametri_Loc_Compl_Inf3" label="Località completati inf alle 150.000 3" style="width: 100%;" />
+                        </td>
+                        <td  style="width: 50%;">
+                            <input class="InputNormal" id="Parametri_Con_Comp_Inf3" name="Parametri_Con_Comp_Inf3" label="Contatto lavori completati inf alle 150.000  3" style="width: 100%;"  />
+                        </td>
+                      </tr>
+          <tr>
+            <td colspan="6">
+              <p>
+                <i>Aggiungere in allegato eventuali ulteriori contratti</i>
+              </p>
+            </td>
+          </tr>
+            </tbody>
+ </table>
+<table class="Modulo" style="border: 1px solid grey;">
+    <tbody>
+    <tr>
+    <td style="vertical-align: top; width: 4%;" >
+      <input class="inputNormal" id="Tassonomia_Tipo_Verde_Inf1" name="Tassonomia_Tipo_Verde_Inf" type="radio" value="1" label=" Si verde pubblico inferiori a 150.000" />
+    </td>
+    <td>
+      L'iscrizione è relativa afferenti al verde pubblico (categoria OS24)
+    </td>
+  </tr>
+  <tr>
+    <td style="vertical-align: top; width: 4%;"  >
+       <input class="inputNormal" id="Tassonomia_Tipo_Verde_Inf2" name="Tassonomia_Tipo_Verde_Inf" type="radio" value="2" label=" No verde pubblico inferiori a 150.000" />
+    </td>
+    <td>
+      L'iscrizione non è relativa afferenti al verde pubblico (categoria OS24)
+    </td>
+    </tr>
+    </tbody>
+</table>
+<table class="Modulo" style="border: 1px solid grey;" enabled="#Tassonomia_Tipo_Verde_Inf2.checked()">
+    <tbody>
+    <tr>
+        <td style="vertical-align: top; width: 4%;"rowspan="6" >
+          <input id="Tassonomia_Dip_Inf" name="Tassonomia_Dip_Inf" type="checkbox" value="Si" label="Numero dip infer"  mandatory_enabled="#Tassonomia_Tipo_Verde_Inf2.checked()" check="checked" dynamic_check="true"/>
+       </td>
+       <td colspan="6" >
+            di avere un numero di dipendenti, operai e/o impiegati, addetti ai cantieri, in una misura minima di 4 (quattro) unità,  con le seguenti qualifiche:
+        </td>
+      </tr>
+      <tr class="Rigaintestazioneridotta">
+        <td colspan="2">
+          Numero dipendenti
+        </td>
+        <td colspan="6" >
+          Qualifica
+        </td>
+      <tr>
+        <td colspan="2" >
+            <input class="InputNormal" id="Parametri_Num_Qua_Dip_InF" name="Parametri_Num_Qua_Dip_InF" label="Numero Dipendenti" style="width: 100%;" format="number" mandatory_enabled="#Tassonomia_Tipo_Verde_Inf2.checked()"/>
+        </td>
+        <td colspan="6" >
+            <input class="InputNormal" id="Parametri_Qua_Dip_Inf" name="Parametri_Qua_Dip_Inf" label="Qualifica Dipendenti" style="width: 100%;" mandatory_enabled="#Tassonomia_Tipo_Verde_Inf2.checked()"/>
+        </td>
+        <tr>
+            <td colspan="2"  >
+                <input class="InputNormal" id="Parametri_Num_Qua_Dip_Inf2" name="Parametri_Num_Qua_Dip_Inf2" label="Numero Dipendenti" style="width: 100%;" format="number" enabled="#Tassonomia_Tipo_Verde_Inf2.checked()"/>
+            </td>
+            <td colspan="6" >
+                <input class="InputNormal" id="Parametri_Qua_Dip_Inf2" name="Parametri_Qua_Dip_Inf2" label="Qualifica Dipendenti" style="width: 100%;" enabled="#Tassonomia_Tipo_Verde_Inf2.checked()"/>
+            </td>
+      </tr>
+      <tr>
+          <td colspan="2"  >
+              <input class="InputNormal" id="Parametri_Num_Qua_Dip_Inf3" name="Parametri_Num_Qua_Dip_Inf3" label="Numero Dipendenti" style="width: 100%;" format="number" enabled="#Tassonomia_Tipo_Verde_Inf2.checked()"/>
+          </td>
+          <td colspan="6">
+              <input class="InputNormal" id="Parametri_Qua_Dip_Inf3" name="Parametri_Qua_Dip_InF3" label="Qualifica Dipendenti" style="width: 100%;" enabled="#Tassonomia_Tipo_Verde_Inf2.checked()"/>
+          </td>
+    </tr>
+    <tr>
+        <td colspan="2"  >
+            <input class="InputNormal" id="Parametri_Num_Qua_Dip_Inf4" name="Parametri_Num_Qua_Dip_Inf4" label="Numero Dipendenti" style="width: 100%;" format="number" enabled="#Tassonomia_Tipo_Verde_Inf2.checked()"/>
+        </td>
+        <td colspan="6" >
+            <input class="InputNormal" id="Parametri_Qua_Dip_Inf4" name="Parametri_Qua_Dip_Inf4" label="Qualifica Dipendenti" style="width: 100%;" enabled="#Tassonomia_Tipo_Verde_Inf2.checked()"/>
+        </td>
+  </tr>
+  </tbody>
+</table>
+
+   
+
+
+<br>
+
+<br>
+
+<br>
+<table class="Modulo" name="Allegati" style="border: 1px solid grey">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="2">
+        <p style="text-align: center;">
+          <b>
+            Elenco degli allegati
+          </b>
+          <br/>
+          <span style="font-size:70%">
+            <i>(barrare tutti gli allegati richiesti in fase di presentazione della pratica ed elencati sul portale)</i>
+          </span>
+        </p>
+      </td>
+    </tr>
+    <tr>
+            <td>
+              <input dynamic_check="(parseInt(#Parametri_num_ult_sogg_isc.value()) / 16) &gt; 0" enabled="(parseInt(#Parametri_num_ult_sogg_isc.value()) / 16) &gt; 0" id="ULT_SOGG_ALBO" name="ULT_SOGG_ALBO" type="checkbox" value="OBBLIGATORIO"/>
+            </td>
+            <td colspan="1" style="background-color: #eeeeee;">
+              <p> 
+                n° 
+                <input class="inputNormal" id="Parametri_num_ult_sogg_isc" name="Parametri_num_ult_sogg_isc" style="width: 4%;" dynamic_value="#Parametri_num_altr_sogg.value()" format="number" readonly/> 
+                ulteriori soggetti 
+              <p>
+            </td>
+          </tr>
+          <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="DICH-ART-80" name="DICH-ART-80" type="checkbox" value="OBBLIGATORIO" mandatory_enabled="#Tassonomia_Esclusione_SoggSi.checked() || #Tassonomia_IllecitiSi.checked() || #Tassonomia_InfluenzareSi.checked() || #Tassonomia_CarenzeSi.checked() || #Tassonomia_InadempimentoSi.checked()" dynamic_check="true"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          Dichiarazione condizioni ex art. 80 D.Lgs. 50/2016
+          
+      </td>
+    </tr>    
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="ALTRI-ALLEGATI" name="ALTRI-ALLEGATI" type="checkbox" value="OBBLIGATORIO"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          altri allegati
+          <span style="font-size:70%">(specificare)</span>
+          <input class="" label="Altri allegati" id="AltriAllegati" mandatory_enabled="#ALTRI_ALLEGATI.checked()" name="AltriAllegati" style="width:79%;"/>
+        </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<br>
+{{ utils.trattamento_dati_personali() }}
+<br/>
+  {{ utils.firma_hidden() }}
+<br/>
+
+<p class="Modulo">
+  <input id="SalvaModulo" name="SalvaModulo" style="height:30px;width:120px;" title="Verifica la corretta compilazione dei campi e salva il modulo nel faldone virtuale dell'istanza." type="submit" value="Salva modulo"/>
+</p>
+
+<input destinatario_amministrazione="getParameter('Ente')" id="GLOBO_modulo_c{{ CodiceModulo }}" name="GLOBO_modulo_c{{ CodiceModulo }}" type="hidden" value=""/>
+<input firmare="'P7M_ELETTRONICA'" id="GLOBO_modulofiglio_cINCARICO_PROCURA" name="GLOBO_modulofiglio_cINCARICO_PROCURA" type="hidden" value=""/>
+<input id="GLOBO_modulofiglio_cULT_SOGG_ALBO" name="GLOBO_modulofiglio_cULT_SOGG_ALBO" type="hidden" value="" obbligatorio="#ULT_SOGG_ALBO.checked() ? 'OBBLIGATORIO' : ''"/>
+<input id="GLOBO_modulofiglio_cDICH-ART-80" name="GLOBO_modulofiglio_cDICH-ART-80" type="hidden" value="" obbligatorio="#DICH_ART_80.checked() ? 'OBBLIGATORIO' : ''"/>
+
+
+<input id="GLOBO_allegato_cALTRI-ALLEGATI" name="GLOBO_allegato_cALTRI-ALLEGATI" obbligatorio="#ALTRI_ALLEGATI.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_id_padre" name="GLOBO_id_padre" type="hidden"/>
+<input id="GLOBO_recupera_dati" name="GLOBO_recupera_dati" type="hidden"/>
+<input id="GLOBO_codice_modulo" name="GLOBO_codice_modulo" type="hidden" value="{{ CodiceModulo }}"/>
+
+{% endblock content %}

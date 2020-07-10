@@ -1,0 +1,204 @@
+{% set CodiceModulo = "INT_DOC_CONSI" %}
+{% set Urn = "document:c_a794:presentare.interpellanze.interrogazioni" %}
+{% extends "base.html" %}
+{% block meta %}
+
+<meta campi_firma="AventeTitolo1_CodiceFiscale,AventeTitolo2_CodiceFiscale,AventeTitolo3_CodiceFiscale,AventeTitolo4_CodiceFiscale,AventeTitolo5_CodiceFiscale,AventeTitolo6_CodiceFiscale,AventeTitolo7_CodiceFiscale,AventeTitolo8_CodiceFiscale,AventeTitolo9_CodiceFiscale,AventeTitolo10_CodiceFiscale"
+campi_firma_label="il consigliere"
+classi_modulo="Segreteria generale"
+codice_modulo="{{ CodiceModulo }}"
+urn="{% block urn %}{{ Urn }}{% endblock urn %}"
+sub_urn_list=""
+uo_globo_list=""
+descrizione="Interrogazione al presidente del consiglio comunale e al sindaco"
+destinatario_amministrazione=""
+destinatario_ufficio="UOSEGRETERIAGENERALE"
+dinamico="SI"
+email_a=""
+ente_abilitato="TUTTI"
+filigrana="SI"
+firmare="P7M_ELETTRONICA"
+istruzioni_compilazione=""
+istruzioni_invio="mail_pec"
+metodo_invio="mail"
+name="GLOBO_modulo"
+procura="NO,,"
+segnatura="AventeTitolo1"
+tipo_modulo="principale"
+urlhelp="/modulistica/moduli/{{ CodiceModulo }}"
+verifica_pagamento="NO"
+versione="1.0|24/01/2019"/>
+
+<meta codice_modulo_figlio="Incarico_procura"
+urn_modulo_figlio="document:s_italia:generale;incarico.procura"
+name="GLOBO_modulofiglio"
+numero="1"
+obbligatorio="DINAMICO"/>
+
+{% endblock meta %}
+
+{% block title %}
+  Interrogazione al presidente del consiglio comunale e al sindaco
+{% endblock title %}
+
+{% block content %}
+
+<globo_fondo_pagina areaheight="150" scope="99">
+  {{ utils.firma() }}
+</globo_fondo_pagina>
+
+<input id="Parametri_Comune" name="Parametri_Comune" type="hidden" dynamic_value="#Ente.value()"/>
+<input id="Oggetto" name="Oggetto" type="hidden" dynamic_value="'Interrogazione al presidente del consiglio comunale e al sindaco a prima firma: ' + #AventeTitolo1_Cognome.value().toUpperCase() + ' ' + #AventeTitolo1_Nome.value().toUpperCase()"/>
+
+{{ utils.get_ufficio_dest()}}
+<input id="Ente" name="Ente" readonly="readonly" type="hidden"/>
+<input id="UfficioDestinatario" name="UfficioDestinatario" readonly="readonly" type="hidden" dynamic_value="(#Parametri_UfficioDestinatario.value() ? get_ufficio_dest() : get_ufficio_dest()).substring(0, 5);"/>
+
+    <br><br>
+
+{% set tipi = ["Interrogazione", "Interpellanza", "Ordine del giorno", "Mozione", "Risoluzione", "Deliberazione"] %}
+	<table class="Modulo" style="border: 1px solid grey;">
+	  <tbody>
+		<tr style="height:50px">
+		  <td style="border-right: 0px;width:40%; height:50px">
+		  </td>
+		  <td style="border-right: 0px; border-left: 0px;">
+			<select id="Parametri_TipoModulo" name="Parametri_TipoModulo" style="font-size:140%; font-style:bold; width:100%;" mandatory="true" label="Tipo modulo">
+			  <option value=""></option>
+			  {% for tipo in tipi %}
+			  <option value="{{tipo}}">{{tipo}}</option>
+			  {% endfor %}
+			</select>
+		  </td>
+		  <td style="border-left: 0px; width:31%">
+		  </td>
+		</tr>
+	  </tbody>
+	</table>
+
+<h2 class="Modulo" style="font-weight:normal;">
+  <i>Ai sensi del Regolamento del Consiglio comunale</i>
+</h2>
+
+<h2 class="Modulo" style="font-style:normal">
+  AL PRESIDENTE DEL CONSIGLIO COMUNALE
+</h2>
+
+<h2 class="Modulo" style="font-style:normal">
+  AL SINDACO
+</h2>
+
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="4">
+        <p class="Labeltabella">I sottoscritti consiglieri</p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td style="width:25%">
+        <p class="Labelcella">Cognome</p>
+      </td>
+      <td style="width:25%">
+        <p class="Labelcella">Nome</p>
+      </td>
+      <td style="width:25%">
+        <p class="Labelcella">Codice fiscale</p>
+      </td>
+      <td style="width:25%">
+        <p class="Labelcella">Gruppo Consiliare</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input class="inputNormal" id="AventeTitolo1_Cognome" name="AventeTitolo1_Cognome" style="width:100%" mandatory="true" label="Cognome consigliere">
+      </td>
+      <td>
+        <input class="inputNormal" id="AventeTitolo1_Nome" name="AventeTitolo1_Nome" style="width:100%" mandatory="true" label="Nome consigliere">
+      </td>
+      <td>
+        <input class="inputNormal" id="AventeTitolo1_CodiceFiscale" name="AventeTitolo1_CodiceFiscale" style="width:100%" mandatory="true" onkeyup="this.value = this.value.toUpperCase();" label="Codice fiscale consigliere" format="cf">
+      </td>
+      <td>
+        <input class="inputNormal" id="AventeTitolo1_GruppoConsiliare" name="AventeTitolo1_GruppoConsiliare" style="width:100%" mandatory="true" label="Gruppo consiliare">
+      </td>
+    </tr>
+    {% for i in range(2, 11) %}
+    <tr>
+      <td>
+        <input class="inputNormal" id="AventeTitolo{{i}}_Cognome" name="AventeTitolo{{i}}_Cognome" style="width:100%" label="Cognome consigliere">
+      </td>
+      <td>
+        <input class="inputNormal" id="AventeTitolo{{i}}_Nome" name="AventeTitolo{{i}}_Nome" style="width:100%" mandatory_enabled="#AventeTitolo{{i}}_Cognome.value() != ''" label="Nome consigliere">
+      </td>
+      <td>
+        <input class="inputNormal" id="AventeTitolo{{i}}_CodiceFiscale" name="AventeTitolo{{i}}_CodiceFiscale" style="width:100%" mandatory_enabled="#AventeTitolo{{i}}_Cognome.value() != ''" onkeyup="this.value = this.value.toUpperCase();" label="Codice fiscale consigliere">
+      </td>
+      <td>
+        <input class="inputNormal" id="AventeTitolo{{i}}_GruppoConsiliare" name="AventeTitolo{{i}}_GruppoConsiliare" style="width:100%" mandatory_enabled="#AventeTitolo{{i}}_Cognome.value() != ''" label="Gruppo consiliare">
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+  <table class="Modulo" style="border:1px solid grey">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td>
+        <p class="Labeltabella">Oggetto</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input class="inputNormal" id="Parametri_Oggetto" name="Parametri_Oggetto" style="width:100%" mandatory="true" label="Oggetto">
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<br>
+
+{{ utils.trattamento_dati_personali() }}
+
+<br>
+
+<globo_salto_pagina></globo_salto_pagina>
+
+<table class="Modulo" style="border:1px solid grey">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td>
+        <input class="inputNormal" id="IntestazioneTabella" name="IntestazioneTabella" style="width:100%; font-weight:bold; background-color:#EEEEEE;" dynamic_value="#Parametri_TipoModulo.value()" readonly>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <textarea class="inputNormal" id="Parametri_Interrogazione" name="Parametri_Interrogazione" style="width: 100%;" mandatory="true" label="Interrogazione/Interpellanza/Ordine del giorno/Mozione/Risoluzione/Deliberazione" rows="28"></textarea>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+
+<br/>
+
+<div style="display:none">
+  <br/>
+  {{ utils.firma_hidden() }}
+  <br/>
+</div>
+
+<p class="Modulo">
+  <input id="SalvaModulo" name="SalvaModulo" style="height:30px;width:120px;" title="Verifica la corretta compilazione dei campi e salva il modulo nel faldone virtuale dell'istanza." type="submit" value="Salva modulo"/>
+</p>
+
+<input destinatario_amministrazione="getParameter('Ente')" id="GLOBO_modulo_c{{ CodiceModulo }}" name="GLOBO_modulo_c{{ CodiceModulo }}" type="hidden" value=""/>
+<input firmare="'P7M_ELETTRONICA'" id="GLOBO_modulofiglio_cIncarico_procura" name="GLOBO_modulofiglio_cIncarico_procura" type="hidden" value=""/>
+
+<input id="GLOBO_id_padre" name="GLOBO_id_padre" type="hidden"/>
+<input id="GLOBO_recupera_dati" name="GLOBO_recupera_dati" type="hidden"/>
+<input id="GLOBO_codice_modulo" name="GLOBO_codice_modulo" type="hidden" value="{{ CodiceModulo }}"/>
+
+{% endblock content %}

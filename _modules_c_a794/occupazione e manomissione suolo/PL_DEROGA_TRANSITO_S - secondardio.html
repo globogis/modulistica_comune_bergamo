@@ -1,0 +1,389 @@
+{% set CodiceModulo =  "PL_DEROGA_TRANSITO_S" %}{% extends "base.html" %}
+{% set Urn = "document:c_a794:occupare.suolo.pubblico;permesso.transito;richiesta" %}
+{% block meta %}<meta campi_firma="Titolare_CodiceFiscale"
+campi_firma_label="il dichiarante"
+classi_modulo="Commercio"
+codice_modulo="{{ CodiceModulo }}"
+urn="{% block urn %}{{ Urn }}{% endblock urn %}"
+sub_urn_list=""
+uo_globo_list=""
+descrizione="Richiesta permesso di transito in allegato a domanda di emissione di ordinanza di disciplina della circolazione"
+destinatario_amministrazione=""
+destinatario_ufficio="U0058"
+dinamico="SI"
+email_a=""
+ente_abilitato="TUTTI"
+filigrana="NO"
+firmare="P7M_ELETTRONICA"
+istruzioni_compilazione=""
+istruzioni_invio=""
+metodo_invio=""
+name="GLOBO_modulo"
+procura="NO,,"
+tipo_modulo="secondario"
+ufficio=""
+urlhelp="DomandeRisposte/FAQ"
+verifica_pagamento="NO"
+versione="1.0|01/01/2015"/>
+
+<!--<meta codice_modulo_figlio="MARCA_BOLLOtransito"
+name="GLOBO_modulofiglio"
+numero="1"
+obbligatorio="DINAMICO"/>
+
+<meta codice_modulo_figlio="ult_occupazione"
+name="GLOBO_modulofiglio"
+numero="1"
+obbligatorio="DINAMICO"/>
+-->
+<meta codice_allegato="Ncarte_Allegate"
+urn_allegato="document:c_a794:occupazione.suolo.pubblico;carta.circolazione.automezzo"
+descrizione_estesa="Carta di circolazione automezzo"
+filename="Carta di circolazione.pdf"
+firmato="SI"
+istruzioni="/modulistica/moduli/Ncarte_Allegate"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="RIC-DIR-SEG"
+urn_allegato="document:s_italia:diritti.segreteria.istruttoria;ricevuta"
+descrizione_estesa="Ricevuta diritti segreteria/istruttoria"
+filename="Ricev. diritti segreteria.pdf"
+firmato="SI"
+istruzioni="/modulistica/moduli/RIC-DIR-SEG"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="ALTRI-ALLEGATI"
+urn_allegato="document:s_italia:altri.allegati"
+descrizione_estesa="Altri allegati"
+filename="Altri allegati.pdf"
+firmato="SI"
+istruzioni="/modulistica/moduli/ALTRI-ALLEGATI"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<!--
+<meta codice_allegato="DAE-CDI"
+urn_allegato="document:s_italia:generale;documento.identita;documentazione"
+descrizione_estesa="Documento di identità"
+filename="Documento identita.pdf"
+firmato="SI"
+istruzioni="/modulistica/moduli/DAE-CDI"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+-->
+{% endblock meta %}
+{% block title %}
+   Richiesta permesso di transito in allegato a domanda di emissione di ordinanza di disciplina della circolazione
+  {% endblock title %}
+{% block content %}
+ <globo_fondo_pagina areaheight="150" scope="4">
+ {{ utils.firma() }}
+</globo_fondo_pagina>
+
+<input id="Tassonomia_Occ2" name="Tassonomia_Occ" type="hidden" value="2"/>
+
+<input dynamic_value="#Titolare_Cognome.value().toUpperCase() + ' - permesso di transito'" id="Oggetto" name="Oggetto" type="hidden"/>
+
+<input dynamic_value="#Ente.value()" id="Parametri_Comune" name="Parametri_Comune" type="hidden"/>
+
+ {{ intestazioni.intestazione_moduloprincipale_senzabollo() }}
+ <h1 class="Modulo">
+Richiesta permesso di transito in deroga ai divieti vigenti  
+</h1>
+<h2 class="Modulo">
+per veicoli superiori alle 3,5 tonnellate 
+</h2>
+<h3 class="Modulo">
+in allegato a domanda di emissione di ordinanza di disciplina della circolazione
+</h3>
+
+{{anagrafica.societa("Titolare","Il sottoscritto",["Persona fisica","Titolare", "Legale rappresentante"], "Richiedente")}}
+
+<globo_salto_pagina>
+</globo_salto_pagina>
+
+<h3 class="Modulo">
+CHIEDE IL PERMESSO DI DEROGA 
+</h3>
+
+<table class="Modulo" style="border: 1px solid grey">
+ <tbody>
+  <tr class="Rigaintestazione">
+    <td colspan="2">
+     <strong>per le seguenti tipologie di automezzi:</strong>
+    </td>
+</tr>
+  <tr>
+   <td style="width:4%">
+    <div id="Tassonomia_TipoMezzi" label="Tipo Mezzi" mandatory="true">
+    </div>
+    <input class="" id="Tassonomia_TipoMezzi1" name="Tassonomia_TipoMezzi1" type="checkbox" value="1"/>
+   </td>
+   <td colspan="2">
+    <p>
+   superiore alle 3.5 tonnellate
+    </p>
+   </td>
+  </tr>
+   <tr>
+   <td>
+       <input id="Tassonomia_TipoMezzi3" name="Tassonomia_TipoMezzi3" type="checkbox" value="5"/>
+   </td>
+   <td colspan="2">
+    <p>
+     Altro
+    <span style="font-size:70%">
+      (specificare)
+     </span>
+     <input class="" id="TipoMezzi_altro" label="Altro ordinanza"  mandatory_enabled="#Tassonomia_TipoMezzi3.checked()" name="TipoMezzi_altro" style="width:79%;"/>
+    </p>
+   </td>
+  </tr>
+  </tbody>
+</table> 
+<br/> 
+
+<input checked="checked" dynamic_check="true" style="display:none" id="Immobile_DatiCatastaliObbligatori" name="Immobile_DatiCatastaliObbligatori" type="checkbox" value="si"/>
+{{ immobili.immobile_toponomastica( "Immobile", " PER ACCEDERE sino a", "Collocazione occupazione", "display:visibility", "visibility:hidden", "cursor:default", "true" ) }}
+ <table class="Modulo" style="border:1px solid grey; margin-top:-1px">
+ <tbody>
+  <tr class="Rigaintestazioneridotta">
+   <td style="width:40%;">
+    <p class="Labelcella">
+     Finalità transito
+    </p>
+   </td>
+   <td>
+    <p class="Labelcella">
+     Periodo dal
+    </p>
+   </td>
+   <td>
+    <p class="Labelcella">
+     al
+    </p>
+   </td>
+   </tr>
+  <tr>
+   <td>
+    <p>
+     <select class="" id="Parametri_TipoOccupazione" label="Carattere occupazione" mandatory="true" name="Parametri_TipoOccupazione" style="width:100%;">
+      <option value="">
+      </option>
+       <option value="Ponteggio">
+       trasloco
+      </option>
+      <option value="GRU">
+       posa GRU
+      </option>
+       <option value="cantiere">
+       opere edili
+      </option>
+	  <option value="cantiere">
+       carico/scarico
+      </option>
+	  <option value="cantiere">
+       potatura alberi
+      </option>
+	 <option value="altro">
+       Altro
+      </option>
+     </select>
+    </p>
+   </td>
+   <td>
+    <input class="" id="Parametri_TempoOccupazione_dal" label="Periodo" mandatory_enabled="true" name="Parametri_TempoOccupazione_dal" format="date" style="width:100%;" />
+   </td>
+    <td>
+    <input class="" id="Parametri_TempoOccupazione_al" label="Periodo" mandatory_enabled="true" name="Parametri_TempoOccupazione_al"  format="date" style="width:100%;"/>
+   </td>
+   </tr>
+ </tbody>
+</table>
+
+
+  
+<h3 class="Modulo">
+ DICHIARA DI ESSERE A CONOSCENZA CHE
+</h3>
+
+<table class="Modulo" style="border: 0px;">
+  <tbody>
+   <tr style="border: 0px;">
+    <td style="width: 20px; border: 0px; vertical-align: top;">
+     <input id="Parametri_Dichiarainoltre" name="Parametri_Dichiarainoltre" type="checkbox" dynamic_check="true" checked="checked" value="SI"/>
+    </td>
+    <td colspan="2" style="border: 0px;">
+     <p>
+      L’ufficio Occupazioni e Manifestazioni del Corpo di Polizia Locale rilascia autorizzazioni al transito
+in deroga ai divieti unicamente ad autocarri SUPERIORI a 3,5 ton, il cui transito sia finalizzato
+all’esecuzione di lavori edili autorizzati, traslochi, occupazioni di suolo pubblico per cantieri stradali
+ed eventi
+     </p>
+    </td>
+   </tr>
+   <tr style="border: 0px;">
+    <td style="width: 20px; border: 0px; vertical-align: top;">
+     <input id="Parametri_Dichiarainoltre1" name="Parametri_Dichiarainoltre1" type="checkbox" dynamic_check="true" checked="checked" value="SI"/>
+    </td>
+    <td colspan="2" style="border: 0px;">
+     <p>
+      L’istanza deve essere presentata, corredata di tutta la documentazione sopra specificata,
+ALMENO CON 15 GIORNI LAVORATIVI DI ANTICIPO 
+     </p>
+    </td>
+   </tr>
+   <tr style="border: 0px;">
+    <td style="width: 20px; border: 0px; vertical-align: top;">
+     <input id="Parametri_Dichiarainoltre2" name="Parametri_Dichiarainoltre2" type="checkbox" dynamic_check="true" checked="checked" value="SI"/>
+    </td>
+    <td colspan="2" style="border: 0px;">
+     <p>
+      la città di Bergamo annovera molte vie con pavimentazione speciale e/o limitate
+capacità di portata. Tali vie sono presenti sia in Città Alta sia in Città Bassa (ad esempio Piazza V.
+Veneto, Piazza della Libertà, via XX Settembre, Piazza Pontida, Largo Rezzara, Sant’Alessandro, via
+Pignolo, ecc…). Per questo motivo le richieste di transito in tali vie sono soggette a espressione di
+parere da parte dell’Ufficio Strade, competente per materia. In tal caso, i tempi per l’emissione
+dell’autorizzazione possono protrarsi anche fino a 30 giorni e il rilascio del medesimo essere
+assoggettato alla richiesta di una cauzione a tutela della strada. Per tale motivo si consiglia
+all’utenza di presentare l’istanza con congruo anticipo
+     </p>
+    </td>
+   </tr>
+    <tr style="border: 0px;">
+    <td style="width: 20px; border: 0px; vertical-align: top;">
+     <input id="Parametri_Dichiarainoltre3" name="Parametri_Dichiarainoltre3" type="checkbox" dynamic_check="true" checked="checked" value="SI"/>
+    </td>
+    <td colspan="2" style="border: 0px;">
+     <p>
+     Per quanto non specificatamente previsto, si rimanda a quanto disposto dal “Regolamento per le
+occupazioni di spazi ed aree pubbliche e per l’applicazione del relativo canone”, e dal Codice della Strada (D.Lvo.
+30 aprile 1992 n° 285 e successive modifiche). 
+     </p>
+    </td>
+   </tr>
+   </tbody>
+ </table>
+<br/>
+
+<table class="Modulo" name="Allegati" style="border:1px solid grey">
+ <tbody>
+  <tr class="Rigaintestazione">
+   <td colspan="2">
+    <p style="text-align: center;">
+     <b>
+      Elenco degli allegati
+     </b>
+     <br/>
+     <span style="font-size:70%">
+      <i>
+       (barrare tutti gli allegati richiesti in fase di presentazione della pratica ed elencati sul portale)
+      </i>
+     </span>
+    </p>
+   </td>
+  </tr>
+   <tr>
+   <td>
+    <input dynamic_check="#Tassonomia_TipoMezzi1.checked() || #Tassonomia_TipoMezzi3.checked()" enabled="#Tassonomia_TipoMezzi1.checked() || #Tassonomia_TipoMezzi3.checked()"   id="Ncarte_Allegate" name="Ncarte_Allegate" type="checkbox" value="OBBLIGATORIO"/>
+   </td>
+    <td colspan="2" style="background-color: #eeeeee;">
+    <p>
+     carta di circolazione dei mezzi superiore alle 3,5 ton. per i quali viene richiesto il permesso di transito.
+    </p>
+   </td>
+  </tr>
+  <!-- <tr>
+   <td>
+    <input checked="checked" dynamic_check="true" id="MARCA_BOLLOtransito" name="MARCA_BOLLOtransito" type="checkbox" value="OBBLIGATORIO"/>
+   </td>
+   <td style="background-color: #eeeeee;">
+    <p>
+     pagamento dell'imposta di bollo
+    </p>
+   </td>
+  </tr>-->
+  <tr>
+   <td style="vertical-align: top;">
+    <input id="RIC-DIR-SEG" name="RIC-DIR-SEG" type="checkbox" value="OBBLIGATORIO"/>
+   </td>
+   <td style="background-color: #eeeeee;">
+    <p>
+     ricevuta dei diritti di segreteria/istruttoria<br/><span style="font-size:70%"><i>(da allegare se previsti)</i></span>
+    </p>
+   </td>
+  </tr>
+    <tr>
+   <td>
+    <input id="ALTRI-ALLEGATI" name="ALTRI-ALLEGATI" type="checkbox" value="OBBLIGATORIO"/>
+   </td>
+   <td style="background-color: #eeeeee;">
+    <p>
+     altri allegati
+     <span style="font-size:70%">
+      (specificare)
+     </span>
+     <input class="" id="AltriAllegati" label="Altri allegati" mandatory_enabled="#ALTRI_ALLEGATI.checked()" name="AltriAllegati" style="width:79%;"/>
+    </p>
+   </td>
+  </tr>
+ </tbody>
+</table>
+<br/>
+
+{{ utils.firma_hidden() }}
+ <br/>
+
+<p class="Modulo">
+ <input id="SalvaModulo" name="SalvaModulo" style="height:30px;width:120px;" title="Verifica la corretta compilazione dei campi e salva il modulo nel faldone virtuale dell'istanza." type="submit" value="Salva modulo"/>
+</p>
+
+<input id="GLOBO_modulo_c{{ CodiceModulo }}" name="GLOBO_modulo_c{{ CodiceModulo }}" type="hidden" value=""/>
+
+<!--
+<input id="GLOBO_modulofiglio_cSTU-EDI-SOG" name="GLOBO_modulofiglio_cSTU-EDI-SOG" obbligatorio="#STU_EDI_SOG.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_modulofiglio_cMARCA_BOLLOtransito" name="GLOBO_modulofiglio_cMARCA_BOLLOtransito" obbligatorio="#MARCA_BOLLOtransito.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_allegato_cOCC-PLA" name="GLOBO_allegato_cOCC-PLA" obbligatorio="#OCC_PLA.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+-->
+<input id="GLOBO_allegato_cNcarte_Allegate" name="GLOBO_allegato_cNcarte_Allegate" type="hidden" value="" obbligatorio="#Ncarte_Allegate.checked() ? 'OBBLIGATORIO' : ''"/>
+
+<!--
+<input id="GLOBO_allegato_cNrichieste_Allegate" name="GLOBO_allegato_cNrichieste_Allegate" obbligatorio="#Nrichieste_Allegate.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_allegato_cDOC_FOTO" name="GLOBO_allegato_cDOC_FOTO" obbligatorio="#DOC_FOTO.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+-->
+
+<input id="GLOBO_allegato_cRIC-DIR-SEG" name="GLOBO_allegato_cRIC-DIR-SEG" obbligatorio="#RIC_DIR_SEG.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<!--
+<input id="GLOBO_allegato_cRelTecnica" name="GLOBO_allegato_cRelTecnica" obbligatorio="#RelTecnica.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_allegato_cParticolari" name="GLOBO_allegato_cParticolari" obbligatorio="#Particolari.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+--><
+<input id="GLOBO_allegato_cALTRI-ALLEGATI" name="GLOBO_allegato_cALTRI-ALLEGATI" obbligatorio="#ALTRI_ALLEGATI.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<!--
+<input firmare="'P7M_ELETTRONICA'" id="GLOBO_modulofiglio_cIncarico_procura" name="GLOBO_modulofiglio_cIncarico_procura" type="hidden" value=""/>
+
+<input firmare="'P7M_ELETTRONICA'" id="GLOBO_modulofiglio_cSTU-EDI-IMM" name="GLOBO_modulofiglio_cSTU-EDI-IMM" numero="#Immobile_NumeroUlterioriImmobili.value()" obbligatorio="#STU_EDI_IMM.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+-->
+<input id="GLOBO_id_padre" name="GLOBO_id_padre" type="hidden"/>
+
+<input id="GLOBO_recupera_dati" name="GLOBO_recupera_dati" type="hidden"/>
+
+<input id="GLOBO_codice_modulo" name="GLOBO_codice_modulo" type="hidden" value="{{ CodiceModulo }}"/>
+
+
+{% endblock content %}

@@ -1,0 +1,296 @@
+{% set CodiceModulo = "CANT-DEROGA-COM" %}
+{% set Urn = "document:c_a794:attivita.cantiere.acustici;comuncazione" %}
+{% set modulo_destinatario = [] %}
+{% extends "base.html" %}
+{% block meta %}
+
+<meta campi_firma="Titolare_CodiceFiscale"
+campi_firma_label="il dichiarante"
+classi_modulo="Ecologia"
+contesto_procedurale="Ecologia"
+codice_modulo="{{ CodiceModulo }}"
+urn="{% block urn %}{{ Urn }}{% endblock urn %}"
+descrizione="Comunicazione per attività di cantiere nel rispetto dei limiti acustici"
+destinatario_amministrazione=""
+destinatario_ufficio="U0233"
+dinamico="SI"
+email_a=""
+ente_abilitato="TUTTI"
+filigrana="no"
+firmare="P7M_ELETTRONICA"
+in_bollo="SI"
+istruzioni_compilazione="ATTENZIONE: questo modulo deve essere compilato con i dati del richiedente, cambiare i dati di intestazione se necessario."
+istruzioni_invio="mail_pec"
+metodo_invio="mail"
+name="GLOBO_modulo"
+procura="NO,,"
+tipo_modulo="principale"
+ufficio=""
+urlhelp="DomandeRisposte/FAQ"
+verifica_pagamento="NO"
+versione="1.2|08/05/2019"/>
+
+
+<meta codice_allegato="ALTRI-ALLEGATI"
+urn_allegato="document:s_italia:altri.allegati"
+descrizione_estesa="Altri allegati"
+filename="Altri allegati.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/ALTRI-ALLEGATI"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="DAE-CDI"
+urn_allegato="document:s_italia:generale;documento.identita;documentazione"
+descrizione_estesa="Documento di identità"
+filename="Documento identita.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/DAE-CDI"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+
+{% endblock meta %}
+
+{% block title %}Comunicazione per attività di cantiere nel rispetto dei limiti acustici{% endblock title %}
+
+{% block content %}
+
+ <globo_fondo_pagina areaheight="150" scope="2">
+ {{ utils.firma() }}
+</globo_fondo_pagina>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.14.1/moment.min.js" integrity="sha256-De/cgZoAkgvqoxL9yJpJzPHyozUETFnSv7EQGfQWQ4o=" crossorigin="anonymous" type="text/javascript"></script>
+
+ {{ intestazioni.intestazione_moduloprincipale_senzabollo() }}
+ <input checked="checked" dynamic_check="true" id="SempreSI" name="SempreSI" style="display:none;" type="checkbox" value="si"/>
+
+<input dynamic_value="#Ente.value()" id="Parametri_Comune" name="Parametri_Comune" type="hidden"/>
+
+<div id="Tassonomia_amb_acu_temp1_se"> </div>
+<input id="Tassonomia_amb_acu_temp1_se1" name="Tassonomia_amb_acu_temp1_se" type="radio" dynamic_check="true" checked="checked" value="1" style="display:none"/>
+
+<div id="amb_acu_temp"> </div>
+<input id="amb_acu_temp1" name="amb_acu_temp" type="radio" dynamic_check="true" checked="checked" value="1" style="display:none"/>
+
+<input dynamic_value="#Titolare_Cognome.value().toUpperCase() + ' - Comunicazione per attività di cantiere nel rispetto dei limiti acustici'" id="Oggetto" name="Oggetto" type="hidden"/>
+
+<h1 class="Modulo">
+  Comunicazione per attività di cantiere nel rispetto dei limiti acustici
+</h1>
+
+<h2 class="Modulo">
+  Ai sensi dell'articolo 4.1 del regolamento comunale n. 61
+</h2>
+
+<input id="Titolare_DatiPersonaObbligatori" name="Titolare_DatiPersonaObbligatori" dynamic_check="true" type="hidden"/>
+{{ anagrafica.societa( 'Titolare', "Il sottoscritto", ["Persona fisica", "Titolare", "Legale rappresentante"], "Richiedente", "visibility:visibility", "cursor:pointer", "mail_pec" ) }}
+
+<p class='Modulo'>
+Valendosi della facoltà prevista dagli articoli 46 e 47 del Decreto del Presidente della Repubblica 28/12/2000, n. 445, consapevole delle sanzioni penali previste dall’articolo 76 del Decreto del Presidente della Repubblica 28/12/2000, n. 445 e dall’articolo 483 del Codice Penale nel caso di dichiarazioni non veritiere e di falsità in atti,
+</p>
+
+<h3 class="Modulo">COMUNICA CHE</h3>
+
+<table class="Modulo" style="border:1px solid grey; margin-top:-1px">
+   <tbody>
+    <tr class="Rigaintestazioneridotta">
+      <td colspan="2" style="width: 50%;">
+        <p class="Labelcella">
+          Dal giorno
+        </p>
+      </td>
+      <td style="width: 50%;">
+        <p class="Labelcella">
+          Al giorno
+        </p>
+      </td>      
+    </tr>
+    <tr>
+      <td colspan="2" style="vertical-align: top;">
+        <input class="inputNormal" id="Parametri_DicDalGiorno" name="Parametri_DicDalGiorno" label="Dal giorno" mandatory="true" format="date" style="width:100%"/>
+      </td>
+      <td colspan="2" style="vertical-align: top;">
+        <input class="inputNormal" id="Parametri_DicAlGiorno" name="Parametri_DicAlGiorno" label="Al giorno" mandatory="true" format="date" style="width:100%"/>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<table class="Modulo" style="border:1px solid grey; margin-top:-1px">
+   <tbody>
+    <tr>
+      <td  style="vertical-align: top; width: 5%;">
+        <div id="Controllo_date" name="Controllo_date" label="Indicare date conformi con il regolamento comunale"></div>
+        <input  group="Controllo_date" id="Controllo_data1" name="Controllo_dataora1" type="checkbox" value="SI"  enabled="(moment(#Parametri_DicDalGiorno.value(), 'DD/MM/YYYY') > moment().add(10, 'days')) and (moment(#Parametri_DicDalGiorno.value(), 'DD/MM/YYYY') <= moment(#Parametri_DicAlGiorno.value(), 'DD/MM/YYYY'))"  dynamic_check="(moment(#Parametri_DicDalGiorno.value(), 'DD/MM/YYYY') > moment().add(10, 'days')) and (moment(#Parametri_DicDalGiorno.value(), 'DD/MM/YYYY') <= moment(#Parametri_DicAlGiorno.value(), 'DD/MM/YYYY'))" >
+      </td>
+      <td>
+        <input  style="border:0px; width:100%" id="messaggio_date" name="messaggio_date" dynamic_value="#Controllo_data1.checked() ? 'l\'intervallo di date indicate è conforme al regolamento comunale' : 'è consapevole che l\'intervallo di date indicate non garantisce i tempi necessari all\'istruttoria (art. 6 Regolamento)'" readonly>
+      </td>
+    </tr>      
+   </tbody>
+</table>
+
+
+<input checked="checked" dynamic_check="true" style="display:none" id="Immobile_DatiCatastaliObbligatori" name="Immobile_DatiCatastaliObbligatori" type="checkbox" value="si"/>
+{{ immobili.immobile_toponomastica( "Immobile", "Area", "Immobile principale oggetto dell'istanza", "display:visibility", "visibility:hidden", "cursor:default", "true" ) }}
+
+<globo_salto_pagina>
+</globo_salto_pagina>
+
+<p class="Modulo">
+  si svolgerà l'attività di cantiere indicata
+</p>
+
+<table class="Modulo" style="border: 1px solid grey; margin-top:-1px">
+ <tbody>
+  <tr class="Rigaintestazioneridotta">
+   <td>
+    <p class="Labelcella">
+      Descrizione attività (specificando tipologia del cantiere ed eventuale utilizzo di strumenti/impianti)
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td>
+    <textarea class="inputnormal" id="Parametri_DescAttivita" label="Descrizione attività" mandatory="true" name="Parametri_DescAttivita" style="width:100%; height:3cm;">
+    </textarea>
+   </td>
+  </tr>
+ </tbody>
+</table>  
+
+
+<h3 class="Modulo">
+  DICHIARA
+</h3>
+<p class="Modulo">
+  il rispetto dei seguenti limiti e orari :
+</p>
+      
+<table class="Modulo" style="border:1px solid grey">
+  <tbody>
+     <tr>
+    <td style="width:4%; vertical-align:top">
+     <div id="Tassonomia_Casistiche" label="Casistiche" mandatory="true">
+     </div>
+      <input id="Tassonomia_CasisticheA" name="Tassonomia_Casistiche" type="radio" value="1"/>
+    </td>
+    <td colspan="4">
+     <p>
+      <strong>caso A</strong><br>
+ cantiere stradale nei giorni da lunedì a domenica, comprese le feste comandate dalle ore 6:00 alle ore 22:00, (LAeq) 70  dB(A)  
+     </p>
+     </td>
+   </tr>
+   <tr>
+    <td style="vertical-align:top">
+      <input id="Tassonomia_CasisticheB" name="Tassonomia_Casistiche" type="radio" value="2"/>
+    </td>
+    <td colspan="4">
+     <p>
+     <strong>caso B</strong><br>
+    cantiere edile o assimilabile nei giorni da lunedì a  sabato (escluse la domenica e le feste comandate)  dalle ore 7:00 alle ore 20.00, (LAeq) 70  dB(A)
+        </p>
+       <ul>
+        <li>le attività particolarmente rumorose saranno effettuate dalle ore 08.00 alle ore 12.30 e dalle ore 14:00 alle ore 19:00</li>
+    </ul>
+
+
+    </td>
+   </tr>
+  </tbody>
+ </table>  
+
+
+
+
+<br/>
+<table class="Modulo" style="border:1px solid grey">
+ <tbody>
+  <tr class="Rigaintestazione">
+   <td colspan="2">
+    <p style="text-align: center;">
+     <b>
+      Elenco degli allegati
+     </b>
+     <br/>
+     <span style="font-size:70%">
+      <i>
+       (barrare tutti gli allegati richiesti in fase di presentazione della pratica ed elencati sul portale)
+      </i>
+     </span>
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td style="vertical-align: top;">
+    <input enabled="false" id="DAE-CDI" name="DAE-CDI" type="checkbox" value="OBBLIGATORIO"/>
+   </td>
+   <td style="background-color: #eeeeee;">
+    <p>
+     copia del documento d'identità
+     <br/>
+     <span style="font-size:70%">
+      <i>
+       (da non allegare se il modulo è sottoscritto con firma elettronica o se la firma autografa è apposta in presenza del dipendente addetto alla ricezione) 
+      </i>
+     </span>
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td>
+    <input id="ALTRI-ALLEGATI" name="ALTRI-ALLEGATI" type="checkbox" value="OBBLIGATORIO"/>
+   </td>
+   <td style="background-color: #eeeeee;">
+    <p>
+     altri allegati
+     <span style="font-size:70%">
+      (specificare)
+     </span>
+     <input class="" id="AltriAllegati" label="Altri allegati" mandatory_enabled="#ALTRI_ALLEGATI.checked()" name="AltriAllegati" style="width:79%;"/>
+    </p>
+   </td>
+  </tr>
+ </tbody>
+</table>
+<br/>
+
+{{ utils.trattamento_dati_personali() }}
+
+<br/>
+<br/>
+
+
+ {{ utils.firma_hidden() }}
+ <br/>
+
+<p class="Modulo">
+ <input id="SalvaModulo" name="SalvaModulo" style="height:30px;width:120px;" title="Verifica la corretta compilazione dei campi e salva il modulo nel faldone virtuale dell'istanza." type="submit" value="Salva modulo"/>
+</p>
+
+<input destinatario_amministrazione="getParameter('Ente')" id="GLOBO_modulo_c{{ CodiceModulo }}" name="GLOBO_modulo_c{{ CodiceModulo }}" type="hidden" value=""/>
+
+
+
+<input id="GLOBO_allegato_cALTRI-ALLEGATI" name="GLOBO_allegato_cALTRI-ALLEGATI" obbligatorio="#ALTRI_ALLEGATI.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_allegato_cDAE-CDI" name="GLOBO_allegato_cDAE-CDI" obbligatorio="#DAE_CDI.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+
+
+<input id="GLOBO_id_padre" name="GLOBO_id_padre" type="hidden"/>
+
+<input id="GLOBO_recupera_dati" name="GLOBO_recupera_dati" type="hidden"/>
+
+<input id="GLOBO_codice_modulo" name="GLOBO_codice_modulo" type="hidden" value="{{ CodiceModulo }}"/>
+
+<!-- passaggio dati tra moduli -->
+<input id="Metadati_TipoProcedimento" name="Metadati_TipoProcedimento" value="permesso_costruire" type="hidden"/>
+<input id="Metadati_TipoSanatoria" name="Metadati_TipoSanatoria" dynamic_value="#Tassonomia_TitoloPDC3.checked() ? 'in_sanatoria' : 'non_in_sanatoria'" type="hidden"/>
+
+{% endblock content %}

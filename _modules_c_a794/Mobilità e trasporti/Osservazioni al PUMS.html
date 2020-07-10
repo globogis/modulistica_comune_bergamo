@@ -1,0 +1,648 @@
+{% set CodiceModulo = "OSS_PUMS" %}
+{% set Urn = "document:c_a794:osservazioni.PUMS;osservazioni" %}
+{% extends "base.html" %}
+
+{% block meta %}
+
+<meta campi_firma="Titolare_CodiceFiscale"
+campi_firma_label="il dichiarante"
+classi_modulo="Mobilità"
+codice_modulo="{{ CodiceModulo }}"
+urn="{% block urn %}{{ Urn }}{% endblock urn %}"
+sub_urn_list=""
+uo_globo_list=""
+descrizione="Osservazioni al piano urbano della mobilità sostenibile"
+destinatario_amministrazione=""
+destinatario_ufficio="UOAMBIENTE'"
+dinamico="SI"
+email_a=""
+ente_abilitato="TUTTI"
+filigrana="NO"
+firmare="NO"
+istruzioni_compilazione=""
+istruzioni_invio="mail_pec"
+metodo_invio="mail"
+name="GLOBO_modulo"
+procura="NO,,"
+tipo_modulo="principale"
+urlhelp="/modulistica/moduli/{{ CodiceModulo }}"
+verifica_pagamento="NO"
+versione="1.4|05/06/2019"/>
+
+<meta codice_modulo_figlio="INCARICO_PROCURA"
+urn_modulo_figlio="document:s_italia:generale;incarico.procura"
+name="GLOBO_modulofiglio"
+numero="1"
+obbligatorio="DINAMICO"/>
+
+<meta codice_allegato="ALTRI-ALLEGATI"
+urn_allegato="document:s_italia:altri.allegati"
+descrizione_estesa="Altri allegati"
+filename="Altri allegati.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/ALTRI-ALLEGATI"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+{% endblock meta %}
+
+{% block title %}
+  Osservazioni al piano urbano della mobilità sostenibile
+{% endblock title %}
+ 
+{% block content %}
+
+<globo_fondo_pagina areaheight="150" scope="20">
+  {{ utils.firma() }}
+</globo_fondo_pagina>
+
+<input id="Parametri_Comune" name="Parametri_Comune" type="hidden" dynamic_value="#Ente.value()"/>
+<input id="Oggetto" name="Oggetto" type="hidden" dynamic_value="#Titolare_Cognome.value().toUpperCase() + ' ' + #Titolare_Nome.value().toUpperCase() + ' - Osservazioni al piano urbano della mobilità sostenibile'"/>
+
+{{ intestazioni.intestazione_moduloprincipale_senzabollo() }}
+
+<h1 class="Modulo">
+  Osservazioni al piano urbano della mobilità sostenibile
+</h1>
+<h2 class="Modulo">
+Adottato con deliberazione di Giunta Comunale n. 252-19 del 16/05/2019
+</h2>
+
+{{ anagrafica.societa("Titolare", "Il sottoscritto", ["Persona fisica", "Titolare", "Legale rappresentante"], "Richiedente", "visibility:visibility", "cursor:pointer", "mail_ordinaria", "false") }}
+
+<br>
+
+ <table class="Modulo" style="border: 1px solid grey;margin-top: -1px;">
+    <tbody>
+      <tr class="Rigaintestazione">
+        <td colspan="3">
+          <input id="Tassonomia_Osservazione1" name="Tassonomia_Osservazione1" type="checkbox" value="SI" checked="checked" dynamic_check="true"/>
+           Osservazione1 
+        </td>
+     </tr>
+     <tr class="Rigaintestazioneridotta">
+       <td style="width: 50%;">
+         <p class="Labelcella">
+           Documento/Capitolo 
+         </p>
+       </td>
+       <td style="width: 50%;">
+         <p class="Labelcella">
+           Pagina
+         </p>
+       </td>
+       </tr>
+     <tr mandatory_enabled="#Tassonomia_Osservazione1.checked()">
+       <td style ="width: 50%;">
+       <input class="InputNormal" id="Parametri_Documento1" name="Paramentri_Documento1" label="Documento1" style="width: 100%;" />
+       </td>
+       <td style ="width: 20%;">
+       <input class="InputNormal" id="Parametri_Pagina1" name="Paramentri_Pagina1" label="Pagina1" style="width: 100%;" />
+       </td>
+       </tr>
+       <tr class="Rigaintestazioneridotta" mandatory_enabled="#Tassonomia_Osservazione1.checked()">
+         <td colspan="2">
+           <p class="Labelcella">
+             Motivazioni (max 20 righe)
+           </p> 
+           <textarea class="InputNormal" id="Paramentri_Motivazioni1" name="Parametri_Motivazioni1" label="Motivazioni1" rows="20" style="width:100%;">
+           </textarea>
+      </td>
+      </tr>
+       <tr class="Rigaintestazioneridotta">
+         <td colspan="2">
+           <p class="Labelcella">
+             Testo da eliminare (max 10 righe)
+           </p> 
+           <textarea class="InputNormal" id="Paramentri_Testo_da_eliminare1" name="Parametri_Testo_da_eliminare1" label="Testo da eliminare 1" rows="10" style="width:100%;">
+           </textarea>
+      </td>
+      </tr>
+      </tbody>
+      </table>
+      <table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazioneridotta">
+      <td colspan="2">
+           <p class="Labelcella">
+             Testo eventuale da inserire (max 20 righe)
+           </p> 
+           </td>
+           </tr>
+    {% set dichiara = [ "in sostituzione del testo da eliminare",
+                        "all’inizio del capitolo",
+                        "alla fine del capitolo ",
+                        "dopo la frase <input class='inputNormal' id='Parametri_Dopo_Frase' name='Parametri_Dopo_Frase' style='width: 100%;' label='testo dopo la frase' />" ] %}
+    {% for i in dichiara %}
+      <tr>
+        <td style="vertical-align: top; width: 4%;">
+          <input id="Dichiara{{ loop.index }}" name="Dichiara{{ loop.index }}" type="checkbox" value="SI"  />
+        </td>
+        <td>
+          {{ i|safe }}
+        </td>
+      </tr>
+    {% endfor %}
+   <tr class="Rigaintestazioneridotta">
+         <td colspan="2">
+           <p class="Labelcella">
+             Testo da inserire (max 20 righe)
+           </p> 
+       <textarea class="InputNormal" id="Paramentri_Testo_da_inserire1" name="Parametri_Testo_da_inserire1" label="Testo da inserire 1" rows="20" style="width:100%;">
+           </textarea>
+    </tr>
+  </tbody>
+</table>
+<table class="Modulo" style="border: 1px solid grey;margin-top: -1px;">
+    <tbody>
+      <tr class="Rigaintestazione">
+        <td colspan="3">
+          <input id="Tassonomia_Osservazione2" name="Tassonomia_Osservazione2" type="checkbox" value="SI"/>
+           Osservazione2
+        </td>
+     </tr>
+     <tr class="Rigaintestazioneridotta">
+       <td style="width: 50%;">
+         <p class="Labelcella">
+           Documento/Capitolo 
+         </p>
+       </td>
+       <td style="width: 50%;">
+         <p class="Labelcella">
+           Pagina
+         </p>
+       </td>
+       </tr>
+     <tr mandatory_enabled="#Tassonomia_Osservazione2.checked()" >
+       <td style ="width: 50%;">
+       <input class="InputNormal" id="Parametri_Documento2" name="Paramentri_Documento2" label="Documento2" style="width: 100%;" />
+       </td>
+       <td style ="width: 20%;">
+       <input class="InputNormal" id="Parametri_Pagina2" name="Paramentri_Pagina2" label="Pagina2" style="width: 100%;" />
+       </td>
+       </tr>
+       <tr class="Rigaintestazioneridotta">
+         <td colspan="2">
+           <p class="Labelcella">
+             Motivazioni (max 20 righe)
+           </p> 
+           <textarea class="InputNormal" id="Paramentri_Motivazioni2" name="Parametri_Motivazioni2" label="Motivazioni2" rows="20" style="width:100%;" mandatory_enabled="#Tassonomia_Osservazione2.checked()" >
+           </textarea>
+      </td>
+      </tr>
+       <tr class="Rigaintestazioneridotta">
+         <td colspan="2">
+           <p class="Labelcella">
+             Testo da eliminare (max 10 righe)
+           </p> 
+           <textarea class="InputNormal" id="Paramentri_Testo_da_eliminare2" name="Parametri_Testo_da_eliminare2" label="Testo da eliminare 2" rows="10" style="width:100%;">
+           </textarea>
+      </td>
+      </tr>
+      </tbody>
+      </table>
+      <table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazioneridotta">
+      <td colspan="2">
+           <p class="Labelcella">
+             Testo eventuale da inserire (max 20 righe)
+           </p> 
+           </td>
+           </tr>
+    {% set dichiara2 = [ "in sostituzione del testo da eliminare",
+                        "all’inizio del capitolo",
+                        "alla fine del capitolo ",
+                        "dopo la frase <input class='inputNormal' id='Parametri_Dopo_Frase2' name='Parametri_Dopo_Frase2' style='width: 100%;' label='testo dopo la frase' />" ] %}
+    {% for i in dichiara2 %}
+      <tr>
+        <td style="vertical-align: top; width: 4%;">
+          <input id="Dichiara2{{ loop.index }}" name="Dichiara2{{ loop.index }}" type="radio" value="SI"  />
+        </td>
+        <td>
+          {{ i|safe }}
+        </td>
+      </tr>
+    {% endfor %}
+   <tr class="Rigaintestazioneridotta">
+         <td colspan="2">
+           <p class="Labelcella">
+             Testo da inserire (max 20 righe)
+           </p> 
+       <textarea class="InputNormal" id="Paramentri_Testo_da_inserire2" name="Parametri_Testo_da_inserire2" label="Testo da inserire 2" rows="20" style="width:100%;">
+           </textarea>
+    </tr>
+  </tbody>
+</table>
+<table class="Modulo" style="border: 1px solid grey;margin-top: -1px;">
+    <tbody>
+      <tr class="Rigaintestazione">
+        <td colspan="3">
+          <input id="Tassonomia_Osservazione3" name="Tassonomia_Osservazione3" type="checkbox" value="SI"/>
+           Osservazione3
+        </td>
+     </tr>
+     <tr class="Rigaintestazioneridotta">
+       <td style="width: 50%;">
+         <p class="Labelcella">
+           Documento/Capitolo 
+         </p>
+       </td>
+       <td style="width: 50%;">
+         <p class="Labelcella">
+           Pagina
+         </p>
+       </td>
+       </tr>
+     <tr mandatory_enabled="#Tassonomia_Osservazione3.checked()" >
+       <td style ="width: 50%;">
+       <input class="InputNormal" id="Parametri_Documento3" name="Paramentri_Documento3" label="Documento3" style="width: 100%;" />
+       </td>
+       <td style ="width: 20%;">
+       <input class="InputNormal" id="Parametri_Pagina3" name="Paramentri_Pagina3" label="Pagina3" style="width: 100%;" />
+       </td>
+       </tr>
+       <tr class="Rigaintestazioneridotta" mandatory_enabled="#Tassonomia_Osservazione3.checked()" >
+         <td colspan="2">
+           <p class="Labelcella">
+             Motivazioni (max 20 righe)
+           </p> 
+           <textarea class="InputNormal" id="Paramentri_Motivazioni3" name="Parametri_Motivazioni3" label="Motivazioni3" rows="20" style="width:100%;">
+           </textarea>
+      </td>
+      </tr>
+       <tr class="Rigaintestazioneridotta">
+         <td colspan="2">
+           <p class="Labelcella">
+             Testo da eliminare (max 10 righe)
+           </p> 
+           <textarea class="InputNormal" id="Paramentri_Testo_da_eliminare3" name="Parametri_Testo_da_eliminare3" label="Testo da eliminare 3" rows="10" style="width:100%;">
+           </textarea>
+      </td>
+      </tr>
+      </tbody>
+      </table>
+      <table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazioneridotta">
+      <td colspan="2">
+           <p class="Labelcella">
+             Testo eventuale da inserire (max 20 righe)
+           </p> 
+           </td>
+           </tr>
+    {% set dichiara3 = [ "in sostituzione del testo da eliminare",
+                        "all’inizio del capitolo",
+                        "alla fine del capitolo ",
+                        "dopo la frase <input class='inputNormal' id='Parametri_Dopo_Frase3' name='Parametri_Dopo_Frase3' style='width: 100%;' label='testo dopo la frase3' />" ] %}
+    {% for i in dichiara3 %}
+      <tr>
+        <td style="vertical-align: top; width: 4%;">
+          <input id="Dichiara3{{ loop.index }}" name="Dichiara3{{ loop.index }}" type="radio" value="SI"  />
+        </td>
+        <td>
+          {{ i|safe }}
+        </td>
+      </tr>
+    {% endfor %}
+   <tr class="Rigaintestazioneridotta">
+         <td colspan="2">
+           <p class="Labelcella">
+             Testo da inserire (max 20 righe)
+           </p> 
+       <textarea class="InputNormal" id="Paramentri_Testo_da_inserire3" name="Parametri_Testo_da_inserire3" label="Testo da inserire 3" rows="20" style="width:100%;">
+           </textarea>
+    </tr>
+  </tbody>
+</table>
+<table class="Modulo" style="border: 1px solid grey;margin-top: -1px;">
+    <tbody>
+      <tr class="Rigaintestazione">
+        <td colspan="3">
+          <input id="Tassonomia_Osservazione4" name="Tassonomia_Osservazione4" type="checkbox" value="SI"/>
+           Osservazione4
+        </td>
+     </tr>
+     <tr class="Rigaintestazioneridotta">
+       <td style="width: 50%;">
+         <p class="Labelcella">
+           Documento/Capitolo 
+         </p>
+       </td>
+       <td style="width: 50%;">
+         <p class="Labelcella">
+           Pagina
+         </p>
+       </td>
+       </tr>
+     <tr mandatory_enabled="#Tassonomia_Osservazione4.checked()" >
+       <td style ="width: 50%;">
+       <input class="InputNormal" id="Parametri_Documento4" name="Paramentri_Documento4" label="Documento4" style="width: 100%;" />
+       </td>
+       <td style ="width: 20%;">
+       <input class="InputNormal" id="Parametri_Pagina4" name="Paramentri_Pagina4" label="Pagina4" style="width: 100%;" />
+       </td>
+       </tr>
+       <tr class="Rigaintestazioneridotta" mandatory_enabled="#Tassonomia_Osservazione4.checked()" >
+         <td colspan="2">
+           <p class="Labelcella">
+             Motivazioni (max 20 righe)
+           </p> 
+           <textarea class="InputNormal" id="Paramentri_Motivazioni4" name="Parametri_Motivazioni4" label="Motivazioni4" rows="20" style="width:100%;">
+           </textarea>
+      </td>
+      </tr>
+       <tr class="Rigaintestazioneridotta"  >
+         <td colspan="2">
+           <p class="Labelcella">
+             Testo da eliminare (max 10 righe)
+           </p> 
+           <textarea class="InputNormal" id="Paramentri_Testo_da_eliminare4" name="Parametri_Testo_da_eliminare4" label="Testo da eliminare 4" rows="10" style="width:100%;">
+           </textarea>
+      </td>
+      </tr>
+      </tbody>
+      </table>
+      <table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazioneridotta">
+      <td colspan="2">
+           <p class="Labelcella">
+             Testo eventuale da inserire (max 20 righe)
+           </p> 
+           </td>
+           </tr>
+    {% set dichiara4 = [ "in sostituzione del testo da eliminare",
+                        "all’inizio del capitolo",
+                        "alla fine del capitolo ",
+                        "dopo la frase <input class='inputNormal' id='Parametri_Dopo_Frase4' name='Parametri_Dopo_Frase4' style='width: 100%;' label='testo dopo la frase4' />" ] %}
+    {% for i in dichiara4 %}
+      <tr>
+        <td style="vertical-align: top; width: 4%;">
+          <input id="Dichiara4{{ loop.index }}" name="Dichiara4{{ loop.index }}" type="radio" value="SI"  />
+        </td>
+        <td>
+          {{ i|safe }}
+        </td>
+      </tr>
+    {% endfor %}
+   <tr class="Rigaintestazioneridotta">
+         <td colspan="2">
+           <p class="Labelcella">
+             Testo da inserire (max 20 righe)
+           </p> 
+       <textarea class="InputNormal" id="Paramentri_Testo_da_inserire4" name="Parametri_Testo_da_inserire4" label="Testo da inserire 4" rows="20" style="width:100%;">
+           </textarea>
+    </tr>
+  </tbody>
+</table>
+ <table class="Modulo" style="border: 1px solid grey;margin-top: -1px;">
+    <tbody>
+      <tr class="Rigaintestazione">
+        <td colspan="3">
+          <input id="Tassonomia_Osservazione5" name="Tassonomia_Osservazione5" type="checkbox" value="SI"/>
+           Osservazione5
+        </td>
+     </tr>
+     <tr class="Rigaintestazioneridotta">
+       <td style="width: 50%;">
+         <p class="Labelcella">
+           Documento/Capitolo 
+         </p>
+       </td>
+       <td style="width: 50%;">
+         <p class="Labelcella">
+           Pagina
+         </p>
+       </td>
+       </tr>
+     <tr mandatory_enabled="#Tassonomia_Osservazione5.checked()" >
+       <td style ="width: 50%;">
+       <input class="InputNormal" id="Parametri_Documento5" name="Paramentri_Documento5" label="Documento5" style="width: 100%;" />
+       </td>
+       <td style ="width: 20%;">
+       <input class="InputNormal" id="Parametri_Pagina5" name="Paramentri_Pagina5" label="Pagina5" style="width: 100%;" />
+       </td>
+       </tr>
+       <tr class="Rigaintestazioneridotta" mandatory_enabled="#Tassonomia_Osservazione5.checked()"  >
+         <td colspan="2">
+           <p class="Labelcella">
+             Motivazioni (max 20 righe)
+           </p> 
+           <textarea class="InputNormal" id="Paramentri_Motivazioni5" name="Parametri_Motivazioni5" label="Motivazioni5" rows="20" style="width:100%;">
+           </textarea>
+      </td>
+      </tr>
+       <tr class="Rigaintestazioneridotta">
+         <td colspan="2">
+           <p class="Labelcella">
+             Testo da eliminare (max 10 righe)
+           </p> 
+           <textarea class="InputNormal" id="Paramentri_Testo_da_eliminare5" name="Parametri_Testo_da_eliminare5" label="Testo da eliminare 5" rows="10" style="width:100%;">
+           </textarea>
+      </td>
+      </tr>
+      </tbody>
+      </table>
+      <table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazioneridotta">
+      <td colspan="2">
+           <p class="Labelcella">
+             Testo eventuale da inserire (max 20 righe)
+           </p> 
+           </td>
+           </tr>
+    {% set dichiara5 = [ "in sostituzione del testo da eliminare",
+                        "all’inizio del capitolo",
+                        "alla fine del capitolo ",
+                        "dopo la frase <input class='inputNormal' id='Parametri_Dopo_Frase5' name='Parametri_Dopo_Frase5' style='width: 100%;' label='testo dopo la frase5' />" ] %}
+    {% for i in dichiara5 %}
+      <tr>
+        <td style="vertical-align: top; width: 4%;">
+          <input id="Dichiara5{{ loop.index }}" name="Dichiara5{{ loop.index }}" type="radio" value="SI"  />
+        </td>
+        <td>
+          {{ i|safe }}
+        </td>
+      </tr>
+    {% endfor %}
+   <tr class="Rigaintestazioneridotta">
+         <td colspan="2">
+           <p class="Labelcella">
+             Testo da inserire (max 20 righe)
+           </p> 
+       <textarea class="InputNormal" id="Paramentri_Testo_da_inserire5" name="Parametri_Testo_da_inserire5" label="Testo da inserire 5" rows="20" style="width:100%;">
+           </textarea>
+    </tr>
+  </tbody>
+</table>
+<table class="Modulo" style="border: 1px solid grey;margin-top: -1px;">
+    <tbody>
+      <tr class="Rigaintestazione">
+        <td colspan="2">
+          <input id="Tassonomia_Tav_Proposta1" name="Tassonomia_Tav_Proposta1" type="checkbox" value="SI"/>
+           Tavola Proposta 1
+        </td>
+     </tr>
+     <tr class="Rigaintestazioneridotta">
+       <td colspan="2">
+         <p class="Labelcella">
+           Tavola
+         </p>
+       </td>
+     </tr>
+     <tr mandatory_enabled="#Tassonomia_Tav_Proposta1.checked()" >
+       <td colspan="2">
+       <input class="InputNormal" id="Parametri_Tavola1" name="Paramentri_Tavola1" label="Tavola1" style="width: 100%;" />
+       </td>
+     </tr>
+       <tr class="Rigaintestazioneridotta">
+         <td colspan="2">
+           <p class="Labelcella">
+             Descrizione delle modifiche
+           </p> 
+           <textarea class="InputNormal" id="Paramentri_Desr_Mod1" name="Parametri_Desr_Mod1" label=" Descrizioni modifiche1" rows="20" style="width:100%;" mandatory_enabled="#Tassonomia_Tav_Proposta1.checked()">
+           </textarea>
+      </td>
+      </tr>
+       </tbody>
+      </table>
+      <table class="Modulo" style="border: 1px solid grey;margin-top: -1px;">
+    <tbody>
+      <tr class="Rigaintestazione">
+        <td colspan="2">
+          <input id="Tassonomia_Tav_Proposta2" name="Tassonomia_Tav_Proposta2" type="checkbox" value="SI"/>
+           Tavola Proposta 2
+        </td>
+     </tr>
+     <tr class="Rigaintestazioneridotta">
+       <td colspan="2">
+         <p class="Labelcella">
+           Tavola
+         </p>
+       </td>
+     </tr>
+     <tr mandatory_enabled="#Tassonomia_Tav_Proposta2.checked()" >
+       <td colspan="2">
+       <input class="InputNormal" id="Parametri_Tavola2" name="Paramentri_Tavola2" label="Tavola2" style="width: 100%;" />
+       </td>
+     </tr>
+       <tr class="Rigaintestazioneridotta">
+         <td colspan="2">
+           <p class="Labelcella">
+             Descrizione delle modifiche
+           </p> 
+           <textarea class="InputNormal" id="Paramentri_Desr_Mod2" name="Parametri_Desr_Mod2" label=" Descrizioni modifiche2" rows="20" style="width:100%;" mandatory_enabled="#Tassonomia_Tav_Proposta2.checked()">
+           </textarea>
+      </td>
+      </tr>
+       </tbody>
+      </table>
+      <table class="Modulo" style="border: 1px solid grey;margin-top: -1px;">
+    <tbody>
+      <tr class="Rigaintestazione">
+        <td colspan="2">
+          <input id="Tassonomia_Tav_Proposta3" name="Tassonomia_Tav_Proposta3" type="checkbox" value="SI"/>
+           Tavola Proposta 3
+        </td>
+     </tr>
+     <tr class="Rigaintestazioneridotta">
+       <td colspan="2">
+         <p class="Labelcella">
+           Tavola
+         </p>
+       </td>
+     </tr>
+     <tr mandatory_enabled="#Tassonomia_Tav_Proposta3.checked()" >
+       <td colspan="2">
+       <input class="InputNormal" id="Parametri_Tavola3" name="Paramentri_Tavola3" label="Tavola3" style="width: 100%;" />
+       </td>
+     </tr>
+       <tr class="Rigaintestazioneridotta">
+         <td colspan="2">
+           <p class="Labelcella">
+             Descrizione delle modifiche
+           </p> 
+           <textarea class="InputNormal" id="Paramentri_Desr_Mod3" name="Parametri_Desr_Mod3" label=" Descrizioni modifiche3" rows="20" style="width:100%;" mandatory_enabled="#Tassonomia_Tav_Proposta3.checked()">
+           </textarea>
+      </td>
+      </tr>
+       </tbody>
+      </table>
+
+<br>
+
+<h3 class="Modulo">
+  DICHIARA
+</h3>
+
+<table class="Modulo" style="border: 1px solid grey;">
+        <tr>
+      <td style="vertical-align: top; width: 4%;background-color: white">
+        <input id="Tassonomia_Dichiarazione" name="Tassonomia_Dichiarazione" type="checkbox" value="si" value="SI" checked="checked" dynamic_check="true" />
+      </td>
+      <td coldspan="2">
+        <p> di essere consapevole che quanto scritto nel presente documento e negli eventuali allegati, ad esclusione dei dati personali, potrà essere  pubblicato nella versione finale del documento del PUMS e nei suoi allegati </p>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+
+
+
+
+<br>
+<table class="Modulo" name="Allegati" style="border: 1px solid grey">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="2">
+        <p style="text-align: center;">
+          <b>
+            Elenco degli allegati
+          </b>
+          <br/>
+          <span style="font-size:70%">
+            <i>(barrare tutti gli allegati richiesti in fase di presentazione della pratica ed elencati sul portale)</i>
+          </span>
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="ALTRI-ALLEGATI" name="ALTRI-ALLEGATI" type="checkbox" value="OBBLIGATORIO"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          altri allegati
+          <span style="font-size:70%">(specificare)</span>
+          <input class="" label="Altri allegati" id="AltriAllegati" mandatory_enabled="#ALTRI_ALLEGATI.checked()" name="AltriAllegati" style="width:79%;"/>
+        </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<br>
+{{ utils.trattamento_dati_personali() }}
+<br/>
+  {{ utils.firma_hidden() }}
+<br/>
+
+<p class="Modulo">
+  <input id="SalvaModulo" name="SalvaModulo" style="height:30px;width:120px;" title="Verifica la corretta compilazione dei campi e salva il modulo nel faldone virtuale dell'istanza." type="submit" value="Salva modulo"/>
+</p>
+
+<input destinatario_amministrazione="getParameter('Ente')" id="GLOBO_modulo_c{{ CodiceModulo }}" name="GLOBO_modulo_c{{ CodiceModulo }}" type="hidden" value=""/>
+<input firmare="'P7M_ELETTRONICA'" id="GLOBO_modulofiglio_cINCARICO_PROCURA" name="GLOBO_modulofiglio_cINCARICO_PROCURA" type="hidden" value=""/>
+
+<input id="GLOBO_allegato_cALTRI-ALLEGATI" name="GLOBO_allegato_cALTRI-ALLEGATI" obbligatorio="#ALTRI_ALLEGATI.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_id_padre" name="GLOBO_id_padre" type="hidden"/>
+<input id="GLOBO_recupera_dati" name="GLOBO_recupera_dati" type="hidden"/>
+<input id="GLOBO_codice_modulo" name="GLOBO_codice_modulo" type="hidden" value="{{ CodiceModulo }}"/>
+
+{% endblock content %}

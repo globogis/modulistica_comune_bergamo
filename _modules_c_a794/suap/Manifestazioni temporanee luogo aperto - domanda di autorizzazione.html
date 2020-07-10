@@ -1,0 +1,1325 @@
+{% set CodiceModulo = "AUT_MANIF_TEMP_AP" %}
+{% set Urn = "document:c_a794:manifestazione.temporanea;luogo.aperto;domanda" %}
+{% extends "base.html" %}
+{% block meta %}
+
+<meta campi_firma="Titolare_CodiceFiscale"
+campi_firma_label="il dichiarante"
+classi_modulo="Commercio"
+codice_modulo="{{ CodiceModulo }}"
+urn="{% block urn %}{{ Urn }}{% endblock urn %}"
+sub_urn_list=""
+uo_globo_list=""
+descrizione="Domanda di autorizzazione per lo svolgimento di manifestazione temporanea in luogo aperto a scopo di lucro"
+destinatario_amministrazione=""
+destinatario_ufficio="UOSUAP"
+dinamico="SI"
+email_a=""
+ente_abilitato="TUTTI"
+filigrana="SI"
+firmare="P7M_ELETTRONICA"
+in_bollo="SI"
+istruzioni_compilazione=""
+istruzioni_invio="mail_pec"
+metodo_invio="mail"
+name="GLOBO_modulo"
+procura="NO,,"
+tipo_modulo="principale"
+ufficio=""
+urlhelp="/modulistica/moduli/{{ CodiceModulo }}"
+verifica_pagamento="NO"
+versione="1.0|24/02/2020"/>
+
+<meta codice_modulo_figlio="INCARICO_PROCURA"
+urn_modulo_figlio="document:s_italia:generale;incarico.procura"
+name="GLOBO_modulofiglio"
+numero="1"
+obbligatorio="DINAMICO"/>
+
+<meta codice_modulo_figlio="STU-EDI-IMM"
+urn_modulo_figlio="document:s_italia:edilizia.privata;ulteriori.immobili;dichiarazione.sostitutiva"
+name="GLOBO_modulofiglio"
+numero="0"
+obbligatorio="DINAMICO"/>
+
+<meta codice_modulo_figlio="MARCA_BOLLO"
+urn_modulo_figlio="document:s_italia:pagamento.imposta.bollo;apposizione.domanda;dichiarazione.sostitutiva"
+name="GLOBO_modulofiglio"
+numero="1"
+obbligatorio="DINAMICO"/>
+
+<meta codice_modulo_figlio="AUT_DEROGA"
+urn_modulo_figlio="document:s_italia:acustica;deroga;attivita.produttive;domanda;secondario"
+name="GLOBO_modulofiglio"
+numero="1"
+obbligatorio="DINAMICO"/>
+
+<meta codice_modulo_figlio="PUBBL_SPE_AGI-SEC"
+urn_modulo_figlio="document:s_italia:certificato.agibilita;locale.pubblico.spettacolo;rilascio;domanda;secondario"
+name="GLOBO_modulofiglio"
+numero="1"
+obbligatorio="DINAMICO"/>
+
+<meta codice_modulo_figlio="AUT_SUOLO_PUBBL-S"
+urn_modulo_figlio="document:s_italia:occupazione.suolo.pubblico;endoprocedimento;domanda"
+name="GLOBO_modulofiglio"
+numero="1"
+obbligatorio="DINAMICO"/>
+
+<meta codice_modulo_figlio="TABELLA_RISCHIO_SAFETY"
+urn_modulo_figlio="document:s_italia:pubblico.spettacolo;manifestazione;temporanea;tabella.safety"
+name="GLOBO_modulofiglio"
+numero="1"
+obbligatorio="DINAMICO"/>
+
+<meta codice_allegato="MAN-MIT-RIS"
+urn_allegato="document:s_italia:manifestazione.temporanea;relazione.sistema.mitigazione.rischio"
+descrizione_estesa="Relazione sul sistema di mitigazione del rischio"
+filename="Relazione rischio.pdf"
+firmato="SI"
+istruzioni="/modulistica/moduli/MAN-MIT-RIS"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="SCH-INF-ANI"
+urn_allegato="document:s_italia:animali;scheda.informativa.condizioni.detenzione;documentazione"
+descrizione_estesa="Scheda informativa sulle condizioni di detenzione degli animali"
+filename="Scheda animali.pdf"
+firmato="SI"
+istruzioni="/modulistica/moduli/SCH-INF-ANI"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<!--
+<meta codice_allegato="RICH_ORD_VIABILITA-S"
+urn_allegato="document:s_italia:manifestazione.temporanea;emissione.ordinanza.modifica.viabilita;domanda"
+descrizione_estesa="Domanda di emissione di ordinanza per la modifica della viabilità"
+filename="Domanda ordinanza viabilita.pdf"
+firmato="SI"
+istruzioni="/modulistica/moduli/RICH_ORD_VIABILITA-S"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+-->
+
+<meta codice_modulo_figlio="RICH_ORD_VIABILITA-S"
+urn_modulo_figlio="document:c_a794:manifestazione.temporanea;emissione.ordinanza.modifica.viabilita;domanda"
+name="GLOBO_modulofiglio"
+numero="1"
+obbligatorio="DINAMICO"/>
+
+<meta codice_allegato="COR-MON-PAL"
+urn_allegato="document:s_italia:manifestazione.temporanea;collaudo.montaggio.palco.pedana;certificato"
+descrizione_estesa="Certificato di collaudo e di corretto montaggio palco, pedana o altre strutture"
+filename="Certificato collaudo.pdf"
+firmato="SI"
+istruzioni="/modulistica/moduli/COR-MON-PAL"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="MAN-IMP-ELE"
+urn_allegato="document:s_italia:manifestazione.temporanea;corretta.esecuzione.impianti.elettrici;dichiarazione"
+descrizione_estesa="Dichiarazione di esecuzione a regola d'arte degli impianti elettrici"
+filename="Dich. impianti elettrici.pdf"
+firmato="SI"
+istruzioni="/modulistica/moduli/MAN-IMP-ELE"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="MAN-PRO-MAN"
+urn_allegato="document:s_italia:manifestazione.temporanea;programma.manifestazione;documentazione"
+descrizione_estesa="Programma della manifestazione"
+filename="Programma manifestaz.pdf"
+firmato="SI"
+istruzioni="/modulistica/moduli/MAN-PRO-MAN"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="ASS-AGI"
+urn_allegato="document:s_italia:manifestazione.temporanea;rispondenza.area.strutture.impianti;relazione.tecnica"
+descrizione_estesa="Relazione tecnica attestante la rispondenza dell'area e degli impianti alle regole tecniche"
+filename="Relazione tecnica.pdf"
+firmatari="Firmatario_CodiceFiscale"
+firmatari_label="il firmatario della relazione tecnica"
+firmato="SI"
+istruzioni="/modulistica/moduli/ASS-AGI"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="RIC-DIR-SEG"
+urn_allegato="document:s_italia:diritti.segreteria.istruttoria;ricevuta"
+descrizione_estesa="Ricevuta diritti segreteria/istruttoria"
+filename="Ricev. diritti segreteria.pdf"
+firmato="SI"
+istruzioni="/modulistica/moduli/RIC-DIR-SEG"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="ALTRI-ALLEGATI"
+urn_allegato="document:s_italia:altri.allegati"
+descrizione_estesa="Altri allegati"
+filename="Altri allegati.pdf"
+firmato="SI"
+istruzioni="/modulistica/moduli/ALTRI-ALLEGATI"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="COP-ATT-NOT"
+urn_allegato="document:s_italia:atto.notarile;copia"
+descrizione_estesa="Copia dell’atto notarile con il quale è stata conferita la procura"
+dimensione_massima="4"
+filename="Atto notarile procura.pdf"
+firmato="SI"
+istruzioni="/modulistica/moduli/COP-ATT-NOT"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+{% endblock meta %}
+{% block title %}
+   Domanda di autorizzazione per lo svolgimento di manifestazione temporanea in luogo aperto a scopo di lucro
+  {% endblock title %}
+{% block content %}
+ <globo_fondo_pagina areaheight="150" scope="4">
+ {{ utils.firma() }}
+</globo_fondo_pagina>
+
+<input id="Tassonomia_TipoComunicazione13" name="Tassonomia_TipoComunicazione" type="hidden" value="13"/>
+
+<input id="Tassonomia_DIAPNuovaAttivita4" name="Tassonomia_DIAPNuovaAttivita5" type="hidden" value="4"/>
+
+<input id="Tassonomia_DIAPAltre1" name="Tassonomia_DIAPAltre" type="hidden" value="1"/>
+
+<input id="Tassonomia_TipoSuolo1" name="Tassonomia_TipoSuolo" type="hidden" value="1"/>
+
+<input dynamic_value="#Titolare_Cognome.value().toUpperCase() + ' ' + #Titolare_Nome.value().toUpperCase() + ' - manifestazione temporanea in luogo aperto (a scopo di lucro)'" id="Oggetto" name="Oggetto" type="hidden"/>
+
+<input dynamic_value="#Ente.value()" id="Parametri_Comune" name="Parametri_Comune" type="hidden"/>
+
+
+{{ intestazioni.intestazione_moduloprincipale_conbollo() }}
+ <h1 class="Modulo">
+ Domanda di autorizzazione per lo svolgimento di manifestazione temporanea in luogo aperto a scopo di lucro
+</h1>
+
+<h2 class="Modulo">
+ Ai sensi dell'articolo 68 e dell'articolo 69 del Regio Decreto 18/06/1931, n. 773
+</h2>
+
+
+  {{anagrafica.societa("Titolare","Il sottoscritto",["Titolare", "Legale rappresentante", "Procuratore con potere di rappresentanza legale"], "Richiedente", "visibility:visibility", "cursor:pointer", "mail_ordinaria", "never", "true", "", "visibility:visibility", "display:none", "false", "false")}}
+
+
+{{utils.domicilio_digitale()}}
+
+
+ <h3 class="Modulo">
+ CHIEDE
+</h3>
+
+<p class="Modulo">
+ il rilascio dell'autorizzazione per lo svolgimento di manifestazione temporanea in luogo aperto
+</p>
+
+<input id="Immobile_DatiCatastaliObbligatori" name="Immobile_DatiCatastaliObbligatori" type="checkbox" style="display:none" value="si"/>
+
+
+ {{ immobili.immobile("Immobile","collocata in", "Collocazione manifestazione") }}
+ <table class="Modulo" name="Immobile_Immobile" style="border:1px solid grey; margin-top:-1px">
+ <tbody>
+  <tr class="Rigaintestazioneridotta" style="border:1px solid-grey">
+   <td colspan="5">
+    <p class="Labelcella">
+     Collocazione
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td style="width:4%">
+    <div id="Tassonomia_MTLASuolo" label="Collocazione" mandatory="true">
+    </div>
+    <input id="Tassonomia_MTLASuolo1" name="Tassonomia_MTLASuolo" type="radio" value="1"/>
+   </td>
+   <td colspan="4">
+    <p>
+     suolo privato
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td rowspan="5" style="background-color:white; vertical-align:top">
+    <input id="Tassonomia_MTLASuolo2" name="Tassonomia_MTLASuolo" type="radio" value="2"/>
+   </td>
+   <td colspan="4">
+    <p>
+     suolo pubblico
+    </p>
+   </td>
+  </tr>
+  <tr class="Rigaintestazioneridotta">
+   <td colspan="2">
+    <p class="Labelcella">
+     Titolo autorizzativo
+    </p>
+   </td>
+   <td>
+    <p class="Labelcella">
+     Numero concessione
+    </p>
+   </td>
+   <td>
+    <p class="Labelcella">
+     Data concessione/Data richiesta
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td style="width:4%">
+    <div id="Parametri_MTLASuoloLic" label="Titolo autorizzativo occupazione suolo pubblico" mandatory_enabled="#Tassonomia_MTLASuolo.check_value(['2'])">
+    </div>
+    <input id="Parametri_MTLASuoloLic1" name="Parametri_MTLASuoloLic" type="radio" value="concessione"/>
+   </td>
+   <td>
+    <p>
+     concessione occupazione suolo pubblico
+    </p>
+   </td>
+   <td style="width:20%">
+    <p>
+     <input class="" id="Parametri_AutPubbl" label="Numero concessione occupazione suolo pubblico" mandatory_enabled="#Parametri_MTLASuoloLic.check_value(['concessione'])" name="Parametri_AutPubbl" style="width:100%;" type="text"/>
+    </p>
+   </td>
+   <td style="width:20%">
+    <p>
+     <input class="" format="date" id="Parametri_AutPubbl_Data" label="Data concessione occupazione suolo pubblic" mandatory_enabled="#Parametri_MTLASuoloLic.check_value(['concessione'])" name="Parametri_AutPubbl_Data" style="width:100%;" type="text"/>
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td>
+    <input id="Parametri_MTLASuoloLic2" name="Parametri_MTLASuoloLic" type="radio" value="richiesta concessione"/>
+   </td>
+   <td colspan="2">
+    <p>
+     ha fatto richiesta di concessione occupazione suolo pubblico
+    </p>
+   </td>
+   <td style="width:20%">
+    <p>
+     <input class="" format="date" id="Parametri_AutPubbl2Data" label="Data richiesta concessione occupazione suolo pubblico" mandatory_enabled="#Parametri_MTLASuoloLic.check_value(['richiesta concessione'])" name="Parametri_AutPubbl2Data" style="width:100%;" type="text"/>
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td>
+    <input id="Parametri_MTLASuoloLic3" name="Parametri_MTLASuoloLic" type="radio" value="richiede congiuntamente concessione"/>
+   </td>
+   <td colspan="3">
+    <p>
+     richiede congiuntamente concessione occupazione suolo pubblico
+    </p>
+   </td>
+  </tr>
+ </tbody>
+</table>
+
+<table class="Modulo" style="border:1px solid grey;">
+ <tbody>
+  <tr class="Rigaintestazione">
+   <td colspan="2">
+    <p class="Labeltabella">
+     dalle seguenti caratteristiche
+    </p>
+   </td>
+  </tr>
+  <tr class="Rigaintestazioneridotta">
+   <td colspan="2">
+    <p class="Labelcella">
+     Denominazione manifestazione
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td colspan="2">
+    <input class="" id="Parametri_DenominazioneManif" label="Denominazione manifestazione" mandatory="true" name="Parametri_DenominazioneManif" style="width:100%"/>
+   </td>
+  </tr>
+  <tr class="Rigaintestazioneridotta">
+   <td colspan="2">
+    <p class="Labelcella">
+     Presenza attività di somministrazione di alimenti e bevande
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td style="width:4%">
+    <div id="Tassonomia_ManTSomministrazione" label="Presenza attività di somministrazione di alimenti e bevande" mandatory="true">
+    </div>
+    <input id="Tassonomia_ManTSomministrazione2" name="Tassonomia_ManTSomministrazione" type="radio" value="2"/>
+   </td>
+   <td>
+    <p>
+     no
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td rowspan="2" style="vertical-align:top; background-color:white">
+    <input id="Tassonomia_ManTSomministrazione1" name="Tassonomia_ManTSomministrazione" type="radio" value="1"/>
+   </td>
+   <td>
+    <p>
+     sì e sarà svolta direttamente dal richiedente, pertanto
+    </p>
+   </td>
+  </tr>
+  <tr class="Rigaintestazione">
+   <td>
+    <p class="Labeltabella">
+     trasmette, prima dell'inizio della manifestazione, segnalazione certificata di inizio attività per somministrazione temporanea di alimenti e bevande
+    </p>
+   </td>
+  </tr>  
+  <tr>
+   <td rowspan="3" style="vertical-align:top; background-color:white">
+    <input id="Tassonomia_ManTSomministrazione3" name="Tassonomia_ManTSomministrazione" type="radio" value="3"/>
+   </td>
+   <td>
+    <p>
+     sì e sarà svolta da
+    </p>
+   </td>
+  </tr>
+  <tr class="Rigaintestazioneridotta">
+   <td>
+    <p class="Labelcella">
+     Soggetto che svolgerà l'attività di somministrazione di alimenti e bevande 
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td>
+    <input class="" id="Parametri_SoggettoSomministrazione" label="Soggetto che svolgerà l'attività di somministrazione di alimenti e bevande" mandatory_enabled="#Tassonomia_ManTSomministrazione3.checked()" name="Parametri_SoggettoSomministrazione" style="width:100%;"/>
+   </td>
+  </tr>   
+ </tbody>
+</table>
+
+<table class="Modulo" style="border:1px solid grey; margin-top:-1px">
+ <tbody>
+  <tr class="Rigaintestazioneridotta">
+   <td colspan="2">
+    <p class="Labelcella">
+     Presenza palco, pedana o altre strutture
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td style="width:4%">
+    <div id="Tassonomia_ManifTempPedana" label="Presenza palco, pedana o altre strutture" mandatory="true">
+    </div>
+    <input id="Tassonomia_ManifTempPedana1" name="Tassonomia_ManifTempPedana" type="radio" value="1"/>
+   </td>
+   <td>
+    <p>
+     no
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td rowspan="2" style="vertical-align:top; background-color:white">
+    <input id="Tassonomia_ManifTempPedana4" name="Tassonomia_ManifTempPedana" type="radio" value="4"/>
+   </td>
+   <td>
+    <p>
+     sì, pertanto 
+    </p>
+   </td>
+  </tr>
+  <tr class="Rigaintestazione">
+   <td>
+    <p class="Labeltabella">
+     trasmette, prima dell'inizio della manifestazione, certificato di collaudo e corretto montaggio del palco, pedana o altre strutture
+    </p>
+   </td>
+  </tr>   
+ </tbody>
+</table>
+
+<table class="Modulo" style="border:1px solid grey; margin-top:-1px">
+ <tbody>
+  <tr class="Rigaintestazioneridotta">
+   <td colspan="5">
+    <p class="Labelcella">
+     Affluenza/capienza per la sola attività di pubblico spettacolo, esclusa l’area destinata alla somministrazione
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td style="width:4%; vertical-align:top">
+    <div id="Tassonomia_MTNumPersone" label="Affluenza/capienza per la sola attività di pubblico spettacolo, esclusa l’area destinata alla somministrazione" mandatory="true">
+    </div>
+    <input id="Tassonomia_MTNumPersone3" name="Tassonomia_MTNumPersone" type="radio" value="3"/>
+   </td>
+   <td colspan="4">
+    <p>
+     manifestazione priva di strutture specificatamente destinate allo stazionamento del pubblico (posti a sedere, transenne, recinzioni o altre strutture)
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td rowspan="2" style="vertical-align:top; background-color:white;">
+    <input id="Tassonomia_MTNumPersone2" name="Tassonomia_MTNumPersone" type="radio" value="2"/>
+   </td>
+   <td colspan="4">
+    <p>
+     manifestazione con capienza complessiva di pubblico per un massimo di 200 persone, pertanto
+    </p>
+   </td>
+  </tr>
+  <tr class="Rigaintestazione">
+   <td colspan="4">
+    <p class="Labeltabella">
+     allega relazione tecnica attestante la rispondenza dell’area, delle strutture e degli impianti alla normativa vigente
+    </p>
+   </td>
+  </tr>   
+  <tr>
+   <td rowspan="7" style="width:4%; vertical-align:top; background-color:white">
+    <input id="Tassonomia_MTNumPersone1" name="Tassonomia_MTNumPersone" type="radio" value="1"/>
+   </td>
+   <td colspan="4">
+    <p>
+     manifestazione con capienza complessiva di pubblico di oltre 200 persone
+    </p>
+   </td>
+  </tr>
+  <tr class="Rigaintestazioneridotta">
+   <td colspan="2">
+    <p class="Labelcella">
+     Titolo autorizzativo
+    </p>
+   </td>
+   <td>
+    <p class="Labelcella">
+     Numero
+    </p>
+   </td>
+   <td>
+    <p class="Labelcella">
+     Data
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td style="width:4%; vertical-align:top">
+    <div id="Tassonomia_TitoloLicenzaAG" label="Titolo autorizzativo manifestazione con stazionamento di pubblico di oltre 200 persone" mandatory_enabled="#Tassonomia_MTNumPersone.check_value(['1'])">
+    </div>
+    <input id="Tassonomia_TitoloLicenzaAG1" name="Tassonomia_TitoloLicenzaAG" type="radio" value="ottenuta licenza"/>
+   </td>
+   <td>
+    <p>
+     licenza di agibilità
+     <br/>
+     <span style="font-size:70%">
+      <i>
+       articolo 80 del Regio Decreto 18/06/1931, n. 773
+      </i>
+     </span>
+    </p>
+   </td>
+   <td style="width:18%">
+    <input class="" id="Parametri_ManNumAg" label="Numero licenza di agibilità" mandatory_enabled="#Tassonomia_TitoloLicenzaAG.check_value(['ottenuta licenza'])" name="Parametri_ManNumAg" style="width:100%;"/>
+   </td>
+   <td style="width:18%">
+    <input class="" format="date" id="Parametri_ManNumAg_Data" label="Data licenza di agibilità" mandatory_enabled="#Tassonomia_TitoloLicenzaAG.check_value(['ottenuta licenza'])" name="Parametri_ManNumAg_Data" style="width:100%;"/>
+   </td>
+  </tr>
+  <tr>
+   <td style="vertical-align:top">
+    <input id="Tassonomia_TitoloLicenzaAG2" name="Tassonomia_TitoloLicenzaAG" type="radio" value="richiesta licenza"/>
+   </td>
+   <td colspan="2">
+    <p>
+     ha fatto richiesta di licenza di agibilità
+     <br/>
+     <span style="font-size:70%">
+      <i>
+       articolo 80 del Regio Decreto 18/06/1931, n. 773
+      </i>
+     </span>
+    </p>
+   </td>
+   <td>
+    <input class="" id="Parametri_TitoloLicenzaAG2_Data" label="Data richiesta licenza di agibilità" mandatory_enabled="#Tassonomia_TitoloLicenzaAG.check_value(['richiesta licenza'])" name="Parametri_TitoloLicenzaAG2_Data" style="width:100%;"/>
+   </td>
+  </tr>
+  <tr>
+   <td style="vertical-align:top">
+    <input id="Tassonomia_TitoloLicenzaAG3" name="Tassonomia_TitoloLicenzaAG" type="radio" value="richiede congiuntamente licenza"/>
+   </td>
+   <td colspan="3">
+    <p>
+     richiede congiuntamente licenza di agibilità
+     <br/>
+     <span style="font-size:70%">
+      <i>
+       articolo 80 del Regio Decreto 18/06/1931, n. 773
+      </i>
+     </span>
+    </p>
+   </td>
+  </tr>
+ </tbody>
+</table>
+<table class="Modulo" style="border:1px solid grey; margin-top:-1px">
+ <tbody>
+  <tr class="Rigaintestazioneridotta">
+   <td colspan="6">
+    <p class="Labelcella">
+     Presenza animali
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td style="width:4%">
+    <div id="Tassonomia_ManAnimali" label="Presenza animali" mandatory="true">
+    </div>
+    <input id="Tassonomia_ManAnimali1" name="Tassonomia_ManAnimali" type="radio" value="1"/>
+   </td>
+   <td colspan="5">
+    <p>
+     l'attività non prevede la presenza di animali
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td rowspan="7" style="vertical-align:top; background-color:white">
+    <input id="Tassonomia_ManAnimali2" name="Tassonomia_ManAnimali" type="radio" value="2"/>
+   </td>
+   <td colspan="5">
+    <p>
+     l'attività prevede la presenza di animali<br/><span style="font-size:70%"><i>(presentare apposita scheda informativa che il SUAP inoltrerà all'ATS per gli aspetti di competenza)</i></span>
+    </p>
+   </td>
+  </tr>
+  <tr class="Rigaintestazioneridotta">
+   <td colspan="5">
+    <p class="Labelcella">
+     Classificazione
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td style="width:4%">
+    <div id="Tassonomia_ManAnimaliPEricolosi" label="Presenza animali pericolosi" mandatory_enabled="#Tassonomia_ManAnimali.check_value(['2'])">
+    </div>
+    <input id="Tassonomia_ManAnimaliPEricolosi1" name="Tassonomia_ManAnimaliPEricolosi" type="radio" value="1"/>
+   </td>
+   <td colspan="4">
+    <p>
+     animali non pericolosi
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td rowspan="3" style="vertical-align:top; background-color:white">
+    <input id="Tassonomia_ManAnimaliPEricolosi2" name="Tassonomia_ManAnimaliPEricolosi" type="radio" value="2"/>
+   </td>
+   <td colspan="4">
+    <p>
+     animali anche pericolosi
+    </p>
+   </td>
+  </tr>
+  <tr class="Rigaintestazioneridotta">
+   <td>
+    <p class="Labelcella">
+     Titolo autorizzativo
+    </p>
+   </td>
+   <td>
+    <p class="Labelcella">
+     Numero
+    </p>
+   </td>
+   <td>
+    <p class="Labelcella">
+     Data
+    </p>
+   </td>
+   <td>
+    <p class="Labelcella">
+     Ente di riferimento
+    </p>
+   </td>
+  </tr>
+  <tr style="border-top:0px">
+   <td>
+    <p>
+     dichiarazione idoneità detenzione animali <br/>pericolosi rilasciata dal Prefetto
+    </p>
+   </td>
+   <td style="width:15%">
+    <input class="" id="Parametri_ComManNullaOstaPref" label="Numero dichiarazione idoneità detenzione animali pericolosi" mandatory_enabled="#Tassonomia_ManAnimaliPEricolosi.check_value(['2'])" name="Parametri_ComManNullaOstaPref" style="width:100%"/>
+   </td>
+   <td style="width:15%">
+    <input class="" format="date" id="Parametri_ComManNullaOstaPref_Data" label="Data dichiarazione idoneità detenzione animali pericolosi" mandatory_enabled="#Tassonomia_ManAnimaliPEricolosi.check_value(['2'])" name="Parametri_ComManNullaOstaPref_Data" style="width:100%"/>
+   </td>
+   <td style="width:26%">
+    <input class="" id="Parametri_ComManNullaOstaPref_Note" label="Ente di riferimento dichiarazione idoneità detenzione animali pericolosi" mandatory_enabled="#Tassonomia_ManAnimaliPEricolosi.check_value(['2'])" name="Parametri_ComManNullaOstaPref_Note" style="width:100%"/>
+   </td>
+  </tr>
+  <tr class="Rigaintestazione">
+   <td colspan="5">
+    <p class="Labeltabella">
+     pertanto allega scheda informativa sulle condizioni di detenzione degli animali 
+    </p>
+   </td>
+  </tr>    
+ </tbody>
+</table>
+<table class="Modulo" style="border:1px solid grey; margin-top:-1px">
+ <tbody>
+  <tr class="Rigaintestazioneridotta">
+   <td colspan="5">
+    <p class="Labelcella">
+     Richiesta chiusura strada
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td style="width:4%">
+    <div id="Tassonomia_MTChiusuraStrada" label="Richiesta chiusura strada" mandatory="true">
+    </div>
+    <input id="Tassonomia_MTChiusuraStrada1" name="Tassonomia_MTChiusuraStrada" type="radio" value="1"/>
+   </td>
+   <td colspan="4">
+    <p>
+     la manifestazione non prevede la richiesta di chiusura strada
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td rowspan="5" style="width:4%; vertical-align:top; background-color:white">
+    <input id="Tassonomia_MTChiusuraStrada2" name="Tassonomia_MTChiusuraStrada" type="radio" value="2"/>
+   </td>
+   <td colspan="4">
+    <p>
+     la manifestazione prevede la richiesta di chiusura strada
+    </p>
+   </td>
+  </tr>
+  <tr class="Rigaintestazioneridotta">
+   <td colspan="2">
+    <p class="Labelcella">
+     Titolo autorizzativo
+    </p>
+   </td>
+   <td>
+    <p class="Labelcella">
+     Numero ordinanza
+    </p>
+   </td>
+   <td>
+    <p class="Labelcella">
+     Data ordinanza/Data richiesta
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td style="width:4%">
+    <div id="Parametri_MTLAViabilita" label="Titolo autorizzativo chiusura strada" mandatory_enabled="#Tassonomia_MTChiusuraStrada2.checked()">
+    </div>
+    <input id="Parametri_MTLAViabilita1" name="Parametri_MTLAViabilita" type="radio" value="ordinanza"/>
+   </td>
+   <td>
+    <p>
+     ordinanza di modifica della viabilità
+    </p>
+   </td>
+   <td style="width:19%">
+    <p>
+     <input class="" id="Parametri_OrdinanzaViabilita" label="Numero ordinanza di modifica della viabilità" mandatory_enabled="#Parametri_MTLAViabilita1.checked()" name="Parametri_OrdinanzaViabilita" style="width:100%;" type="text"/>
+    </p>
+   </td>
+   <td style="width:19%">
+    <p>
+     <input class="" format="date" id="Parametri_OrdinanzaViabilita_Data" label="Data ordinanza di modifica della viabilità" mandatory_enabled="#Parametri_MTLAViabilita1.checked()" name="Parametri_OrdinanzaViabilita_Data" style="width:100%;" type="text"/>
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td>
+    <input id="Parametri_MTLAViabilita2" name="Parametri_MTLAViabilita" type="radio" value="richiesta ordinanza"/>
+   </td>
+   <td colspan="2">
+    <p>
+     ha fatto domanda di emissione di ordinanza per la modifica della viabilità 
+    </p>
+   </td>
+   <td style="width:20%">
+    <p>
+     <input class="" format="date" id="Parametri_OrdinanzaViabilita2Data" label="Data richiesta ordinanza di modifica della viabilitào" mandatory_enabled="#Parametri_MTLAViabilita2.checked()" name="Parametri_OrdinanzaViabilita2Data" style="width:100%;" type="text"/>
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td>
+    <input id="Parametri_MTLAViabilita3" name="Parametri_MTLAViabilita" type="radio" value="richiede congiuntamente ordinanza"/>
+   </td>
+   <td colspan="3">
+    <p>
+     richiede congiuntamente l'emissione di ordinanza di modifica della viabilità
+    </p>
+   </td>
+  </tr>  
+ </tbody>
+</table>
+
+<table class="Modulo" style="border:1px solid grey; margin-top:-1px">
+  <tbody>
+    <tr class="Rigaintestazioneridotta">
+      <td colspan="2">
+        <p class="Labelcella">
+          Comunicazione A.R.E.U. - Gestione Assistenza Manifestazioni Eventi Sportivi (G.A.M.E.S.)
+        </p>
+      </td>
+      <td style="width:20%">
+        <p class="Labelcella">
+          Data comunicazione
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="width:4%">
+        <div id="Tassonomia_ComunicazioneAREU" label="Comunicazione A.R.E.U" mandatory="true">
+        </div>
+        <input id="Tassonomia_ComunicazioneAREU1" name="Tassonomia_ComunicazioneAREU" type="radio" value="1"/>
+      </td>
+      <td>
+        <p>
+          la manifestazione è già stata comunicata ad AREU in data
+        </p>
+      </td>
+      <td>
+        <p>
+          <input class="" format="date" id="Tassonomia_ComunicazioneAREU1_Note" label="Data comunicazione A.R.E.U. viabilità" mandatory_enabled="#Tassonomia_ComunicazioneAREU1.checked()" name="Tassonomia_ComunicazioneAREU1_Note" style="width:100%;" type="text"/>
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input id="Tassonomia_ComunicazioneAREU2" name="Tassonomia_ComunicazioneAREU" type="radio" value="2"/>
+      </td>
+      <td colspan="2">
+        <p>
+          la manifestazione sarà comunicata ad AR.E.U. nei termini previsti dalla normativa vigente
+        </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<globo_salto_pagina></globo_salto_pagina>
+
+{{ utils.calendario() }}
+
+{{ utils.Dichiara_445() }}
+
+<input checked="checked" id="SempreSI" name="SempreSI" style="display:none;" type="checkbox" value="si"/>
+
+<table class="Modulo" style="border: 0px;">
+ <tbody>
+  <tr style="border: 0px;">
+   <td style="width: 20px; border: 0px; vertical-align: top;">
+    <input checked="checked" dynamic_check="true" id="Parametri_Dichiara1" name="Parametri_Dichiara1" type="checkbox" value="si"/>
+   </td>
+   <td style="border: 0px;">
+    <p>
+     che nei propri confronti non sono state applicate con provvedimento definitivo una delle misure di prevenzione previste dal libro I, titoli I, capo II del Decreto Legislativo 06/09/2011 n. 159 ("
+     <i>
+      Codice delle leggi antimafia e delle misure di prevenzione, nonchè nuove disposizioni in materia di documentazione antimafia
+     </i>
+     ")
+    </p>
+   </td>
+  </tr>
+  <tr style="border: 0px;">
+   <td style="width: 20px; border: 0px; vertical-align: top;">
+    <input checked="checked" dynamic_check="true" id="Parametri_Dichiara2" name="Parametri_Dichiara2" type="checkbox" value="si"/>
+   </td>
+   <td style="border: 0px;">
+    <p>
+     di non aver riportato condanne penali ostative allo svolgimento dell'attività e di non essere destinatario di provvedimenti che riguardano l'applicazione di misure di prevenzione, di decisioni civili e di provvedimenti amministrativi iscritti nel casellario giudiziale ai sensi degli articoli 11 e 92 del Regio Decreto 18/06/1931, n. 773
+    </p>
+   </td>
+  </tr>
+  <tr style="border: 0px;">
+   <td style="width: 20px; border: 0px; vertical-align: top;">
+    <input checked="checked" dynamic_check="true" id="Parametri_Dichiara4" name="Parametri_Dichiara4" type="checkbox" value="si"/>
+   </td>
+   <td style="border: 0px;">
+    <p>
+     di non essere incapace di obbligarsi ai sensi dell'articolo 131 del Regio Decreto 18/06/1931, n. 773
+    </p>
+   </td>
+  </tr>
+  <tr style="border: 0px;">
+   <td style="width: 20px; border: 0px; vertical-align: top;">
+    <input checked="checked" dynamic_check="true" id="Parametri_ManifDichiara3" name="Parametri_ManifDichiara3" type="checkbox" value="si"/>
+   </td>
+   <td style="border: 0px;">
+    <p>
+     che le attrezzature elettriche, comprese quelle di amplificazione sonora, sono correttamente installate in aree non accessibili al pubblico
+    </p>
+   </td>
+  </tr>
+  <tr style="border: 0px;">
+   <td style="width: 20px; border: 0px; vertical-align: top;">
+    <input checked="checked" dynamic_check="true" id="Parametri_ManifDichiara1" name="Parametri_ManifDichiara1" type="checkbox" value="si"/>
+   </td>
+   <td style="border: 0px;">
+    <p>
+     di aver regolarmente approntato, nell'area destinata alla manifestazione, idonei mezzi antincendio
+    </p>
+   </td>
+  </tr>
+  <tr style="border: 0px;">
+   <td style="width: 20px; border: 0px; vertical-align: top;">
+    <input checked="checked" dynamic_check="true" id="Parametri_ManifDichiara6" name="Parametri_ManifDichiara6" type="checkbox" value="si"/>
+   </td>
+   <td style="border: 0px;">
+    <p>
+     di essere in regola con la normativa SIAE
+    </p>
+   </td>
+  </tr>
+  <tr style="border: 0px;">
+   <td style="width: 20px; border: 0px; vertical-align: top;">
+    <input checked="checked" dynamic_check="true" id="Parametri_ManifDichiara8" name="Parametri_ManifDichiara8" type="checkbox" value="si"/>
+   </td>
+   <td style="border: 0px;">
+    <p>
+     che per lo svolgimento della manifestazione saranno rispettati gli obblighi in materia di assistenza sanitaria e "<i>safety</i>" previsti dalla normativa vigente
+    </p>
+   </td>
+  </tr>
+ </tbody>
+</table>
+
+<br/>
+
+<table class="Modulo" style="border:1px solid grey">
+ <tbody>
+  <tr class="Rigaintestazioneridotta">
+   <td colspan="5">
+    <p>
+     <b>
+      impatto acustico
+     </b>
+    </p>
+   </td>
+  </tr>
+  <tr class="Rigaintestazioneridotta">
+   <td colspan="5">
+    <p class="Labelcella">
+     Assoggettabilità alla presentazione di valutazione di impatto acustico
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <div id="Tassonomia_Impatto_acustico" label="Assoggettabilità impatto acustico" mandatory="true">
+   </div>
+   <td rowspan="2" style="vertical-align:top;">
+    <input id="Tassonomia_Impatto_acustico2" name="Tassonomia_Impatto_acustico" style="margin-top:5px" type="radio" value="2"/>
+   </td>
+   <td colspan="4">
+    <p>
+     non soggetto a presentazione di valutazione di impatto acustico
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td style="width:3%">
+    <input dynamic_check="#Tassonomia_Impatto_acustico2.checked()" enabled="#Tassonomia_Impatto_acustico2.checked()" id="Parametri_autocert1" name="Parametri_autocert1" type="checkbox" value="si"/>
+   </td>
+   <td colspan="3">
+    <p>
+     durante l'esercizio dell'attività saranno rispettati i limiti fissati dalla vigente normativa
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td rowspan="5" style="width:4%; vertical-align:top; background-color:white">
+    <input id="Tassonomia_Impatto_acustico1" name="Tassonomia_Impatto_acustico" style="margin-top:5px" type="radio" value="1"/>
+   </td>
+   <td colspan="4">
+    <p>
+     soggetto a presentazione di valutazione di impatto acustico
+    </p>
+   </td>
+  </tr>
+  <tr class="Rigaintestazioneridotta">
+   <td colspan="2">
+    <p class="Labelcella">
+     Titolo autorizzativo
+    </p>
+   </td>
+   <td style="width:14%;">
+    <p class="Labelcella">
+     Numero
+    </p>
+   </td>
+   <td style="width:14%;">
+    <p class="Labelcella">
+     Data
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td>
+    <div id="Tassonomia_VIAClassificazione" label="Titolo autorizzativo impatto acustico" mandatory_enabled="#Tassonomia_Impatto_acustico.check_value(['1'])">
+    </div>
+    <input id="Tassonomia_VIAClassificazione6" name="Tassonomia_VIAClassificazione" type="radio" value="6"/>
+   </td>
+   <td>
+    <p>
+     ottenuto autorizzazione in deroga alle emissioni sonore
+    </p>
+   </td>
+   <td>
+    <input class="" id="Parametri_VIAClassificazione6Num" label="Numero autorizzazione deroga acustica" mandatory_enabled="#Tassonomia_VIAClassificazione.check_value(['6'])" name="Parametri_VIAClassificazione6Num" style="width:100%"/>
+   </td>
+   <td>
+    <input class="" format="date" id="Parametri_VIAClassificazione6Num_Data" label="Data autorizzazione deroga acustica" mandatory_enabled="#Tassonomia_VIAClassificazione.check_value(['6'])" name="Parametri_VIAClassificazione6Num_Data" style="width:100%"/>
+   </td>
+  </tr>
+  <tr>
+   <td>
+    <input id="Tassonomia_VIAClassificazione7" name="Tassonomia_VIAClassificazione" type="radio" value="7"/>
+   </td>
+   <td colspan="2">
+    <p>
+     ha presentato domanda di autorizzazione in deroga alle emissioni sonore
+    </p>
+   </td>
+   <td>
+    <input class="" format="date" id="Parametri_VIAClassificazione7Data" label="Data domanda autorizzazione deroga acustica" mandatory_enabled="#Tassonomia_VIAClassificazione.check_value(['7'])" name="Parametri_VIAClassificazione7Data" style="width:100%"/>
+   </td>
+  </tr>
+  <tr>
+   <td>
+    <input id="Tassonomia_VIAClassificazione2" name="Tassonomia_VIAClassificazione" type="radio" value="2"/>
+   </td>
+   <td colspan="3">
+    <p>
+     presenta congiuntamente domanda di autorizzazione in deroga alle emissioni sonore
+    </p>
+   </td>
+  </tr>
+ </tbody>
+</table>
+
+<br/>
+
+<globo_salto_pagina></globo_salto_pagina>
+
+<table class="Modulo" name="Allegati" style="border:1px solid grey">
+ <tbody>
+  <tr class="Rigaintestazione">
+   <td colspan="5">
+    <p style="text-align: center;">
+     <b>
+      Elenco degli allegati
+     </b>
+     <br/>
+     <span style="font-size:70%">
+      <i>
+       (barrare tutti gli allegati richiesti in fase di presentazione della pratica ed elencati sul portale)
+      </i>
+     </span>
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td style="vertical-align:top">
+    <input enabled="#Tassonomia_ManifTempPedana4.checked()" id="COR-MON-PAL" name="COR-MON-PAL" type="checkbox" value="OBBLIGATORIO"/>
+   </td>
+   <td colspan="4" style="background-color: #eeeeee;">
+    <p>
+     certificato di collaudo e corretto montaggio del palco, pedana o altre strutture
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td style="vertical-align:top">
+    <input id="MAN-IMP-ELE" name="MAN-IMP-ELE" type="checkbox" value="OBBLIGATORIO"/>
+   </td>
+   <td colspan="4" style="background-color: #eeeeee;">
+    <p>
+     dichiarazione d'esecuzione a regola d'arte degli impianti elettrici installati
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td>
+    <input dynamic_check="#Tassonomia_VIAClassificazione2.checked()" enabled="#Tassonomia_VIAClassificazione2.checked()" id="AUT_DEROGA" name="AUT_DEROGA" type="checkbox" value="OBBLIGATORIO"/>
+   </td>
+   <td colspan="4" style="background-color: #eeeeee;">
+    <p>
+     domanda di autorizzazione in deroga alle emissioni sonore
+    </p>
+   </td>
+   </tr>
+  <tr>
+   <td style="vertical-align:top">
+    <input dynamic_check="#Parametri_MTLASuoloLic3.checked()" enabled="#Parametri_MTLASuoloLic3.checked()" id="AUT_SUOLO_PUBBL-S" name="AUT_SUOLO_PUBBL-S" type="checkbox" value="OBBLIGATORIO"/>
+   </td>
+   <td colspan="4" style="background-color: #eeeeee;">
+    <p>
+     domanda per il rilascio di concessione per l'occupazione di suolo pubblico
+	 </p>
+   </td>
+   </tr> 
+  <tr>
+   <td style="vertical-align:top">
+    <input dynamic_check="#Parametri_MTLAViabilita3.checked()" enabled="#Parametri_MTLAViabilita3.checked()" id="RICH_ORD_VIABILITA-S" name="RICH_ORD_VIABILITA-S" type="checkbox" value="OBBLIGATORIO"/>
+   </td>
+   <td colspan="4" style="background-color: #eeeeee;">
+    <p>
+     domanda di emissione di ordinanza per la modifica della viabilità
+	 </p>
+   </td>
+  </tr>   
+  <tr>
+   <td>
+    <input checked="checked" dynamic_check="true" id="MAN-PRO-MAN" name="MAN-PRO-MAN" type="checkbox" value="OBBLIGATORIO"/>
+   </td>
+   <td colspan="4" style="background-color: #eeeeee;">
+    <p>
+     programma della manifestazione
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td>
+    <input checked="checked" dynamic_check="true" id="MAN-MIT-RIS" name="MAN-MIT-RIS" type="checkbox" value="OBBLIGATORIO"/>
+   </td>
+   <td colspan="4" style="background-color: #eeeeee;">
+    <p>
+     relazione sul sistema di mitigazione del rischio
+    </p>
+   </td>
+  </tr>   
+  <tr>
+   <td style="vertical-align:top">
+    <input enabled="#Tassonomia_TitoloLicenzaAG3.checked()" dynamic_check="#Tassonomia_TitoloLicenzaAG3.checked()" id="PUBBL_SPE_AGI-SEC" name="PUBBL_SPE_AGI-SEC" type="checkbox" value="OBBLIGATORIO"/>
+   </td>
+   <td colspan="4" style="background-color: #eeeeee;">
+    <p>
+     domanda di rilascio della licenza di agibilità per attività di pubblico spettacolo
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td rowspan="3" style="vertical-align:top; background-color:white">
+    <input enabled="#Tassonomia_MTNumPersone2.checked()" dynamic_check="#Tassonomia_MTNumPersone2.checked()" id="ASS-AGI" name="ASS-AGI" type="checkbox" value="OBBLIGATORIO"/>
+   </td>
+   <td colspan="4" style="background-color: #eeeeee;">
+    <p>
+     relazione tecnica attestante la rispondenza dell’area, delle strutture e degli impianti alla normativa vigente, redatta e firmata dal seguente tecnico abilitato
+    </p>
+   </td>
+  </tr>
+            <tr class="Rigaintestazioneridotta">
+                <td style="width: 23%;">
+                    <p class="Labelcella">Cognome</p>
+                </td>
+                <td style="width: 23%;">
+                    <p class="Labelcella">Nome</p>
+                </td>
+                <td style="width: 20%;">
+                    <p class="Labelcella">Codice Fiscale</p>
+                </td>
+                <td>
+                    <p class="Labelcella">Albo o Ordine di appartenenza</p>
+                </td>				
+            </tr>
+            <tr mandatory_enabled="#ASS_AGI.checked()">
+                <td>
+                    <input id="Firmatario_Cognome" name="Firmatario_Cognome" style="width:100%; font-size:90%" label="Cognome del firmatario della relazione tecnica"/>
+                </td>
+                <td>
+                    <input id="Firmatario_Nome" name="Firmatario_Nome" style="width:100%; font-size:90%" label="Nome del firmatario della relazione tecnica"/>
+                </td>
+                <td>
+                    <input format="cf" id="Firmatario_CodiceFiscale" name="Firmatario_CodiceFiscale" style="width:100%; font-size:90%; " onkeyup="this.value = this.value.toUpperCase();" label="Il codice fiscale del firmatario della relazione tecnica"/>
+                </td>
+                <td>
+					<select id="Firmatario_Albo" name="Firmatario_Albo" style="width:100%; font-size:90%" label="Albo o Ordine di appartenza del firmatario della relazione tecnica">
+						  <option value=""></option>
+						  <option value="agrotecnici">agrotecnici</option>
+						  <option value="architetti, pianificatori, paesaggisti">architetti, pianificatori, paesaggisti</option>
+						  <option value="biologi">biologi</option>
+						  <option value="chimici">chimici</option>
+						  <option value="dottori agronomi e forestali">dottori agronomi e forestali</option>
+						  <option value="dottori commercialisti e esperti contabili">dottori commercialisti e esperti contabili</option>
+						  <option value="ingegneri">ingegneri</option>
+						  <option value="geologi">geologi</option>
+						  <option value="geometri">geometri</option>
+						  <option value="periti agrari">periti agrari</option>
+						  <option value="periti industriali">periti industriali</option>
+					</select>
+                </td>				
+            </tr> 
+  <tr>
+   <td style="vertical-align:top">
+    <input enabled="#Tassonomia_ManAnimali2.checked()" dynamic_check="#Tassonomia_ManAnimali2.checked()" id="SCH-INF-ANI" name="SCH-INF-ANI" type="checkbox" value="OBBLIGATORIO"/>
+   </td>
+   <td colspan="4" style="background-color: #eeeeee;">
+    <p>
+     scheda informativa sulle condizioni di detenzione degli animali
+    </p>
+   </td>
+   </tr>
+   <tr>
+   <td style="vertical-align:top">
+    <input id="TABELLA_RISCHIO_SAFETY" name="TABELLA_RISCHIO_SAFETY" type="checkbox" value="OBBLIGATORIO"/>
+   </td>
+   <td colspan="4" style="background-color: #eeeeee;">
+    <p>
+		tabella per la classificazione del rischio ('safety')
+    </p>
+   </td>
+ </tr>
+  <tr>
+   <td>
+    <input checked="checked" dynamic_check="true" id="MARCA_BOLLO" name="MARCA_BOLLO" type="checkbox" value="OBBLIGATORIO"/>
+   </td>
+   <td colspan="4" style="background-color: #eeeeee;">
+    <p>
+     pagamento dell'imposta di bollo
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td style="vertical-align: top; width:4%">
+    <input id="RIC-DIR-SEG" name="RIC-DIR-SEG" type="checkbox" value="OBBLIGATORIO"/>
+   </td>
+   <td colspan="4" style="background-color: #eeeeee;">
+    <p>
+     ricevuta dei diritti di segreteria/istruttoria<br/><span style="font-size:70%"><i>(da allegare se previsti)</i></span>
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td>
+    <input dynamic_check="(parseInt(#Immobile_NumeroAltriImmobili.value()) / 16) &gt; 0" enabled="(parseInt(#Immobile_NumeroAltriImmobili.value()) / 16) &gt; 0" id="STU-EDI-IMM" name="STU-EDI-IMM" type="checkbox" value="OBBLIGATORIO"/>
+   </td>
+   <td colspan="4" style="background-color: #eeeeee;">
+    <p>
+     ulteriori immobili oggetto del procedimento
+    </p>
+   </td>
+  </tr>
+  <tr>
+    <td style="vertical-align:top">
+      <input id="COP-ATT-NOT" name="COP-ATT-NOT" type="checkbox" value="OBBLIGATORIO" enabled="#Titolare_Ruolo.value() == 'Procuratore con potere di rappresentanza legale'" dynamic_check="#Titolare_Ruolo.value() == 'Procuratore con potere di rappresentanza legale'"/>
+    </td>
+    <td colspan="4" style="background-color: #eeeeee;">
+      <p style="display: inline-block;">copia dell'atto notarile con il quale è stata conferita la procura</p>
+    </td>
+  </tr>
+  <tr>
+   <td>
+    <input id="ALTRI-ALLEGATI" name="ALTRI-ALLEGATI" type="checkbox" value="OBBLIGATORIO"/>
+   </td>
+   <td colspan="4" style="background-color: #eeeeee;">
+    <p>
+     altri allegati
+     <span style="font-size:70%">
+      (specificare)
+     </span>
+     <input class="" id="AltriAllegati" label="Altri allegati" mandatory_enabled="#ALTRI_ALLEGATI.checked()" name="AltriAllegati" style="width:79%;"/>
+    </p>
+   </td>
+  </tr>
+ </tbody>
+</table>
+
+
+<br/>
+
+{{ utils.trattamento_dati_personali() }}
+
+<br/>
+
+
+{{ utils.firma_hidden() }}
+ <br/>
+
+<p class="Modulo">
+ <input id="SalvaModulo" name="SalvaModulo" style="height:30px;width:120px;" title="Verifica la corretta compilazione dei campi e salva il modulo nel faldone virtuale dell'istanza." type="submit" value="Salva modulo"/>
+</p>
+
+<input destinatario_amministrazione="getParameter('Ente')" id="GLOBO_modulo_c{{ CodiceModulo }}" name="GLOBO_modulo_c{{ CodiceModulo }}" type="hidden" value=""/>
+
+<input id="GLOBO_modulofiglio_cMARCA_BOLLO" name="GLOBO_modulofiglio_cMARCA_BOLLO" obbligatorio="#MARCA_BOLLO.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_modulofiglio_cTABELLA_RISCHIO_SAFETY" name="GLOBO_modulofiglio_cTABELLA_RISCHIO_SAFETY" obbligatorio="#TABELLA_RISCHIO_SAFETY.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+<input id="GLOBO_modulofiglio_cAUT_DEROGA" name="GLOBO_modulofiglio_cAUT_DEROGA" obbligatorio="#AUT_DEROGA.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_modulofiglio_cPUBBL_SPE_AGI-SEC" name="GLOBO_modulofiglio_cPUBBL_SPE_AGI-SEC" obbligatorio="#PUBBL_SPE_AGI_SEC.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_modulofiglio_cAUT_SUOLO_PUBBL-S" name="GLOBO_modulofiglio_cAUT_SUOLO_PUBBL-S" obbligatorio="#AUT_SUOLO_PUBBL_S.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+<input id="GLOBO_allegato_cCOR-MON-PAL" name="GLOBO_allegato_cCOR-MON-PAL" obbligatorio="#COR_MON_PAL.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_allegato_cMAN-IMP-ELE" name="GLOBO_allegato_cMAN-IMP-ELE" obbligatorio="#MAN_IMP_ELE.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_allegato_cMAN-PRO-MAN" name="GLOBO_allegato_cMAN-PRO-MAN" obbligatorio="#MAN_PRO_MAN.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_allegato_cASS-AGI" name="GLOBO_allegato_cASS-AGI" obbligatorio="#ASS_AGI.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_allegato_cRIC-DIR-SEG" name="GLOBO_allegato_cRIC-DIR-SEG" obbligatorio="#RIC_DIR_SEG.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_allegato_cALTRI-ALLEGATI" name="GLOBO_allegato_cALTRI-ALLEGATI" obbligatorio="#ALTRI_ALLEGATI.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input firmare="'P7M_ELETTRONICA'" id="GLOBO_modulofiglio_cSTU-EDI-IMM" name="GLOBO_modulofiglio_cSTU-EDI-IMM" numero="#Immobile_NumeroUlterioriImmobili.value()" obbligatorio="#STU_EDI_IMM.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input firmare="'P7M_ELETTRONICA'" id="GLOBO_modulofiglio_cINCARICO_PROCURA" name="GLOBO_modulofiglio_cINCARICO_PROCURA" type="hidden" value=""/>
+
+<input id="GLOBO_allegato_cSCH-INF-ANI" name="GLOBO_allegato_cSCH-INF-ANI" obbligatorio="#SCH_INF_ANI.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_allegato_cCOP-ATT-NOT" name="GLOBO_allegato_cCOP-ATT-NOT" obbligatorio="#COP_ATT_NOT.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_allegato_cMAN-MIT-RIS" name="GLOBO_allegato_cMAN-MIT-RIS" obbligatorio="#MAN_MIT_RIS.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_modulofiglio_cRICH_ORD_VIABILITA-S" name="GLOBO_modulofiglio_cRICH_ORD_VIABILITA-S" obbligatorio="#RICH_ORD_VIABILITA_S.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_id_padre" name="GLOBO_id_padre" type="hidden"/>
+
+<input id="GLOBO_recupera_dati" name="GLOBO_recupera_dati" type="hidden"/>
+
+<input id="GLOBO_codice_modulo" name="GLOBO_codice_modulo" type="hidden" value="{{ CodiceModulo }}"/>
+
+
+{% endblock content %}

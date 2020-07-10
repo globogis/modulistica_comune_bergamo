@@ -1,0 +1,506 @@
+{% set CodiceModulo = "SEGN_PATR_CRIT" %}
+{% set Urn = "document:c_a794:segnalazione.patrimonio.dismesso;segnalazione" %}
+{% extends "base.html" %}
+
+{% block meta %}
+
+<meta campi_firma="Titolare_CodiceFiscale"
+campi_firma_label="il dichiarante"
+classi_modulo="Generale"
+codice_modulo="{{ CodiceModulo }}"
+urn="{% block urn %}{{ Urn }}{% endblock urn %}"
+sub_urn_list=""
+uo_globo_list=""
+descrizione="Segnalazione di patrimonio edilizio dismesso con criticità"
+destinatario_amministrazione=""
+destinatario_ufficio="UOURBANISTICA"
+dinamico="SI"
+email_a=""
+ente_abilitato="TUTTI"
+filigrana="NO"
+firmare="P7M_ELETTRONICA"
+istruzioni_compilazione=""
+istruzioni_invio="mail_pec"
+metodo_invio="mail"
+name="GLOBO_modulo"
+procura="NO,,"
+tipo_modulo="principale"
+urlhelp="/modulistica/moduli/{{ CodiceModulo }}"
+verifica_pagamento="NO"
+versione="1.0|14/05/2020"/>
+
+<meta codice_modulo_figlio="STU-EDI-IMM"
+urn_modulo_figlio="document:s_italia:edilizia.privata;ulteriori.immobili;dichiarazione.sostitutiva"
+name="GLOBO_modulofiglio"
+numero="1"
+obbligatorio="DINAMICO"/>
+
+
+<meta codice_modulo_figlio="DICH_SOST_CESS_ATT"
+urn_modulo_figlio="document:c_a794:dichiarazione.sostitutiva.atto.notorietà.cessazione.attività;allegato"
+name="GLOBO_modulofiglio"
+numero="1"
+obbligatorio="DINAMICO"/>
+
+<meta codice_allegato="ULT-INT-PRO"
+urn_allegato="document:s_italia:edilizia.privata;ulteriori.intestatari;dichiarazione.sostitutiva"
+descrizione_estesa="Ulteriori intestatari del procedimento"
+filename="Ulteriori intestatari.pdf"
+firmato="SI"
+istruzioni="/modulistica/moduli/ULT-INT-PRO"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="DOC_FOTO"
+urn_allegato="document:s_italia:generale;colori;documentazione.fotografica"
+descrizione_estesa="Documentazione fotografica"
+filename="Documentaz. fotografica.pdf"
+firmato="SI"
+istruzioni="/modulistica/moduli/DOC_FOTO"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="PER_ASS_ABB"
+urn_allegato="document:c_a794:perizia.criticita.abbandono.immobile;allegato"
+descrizione_estesa="Perizia asseverata attestante presenza di criticità e/o lo stato di abbandono "
+filename="Perizia asseverata.pdf"
+firmato="SI"
+istruzioni="/modulistica/moduli/PER_ASS_ABB"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="REL-TEC"
+urn_allegato="document:r_lombar:pianificazione.urbanistica;piano.attuativo;relazione.tecnica"
+descrizione_estesa="Relazione tecnica"
+filename="Relazione tecnica.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/REL-TEC"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="DOC_CAT_RIG"
+urn_allegato="document:c_a794:documentazione.catastale.segnalazione.rigenerazione;allegato"
+descrizione_estesa="Documentazione catastale"
+filename="Documentazione catastale.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/DOC_CAT_RIG"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+
+<meta codice_allegato="OSS-PGT-URB"
+urn_allegato="document:r_lombar:pianificazione.urbanistica;documentazione.urbanistica;documentazione"
+descrizione_estesa="Documentazione urbanistica"
+filename="Documentazione urbanistica.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/ULT_COINT"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="DAE-CDI"
+urn_allegato="document:s_italia:generale;documento.identita;documentazione"
+descrizione_estesa="Documento di identità"
+filename="Documento identita.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/DAE-CDI"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="ALTRI-ALLEGATI"
+urn_allegato="document:s_italia:altri.allegati"
+descrizione_estesa="Altri allegati"
+filename="Altri allegati.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/ALTRI-ALLEGATI"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_modulo_figlio="INCARICO_PROCURA"
+urn_modulo_figlio="document:s_italia:generale;incarico.procura"
+name="GLOBO_modulofiglio"
+numero="1"
+obbligatorio="DINAMICO"/>
+
+{% endblock meta %}
+
+{% block title %}
+  Segnalazione di patrimonio edilizio dismesso con criticità 
+{% endblock title %}
+
+{% block content %}
+
+<globo_fondo_pagina areaheight="150" scope="3">
+  {{ utils.firma() }}
+</globo_fondo_pagina>
+
+<input id="Parametri_Comune" name="Parametri_Comune" type="hidden" dynamic_value="#Ente.value()"/>
+
+<input id="Oggetto" name="Oggetto" type="hidden" dynamic_value="#Titolare_Cognome.value().toUpperCase() + ' ' + #Titolare_Nome.value().toUpperCase() + ' - Segnalazione patrimonio edilizio dismesso con criticità'"/>
+
+{{ intestazioni.intestazione_moduloprincipale_senzabollo() }}
+
+<h1 class="Modulo">
+  Segnalazione di patrimonio edilizio dismesso con criticità 
+</h1>
+
+<h2 class="Modulo">
+  Ai sensi dell'articolo 40-bis della Legge Regionale 11/03/2005, n. 12
+</h2>
+
+{{anagrafica.societa("Titolare", "Il sottoscritto", ["Persona fisica","Titolare", "Legale rappresentante"], "Richiedente")}}
+
+{{utils.domicilio_digitale()}}
+<h3 class="Modulo">
+  SEGNALA
+</h3>
+<p class="Modulo">
+  la presenza di immobile dismesso da oltre cinque anni che sono causa di criticità
+</p>
+
+<input id="Immobile_DatiCatastaliObbligatori" name="Immobile_DatiCatastaliObbligatori" type="checkbox" style="display: none;" value="si" checked="checked" dynamic_check="true"/>
+{{ immobili.immobile("Immobile", "sito in", "Localizzazione intervento", "display:none", "cursor:default", "visibility:visibility") }}
+
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="1">
+        <p class="Labeltabella">
+          per il seguente motivo
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td colspan="1">
+        <p class="Labelcella">
+          Motivazione
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="1">
+        <textarea class="inputNormal" id="Parametri_MotivoSegnalazione" name="Parametri_MotivoSegnalazione" style="width: 100%; height: 5cm;" label="Motivazione" mandatory_enabled="true"></textarea>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+{{ utils.Dichiara_445() }}
+
+<!-- ------------------------------ a) ------------------------------ -->
+<p class="Modulo">
+  <b>a) Titolarità dell'intervento</b>
+</p>
+{{ utils.titolo_richiedente() }}
+
+<br/>
+
+<!-- ------------------------------ b) ------------------------------ -->
+<p class="Modulo">
+  <b>b) Stato dell'immobile</b>
+</p>
+
+
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top; width: 4%; border:0px">
+        <input id="Dichiara1" name="Dichiara1" type="checkbox" value="SI" dynamic_check="true" checked="checked" />
+      </td>
+      <td colspan="2">
+        <p>
+          l’immobile risulta dismesso da oltre cinque anni 
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;" rowspan="6">
+        <input id="Dichiara2" name="Dichiara2" type="checkbox" value="SI" dynamic_check="true" checked="checked" />
+      </td>
+      <td colspan="2">
+        <p>
+          l’immobile causa criticità per uno o più dei seguenti aspetti 
+        </p>
+      </td>
+    </tr>
+    <tr style="border: 0px;">
+      <td style="vertical-align: top; width: 4%;">
+        <div id="Tassonomia_Dichiara2_" name="Tassonomia_Dichiara2_" label="Motivazioni criticità" mandatory="true"></div>
+        <input group="Tassonomia_Dichiara2_" id="Tassonomia_Dichiara2_1" name="Tassonomia_Dichiara2_1" type="checkbox" value="SI" />
+      </td>
+      <td>
+        <p>
+          salute
+        </p>
+      </td>
+    </tr>
+    <tr style="border: 0px;">
+      <td style="vertical-align: top; width: 4%;">
+        <input group="Tassonomia_Dichiara2_" id="Tassonomia_Dichiara2_2" name="Tassonomia_Dichiara2_2" type="checkbox" value="SI" />
+      </td>
+      <td>
+        <p>
+          sicurezza idraulica
+        </p>
+      </td>
+    </tr>
+    <tr style="border: 0px;">
+      <td style="vertical-align: top; width: 4%;">
+        <input group="Tassonomia_Dichiara2_" id="Tassonomia_Dichiara2_3" name="Tassonomia_Dichiara2_3" type="checkbox" value="SI" />
+      </td>
+      <td>
+        <p>
+          problemi strutturali che ne pregiudicano la sicurezza
+        </p>
+      </td>
+    </tr>
+    <tr style="border: 0px;">
+      <td style="vertical-align: top; width: 4%;">
+        <input group="Tassonomia_Dichiara2_" id="Tassonomia_Dichiara2_4" name="Tassonomia_Dichiara2_4" type="checkbox" value="SI" />
+      </td>
+      <td>
+        <p>
+          inquinamento
+        </p>
+      </td>
+    </tr>
+    <tr style="border: 0px;">
+      <td style="vertical-align: top; width: 4%;">
+        <input group="Tassonomia_Dichiara2_" id="Tassonomia_Dichiara2_5" name="Tassonomia_Dichiara2_5" type="checkbox" value="SI" />
+      </td>
+      <td>
+        <p>
+          degrado ambientale e urbanistico edilizio
+        </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+	<table class="Modulo" style="margin-top:-1px; border:1px solid grey; margin-top:-1px">
+		<tbody>
+			<tr class="Rigaintestazioneridotta">
+				<td>
+					<p class="Labelcella">destinazione d'uso</p>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<select class="inputNormal" id="Tassonomia_DestinazioneDuso" name="Tassonomia_DestinazioneDuso" style="width:100%" label="Destinazione d'uso principale" mandatory_enabled="true">
+						<option value=""></option>
+						<option value="attività agricole">attività agricole</option>
+						<option value="turistico - ricettiva">turistico - ricettiva</option>
+						<option value="attività commerciali">attività commerciali</option>
+						<option value="attività industriali e artigianali">attività industriali e artigianali</option>
+						<option value="attività religiosa">attività religiosa</option>
+						<option value="attività terziarie">attività terziarie</option>
+						<option value="residenziale">residenziale</option>
+						<option value="servizi e attrezzature pubbliche">servizi e attrezzature pubbliche</option>
+					</select>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<br/>
+<h3 class="Modulo">
+  CHIEDE
+</h3>
+
+<p class="Modulo">
+che l’ambito indicato venga individuato dall’amministrazione comunale, tramite deliberazione di Consiglio Comunale, come patrimonio edilizio dismesso e con criticità ai sensi dell’art. 40 bis della Legge Regionale 11/03/2005 n. 12
+
+<br>
+<table class="Modulo" style="border:1px solid grey">
+  <tbody>
+    <tr class="Rigaintestazioneridotta">
+      <td colspan="2">
+        <p class="Labelcella">
+          Eventuali annotazioni
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2">
+        <textarea class="inputNormal" id="Parametri_Annotazioni" name="Parametri_Annotazioni" style="width:100%;height:5cm;">
+        </textarea>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+{{ utils.trattamento_dati_personali() }}
+<br/>
+
+<globo_salto_pagina></globo_salto_pagina>
+
+<table class="Modulo" name="Allegati" style="border: 1px solid grey">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="2">
+        <p style="text-align: center;">
+          <b>
+            Elenco degli allegati
+          </b>
+          <br/>
+          <span style="font-size:70%">
+            <i>(barrare tutti gli allegati richiesti in fase di presentazione della pratica ed elencati sul portale)</i>
+          </span>
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input id="DOC_FOTO" name="DOC_FOTO" type="checkbox" value="OBBLIGATORIO" dynamic_check="true" checked="checked"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          prove documentali e fotografiche relative alla presenza di criticità
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="width: 4%; vertical-align: top;">
+        <input id="PER_ASS_ABB" name="PER_ASS_ABB" type="checkbox" value="OBBLIGATORIO" dynamic_check="true" checked="checked"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          perizia asseverata che certifichi la presenza di criticità e/o lo stato di abbandono e dismissione
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="width: 4%; vertical-align: top;">
+        <input id="DICH_SOST_CESS_ATT" name="DICH_SOST_CESS_ATT" type="checkbox" value="OBBLIGATORIO" checked="checked" dynamic_check="true"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          dichiarazione sostitutiva di atto notorio in merito alla data di cessazione delle attività
+        </p>
+      </td>
+    </tr>
+    <tr>
+            <td style="width: 4%; vertical-align: top;">
+                <input id="REL-TEC" name="REL-TEC" type="checkbox" value="OBBLIGATORIO" />
+            </td>
+            <td style="background-color: #eeeeee;">
+                <p>
+                    relazione tecnica <i>breve descrizione della proposta d’intervento con eventuali elaborati progettuali di massima</i>
+                </p>
+            </td>
+        </tr>
+        <tr> 
+            <td style="width: 4%; vertical-align: top;">
+                <input id="DOC_CAT_RIG" name="DOC_CAT_RIG" type="checkbox" value="OBBLIGATORIO" checked="checked" dynamic_check="true"/>
+            </td>
+            <td style="background-color: #eeeeee;">
+                <p>
+                    documentazione catastale (estratti con individuazione area oggetto di osservazione) 
+                </p>
+            </td>
+        </tr>
+        <tr> 
+            <td style="width: 4%; vertical-align: top;">
+                <input id="OSS-PGT-URB" name="OSS-PGT-URB" type="checkbox" value="OBBLIGATORIO" checked="checked" dynamic_check="true"/>
+            </td>
+            <td style="background-color: #eeeeee;">
+                <p>
+                    documentazione urbanistica (estratti degli elaborati interessati dall'osservazione) 
+                </p>
+            </td>
+        </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="STU-EDI-IMM" name="STU-EDI-IMM" type="checkbox" value="OBBLIGATORIO" enabled="(parseInt(#Immobile_NumeroAltriImmobili.value()) / 16) &gt; 0" dynamic_check="(parseInt(#Immobile_NumeroAltriImmobili.value()) / 16) &gt; 0"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          ulteriori immobili oggetto del procedimento
+        </p>
+      </td>
+    </tr>
+    
+ <tr>
+            <td style="width: 4%; vertical-align: top;">
+                <input id="ULT-INT-PRO" name="ULT-INT-PRO" type="checkbox" value="OBBLIGATORIO"/>
+            </td>
+            <td style="background-color: #eeeeee;">
+                <p>
+                    n° ulteriori intestatari del procedimento
+                </p>
+            </td>
+        </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="DAE-CDI" name="DAE-CDI" type="checkbox" value="OBBLIGATORIO"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          copia del documento d'identità<br/>
+          <span style="font-size:70%"><i>(da allegare se il modulo è sottoscritto con firma autografa)</i></span>
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="ALTRI-ALLEGATI" name="ALTRI-ALLEGATI" type="checkbox" value="OBBLIGATORIO"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+         eventuale altra documentazione a supporto delle valutazioni
+        </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<br/>
+
+
+
+<br/>
+  {{ utils.firma_hidden() }}
+<br/>
+
+<p class="Modulo">
+  <input id="SalvaModulo" name="SalvaModulo" style="height:30px;width:120px;" title="Verifica la corretta compilazione dei campi e salva il modulo nel faldone virtuale dell'istanza." type="submit" value="Salva modulo"/>
+</p>
+
+<input destinatario_amministrazione="getParameter('Ente')" id="GLOBO_modulo_c{{ CodiceModulo }}" name="GLOBO_modulo_c{{ CodiceModulo }}" type="hidden" value=""/>
+<input firmare="'P7M_ELETTRONICA'" id="GLOBO_modulofiglio_cINCARICO_PROCURA" name="GLOBO_modulofiglio_cINCARICO_PROCURA" type="hidden" value=""/>
+
+<input id="GLOBO_modulofiglio_cSTU-EDI-IMM" name="GLOBO_modulofiglio_cSTU-EDI-IMM" type="hidden" value="" obbligatorio="#STU_EDI_IMM.checked() ? 'OBBLIGATORIO' : ''" numero="#Immobile_NumeroUlterioriImmobili.value()"/>
+<input id="GLOBO_modulofiglio_cDICH_SOST_CESS_ATT" name="GLOBO_modulofiglio_cDICH_SOST_CESS_ATT" obbligatorio="#DICH_SOST_CESS_ATT.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+<input id="GLOBO_allegato_cDOC_FOTO" name="GLOBO_allegato_cDOC_FOTO" obbligatorio="#DOC_FOTO.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+<input id="GLOBO_allegato_cPER_ASS_ABB" name="GLOBO_allegato_cPER_ASS_ABB" type="hidden" value="" obbligatorio="#PER_ASS_ABB.checked() ? 'OBBLIGATORIO' : ''"/>
+<input id="GLOBO_allegato_cREL-TEC" name="GLOBO_allegato_cREL-TEC" type="hidden" value="" obbligatorio="#REL_TEC.checked() ? 'OBBLIGATORIO' : ''"/>
+<input id="GLOBO_allegato_cDOC_CAT_RIG" name="GLOBO_allegato_cDOC_CAT_RIG" obbligatorio="#DOC_CAT_RIG.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+<input id="GLOBO_allegato_cOSS-PGT-URB" name="GLOBO_allegato_cOSS-PGT-URB" obbligatorio="#OSS_PGT_URB.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+<input id="GLOBO_allegato_cULT-INT-PRO" name="GLOBO_allegato_cULT-INT-PRO" obbligatorio="#ULT_INT_PRO.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+<input id="GLOBO_allegato_cDAE-CDI" name="GLOBO_allegato_cDAE-CDI" type="hidden" value="" obbligatorio="#DAE_CDI.checked() ? 'OBBLIGATORIO' : ''"/>
+<input id="GLOBO_allegato_cALTRI-ALLEGATI" name="GLOBO_allegato_cALTRI-ALLEGATI" type="hidden" value="" obbligatorio="#ALTRI_ALLEGATI.checked() ? 'OBBLIGATORIO' : ''"/>
+<input id="GLOBO_id_padre" name="GLOBO_id_padre" type="hidden"/>
+<input id="GLOBO_recupera_dati" name="GLOBO_recupera_dati" type="hidden"/>
+<input id="GLOBO_codice_modulo" name="GLOBO_codice_modulo" type="hidden" value="{{ CodiceModulo }}"/>
+
+{% endblock content %}
+
+
+
+
+

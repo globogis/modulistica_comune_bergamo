@@ -1,0 +1,307 @@
+{% set CodiceModulo = "DOM_TUMULAZIONE_PROVVISORIA" %}
+{% set Urn = "document:c_a794:tumulazione.ceneri.resti.mortali;provvisoria;domanda" %}
+{% extends "base.html" %}
+{% block meta %}
+
+<meta campi_firma="Titolare_CodiceFiscale"
+campi_firma_label="il dichiarante"
+classi_modulo="Servizi cimiteriali"
+codice_modulo="{{ CodiceModulo }}"
+urn="{% block urn %}{{ Urn }}{% endblock urn %}"
+sub_urn_list=""
+uo_globo_list=""
+descrizione="Domanda di tumulazione provvisoria di cadavere, ceneri o resti mortali"
+destinatario_amministrazione=""
+destinatario_ufficio="UOSERVIZICIMITERIALI"
+dinamico="SI"
+email_a=""
+ente_abilitato="TUTTI"
+filigrana="NO"
+firmare="P7M_ELETTRONICA"
+istruzioni_compilazione=""
+istruzioni_invio="mail_pec"
+metodo_invio="mail"
+name="GLOBO_modulo"
+procura="NO,,"
+tipo_modulo="principale"
+urlhelp="/modulistica/moduli/{{ CodiceModulo }}"
+verifica_pagamento="NO"
+versione="1.1|13/03/2019"/>
+
+<meta codice_modulo_figlio="INCARICO_PROCURA"
+urn_modulo_figlio="document:s_italia:generale;incarico.procura"
+name="GLOBO_modulofiglio"
+numero="1"
+obbligatorio="DINAMICO"/>
+
+<meta codice_allegato="DAE-CDI"
+urn_allegato="document:s_italia:generale;documento.identita;documentazione"
+descrizione_estesa="Documento di identità"
+filename="Documento identita.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/DAE-CDI"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="ALTRI-ALLEGATI"
+urn_allegato="document:s_italia:altri.allegati"
+descrizione_estesa="Altri allegati"
+filename="Altri allegati.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/ALTRI-ALLEGATI"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+{% endblock meta %}
+
+{% block title %}
+  Domanda di tumulazione provvisoria di cadavere, ceneri o resti mortali
+{% endblock title %}
+
+{% block content %}
+
+<globo_fondo_pagina areaheight="150" scope="2">
+  {{ utils.firma() }}
+</globo_fondo_pagina>
+
+<input id="Parametri_Comune" name="Parametri_Comune" type="hidden" dynamic_value="#Ente.value()"/>
+
+<input id="Oggetto" name="Oggetto" type="hidden" dynamic_value="#Titolare_Cognome.value().toUpperCase() + ' ' + #Titolare_Nome.value().toUpperCase() + ' - tumulazione provvisoria cadavere, ceneri o resti mortali'"/>
+
+{{ intestazioni.intestazione_moduloprincipale_senzabollo() }}
+
+<h1 class="Modulo">
+  Domanda di tumulazione provvisoria di cadavere, ceneri o resti mortali
+</h1>
+
+<input id="Titolare_DatiPersonaObbligatori" name="Titolare_DatiPersonaObbligatori" type="hidden" dynamic_check="true"/>
+<input id="Titolare_Titolo" name="Titolare_Titolo" type="hidden" value="Richiedente"/>
+<input id="Titolare_Ruolo" name="Titolare_Ruolo" type="hidden" value="Richiedente"/>
+{{ anagrafica.persona_fisica("Titolare", "Il sottoscritto", "visibility:visibility", "cursor:pointer", "visibility:visibility", "visibility:visibility", "mail_ordinaria") }}
+
+<table class="Modulo" style="border:1px solid grey; margin-top: -1px;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td>
+        <p class="Labeltabella">
+          in qualità di
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">Ruolo (*)</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <select class="inputNormal" id="Titolare_Note" name="Titolare_Note" style="width: 100%;" label="Ruolo" mandatory="true">
+          <option value=""></option>
+          <option value="coniuge del defunto">coniuge del defunto</option>
+          <option value="convivente del defunto">convivente del defunto</option>
+          <option value="esecutore testamentario del defunto">esecutore testamentario del defunto</option>
+          <option value="figlio del defunto">figlio del defunto</option>
+          <option value="genitore del defunto">genitore del defunto</option>
+          <option value="titolare della concessione cimiteriale">titolare della concessione cimiteriale</option>
+        </select>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<p class="Modulo" style="font-size:80%">
+  <i>Ruolo (*)</i>:<br/>
+  coniuge del defunto, convivente del defunto, esecutore testamentario del defunto, figlio del defunto, genitore del defunto, titolare della concessione cimiteriale
+</p>
+
+<h3 class="Modulo">
+  CHIEDE
+</h3>
+
+<p class="Modulo">la tumulazione provvisoria di</p>
+
+<table class="Modulo" style="border:1px solid grey;">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <div id="Tassonomia_FormaDefunto" name="Tassonomia_FormaDefunto" label="Forma del defunto" mandatory="true"></div>
+        <input id="Tassonomia_FormaDefunto1" name="Tassonomia_FormaDefunto" type="radio" value="1"/>
+      </td>
+      <td colspan="3">
+        <p>
+          cadavere
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="Tassonomia_FormaDefunto2" name="Tassonomia_FormaDefunto" type="radio" value="2"/>
+      </td>
+      <td colspan="3">
+        <p>
+          ceneri
+        </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<input id="AventeTitolo1_DatiObbligatori" name="AventeTitolo1_DatiObbligatori" type="checkbox" dynamic_check="true" style="display: none;">
+{{ utilscimiteriali.defunto( "AventeTitolo1", "del defunto", "Defunto" ) }}
+
+<globo_salto_pagina></globo_salto_pagina>
+
+<table class="Modulo" style="border:1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="2">
+        <p class="Labeltabella">
+          all'interno del cimitero di
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td colspan="2">
+        <p class="Labelcella">
+          Denominazione del cimitero
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2">
+        <input class="inputNormal" id="Parametri_Cimitero_di_sepoltura" name="Parametri_Cimitero_di_sepoltura" style="width: 100%;" label="Denominazione del cimitero" mandatory="true">
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <div id="Tassonomia_PostoADisposizione" name="Tassonomia_PostoADisposizione" mandatory="true"></div>
+        <input group="Tassonomia_PostoADisposizione" id="Tassonomia_PostoADisposizione1" name="Tassonomia_PostoADisposizione1" type="checkbox" value="SI" checked="checked" dynamic_check="true" />
+      </td>
+      <td>
+        <p>
+          posto messo a disposizione dal comune con pagamento del canone giornaliero stabilito dal tariffario vigente
+        </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<div id="Tassonomia_MotivazioneTumulazioneProvvisoria" name="Tassonomia_MotivazioneTumulazioneProvvisoria" label="Motivazione" mandatory="true"></div>
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="2">
+        <p class="Labeltabella">
+          per la seguente motivazione
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="Tassonomia_MotivazioneTumulazioneProvvisoria1" name="Tassonomia_MotivazioneTumulazioneProvvisoria" type="radio" value="1" />
+      </td>
+      <td>
+        in attesa di area di terreno allo scopo di costruirvi una sepoltura collettiva
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="Tassonomia_MotivazioneTumulazioneProvvisoria2" name="Tassonomia_MotivazioneTumulazioneProvvisoria" type="radio" value="2" />
+      </td>
+      <td>
+        per effettuare lavori di ripristino a sepolture e tumulazioni
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="Tassonomia_MotivazioneTumulazioneProvvisoria3" name="Tassonomia_MotivazioneTumulazioneProvvisoria" type="radio" value="3" />
+      </td>
+      <td>
+        in attesa del rilascio del nulla osta alla cremazione
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="Tassonomia_MotivazioneTumulazioneProvvisoria4" name="Tassonomia_MotivazioneTumulazioneProvvisoria" type="radio" value="4" />
+      </td>
+      <td>
+        per indisponibilità di colombari destinati a tumulazione definitiva
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<br/>
+
+<table class="Modulo" name="Allegati" style="border: 1px solid grey">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="2">
+        <p style="text-align: center;">
+          <b>
+            Elenco degli allegati
+          </b>
+          <br/>
+          <span style="font-size:70%">
+            <i>(barrare tutti gli allegati richiesti in fase di presentazione della pratica ed elencati sul portale)</i>
+          </span>
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">
+        <input id="DAE-CDI" name="DAE-CDI" type="checkbox" value="OBBLIGATORIO" />
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          copia del documento d'identità
+          <br/>
+          <span style="font-size:70%">
+            <i>(da allegare se il modulo è sottoscritto con firma autografa)</i>
+          </span>
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td width="4%">
+        <input id="ALTRI-ALLEGATI" name="ALTRI-ALLEGATI" type="checkbox" value="OBBLIGATORIO"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          altri allegati
+          <span style="font-size:70%">(specificare)</span>
+          <input class="" label="Altri allegati" id="AltriAllegati" mandatory_enabled="#ALTRI_ALLEGATI.checked()" name="AltriAllegati" style="width:79%;"/>
+        </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<br/>
+
+{{ utils.trattamento_dati_personali() }}
+
+<br/>
+  {{ utils.firma_hidden() }}
+<br/>
+
+<p class="Modulo">
+  <input id="SalvaModulo" name="SalvaModulo" style="height:30px;width:120px;" title="Verifica la corretta compilazione dei campi e salva il modulo nel faldone virtuale dell'istanza." type="submit" value="Salva modulo"/>
+</p>
+
+<input destinatario_amministrazione="getParameter('Ente')" id="GLOBO_modulo_c{{ CodiceModulo }}" name="GLOBO_modulo_c{{ CodiceModulo }}" type="hidden" value=""/>
+<input firmare="'P7M_ELETTRONICA'" id="GLOBO_modulofiglio_cINCARICO_PROCURA" name="GLOBO_modulofiglio_cINCARICO_PROCURA" type="hidden" value=""/>
+
+<input id="GLOBO_allegato_cDAE-CDI" name="GLOBO_allegato_cDAE-CDI" obbligatorio="#DAE_CDI.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+<input id="GLOBO_allegato_cALTRI-ALLEGATI" name="GLOBO_allegato_cALTRI-ALLEGATI" obbligatorio="#ALTRI_ALLEGATI.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value="" />
+
+<input id="GLOBO_id_padre" name="GLOBO_id_padre" type="hidden"/>
+<input id="GLOBO_recupera_dati" name="GLOBO_recupera_dati" type="hidden"/>
+<input id="GLOBO_codice_modulo" name="GLOBO_codice_modulo" type="hidden" value="{{ CodiceModulo }}"/>
+
+{% endblock content %}

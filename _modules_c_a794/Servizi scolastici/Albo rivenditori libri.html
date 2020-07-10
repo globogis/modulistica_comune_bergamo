@@ -1,0 +1,222 @@
+{% set CodiceModulo = "ALBO_RIV_LIBRI" %}
+{% set Urn = "document:c_a794:albo.rivenditori.libri;domanda" %}
+{% extends "base.html" %}
+
+{% block meta %}
+
+<meta campi_firma="Titolare_CodiceFiscale"
+campi_firma_label="il dichiarante"
+classi_modulo="Servizi scolastici"
+codice_modulo="{{ CodiceModulo }}"
+urn="{% block urn %}{{ Urn }}{% endblock urn %}"
+sub_urn_list=""
+uo_globo_list=""
+descrizione="Iscrizione albo rivenditori autorizzati per la fornitura di libri della scuola primaria"
+destinatario_amministrazione=""
+destinatario_ufficio="UOPUBBLICAISTRUZIONE"
+dinamico="SI"
+email_a=""
+ente_abilitato="TUTTI"
+filigrana="SI"
+firmare="P7M_ELETTRONICA"
+istruzioni_compilazione=""
+istruzioni_invio="mail_pec"
+metodo_invio="mail"
+name="GLOBO_modulo"
+procura="NO,,"
+tipo_modulo="principale"
+urlhelp="/modulistica/moduli/{{ CodiceModulo }}"
+verifica_pagamento="NO"
+versione="1.1|03/06/2019"/>
+
+<meta codice_modulo_figlio="INCARICO_PROCURA"
+urn_modulo_figlio="document:s_italia:generale;incarico.procura"
+name="GLOBO_modulofiglio"
+numero="1"
+obbligatorio="DINAMICO"/>
+
+<meta codice_allegato="ALTRI-ALLEGATI"
+urn_allegato="document:s_italia:altri.allegati"
+descrizione_estesa="Altri allegati"
+filename="Altri allegati.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/ALTRI-ALLEGATI"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+{% endblock meta %}
+
+{% block title %}
+  Iscrizione all' albo rivenditori autorizzati per la fornitura di libri della scuola primaria
+{% endblock title %}
+ 
+{% block content %}
+
+<globo_fondo_pagina areaheight="150" scope="1">
+  {{ utils.firma() }}
+</globo_fondo_pagina>
+
+<input id="Parametri_Comune" name="Parametri_Comune" type="hidden" dynamic_value="#Ente.value()"/>
+<input id="Oggetto" name="Oggetto" type="hidden" dynamic_value="#Titolare_Cognome.value().toUpperCase() + ' ' + #Titolare_Nome.value().toUpperCase() + ' - Iscrizione albo rivenditori libri'"/>
+
+{{ intestazioni.intestazione_moduloprincipale_senzabollo() }}
+
+<h1 class="Modulo">
+  Iscrizione albo rivenditori libri scuola primaria autorizzati per la fornitura di libri della scuola primaria
+</h1>
+
+{{ anagrafica.societa("Titolare", "Il sottoscritto", ["Persona fisica", "Titolare", "Legale rappresentante"], "Richiedente", "visibility:visibility", "cursor:pointer", "mail_ordinaria", "false") }}
+
+<br>
+<h3 class="Modulo">
+  CHIEDE
+</h3>
+<p class="Modulo">
+  di essere iscritto all’albo dei rivenditori autorizzati per la fornitura gratuita dei libri di testo per la scuola primaria a.s. 2019/2020 ai sensi della normativa vigente che si intende interamente richiamata
+</p>
+
+
+<h3 class="Modulo">
+  DICHIARA 
+</h3>
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    {% set dichiara = [ "di possedere un punto diretto di vendita al dettaglio sito in  
+                        <input class='inputNormal' id='Parametri_SitoInt' name='Parametri_SitoInt' style='width: 15%;' label='Citta' mandatory='true'/>
+                        alla via 
+                        <input class='inputNormal' id='Parametri_SitoVia' name='Parametri_SitoVia' style='width: 25%;' label='Via' mandatory='true'/>",
+                        "di possedere la necessaria strumentazione hardware e software per la gestione interamente digitale della fornitura dei libri",
+                        "di essere in possesso di tutti i requisiti richiesti dei quali si impegna a fornire la documentazione comprovante se richiesta dall'Amministrazione Comunale " ] %}
+    {% for i in dichiara %}
+      <tr>
+        <td style="vertical-align: top; width: 4%;">
+          <input id="Dichiara{{ loop.index }}" name="Dichiara{{ loop.index }}" type="checkbox" value="SI" checked="checked" dynamic_check="true"/>
+        </td>
+        <td>
+          {{ i }}
+        </td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<br>
+<h3 class="Modulo">
+  SI IMPEGNA
+</h3>
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    {% set impegna = [  "ad accettare le richieste di fornitura avanzate dagli aventi diritto e ad evadere le stesse con la massima sollecitudine (dall’ordinazione alla consegna dei libri)",
+                        "ad ordinare e fornire, nei limiti del valore di ciascuna cedola, sia i testi curriculari che i testi alternativi, su richiesta delle famiglie",
+                        "a non richiedere ai cittadini alcun compenso o rimborso spese, a nessun titolo, per la fornitura",
+                        "ad accettare ordini per la fornitura dei libri anche ad anno scolastico già iniziato in caso di nuove iscrizioni",
+                        "a collaborare in ordine ad eventuali verifiche ed ispezioni disposte dal Comune sulla corretta gestione della procedura",
+                        "al rispetto puntuale degli adempimenti previsti nel relativo manuale operativo",
+                        "ad adottare, in relazione al trattamento dei dati personali, misure organizzative e procedurali, sia a rilevanza interna che esterna, necessarie a garantire la sicurezza dei dati stessi, nel rispetto di quanto previsto dalla normativa vigente (regolamento UE) 2016/679 relativo alla protezione delle persone fisiche con riguardo al trattamento dei dati personali, nonché alla libera circolazione di tali dati",
+                        "al corretto trattamento dei dati forniti dalle famiglie per la prenotazione dei libri"] %}
+    {% for i in impegna %}
+      <tr>
+        <td style="vertical-align: top; width: 4%;">
+          <input id="Impegna{{ loop.index }}" name="Impegna{{ loop.index }}" type="checkbox" value="SI" checked="checked" dynamic_check="true"/>
+        </td>
+        <td>
+          {{ i }}
+        </td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<br>
+<h3 class="Modulo">
+  COMUNICA
+</h3>
+
+<!-- Alle seguenti coordinate bancarie -->
+<table class="Modulo" style="border:1px solid grey;margin-top: -1px">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="3">
+        <p class="Labeltabella"> 
+          il proprio codice IBAN
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td style="width: 40%;">
+        <p class="Labelcella">
+          Coordinate IBAN
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input class="inputNormal" id="Parametri_IBAN" name="Parametri_IBAN" style="width: 100%;" label="Coordinate IBAN" mandatory="true" >
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<input type="hidden" id="CheckIBAN1" name="CheckIBAN1" dynamic_check="(#Parametri_IBAN.value().toUpperCase().startsWith('IT')) and (#Parametri_IBAN.value().toString().length != 27)">
+<input type="hidden" id="CheckIBAN2" name="CheckIBAN2" dynamic_check="(#Parametri_IBAN.value().toUpperCase().startsWith('IT')) and (#Parametri_IBAN.value().toString().length == 27) and (!/^IT[0-9]{2}[a-zA-Z][a-zA-Z0-9]{22}$/.test(#Parametri_IBAN.value()))">
+<input type="hidden" id="CheckIBAN3" name="CheckIBAN3" dynamic_check="(#Parametri_IBAN.value().toUpperCase().startsWith('IT')) and (#Parametri_IBAN.value().toString().length == 27) and (#Parametri_IBAN.value().substring(15, 27) != #Parametri_Numero_CC.value())">
+<input type="hidden" id="CheckIBANInput1" name="CheckIBANInput1" label="Controlla la lunghezza del codice IBAN" mandatory="#CheckIBAN1.checked()">
+<input type="hidden" id="CheckIBANInput2" name="CheckIBANInput2" label="Controlla il formato del codice IBAN" mandatory="#CheckIBAN2.checked()">
+<input type="hidden" id="CheckIBANInput3" name="CheckIBANInput3" label="Le ultime 12 cifre dell'IBAN non corrispondono al numero di conto corrente" mandatory="#CheckIBAN3.checked()">
+
+
+<br>
+
+<br>
+<table class="Modulo" name="Allegati" style="border: 1px solid grey">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="2">
+        <p style="text-align: center;">
+          <b>
+            Elenco degli allegati
+          </b>
+          <br/>
+          <span style="font-size:70%">
+            <i>(barrare tutti gli allegati richiesti in fase di presentazione della pratica ed elencati sul portale)</i>
+          </span>
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="ALTRI-ALLEGATI" name="ALTRI-ALLEGATI" type="checkbox" value="OBBLIGATORIO"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          altri allegati
+          <span style="font-size:70%">(specificare)</span>
+          <input class="" label="Altri allegati" id="AltriAllegati" mandatory_enabled="#ALTRI_ALLEGATI.checked()" name="AltriAllegati" style="width:79%;"/>
+        </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<br>
+{{ utils.trattamento_dati_personali() }}
+<br/>
+  {{ utils.firma_hidden() }}
+<br/>
+
+<p class="Modulo">
+  <input id="SalvaModulo" name="SalvaModulo" style="height:30px;width:120px;" title="Verifica la corretta compilazione dei campi e salva il modulo nel faldone virtuale dell'istanza." type="submit" value="Salva modulo"/>
+</p>
+
+<input destinatario_amministrazione="getParameter('Ente')" id="GLOBO_modulo_c{{ CodiceModulo }}" name="GLOBO_modulo_c{{ CodiceModulo }}" type="hidden" value=""/>
+<input firmare="'P7M_ELETTRONICA'" id="GLOBO_modulofiglio_cINCARICO_PROCURA" name="GLOBO_modulofiglio_cINCARICO_PROCURA" type="hidden" value=""/>
+
+<input id="GLOBO_allegato_cALTRI-ALLEGATI" name="GLOBO_allegato_cALTRI-ALLEGATI" obbligatorio="#ALTRI_ALLEGATI.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_id_padre" name="GLOBO_id_padre" type="hidden"/>
+<input id="GLOBO_recupera_dati" name="GLOBO_recupera_dati" type="hidden"/>
+<input id="GLOBO_codice_modulo" name="GLOBO_codice_modulo" type="hidden" value="{{ CodiceModulo }}"/>
+
+{% endblock content %}

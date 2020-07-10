@@ -1,0 +1,743 @@
+{% set CodiceModulo =  "OCC_ADD" %}{% extends "base.html" %}
+{% set Urn = "document:c_a794:occupazione.suolo.addobbi;domanda" %}
+{% block meta %}<meta campi_firma="Titolare_CodiceFiscale"
+campi_firma_label="il dichiarante"
+classi_modulo="Commercio"
+codice_modulo="{{ CodiceModulo }}"
+urn="{% block urn %}{{ Urn }}{% endblock urn %}"
+sub_urn_list=""
+uo_globo_list=""
+descrizione="Richiesta di concessione all'occupazione temporanea di suolo pubblico per la posa di addobbi"
+destinatario_amministrazione=""
+destinatario_ufficio="U0058"
+dinamico="SI"
+email_a=""
+ente_abilitato="TUTTI"
+filigrana="NO"
+firmare="P7M_ELETTRONICA"
+in_bollo="SI"
+istruzioni_compilazione="ATTENZIONE: questo modulo deve essere compilato con i dati del richiedente, cambiare i dati di intestazione se necessario. "
+istruzioni_invio="mail_pec"
+metodo_invio="mail"
+name="GLOBO_modulo"
+procura="NO,,"
+tipo_modulo="principale"
+ufficio=""
+urlhelp="DomandeRisposte/FAQ"
+verifica_pagamento="NO"
+versione="1.0|17/11/2019"/>
+
+<meta codice_modulo_figlio="STU-EDI-SOG"
+urn_modulo_figlio="document:r_lombar:edilizia.privata;soggetti.coinvolti;dichiarazione.sostitutiva"
+name="GLOBO_modulofiglio"
+numero="1"
+obbligatorio="DINAMICO"/>
+
+<meta codice_modulo_figlio="PL_VIAB_CANTIERE_S"
+urn_modulo_figlio="document:c_a794:occupare.suolo.pubblico;emissione.ordinanza.disciplina.circolazione;domanda"
+name="GLOBO_modulofiglio"
+numero="1"
+obbligatorio="DINAMICO"/>
+
+<!--
+<meta codice_modulo_figlio="Incarico_procura"
+name="GLOBO_modulofiglio"
+numero="1"
+obbligatorio="DINAMICO"/>
+-->
+
+<meta codice_modulo_figlio="Marca_Bollo"
+urn_modulo_figlio="document:s_italia:pagamento.imposta.bollo;apposizione.domanda;dichiarazione.sostitutiva"
+name="GLOBO_modulofiglio"
+numero="1"
+obbligatorio="DINAMICO"/>
+
+<meta codice_allegato="OCC-PLA"
+urn_allegato="document:s_italia:occupazione.suolo.pubblico;planimetria.area;planimetria"
+descrizione_estesa="Planimetrie di progetto"
+filename="Planimetrie progetto.pdf"
+firmato="SI"
+firmatari="Titolare_CodiceFiscale,STU-EDI-SOG.Referente1_CodiceFiscale"
+firmatari_label="il dichiarante,il progettista"
+istruzioni="/modulistica/moduli/OCC-PLA"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="DOC_FOTO"
+urn_allegato="document:s_italia:generale;colori;documentazione.fotografica"
+descrizione_estesa="Documentazione fotografica"
+filename="Documentaz. fotografica.pdf"
+firmato="SI"
+istruzioni="/modulistica/moduli/DOC_FOTO"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="RelTecnica"
+urn_allegato="document:c_a794:occupazione.suolo.pubblico;relazione.tecnica"
+descrizione_estesa="Relazione tecnica descrittiva dell'intervento"
+filename="Relazione Tecnica.pdf"
+firmato="SI"
+firmatari="Titolare_CodiceFiscale,STU-EDI-SOG.Referente1_CodiceFiscale"
+firmatari_label="il dichiarante,il progettista"
+istruzioni="/modulistica/moduli/OCC-PLA"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="Particolari"
+urn_allegato="document:c_a794:occupazione.suolo.pubblico;particolari.costruttivi"
+descrizione_estesa="Particolari costruttivi"
+filename="Particolari costruttivi.pdf"
+firmato="SI"
+istruzioni="/modulistica/moduli/OCC-PLA"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="RIC-DIR-SEG"
+urn_allegato="document:s_italia:diritti.segreteria.istruttoria;ricevuta"
+descrizione_estesa="Ricevuta diritti segreteria/istruttoria"
+filename="Ricev. diritti segreteria.pdf"
+firmato="SI"
+istruzioni="/modulistica/moduli/RIC-DIR-SEG"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+
+<meta codice_allegato="ALTRI-ALLEGATI"
+urn_allegato="document:s_italia:altri.allegati"
+descrizione_estesa="Altri allegati"
+filename="Altri allegati.pdf"
+firmato="SI"
+istruzioni="/modulistica/moduli/ALTRI-ALLEGATI"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+
+<!--
+<meta codice_allegato="VAL-PRE-IAA"
+descrizione_estesa="Valutazione previsionale di impatto acustico"
+filename="Impatto acustico.pdf"
+firmato="SI"
+istruzioni="/modulistica/moduli/VAL-PRE-IAA"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="CES-ATT-CAN"
+descrizione_estesa="Copia dell'atto di cessione o dichiarazione notarile"
+filename="Atto notarile.pdf"
+firmato="SI"
+istruzioni="/modulistica/moduli/CES-ATT-CAN"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="PER-SOG"
+descrizione_estesa="Permesso di soggiorno"
+filename="Permesso soggiorno.pdf"
+firmato="SI"
+istruzioni="/modulistica/moduli/PER-SOG"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="OCC-ASS-DEP"
+descrizione_estesa="Attestazione di versamento del deposito cauzionale e rimborso per l'utilizzo della rete elettrica"
+filename="Deposito cauz. colonnina.pdf"
+firmato="SI"
+istruzioni="/modulistica/moduli/OCC-ASS-DEP"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+-->
+
+{% endblock meta %}
+{% block title %}
+
+   Richiesta di concessione all'occupazione temporanea di suolo pubblico per la posa di addobbi 
+  {% endblock title %}
+{% block content %}
+ <globo_fondo_pagina areaheight="150" scope="3">
+ {{ utils.firma() }}
+</globo_fondo_pagina>
+
+<input id="Tassonomia_Occ1" name="Tassonomia_Occ" type="hidden" value="1"/>
+
+<input dynamic_value="#Titolare_Cognome.value().toUpperCase() + ' ' + #Titolare_Nome.value().toUpperCase() + ' - occupazione suolo per posa addobbi)'" id="Oggetto" name="Oggetto" type="hidden"/>
+
+
+<input dynamic_value="#Ente.value()" id="Parametri_Comune" name="Parametri_Comune" type="hidden"/>
+
+
+ {{ intestazioni.intestazione_moduloprincipale_conbollo() }}
+<h1 class="Modulo">
+
+ Domanda di concessione all'occupazione temporanea di suolo pubblico per la posa di addobbi
+</h1>
+
+{{anagrafica.societa("Titolare","Il sottoscritto",["Persona fisica","Titolare", "Legale rappresentante"], "Richiedente")}}
+
+<table class="Modulo" style="border:1px solid grey">
+ <tbody>
+    <tr class="Rigaintestazione">
+    <td style="width: 80%;"> 
+      In relazione alla manifestazione, festività o evento
+      </td>
+    <td style="width: 20%;"> 
+        previsto in data
+      </td>
+      </tr>
+      <tr>
+    <td>
+      <input class="InputNormal" id="Tassonomia_Tipo_Manifestazione" name="Tassonomia_Tipo_Manifestazione" label="Tipo Manifestazione" style="width: 100%;" mandatory="true"/>
+      </td>
+      <td>
+        <input class="inputNormal" id="Tassonomia_Data_Manifestazione" name="Tassonomia_Data_Manifestazione" style="width: 100%;" label="Data Manifestazione" format="date" mandatory="true"/>
+      </td>
+      </tr>
+      </tbody>
+      </table>
+
+      <br>
+
+
+<h3 class="Modulo">
+ CHIEDE LA CONCESSIONE PER NUOVA OCCUPAZIONE 
+</h3>
+<h2 class="Modulo"> al fine di apporre addobbi nelle seguenti vie:
+  </h2>
+  <table class="Modulo" style="border:1px solid grey">
+  <tbody>
+  <tr>
+    <td style="width: 4%;">
+    1
+    </td>
+    <td>
+      <input class="InputNormal" id="Paramentri_Via1" name="Paramentri_Via1" label="Via 1" style="width: 100%;" mandatory="true">
+    </td>
+  </tr>
+  <tr>
+    <td style="width: 4%;">
+    2
+    </td>
+    <td>
+      <input class="InputNormal" id="Paramentri_Via2" name="Paramentri_Via2" label="Via 2" style="width: 100%;">
+    </td>
+  </tr>
+  <tr>
+    <td style="width: 4%;">
+    3
+    </td>
+    <td>
+      <input class="InputNormal" id="Paramentri_Via3" name="Paramentri_Via3" label="Via 3" style="width: 100%;">
+    </td>
+  </tr>
+  <tr>
+    <td style="width: 4%;">
+    4
+    </td>
+    <td>
+      <input class="InputNormal" id="Paramentri_Via4" name="Paramentri_Via4" label="Via 4" style="width: 100%;">
+    </td>
+  </tr>
+  <tr>
+    <td style="width: 4%;">
+    5
+    </td>
+    <td>
+      <input class="InputNormal" id="Paramentri_Via5" name="Paramentri_Via5" label="Via 5" style="width: 100%;">
+    </td>
+  </tr>
+  <tr>
+    <td style="width: 4%;">
+    6
+    </td>
+    <td>
+      <input class="InputNormal" id="Paramentri_Via6" name="Paramentri_Via6" label="Via 6" style="width: 100%;">
+    </td>
+  </tr>
+  <tr>
+    <td style="width: 4%;">
+    7
+    </td>
+    <td>
+      <input class="InputNormal" id="Paramentri_Via7" name="Paramentri_Via7" label="Via 7" style="width: 100%;">
+    </td>
+  </tr>
+  <tr>
+    <td style="width: 4%;">
+    8
+    </td>
+    <td>
+      <input class="InputNormal" id="Paramentri_Via8" name="Paramentri_Via8" label="Via 8" style="width: 100%;">
+    </td>
+  </tr>
+  <tr>
+    <td style="width: 4%;">
+    9
+    </td>
+    <td>
+      <input class="InputNormal" id="Paramentri_Via9" name="Paramentri_Via9" label="Via 9" style="width: 100%;">
+    </td>
+  </tr>
+  <tr>
+    <td style="width: 4%;">
+    10
+    </td>
+    <td>
+      <input class="InputNormal" id="Paramentri_Via10" name="Paramentri_Via10" label="Via 10" style="width: 100%;">
+    </td>
+  </tr>
+  </tbody>
+</table> 
+
+<br>
+<h3 class="Modulo">
+ COMUNICA CHE
+</h3>
+
+<table class="Modulo" style="border:1px solid grey; margin-top:-1px">
+ <tbody>
+  <tr class="Rigaintestazione">
+   <td colspan="2">
+    <p class="Labelcella">
+     l'impresa esecutrice dei lavori
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td style="width:4%">
+    <div id="ImpresaEsecutrice" label="Impresa esecutrice" mandatory="true">
+    </div>
+    <input id="ImpresaEsecutrice_richiedente" name="ImpresaEsecutrice" type="radio" value="Impresa esecutrice richiedente"/>
+   </td>
+   <td>
+    <p>
+     coincide con il richiedente della domanda di occupazione suolo pubblico
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td>
+    <input id="ImpresaEsecutrice_altra" name="ImpresaEsecutrice" type="radio" value="Impresa esecutrice altra"/>
+   </td>
+   <td>
+    <p>
+     è la seguente
+    </p>
+   </td>
+  </tr>
+ </tbody>
+</table>
+
+<input type="hidden" id="Referente9_DatiSocietaObbligatori" name="Referente9_DatiSocietaObbligatori" dynamic_check="#referente9checkbox.checked()"/>
+ {{ anagrafica.societa_secondaria("Referente9","<input id='referente9checkbox' name='referente9checkbox' type='checkbox' value='si' enabled='#ImpresaEsecutrice_altra.checked()' dynamic_check='#ImpresaEsecutrice_altra.checked()'/>
+       rappresentata da", ["Titolare", "Legale rappresentante"], "Impresa esecutrice", "visibility:visibility", "cursor:pointer",) }} 
+
+<br>
+
+
+{{ utils.Dichiara_445() }}
+<br/>
+
+<table class="Modulo" style="border:1px solid grey; margin-top:-1px">
+   <tbody>
+    <tr  class="Rigaintestazione">
+      <td colspan="3" style="vertical-align: top;">
+        <p><strong>per quanto richiesto che:</strong></p>
+      </td>
+    </tr>       
+    <tr>
+       <td style="width:4%">
+    <div id="Tassonomia_Limitiviabilistici" label="Limiti viabilistici" mandatory="true">
+    </div>
+    <input class="" id="Tassonomia_Limitiviabilistici1" name="Tassonomia_Limitiviabilistici" type="radio" value="1"/>
+   </td>
+   <td colspan="2">
+    <p>
+   non è prevista e/o sarà richiesta successivamente all'ottenimento della concessione l'adozione di ordinanza di disciplina viabilistica
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td rowspan="4" style="vertical-align:top">
+    <input class="" id="Tassonomia_Limitiviabilistici2" name="Tassonomia_Limitiviabilistici" type="radio" value="2"/>
+   </td>
+   <td colspan="2">
+    <p>
+    richiede contestualmente l'adozione di ordinanza di disciplina viabilistica
+    </p>
+   </td>
+  </tr>
+ </tbody>
+</table> 
+
+
+
+   
+<br/>
+
+<table class="Modulo" name="Allegati" style="border:1px solid grey">
+ <tbody>
+  <tr class="Rigaintestazione">
+   <td colspan="2">
+    <p style="text-align: center;">
+     <b>
+      Elenco degli allegati
+     </b>
+     <br/>
+     <span style="font-size:70%">
+      <i>
+       (barrare tutti gli allegati richiesti in fase di presentazione della pratica ed elencati sul portale)
+      </i>
+     </span>
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td>
+    <input check="checked" dynamic_check="true" id="DOC_FOTO" name="DOC_FOTO" type="checkbox" value="OBBLIGATORIO"/>
+   </td>
+   <td style="background-color: #eeeeee;">
+    <p>
+     documentazione fotografica esplicativa a colori che illustra lo stato attuale dei luoghi e l'ambiente circostante
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td style="vertical-align:top">
+    <input check="checked" dynamic_check="true" id="OCC-PLA" name="OCC-PLA" type="checkbox" value="OBBLIGATORIO"/>
+   </td>
+   <td style="background-color: #eeeeee;">
+    <p>
+     Disegni di progetto contenenti estratto mappa o aerofotogrammetrico, in scala = 1:1000, con evidenziate le vie dove si intende posizionare gli addobbi;
+    </p>
+    </td>
+  </tr>
+   <tr>
+   <td>
+    <input check="checked" dynamic_check="true" id="RelTecnica" name="RelTecnica" type="checkbox" value="OBBLIGATORIO"/>
+   </td>
+   <td style="background-color: #eeeeee;">
+    <p>
+     Breve relazione tecnica descrittiva dell’intervento.
+    </p>
+   </td>
+  </tr>
+  <tr>
+
+   <td>
+    <input check="checked" dynamic_check="true" id="Particolari" name="Particolari" type="checkbox" value="OBBLIGATORIO"/>
+   </td>
+
+   <td style="background-color: #eeeeee;">
+    <p>
+    
+    Tipologie di addobbi con ""                     "" dimensioni
+    
+    </p>
+   </td>
+  </tr>
+
+   <tr>
+	<td style="vertical-align:top">
+     <input dynamic_check="#Tassonomia_Limitiviabilistici.check_value(['2'])" enabled="#Tassonomia_Limitiviabilistici.check_value(['2'])" id="PL_VIAB_CANTIERE_S" name="PL_VIAB_CANTIERE_S" type="checkbox" value="OBBLIGATORIO"/>
+    </td>
+    <td style="background-color: #eeeeee;">
+     <p>
+      Istanza per l'adozione di provvedimenti viabilistici
+     </p>
+    </td>
+   </tr>
+  <tr>
+
+   <td>
+    <input checked="checked" dynamic_check="true" id="Marca_Bollo" name="Marca_Bollo" type="checkbox" value="OBBLIGATORIO"/>
+   </td>
+   <td style="background-color: #eeeeee;">
+    <p>
+
+     Pagamento dell'imposta di bollo
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td style="vertical-align: top;">
+
+    <input checked="checked" dynamic_check="true" id="RIC-DIR-SEG" name="RIC-DIR-SEG" type="checkbox" value="OBBLIGATORIO"/>
+   </td>
+   <td style="background-color: #eeeeee;">
+    <p>
+
+
+
+     Ricevuta dei diritti di segreteria/istruttoria<br/><span style="font-size:70%"><i>(da allegare se previsti)</i></span>
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td>
+    <input checked="checked" dynamic_check="true" id="STU-EDI-SOG" name="STU-EDI-SOG" type="checkbox" value="OBBLIGATORIO"/>
+   </td>
+      <td style="background-color: #eeeeee;">
+    <p>
+     Soggetti coinvolti nel procedimento 
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td>
+    <input id="ALTRI-ALLEGATI" name="ALTRI-ALLEGATI" type="checkbox" value="OBBLIGATORIO"/>
+   </td>
+   <td style="background-color: #eeeeee;">
+    <p>
+
+     Altri allegati
+     <span style="font-size:70%">
+      (specificare)
+     </span>
+     <input class="" id="AltriAllegati" label="Altri allegati" mandatory_enabled="#ALTRI_ALLEGATI.checked()" name="AltriAllegati" style="width:79%;"/>
+    </p>
+   </td>
+  </tr>
+ </tbody>
+</table>
+
+<!--
+<table class="Modulo" name="Allegati" style="border:1px solid grey">
+ <tbody>
+  <tr class="Rigaintestazione">
+   <td colspan="2">
+    <p style="text-align: center;">
+     <b>
+      Elenco degli allegati
+     </b>
+     <br/>
+     <span style="font-size:70%">
+      <i>
+       (barrare tutti gli allegati richiesti in fase di presentazione della pratica ed elencati sul portale)
+      </i>
+     </span>
+    </p>
+   </td>
+  </tr>
+   <tr>
+    <td style="vertical-align:top">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+     <input dynamic_check="#Immobile1_DatiImmobileRichiesti.checked()" enabled="#Immobile1_DatiImmobileRichiesti.checked()" id="OCC-ASS-DEP" name="OCC-ASS-DEP" type="checkbox" value="OBBLIGATORIO"/>
+    </td>
+    <td style="background-color: #eeeeee;">
+     <p>
+
+      attestazione di versamento del deposito cauzionale e rimborso per l'utilizzo della rete elettrica
+     </p>
+    </td>
+   </tr>
+   <tr>
+   <td>
+    <input dynamic_check="#Parametri_Motivo_subingresso.check_value( ['successione per atto tra vivi'] ) || #Parametri_Motivo_subingresso.check_value( ['compravendita'] ) || #Parametri_Motivo_subingresso.check_value( ['donazione'] ) || #Parametri_Motivo_subingresso.check_value( ['fusione di azienda'] ) || #Parametri_Motivo_subingresso.check_value( ['affitto di azienda/ramo di azienda'] ) || #Parametri_Motivo_subingresso.check_value( ['altre cause'] )" enabled="#Tassonomia_TipoOccupazione6.checked()" id="CES-ATT-CAN" name="CES-ATT-CAN" type="checkbox" value="OBBLIGATORIO"/>
+   </td>
+   <td style="background-color: #eeeeee;">
+    <p>
+     copia dell'atto di cessione o dichiarazione notarile
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td>
+    <input dynamic_check="#Tassonomia_TipoOccupazione.value() == '1' || #Tassonomia_TipoOccupazione.value() == '5' || #Tassonomia_OccSuo3PModifiche.value() == '2' || #Tassonomia_OccSuo4PModifiche.value() == '2'" enabled="#Tassonomia_TipoOccupazione.value() == '1' || #Tassonomia_TipoOccupazione.value() == '5' || #Tassonomia_OccSuo3PModifiche.value() == '2' || #Tassonomia_OccSuo4PModifiche.value() == '2'" id="DOC_FOTO" name="DOC_FOTO" type="checkbox" value="OBBLIGATORIO"/>
+   </td>
+   <td style="background-color: #eeeeee;">
+    <p>
+     documentazione fotografica esplicativa a colori che illustra lo stato attuale dei luoghi e l'ambiente circostante
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td style="vertical-align:top">
+    <input dynamic_check="#Tassonomia_TipoOccupazione.value() == '1' || #Tassonomia_TipoOccupazione.value() == '5' || #Tassonomia_OccSuo3PModifiche.value() == '2' || #Tassonomia_OccSuo4PModifiche.value() == '2'" enabled="#Tassonomia_TipoOccupazione.value() == '1' || #Tassonomia_TipoOccupazione.value() == '5' || #Tassonomia_OccSuo3PModifiche.value() == '2' || #Tassonomia_OccSuo4PModifiche.value() == '2'" id="OCC-PLA" name="OCC-PLA" type="checkbox" value="OBBLIGATORIO"/>
+   </td>
+   <td style="background-color: #eeeeee;">
+    <p>
+
+     planimetria in scala non inferiore a 1:100, quotata, dell'area interessata dalla occupazione con indicazione dei limiti sul fronte strada
+    </p>
+   </td>
+  </tr>
+  <tr>
+
+   <td style="width:3%">
+    <input dynamic_check="#Tassonomia_VIAClassificazione.value() == '3'" enabled="#Tassonomia_VIAClassificazione.value() == '3'" id="VAL-PRE-IAA" name="VAL-PRE-IAA" type="checkbox" value="OBBLIGATORIO"/>
+   </td>
+   <td style="background-color: #eeeeee;">
+    <p>
+
+     valutazione previsionale di impatto acustico
+    </p>
+   </td>
+  </tr>
+  <tr>
+
+   <td>
+    <input checked="checked" dynamic_check="true" id="Marca_Bollo" name="Marca_Bollo" type="checkbox" value="OBBLIGATORIO"/>
+   </td>
+   <td style="background-color: #eeeeee;">
+    <p>
+
+     pagamento dell'imposta di bollo
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td style="vertical-align: top;">
+    <input id="RIC-DIR-SEG" name="RIC-DIR-SEG" type="checkbox" value="OBBLIGATORIO"/>
+   </td>
+   <td style="background-color: #eeeeee;">
+    <p>
+
+     ricevuta dei diritti di segreteria/istruttoria<br/><span style="font-size:70%"><i>(da allegare se previsti)</i></span>
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td style="vertical-align: top;">
+    <input dynamic_check="#Titolare_Cittadinanza.element.options[#Titolare_Cittadinanza.element.selectedIndex].parentNode.label == 'NON Unione Europea'" enabled="#Titolare_Cittadinanza.element.options[#Titolare_Cittadinanza.element.selectedIndex].parentNode.label == 'NON Unione Europea'" id="PER-SOG" name="PER-SOG" type="checkbox" value="OBBLIGATORIO"/>
+   </td>
+   <td style="background-color: #eeeeee;">
+    <p>
+     documentazione relativa al permesso di soggiorno
+     <br/>
+     <span style="font-size:70%">
+      <i>
+
+       (da allegare solo in caso di cittadino extracomunitario)
+      </i>
+     </span>
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td>
+    <input dynamic_check="(parseInt(#Immobile_NumeroAltriImmobili.value()) / 16) &gt; 0" enabled="(parseInt(#Immobile_NumeroAltriImmobili.value()) / 16) &gt; 0" id="STU-EDI-IMM" name="STU-EDI-IMM" type="checkbox" value="OBBLIGATORIO"/>
+   </td>
+   <td colspan="1" style="background-color: #eeeeee;">
+    <p>
+     ulteriori particelle o subalterni oggetto del procedimento
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td>
+    <input id="ALTRI-ALLEGATI" name="ALTRI-ALLEGATI" type="checkbox" value="OBBLIGATORIO"/>
+   </td>
+   <td style="background-color: #eeeeee;">
+    <p>
+     altri allegati
+     <span style="font-size:70%">
+      (specificare)
+     </span>
+     <input class="" id="AltriAllegati" label="Altri allegati" mandatory_enabled="#ALTRI_ALLEGATI.checked()" name="AltriAllegati" style="width:79%;"/>
+    </p>
+   </td>
+  </tr>
+ </tbody>
+</table>
+
+
+<br/>
+-->
+
+<br/>
+
+{{ utils.trattamento_dati_personali() }}
+
+<br/>
+
+{{ utils.firma_hidden() }}
+ <br/>
+
+<p class="Modulo">
+ <input id="SalvaModulo" name="SalvaModulo" style="height:30px;width:120px;" title="Verifica la corretta compilazione dei campi e salva il modulo nel faldone virtuale dell'istanza." type="submit" value="Salva modulo"/>
+</p>
+
+<input destinatario_amministrazione="getParameter('Ente')" id="GLOBO_modulo_c{{ CodiceModulo }}" name="GLOBO_modulo_c{{ CodiceModulo }}" type="hidden" value=""/>
+
+<input id="GLOBO_modulofiglio_cSTU-EDI-SOG" name="GLOBO_modulofiglio_cSTU-EDI-SOG" obbligatorio="#STU_EDI_SOG.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_modulofiglio_cMarca_Bollo" name="GLOBO_modulofiglio_cMarca_Bollo" obbligatorio="#Marca_Bollo.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_allegato_cOCC-PLA" name="GLOBO_allegato_cOCC-PLA" obbligatorio="#OCC_PLA.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_allegato_cDOC_FOTO" name="GLOBO_allegato_cDOC_FOTO" obbligatorio="#DOC_FOTO.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+ <input id="GLOBO_modulofiglio_cPL_VIAB_CANTIERE_S" name="GLOBO_modulofiglio_cPL_VIAB_CANTIERE_S" obbligatorio="#PL_VIAB_CANTIERE_S.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_allegato_cRIC-DIR-SEG" name="GLOBO_allegato_cRIC-DIR-SEG" obbligatorio="#RIC_DIR_SEG.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_allegato_cRelTecnica" name="GLOBO_allegato_cRelTecnica" obbligatorio="#RelTecnica.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_allegato_cParticolari" name="GLOBO_allegato_cParticolari" obbligatorio="#Particolari.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_allegato_cALTRI-ALLEGATI" name="GLOBO_allegato_cALTRI-ALLEGATI" obbligatorio="#ALTRI_ALLEGATI.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input firmare="'P7M_ELETTRONICA'" id="GLOBO_modulofiglio_cIncarico_procura" name="GLOBO_modulofiglio_cIncarico_procura" type="hidden" value=""/>
+
+<input id="GLOBO_id_padre" name="GLOBO_id_padre" type="hidden"/>
+
+<input id="GLOBO_recupera_dati" name="GLOBO_recupera_dati" type="hidden"/>
+
+<input id="GLOBO_codice_modulo" name="GLOBO_codice_modulo" type="hidden" value="{{ CodiceModulo }}"/>
+
+
+{% endblock content %}
+

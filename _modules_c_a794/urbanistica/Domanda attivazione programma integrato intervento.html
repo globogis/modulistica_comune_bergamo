@@ -1,0 +1,836 @@
+{% set CodiceModulo = "URB-PII-IST" %}
+{% set Urn = "document:c_a794:pianificazione.urbanistica;programma.integrato.intervento;attivazione;domanda" %}
+{% extends "base.html" %}
+
+{% block meta %}
+
+<meta campi_firma="Titolare_CodiceFiscale"
+campi_firma_label="il dichiarante"
+classi_modulo="Urbanistica"
+codice_modulo="{{ CodiceModulo }}"
+urn="{% block urn %}{{ Urn }}{% endblock urn %}"
+sub_urn_list=""
+uo_globo_list=""
+descrizione="Domanda di attivazione di programma integrato di intervento PII"
+destinatario_amministrazione=""
+destinatario_ufficio="UOURBANISTICA"
+dinamico="SI"
+email_a=""
+ente_abilitato="TUTTI"
+filigrana="NO"
+firmare="P7M_ELETTRONICA"
+istruzioni_compilazione=""
+istruzioni_invio="mail_pec"
+metodo_invio="mail"
+name="GLOBO_modulo"
+procura="NO,,"
+tipo_modulo="principale"
+urlhelp="/modulistica/moduli/{{ CodiceModulo }}"
+verifica_pagamento="NO"
+versione="1.0|19/02/2019"/>
+
+<meta codice_modulo_figlio="INCARICO_PROCURA"
+urn_modulo_figlio="document:s_italia:generale;incarico.procura"
+name="GLOBO_modulofiglio"
+numero="1"
+obbligatorio="DINAMICO"/>
+
+<meta codice_allegato="DAE-CDI"
+urn_allegato="document:s_italia:generale;documento.identita;documentazione"
+descrizione_estesa="Documento di identità"
+filename="Documento identita.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/DAE-CDI"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="ULT-INT-PRO"
+urn_allegato=""
+descrizione_estesa="Numero ulteriori intestatari del procedimento"
+filename="Numero ulteriori intestatari.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/ULT-INT-PRO"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="COM-MET-EST"
+urn_allegato="document:r_lombar:pianificazione.urbanistica;computo.metrico.estimativo;relazione.tecnica"
+descrizione_estesa="Computo metrico estimativo"
+filename="Computo metrico estimativo.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/COM-MET-EST"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="EST-MAP-CAT"
+urn_allegato="document:s_italia:generale;mappa.catastale;estratto.mappa"
+descrizione_estesa="Copia dell’estratto mappa catasto terreni"
+filename="Copia estratto mappa.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/EST-MAP-CAT"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="DOC-FOT"
+urn_allegato="document:r_lombar:pianificazione.urbanistica;programma.integrato.intervento;documentazione.fotografica"
+descrizione_estesa="Documentazione fotografica"
+filename="Documentazione fotografica.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/DOC-FOT"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="PLA-PRO"
+urn_allegato="document:r_lombar:pianificazione.urbanistica;planimetria.profili.stato.fatto;planimetria"
+descrizione_estesa="Planimetria e profili stato di fatto"
+filename="Planimetria e profili.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/PLA-PRO"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="PLA-INQ-TER"
+urn_allegato="document:r_lombar:pianificazione.urbanistica;programma.integrato.intervento;inquadramento.territoriale;planimetria"
+descrizione_estesa="Planimetria di inquadramento territoriale"
+filename="Planimetria inquadramento territoriale.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/PLA-INQ-TER"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="PRO-PLA"
+urn_allegato="document:r_lombar:pianificazione.urbanistica;programma.integrato.intervento;progetto.planivolumetrico;progetto"
+descrizione_estesa="Progetto planivolumetrico"
+filename="Progetto planivolumetrico.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/PRO-PLA"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="REL-ECO"
+urn_allegato="document:r_lombar:pianificazione.urbanistica;programma.integrato.intervento;relazione.economica;relazione.tecnica"
+descrizione_estesa="Relazione economica"
+filename="Relazione economica.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/REL-ECO"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="REL-IDR-SIS"
+urn_allegato="document:c_a794:pianificazione.urbanistica;programmi.integrati.intervento;relazione.idrogeologica.sismica;relazione.tecnica"
+descrizione_estesa="Relazione idrogeologica e sismica"
+filename="Relazione idrogeologica sismica.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/REL-IDR-SIS"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="REL-TEC"
+urn_allegato="document:r_lombar:pianificazione.urbanistica;programma.integrato.intervento;relazione.tecnica"
+descrizione_estesa="Relazione tecnica"
+filename="Relazione tecnica.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/REL-TEC"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="SCH-CON"
+urn_allegato="document:c_a794:pianificazione.urbanistica;programma.integrato.intervento;schema.convenzione;documentazione"
+descrizione_estesa="Schema di convenzione"
+filename="Schema convenzione.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/SCH-CON"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="STR-STR-URB"
+urn_allegato="ocument:r_lombar:pianificazione.urbanistica;programma.integrato.intervento;estratto.strumento.urbanistico;estratto.mappa"
+descrizione_estesa="Stralcio dello strumento urbanistico"
+filename="Stralcio strumento urbanistico.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/STR-STR-URB"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_modulo_figlio="MARCA_BOLLO"
+urn_modulo_figlio="document:s_italia:pagamento.imposta.bollo;apposizione.domanda;dichiarazione.sostitutiva"
+name="GLOBO_modulofiglio"
+numero="1"
+obbligatorio="DINAMICO"/>
+
+<meta codice_allegato="PRO-FAT-OPE"
+urn_allegato="document:c_a794:pianificazione.urbanistica;programma.integrato.intervento;progetto.opere.urbanizzazione;progetto"
+descrizione_estesa="Progetto di fattibilità opere di urbanizzazione e standard qualitativo"
+filename="Progetto fattibilita opere.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/PRO-FAT-OPE"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="SCH-CON-APP"
+urn_allegato="document:c_a794:pianificazione.urbanistica;piano.attuativo;contratto.appalto;documentazione"
+descrizione_estesa="Schema contratto d’appalto standard qualitativo"
+filename="Schema contratto appalto.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/SCH-CON-APP"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="SOG-COI-PRO"
+urn_allegato="document:r_lombar:pianificazione.urbanistica;soggetti.coinvolti;dichiarazione.sostitutiva"
+descrizione_estesa="Soggetti coinvolti nel procedimento urbanistico"
+filename="Soggetti coinvolti.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/SOG-COI-PRO"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="NOR-TEC-ATT"
+urn_allegato="document:c_a794:pianificazione.urbanistica;piano.attuativo;norme.tecniche.attuazione;documentazione"
+descrizione_estesa="Norme tecniche di attuazione del Piano attuativo"
+filename="Norme tecniche attenuazione.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/NOR-TEC-ATT"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="PRO-INT-SOT"
+urn_allegato="document:c_a794:pianificazione.urbanistica;piano.attuativo;progetto.sottosuolo;documentazione"
+descrizione_estesa="Progetto interventi sulle reti dei servizi nel sottosuolo"
+filename="Progetto interventi sottosuolo.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/PRO-INT-SOT"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="ALTRI-ALLEGATI"
+urn_allegato="document:s_italia:altri.allegati"
+descrizione_estesa="Altri allegati"
+filename="Altri allegati.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/ALTRI-ALLEGATI"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+{% endblock meta %}
+
+{% block title %}
+    Domanda di attivazione di programma integrato di intervento PII
+{% endblock title %}
+
+{% block content %}
+
+<globo_fondo_pagina areaheight="150" scope="3">
+    {{ utils.firma() }}
+</globo_fondo_pagina>
+
+<input id="Parametri_Comune" name="Parametri_Comune" type="hidden" dynamic_value="#Ente.value()"/>
+<input id="Oggetto" name="Oggetto" type="hidden" dynamic_value="#Titolare_Cognome.value().toUpperCase() + ' ' + #Titolare_Nome.value().toUpperCase() + ' - domanda attivazione programma integrato intervento'"/>
+
+{{ intestazioni.intestazione_moduloprincipale_conbollo() }}
+
+<h1 class="Modulo">
+    Domanda di attivazione di programma integrato di intervento PII
+</h1>
+
+<h2 class="Modulo">
+    Ai sensi dell'articolo 87 e seguenti della Legge regionale 11/03/2005, n. 12
+</h2>
+
+{{ anagrafica.societa("Titolare", "Il sottoscritto", ["Persona fisica", "Titolare", "Legale rappresentante"], "Richiedente", "visibility:visibility", "cursor:pointer", "mail_ordinaria", "false", "false") }}
+
+{{ utils.Dichiara_445() }}
+
+<p class="Modulo">
+    di essere legittimato alla presentazione dell’istanza di approvazione di
+</p>
+
+<div id="Tassonomia_PresentazioneIstanzaPiano" name="Tassonomia_PresentazioneIstanzaPiano" label="Presentazione istanza di approvazione" mandatory="true"></div>
+<table class="Modulo" style="border: 1px solid grey;">
+    <tbody>
+        
+        <tr>
+            <td style="vertical-align: top; width: 4%;">
+                <input id="Tassonomia_PresentazioneIstanzaPiano1" name="Tassonomia_PresentazioneIstanzaPiano" type="radio" value="1" />
+            </td>
+            <td colspan="2">
+                <p>
+                    nuovo programma integrato di intervento
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td rowspan="3" style="vertical-align: top; width: 4%; background-color: white;">
+                <input id="Tassonomia_PresentazioneIstanzaPiano2" name="Tassonomia_PresentazioneIstanzaPiano" type="radio" value="2" />
+            </td>
+            <td colspan="2">
+                <p>
+                    variante al programma integrato di intervento
+                </p>
+            </td>
+        </tr>
+        <tr class="Rigaintestazioneridotta">
+            <td style="width: 48%;">
+                <p class="Labelcella">
+                    Numero atto di approvazione
+                </p>
+            </td>
+            <td style="width: 48%;">
+                <p class="Labelcella">
+                    Data di approvazione
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input class="inputNormal" id="Parametri_AttoApprovazione_Numero" name="Parametri_AttoApprovazione_Numero" style="width: 100%;" label="Numero atto di approvazione" mandatory_enabled="#Tassonomia_PresentazioneIstanzaPiano2.checked()"/>
+            </td>
+            <td>
+                <input class="inputNormal" id="Parametri_DataApprovazione" name="Parametri_DataApprovazione" style="width: 100%;" label="Data di approvazione" mandatory_enabled="#Tassonomia_PresentazioneIstanzaPiano2.checked()"/>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<table class="Modulo" style="border: 1px solid grey; margin-top: -1px;">
+    <tbody>
+        <tr class="Rigaintestazione">
+            <td colspan="2">
+                <p class="Labeltabella">
+                    in relazione al procedimento
+                </p>
+            </td>
+        </tr>
+        <tr class="Rigaintestazioneridotta">
+            <td style="width: 30%;">
+                <p class="Labelcella">
+                    Codice procedimento
+                </p>
+            </td>
+            <td>
+                <p class="Labelcella">
+                    Descrizione
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input class="inputNormal" id="Parametri_CodiceProcedimento" name="Parametri_CodiceProcedimento" style="width: 100%;" label="Codice procedimento" mandatory="true"/>
+            </td>
+            <td>
+                <input class="inputNormal" id="Parametri_DescrizioneProcedimento" name="Parametri_DescrizioneProcedimento" style="width: 100%;" label="Descrizione procedimento" mandatory="true"/>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<div id="Tassonomia_ConformitaAttiPGT" name="Tassonomia_ConformitaAttiPGT" label="Conformità atti del PGT" mandatory="true"></div>
+<div id="Tassonomia_VarianteAttiPGT" name="Tassonomia_VarianteAttiPGT" label="Variante atti del PGT" mandatory_enabled="#Tassonomia_ConformitaAttiPGT2.checked()"></div>
+<table class="Modulo" style="border: 1px solid grey; margin-top: -1px;">
+    <tbody>
+        
+        <tr>
+            <td style="vertical-align: top; width: 4%;">
+               <input id="Tassonomia_ConformitaAttiPGT1" name="Tassonomia_ConformitaAttiPGT" type="radio" value="1" /> 
+            </td>
+            <td colspan="2">
+                <p>
+                    conforme agli atti del PGT vigente
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td rowspan="4" style="vertical-align: top; width: 4%;">
+                <input id="Tassonomia_ConformitaAttiPGT2" name="Tassonomia_ConformitaAttiPGT" type="radio" value="2" /> 
+            </td>
+            <td colspan="2">
+                <p>
+                    in variante agli atti del PGT
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td style="vertical-align: top; width: 4%;">
+                <input id="Tassonomia_VarianteAttiPGT1" name="Tassonomia_VarianteAttiPGT" type="radio" value="1" />
+            </td>
+            <td>
+                <p>
+                    documento di piano
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td style="vertical-align: top; width: 4%;">
+                <input id="Tassonomia_VarianteAttiPGT2" name="Tassonomia_VarianteAttiPGT" type="radio" value="2" />
+            </td>
+            <td>
+                <p>
+                    piano delle regole
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td style="vertical-align: top; width: 4%;">
+                <input id="Tassonomia_VarianteAttiPGT3" name="Tassonomia_VarianteAttiPGT" type="radio" value="3" />
+            </td>
+            <td>
+                <p>
+                    piano dei servizi
+                </p>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<globo_salto_pagina></globo_salto_pagina>
+
+<h3 class="Modulo">
+    CHIEDE
+</h3>
+
+<p class="Modulo">
+    l’attivazione del programma integrato di intervento (PII) per la realizzazione del seguente intervento
+</p>
+
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+            Descrizione dell’intervento
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <textarea class="inputNormal" id="Parametri_DescrizioneIntervento" name="Parametri_DescrizioneIntervento" style="width: 100%; height: 5cm;" label="Descrizione intervento" mandatory="true"></textarea>
+    </td>
+    </tr>
+  </tbody>
+</table>
+
+<input id="Immobile_DatiCatastaliObbligatori" name="Immobile_DatiCatastaliObbligatori" type="checkbox" style="display: none;" value="si" checked="checked" dynamic_check="true"/>
+{{ immobili.immobile("Immobile", "riguardante l’immobile sito in", "Collocazione immobile") }}
+
+<div id="Tassonomia_ProprietaImmobile" name="Tassonomia_ProprietaImmobile" label="Proprietario immobile" mandatory="true"></div>
+<table class="Modulo" style="border: 1px solid grey;">
+    <tbody>
+        <tr class="Rigaintestazione">
+            <td colspan="2">
+                <p class="Labeltabella">
+                    in quanto
+                </p>
+            </td>
+        </tr>
+        <tr class="Rigaintestazioneridotta">
+            <td colspan="2">
+                <p class="Labelcella">
+                    Titolo richiedente
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td style="vertical-align: top; width: 4%;">
+                 <input id="Tassonomia_ProprietaImmobile1" name="Tassonomia_ProprietaImmobile" type="radio" value="1" />   
+            </td>
+            <td>
+                <p>
+                    proprietario unico
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td style="vertical-align: top; width: 4%;">
+                 <input id="Tassonomia_ProprietaImmobile2" name="Tassonomia_ProprietaImmobile" type="radio" value="2" />   
+            </td>
+            <td>
+                <p>
+                    comproprietario con altri soggetti rappresentanti la totalità dei proprietari
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td rowspan="2" style="vertical-align: top; width: 4%; background-color: white;">
+                 <input id="Tassonomia_ProprietaImmobile3" name="Tassonomia_ProprietaImmobile" type="radio" value="3" />   
+            </td>
+            <td>
+                <p>
+                    comproprietario con altri soggetti costituiti in consorzio (ai sensi dell'articolo 27, comma 5, della Legge 1 agosto 2002, n. 166) rappresentanti la maggioranza assoluta del valore degli immobili in base all'imponibile catastale
+                </p>
+            </td>
+        </tr>
+        <tr class="Rigaintestazione">
+            <td>
+                <p class="Labeltabella">
+                    allega atto costitutivo del consorzio
+                </p>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<table class="Modulo" style="border: 1px solid grey; margin-top: -1px;">
+    <tbody>
+        <tr class="Rigaintestazioneridotta">
+            <td colspan="3">
+                <p class="Labelcella">
+                    Dati relativi al titolo
+                </p>
+            </td>
+        </tr>
+        <tr class="Rigaintestazioneridotta">
+            <td style="width: 50%;">
+                <p class="Labelcella">
+                    Pubblico ufficiale o autorità emittente
+                </p>
+            </td>
+            <td style="width: 25%;">
+                <p class="Labelcella">
+                    Data contratto
+                </p>
+            </td>
+            <td style="width: 25%;">
+                <p class="Labelcella">
+                    Numero repertorio
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input class="inputNormal" id="Parametri_DatiTitolo_PubblicoUfficiale" name="Parametri_DatiTitolo_PubblicoUfficiale" style="width: 100%;" label="Pubblico ufficiale" mandatory="true"/>
+            </td>
+            <td>
+                <input class="inputNormal" id="Parametri_DatiTitolo_DataContratto" name="Parametri_DatiTitolo_DataContratto" style="width: 100%;" label="Data contratto" mandatory="true" format="date" />
+            </td>
+            <td>
+                <input class="inputNormal" id="Parametri_DatiTitolo_NumeroRepertorio" name="Parametri_DatiTitolo_NumeroRepertorio" style="width: 100%;" label="Numero repertorio" mandatory="true" />
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<br>
+
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          Eventuali annotazioni
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <textarea class="inputNormal" id="Parametri_Annotazioni" name="Parametri_Annotazioni" style="width: 100%; height: 5cm;" label="Eventuali annotazioni"></textarea>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<br>
+
+<globo_salto_pagina></globo_salto_pagina>
+
+<table class="Modulo" name="Allegati" style="border: 1px solid grey">
+    <tbody>
+        <tr class="Rigaintestazione">
+            <td colspan="2">
+                <p style="text-align: center;">
+                    <b>
+                        Elenco degli allegati
+                    </b>
+                    <br/>
+                    <span style="font-size:70%">
+                        <i>(barrare tutti gli allegati richiesti in fase di presentazione della pratica ed elencati sul portale)</i>
+                    </span>
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 4%; vertical-align: top;">
+                <input id="ULT-INT-PRO" name="ULT-INT-PRO" type="checkbox" value="OBBLIGATORIO"/>
+            </td>
+            <td style="background-color: #eeeeee;">
+                <p>
+                    n° ulteriori intestatari del procedimento
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 4%; vertical-align: top;">
+                <input id="COM-MET-EST" name="COM-MET-EST" type="checkbox" value="OBBLIGATORIO"/>
+            </td>
+            <td style="background-color: #eeeeee;">
+                <p>
+                    computo metrico estimativo
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 4%; vertical-align: top;">
+                <input id="EST-MAP-CAT" name="EST-MAP-CAT" type="checkbox" value="OBBLIGATORIO"/>
+            </td>
+            <td style="background-color: #eeeeee;">
+                <p>
+                    copia dell’estratto mappa catasto terreni
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 4%; vertical-align: top;">
+                <input id="DOC-FOT" name="DOC-FOT" type="checkbox" value="OBBLIGATORIO" checked="checked" dynamic_check="true"/>
+            </td>
+            <td style="background-color: #eeeeee;">
+                <p>
+                    documentazione fotografica
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 4%; vertical-align: top;">
+                <input id="PLA-PRO" name="PLA-PRO" type="checkbox" value="OBBLIGATORIO" checked="checked" dynamic_check="true"/>
+            </td>
+            <td style="background-color: #eeeeee;">
+                <p>
+                    planimetria e profili stato di fatto
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 4%; vertical-align: top;">
+                <input id="PLA-INQ-TER" name="PLA-INQ-TER" type="checkbox" value="OBBLIGATORIO" checked="checked" dynamic_check="true"/>
+            </td>
+            <td style="background-color: #eeeeee;">
+                <p>
+                    planimetria di inquadramento territoriale
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 4%; vertical-align: top;">
+                <input id="PRO-PLA" name="PRO-PLA" type="checkbox" value="OBBLIGATORIO" checked="checked" dynamic_check="true"/>
+            </td>
+            <td style="background-color: #eeeeee;">
+                <p>
+                    progetto planivolumetrico
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 4%; vertical-align: top;">
+                <input id="REL-ECO" name="REL-ECO" type="checkbox" value="OBBLIGATORIO" checked="checked" dynamic_check="true"/>
+            </td>
+            <td style="background-color: #eeeeee;">
+                <p>
+                    relazione economica
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 4%; vertical-align: top;">
+                <input id="REL-IDR-SIS" name="REL-IDR-SIS" type="checkbox" value="OBBLIGATORIO" checked="checked" dynamic_check="true"/>
+            </td>
+            <td style="background-color: #eeeeee;">
+                <p>
+                    relazione idrogeologica e sismica
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 4%; vertical-align: top;">
+                <input id="REL-TEC" name="REL-TEC" type="checkbox" value="OBBLIGATORIO" checked="checked" dynamic_check="true"/>
+            </td>
+            <td style="background-color: #eeeeee;">
+                <p>
+                    relazione tecnica
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 4%; vertical-align: top;">
+                <input id="SCH-CON" name="SCH-CON" type="checkbox" value="OBBLIGATORIO" checked="checked" dynamic_check="true"/>
+            </td>
+            <td style="background-color: #eeeeee;">
+                <p>
+                    schema di convenzione
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 4%; vertical-align: top;">
+                <input id="STR-STR-URB" name="STR-STR-URB" type="checkbox" value="OBBLIGATORIO" checked="checked" dynamic_check="true"/>
+            </td>
+            <td style="background-color: #eeeeee;">
+                <p>
+                    stralcio dello strumento urbanistico
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input checked="checked" dynamic_check="true" id="MARCA_BOLLO" name="MARCA_BOLLO" type="checkbox" value="OBBLIGATORIO"/>
+            </td>
+            <td style="background-color: #eeeeee;">
+                <p>
+                    pagamento dell'imposta di bollo
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 4%; vertical-align: top;">
+                <input id="PRO-FAT-OPE" name="PRO-FAT-OPE" type="checkbox" value="OBBLIGATORIO"/>
+            </td>
+            <td style="background-color: #eeeeee;">
+                <p>
+                    progetto di fattibilità opere di urbanizzazione e standard qualitativo
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 4%; vertical-align: top;">
+                <input id="SCH-CON-APP" name="SCH-CON-APP" type="checkbox" value="OBBLIGATORIO"/>
+            </td>
+            <td style="background-color: #eeeeee;">
+                <p>
+                    schema contratto d’appalto standard qualitativo
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 4%; vertical-align: top;">
+                <input id="SOG-COI-PRO" name="SOG-COI-PRO" type="checkbox" value="OBBLIGATORIO" checked="checked" dynamic_check="true"/>
+            </td>
+            <td style="background-color: #eeeeee;">
+                <p>
+                    soggetti coinvolti nel procedimento urbanistico
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 4%; vertical-align: top;">
+                <input id="NOR-TEC-ATT" name="NOR-TEC-ATT" type="checkbox" value="OBBLIGATORIO"/>
+            </td>
+            <td style="background-color: #eeeeee;">
+                <p>
+                    norme tecniche di attuazione del Piano attuativo
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 4%; vertical-align: top;">
+                <input id="PRO-INT-SOT" name="PRO-INT-SOT" type="checkbox" value="OBBLIGATORIO"/>
+            </td>
+            <td style="background-color: #eeeeee;">
+                <p>
+                    progetto interventi sulle reti dei servizi nel sottosuolo
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td style="vertical-align: top; width: 4%;">
+                <input id="DAE-CDI" name="DAE-CDI" type="checkbox" value="OBBLIGATORIO" />
+            </td>
+            <td style="background-color: #eeeeee;">
+                <p>
+                    copia del documento d'identità
+                    <br/>
+                    <span style="font-size:70%">
+                        <i>(da allegare se il modulo è sottoscritto con firma autografa)</i>
+                    </span>
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td style="vertical-align: top; width: 4%;">
+                <input id="ALTRI-ALLEGATI" name="ALTRI-ALLEGATI" type="checkbox" value="OBBLIGATORIO"/>
+            </td>
+            <td style="background-color: #eeeeee;">
+                <p>
+                    altri allegati
+                    <span style="font-size:70%">(specificare)</span>
+                    <input class="" label="Altri allegati" id="AltriAllegati" mandatory_enabled="#ALTRI_ALLEGATI.checked()" name="AltriAllegati" style="width:79%;"/>
+                </p>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+
+<br>
+{{ utils.trattamento_dati_personali() }}
+<br/>
+    {{ utils.firma_hidden() }}
+<br/>
+
+<p class="Modulo">
+    <input id="SalvaModulo" name="SalvaModulo" style="height:30px;width:120px;" title="Verifica la corretta compilazione dei campi e salva il modulo nel faldone virtuale dell'istanza." type="submit" value="Salva modulo"/>
+</p>
+
+<input destinatario_amministrazione="getParameter('Ente')" id="GLOBO_modulo_c{{ CodiceModulo }}" name="GLOBO_modulo_c{{ CodiceModulo }}" type="hidden" value=""/>
+<input firmare="'P7M_ELETTRONICA'" id="GLOBO_modulofiglio_cINCARICO_PROCURA" name="GLOBO_modulofiglio_cINCARICO_PROCURA" type="hidden" value=""/>
+
+<input id="GLOBO_allegato_cDAE-CDI" name="GLOBO_allegato_cDAE-CDI" obbligatorio="#DAE_CDI.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+<input id="GLOBO_allegato_cULT-INT-PRO" name="GLOBO_allegato_cULT-INT-PRO" type="hidden" value="" obbligatorio="#ULT_INT_PRO.checked() ? 'OBBLIGATORIO' : ''"/>
+<input id="GLOBO_allegato_cCOM-MET-EST" name="GLOBO_allegato_cCOM-MET-EST" type="hidden" value="" obbligatorio="#COM_MET_EST.checked() ? 'OBBLIGATORIO' : ''"/>
+<input id="GLOBO_allegato_cEST-MAP-CAT" name="GLOBO_allegato_cEST-MAP-CAT" type="hidden" value="" obbligatorio="#EST_MAP_CAT.checked() ? 'OBBLIGATORIO' : ''"/>
+<input id="GLOBO_allegato_cDOC-FOT" name="GLOBO_allegato_cDOC-FOT" type="hidden" value="" obbligatorio="#DOC_FOT.checked() ? 'OBBLIGATORIO' : ''"/>
+<input id="GLOBO_allegato_cPLA-PRO" name="GLOBO_allegato_cPLA-PRO" type="hidden" value="" obbligatorio="#PLA_PRO.checked() ? 'OBBLIGATORIO' : ''"/>
+<input id="GLOBO_allegato_cPLA-INQ-TER" name="GLOBO_allegato_cPLA-INQ-TER" type="hidden" value="" obbligatorio="#PLA_INQ_TER.checked() ? 'OBBLIGATORIO' : ''"/>
+<input id="GLOBO_allegato_cPRO-PLA" name="GLOBO_allegato_cPRO-PLA" type="hidden" value="" obbligatorio="#PRO_PLA.checked() ? 'OBBLIGATORIO' : ''"/>
+<input id="GLOBO_allegato_cREL-ECO" name="GLOBO_allegato_cREL-ECO" type="hidden" value="" obbligatorio="#REL_ECO.checked() ? 'OBBLIGATORIO' : ''"/>
+<input id="GLOBO_allegato_cREL-IDR-SIS" name="GLOBO_allegato_cREL-IDR-SIS" type="hidden" value="" obbligatorio="#REL_IDR_SIS.checked() ? 'OBBLIGATORIO' : ''"/>
+<input id="GLOBO_allegato_cREL-TEC" name="GLOBO_allegato_cREL-TEC" type="hidden" value="" obbligatorio="#REL_TEC.checked() ? 'OBBLIGATORIO' : ''"/>
+<input id="GLOBO_allegato_cSCH-CON" name="GLOBO_allegato_cSCH-CON" type="hidden" value="" obbligatorio="#SCH_CON.checked() ? 'OBBLIGATORIO' : ''"/>
+<input id="GLOBO_allegato_cSTR-STR-URB" name="GLOBO_allegato_cSTR-STR-URB" type="hidden" value="" obbligatorio="#STR_STR_URB.checked() ? 'OBBLIGATORIO' : ''"/>
+<input id="GLOBO_modulofiglio_cMARCA_BOLLO" name="GLOBO_modulofiglio_cMARCA_BOLLO" obbligatorio="#MARCA_BOLLO.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+<input id="GLOBO_allegato_cPRO-FAT-OPE" name="GLOBO_allegato_cPRO-FAT-OPE" type="hidden" value="" obbligatorio="#PRO_FAT_OPE.checked() ? 'OBBLIGATORIO' : ''"/>
+<input id="GLOBO_allegato_cSCH-CON-APP" name="GLOBO_allegato_cSCH-CON-APP" type="hidden" value="" obbligatorio="#SCH_CON_APP.checked() ? 'OBBLIGATORIO' : ''"/>
+<input id="GLOBO_allegato_cSOG-COI-PRO" name="GLOBO_allegato_cSOG-COI-PRO" type="hidden" value="" obbligatorio="#SOG_COI_PRO.checked() ? 'OBBLIGATORIO' : ''"/>
+<input id="GLOBO_allegato_cNOR-TEC-ATT" name="GLOBO_allegato_cNOR-TEC-ATT" type="hidden" value="" obbligatorio="#NOR_TEC_ATT.checked() ? 'OBBLIGATORIO' : ''"/>
+<input id="GLOBO_allegato_cPRO-INT-SOT" name="GLOBO_allegato_cPRO-INT-SOT" type="hidden" value="" obbligatorio="#PRO_INT_SOT.checked() ? 'OBBLIGATORIO' : ''"/>
+<input id="GLOBO_allegato_cALTRI-ALLEGATI" name="GLOBO_allegato_cALTRI-ALLEGATI" obbligatorio="#ALTRI_ALLEGATI.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_id_padre" name="GLOBO_id_padre" type="hidden"/>
+<input id="GLOBO_recupera_dati" name="GLOBO_recupera_dati" type="hidden"/>
+<input id="GLOBO_codice_modulo" name="GLOBO_codice_modulo" type="hidden" value="{{ CodiceModulo }}"/>
+
+{% endblock content %}

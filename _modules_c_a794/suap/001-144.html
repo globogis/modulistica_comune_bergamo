@@ -1,0 +1,1106 @@
+{% set CodiceModulo =  "001-144" %}
+{% extends "base.html" %}
+{% set Urn = "document:c_a794:impianti.teleradiocomunicazioni;domanda" %}
+{% block meta %}
+
+<meta campi_firma="Titolare_CodiceFiscale"
+campi_firma_label="il dichiarante"
+classi_modulo="Ecologia"
+contesto_procedurale="Ecologia"
+codice_modulo="{{ CodiceModulo }}"
+urn="{% block urn %}{{ Urn }}{% endblock urn %}"
+sub_urn_list=""
+uo_globo_list=""
+descrizione="Istanza di autorizzazione per impianti con potenza superiore a 20 Watt"
+destinatario_amministrazione=""
+destinatario_ufficio="U0233"
+dinamico="SI"
+email_a=""
+ente_abilitato="TUTTI"
+filigrana="NO"
+firmare="P7M_ELETTRONICA"
+istruzioni_compilazione=""
+istruzioni_invio="mail_pec"
+metodo_invio="mail"
+name="GLOBO_modulo"
+procura="NO,,"
+tipo_modulo="principale"
+ufficio=""
+urlhelp="DomandeRisposte/FAQ"
+verifica_pagamento="NO"
+versione="1.1|28/03/2019"/>
+
+<meta codice_modulo_figlio="MARCA_BOLLO"
+urn_modulo_figlio="document:s_italia:pagamento.imposta.bollo;apposizione.domanda;dichiarazione.sostitutiva"
+name="GLOBO_modulofiglio"
+numero="1"
+obbligatorio="DINAMICO"/>
+
+<meta codice_modulo_figlio="INCARICO_PROCURA"
+urn_modulo_figlio="document:s_italia:generale;incarico.procura"
+name="GLOBO_modulofiglio"
+numero="1"
+obbligatorio="DINAMICO"/>
+
+<meta codice_allegato="copiatitprop"
+urn_allegato="document:c_a794:impianti.teleradiocomunicazioni;copia.titolo.proprieta;allegato"
+descrizione_estesa="copia del titolo di proprietà o dichiarazione sostitutiva di atto notorio"
+filename="copia titolo prop o dichiaraz sostitut atto notorio.pdf"
+firmato="SI"
+istruzioni="/servizio-ecologia-e-ambiente/copia-del-titolo-di-proprieta-o-dichiarazione-sostitutiva-di-atto-notorio"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="COP-ATT-POT"
+descrizione_estesa="Copia dell'atto di attribuzione dei poteri di rappresentanza al procuratore"
+urn_allegato="document:c_a794:impianti.teleradiocomunicazioni;copia.atto.attribuzione;allegato"
+filename="poteri rappresentanza.pdf"
+firmato="SI"
+istruzioni="/servizio-ecologia-e-ambiente/copia-dell’atto-di-attribuzione-dei-poteri-di-rappresentanza-al-procuratore "
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_modulo_figlio="A001-138"
+urn_modulo_figlio="document:c_a794:impianti.teleradiocomunicazioni;relazione.tecnica"
+name="GLOBO_modulofiglio"
+numero="1"
+obbligatorio="DINAMICO"/>
+
+<meta codice_allegato="esamepaes"
+descrizione_estesa="esame paesistico"
+urn_allegato="document:c_a794:impianti.teleradiocomunicazioni;esame.paesistico;allegato"
+filename="esame paesistico.pdf"
+firmato="NO"
+istruzioni="/servizio-attivita-produttive-e-commercio/vincolo-paesaggistico-esame-dellimpatto-paesistico-del-progetto"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="noparaltro"
+descrizione_estesa="N.O./Pareri/ o altri atti di assenso necessari"
+urn_allegato="document:c_a794:impianti.teleradiocomunicazioni;pareri;allegato"
+filename="NO pareri altri atti.pdf"
+firmato="SI"
+istruzioni="servizio-ecologia-e-ambiente/nulla-osta-o-altro-atto-di-assenso"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="ALTRI-ALLEGATI"
+urn_allegato="document:s_italia:altri.allegati"
+descrizione_estesa="Altri allegati"
+filename="Altri allegati.pdf"
+firmato="SI"
+istruzioni="/servizio-attivita-produttive-e-commercio/altri-allegati-allistanza"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="AIE"
+descrizione_estesa="Analisi di impatto elettromagnetico"
+urn_allegato="document:c_a794:impianti.teleradiocomunicazioni;analisi.impatto.elettromagnetico;allegato"
+filename="Analisi di impatto elettromagnetico.pdf"
+firmato="SI"
+istruzioni="/servizio-ecologia-e-ambiente/analisi-di-impatto-elettromagnetico"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="PROG-IMP"
+descrizione_estesa="Progetto dell'impianto"
+urn_allegato="document:c_a794:impianti.teleradiocomunicazioni;progetto.impianto;allegato"
+filename="Progetto dell impianto.pdf"
+firmato="SI"
+istruzioni="/servizio-ecologia-e-ambiente/progetto-dellimpianto"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+{% endblock meta %}
+{% block title %}
+    Istanza di autorizzazione per impianti con potenza superiore a 20 Watt
+  {% endblock title %}
+{% block content %}
+ <globo_fondo_pagina areaheight="150" scope="5">
+ {{ utils.firma() }}
+</globo_fondo_pagina>
+
+<input dynamic_value="#Titolare_Cognome.value().toUpperCase() + ' -  Istanza di autorizzazione per l\'installazione di impianti con potenza superiore a 20 Watt'" id="Oggetto" name="Oggetto" type="hidden"/>
+
+
+<input dynamic_value="#Ente.value()" id="Parametri_Comune" name="Parametri_Comune" type="hidden"/>
+
+
+{{ intestazioni.intestazione_moduloprincipale_conbollo() }}
+  <h1 class='Modulo'>
+ Istanza di autorizzazione per impianti con potenza superiore a 20 Watt
+</h1>
+<h2 class='Modulo'>
+ Ai sensi dell'articolo 87 del Decreto Legislativo 1-8-2003 n. 259
+</h2>
+
+{{anagrafica.societa("Titolare","Il sottoscritto",["Titolare", "Legale rappresentante","Procuratore con potere di rappresentanza legale"], "Richiedente")}}
+<table class="Modulo">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="2">
+        <p class="Labeltabella">
+          Requisiti
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          Concessione governativa n.
+        </p>
+      </td>
+      <td>
+        <p class="Labelcella">
+          Data concessione
+        </p>
+      </td>
+    </tr>
+     <tr>
+      <td>
+        <input type="text" id="Parametri_concessgov" name="Parametri_concessgov" label="Numero concessione governativa" style="width:100%" mandatory="true"/>
+      </td>
+      <td>
+        <input type="text" id="Parametri_concessgov_data" name="Parametri_concessgov_data" format="date" label="Data concessione" style="width:100%" mandatory="true"/>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br/>
+<h3 class="Modulo">
+  CHIEDE
+</h3>
+<table class="Modulo" style="border: 0px solid grey">
+  <tbody>
+    <tr style="height: 0px; visibility:hidden; border:0px">
+       <td style="width: 4%; border: 0px">
+       </td>
+       <td style="width: 4%; border: 0px">
+       </td>
+       <td style="width: auto; border: 0px">
+       </td>
+       <td style="width: auto; border: 0px">
+       </td>
+       <td style="width: auto; border: 0px">
+       </td>
+       <td style="width: auto; border: 0px">
+       </td>
+    </tr>
+    <tr class="Rigaintestazione">
+      <td colspan="6">
+        <p class="Labeltabella">
+          Ai sensi dell'articolo 87 del Decreto Legislativo 1-8-2003, n.259 (potenza in antenna superiore a 20 W)
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align:top">
+        <div id="Tassonomia_tipopresentlazione" name="Tassonomia_tipopresentlazione" mandatory="true" label="Rilascio autorizzazione" />
+        <input type="radio" id="Tassonomia_tipopresentlazione1" name="Tassonomia_tipopresentlazione" value="1"/>
+      </td>
+      <td colspan="5">
+        <p>
+          il rilascio dell'autorizzazione all'installazione di un nuovo impianto relativo alle infrastrutture di comunicazione elettronica per impianti radioelettrici
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td rowspan="11" style="vertical-align: top">
+        <input type="radio" id="Tassonomia_tipopresentlazione2" name="Tassonomia_tipopresentlazione" value="2"/>
+      </td>
+      <td colspan="5">
+        <p>
+          il rilascio dell'autorizzazione alla modifica dell'impianto esistente, precedentemente legittimato con:
+        </p>
+      </td>
+    </tr>
+    <tr style="height: 8pt">
+      <td colspan="2" style="background-color: #eeeeee; font-weight:bold; height: 8pt;">
+        <p class="Labelcella">
+          Tipo
+        </p>
+      </td>
+      <td style="background-color: #eeeeee; font-weight:bold; height: 8pt;">
+        <p class="Labelcella">
+          Numero protocollo
+        </p>
+      </td>
+      <td style="background-color: #eeeeee; font-weight:bold; height: 8pt;">
+        <p class="Labelcella">
+          Data protocollo
+        </p>
+      </td>
+      <td style="background-color: #eeeeee; font-weight:bold; height: 8pt;">
+        <p class="Labelcella">
+          Numero pratica
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div id="Tassonomia_legitTramite" name="Tassonomia_legitTramite" label="Tipologia procedimento precedente" mandatory_enabled="#Tassonomia_tipopresentlazione2.checked()"/>
+        <input type="radio" id="Tassonomia_legitTramite1" name="Tassonomia_legitTramite" value="1" />
+      </td>
+      <td>
+        <p>
+          comunicazione
+        </p>
+      </td>
+      <td>
+        <input type="text" id="Parametri_comnPG" name="Parametri_comnPG" label="Numero protocollo generale comunicazione" mandatory_enabled="#Tassonomia_legitTramite1.checked()" style="width: 100%"/>
+      </td>
+      <td>
+        <input type="text" id="Parametri_comnPG_Data" name="Parametri_comnPG_Data" label="Data protocollo generale comunicazione" mandatory_enabled="#Tassonomia_legitTramite1.checked()" style="width: 100%" format="date" />
+      </td>
+      <td>
+        <input type="text" id="Parametri_comnPG_Note" name="Parametri_comnPG_Note" label="Numero pratica comunicazione" mandatory_enabled="#Tassonomia_legitTramite1.checked()" style="width: 100%"/>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input type="radio" id="Tassonomia_legitTramite2" name="Tassonomia_legitTramite" value="2" />
+      </td>
+      <td>
+        <p>
+          SCIA/DIA
+        </p>
+      </td>
+      <td>
+        <input type="text" id="Parametri_SCIADIAPG" name="Parametri_SCIADIAPG" label="Numero protocollo generale SCIA/DIA" mandatory_enabled="#Tassonomia_legitTramite2.checked()" style="width: 100%"/>
+      </td>
+      <td>
+        <input type="text" id="Parametri_SCIADIAPG_Data" name="Parametri_SCIADIAPG_Data" label="Data protocollo generale SCIA/DIA" style="width: 100%" mandatory_enabled="#Tassonomia_legitTramite2.checked()" format="date"/>
+      </td>
+      <td>
+        <input type="text" id="Parametri_SCIADIAPG_Note" mandatory_enabled="#Tassonomia_legitTramite2.checked()"  label="Numero pratica SCIA/DIA" name="Parametri_SCIADIAPG_Note" style="width: 100%"/>
+      </td>
+    </tr>
+    <tr style="height: 8pt">
+      <td colspan="2" style="background-color: #eeeeee; font-weight:bold; height: 8pt;">
+        <p class="Labelcella">
+          Tipo
+        </p>
+      </td>
+      <td style="background-color: #eeeeee; font-weight:bold; height: 8pt;">
+        <p class="Labelcella">
+          Numero protocollo
+        </p>
+      </td>
+      <td style="background-color: #eeeeee; font-weight:bold; height: 8pt;">
+        <p class="Labelcella">
+          Data protocollo
+        </p>
+      </td>
+      <td style="background-color: #eeeeee; font-weight:bold; height: 8pt;">
+        <p class="Labelcella">
+          Numero pratica
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td rowspan="3" style="vertical-align: top">
+        <input type="radio" id="Tassonomia_legitTramite3" name="Tassonomia_legitTramite" value="3"/>
+      </td>
+      <td rowspan="3" style="vertical-align: top">
+        <p>
+          autorizzazione
+        </p>
+      </td>
+      <td>
+        <input type="text" id="Parametri_autPG" name="Parametri_autPG" label="Numero protocollo generale autorizzazione" mandatory_enabled="#Tassonomia_legitTramite3.checked()" style="width: 100%"/>
+      </td>
+      <td>
+        <input type="text" id="Parametri_autPG_Data" name="Parametri_autPG_Data"  label="Data protocollo generale autorizzazione" mandatory_enabled="#Tassonomia_legitTramite3.checked()" style="width: 100%" format="date"/>
+      </td>
+      <td>
+        <input type="text" id="Parametri_autPG_Note" name="Parametri_autPG_Note" label="Numero pratica autorizzazione" mandatory_enabled="#Tassonomia_legitTramite3.checked()" style="width: 100%"/>
+      </td>
+    </tr>
+    <tr>
+      <td style="background-color: #eeeeee; font-weight:bold; height: 8pt;">
+        <p class="Labelcella">
+          Numero autorizzazione
+        </p>
+      </td>
+      <td style="background-color: #eeeeee; font-weight:bold; height: 8pt;" colspan="2">
+        <p class="Labelcella">
+          Data autorizzazione
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input type="text" id="Parametri_auPGnumaut" name="Parametri_auPGnumaut" label="Numero autorizzazione" mandatory_enabled="#Tassonomia_legitTramite3.checked()" style="width: 100%"/>
+      </td>
+      <td colspan="2">
+        <input type="text" id="Parametri_auPGnumaut_Data" name="Parametri_auPGnumaut_Data"  label="Data autorizzazione" style="width: 100%" format="date" mandatory_enabled="#Tassonomia_legitTramite3.checked()"/>
+      </td>
+    </tr>
+    <tr style="height: 12pt">
+      <td colspan="5" style="background: #eeeeee; font-weight:bold; height: 12pt;">
+        <p>
+          i lavori consistono in:
+          <span style="font-size: 70%; font-style: italic">
+            (è possibile barrare più caselle)
+          </span>
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div id="conslavori" name="conslavori" mandatory_enabled="#Tassonomia_tipopresentlazione2.checked()"/>
+        <input type="checkbox" id="Tassonomia_divconfig" name="Tassonomia_divconfig" group="conslavori" value="SI"/>
+      </td>
+      <td colspan="4">
+        <p>
+          diversa configurazione dell'impianto, a seguito della sostituzione di apparati tecnici o posizionamento di elementi irradianti diversi o diversa collocazione del sostegno e/o degli apparati costituenti l'impianto stesso
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input type="checkbox" id="Tassonomia_variaz" name="Tassonomia_variaz" group="conslavori" value="SI"/>
+      </td>
+      <td colspan="4">
+        <p>
+          variazione della potenza dell'impianto, rispetto al precedente titolo abitativo da <input type="text" id="Parametri_variazImpDa" name="Parametri_variazImpDa" label="Precedente potenza dell'impianto" style="width: 10%" mandatory_enabled="#Tassonomia_variaz.checked()"/> a <input type="text" id="Parametri_variazImpA" name="Parametri_variazImpA" style="width: 10%" mandatory_enabled="#Tassonomia_variaz.checked()"  label="Nuova potenza dell'impianto"/> W
+        </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+{{ utils.Dichiara_445() }}
+<table class="Modulo" style="border: 0px solid grey">
+  <tbody>
+    <tr style="border: 0px">
+      <td style="vertical-align:top; border: 0px">
+        <input id="Tassonomia_dichiara1" name="Tassonomia_dichiara1" type="checkbox" value="SI" dynamic_check="true"/>
+      </td>
+      <td style="border: 0px">
+        <p>
+          che l'impianto sulla base della stima del campo generato e della simulazione numerica effettuata è conforme ai limiti di esposizione, ai valori di attenzione e a gli obiettivi di qualità di cui alla legege 22-02-2001 n. 36
+        </p>
+      </td>
+    </tr>
+    <tr style="border: 0px">
+      <td style="border: 0px">
+        <input id="Tassonomia_dichiara2" name="Tassonomia_dichiara2" type="checkbox" value="SI" dynamic_check="true"/>
+      </td>
+      <td style="border: 0px">
+       <p>
+         che la potenza complessiva dell'impianto oggetto della presente istanza è pari a Watt: <input type="text" id="Parametri_potenzaimp" label="Potenza complessiva dell'impianto" name="Parametri_potenzaimp" style="width:10%" mandatory="true"/>
+       </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br/>
+
+
+<input checked="checked" dynamic_check="true" style="display:none" id="Immobile_DatiCatastaliObbligatori" name="Immobile_DatiCatastaliObbligatori" type="checkbox" value="no"/>
+<!--
+ 1- Gauss-Boaga
+2- si descriva sinteticamente ma in modo esauriente il posizionamento degli impianti , la loro collocazione
+e la loro accessibilità da parte del personale incaricato. Si descrivano altesi sinteticamente ma in modo esauriente i dintorni dell'apparato
+evidenziando edifici posti in vicinanza del sito; conformazione e morfoglogia del terreno circostante; eventuale presenza di altre stazioni emittenti collocate con la stazione da installare
+3- si enumerino in modo dettagliato, completo e privo di ambiguità tutte le caratteristiche radioelettriche dell'impianto trasmittente
+-->
+{{ immobili.immobile_toponomastica("Immobile","collocazione dell'impianto", "Collocazione impianto" ) }}
+<table class="Modulo" style="border: 1px solid grey;margin-top: -1px">
+ <tbody>
+  <tr class="Rigaintestazioneridotta">
+   <td>
+    <p class="Labelcella">
+     Coordinata Est (UTM WGS84)
+    </p>
+   </td>
+   <td>
+    <p class="Labelcella">
+     Coordinata Nord (UTM WGS84)
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td>
+    <input id="Parametri_Coordinata_est" label="Coordinata Est" mandatory="true" name="Parametri_Coordinata_est" style="width:100%" type="text" format="positive_float" value=""/>
+   </td>
+   <td>
+    <input id="Parametri_Coordinata_nord" label="Coordinata Nord" format="positive_float" mandatory="true" name="Parametri_Coordinata_nord" style="width:100%" type="text" value=""/>
+   </td>
+  </tr>
+ </tbody>
+</table>
+<table class="Modulo" style="border: 1px solid grey">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="2">
+        <p class="Labeltabella">
+          Identificativi dell'impianto
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          Codice sito
+        </p>
+      </td>
+      <td>
+        <p class="Labelcella">
+          Denominazione impianto
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input type="text" id="Parametri_CodiceSito" name="Parametri_CodiceSito" style="width:100%" mandatory="true" label="Codice sito"/>
+      </td>
+      <td>
+        <input type="text" id="Parametri_DenomImpi" name="Parametri_DenomImpi" style="width:100%" mandatory="true" label="Denominazione impianto"/>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<!--
+1- Gauss-Boaga
+2- si descriva sinteticamente ma in modo esauriente il posizionamento degli impianti , la loro collocazione
+e la loro accessibilità da parte del personale incaricato
+3- si enumerino in modo dettagliato, completo e privo di ambiguità tutte le caratteristiche radioelettriche dell'impianto trasmittente
+-->
+<table class="Modulo" style="border: 0px solid grey">
+  <tbody>
+    <tr style="height: 0px; visibility:hidden; border:0px">
+     <td style="width: 4%; border: 0px">
+     </td>
+     <td style="width: auto; border: 0px">
+     </td>
+     <td style="width: 35%; border: 0px">
+     </td>
+    </tr>
+    <tr class="Rigaintestazione">
+      <td colspan="3">
+        <p class="Labeltabella">
+           Dettaglio dell'impianto e delle aree cicostanti <sup>1</sup>
+        </p>
+      </td>
+    </tr>
+    <tr style="height: 8pt">
+      <td style="vertical-align:top" rowspan="2">
+        <div id="arreCirc" name="arreCirc" mandatory="true" label="Dettaglio dell'impianto e delle aree circostanti"/>
+        <input type="checkbox" id="Tassonomia_EnabledDescrImp" name="Tassonomia_EnabledDescrImp" value="SI"  group="arreCirc"/>
+      </td>
+      <td colspan="2">
+        <p>
+        descrizione
+        </p>
+      </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+        <textarea id="Parametri_DescrImpianto" mandatory_enabled="#Tassonomia_EnabledDescrImp.checked()" name="Parametri_DescrImpianto" label="Dettaglio dell'impianto e aree circostanti" style="width:100%;height:5cm;"></textarea>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input id="Tassonomia_descImpRTP" name="Tassonomia_descImpRTP" type="checkbox" value="SI" group="arreCirc"/>
+      </td>
+      <td>
+        <p>
+          si demanda alla relazione tecnica di Progetto
+        </p>
+      </td>
+      <td>
+        <p>
+          da pag. <input type="text" id="Parametri_descImpRTPDa" name="Parametri_descImpRTPDa" style="width: 25%" mandatory_enabled="#Tassonomia_descImpRTP.checked()"/> a pag. <input type="text" id="Parametri_descImpRTPA" name="Parametri_descImpRTPA" style="width: 25%" mandatory_enabled="#Tassonomia_descImpRTP.checked()"/>
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input id="Tassonomia_descAIE" name="Tassonomia_descAIE" type="checkbox" value="SI" group="arreCirc"/>
+      </td>
+      <td>
+        <p>
+          si demanda all'Analisi dell'Impatto Elettromagnetico
+        </p>
+      </td>
+      <td>
+        <p>
+          da pag. <input type="text" id="Parametri_descImpAIEDa" name="Parametri_descImpAIEDa" mandatory_enabled="#Tassonomia_descAIE.checked()" label="Pagina iniziale" style="width: 25%"/> a pag. <input type="text" id="Parametri_descImpAIEA" name="Parametri_descImpAIEA" label="Pagina finle" mandatory_enabled="#Tassonomia_descAIE.checked()" style="width: 25%"/>
+        </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<table class="Modulo" style="border: 0px solid grey">
+  <tbody>
+    <tr style="height: 0px; visibility:hidden; border:0px">
+      <td style="width: 4%; border: 0px">
+      </td>
+      <td style="width: auto; border: 0px">
+      </td>
+      <td style="width: 35%; border: 0px">
+      </td>
+    </tr>
+    <tr class="Rigaintestazione">
+      <td colspan="3">
+        <p class="Labeltabella">
+          Dettaglio del terreno circostante <sup>2</sup>
+        </p>
+      </td>
+    </tr>
+    <tr style="height: 8pt">
+      <td style="vertical-align:top" rowspan="2">
+        <div id="terrCirc" name="terrCirc" mandatory="true" label="Dettaglio del terreno circostante"/>
+        <input type="checkbox" id="Tassonomia_EnabledDescrTerr" name="Tassonomia_EnabledDescrTerr" value="SI"  group="terrCirc"/>
+      </td>
+      <td colspan="2">
+        <p>
+        descrizione
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2">
+        <textarea class="inputNormal" id="Parametri_DescrTerrCirc" mandatory_enabled="#Tassonomia_EnabledDescrTerr.checked()" name="Parametri_DescrTerrCirc" label="Descrizione terreno circostante" style="width:100%;height:5cm;">
+    </textarea>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input type="checkbox" id="Tassonomia_descTerrCircRTP" name="Tassonomia_descTerrCircRTP" value="SI" group="terrCirc"/>
+      </td>
+      <td>
+        <p>
+          si demanda alla relazione tecnica di Progetto
+        </p>
+      </td>
+      <td>
+        <p>
+          da pag. <input type="text" id="Parametri_DescrTerrCircRTPDa" name="Parametri_DescrTerrCircRTPDa" style="width: 25%" mandatory_enabled="#Tassonomia_descTerrCircRTP.checked()"/> a pag. <input type="text" id="Parametri_DescrTerrCircRTPA" name="Parametri_DescrTerrCircRTPA" style="width: 25%" mandatory_enabled="#Tassonomia_descTerrCircRTP.checked()"/>
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input type="checkbox" id="Tassonomia_descTerrCircAIE" name="Tassonomia_descTerrCircAIE" value="SI" group="terrCirc"/>
+      </td>
+      <td>
+        <p>
+          si demanda all'Analisi dell'Impatto Elettromagnetico
+        </p>
+      </td>
+      <td>
+        <p>
+          da pag. <input type="text" id="Parametri_DescrTerrCircAIEDa" name="Parametri_DescrTerrCircAIEDa" style="width: 25%" label="Pagina iniziale" mandatory_enabled="#Tassonomia_descTerrCircAIE.checked()"/> a pag. <input type="text" id="Parametri_DescrTerrCircAIEA"  label="Pagina finale" name="Parametri_DescrTerrCircAIEA" style="width: 25%" mandatory_enabled="#Tassonomia_descTerrCircAIE.checked()"/>
+        </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<table class="Modulo" style="border: 0px solid grey">
+  <tbody>
+    <tr style="height: 0px; visibility:hidden; border:0px">
+      <td style="width: 4%; border: 0px">
+      </td>
+      <td style="width: auto; border: 0px">
+      </td>
+      <td style="width: 35%; border: 0px">
+      </td>
+    </tr>
+    <tr class="Rigaintestazione">
+      <td colspan="3">
+        <p class="Labeltabella">
+          Caratteristiche radioelettriche dell'impianto <sup>3</sup>
+        </p>
+      </td>
+    </tr>
+    <tr style="height: 8pt">
+      <td style="vertical-align:top" rowspan="2">
+        <div id="carattRadioelett" name="carattRadioelett" mandatory="true" label="Caratteristiche radioelettroiche dell'impianto"/>
+        <input type="checkbox" id="Tassonomia_EnabledDescrRadio" name="Tassonomia_EnabledDescrRadio" value="SI" group="carattRadioelett"/>
+      </td>
+      <td colspan="2">
+        <p>
+        descrizione
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2">
+        <textarea class="inputNormal" id="Parametri_CarattRadioImp" mandatory_enabled="#Tassonomia_EnabledDescrRadio.checked()" name="Parametri_CarattRadioImp" label="Caratteristiche radioelettriche dell'impianto" style="width:100%;height:5cm;">
+    </textarea>
+      </td>
+    </tr>
+    <tr>
+      <td style="width:4%">
+        <input type="checkbox" id="Tassonomia_CarattRadioImpRTP" name="Tassonomia_CarattRadioImpRTP" value="SI" group="carattRadioelett"/>
+      </td>
+      <td>
+        <p>
+          alla relazione tecnica di progetto
+        </p>
+      </td>
+      <td>
+        <p>
+          da pag. <input type="text" id="Parametri_CarattRadioImpDa" name="Parametri_CarattRadioImpDa" style="width: 25%" mandatory_enabled="#Tassonomia_CarattRadioImpRTP.checked()"/> a pag. <input type="text" id="Parametri_CarattRadioImpA" name="Parametri_CarattRadioImpA" style="width: 25%" mandatory_enabled="#Tassonomia_CarattRadioImpRTP.checked()"/>
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input type="checkbox" id="Tassonomia_CarattRadioImpAIE" name="Tassonomia_CarattRadioImpAIE" value="SI" group="carattRadioelett"/>
+      </td>
+      <td>
+        <p>
+          all'Analisi di Impatto Elettromagnetico
+        </p>
+      </td>
+      <td>
+        <p>
+          da pag. <input type="text" id="Parametri_CarattRadioImpAIEDa" name="Parametri_CarattRadioImpAIEDa" label="Pagina iniziale" style="width: 25%" mandatory_enabled="#Tassonomia_CarattRadioImpAIE.checked()"/> a pag. <input type="text" id="Parametri_CarattRadioImpAIEA" label="Pagina finale" name="Parametri_CarattRadioImpAIEA" style="width: 25%" mandatory_enabled="#Tassonomia_CarattRadioImpAIE.checked()"/>
+        </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<!-- 9 nota: presentare i risultati ottenuti con le modalità di simulazione numerica....-->
+<table class="Modulo" style="border: 0px solid grey">
+  <tbody>
+    <tr style="height: 0px; visibility:hidden; border:0px">
+      <td style="width: 4%; border: 0px">
+      </td>
+      <td style="width: auto; border: 0px">
+      </td>
+      <td style="width: 35%; border: 0px">
+      </td>
+    </tr>
+    <tr class="Rigaintestazione">
+      <td colspan="3">
+        <p class="Labeltabella">
+          Stime di campo generato <sup>4</sup>
+        </p>
+      </td>
+    </tr>
+    <tr style="height: 8pt">
+      <td style="vertical-align:top" rowspan="2">
+        <div id="stimeCampo" name="stimeCampo" mandatory="true" label="Stime di campo generato"/>
+        <input type="checkbox" id="Tassonomia_EnabledDescrCamGen" name="Tassonomia_EnabledDescrCamGen" value="SI" group="stimeCampo"/>
+      </td>
+      <td colspan="2">
+        <p>
+        descrizione
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2">
+        <textarea id="Parametri_StimeCampoGen" mandatory_enabled="#Tassonomia_EnabledDescrCamGen.checked()" name="Parametri_StimeCampoGen"  label="Stime di campo generato" style="width:100%;height:5cm;"></textarea>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input type="checkbox" id="Tassonomia_StimeCampoGenRTP" name="Tassonomia_StimeCampoGenRTP" value="SI" group="stimeCampo"/>
+      </td>
+      <td>
+        <p>
+          alla relazione tecnica di Progetto
+        </p>
+      </td>
+      <td>
+        <p>
+          da pag. <input type="text" id="Parametri_StimeCampoGenRTPDa" name="Parametri_StimeCampoGenRTPDa" style="width: 25%" mandatory_enabled="#Tassonomia_StimeCampoGenRTP.checked()"/> a pag. <input type="text" id="Parametri_StimeCampoGenRTPA" name="Parametri_StimeCampoGenRTPA" style="width: 25%" mandatory_enabled="#Tassonomia_StimeCampoGenRTP.checked()"/>
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input type="checkbox" id="Tassonomia_StimeCampoGenAIE" name="Tassonomia_StimeCampoGenAIE" value="SI" group="stimeCampo"/>
+      </td>
+      <td>
+        <p>
+          all'Analisi dell'Impatto Elettromagnetico
+        </p>
+      </td>
+      <td>
+        <p>
+          da pag. <input type="text" id="Parametri_StimeCampoGenAIEDa" name="Parametri_StimeCampoGenAIEDa" label="Pagina iniziale" style="width: 25%" mandatory_enabled="#Tassonomia_StimeCampoGenAIE.checked()"/> a pag. <input type="text" id="Parametri_StimeCampoGenAIEA" label="Pagina finale" name="Parametri_StimeCampoGenAIEA" style="width: 25%" mandatory_enabled="#Tassonomia_StimeCampoGenAIE.checked()"/>
+        </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<!-- 10 nota: specificare l'algoritmo di calcolo con il quale si sono eseguite le stime di campo;
+  dovrà essere specificata l'implementazione dell'algoritmo utilizato o, qualcora il softare sia di tipo commerciale
+  il nome del programma nonchè la versione e la configurazione utilizzata.
+  indicare la conformità del programma di calcolo alle prescrizioni CEI....-->
+<table class="Modulo" style="border: 0px solid grey">
+  <tbody>
+    <tr style="height: 0px; visibility:hidden; border:0px">
+      <td style="width: 4%; border: 0px">
+      </td>
+      <td style="width: auto; border: 0px">
+      </td>
+      <td style="width: 35%; border: 0px">
+      </td>
+    </tr>
+    <tr class="Rigaintestazione">
+      <td colspan="3">
+        <p class="Labeltabella">
+          Modalità di simulazione numerica <sup>5</sup>
+        </p>
+      </td>
+    </tr>
+    <tr style="height: 8pt">
+      <td style="vertical-align:top" rowspan="2">
+        <div id="modsimulNum" name="modsimulNum" mandatory="true" label="Modalità di simulazione generica"/>
+        <input type="checkbox" id="Tassonomia_EnabledDescrModNum" name="Tassonomia_EnabledDescrModNum" value="SI" group="modsimulNum"/>
+      </td>
+      <td colspan="2">
+        <p>
+        descrizione
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2">
+        <textarea id="Parametri_ModSimNum" mandatory_enabled="#Tassonomia_EnabledDescrModNum.checked()" name="Parametri_ModSimNum" label="Modalità simulazione numerica" style="width:100%;height:5cm;">
+    </textarea>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input type="checkbox" id="Tassonomia_ModSimNumRTP" name="Tassonomia_ModSimNumRTP" value="SI" group="modsimulNum"/>
+      </td>
+      <td>
+        <p>
+          alla relazione tecnica di Progetto
+        </p>
+      </td>
+      <td>
+        <p>
+          da pag. <input type="text" id="Parametri_ModSimNumRTPDa" name="Parametri_ModSimNumRTPDa" style="width: 25%" mandatory_enabled="#Tassonomia_ModSimNumRTP.checked()"/> a pag. <input type="text" id="Parametri_ModSimNumRTPA" name="Parametri_ModSimNumRTPA" style="width: 25%" mandatory_enabled="#Tassonomia_ModSimNumRTP.checked()"/>
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input type="checkbox" id="Tassonomia_ModSimNumAIE" name="Tassonomia_ModSimNumAIE" value="SI" group="modsimulNum"/>
+      </td>
+      <td>
+        <p>
+          all'Analisi dell'Impatto Elettromagnetico
+        </p>
+      </td>
+      <td>
+        <p>
+          da pag. <input type="text" id="Parametri_ModSimNumAIEDa" name="Parametri_ModSimNumAIEDa"  label="Pagina iniziale" style="width: 25%" mandatory_enabled="#Tassonomia_ModSimNumAIE.checked()"/> a pag. <input type="text" id="Parametri_ModSimNumAIEA" name="Parametri_ModSimNumAIEA" style="width: 25%" label="Pagina finale" mandatory_enabled="#Tassonomia_ModSimNumAIE.checked()"/>
+        </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br/>
+<h3 class="Modulo">
+  SI IMPEGNA
+</h3>
+<table class="Modulo">
+  <tbody>
+    <tr>
+      <td>
+        <input type="checkbox" id="Tassonomia_ImpegnaA" name="Tassonomia_ImpegnaA" value="SI" dynamic_check="true" checked="checked"/>
+      </td>
+      <td>
+        <p>
+          ad installare/modificare l'impianto in conformità al progetto allegato
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input type="checkbox" id="Tassonomia_ImpegnaB" name="Tassonomia_ImpegnaB" value="SI" dynamic_check="true" checked="checked"/>
+      </td>
+      <td>
+        <p>
+          a realizzare le opere, a pena di decadenza, nel termine perentorio di dodici mesi, così come disposto dall'articolo 87 comma 10 del Decreto Legislativo 1-8-2003 n. 259
+        </p>
+      </td>
+    </tr>
+      <tr>
+      <td>
+        <input type="checkbox" id="Tassonomia_ImpegnaC" name="Tassonomia_ImpegnaC" value="SI" dynamic_check="true" checked="checked"/>
+      </td>
+      <td>
+        <p>
+          a depositare l'eventuale denuncia dei cementi armati e/o strutture metalliche (ai sensi degli articoli 64, 65, 66, 67 del D.P.R. 6-6-2001 n. 380)
+        </p>
+      </td>
+    </tr>
+     <tr>
+      <td>
+        <input type="checkbox" id="Tassonomia_ImpegnaD" name="Tassonomia_ImpegnaD" value="SI" dynamic_check="true" checked="checked"/>
+      </td>
+      <td>
+        <p>
+          ad esercirlo nella sua configurazione definitiva come da analisi di impatto elettromangetico allegata e nel rispetto delle ventuali prescrizioni dettate dall'ARPA con proprio parere
+        </p>
+      </td>
+    </tr>
+     <tr>
+      <td>
+        <input type="checkbox" id="Tassonomia_ImpegnaE" name="Tassonomia_ImpegnaE" value="SI" dynamic_check="true" checked="checked"/>
+      </td>
+      <td>
+        <p>
+          ad attenersi alle disposizioni eventualmente impartite dagli Enti preposti alla navigazione aerea
+        </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br/>
+<table class="Modulo" name="Allegati" style="border:1px solid grey">
+ <tbody>
+  <tr class="Rigaintestazione">
+   <td colspan="2">
+    <p style="text-align: center;">
+     <b>
+      Elenco degli allegati
+     </b>
+     <br/>
+     <span style="font-size:70%">
+      <i>
+       (barrare tutti gli allegati richiesti in fase di presentazione della pratica ed elencati sul portale)
+      </i>
+     </span>
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td style="vertical-align:top">
+    <input checked="checked" dynamic_check="true" id="AIE" name="AIE" type="checkbox" value="OBBLIGATORIO"/>
+   </td>
+   <td style="background-color: #eeeeee;">
+    <p>
+     Analisi di impatto elettromagnetico che deve contenere:
+   </p>
+     <ul>
+      <li>
+la scheda tecnica dell'impianto, con indicati frequenza, marca e modello di antenna installata, altezza del centro elettrico, guadagno in dB, direzione di massimo irraggiamento dell'antenna riferita al nord geografico ed eventuale tilt (elettrico e/o meccanico);</li>
+<li>
+i diagrammi angolari di irradiazione orizzontale e verticale del sistema irradiante. In tali diagrammi deve essere riportata, per ogni grado, l'attenuazione in dB del campo (o deve essere indicato il campo relativo E/EO);
+</li>
+<li>
+la specifica se il nuovo impianto utilizzi un sistema di antenne già in esercizio per altre emittenti (n-plexing). In questo caso il parere sanitario sarà soggetto alla valutazione complessiva di tutto l'impianto</li>
+<li>
+per ogni frequenza di emissione, la dichiarazione della potenza fornita al connettore d'antenna del sistema irradiante
+</li>
+</ul>
+   </td>
+  </tr>
+
+ <tr>
+   <td style="vertical-align: top; width:4%">
+    <input checked="checked" dynamic_check="true" id="PROG-IMP" name="PROG-IMP" type="checkbox" value="OBBLIGATORIO"/>
+   </td>
+   <td style="background-color: #eeeeee;">
+    <p>
+      Progetto dell'impianto<sup>6</sup> che deve contenere:
+    </p>
+      <ul>
+    <li>
+     stralcio del PGT in scala non superiore a 1:2.000 (con indicazione delle abitazioni presenti o in costruzione al momento della domanda, specificando i numeri di piani fuori terra di ognuno, nonchè dei luoghi di pubblico accesso).
+    </li>
+    <li>
+     mappe catastali in scala non superiore a 1:2.000, con indicazione del punto di installazione e riportante la zona circostante con un raggio di almeno 300 metri intorno all'impianto
+    </li>
+    <li>
+     stralcio ubicativo con scala non superiore a 1:2.000 con indicazione delle curve di livello altimetriche
+    </li>
+    <li>
+     planimetria generale ante opera, post opera e comparativa del progetto dell'impianto in scala 1:500
+    </li>
+    <li>
+     progetto (pianta-prospetti-sezioni in scala adeguata 1:100-1:200) dell'impianto e della struttura di supporto (traliccio, edificio, etc) con indicati chiaramente il punto di fissaggio, l'altezza del centro elettrico e l'orientamento di ciascuna antenna e/o opannello, inoltre nei prospetti deve essere riportato qualsiasi tipo di impianto preesistente (antenne ricevente e trasmittenti, gruppi di condizionamento etc.) anche gestiti da altre società
+   </li>
+ </ul>
+   </td>
+  </tr>
+  <tr>
+   <td>
+    <input checked="checked" dynamic_check="true" id="MARCA_BOLLO" name="MARCA_BOLLO" type="checkbox" value="OBBLIGATORIO"/>
+   </td>
+   <td style="background-color: #eeeeee;">
+    <p>
+     pagamento dell'imposta di bollo
+    </p>
+   </td>
+  </tr>
+   <tr>
+   <td style="vertical-align: top; width:4%">
+    <input id="copiatitprop" name="copiatitprop" type="checkbox" value="OBBLIGATORIO" dynamic_check="#Tassonomia_tipopresentlazione1.checked()"/>
+   </td>
+   <td style="background-color: #eeeeee;">
+    <p>
+     copia del titolo di proprietà o dichiarazione sostitutiva di atto notorio (accompagnata da copia del documento d'identità) ed eventuale assenso del proprietario
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td style="vertical-align: top; width:4%">
+    <input id="A001-138" name="A001-138" type="checkbox" value="OBBLIGATORIO" dynamic_check="true"/>
+   </td>
+   <td style="background-color: #eeeeee;">
+    <p>
+     relazione tecnica asseverata
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td style="vertical-align: top; width:4%">
+    <input id="esamepaes" name="esamepaes" type="checkbox" value="OBBLIGATORIO"/>
+   </td>
+   <td style="background-color: #eeeeee;">
+    <p>
+     esame paesistico
+     <span style="font-size: 70%; font-style: italic">
+      (se necessario)
+     </span>
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td style="vertical-align: top; width:4%">
+    <input id="noparaltro" name="noparaltro" type="checkbox" value="OBBLIGATORIO"/>
+   </td>
+   <td style="background-color: #eeeeee;">
+    <p>
+    nulla osta o altri atti di assenso
+<span style="font-size:70%;font-style:italic">
+    (se necessari)
+</span>
+    <br/>
+     <span style="font-size:70%;font-style:italic">
+      (specificare)
+     </span>
+     <input class="inputNormal" id="Parametri_altriNO" label="Eventuali nulla osta" mandatory_enabled="#noparaltro.checked()" name="Parametri_altriNO" style="width:79%;"/>
+     </p>
+   </td>
+  </tr>
+  <tr>
+   <td>
+    <input id="DAE-CDI" name="DAE-CDI" type="checkbox" value="OBBLIGATORIO" enabled="false"/>
+   </td>
+   <td colspan="1" style="background-color: #eeeeee;">
+    <p>
+     copia del documento d'identità<br/><span style="font-size: 70%; font-style: italic">(da allegare se il modulo è sottoscritto con firma autografa)</span>
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td>
+    <input id="COP-ATT-POT" name="COP-ATT-POT" type="checkbox" value="OBBLIGATORIO" dynamic_check="#Titolare_Ruolo.check_value(['Procuratore (ex art. 1392 cc)'])" enabled="#Titolare_Ruolo.check_value(['Procuratore (ex art. 1392 cc)'])"/>
+   </td>
+   <td colspan="1" style="background-color: #eeeeee;">
+    <p>
+     Copia dell'atto di attribuzione dei poteri di rappresentanza al procuratore
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td>
+    <input id="ALTRI-ALLEGATI" name="ALTRI-ALLEGATI" type="checkbox" value="OBBLIGATORIO"/>
+   </td>
+   <td style="background-color: #eeeeee;">
+    <p>
+     altri allegati
+     <span style="font-size:70%">
+      (specificare)
+     </span>
+     <input class="inputNormal" id="AltriAllegati" label="Altri allegati" mandatory_enabled="#ALTRI_ALLEGATI.checked()" name="AltriAllegati" style="width:79%;"/>
+    </p>
+   </td>
+  </tr>
+ </tbody>
+</table>
+
+<br/>
+
+
+ {{ utils.firma_hidden() }}
+ <br/>
+
+<p class="Modulo">
+ <input id="SalvaModulo" name="SalvaModulo" style="height:30px;width:120px;" title="Verifica la corretta compilazione dei campi e salva il modulo nel faldone virtuale dell'istanza." type="submit" value="Salva modulo"/>
+</p>
+<h3 class="Modulo">
+  NOTE PER LA COMPILAZIONE
+</h3>
+<ol>
+<li style="width: 17.5cm;text-align:justify">si descriva sinteticamente ma in modo esauriente il posizionamento degli impianti, la loro collocazione
+e la loro accessibilità da parte del personale incaricato</li>
+<li style="width: 17.5cm;text-align:justify">si descrivano sinteticamente ma in modo esauriente i dintorni dell'apparato evidenziando: edifici posti in vicinanza del sito, conformazione morfologia del terreno circostante, eventuale presenza di altre stazioni emittenti collocate con la stazione da installare</li>
+<li style="width: 17.5cm;text-align:justify">si enumerino in modo dettagliato, completo e privo di ambiguità tutte le caratteristiche radioelettriche dell'impianto trasmittente</li>
+<li style="width: 17.5cm;text-align:justify">presentare i risultati ottenuti con le modalità di simulazione numerica specificare nel seguito. Tali risultati dovranno essere forniti, alternativamente, in una delle due forme seguenti: 1: volume di rispetto, ovvero la forma geometrica in grado di riassumere in modo grafico la conformità ai limiti di esposizione e ai valori di attenzione di cui alla legge 22-02-2001 1 n. 36. Allo scopo si raccomanda di utilizzare la definizione del vOlume di rispetto, o in alternativa quella di isosuperficie3D, contenute nella "Guida alla realizzazione di una Stazione Radio Base per rispettare i limiti di esposizione campi elettromagnetici alta frequenza" [Guida CEI 211-10].
+Nel caso in cui volumi di rispetto evidenziano punti con intersezioni critiche (rispetto alle soglie usate) per posizioni accessibili alla popolazione con tempi di permanenza superiori a 4 ore dovranno essere fornite le curve isocampo ispetto ai punti di criticità per le stesse soglie.
+Stima puntuale dei valori di campo nei punti dove si prevede una maggiore esposizione della popolazione (max. 10 punti/sito). Per questi ultimi occorre:
+<br/>
+  <ul>
+    <li>
+    evidenziare accuratamente e chiaramente sulle planimetrie a disposizione le posizioni accessibili alla popolazione (specificando se i tempi di permanenza siano maggiori o minori di 4 ore);
+    </li>
+    <li>
+    effettuare una campagna di misura del campo elettromagnetico di fondo presente (è possibile riferirsi alla "Norma CEI 211-7- Guida per la misurazione e per la valutazione dei campi elettromagnetici nell'interallo di frequenza 10 KHz - 300 GHz", con riferimento all'esposizione umana).
+    La scelta fra questi due formati rimane a discrezione dell'operatore, secondo quanto riportato nella linea Guida CEI citata. In entrambi i casi (volume di rispetto o calcolo puntuale), le valutazioni sopra indicate dovranno comprendere la stima del fondo ambienale, al fine di ottenere il campo elettrico complessivo.
+    </li>
+  </ul>
+</li>
+<li style="width: 17.5cm;text-align:justify">
+specificare l'algoritmo di calcolo con il quale si sono eseguite le stime di campo; dovrà essere specificata l'implementazione dell'algoritmo utilizato o, qualcora il software sia di tipo commerciale il nome del programma nonchè la versione e la configurazione utilizzata. Indicare la conformità del programma di calcolo alle prescrizioni CEI.
+</li>
+<li style="width: 17.5cm;text-align:justify">
+  tutte le seguenti mappe dovranno contenere l'indicazione del Nord georgrafico
+</li>
+</ol>
+<input destinatario_amministrazione="getParameter('Ente')" id="GLOBO_modulo_c{{ CodiceModulo }}" name="GLOBO_modulo_c{{ CodiceModulo }}" type="hidden" value=""/>
+
+
+<input firmare="'P7M_ELETTRONICA'" id="GLOBO_modulofiglio_cIncarico_procura" name="GLOBO_modulofiglio_cIncarico_procura" type="hidden" value=""/>
+<input id="GLOBO_modulofiglio_cMARCA_BOLLO" name="GLOBO_modulofiglio_cMARCA_BOLLO" obbligatorio="#MARCA_BOLLO.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_allegato_ccopiatitprop" name="GLOBO_allegato_ccopiatitprop" obbligatorio="#copiatitprop.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_allegato_cCOP-ATT-POT" name="GLOBO_allegato_cCOP-ATT-POT" obbligatorio="#COP_ATT_POT.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+<input firmare="'P7M_ELETTRONICA'" id="GLOBO_modulofiglio_c001-038" name="GLOBO_modulofiglio_c001-038" type="hidden" value=""/>
+<input id="GLOBO_allegato_cesamepaes" name="GLOBO_allegato_cesamepaes" obbligatorio="#esamepaes.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+<input id="GLOBO_allegato_cPROG-IMP" name="GLOBO_allegato_cPROG-IMP" obbligatorio="#PROG_IMP.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+<input id="GLOBO_allegato_cAIE" name="GLOBO_allegato_cAIE" obbligatorio="#AIE.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+<input id="GLOBO_allegato_cnoparaltro" name="GLOBO_allegato_cnoparaltro" obbligatorio="#noparaltro.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+<input id="GLOBO_allegato_cALTRI-ALLEGATI" name="GLOBO_allegato_cALTRI-ALLEGATI" obbligatorio="#ALTRI_ALLEGATI.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_modulofiglio_cA001-138" name="GLOBO_modulofiglio_cA001-138" obbligatorio="#A001_138.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+<input id="GLOBO_id_padre" name="GLOBO_id_padre" type="hidden"/>
+
+<input id="GLOBO_recupera_dati" name="GLOBO_recupera_dati" type="hidden"/>
+
+<input id="GLOBO_codice_modulo" name="GLOBO_codice_modulo" type="hidden" value="{{ CodiceModulo }}"/>
+
+
+{% endblock content %}

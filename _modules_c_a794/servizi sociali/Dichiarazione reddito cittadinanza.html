@@ -1,0 +1,206 @@
+{% set CodiceModulo = "DICH_ESO_RED" %}
+{% set Urn = "document:c_a794:esonero.obblighi.reddito.cittadinanza;dichiarazione" %}
+{% extends "base.html" %}
+
+{% block meta %}
+
+<meta campi_firma="Titolare_CodiceFiscale"
+campi_firma_label="il dichiarante"
+classi_modulo="Servizi sociali"
+codice_modulo="{{ CodiceModulo }}"
+urn="{% block urn %}{{ Urn }}{% endblock urn %}"
+sub_urn_list=""
+uo_globo_list=""
+descrizione="Dichiarazione esonero dagli obblighi connessi al reddito di cittadinanza"
+destinatario_amministrazione=""
+destinatario_ufficio="UOSERVIZISOCIALI"
+dinamico="SI"
+email_a=""
+ente_abilitato="TUTTI"
+filigrana="NO"
+firmare="AUTENTICATO"
+istruzioni_compilazione=""
+istruzioni_invio="mail_pec"
+metodo_invio="mail"
+name="GLOBO_modulo"
+procura="NO,,"
+tipo_modulo="principale"
+urlhelp="/modulistica/moduli/{{ CodiceModulo }}"
+verifica_pagamento="NO"
+versione="1.0|07/02/2020"/>
+
+<meta codice_modulo_figlio="INCARICO_PROCURA"
+urn_modulo_figlio="document:s_italia:generale;incarico.procura"
+name="GLOBO_modulofiglio"
+numero="1"
+obbligatorio="DINAMICO"/>
+
+<meta codice_allegato="ALTRI-ALLEGATI"
+urn_allegato="document:s_italia:altri.allegati"
+descrizione_estesa="Altri allegati"
+filename="Altri allegati.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/ALTRI-ALLEGATI"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="CIM-ACC-CER"
+urn_allegato="document:s_italia:generale;capacita.deambulazione.impedita.sensibilmente.ridotta;certificato.medico"
+descrizione_estesa="Copia del certificato medico"
+filename="Copia certificato medico.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/CIM-ACC-CER"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+
+{% endblock meta %}
+
+{% block title %}
+  Dichiarazione esonero dagli obblighi connessi al reddito di cittadinanza
+{% endblock title %}
+ 
+{% block content %}
+
+<globo_fondo_pagina areaheight="150" scope="2" >
+  {{ utils.firma() }}
+</globo_fondo_pagina>
+
+<input id="Parametri_Comune" name="Parametri_Comune" type="hidden" dynamic_value="#Ente.value()"/>
+<input id="Oggetto" name="Oggetto" type="hidden" dynamic_value="#Titolare_Cognome.value().toUpperCase() + ' ' + #Titolare_Nome.value().toUpperCase() + ' - Dichiarazione esonero obblighi redditi di cittadinanza'"/>
+
+{{ intestazioni.intestazione_moduloprincipale_senzabollo() }}
+
+<h1 class="Modulo">
+  Dichiarazione esonero dagli obblighi connessi al reddito di cittadinanza
+</h1>
+
+<h3 class="Modulo">
+ Decreto Legge 28 Gennaio 2019, n.4, art. 4 comma 3
+ </h3>
+
+<input id="Titolare_DatiPersonaObbligatori" name="Titolare_DatiPersonaObbligatori" type="hidden" dynamic_check="true"/>
+<input id="Titolare_Titolo" name="Titolare_Titolo" type="hidden" value="Richiedente"/>
+<input id="Titolare_Ruolo" name="Titolare_Ruolo" type="hidden" value="Richiedente"/>
+{{ anagrafica.persona_fisica("Titolare", "Il sottoscritto", "visibility:visibility", "cursor:pointer", "visibility:visibility", "visibility:visibility", "mail_ordinaria") }}
+
+<br>
+
+{{ utils.Dichiara_445() }}
+
+<br>
+
+<p class="Modulo">
+  di trovarsi nella seguente situazione di esonero dagli obblighi connessi alla fruizione del Reddito di Cittadinanza e come specificato dall’accordo in Conferenza Unificata del 1° agosto 2019 (atto n. 88/C.U.):
+  </p>
+
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    {% set dichiara = [ "presenza di carichi di cura con riferimento alla presenza nel nucleo familiare di minore di anni 3. Dichiara, inoltre, di essere informato che non può essere esonerato più di un componente del nucleo familiare",
+                        "presenza di carichi di cura con riferimento alla presenza nel nucleo familiare di persona con disabilità grave o non autosufficienza.Dichiara, inoltre, di essere informato che non possono essere esonerati due o più componenti del nucleo familiare per la cura della medesima persona con disabilità o non autosufficiente <i>Decreto Presidente Consiglio dei Ministri del 5 dicemmre 2013, n. 159, allegato 3</i> ",
+                        "svolgimento di attività di lavoro dipendente con un reddito corrispondente ad un'imposta lora pari o inferiore ad Euro 8.145,00 annui ed un tempo impiegato nell'attività lavorativa superiore alle venti ore settimanali ovvero alle venticinque ore settimanali aggiungendo il tempo impiegato per raggiungere il luogo di lavoro",
+                        "svolgimento di attività di lavoro autonomo con un reddito corrispondete ad un'imposta lorda pari o inferiore a Euro 4.800,00 annui ed un tempo impiegato nell'attività lavorativa superiore alle venti ore settimanali ovvero alle venticinque ore settimanali aggiungendo il tempo impiegato per raggiungere il luogo di lavoro", 
+                        "frequenza del seguente corso di formazione con termine il <input class ='InputNormal' id='Tassonomia_Data_Cons' name='Tassonomia_Data_Cons' label='Data conseguimento' style='width:100%;' format='date' mandatory='#Dichiara5.checked()'/>   per il raggiungimento della seguente qualifica o diploma professionale <input class ='InputNormal' id='Tassonomia_Qualifica' name='Tassonomia_Qualifica' label='Qualifica' style='width:100%;' mandatory_enabled='#Dichiara5.checked()'/>",
+                        "condizioni di salute tali da non consentire la partecipazione ad un percorso di inserimento lavorativo come da allegata certificazione in data <input class ='InputNormal' id='Tassonomia_Data_Cert' name='Tassonomia_Data_Cert' label='Data certificazione medica' style='width:100%;' format='date' mandatory='#Dichiara6.checked()'/>   <i> allegare certificazione medica</i>",
+                        "svolgimento di tirocinio formativo e di orientamento presso <input class ='InputNormal' id='Tassonomia_Tir_Form' name='Tassonomia_Tir_Form' label='Tirocinio formativo' style='width:100%;' mandatory='#Dichiara7.checked()'/>  con termine previsto per il <input class ='InputNormal' id='Tassonomia_Data_Tir_Ori' name='Tassonomia_Data_Tir_Ori' label='Data termine tirocinio formativo' style='width:100%;' format='date' mandatory='#Dichiara7.checked()'/> ",
+                        "lo svolgimento di tirocinio di inclusione presso <input class ='InputNormal' id='Tassonomia_Tir_Incl' name='Tassonomia_Tir_Incl' label='Tirocinio inclusione' style='width:100%;' mandatory='#Dichiara8.checked()'/>  con termine previsto per  il <input class ='InputNormal' id='Tassonomia_Data_Tir_Incl' name='Tassonomia_Data_Tir_Incl' label='Data termine tirocinio inclusivo' style='width:100%;' format='date' mandatory='#Dichiara8.checked()'/> " ] %}
+    {% for i in dichiara %}
+      <tr>
+        <td style="vertical-align: top; width: 4%;">
+          <input id="Dichiara{{ loop.index }}" name="Dichiara{{ loop.index }}" type="checkbox" value="SI" />
+        </td>
+        <td>
+          {{ i }}
+        </td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<br>
+<h3 class="Modulo">
+  DICHIARA INOLTRE
+</h3>
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr>
+        <td style="vertical-align: top; width: 4%;">
+          <input id="Tassonomia_Impegna" name="Tassonomia_Impegna" type="checkbox" value="SI" checked="checked" dynamic_check="true"/>
+        </td>
+        <td class="labelcella">
+         di impegnarsi a comunicare il termine del motivo di esonero entro trenta giorni dal verificarsi della cessazione della situazione sopra indicata
+        </td>
+      </tr>
+   </tbody>
+</table>
+
+<br>
+
+<br>
+
+<br>
+<table class="Modulo" name="Allegati" style="border: 1px solid grey">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="2">
+        <p style="text-align: center;">
+          <b>
+            Elenco degli allegati
+          </b>
+          <br/>
+          <span style="font-size:70%">
+            <i>(barrare tutti gli allegati richiesti in fase di presentazione della pratica ed elencati sul portale)</i>
+          </span>
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="CIM-ACC-CER" name="CIM-ACC-CER" type="checkbox" dynamic_check="#Dichiara6.checked()"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          Copia del certificato medico <i> da allegare se selezionata la relativa voce</i>
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="ALTRI-ALLEGATI" name="ALTRI-ALLEGATI" type="checkbox" value="OBBLIGATORIO"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          altri allegati
+          <span style="font-size:70%">(specificare)</span>
+          <input class="" label="Altri allegati" id="AltriAllegati" mandatory_enabled="#ALTRI_ALLEGATI.checked()" name="AltriAllegati" style="width:79%;"/>
+        </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<br>
+{{ utils.trattamento_dati_personali() }}
+<br/>
+  {{ utils.firma_hidden() }}
+<br/>
+
+<p class="Modulo">
+  <input id="SalvaModulo" name="SalvaModulo" style="height:30px;width:120px;" title="Verifica la corretta compilazione dei campi e salva il modulo nel faldone virtuale dell'istanza." type="submit" value="Salva modulo"/>
+</p>
+
+<input destinatario_amministrazione="getParameter('Ente')" id="GLOBO_modulo_c{{ CodiceModulo }}" name="GLOBO_modulo_c{{ CodiceModulo }}" type="hidden" value=""/>
+<input firmare="'P7M_ELETTRONICA'" id="GLOBO_modulofiglio_cINCARICO_PROCURA" name="GLOBO_modulofiglio_cINCARICO_PROCURA" type="hidden" value=""/>
+
+<input id="GLOBO_allegato_cALTRI-ALLEGATI" name="GLOBO_allegato_cALTRI-ALLEGATI" obbligatorio="#ALTRI_ALLEGATI.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+<input id="GLOBO_allegato_cCIM-ACC-CER" name="GLOBO_allegato_cCIM-ACC-CER" obbligatorio="#CIM_ACC_CER.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_id_padre" name="GLOBO_id_padre" type="hidden"/>
+<input id="GLOBO_recupera_dati" name="GLOBO_recupera_dati" type="hidden"/>
+<input id="GLOBO_codice_modulo" name="GLOBO_codice_modulo" type="hidden" value="{{ CodiceModulo }}"/>
+
+{% endblock content %}

@@ -1,0 +1,941 @@
+{% set CodiceModulo = "DOM_ACC_FNA" %}
+{% set Urn = "document:c_a794:ambito.territoriale;domanda.fna" %}
+{% extends "base.html" %}
+{% block meta %}
+
+<meta campi_firma="Titolare_CodiceFiscale"
+campi_firma_label="il dichiarante"
+classi_modulo="Ambito territoriale"
+codice_modulo="{{ CodiceModulo }}"
+urn="{% block urn %}{{ Urn }}{% endblock urn %}"
+sub_urn_list=""
+uo_globo_list=""
+descrizione="Domanda di accesso al Fondo Nazionale per le Autonomie"
+destinatario_amministrazione=""
+destinatario_ufficio="UOAMBITOTERRITORIALE"
+dinamico="SI"
+email_a=""
+ente_abilitato="TUTTI"
+filigrana="NO"
+firmare="AUTENTICATO"
+istruzioni_compilazione=""
+istruzioni_invio="mail_pec"
+metodo_invio="mail"
+name="GLOBO_modulo"
+procura="NO,,"
+tipo_modulo="principale"
+urlhelp="/modulistica/moduli/{{ CodiceModulo }}"
+verifica_pagamento="NO"
+versione="1.3|12/05/2020"/>
+
+<meta codice_modulo_figlio="INCARICO_PROCURA"
+urn_modulo_figlio="document:s_italia:generale;incarico.procura"
+name="GLOBO_modulofiglio"
+numero="1"
+obbligatorio="DINAMICO"/>
+
+<meta codice_modulo_figlio="PROG-IND-ASS"
+urn_modulo_figlio="document:c_a794:progetto.individuale.assistenza"
+name="GLOBO_modulofiglio"
+numero="1"
+obbligatorio="DINAMICO"/>
+
+<meta codice_modulo_figlio="SCH-VAL-SOC"
+urn_modulo_figlio="document:c_a794:scheda.valutazione.sociale"
+name="GLOBO_modulofiglio"
+numero="1"
+obbligatorio="DINAMICO"/>
+
+<meta codice_modulo_figlio="SCH-CGI-ADL"
+urn_modulo_figlio="document:c_a794:scheda.adl"
+name="GLOBO_modulofiglio"
+numero="1"
+obbligatorio="DINAMICO"/>
+
+<meta codice_modulo_figlio="SCH-CGI-IAD"
+urn_modulo_figlio="document:c_a794:scheda.iadl"
+name="GLOBO_modulofiglio"
+numero="1"
+obbligatorio="DINAMICO"/>
+
+<meta codice_allegato="DIC_ISEE"
+urn_allegato="document:s_italia:generale;dichiarazione.isee;documentazione"
+descrizione_estesa="Dichiarazione ISEE"
+filename="Dichiarazione ISEE.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/DIC_ISEE"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="COP_CONTR_ASS"
+urn_allegato="document:c_a794:copia.contratto.assistente.familiare"
+descrizione_estesa="Copia del regolare contratto per assistente familiare "
+filename="Copia contratto assistente.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/COP_CONTR_ASS"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="CER-CON-GRA"
+urn_allegato="document:c_a794:certificazione.disabile.grave"
+descrizione_estesa="Certificazione della condizione di gravità"
+filename="Certificazione gravita.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/CER-CON-GRA"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="VER-INV-ACC"
+urn_allegato="document:c_a794:verbale.invalidità.accompagnamento"
+descrizione_estesa="Verbale di invalidità di accompagnamento"
+filename="Verbale accompagnamento.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/VER-INV-ACC"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="VER-DIS-MED"
+urn_allegato="document:c_a794:condizione.non.autosufficienza"
+descrizione_estesa="Eventuale verbale di disabilità media, grave e/o condizione di non autosufficienza"
+filename="Verbale disabilita.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/VER-DIS-MED"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="COP_DOC_INT"
+urn_allegato="document:c_a794:copia.documenti.intestatari.conto;allegato"
+descrizione_estesa="Copia documento di identità e codice fiscale intestatari conto corrente"
+filename="Documenti intestatari conto.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/COP_DOC_INT"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="DAE-CDI"
+urn_allegato="document:s_italia:generale;documento.identita;documentazione"
+descrizione_estesa="Documento di identità"
+filename="Documento identita.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/DAE-CDI"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="ALTRI-ALLEGATI"
+urn_allegato="document:s_italia:altri.allegati"
+descrizione_estesa="Altri allegati"
+filename="Altri allegati.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/ALTRI-ALLEGATI"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+{% endblock meta %}
+
+{% block title %}
+   Domanda di accesso al Fondo Nazionale per la non autosufficienza 
+{% endblock title %}
+
+{% block content %}
+
+<style>
+    .noBorder{
+        border: 0 !important;
+    }
+</style>
+
+<globo_fondo_pagina areaheight="150" scope="3">
+    {{ utils.firma() }}
+</globo_fondo_pagina>
+
+<input id="Parametri_Comune" name="Parametri_Comune" type="hidden" dynamic_value="#Ente.value()"/>
+<input id="Oggetto" name="Oggetto" type="hidden" dynamic_value="#Titolare_Cognome.value().toUpperCase() + ' ' + #Titolare_Nome.value().toUpperCase() + ' - domanda accesso fondo nazionale per la non autosufficienze'"/>
+
+{{ intestazioni.intestazione_moduloprincipale_senzabollo() }}
+
+<h1 class="Modulo">
+    Domanda di accesso al Fondo Nazionale per la non autosufficienza <br/>(Piano Operativo 2019)
+</h1>
+
+<input id="Titolare_DatiPersonaObbligatori" name="Titolare_DatiPersonaObbligatori" type="hidden" dynamic_check="true"/>
+<input id="Titolare_Titolo" name="Titolare_Titolo" type="hidden" value="Richiedente"/>
+<input id="Titolare_Ruolo" name="Titolare_Ruolo" type="hidden" value="Richiedente"/>
+{{ anagrafica.persona_fisica("Titolare", "Il sottoscritto", "visibility:visibility", "cursor:pointer", "visibility:visibility", "visibility:visibility", "mail_ordinaria") }}
+
+
+<h3 class="Modulo">
+    CHIEDE
+</h3>
+{{ anagrafica.soggetto_riferimento_servizi_demografici("AventeTitolo10", "per il beneficiario", "per se stesso", "true") }}
+
+<br>
+<p class="Modulo">
+    di poter partecipare al seguente progetto
+</p>
+
+<div id="Tassonomia_Progetto" name="Tassonomia_Progetto" label="Richiesta progetto" mandatory="true"></div>
+<table class="Modulo" style="border: 1px solid grey;">
+    <tbody>
+        
+        <tr>
+            <td style="vertical-align: top; width: 4%;">
+                <input id="Tassonomia_Progetto1" name="Tassonomia_Progetto" type="radio" value="1" />
+            </td>
+            <td colspan="2">
+                <p>
+                    buono sociale per Care Giver familiare
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td style="vertical-align: top; width: 4%;">
+                <input id="Tassonomia_Progetto2" name="Tassonomia_Progetto" type="radio" value="2" />
+            </td>
+            <td colspan="2">
+                <p>
+                    buono sociale per assistente personale con regolare contratto, ad integrazione del buono sociale per Care Giver 
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td style="vertical-align: top; width: 4%;">
+                <input id="Tassonomia_Progetto3" name="Tassonomia_Progetto" type="radio" value="3" />
+            </td>
+            <td colspan="2">
+                <p>
+                    voucher sociale per sostenere la vita di relazione di minori con disabilità
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td style="vertical-align: top; width: 4%;">
+                <input id="Tassonomia_Progetto4" name="Tassonomia_Progetto" type="radio" value="4" />
+            </td>
+            <td colspan="2">
+                <p>
+                    buono sociale per progetti per la Vita Indipendente (adulti 18-64 anni)
+                </p>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+{{ utils.Dichiara_445() }}
+
+<div id="Tassonomia_RiconoscimentoInvalidita" name="Tassonomia_RiconoscimentoInvalidita" label="Riconoscimento invalidità" mandatory="true"></div>
+<div id="Tassonomia_IndennitaAccompagnamento" name="Tassonomia_IndennitaAccompagnamento" label="Indennità accompagnamento" mandatory="true"></div>
+<div id="Tassonomia_CertHandicapGrave" name="Tassonomia_CertHandicapGrave" label="Certificazione handicap grave" mandatory="true"></div>
+<div id="Tassonomia_PrestazioniBeneficio" name="Tassonomia_PrestazioniBeneficio" label="Prestazioni" mandatory="true"></div>
+<div id="Tassonomia_MisuraB2" name="Tassonomia_MisuraB2" label="Misura B2" mandatory="true"></div>
+<div id="AttestazioneISEE" name="AttestazioneISEE" label="Attestazione ISEE" mandatory="true"></div>
+<table class="Modulo" style="border: 1px solid grey;">
+    <tbody>
+        <tr class="Rigaintestazione">
+            <td colspan="2">
+                <p class="Labeltabella">
+                    le seguenti informazioni sanitarie del richiedente:
+                </p>
+            </td>
+        </tr>
+        <tr class="Rigaintestazioneridotta">
+            <td colspan="2">
+                <p class="Labelcella">
+                    Invalidità
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td style="vertical-align: top; width: 4%;">
+                <input id="Tassonomia_RiconoscimentoInvalidita1" name="Tassonomia_RiconoscimentoInvalidita" type="radio" value="1" />
+            </td>
+            <td>
+                <p>
+                    non riconosciuta
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td style="vertical-align: top;">
+                <input id="Tassonomia_RiconoscimentoInvalidita2" name="Tassonomia_RiconoscimentoInvalidita" type="radio" value="2" />
+            </td>
+            <td>
+                <p>
+                    riconosciuta in data <input id="Tassonomia_Data_Ric_Invalidita" name="Tassonomia_Data_Ric_Invalidita" style="width: 15%;" format="date" mandatory_enabled="#Tassonomia_RiconoscimentoInvalidita2.checked()"/>
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td style="vertical-align: top;">
+                <input id="Tassonomia_RiconoscimentoInvalidita3" name="Tassonomia_RiconoscimentoInvalidita" type="radio" value="3" />
+            </td>
+            <td>
+                <p>
+                    in fase di accertamento
+                </p>
+            </td>
+        </tr>
+        <tr class="Rigaintestazioneridotta">
+            <td colspan="2">
+                <p class="Labelcella">
+                    Indennità
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td style="vertical-align: top;">
+                <input group="Tassonomia_IndennitaAccompagnamento" id="Tassonomia_IndennitaAccompagnamento1" name="Tassonomia_IndennitaAccompagnamento1" type="checkbox" value="SI" />
+            </td>
+            <td>
+                <p>
+                    indennità di accompagnamento Legge 11/02/1980, n.18 , riconosciuta in data <input id="Tassonomia_Data_Ric_Ind_Acc" name="Tassonomia_Data_Ric_Ind_Acc" style="width: 15%;" format="date" mandatory_enabled="#Tassonomia_IndennitaAccompagnamento1.checked()"/>
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td style="vertical-align: top;">
+                <input group="Tassonomia_IndennitaAccompagnamento" id="Tassonomia_IndennitaAccompagnamento2" name="Tassonomia_IndennitaAccompagnamento2" type="checkbox" value="SI" />
+            </td>
+            <td>
+                <p>
+                    verbale di disabilità media, grave e/o condizione di non autosufficienza (indennità di frequenza) del <input id="Tassonomia_Data_Verb_Dis" name="Tassonomia_Data_Verb_Dis" style="width: 15%;" format="date" mandatory_enabled="#Tassonomia_IndennitaAccompagnamento2.checked()"/>
+                </p>
+            </td>
+        </tr>
+        <tr class="Rigaintestazioneridotta">
+            <td colspan="2">
+                <p class="Labelcella">
+                    Certificazione handicap grave (articolo 3, comma 3 della Legge 05/02/1992 n. 104)
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td style="vertical-align: top;">
+                <input id="Tassonomia_CertHandicapGrave1" name="Tassonomia_CertHandicapGrave" type="radio" value="1" />
+            </td>
+            <td>
+                <p>
+                    sì, riconosciuta in data:  <input id="Tassonomia_Data_Cert_hand" name="Tassonomia_Data_Cert_hand" style="width: 15%;" format="date" mandatory_enabled="#Tassonomia_CertHandicapGrave1.checked()"/>
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td style="vertical-align: top;">
+                <input id="Tassonomia_CertHandicapGrave2" name="Tassonomia_CertHandicapGrave" type="radio" value="2" />
+            </td>
+            <td>
+                <p>
+                    no
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td style="vertical-align: top;">
+                <input id="Tassonomia_CertHandicapGrave3" name="Tassonomia_CertHandicapGrave" type="radio" value="3" />
+            </td>
+            <td>
+                <p>
+                    in fase di accertamento
+                </p>
+            </td>
+        </tr>
+        <tr class="Rigaintestazioneridotta">
+          <td colspan="2">
+            <p class="Labelcella">
+              Attestazione ISEE
+            </p>
+          </td>
+        </tr>
+        <tr>
+           <td style="vertical-align: top; width:4%">
+           <input id="AttestazioneISEE1" name="AttestazioneISEE" type="radio" value="1" />
+           </td>
+           <td>
+              di essere in possesso di attestazione ISEE
+           </td>
+        </tr>
+        <tr>
+           <td style="vertical-align: top; width:4%">
+           <input id="AttestazioneISEE2" name="AttestazioneISEE" type="radio" value="2" />
+           </td>
+           <td>
+              di non essere in possesso di attestazione ISEE
+           </td>
+        </tr>
+        <tr>
+           <td style="vertical-align: top; width:4%">
+           <input id="AttestazioneISEE3" name="AttestazioneISEE" type="radio" value="3" />
+           </td>
+           <td>
+              in corso di acquisizione
+           </td>
+        </tr>
+
+    </tbody>
+</table>
+	
+
+<table class="Modulo" style="border: 1px solid grey; margin-top:-1px">
+    <tbody>
+        <tr class="Rigaintestazioneridotta">
+            <td colspan="2">
+                <p class="Labelcella">
+                   Tipologia
+                </p>
+            </td>
+            <td>
+                <p class="Labelcella">
+                   Valore
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td style="vertical-align: top; width:4%;">
+                <div id="TipologiaAttestazioneISEE" label="Tipologia ISEE" mandatory_enabled="#AttestazioneISEE1.checked()"></div>
+                <input id="TipologiaAttestazioneISEE1" name="TipologiaAttestazioneISEE" type="checkbox" value="1" />
+            </td>
+            <td>
+                <p>
+                    ordinario
+                </p>
+            </td>
+            <td style="width:20%">
+                <p><input class="inputNormal" id="TipologiaAttestazioneISEE_Importo" name="TipologiaAttestazioneISEE_Importo" style="width: 80%;" label="Valore ISEE" mandatory_enabled="#TipologiaAttestazioneISEE1.checked()" format="valuta_positiva"/> €</p>
+            </td>
+        </tr>
+        <tr>
+            <td style="vertical-align: top; width:4%;">
+                <input id="TipologiaAttestazioneISEE2" name="TipologiaAttestazioneISEE" type="checkbox" value="2" />
+            </td>
+            <td>
+                <p>
+                    sociosanitario
+                </p>
+            </td>
+            <td style="width:20%">
+                <p><input class="inputNormal" id="TipologiaAttestazioneISEE2_Importo" name="TipologiaAttestazioneISEE2_Importo" style="width: 80%;" label="Valore ISEE" mandatory_enabled="#TipologiaAttestazioneISEE2.checked()" format="valuta_positiva"/> €</p>
+            </td>
+        </tr>
+    </tbody>
+</table>
+		
+<br>
+
+<h3 class="Modulo">
+    DICHIARA INOLTRE
+</h3>
+
+<p class="Modulo">
+    di essere assistito dai seguenti
+</p>
+
+<input id="AventeTitolo1_Titolo" name="AventeTitolo1_Titolo" type="hidden" value="Avente Titolo"/>
+<input id="AventeTitolo1_Ruolo" name="AventeTitolo1_Ruolo" type="hidden" value="Avente Titolo"/>
+{{ anagrafica.persona_fisica("AventeTitolo1", "<input id='AventeTitolo1_DatiPersonaObbligatori' name='AventeTitolo1_DatiPersonaObbligatori' type='checkbox' enabled='!#AventeTitolo2_DatiPersonaObbligatori.checked()'/>care giver", "visibility:visibility", "cursor:pointer", "visibility:visibility", "visibility:visibility", "mail_ordinaria") }}
+
+
+<input id="AventeTitolo2_Titolo" name="AventeTitolo2_Titolo" type="hidden" value="Avente Titolo"/>
+<input id="AventeTitolo2_Ruolo" name="AventeTitolo2_Ruolo" type="hidden" value="Avente Titolo"/>
+{{ anagrafica.persona_fisica("AventeTitolo2", "<input id='AventeTitolo2_DatiPersonaObbligatori' name='AventeTitolo2_DatiPersonaObbligatori' type='checkbox' enabled='!#AventeTitolo1_DatiPersonaObbligatori.checked()'/>assistente personale", "visibility:visibility", "cursor:pointer", "visibility:visibility", "visibility:visibility", "mail_ordinaria") }}
+
+<br>
+<h3 class="Modulo">
+  CHIEDE
+</h3>
+<p class="Modulo">
+  che, in caso di accoglimento della domanda, il contributo venga erogato nella seguente modalità:
+</p>
+<div id="Tassonomia_Modalita_Pagamento" name="Tassonomia_Modalita_Pagamento" label="Modalità pagamento" mandatory="true"></div>
+<div id="Tassonomia_Invio_Assegno" name="Tassonomia_Invio_Assegno" label="Modalità trasmissione assegno" mandatory_enabled="#Tassonomia_Modalita_Pagamento2.checked()"></div>
+<table class="Modulo" style="border: 1px solid grey;" mandatory_enabled="#Tassonomia_Progetto1.checked() || #Tassonomia_Progetto2.checked() || #Tassonomia_Progetto4.checked()">
+  <tbody>
+    <tr>      
+      <td style="vertical-align: top; width: 4%;">
+        <input id="Tassonomia_Modalita_Pagamento1" name="Tassonomia_Modalita_Pagamento" type="radio" value="1"/>
+      </td>
+      <td colspan="8">
+        <p> assegno bancario da trattenere presso lo Sportello Tesoreria BPU p.zza Vittorio Veneto n. 8 a Bergamo </p>
+     </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;" rowspan="7" >
+        <input id="Tassonomia_Modalita_Pagamento2" name="Tassonomia_Modalita_Pagamento" type="radio" value="2"/>
+      </td>
+      <td colspan="8">
+              <p> assegno bancario da inviare a:  </p>
+       </td>
+    </tr>
+    <tr>    
+      <td style="vertical-align: top; width: 4%;" rowspan="3">
+        <input id="Tassonomia_Invio_Assegno1" name="Tassonomia_Invio_Assegno" type="radio" value="1"/>
+      </td>
+      <td colspan="8" >
+        <p> domicilio/residenza del dichiarante</p>
+      </td>
+      <tr class="Rigaintestazioneridotta">
+          <td style="width:9%;">
+            <p class="Labelcella">Provincia</p>
+          </td>
+          <td style="width:29%;" colspan="2">
+            <p class="Labelcella">Comune</p>
+          </td>
+          <td style="width:33%;" colspan="2">
+            <p class="Labelcella">Indirizzo</p>
+          </td>
+          <td style="width:9%;">
+            <p class="Labelcella">Civico</p>
+          </td>
+          <td style="width:16%;">
+            <p class="Labelcella">CAP</p>
+          </td>
+        </tr>
+        <tr mandatory_enabled="#Tassonomia_Invio_Assegno1.checked()">
+          <td >
+            {{ utils.provincie( 'AventeTitolo5_ProvinciaResidenza', label="Provincia di residenza") }}
+          </td>
+          <td colspan="2" mandatory="true">
+            <select class="inputNormal" id="AventeTitolo5_ComuneResidenza" name="AventeTitolo5_ComuneResidenza" style="width:100%" label="Comune di residenza" dynamic_value="getComuniFromProvincia( #AventeTitolo5_ProvinciaResidenza.value(), 'AventeTitolo5_ComuneResidenza')"></select>
+          </td>
+          <td colspan="2" mandatory="true">
+            <input class="" id="AventeTitolo5_ViaResidenza" name="AventeTitolo5_ViaResidenza" style="width:100%;" label="Via di residenza" format="regular_expression" expression="^(.+)\s(.+)$"/>
+          </td>
+          <td mandatory="true">
+            <input class="" id="AventeTitolo5_CivicoResidenza" name="AventeTitolo5_CivicoResidenza" style="width:100%;" label="Civico di residenza" maxlength="10"/>
+          </td>
+          <td mandatory="true">
+            <input class="" id="AventeTitolo5_CAPResidenza" name="AventeTitolo5_CAPResidenza" style="width:100%;" format="cap" label="CAP di residenza" />
+          </td>
+        </tr>
+    <tr>    
+      <td style="vertical-align: top; width: 4%;" rowspan="3">
+        <input id="Tassonomia_Invio_Assegno2" name="Tassonomia_Invio_Assegno" type="radio" value="2"/>
+      </td>
+      <td colspan="8" >
+        <p> domicilio/residenza del tutore/amministratore legale/care giver</p>
+      </td>
+      <tr class="Rigaintestazioneridotta">
+          <td style="width:9%;">
+            <p class="Labelcella">Provincia</p>
+          </td>
+          <td style="width:29%;" colspan="2">
+            <p class="Labelcella">Comune</p>
+          </td>
+          <td style="width:33%;" colspan="2">
+            <p class="Labelcella">Indirizzo</p>
+          </td>
+          <td style="width:9%;">
+            <p class="Labelcella">Civico</p>
+          </td>
+          <td style="width:16%;">
+            <p class="Labelcella">CAP</p>
+          </td>
+        </tr>
+        <tr mandatory_enabled="#Tassonomia_Invio_Assegno2.checked()">
+          <td >
+            {{ utils.provincie( 'AventeTitolo3_ProvinciaResidenza', label="Provincia di residenza") }}
+          </td>
+          <td colspan="2" mandatory="true">
+            <select class="inputNormal" id="AventeTitolo3_ComuneResidenza" name="AventeTitolo3_ComuneResidenza" style="width:100%" label="Comune di residenza" dynamic_value="getComuniFromProvincia( #AventeTitolo3_ProvinciaResidenza.value(), 'AventeTitolo3_ComuneResidenza')"></select>
+          </td>
+          <td colspan="2" mandatory="true">
+            <input class="" id="AventeTitolo3_ViaResidenza" name="AventeTitolo3_ViaResidenza" style="width:100%;" label="Via di residenza" format="regular_expression" expression="^(.+)\s(.+)$"/>
+          </td>
+          <td mandatory="true">
+            <input class="" id="AventeTitolo3_CivicoResidenza" name="AventeTitolo3_CivicoResidenza" style="width:100%;" label="Civico di residenza" maxlength="10"/>
+          </td>
+          <td mandatory="true">
+            <input class="" id="AventeTitolo3_CAPResidenza" name="AventeTitolo3_CAPResidenza" style="width:100%;" format="cap" label="CAP di residenza" />
+          </td>
+        </tr>
+    </tbody>
+</table>
+<table class="Modulo" style="border: 1px solid grey;" mandatory_enabled="#Tassonomia_Progetto1.checked() || #Tassonomia_Progetto2.checked() || #Tassonomia_Progetto4.checked()" >
+  <tbody>
+      <tr>
+      <td style="vertical-align: top; width: 4%;" rowspan="5" >
+        <input id="Tassonomia_Modalita_Pagamento3" name="Tassonomia_Modalita_Pagamento" type="radio" value="3"/>
+        </td>
+        <td colspan="8">
+        <p > accredito su conto corrente <i>Attenzione l'accredito non può essere effettuato su libretto postale codice CAB 0384</i> </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td style="width: 50%;">
+        <p class="Labelcella"> Istituto </p>
+      </td>
+      <td style="width: 50%;">
+        <p class="Labelcella"> Numero conto corrente </p>
+      </td>
+    </tr>
+    <tr mandatory_enabled="#Tassonomia_Modalita_Pagamento3.checked()">
+        <td>
+          <input class="inputNormal" id="Parametri_Istituto1" name="Parametri_Istituto1" style="width: 100%;" label="Istituto Ente erogatore">
+        </td>
+        <td>
+          <input class="inputNormal" id="Parametri_Numero_CC1" name="Parametri_Numero_CC1" style="width: 100%;" label="Numero conto corrente Ente erogatore" format="regular_expression" expression="^[a-zA-Z0-9]{12}$" onblur="PadCC()">
+        </td>
+      </tr>
+      <tr class="Rigaintestazioneridotta">
+        <td>
+          <p class="Labelcella"> Coordinate IBAN </p>
+        </td>
+        <td>
+          <p class="Labelcella"> Codice BIC (swift) </p>
+        </td>
+      </tr>
+      <tr mandatory_enabled="#Tassonomia_Modalita_Pagamento3.checked()">
+        <td>
+          <input class="inputNormal" id="Parametri_IBAN1" name="Parametri_IBAN1" style="width: 100%;" label="Coordinate IBAN Ente Erogatore" >
+        </td>
+        <td>
+          <input class="inputNormal" id="Parametri_BIC_swift1" name="Parametri_BIC_swift1" style="width: 100%;" label="Codice BIC (swift)" mandatory_enabled="#Parametri_IBAN1.value() != '' and (!#Parametri_IBAN1.value().toUpperCase().startsWith('IT'))">
+        </td>
+      </tr>
+     </tbody>
+</table>
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazioneridotta">
+      <td colspan="4">
+        <p class="Labelcella">
+          intestato a 
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td style="width: 25%">
+        <p class="Labelcella"> Cognome </p>
+      </td>
+      <td style="width: 25%">
+        <p class="Labelcella"> Nome </p>
+      </td>
+      <td style="width: 25%">
+        <p class="Labelcella"> Codice Fiscale </p>        
+      </td>
+      <td style="width: 25%">
+        <p class="Labelcella"> Relazione con il beneficiario </p>
+      </td>
+    </tr>
+    {% for i in range(1, 5) %}
+      <tr {% if i == 1 %} mandatory_enabled="#Tassonomia_Modalita_Pagamento3.checked()" {% endif %} >
+        <td>
+          <input class="inputNormal" id="Parametri_famil{{i}}_Cognome" name="Parametri_famil{{i}}_Cognome" style="width: 100%;" label="Cognome del familiare {{i}}" 
+          {% if i > 1 %} enabled="#Parametri_famil{{i-1}}_Cognome.value()!=''" {% endif %} />
+        </td>
+        <td>
+          <input class="inputNormal" id="Parametri_famil{{i}}_Nome" name="Parametri_famil{{i}}_Nome" style="width: 100%;" label="Nome del familiare {{i}}" 
+          {% if i > 1 %} mandatory_enabled="#Parametri_famil{{i}}_Cognome.value()!=''" {% endif %} />
+        </td>
+        <td>
+          <input class="inputNormal" id="Parametri_famil{{i}}_CodiceFiscale" name="Parametri_famil{{i}}_CodiceFiscale" style="width: 100%; " onkeyup="this.value = this.value.toUpperCase();" format="cf" label="Codice Fiscale del familiare {{i}}" 
+          {% if i > 1 %} mandatory_enabled="#Parametri_famil{{i}}_Cognome.value()!=''" {% endif %} />
+        </td>
+        <td>
+          <select class="inputNormal" id="Parametri_famil{{i}}_rapparent" name="Parametri_famil{{i}}_rapparent" style="width: 100%;" label="Rapporto di parentela del familiare {{i}}" 
+          {% if i > 1 %} mandatory_enabled="#Parametri_famil{{i}}_Cognome.value()!=''" {% endif %} >
+            {% set pars = [ "", "Padre", "Madre", "Figlio", "Coniuge", "Dichiarante", "Altro" ] %}
+            {% for par in pars %}
+              <option value="{{par}}"> {{par}} </option>
+            {% endfor %}
+          </select>
+        </td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<br>
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          Eventuali annotazioni
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <textarea class="inputNormal" id="Parametri_Annotazioni" name="Parametri_Annotazioni" style="width: 100%; height: 5cm;" label="Eventuali annotazioni"></textarea>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+
+
+{{ anagrafica.cognome_nome("AventeTitolo4", "assistente sociale", "Richiedente", "visibility:visibility", "cursor:pointer", "visibility:visibility") }}
+
+<br>
+<table class="Modulo" name="Allegati" style="border: 1px solid grey">
+    <tbody>
+        <tr class="Rigaintestazione">
+            <td colspan="2">
+                <p style="text-align: center;">
+                    <b>
+                        Elenco degli allegati per richiedenti buono care giver o assistente familiare
+                    </b>
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td style="vertical-align: top; width: 4%;">
+                <input enabled="#Tassonomia_Progetto1.checked() || #Tassonomia_Progetto2.checked() || #Tassonomia_Progetto4.checked()" id="PROG-IND-ASS1" name="PROG-IND-ASS1" type="checkbox" value="OBBLIGATORIO" />
+            </td>
+            <td style="background-color: #eeeeee;">
+                <p>
+                    progetto individuale di assistenza
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td style="vertical-align: top; width: 4%;">
+                <input enabled="#Tassonomia_Progetto1.checked() || #Tassonomia_Progetto2.checked() || #Tassonomia_Progetto4.checked()" id="SCH-VAL-SOC1" name="SCH-VAL-SOC1" type="checkbox" value="OBBLIGATORIO" />
+            </td>
+            <td style="background-color: #eeeeee;">
+                <p>
+                    scheda di valutazione sociale 
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td style="vertical-align: top; width: 4%;">
+                <input enabled="#Tassonomia_Progetto1.checked() || #Tassonomia_Progetto2.checked() || #Tassonomia_Progetto4.checked()" id="SCH-CGI-ADL" name="SCH-CGI-ADL" type="checkbox" value="OBBLIGATORIO" />
+            </td>
+            <td style="background-color: #eeeeee;">
+                <p>
+                    scheda ADL
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td style="vertical-align: top; width: 4%;">
+                <input enabled="#Tassonomia_Progetto1.checked() || #Tassonomia_Progetto2.checked() || #Tassonomia_Progetto4.checked()" id="SCH-CGI-IAD" name="SCH-CGI-IAD" type="checkbox" value="OBBLIGATORIO" />
+            </td>
+            <td style="background-color: #eeeeee;">
+                <p>
+                    scheda IADL
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td style="vertical-align: top; width: 4%;">
+                <input enabled="#Tassonomia_Progetto1.checked() || #Tassonomia_Progetto2.checked() || #Tassonomia_Progetto4.checked()" id="DIC-ISEE1" name="DIC-ISEE1" type="checkbox" value="OBBLIGATORIO" />
+            </td>
+            <td style="background-color: #eeeeee;">
+                <p>
+                    dichiarazione ISEE
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td style="vertical-align: top; width: 4%;">
+                <input enabled="#Tassonomia_Progetto1.checked() || #Tassonomia_Progetto2.checked() || #Tassonomia_Progetto4.checked()" id="CER-CON-GRA1" name="CER-CON-GRA1" type="checkbox" value="OBBLIGATORIO" />
+            </td>
+            <td style="background-color: #eeeeee;">
+                <p>
+                    certificazione della condizione di gravità così come accertata ai sensi dell’art. 3, comma 3 della legge 104/1992
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td style="vertical-align: top; width: 4%;">
+                <input enabled="#Tassonomia_Progetto1.checked() || #Tassonomia_Progetto2.checked() || #Tassonomia_Progetto4.checked()" id="VER-INV-ACC1" name="VER-INV-ACC1" type="checkbox" value="OBBLIGATORIO" />
+            </td>
+            <td style="background-color: #eeeeee;">
+                <p>
+                    eventuale verbale di invalidità di accompagnamento legge 18/1980
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td style="vertical-align: top; width: 4%;">
+                <input enabled="#Tassonomia_Progetto1.checked() || #Tassonomia_Progetto2.checked() || #Tassonomia_Progetto4.checked() & #Tassonomia_Modalita_Pagamento3.checked()" id="COP_DOC_INT1" name="COP_DOC_INT1" type="checkbox" value="OBBLIGATORIO" />
+            </td>
+            <td style="background-color: #eeeeee;">
+                <p>
+                    documento di indentità e codice fiscale  di eventuali intestatari/co-intestatari del conto corrente o destinatari dell’assegno
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td style="vertical-align: top; width: 4%;">
+                <input enabled="#Tassonomia_Progetto1.checked() || #Tassonomia_Progetto2.checked() || #Tassonomia_Progetto4.checked()" id="COP_CONTR_ASS" name="COP_CONTR_ASS" type="checkbox" value="OBBLIGATORIO" />
+            </td>
+            <td style="background-color: #eeeeee;">
+                <p>
+                    copia del regolare contratto per assistente familiare e relativo documento d’identità
+                </p>
+            </td>
+        </tr>
+  </tbody>
+</table>
+
+<table class="Modulo" name="Allegati" style="border: 1px solid grey; margin-top:-1px">
+    <tbody>
+        <tr class="Rigaintestazione">
+            <td colspan="2">
+                <p style="text-align: center;">
+                    <b>
+                        Elenco degli allegati per minori
+                    </b>
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td style="vertical-align: top; width: 4%;">
+                <input enabled="#Tassonomia_Progetto3.checked()" id="PROG-IND-ASS2" name="PROG-IND-ASS3" type="checkbox" value="OBBLIGATORIO" />
+            </td>
+            <td style="background-color: #eeeeee;">
+                <p>
+                    progetto individuale di assistenza
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td style="vertical-align: top; width: 4%;">
+                <input enabled="#Tassonomia_Progetto3.checked()" id="SCH-VAL-SOC2" name="SCH-VAL-SOC2" type="checkbox" value="OBBLIGATORIO" />
+            </td>
+            <td style="background-color: #eeeeee;">
+                <p>
+                    scheda di valutazione sociale 
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td style="vertical-align: top; width: 4%;">
+                <input enabled="#Tassonomia_Progetto3.checked()" id="DIC-ISEE2" name="DIC-ISEE2" type="checkbox" value="OBBLIGATORIO" />
+            </td>
+            <td style="background-color: #eeeeee;">
+                <p>
+                    dichiarazione ISEE
+                </p>
+            </td>
+        </tr>
+	
+        <tr>
+            <td style="vertical-align: top; width: 4%;">
+                <input enabled="#Tassonomia_Progetto3.checked()" id="CER-CON-GRA2" name="CER-CON-GRA2" type="checkbox" value="OBBLIGATORIO" />
+            </td>
+            <td style="background-color: #eeeeee;">
+                <p>
+                    certificazione della condizione di gravità così come accertata ai sensi dell’art. 3, comma 3 della legge 104/1992
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td style="vertical-align: top; width: 4%;">
+                <input enabled="#Tassonomia_Progetto3.checked()" id="VER-INV-ACC2" name="VER-INV-ACC2" type="checkbox" value="OBBLIGATORIO" />
+            </td>
+            <td style="background-color: #eeeeee;">
+                <p>
+                    eventuale verbale di invalidità di accompagnamento legge 18/1980
+                </p>
+            </td>
+        </tr>	
+        <tr>
+            <td style="vertical-align: top; width: 4%;">
+                <input enabled="#Tassonomia_Progetto3.checked()" id="VER-DIS-MED" name="VER-DIS-MED" type="checkbox" value="OBBLIGATORIO" />
+            </td>
+            <td style="background-color: #eeeeee;">
+                <p>
+                    eventuale verbale di disabilità media, grave e/o condizione di non autosufficienza (indennità di frequenza)
+                </p>
+            </td>
+        </tr>		
+        <tr class="Rigaintestazione">
+            <td colspan="2">
+                <p style="text-align: center;">
+                    <b>
+                        Altri allegati
+                    </b>
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td style="vertical-align: top; width: 4%;">
+                <input id="DAE-CDI" name="DAE-CDI" type="checkbox" value="OBBLIGATORIO" />
+            </td>
+            <td style="background-color: #eeeeee;">
+                <p>
+                    copia del documento d'identità
+                    <br/>
+                    <span style="font-size:70%">
+                        <i>(da allegare se il modulo è sottoscritto con firma autografa)</i>
+                    </span>
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td style="vertical-align: top; width: 4%;">
+                <input id="ALTRI-ALLEGATI" name="ALTRI-ALLEGATI" type="checkbox" value="OBBLIGATORIO"/>
+            </td>
+            <td style="background-color: #eeeeee;">
+                <p>
+                    altri allegati
+                    <span style="font-size:70%">(specificare)</span>
+                    <input class="" label="Altri allegati" id="AltriAllegati" mandatory_enabled="#ALTRI_ALLEGATI.checked()" name="AltriAllegati" style="width:79%;"/>
+                </p>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<br/>
+
+{{ utils.trattamento_dati_personali() }}
+
+<br/>
+  {{ utils.firma_hidden() }}
+<br/>
+
+<p class="Modulo">
+    <input id="SalvaModulo" name="SalvaModulo" style="height:30px;width:120px;" title="Verifica la corretta compilazione dei campi e salva il modulo nel faldone virtuale dell'istanza." type="submit" value="Salva modulo"/>
+</p>
+
+<input destinatario_amministrazione="getParameter('Ente')" id="GLOBO_modulo_c{{ CodiceModulo }}" name="GLOBO_modulo_c{{ CodiceModulo }}" type="hidden" value=""/>
+
+<input firmare="'P7M_ELETTRONICA'" id="GLOBO_modulofiglio_cINCARICO_PROCURA" name="GLOBO_modulofiglio_cINCARICO_PROCURA" type="hidden" value=""/>
+
+<input id="GLOBO_allegato_cDAE-CDI" name="GLOBO_allegato_cDAE-CDI" obbligatorio="#DAE_CDI.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_allegato_cALTRI-ALLEGATI" name="GLOBO_allegato_cALTRI-ALLEGATI" obbligatorio="#ALTRI_ALLEGATI.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_modulofiglio_cPROG-IND-ASS" name="GLOBO_modulofiglio_cPROG-IND-ASS" obbligatorio="(#PROG_IND_ASS1.checked() || #PROG_IND_ASS2.checked()) ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_modulofiglio_cSCH-VAL-SOC" name="GLOBO_modulofiglio_cSCH-VAL-SOC" obbligatorio="(#SCH_VAL_SOC1.checked() || #SCH_VAL_SOC2.checked()) ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_modulofiglio_cSCH-CGI-ADL" name="GLOBO_modulofiglio_cSCH-CGI-ADL" obbligatorio="#SCH_CGI_ADL.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_modulofiglio_cSCH-CGI-IAD" name="GLOBO_modulofiglio_cSCH-CGI-IAD" obbligatorio="#SCH_CGI_IAD.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_allegato_cDIC-ISEE" name="GLOBO_allegato_cDIC-ISEE" obbligatorio="(#DIC_ISEE1.checked() || #DIC_ISEE2.checked()) ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_allegato_cCER-CON-GRA" name="GLOBO_allegato_cCER-CON-GRA" obbligatorio="(#CER_CON_GRA1.checked() || #CER_CON_GRA2.checked()) ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_allegato_cVER-INV-ACC" name="GLOBO_allegato_cVER-INV-ACC" obbligatorio="(#VER_INV_ACC1.checked() || #VER_INV_ACC2.checked()) ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+<input id="GLOBO_allegato_cCOP_DOC_INT" name="GLOBO_allegato_cCOP_DOC_INT" obbligatorio="(#COP_DOC_INT1.checked()) ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_allegato_cVER-DIS-MED" name="GLOBO_allegato_cVER-DIS-MED" obbligatorio="#VER_DIS_MED.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+<input id="GLOBO_allegato_cCOP_CONTR_ASS" name="GLOBO_allegato_cCOP_CONTR_ASS" obbligatorio="#COP_CONTR_ASS.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_id_padre" name="GLOBO_id_padre" type="hidden"/>
+<input id="GLOBO_recupera_dati" name="GLOBO_recupera_dati" type="hidden"/>
+<input id="GLOBO_codice_modulo" name="GLOBO_codice_modulo" type="hidden" value="{{ CodiceModulo }}"/>
+
+{% endblock content %}

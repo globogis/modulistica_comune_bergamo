@@ -1,0 +1,1217 @@
+{% set CodiceModulo = "PROG-IND-ASS" %}
+{% set Urn = "document:c_a794:progetto.individuale.assistenza" %}
+{% extends "base.html" %}
+
+{% block meta %}
+
+<meta campi_firma="TitolareNonImportare_CodiceFiscale"
+campi_firma_label="il dichiarante"
+classi_modulo="Ambito territoriale"
+codice_modulo="{{ CodiceModulo }}"
+urn="{% block urn %}{{ Urn }}{% endblock urn %}"
+sub_urn_list=""
+uo_globo_list=""
+descrizione="Progetto individuale di assistenza"
+destinatario_amministrazione=""
+destinatario_ufficio=""
+dinamico="SI"
+email_a=""
+ente_abilitato="TUTTI"
+filigrana="NO"
+firmare="P7M_ELETTRONICA" 
+istruzioni_compilazione=""
+istruzioni_invio=""
+metodo_invio="mail"
+name="GLOBO_modulo"
+procura="NO,,"
+tipo_modulo="secondario"
+ufficio=""
+urlhelp="/modulistica/moduli/{{ CodiceModulo }}"
+verifica_pagamento="NO"
+versione="1.3|01/05/2019"/>
+{% endblock meta %}
+
+{% block title %}
+  Progetto individuale di assistenza
+{% endblock title %}
+
+{% block content %}
+
+<globo_fondo_pagina areaheight="150" scope="3">
+  <div type="firma">
+    <table class="Modulo" name="Firme" style="border:1px solid grey; margin-left: 28pt; display: none; pd4ml-display: inline">
+      <tbody>
+        <tr>
+          <td style="width: 33%; text-align: center;">
+            <input id="Luogo_PDF" name="Luogo_PDF" style="width:80%;" type="text"/>
+          </td>
+          <td style="width: 33%; text-align: center;">
+            <input id="Data_PDF" name="Data_PDF" style="width:50%;" type="text"/>
+          </td>
+          <td style="width: 34%; text-align: center; height: 1.5cm;"></td>
+        </tr>
+        <tr class="Rigaintestazioneridotta">
+          <td>
+            <p class="Labelcella" style="text-align: center">Luogo</p>
+          </td>
+          <td>
+            <p class="Labelcella" style="text-align: center">Data</p>
+          </td>
+          <td>
+            <p class="Labelcella" style="text-align: center">Il dichiarante/Tutore</p>
+          </td>
+        </tr>
+        <tr>
+          <td style="width: 33%; text-align: center;">
+          </td>
+          <td style="width: 33%; text-align: center;">
+          </td>
+          <td style="width: 34%; text-align: center; height: 1.5cm;"></td>
+        </tr>
+        <tr class="Rigaintestazioneridotta">
+          <td>
+            <p class="Labelcella" style="text-align: center">Il Referente di ambito</p>
+          </td>
+          <td>
+            <p class="Labelcella" style="text-align: center">Il Case Manager</p>
+          </td>
+          <td>
+            <p class="Labelcella" style="text-align: center">Un rappresentante ASST</p>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</globo_fondo_pagina>
+
+<input id="Oggetto" name="Oggetto" type="hidden" dynamic_value="'Progetto individuale di assistenza'"/>
+
+{{ intestazioni.intestazione_modulosecondario_senzabollo() }}
+
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr>
+      <td>
+        ACCESSO AI SOSTEGNI A FAVORE DI PERSONE CON DISABILITA' GRAVE MISURA B2
+      </td>
+      <td>
+        DGR n. n.2720 del 23 dicembre 2019 PROGRAMMA OPERATIVO REGIONALE A FAVORE DI PERSONE CON GRAVISSIMA DISABILITA' E IN CONDIZIONE DI NON AUTOSUFFICIENZA DI CUI AL FONDO NAZIONALE PER LE NON AUTOSUFFICIENZE ANNO 2019
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<h1 class="Modulo">
+  PROGETTO INDIVIDUALE 
+</h1>
+
+{{anagrafica.cognome_nome("TitolareNonImportare","Il sottoscritto", "Richiedente", "visibility:hidden", "cursor:default")}}
+
+<table class="Modulo" style="border: 1px solid grey; margin-top: -1px">
+  <tbody>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          Familiare/caregiver di riferimento
+        </p>
+      </td>
+      <td>
+        <p class="Labelcella">
+          Recapito telefonico
+        </p>
+      </td>
+	</tr>
+	<tr>
+      <td>
+        <input class="inputNormal" id="Parametri_Familiare" name="Parametri_Familiare" style="width: 100%;" label="Familiare/caregiver di riferimento" mandatory="true"/>
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_Tel_Care" name="Parametri_Tel_Care" style="width: 100%;" label="N. Tel. Familiare/caregiver di riferimento" mandatory="true"/>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="5">
+        <p class="Labeltabella">
+          indicare se, nel corso del 2020, il richiedente è inserito/a stabilmente in uno dei seguenti servizi e/o usufruisce delle prestazioni elencate di seguito
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <p>CDD</p>
+      </td>
+      <td style="width:9%">
+		<div id="CDD" label="Servizio CDD" mandatory="true" />
+        <p>
+          <input id="CDD1" name="CDD" type="radio" value="1" />
+          SI
+        </p>
+      </td>
+      <td style="width:9%">
+        <p>
+          <input id="CDD2" name="CDD" type="radio" value="2" />
+          NO
+        </p>
+      </td>
+      <td style="width:21%">
+		<div id="CDDtempo" label="Tempo pieno o tempo parziale" mandatory_enabled="#CDD1.checked()" />
+        <p>
+          <input id="CDDtempo1" name="CDDtempo" type="radio" value="1" />
+          Tempo pieno
+        </p>
+      </td>
+      <td style="width:21%">
+        <p>
+          <input id="CDDtempo2" name="CDDtempo" type="radio" value="2" />
+          Tempo parziale
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <p>CSE</p>
+      </td>
+      <td style="width:9%">
+		<div id="CSE" label="Servizio CSE" mandatory="true" />
+        <p>
+          <input id="CSE1" name="CSE" type="radio" value="1" />
+          SI
+        </p>
+      </td>
+      <td style="width:9%">
+        <p>
+          <input id="CSE2" name="CSE" type="radio" value="2" />
+          NO
+        </p>
+      </td>
+      <td>
+		<div id="CSEtempo" label="Tempo pieno o tempo parziale" mandatory_enabled="#CSE1.checked()" />
+        <p>
+          <input id="CSEtempo1" name="CSEtempo" type="radio" value="1" />
+          Tempo pieno
+        </p>
+      </td>
+      <td>
+        <p>
+          <input id="CSEtempo2" name="CSEtempo" type="radio" value="2" />
+          Tempo parziale
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <p>SFA</p>
+      </td>
+      <td style="width:9%">
+		<div id="SFA" label="Servizio SFA" mandatory="true" />
+        <p>
+          <input id="SFA1" name="SFA" type="radio" value="1" />
+          SI
+        </p>
+      </td>
+      <td style="width:9%">
+        <p>
+          <input id="SFA2" name="SFA" type="radio" value="2" />
+          NO
+        </p>
+      </td>
+      <td>
+		<div id="SFAtempo" label="Tempo pieno o tempo parziale" mandatory_enabled="#SFA1.checked()" />
+        <p>
+          <input id="SFAtempo1" name="SFAtempo" type="radio" value="1" />
+          Tempo pieno
+        </p>
+      </td>
+      <td>
+        <p>
+          <input id="SFAtempo2" name="SFAtempo" type="radio" value="2" />
+          Tempo parziale
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+       <p> CSS</p>
+      </td>
+      <td style="width:9%">
+		<div id="CSS" label="Servizio CSS" mandatory="true" />
+        <p>
+          <input id="CSS1" name="CSS" type="radio" value="1" />
+          SI
+        </p>
+      </td>
+      <td style="width:9%">
+        <p>
+          <input id="CSS2" name="CSS" type="radio" value="2" />
+          NO
+        </p>
+      </td>
+      <td>
+		<div id="CSStempo" label="Tempo pieno o tempo parziale" mandatory_enabled="#CSS1.checked()" />
+        <p>
+          <input id="CSStempo1" name="CSStempo" type="radio" value="1" />
+          Tempo pieno
+        </p>
+      </td>
+      <td>
+        <p>
+          <input id="CSStempo2" name="CSStempo" type="radio" value="2" />
+          Tempo parziale
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <p>CAH</p>
+      </td>
+      <td style="width:9%">
+		<div id="CAH" label="Servizio CAH" mandatory="true" />
+        <p>
+          <input id="CAH1" name="CAH" type="radio" value="1" />
+          SI
+        </p>
+      </td>
+      <td style="width:9%">
+        <p>
+          <input id="CAH2" name="CAH" type="radio" value="2" />
+          NO
+        </p>
+      </td>
+      <td>
+		<div id="CAHtempo" label="Tempo pieno o tempo parziale" mandatory_enabled="#CAH1.checked()" />
+        <p>
+          <input id="CAHtempo1" name="CAHtempo" type="radio" value="1" />
+          Tempo pieno
+        </p>
+      </td>
+      <td>
+        <p>
+          <input id="CAHtempo2" name="CAHtempo" type="radio" value="2" />
+          Tempo parziale
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <p>RSD</p>
+      </td>
+      <td style="width:9%">
+		<div id="RSD" label="Servizio RSD" mandatory="true" />
+        <p>
+          <input id="RSD1" name="RSD" type="radio" value="1" />
+          SI
+        </p>
+      </td>
+      <td style="width:9%">
+        <p>
+          <input id="RSD2" name="RSD" type="radio" value="2" />
+          NO
+        </p>
+      </td>
+      <td>
+		<div id="RSDtempo" label="Tempo pieno o tempo parziale" mandatory_enabled="#RSD1.checked()" />
+        <p>
+          <input id="RSDtempo1" name="RSDtempo" type="radio" value="1" />
+          Tempo pieno
+        </p>
+      </td>
+      <td>
+        <p>
+          <input id="RSDtempo2" name="RSDtempo" type="radio" value="2" />
+          Tempo parziale
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <p>SCUOLA SPECIALE</p>
+      </td>
+      <td style="width:9%">
+		<div id="SCUOLASPECIALE" label="Servizio SCUOLA SPECIALE" mandatory="true" />
+        <p>
+          <input id="SCUOLASPECIALE1" name="SCUOLASPECIALE" type="radio" value="1" />
+          SI
+        </p>
+      </td>
+      <td style="width:9%">
+        <p>
+          <input id="SCUOLASPECIALE2" name="SCUOLASPECIALE" type="radio" value="2" />
+          NO
+        </p>
+      </td>
+      <td>
+		<div id="SCUOLASPECIALEtempo" label="Tempo pieno o tempo parziale" mandatory_enabled="#SCUOLASPECIALE1.checked()" />
+        <p>
+          <input id="SCUOLASPECIALEtempo1" name="SCUOLASPECIALEtempo" type="radio" value="1" />
+          Tempo pieno
+        </p>
+      </td>
+      <td>
+        <p>
+          <input id="SCUOLASPECIALEtempo2" name="SCUOLASPECIALEtempo" type="radio" value="2" />
+          Tempo parziale
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <p>CFPP</p>
+      </td>
+      <td style="width:9%">
+		<div id="CFPP" label="Servizio CFPP" mandatory="true" />
+        <p>
+          <input id="CFPP1" name="CFPP" type="radio" value="1" />
+          SI
+        </p>
+      </td>
+      <td style="width:9%">
+        <p>
+          <input id="CFPP2" name="CFPP" type="radio" value="2" />
+          NO
+        </p>
+      </td>
+      <td>
+		<div id="CFPPtempo" label="Tempo pieno o tempo parziale" mandatory_enabled="#CFPP1.checked()" />
+        <p>
+          <input id="CFPPtempo1" name="CFPPtempo" type="radio" value="1" />
+          Tempo pieno
+        </p>
+      </td>
+      <td>
+        <p>
+          <input id="CFPPtempo2" name="CFPPtempo" type="radio" value="2" />
+          Tempo parziale
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+       <p> CDI</p>
+      </td>
+      <td style="width:9%">
+		<div id="CDI" label="Servizio CDI" mandatory="true" />
+        <p>
+          <input id="CDI1" name="CDI" type="radio" value="1" />
+          SI
+        </p>
+      </td>
+      <td style="width:9%">
+        <p>
+          <input id="CDI2" name="CDI" type="radio" value="2" />
+          NO
+        </p>
+      </td>
+      <td>
+		<div id="CDItempo" label="Tempo pieno o tempo parziale" mandatory_enabled="#CDI1.checked()" />
+        <p>
+          <input id="CDItempo1" name="CDItempo" type="radio" value="1" />
+          Tempo pieno
+        </p>
+      </td>
+      <td>
+        <p>
+          <input id="CDItempo2" name="CDItempo" type="radio" value="2" />
+          Tempo parziale
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <p>TIROCINIO RETRIBUITO</p>
+      </td>
+      <td style="width:9%">
+		<div id="TIROCINIORETRIBUITO" label="Servizio TIROCINIO RETRIBUITO" mandatory="true" />
+        <p>
+          <input id="TIROCINIORETRIBUITO1" name="TIROCINIORETRIBUITO" type="radio" value="1" />
+          SI
+        </p>
+      </td>
+      <td style="width:9%">
+        <p>
+          <input id="TIROCINIORETRIBUITO2" name="TIROCINIORETRIBUITO" type="radio" value="2" />
+          NO
+        </p>
+      </td>
+      <td>
+		<div id="TIROCINIORETRIBUITOtempo" label="Tempo pieno o tempo parziale" mandatory_enabled="#TIROCINIORETRIBUITO1.checked()" />
+        <p>
+          <input id="TIROCINIORETRIBUITOtempo1" name="TIROCINIORETRIBUITOtempo" type="radio" value="1" />
+          Tempo pieno
+        </p>
+      </td>
+      <td>
+        <p>
+          <input id="TIROCINIORETRIBUITOtempo2" name="TIROCINIORETRIBUITOtempo" type="radio" value="2" />
+          Tempo parziale
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <p>DOPODINOI</p>
+      </td>	
+      <td style="width:9%">
+		<div id="DOPODINOI" label="Servizio DOPODINOI" mandatory="true" />
+        <p>
+          <input id="DOPODINOI1" name="DOPODINOI" type="radio" value="1" />
+          SI
+        </p>
+      </td>
+      <td style="width:9%">
+        <p>
+          <input id="DOPODINOI2" name="DOPODINOI" type="radio" value="2" />
+          NO
+        </p>
+      </td>
+      <td colspan="2">
+        
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <p>PRO.VI</p>
+      </td>	
+      <td style="width:9%">
+		<div id="PROVI" label="Servizio PRO.VI" mandatory="true" />
+        <p>
+          <input id="PROVI1" name="PROVI" type="radio" value="1" />
+          SI
+        </p>
+      </td>
+      <td style="width:9%">
+        <p>
+          <input id="PROVI2" name="PROVI" type="radio" value="2" />
+          NO
+        </p>
+      </td>
+      <td colspan="2">
+        
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <p>REDDITO AUTONOMIA</p>
+      </td>	
+      <td style="width:9%">
+		<div id="REDDITOAUTONOMIA" label="Servizio REDDITO AUTONOMIA" mandatory="true" />
+        <p>
+          <input id="REDDITOAUTONOMIA1" name="REDDITOAUTONOMIA" type="radio" value="1" />
+          SI
+        </p>
+      </td>
+      <td style="width:9%">
+        <p>
+          <input id="REDDITOAUTONOMIA2" name="REDDITOAUTONOMIA" type="radio" value="2" />
+          NO
+        </p>
+      </td>
+      <td colspan="2">
+        
+      </td>
+    </tr>
+    <tr>
+      <td>
+       <p> RSA APERTA</p>
+      </td>
+      <td style="width:9%">
+		<div id="RSAAPERTA" label="Servizio RSA APERTA" mandatory="true" />
+        <p>
+          <input id="RSAAPERTA1" name="RSAAPERTA" type="radio" value="1" />
+          SI
+        </p>
+      </td>
+      <td style="width:9%">
+        <p>
+          <input id="RSAAPERTA2" name="RSAAPERTA" type="radio" value="2" />
+          NO
+        </p>
+      </td>
+      <td colspan="2">
+
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <p>RESIDENZIALITA' LEGGERA</p>
+      </td>
+      <td style="width:9%">
+		<div id="RESIDENZIALITALEGGERA" label="Servizio RESIDENZIALITA' LEGGERA" mandatory="true" />
+        <p>
+          <input id="RESIDENZIALITALEGGERA1" name="RESIDENZIALITALEGGERA" type="radio" value="1" />
+          SI
+        </p>
+      </td>
+      <td style="width:9%">
+        <p>
+          <input id="RESIDENZIALITALEGGERA2" name="RESIDENZIALITALEGGERA" type="radio" value="2" />
+          NO
+        </p>
+      </td>
+      <td colspan="2">
+
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <p>CPS/CD</p>
+      </td>
+      <td style="width:9%">
+		<div id="CPSCD" label="Servizio CPS/CD" mandatory="true" />
+        <p>
+          <input id="CPSCD1" name="CPSCD" type="radio" value="1" />
+          SI
+        </p>
+      </td>
+      <td style="width:9%">
+        <p>
+          <input id="CPSCD2" name="CPSCD" type="radio" value="2" />
+          NO
+        </p>
+      </td>
+      <td colspan="2">
+
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <p>MISURA B1</p>
+      </td>
+      <td style="width:9%">
+		<div id="MISURAB" label="Servizio MISURA B1" mandatory="true" />
+        <p>
+          <input id="MISURAB1" name="MISURAB" type="radio" value="1" />
+          SI
+        </p>
+      </td>
+      <td style="width:9%">
+        <p>
+          <input id="MISURAB2" name="MISURAB" type="radio" value="2" />
+          NO
+        </p>
+      </td>
+      <td>
+        <p>valore buono (€):</p>
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_ValoreBuono" name="Parametri_ValoreBuono" style="width: 100%;" label="Valore buono" mandatory_enabled="#MISURAB1.checked()" format="valuta_positiva"/>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <p>ADI</p>
+      </td>
+      <td style="width:9%">
+		<div id="ADI" label="Servizio ADI" mandatory="true" />
+        <p>
+          <input id="ADI1" name="ADI" type="radio" value="1" />
+          SI
+        </p>
+      </td>
+      <td style="width:9%">
+        <p>
+          <input id="ADI2" name="ADI" type="radio" value="2" />
+          NO
+        </p>
+      </td>
+      <td>
+        <p>N. accessi settimanali:</p>
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_Accessi" name="Parametri_Accessi" style="width: 100%;" label="N. accessi settimanali" format="number" mandatory_enabled="#ADI1.checked()"/>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <p>SAD/SADH</p>
+      </td>
+      <td style="width:9%">
+		<div id="SADSADH" label="Servizio SAD/SADH" mandatory="true" />
+        <p>
+          <input id="SADSADH1" name="SADSADH" type="radio" value="1" />
+          SI
+        </p>
+      </td>
+      <td style="width:9%">
+        <p>
+          <input id="SADSADH2" name="SADSADH" type="radio" value="2" />
+          NO
+        </p>
+      </td>
+      <td>
+         <p>N. ore settimanali:</p>
+      </td>
+      <td>
+       <input class="inputNormal" id="Parametri_Ore" name="Parametri_Ore" style="width: 100%;" label="N. ore settimanali" format="number" mandatory_enabled="#SADSADH1.checked()"/>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <p>ADM</p>
+      </td>
+      <td style="width:9%">
+		<div id="ADM" label="Servizio ADM" mandatory="true" />
+        <p>
+          <input id="ADM1" name="ADM" type="radio" value="1" />
+          SI
+        </p>
+      </td>
+      <td style="width:9%">
+        <p>
+          <input id="ADM2" name="ADM" type="radio" value="2" />
+          NO
+        </p>
+      </td>
+      <td>
+         <p>N. ore settimanali:</p>
+      </td>
+      <td>
+       <input class="inputNormal" id="Parametri_OreSettimanali" name="Parametri_OreSettimanali" style="width: 100%;" label="N. ore settimanali:" format="number" mandatory_enabled="#ADM1.checked()"/>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <p>CUSTODIA SOCIALE</p>
+      </td>
+      <td style="width:9%">
+		<div id="CUSTODIASOCIALE" label="Servizio CUSTODIA SOCIALE" mandatory="true" />
+        <p>
+          <input id="CUSTODIASOCIALE1" name="CUSTODIASOCIALE" type="radio" value="1" />
+          SI
+        </p>
+      </td>
+      <td style="width:9%">
+        <p>
+          <input id="CUSTODIASOCIALE2" name="CUSTODIASOCIALE" type="radio" value="2" />
+          NO
+        </p>
+      </td>
+      <td>
+         <p>N. accessi settimanali:</p>
+      </td>
+      <td>
+       <input class="inputNormal" id="Parametri_AccessiSettimanali" name="Parametri_AccessiSettimanali" style="width: 100%;" label="N. accessi settimanali" format="number" mandatory_enabled="#CUSTODIASOCIALE1.checked()"/>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <p>INPS HOME CARE PREMIUM</p>
+      </td>
+      <td style="width:9%">
+		<div id="INPSHOMECAREPREMIUM" label="Servizio INPS HOME CARE PREMIUM" mandatory="true" />
+        <p>
+          <input id="INPSHOMECAREPREMIUM1" name="INPSHOMECAREPREMIUM" type="radio" value="1" />
+          SI
+        </p>
+      </td>
+      <td style="width:9%">
+        <p>
+          <input id="INPSHOMECAREPREMIUM2" name="INPSHOMECAREPREMIUM" type="radio" value="2" />
+          NO
+        </p>
+      </td>
+      <td>
+         <p>Anno:</p>
+      </td>
+      <td>
+       <input class="inputNormal" id="Parametri_Anno" name="Parametri_Anno" style="width: 100%;" label="Anno" format="number" mandatory_enabled="#INPSHOMECAREPREMIUM1.checked()"/>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <p>BUONO ASSISTENTE FAMILIARE EX L.R. 15/15</p>
+      </td>
+      <td style="width:9%">
+		<div id="BUONOASSISTENTEFAMILIARE" label="Servizio BUONO ASSISTENTE FAMILIARE EX L.R. 15/15" mandatory="true" />
+        <p>
+          <input id="BUONOASSISTENTEFAMILIARE1" name="BUONOASSISTENTEFAMILIARE" type="radio" value="1" />
+          SI
+        </p>
+      </td>
+      <td style="width:9%">
+        <p>
+          <input id="BUONOASSISTENTEFAMILIARE2" name="BUONOASSISTENTEFAMILIARE" type="radio" value="2" />
+          NO
+        </p>
+      </td>
+      <td>
+         <p>Data presentazione:</p>
+      </td>
+      <td>
+       <input class="inputNormal" id="Parametri_DataAssistente" name="Parametri_DataAssistente" style="width: 100%;" label="Data presentazione" format="date" mandatory_enabled="#INPSHOMECAREPREMIUM1.checked()"/>
+      </td>
+    </tr>
+    <tr>
+      <td>
+       <p>REI-REDDITO DI INCLUSIONE</p>
+      </td>
+      <td style="width:9%">
+		<div id="REI" label="Servizio REI-REDDITO DI INCLUSIONE" mandatory="true" />
+        <p>
+          <input id="REI1" name="REI" type="radio" value="1" />
+          SI
+        </p>
+      </td>
+      <td style="width:9%">
+        <p>
+          <input id="REI2" name="REI" type="radio" value="2" />
+          NO
+        </p>
+      </td>
+      <td>
+         <p>Data presentazione:</p>
+      </td>
+      <td>
+       <input class="inputNormal" id="Parametri_DataREI" name="Parametri_DataREI" style="width: 100%;" label="DataREI" format="date" mandatory_enabled="#REI1.checked()"/>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="6">
+        <p class="Labeltabella">
+          indicare se, nel corso del 2020, il richiedente usufruisce dei seguenti servizi complementari con tariffa agevolata
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+       <p> SAD</p>
+      </td>
+      <td>
+       <p> Tariffa agevolata</p>
+      </td>
+      <td style="width:9%">
+		<div id="TA_SAD" label="Tariffa agevolata SAD" mandatory_enabled="true" />
+        <p>
+          <input id="TA_SAD1" name="TA_SAD" type="radio" value="1" />
+          SI
+        </p>
+      </td>
+      <td style="width:9%">
+        <p>
+          <input id="TA_SAD2" name="TA_SAD" type="radio" value="2" />
+          NO
+        </p>
+      </td>
+      <td>
+        <p style="font-size:90%">Compartecipazione economica (€):</p>
+      </td>
+      <td style="width:17%">
+        <input class="inputNormal" id="TA_SAD-Compartecipazione" name="TA_SAD-Compartecipazione" style="width:100%;" label="Compartecipazione economica" mandatory_enabled="#TA_SAD1.checked()" format="valuta_positiva"/>
+      </td>
+    </tr>
+    <tr>
+      <td>
+       <p> SERVIZIO PASTI</p>
+      </td>
+      <td>
+       <p> Tariffa agevolata</p>
+      </td>
+      <td style="width:9%">
+		<div id="TA_SERVIZIOPASTI" label="Tariffa agevolata SERVIZIO PASTI" mandatory="true" />
+        <p>
+          <input id="TA_SERVIZIOPASTI1" name="TA_SERVIZIOPASTI" type="radio" value="1" />
+          SI
+        </p>
+      </td>
+      <td style="width:9%">
+        <p>
+          <input id="TA_SERVIZIOPASTI2" name="TA_SERVIZIOPASTI" type="radio" value="2" />
+          NO
+        </p>
+      </td>
+      <td>
+        <p style="font-size:90%">Compartecipazione economica (€):</p>
+      </td>
+      <td style="width:17%">
+       <input class="inputNormal" id="TA_SERVIZIOPASTI-Compartecipazione" name="TA_SERVIZIOPASTI-Compartecipazione" style="width:100%;" label="Compartecipazione economica" mandatory_enabled="#TA_SERVIZIOPASTI1.checked()" format="valuta_positiva"/>
+      </td>
+    </tr>
+    <tr>
+      <td>
+       <p> TELESOCCORSO</p>
+      </td>
+      <td>
+       <p> Tariffa agevolata</p>
+      </td>
+      <td style="width:9%">
+		<div id="TA_TELESOCCORSO" label="Tariffa agevolata TELESOCCORSO" mandatory="true" />
+        <p>
+          <input id="TA_TELESOCCORSO1" name="TA_TELESOCCORSO" type="radio" value="1" />
+          SI
+        </p>
+      </td>
+      <td style="width:9%">
+        <p>
+          <input id="TA_TELESOCCORSO2" name="TA_TELESOCCORSO" type="radio" value="2" />
+          NO
+        </p>
+      </td>
+      <td>
+        <p style="font-size:90%">Compartecipazione economica (€):</p>
+      </td>
+      <td style="width:17%">
+        <input class="inputNormal" id="TA_TELESOCCORSO-Compartecipazione" name="TA_TELESOCCORSO-Compartecipazione" style="width:100%;" label="Compartecipazione economica" mandatory_enabled="#TA_TELESOCCORSO1.checked()" format="valuta_positiva"/>
+      </td>
+    </tr>
+     <tr>
+      <td>
+       <p> SOLLIEVO</p>
+      </td>
+      <td>
+       <p> Tariffa agevolata</p>
+      </td>
+      <td style="width:9%">
+		<div id="TA_SOLLIEVO" label="Tariffa agevolata SOLLIEVO" mandatory="true" />
+        <p>
+          <input id="TA_SOLLIEVO1" name="TA_SOLLIEVO" type="radio" value="1" />
+          SI
+        </p>
+      </td>
+      <td style="width:9%">
+        <p>
+          <input id="TA_SOLLIEVO2" name="TA_SOLLIEVO" type="radio" value="2" />
+          NO
+        </p>
+      </td>
+      <td>
+        <p style="font-size:90%">Compartecipazione economica (€):</p>
+      </td>
+      <td style="width:17%">
+        <input class="inputNormal" id="TA_SOLLIEVO-Compartecipazione" name="TA_SOLLIEVO-Compartecipazione" style="width:100%;" label="Compartecipazione economica" mandatory_enabled="#TA_SOLLIEVO1.checked()" format="valuta_positiva"/>
+      </td>
+    </tr>
+     <tr>
+      <td>
+       <p> SERVIZIO TRASPORTO</p>
+      </td>
+      <td>
+       <p> Tariffa agevolata</p>
+      </td>
+      <td style="width:9%">
+		<div id="TA_SERVIZIOTRASPORTO" label="Tariffa agevolata SERVIZIO TRASPORTO" mandatory="true" />
+        <p>
+          <input id="TA_SERVIZIOTRASPORTO1" name="TA_SERVIZIOTRASPORTO" type="radio" value="1" />
+          SI
+        </p>
+      </td>
+      <td style="width:9%">
+        <p>
+          <input id="TA_SERVIZIOTRASPORTO2" name="TA_SERVIZIOTRASPORTO" type="radio" value="2" />
+          NO
+        </p>
+      </td>
+      <td>
+        <p style="font-size:90%">Compartecipazione economica (€):</p>
+      </td>
+      <td style="width:17%">
+        <input class="inputNormal" id="TA_SERVIZIOTRASPORTO-Compartecipazione" name="TA_SERVIZIOTRASPORTO-Compartecipazione" style="width:100%;" label="Compartecipazione economica" mandatory_enabled="#TA_SERVIZIOTRASPORTO1.checked()" format="valuta_positiva"/>
+      </td>
+    </tr>
+     <tr>
+      <td>
+       <p> ALTRO (specificare) <br/><input class="inputNormal" id="TA_ALTRO-CompartecipazioneSpecificare" name="TA_ALTRO-CompartecipazioneSpecificare" style="width:100%; font-size:80%" label="ALTRO" mandatory_enabled="#TA_ALTRO1.checked()"/></p>
+      </td>
+      <td>
+       <p> Tariffa agevolata</p>
+      </td>
+      <td style="width:9%">
+		<div id="TA_ALTRO" label="Tariffa agevolata ALTRO" mandatory="true" />
+        <p>
+          <input id="TA_ALTRO1" name="TA_ALTRO" type="radio" value="1" />
+          SI
+        </p>
+      </td>
+      <td style="width:9%">
+        <p>
+          <input id="TA_ALTRO2" name="TA_ALTRO" type="radio" value="2" />
+          NO
+        </p>
+      </td>
+      <td>
+        <p style="font-size:90%">Compartecipazione economica (€):</p>
+      </td>
+      <td style="width:17%">
+        <input class="inputNormal" id="TA_ALTRO-Compartecipazione" name="TA_ALTRO-Compartecipazione" style="width:100%;" label="Compartecipazione economica" mandatory_enabled="#TA_ALTRO1.checked()" format="valuta_positiva"/>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="2">
+        <p class="Labeltabella">
+          esito valutazione
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="width:40%">
+        <p>Punteggio Scheda di valutazione Sociale:</p>
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_SchedaValutazione" name="Parametri_SchedaValutazione" style="width: 100%;" label="SchedaValutazione" />
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <p>Punteggio Scheda ADL:</p>
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_SchedaADL" name="Parametri_SchedaADL" style="width: 100%;" label="SchedaADL" />
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <p>Punteggio Scheda IADL:</p>
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_SchedaIADL" name="Parametri_SchedaIADL" style="width: 100%;" label="SchedaIADL" />
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          Esito della valutazione sociale e/o multidimensionale (sintesi dei bisogni rilevati nelle dimensioni di vita del beneficiario)
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <textarea class="inputNormal" id="Parametri_Valutazione_Sociale" name="Parametri_Valutazione_Sociale" style="width: 100%; height: 5cm;" label="Esito valutazione sociale" mandatory="true"></textarea>
+      </td>
+    </tr>
+    <tr class="Rigaintestazione">
+      <td>
+        <p class="Labelcella">
+          Descrizione delle prestazioni assicurate dal caregiver e/o dal personale di assistenza regolarmente impiegato
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <textarea class="inputNormal" id="Parametri_Prestazioni_Care_Giver" name="Parametri_Prestazioni_Care_Giver" style="width: 100%; height: 5cm;" label="Esito valutazione sociale" mandatory="true"></textarea>
+      </td>
+    </tr>
+
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="3">
+        <p class="Labeltabella">
+          proposta progettuale
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2">
+         <p> INTERVENTO PROPOSTO</p>
+      </td>
+      <td style="width:40%">
+          <p>OBIETTIVI DEL PROGETTO INDIVIDUALE</p>
+      </td>
+    </tr>
+    <tr>
+      <td style="width:4%; vertical-align:top">
+        <input id="Proposta1" name="Proposta1" type="checkbox" value="si" />
+      </td>
+      <td>
+        Buono sociale  per compensare le prestazioni di cura assicurate dal caregiver familiare 
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_TempieFasi1" name="Parametri_TempieFasi1" style="width: 100%;" label="TempieFasi1" enabled="#Proposta1.checked()"/>
+      </td>
+    </tr>
+    <tr>
+      <td style="width:4%; vertical-align:top">
+        <input id="Proposta2" name="Proposta2" type="checkbox" value="si" />
+      </td>
+      <td>
+        Buono sociale per acquisto di prestazioni di assistente personale con regolare contratto (badante)
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_TempieFasi2" name="Parametri_TempieFasi2" style="width: 100%;" label="TempieFasi2" enabled="#Proposta2.checked()"/>
+      </td>
+    </tr>
+    <tr>
+      <td style="width:4%; vertical-align:top">
+        <input id="Proposta3" name="Proposta3" type="checkbox" value="si" />
+      </td>
+      <td>
+        Voucher sociale per il sostegno alla vita di relazione di minori con disabilità
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_TempieFasi3" name="Parametri_TempieFasi3" style="width: 100%;" label="TempieFasi3" enabled="#Proposta3.checked()"/>
+      </td>
+    </tr>
+    <tr>
+      <td style="width:4%; vertical-align:top">
+        <input id="Proposta4" name="Proposta4" type="checkbox" value="si" />
+      </td>
+      <td>
+        Buono sociale per progetti di vita indipendente
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_TempieFasi4" name="Parametri_TempieFasi4" style="width: 100%;" label="TempieFasi4" enabled="#Proposta4.checked()"/>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td colspan="3">
+        <p class="Labelcella">
+          Da compilare solo per voucher sociale per il sostegno alla vita di relazione di minori con disabilità
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        
+      </td>
+      <td>
+        <p>
+          Ente Erogatore:
+        </p>
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_EnteErogatore" name="Parametri_EnteErogatore" style="width: 100%;" label="Ente erogatore" enabled="#Proposta3.checked()" />
+      </td>
+    </tr>
+    <tr>
+      <td>
+        
+      </td>
+      <td>
+         <p>
+          Monte ore assistenza educativa domiciliare/territoriale:
+        </p>       
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_EducazioneDomiciliare" name="Parametri_EducazioneDomiciliare" style="width: 100%;" label="EducazioneDomiciliare" enabled="#Proposta3.checked()" />
+    </tr>
+    <tr>
+      <td>
+        
+      </td>
+      <td>
+         <p>
+          Totale Monte Ore:
+        </p>       
+      </td>
+      <td>
+
+        <input class="inputNormal" id="Parametri_TotaleOre" name="Parametri_TotaleOre" style="width: 100%;" label="TotaleOre" enabled="#Proposta3.checked()"/>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        
+      </td>
+      <td>
+         <p>
+          Costo Orario assistenza educativa domiciliare/territoriale (€): 
+        </p>       
+      </td>
+      <td>
+
+      <input class="inputNormal" id="Parametri_CostoEducazioneDomiciliare" name="Parametri_CostoEducazioneDomiciliare" style="width: 100%;" label="CostoEducazioneDomiciliare"  format="valuta_positiva" enabled="#Proposta3.checked()"/>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        
+      </td>
+      <td>
+        <p>
+          Totale costo Progetto (€): 
+        </p>       
+      </td>
+      <td>
+
+        <input class="inputNormal" id="Parametri_CostoProgetto" name="Parametri_CostoProgetto" style="width: 100%;" label="CostoProgetto"  format="valuta_positiva" enabled="#Proposta3.checked()"/>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<p>
+  Ciascun intervento multidimensionale prevede l’individuazione di un “responsabile del caso” (case manager) che 
+  <br>
+  garantisce: informazione, orientamento e accompagnamento, consulenza e sostegno alla famiglia, raccordo 
+  <br>
+  e coordinamento degli attori del sistema dei servizi e degli interventi in attuazione del Progetto Individuale
+</p>
+
+<br/>
+  {{ utils.trattamento_dati_personali() }}
+
+<br>
+    <table class="Modulo" id="firme" name="Firme" style="border:1px solid grey; pd4ml-display: none;">
+      <tbody>
+        <tr>
+          <td style="width: 33%; text-align: center;">
+            <input id="Luogo_PDF" name="Luogo_PDF" style="width:80%;" type="text"/>
+          </td>
+          <td style="width: 33%; text-align: center;">
+            <input id="Data_PDF" name="Data_PDF" style="width:50%;" type="text"/>
+          </td>
+          <td style="width: 34%; text-align: center; height: 1.5cm;"></td>
+        </tr>
+        <tr class="Rigaintestazioneridotta">
+          <td>
+            <p class="Labelcella" style="text-align: center">Luogo</p>
+          </td>
+          <td>
+            <p class="Labelcella" style="text-align: center">Data</p>
+          </td>
+          <td>
+            <p class="Labelcella" style="text-align: center">Il dichiarante/Tutore</p>
+          </td>
+        </tr>
+        <tr>
+          <td style="width: 33%; text-align: center;">
+          </td>
+          <td style="width: 33%; text-align: center;">
+          </td>
+          <td style="width: 34%; text-align: center; height: 1.5cm;"></td>
+        </tr>
+        <tr class="Rigaintestazioneridotta">
+          <td>
+            <p class="Labelcella" style="text-align: center">Il Referente di ambito</p>
+          </td>
+          <td>
+            <p class="Labelcella" style="text-align: center">Il Case Manager</p>
+          </td>
+          <td>
+            <p class="Labelcella" style="text-align: center">Un rappresentante ASST</p>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+<br/>
+
+<br/>
+
+<p class="Modulo">
+  <input id="SalvaModulo" name="SalvaModulo" style="height:30px;width:120px;" title="Verifica la corretta compilazione dei campi e salva il modulo nel faldone virtuale dell'istanza." type="submit" value="Salva modulo"/>
+</p>
+
+<input id="GLOBO_modulo_c{{ CodiceModulo }}" name="GLOBO_modulo_c{{ CodiceModulo }}" type="hidden" value=""/>
+
+<input id="GLOBO_id_padre" name="GLOBO_id_padre" type="hidden"/>
+<input id="GLOBO_recupera_dati" name="GLOBO_recupera_dati" type="hidden"/>
+<input id="GLOBO_codice_modulo" name="GLOBO_codice_modulo" type="hidden" value="{{ CodiceModulo }}"/>
+
+{% endblock content %}

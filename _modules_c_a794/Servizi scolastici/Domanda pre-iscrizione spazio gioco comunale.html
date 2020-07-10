@@ -1,0 +1,354 @@
+{% set CodiceModulo = "PRE-ISCR-SPAZ-GIO" %}
+{% set Urn = "document:c_a794:spazio.gioco;preiscrizione" %}
+{% extends "base.html" %}
+
+{% block meta %}
+
+<meta campi_firma="Titolare_CodiceFiscale"
+campi_firma_label="il dichiarante"
+classi_modulo="Servizi scolastici"
+codice_modulo="{{ CodiceModulo }}"
+urn="{% block urn %}{{ Urn }}{% endblock urn %}"
+sub_urn_list="grandiepiccini,opla"
+uo_globo_list=""
+descrizione="Domanda di pre-iscrizione allo spazio gioco comunale"
+destinatario_amministrazione=""
+destinatario_ufficio="UOPUBBLICAISTRUZIONE"
+dinamico="SI"
+email_a=""
+ente_abilitato="TUTTI"
+filigrana="NO"
+firmare="P7M_ELETTRONICA"
+istruzioni_compilazione=""
+istruzioni_invio="mail_pec"
+metodo_invio="mail"
+name="GLOBO_modulo"
+procura="NO,,"
+tipo_modulo="principale"
+urlhelp="/modulistica/moduli/{{ CodiceModulo }}"
+verifica_pagamento="NO"
+versione="1.0|13/03/2019"/>
+
+<meta codice_modulo_figlio="INCARICO_PROCURA"
+urn_modulo_figlio="document:s_italia:generale;incarico.procura"
+name="GLOBO_modulofiglio"
+numero="1"
+obbligatorio="DINAMICO"/>
+
+<meta codice_allegato="DAE-CDI"
+urn_allegato="document:s_italia:generale;documento.identita;documentazione"
+descrizione_estesa="Documento di identità"
+filename="Documento identita.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/DAE-CDI"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="ALTRI-ALLEGATI"
+urn_allegato="document:s_italia:altri.allegati"
+descrizione_estesa="Altri allegati"
+filename="Altri allegati.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/ALTRI-ALLEGATI"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+{% endblock meta %}
+
+{% block title %}
+    Domanda di pre-iscrizione allo spazio gioco comunale
+{% endblock title %}
+
+{% block content %}
+
+<style>
+    .noBorder{
+        border: 0 !important;
+    }
+</style>
+
+<globo_fondo_pagina areaheight="150" scope="2">
+    {{ utils.firma() }}
+</globo_fondo_pagina>
+
+<input id="Parametri_Comune" name="Parametri_Comune" type="hidden" dynamic_value="#Ente.value()"/>
+<input id="Oggetto" name="Oggetto" type="hidden" dynamic_value="#Titolare_Cognome.value().toUpperCase() + ' ' + #Titolare_Nome.value().toUpperCase() + ' - pre-iscrizione spazio gioco comunale'"/>
+
+{{ intestazioni.intestazione_moduloprincipale_senzabollo() }}
+
+<h1 class="Modulo">
+    Domanda di pre-iscrizione allo spazio gioco comunale
+</h1>
+
+<input id="Titolare_DatiPersonaObbligatori" name="Titolare_DatiPersonaObbligatori" type="hidden" dynamic_check="true"/>
+<input id="Titolare_Titolo" name="Titolare_Titolo" type="hidden" value="Richiedente"/>
+<input id="Titolare_Ruolo" name="Titolare_Ruolo" type="hidden" value="Richiedente"/>
+{{ anagrafica.persona_fisica("Titolare", "Il sottoscritto genitore, affidatario o tutore", "visibility:visibility", "cursor:pointer", "visibility:visibility", "visibility:visibility", "mail_ordinaria") }}
+
+<h3 class="Modulo">
+    CHIEDE
+</h3>
+
+<table class="Modulo noBorder" style="border: 1px solid grey;">
+    <tbody>
+
+        <tr class="noBorder">
+            <td class="noBorder" style="width: 48%;">
+                <p>
+                    l’iscrizione al servizio di Spazio Gioco per l’anno scolastico
+                </p>
+            </td>
+            <td class="noBorder" style="width: 12%;">
+                <div style="width: 100%; border-bottom: 1px solid grey;">
+                    <input class="inputNormal" id="Parametri_AnnoScolastico_AnnoInizio" name="Parametri_AnnoScolastico_AnnoInizio" style="width: 100%;" label="Anno scolastico" format="number" mandatory="true" maxlength="4"/>
+                </div>
+            </td>
+            <td class="noBorder" style="width: 2%;">
+                <p>
+                    /
+                </p>
+            </td>
+            <td class="noBorder" style="width: 12%;">
+                <div style="width: 100%; border-bottom: 1px solid grey;">
+                    <input class="inputNormal" id="Parametri_AnnoScolastico_AnnoFine" name="Parametri_AnnoScolastico_AnnoFine" style="width: 100%;" label="Anno scolastico" format="number" mandatory="true" maxlength="4"/>
+                </div>
+            </td>
+            <td class="noBorder" style="width: 21%;">
+
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<input id="AventoTitolo1_DatiPersonaObbligatori" name="AventoTitolo1_DatiPersonaObbligatori" type="hidden" dynamic_check="true"/>
+<input id="AventoTitolo1_Titolo" name="AventoTitolo1_Titolo" type="hidden" value="Richiedente"/>
+<input id="AventoTitolo1_Ruolo" name="AventoTitolo1_Ruolo" type="hidden" value="Richiedente"/>
+{{ anagrafica.persona_fisica("AventoTitolo1", "generalità del minore utilizzatore del servizio", "visibility:hidden", "cursor:default", "visibility:visibility", "visibility:visibility", "") }}
+
+<table class="Modulo" style="border: 1px solid grey;margin-top: -1px;">
+    <tbody>
+        <tr class="Rigaintestazione">
+            <td>
+                <p class="Labeltabella">
+                    con frequenza preferibilmente
+                </p>
+            </td>
+        </tr>
+        <tr class="Rigaintestazioneridotta">
+            <td>
+                <p class="Labelcella">
+                    Denominazione spazio gioco (*)
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <select style="width: 100%;" name="Parametri_DenominazioneSpazioGioco" id="Parametri_DenominazioneSpazioGioco" label="Denominazione spazio gioco" mandatory="true">
+                    {% set spazigioco = ["spazio gioco grandi e piccini",
+                    "spazio gioco grandi e piccini (gruppo bebe)",
+                    "spazio gioco opla",
+                    "spazio gioco opla (gruppo bebe)"] %}
+                    <option value=""></option>
+                    <option value="{{spazigioco[0]}}">spazio gioco Grandi e piccini</option>
+                    <option value="{{spazigioco[1]}}">spazio gioco Grandi e piccini (gruppo Bebè)</option>
+                    <option value="{{spazigioco[2]}}">spazio gioco Oplà</option>
+                    <option value="{{spazigioco[3]}}">spazio gioco Oplà (gruppo Bebè)</option>
+                </select>
+            </td>
+        </tr>
+        <tr class="Rigaintestazioneridotta">
+            <td>
+                <p class="Labelcella">
+                    Con i seguenti orari (**)
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+               <select name="Parametri_OrariServizio" id="Parametri_OrariServizio" style="width: 100%;" label="Orari" mandatory="true">
+                <option value=""></option>
+                <optgroup label="per lo spazio gioco Grandi e piccini">
+                        <option value="martedì e giovedì 09:30 - 12:30">martedì e giovedì 09:30 - 12:30</option>
+                        <option value="mercoledì e venerdì 09:30 - 12:30">mercoledì e venerdì 09:30 - 12:30</option>
+                        <option value="indifferente">indifferente</option>
+                    </optgroup>
+                    <optgroup label="per lo spazio gioco Grandi e piccini (gruppo Bebè)">
+                        <option value="lunedì 10:00 – 12:30">lunedì 10:00 – 12:30</option>
+                    </optgroup>
+                    <optgroup label="per lo spazio gioco Oplà">
+                        <option value="lunedì e mercoledì 09:30 - 12:30">lunedì e mercoledì 09:30 - 12:30</option>
+                        <option value="martedì e giovedì 09:30 - 12:30">martedì e giovedì 09:30 - 12:30</option>
+                        <option value="indifferente">indifferente</option>
+                    </optgroup>
+                    <optgroup label="per lo spazio gioco Oplà (gruppo Bebè)">
+                        <option value="venerdì 10:00 - 12:30">venerdì 10:00 - 12:30</option>
+                    </optgroup>
+               </select>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<p class="Modulo" style="font-size:80%;">
+    <i>Opzioni denominazione(*)</i>:<br/>
+    spazio gioco Grandi e piccini,
+    spazio gioco Grandi e piccini (gruppo Bebè),
+    spazio gioco Oplà,
+    spazio gioco Oplà (gruppo Bebè)
+</p>
+
+<p class="Modulo" style="font-size:80%;">
+    <i>Opzioni orario(**)</i>:<br/>
+    per lo spazio gioco Grandi e piccini: martedì e giovedì 09:30 - 12:30, mercoledì e venerdì 09:30 - 12:30, indifferente <br>
+    per lo spazio gioco Grandi e piccini (gruppo Bebè): lunedì 10:00 – 12:30 <br>
+    per lo spazio gioco Oplà: lunedì e mercoledì 09:30 - 12:30, martedì e giovedì 09:30 - 12:30, indifferente <br>
+    per lo spazio gioco Oplà (gruppo Bebè): venerdì 10:00 - 12:30
+
+
+</p>
+
+
+<h3 class="Modulo">
+    CHIEDE INOLTRE
+</h3>
+
+<div id="Tassonomia_IscrizioneNewsletter" name="Tassonomia_IscrizioneNewsletter" label="Iscrizione newsletter"></div>
+<table class="Modulo noBorder" style="border: 1px solid grey;">
+    <tbody>
+
+        <tr class="noBorder">
+            <td class="noBorder" style="vertical-align: top; width: 4%;">
+                <input group="Tassonomia_IscrizioneNewsletter" id="Tassonomia_IscrizioneNewsletter1" name="Tassonomia_IscrizioneNewsletter1" type="checkbox" value="SI" />
+            </td>
+            <td class="noBorder">
+                <p>
+                    l’iscrizione della mia e-mail alla Newsletter del Centro Famiglia del Comune di Bergamo per essere informato delle iniziative rivolte alle famiglie
+                </p>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<globo_salto_pagina></globo_salto_pagina>
+
+{{ utils.Dichiara_445() }}
+
+{% set dichiarazioni = ["di essere consapevole che ai sensi della Legge 31/07/2017, n.119, i minori che non rispettano gli obblighi vaccinali non potranno accedere ai nidi ed ai servizi per l’infanzia.",
+"che il minore non frequenta altri servizi educativi comunali (nidi e spazi gioco) o in convenzione (Girotondo, Cikeciak, borgo dei piccoli) inoltre, in caso di frequenza ai servizi rinuncia alla lista d’attesa negli altri spazi gioco comunali o convenzionati per l’anno educativo in corso.",
+"dichiara di aver effettuato la richiesta in osservanza delle disposizioni sulla responsabilità genitoriale di cui agli artt. 316, 337 ter e 337 quater del codice civile, che richiedono il consenso di entrambi i genitori.",
+"che almeno uno dei due genitori è residente nel Comune di Bergamo.",
+"di essere consapevole che le presenze dei bambini saranno organizzate in base al numero degli iscritti e alla disponibilità dei posti e alla preferenza delle famiglie."] %}
+<div id="Tassonomia_Dichiara1" name="Tassonomia_Dichiara1" label="Dichiara" mandatory="true"></div>
+<div id="Tassonomia_Dichiara2" name="Tassonomia_Dichiara2" label="Dichiara" mandatory="true"></div>
+<div id="Tassonomia_Dichiara3" name="Tassonomia_Dichiara3" label="Dichiara" mandatory="true"></div>
+<div id="Tassonomia_Dichiara4" name="Tassonomia_Dichiara4" label="Dichiara" mandatory="true"></div>
+<div id="Tassonomia_Dichiara5" name="Tassonomia_Dichiara5" label="Dichiara" mandatory="true"></div>
+<table class="Modulo noBorder" style="border: 1px solid grey;">
+    <tbody>
+        {% for dichiarazione in dichiarazioni %}
+        <tr class="noBorder">
+            <td class="noBorder" style="vertical-align: top; width: 4%;">
+                <input group="Tassonomia_Dichiara{{loop.index}}" id="Tassonomia_Dichiara{{loop.index}}{{loop.index}}" name="Tassonomia_Dichiara{{loop.index}}" type="checkbox" value="SI">
+            </td>
+            <td class="noBorder">
+                <p>
+                    {{dichiarazione}}
+                </p>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<br>
+
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          Eventuali annotazioni
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <textarea class="inputNormal" id="Parametri_Annotazioni" name="Parametri_Annotazioni" style="width: 100%; height: 5cm;" label="Eventuali annotazioni"></textarea>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<br>
+
+<table class="Modulo" name="Allegati" style="border: 1px solid grey">
+    <tbody>
+        <tr class="Rigaintestazione">
+            <td colspan="2">
+                <p style="text-align: center;">
+                    <b>
+                        Elenco degli allegati
+                    </b>
+                    <br/>
+                    <span style="font-size:70%">
+                        <i>(barrare tutti gli allegati richiesti in fase di presentazione della pratica ed elencati sul portale)</i>
+                    </span>
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td style="vertical-align: top; width: 4%;">
+                <input id="DAE-CDI" name="DAE-CDI" type="checkbox" value="OBBLIGATORIO" />
+            </td>
+            <td style="background-color: #eeeeee;">
+                <p>
+                    copia del documento d'identità
+                    <br/>
+                    <span style="font-size:70%">
+                        <i>(da allegare se il modulo è sottoscritto con firma autografa)</i>
+                    </span>
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td style="vertical-align: top; width: 4%;">
+                <input id="ALTRI-ALLEGATI" name="ALTRI-ALLEGATI" type="checkbox" value="OBBLIGATORIO"/>
+            </td>
+            <td style="background-color: #eeeeee;">
+                <p>
+                    altri allegati
+                    <span style="font-size:70%">(specificare)</span>
+                    <input class="" label="Altri allegati" id="AltriAllegati" mandatory_enabled="#ALTRI_ALLEGATI.checked()" name="AltriAllegati" style="width:79%;"/>
+                </p>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<br>
+{{ utils.trattamento_dati_personali() }}
+<br/>
+    {{ utils.firma_hidden() }}
+<br/>
+
+<p class="Modulo">
+    <input id="SalvaModulo" name="SalvaModulo" style="height:30px;width:120px;" title="Verifica la corretta compilazione dei campi e salva il modulo nel faldone virtuale dell'istanza." type="submit" value="Salva modulo"/>
+</p>
+
+<input destinatario_amministrazione="getParameter('Ente')" id="GLOBO_modulo_c{{ CodiceModulo }}" name="GLOBO_modulo_c{{ CodiceModulo }}" type="hidden" value=""/>
+<input firmare="'P7M_ELETTRONICA'" id="GLOBO_modulofiglio_cINCARICO_PROCURA" name="GLOBO_modulofiglio_cINCARICO_PROCURA" type="hidden" value=""/>
+<input id="GLOBO_sub_urn" name="GLOBO_sub_urn" type="hidden" dynamic_value="#Parametri_DenominazioneSpazioGioco.value() == '{{spazigioco[0]}}' || #Parametri_DenominazioneSpazioGioco.value() == '{{spazigioco[1]}}' ? 'grandiepiccini' :
+(#Parametri_DenominazioneSpazioGioco.value() == '{{spazigioco[2]}}' || #Parametri_DenominazioneSpazioGioco.value() == '{{spazigioco[3]}}' ? 'opla' : '')" />
+
+<input id="GLOBO_allegato_cDAE-CDI" name="GLOBO_allegato_cDAE-CDI" obbligatorio="#DAE_CDI.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+<input id="GLOBO_allegato_cALTRI-ALLEGATI" name="GLOBO_allegato_cALTRI-ALLEGATI" obbligatorio="#ALTRI_ALLEGATI.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_id_padre" name="GLOBO_id_padre" type="hidden"/>
+<input id="GLOBO_recupera_dati" name="GLOBO_recupera_dati" type="hidden"/>
+<input id="GLOBO_codice_modulo" name="GLOBO_codice_modulo" type="hidden" value="{{ CodiceModulo }}"/>
+
+{% endblock content %}

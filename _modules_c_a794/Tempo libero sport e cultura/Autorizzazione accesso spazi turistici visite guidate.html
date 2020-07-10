@@ -1,0 +1,323 @@
+{% set CodiceModulo = "DOM_AUTO_SPAZI_TUR" %}
+{% set Urn = "document:c_a794:autorizzazione.accesso.spazi.turistici" %}
+{% extends "base.html" %}
+
+{% block meta %}
+
+<meta campi_firma="Titolare_CodiceFiscale"
+campi_firma_label="il dichiarante"
+classi_modulo="Generale"
+codice_modulo="{{ CodiceModulo }}"
+urn="{% block urn %}{{ Urn }}{% endblock urn %}"
+sub_urn_list=""
+uo_globo_list=""
+descrizione="Domanda di autorizzazione all'accesso agli spazi turistici per visite guidate"
+destinatario_amministrazione=""
+destinatario_ufficio="UOTEMPOLIBEROSPORTCULTURA"
+dinamico="SI"
+email_a=""
+ente_abilitato="TUTTI"
+filigrana="NO"
+firmare="P7M_ELETTRONICA"
+istruzioni_compilazione=""
+istruzioni_invio="mail_pec"
+metodo_invio="mail"
+name="GLOBO_modulo"
+procura="NO,,"
+tipo_modulo="principale"
+urlhelp="/modulistica/moduli/{{ CodiceModulo }}"
+verifica_pagamento="NO"
+versione="1.0|03/05/2019"/>
+
+<meta codice_modulo_figlio="INCARICO_PROCURA"
+urn_modulo_figlio="document:s_italia:generale;incarico.procura"
+name="GLOBO_modulofiglio"
+numero="1"
+obbligatorio="DINAMICO"/>
+
+
+<meta codice_allegato="DAE-CDI"
+urn_allegato="document:s_italia:generale;documento.identita;documentazione"
+descrizione_estesa="Documento di identità"
+filename="Documento identita.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/DAE-CDI"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="ALTRI-ALLEGATI"
+urn_allegato="document:s_italia:altri.allegati"
+descrizione_estesa="Altri allegati"
+filename="Altri allegati.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/ALTRI-ALLEGATI"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+{% endblock meta %}
+
+{% block title %}
+  Domanda di autorizzazione all'accesso agli spazi turistici per visite guidate
+{% endblock title %}
+
+{% block content %}
+
+<globo_fondo_pagina areaheight="150" scope="2">
+  {{ utils.firma() }}
+</globo_fondo_pagina>
+
+<input id="Parametri_Comune" name="Parametri_Comune" type="hidden" dynamic_value="#Ente.value()"/>
+<input id="Oggetto" name="Oggetto" type="hidden" dynamic_value="#Titolare_Cognome.value().toUpperCase() + ' ' + #Titolare_Nome.value().toUpperCase() + ' - autorizzazione accesso agli spazi turistici visite guidate'"/>
+
+{{ intestazioni.intestazione_moduloprincipale_senzabollo() }}
+
+
+<h1 class="Modulo">
+  Domanda di autorizzazione all'accesso agli spazi turistici per visite guidate
+</h1>
+
+
+{{ anagrafica.societa("Titolare", "Il sottoscritto soggetto accompagnatore", ["Persona fisica", "Titolare", "Legale rappresentante"], "Richiedente", "visibility:visibility", "cursor:pointer", "mail_ordinaria", "false") }}
+
+
+<h3 class="Modulo">
+  RICHIEDE
+</h3>
+
+
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="5">
+        <p class="Labeltabella">
+          l'autorizzazione ad accedere per una visita guidata ai seguenti spazi turistici comunali
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td colspan="2">
+        <p class="Labelcella">
+          Spazio
+        </p>
+      </td>
+      <td>
+        <p class="Labelcella">
+          Data
+        </p>
+      </td>
+      <td style="width: 13%">
+        <p class="Labelcella">
+          Dalle ore
+        </p>
+      </td>
+      <td style="width: 13%">
+        <p class="Labelcella">
+          Alle ore
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <div id="Tassonomia_VisitaLuogo" name="Tassonomia_VisitaLuogo" label="Luogo visita" mandatory="true"></div>
+        <input id="Tassonomia_VisitaLuogo1" name="Tassonomia_VisitaLuogo" type="radio" value="1" />
+      </td>
+      <td style="width: 50%;">
+        <p>
+          Cannoniera di San Giovanni
+        </p>
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_DataSanGiovanni" name="Parametri_DataSanGiovanni" format="date" style="width: 100%;" label="Data san Giovanni" mandatory_enabled="#Tassonomia_VisitaLuogo1.checked()"/>
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_DaOreSanGiovanni" name="Parametri_DaOreSanGiovanni" format="time" style="width: 100%;" label="San Giovanni - dalle ore" mandatory_enabled="#Tassonomia_VisitaLuogo1.checked()"/>
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_AOreSanGiovanni" name="Parametri_AOreSanGiovanni" format="time" style="width: 100%;" label="San Giovanni - alle ore" mandatory_enabled="#Tassonomia_VisitaLuogo1.checked()"/>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="Tassonomia_VisitaLuogo2" name="Tassonomia_VisitaLuogo" type="radio" value="2" />
+      </td>
+      <td>
+        <p>
+          Fontana del Lantro
+        </p>
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_DataFontana" name="Parametri_DataFontana" format="date" style="width: 100%;" label="Data fontana" mandatory_enabled="#Tassonomia_VisitaLuogo2.checked()"/>
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_DaOreFontana" name="Parametri_DaOreFontana" format="time" style="width: 100%;" label="Fontana - dalle ore" mandatory_enabled="#Tassonomia_VisitaLuogo2.checked()"/>
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_AOreFontana" name="Parametri_AOreFontana" format="time" style="width: 100%;" label="Fontana  - alle ore" mandatory_enabled="#Tassonomia_VisitaLuogo2.checked()"/>
+      </td>
+    </tr>
+    <tr>
+      <td rowspan="3" style="vertical-align: top; width: 4%;">
+        <input id="Tassonomia_VisitaLuogo3" name="Tassonomia_VisitaLuogo" type="radio" value="3" />
+      </td>
+      <td>
+        <p>
+          Cannoniera di San Michele
+        </p>
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_DataSanMichele" name="Parametri_DataSanMichele" style="width: 100%;" format="date" label="Data san Michele" mandatory_enabled="#Tassonomia_VisitaLuogo3.checked()"/>
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_DaOreSanMichele" name="Parametri_DaOreSanMichele" style="width: 100%;" format="time" label="SanMichele - dalle ore" mandatory_enabled="#Tassonomia_VisitaLuogo3.checked()"/>
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_AOreSanMichele" name="Parametri_AOreSanMichele" style="width: 100%;" format="time" label="San Michele - alle ore" mandatory_enabled="#Tassonomia_VisitaLuogo3.checked()"/>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;" colspan="4">
+        <div id="Tassonomia_CannonieraSmichele" name="Tassonomia_CannonieraSmichele" label="Orari chiusura traffico" mandatory_enabled="#Tassonomia_VisitaLuogo3.checked()"></div>
+        <p>
+          <input id="Tassonomia_CannonieraSmichele1" name="Tassonomia_CannonieraSmichele" type="radio" value="1"/>
+          La visita alla Cannoniera di San Michele si svolgerà negli orari di chiusura al traffico di Città Alta
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;" colspan="4">
+        <p>
+          <input id="Tassonomia_CannonieraSmichele2" name="Tassonomia_CannonieraSmichele" type="radio" value="2"/>
+          La visita alla Cannoniera di San Michele si svolgerà al di fuori degli orari di chiusura al traffico di Città Alta <br/> &nbsp; &nbsp; &nbsp; pertanto, Consapevole della pericolosità dell'attraversamento del sedime stradale 
+          in prossimità della rampa di &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; accesso alla cannoniera di San Michele si impegna a porre in atto ogni cautela o misura idonea
+          sicurezza &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; possibili, tenendo sollevato ed indenne il Comune di Bergamo da ogni responsabilità per danni a persone o a &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; cose che potessero verificarsi in occasione di detti attraversamenti stradali.
+        </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<globo_salto_pagina></globo_salto_pagina>
+
+
+<h3 class="Modulo">
+  SI IMPEGNA
+</h3>
+
+
+<p class="Modulo">
+  A rispettare e a far rispettare ai visitatori le prescrizioni per la visita di ciascuno degli spazi con particolare riguardo al limite massimo di persone presenti contemporaneamente
+</p>
+
+
+<h3 class="Modulo">
+  DICHIARA
+</h3>
+
+
+<p class="Modulo">
+  Di assumersi gli oneri economici per il servizio di apertura e guardiania degli spazi. il servizio di apertura e guardiania sarà sovlto dall'impresa individuata dal Comune di Bergamo, secondo le modalità previste dal contratto d'appalto.
+  L'impresa applicherà la tariffa oraria commisurata alle ore di effettivo utilizzo con un limite minimo di due ore. Per ciascuna ora, o frazione oraria, di ulteriore utilizzo, l'impresa applicherà la tariffa oraria.
+  Di assumersi ogni responsabilità civile e patrimoniale per il corretto uso di quanto richiesto e l'ordinato svolgimento della visita, assumendosi l'obbligo di risarcire eventuali danni comunque e a chiunque causati a persone o cose durante o
+  a conseguenza dell'uso concesso, sollevando il Comune di bergamo da ogni ragione, diritto o azione da parte di terzi, rinunciando altresì a qualunque pretesa per eventuali vizi del bene concesso e del mancato o parziale godimento comunque
+  causato, anche per eventuale revoca della autorizzazione successivamente al suo rilascio, per qualunque motivo, ad insindacabile giudizio dell'Amministrazione.
+</p>
+
+
+<br/>
+
+
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          Eventuali annotazioni
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <textarea class="inputNormal" id="Parametri_Annotazioni" name="Parametri_Annotazioni" style="width: 100%; height: 5cm;" label="Eventuali annotazioni"></textarea>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<br/>
+
+
+<table class="Modulo" name="Allegati" style="border: 1px solid grey">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="2">
+        <p style="text-align: center;">
+          <b>
+            Elenco degli allegati
+          </b>
+          <br/>
+          <span style="font-size:70%">
+            <i>(barrare tutti gli allegati richiesti in fase di presentazione della pratica ed elencati sul portale)</i>
+          </span>
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="DAE-CDI" name="DAE-CDI" type="checkbox" value="OBBLIGATORIO" />
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          copia del documento d'identità
+          <br/>
+          <span style="font-size:70%">
+            <i>(da allegare se il modulo è sottoscritto con firma autografa)</i>
+          </span>
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="ALTRI-ALLEGATI" name="ALTRI-ALLEGATI" type="checkbox" value="OBBLIGATORIO"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          altri allegati
+          <span style="font-size:70%">(specificare)</span>
+          <input class="" label="Altri allegati" id="AltriAllegati" mandatory_enabled="#ALTRI_ALLEGATI.checked()" name="AltriAllegati" style="width:79%;"/>
+        </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<br/>
+{{ utils.trattamento_dati_personali() }}
+<br/>
+  {{ utils.firma_hidden() }}
+<br/>
+
+
+<p class="Modulo">
+  <input id="SalvaModulo" name="SalvaModulo" style="height:30px;width:120px;" title="Verifica la corretta compilazione dei campi e salva il modulo nel faldone virtuale dell'istanza." type="submit" value="Salva modulo"/>
+</p>
+
+
+<input id="GLOBO_allegato_cDAE-CDI" name="GLOBO_allegato_cDAE-CDI" obbligatorio="#DAE_CDI.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+<input id="GLOBO_allegato_cALTRI-ALLEGATI" name="GLOBO_allegato_cALTRI-ALLEGATI" obbligatorio="#ALTRI_ALLEGATI.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+
+<input destinatario_amministrazione="getParameter('Ente')" id="GLOBO_modulo_c{{ CodiceModulo }}" name="GLOBO_modulo_c{{ CodiceModulo }}" type="hidden" value=""/>
+<input firmare="'P7M_ELETTRONICA'" id="GLOBO_modulofiglio_cINCARICO_PROCURA" name="GLOBO_modulofiglio_cINCARICO_PROCURA" type="hidden" value=""/>
+
+<input id="GLOBO_id_padre" name="GLOBO_id_padre" type="hidden"/>
+<input id="GLOBO_recupera_dati" name="GLOBO_recupera_dati" type="hidden"/>
+<input id="GLOBO_codice_modulo" name="GLOBO_codice_modulo" type="hidden" value="{{ CodiceModulo }}"/>
+
+{% endblock content %}

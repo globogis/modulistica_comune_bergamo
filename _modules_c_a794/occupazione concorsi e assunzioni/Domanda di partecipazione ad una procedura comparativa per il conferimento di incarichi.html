@@ -1,0 +1,867 @@
+{% set CodiceModulo = "DOM-COMP-INCH" %}
+{% set Urn ="document:c_a794:procedura.comparativa.selezione;domanda" %}
+{% extends "base.html" %}
+{% block meta %}
+
+<meta campi_firma="Titolare_CodiceFiscale"
+campi_firma_label="il dichiarante"
+classi_modulo="Occupazione concorsi e assunzione"
+codice_modulo="{{ CodiceModulo }}"
+urn="{% block urn %}{{ Urn }}{% endblock urn %}"
+sub_urn_list=""
+uo_globo_list=""
+descrizione="Domanda di partecipazione ad una procedura comparativa per il conferimento di incarichi"
+destinatario_amministrazione=""
+destinatario_ufficio="UOLAVORO"
+dinamico="SI"
+email_a=""
+ente_abilitato="TUTTI"
+filigrana="SI"
+firmare="P7M_ELETTRONICA"
+istruzioni_compilazione=""
+istruzioni_invio="mail_pec" 
+metodo_invio="mail"
+name="GLOBO_modulo"
+procura="NO,,"
+tipo_modulo="principale"
+urlhelp="/modulistica/moduli/{{ CodiceModulo }}"
+verifica_pagamento="NO"
+versione="1.2|04/10/2019"/>
+
+<meta codice_modulo_figlio="INCARICO_PROCURA"
+urn_modulo_figlio="document:s_italia:generale;incarico.procura"
+name="GLOBO_modulofiglio"
+numero="1"
+obbligatorio="DINAMICO"/>
+
+<meta codice_allegato="LAV-CUR-VIT"
+urn_allegato="document:s_italia:concorsi.selezioni;curriculum.professionale;documentazione"
+descrizione_estesa="Curriculum vitae redatto secondo il modello europeo"
+filename="Curriculum vitae.pdf"
+firmato="SI"
+istruzioni="/modulistica/moduli/LAV-CUR-VIT"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="COP-ID-PERM-DOTE"
+urn_allegato="document:c_a794:dote.comune.documenti.extracomunitario"
+descrizione_estesa="Copia del passaporto e della carta o permesso di soggiorno (per cittadini non comunitari)"
+filename="Permesso soggiorno.pdf"
+firmato="SI"
+istruzioni="/modulistica/moduli/COP-ID-PERM-DOTE"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="DAE-CDI"
+urn_allegato="document:s_italia:generale;documento.identita;documentazione"
+descrizione_estesa="Documento di identità"
+filename="Documento identita.pdf"
+firmato="SI"
+istruzioni="/modulistica/moduli/DAE-CDI"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="ALTRI-ALLEGATI"
+urn_allegato="document:s_italia:altri.allegati"
+descrizione_estesa="Altri allegati"
+filename="Altri allegati.pdf"
+firmato="SI"
+istruzioni="/modulistica/moduli/ALTRI-ALLEGATI"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="DOM-MOBI-FOR"
+urn_allegato="document:c_a794:concorsi.selezioni;formulario"
+descrizione_estesa="Dichiarazione integrativa (formulario) specifico del bando"
+filename="Dichiarazione integrativa.pdf"
+firmato="SI"
+istruzioni="/modulistica/moduli/DOM-MOBI-FOR"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="CIM-ACC-CER"
+urn_allegato="document:s_italia:generale;capacita.deambulazione.impedita.sensibilmente.ridotta;certificato.medico"
+descrizione_estesa="Copia del certificato medico"
+filename="Certificato medico.pdf"
+firmato="SI"
+istruzioni="/modulistica/moduli/CIM-ACC-CER"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="DOC-TIT-STU"
+urn_allegato="document:c_a794:concorsi.selezioni;titolo.studio;documentazione"
+descrizione_estesa="Documentazione attestante l'equipollenza del titolo di studio"
+filename="Equipollenza titolo studio.pdf"
+firmato="SI"
+istruzioni="/modulistica/moduli/DOC-TIT-STU"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+{% endblock meta %}
+
+{% block title %}
+Domanda di partecipazione ad una  procedura comparativa per il conferimento di incarichi
+{% endblock title %}
+
+{% block content %}
+
+<globo_fondo_pagina areaheight="150" scope="4">
+  {{ utils.firma() }}
+</globo_fondo_pagina>
+
+<input id="Parametri_Comune" name="Parametri_Comune" type="hidden" dynamic_value="#Ente.value()"/>
+<input id="Oggetto" name="Oggetto" type="hidden" dynamic_value="#Titolare_Cognome.value().toUpperCase() + ' ' + #Titolare_Nome.value().toUpperCase() + ' - Partecipazione ad una  procedura comparativa per il conferimento di incarichi: ' + #BandoConcorsoHidden.value()"/>
+
+{{ intestazioni.intestazione_moduloprincipale_senzabollo() }}
+
+<h1 class="Modulo">
+  Domanda di partecipazione ad una  procedura comparativa per il conferimento di incarichi
+</h1>
+
+<input id="Titolare_DatiPersonaObbligatori" name="Titolare_DatiPersonaObbligatori" type="hidden" dynamic_check="true"/>
+<input id="Titolare_Titolo" name="Titolare_Titolo" type="hidden" value="Richiedente"/>
+<input id="Titolare_Ruolo" name="Titolare_Ruolo" type="hidden" value="Richiedente"/>
+{{ anagrafica.persona_fisica("Titolare", "Il sottoscritto", "visibility:visibility", "cursor:pointer", "visibility:visibility", "visibility:visibility", "mail_ordinaria") }}
+
+<h3 class="Modulo">
+  CHIEDE
+</h3>
+
+<div id="Tassonomia_AusiliTempiAggiuntivi" name="Tassonomia_AusiliTempiAggiuntivi" label="Fruizione di ausili"></div>
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="2">
+        <p class="Labeltabella">
+          di essere ammesso alla procedura comparativa
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2" style="width: 50%; vertical-align: top;">
+		<div rest-name="/REST/BandiAperti" rest-type="select" rest-param-out="BandoConcorso" rest-on="#ButtonBandoConcorso:click" rest-allow-edit="true"/> 
+		<input id="ButtonBandoConcorso" name="ButtonBandoConcorso" style="display:none" type="button"/>
+		<span style="pd4ml-visibility: hidden; pd4ml-display: none;">
+			<select name="BandoConcorso" id="BandoConcorso" label="Tipo di partecipazione" mandatory="true" onchange="#BandoConcorso.value()" style="width: 100%;"></select>
+		</span>
+		<input class="inputNormal" id="BandoConcorsoHidden" name="BandoConcorsoHidden" style="width: 100%; display:none" dynamic_value="#BandoConcorso.value() != '' ? (#BandoConcorso.element.options[#BandoConcorso.element.selectedIndex].label) : ''"/>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td colspan="2">
+        <p class="Labelcella">
+          Con oggetto
+        </p>
+      </td>
+    </tr>	
+    <tr>
+      <td colspan="2">
+		<div rest-name="/REST/BandiAperti/Oggetto/[BandoConcorso]" rest-type="text" rest-param-out="OggettoBando=Oggetto" rest-on="#BandoConcorso:change" rest-allow-edit="false"/> 
+		<textarea class="inputNormal" id="OggettoBando" name="OggettoBando" style="width: 100%; height: 5cm;"  mandatory="true"></textarea>
+      </td>
+    </tr>	  	
+  </tbody>
+</table>	  
+
+<globo_salto_pagina></globo_salto_pagina>
+
+{{ utils.Dichiara_445() }}
+
+<div id="Tassonomia_TitoloStudio" name="Tassonomia_TitoloStudio" label="Titolo di studio" mandatory="true"></div>
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="2">
+        <p class="Labeltabella">
+          titolo di studio
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td rowspan="7" style="vertical-align: top; width: 4%; background-color:white">
+        <input id="Tassonomia_TitoloStudio1" name="Tassonomia_TitoloStudio" type="radio" value="1"/>
+      </td>
+      <td>
+        di essere in possesso del seguente titolo di studio conseguito in Italia
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          Titolo di studio
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+		<div rest-name="/REST/BandiAperti/TitoliStudio/[BandoConcorso]" rest-type="select" rest-param-out="TitoloStudio" rest-on="#BandoConcorso:change" rest-allow-edit="true"/> 
+		<select name="TitoloStudio" id="TitoloStudio" style="width: 100%" mandatory_enabled="#Tassonomia_TitoloStudio1.checked()" label="Titolo di studio">
+        </select>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          Titolo equipollente o equiparato
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input class="inputNormal" id="TitoloEquipollente" name="TitoloEquipollente" style="width: 100%;" label="Titolo equipollente o equiparato" mandatory_enabled="#TitoloStudio.value()=='Altro titolo equipollente o altro titolo equiparato'"/>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          Riferimento normativo che decreta l'equipollenza o l'equiparazione
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input class="inputNormal" id="TitoloEquipollente_Note" name="TitoloEquipollente_Note" style="width: 100%;" label="Riferimento normativo che decreta l'equipollenza o l'equiparazione" mandatory_enabled="#TitoloStudio.value()=='Altro titolo equipollente o altro titolo equiparato'"/>
+      </td>
+    </tr>
+    <tr>
+      <td rowspan="3" style="vertical-align: top; width: 4%; background-color: white;">
+        <input id="Tassonomia_TitoloStudio2" name="Tassonomia_TitoloStudio" type="radio" value="2" />
+      </td>
+      <td>
+        <p>
+          di essere in possesso del seguente titolo di studio conseguito all'estero e per il quale dichiara l'equipollenza o equivalenza risultante dalla certificazione rilasciata dalla competente autorità ai sensi di legge ovvero di aver presentato presso la competente autorità la domanda per ottenere il rilascio del provvedimento di equipollenza o equivalenza
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          Titolo di studio in lingua originale
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input class="inputNormal" id="Parametri_TitoloStudioLinguaOriginale" name="Parametri_TitoloStudioLinguaOriginale" style="width: 100%;" label="Titolo di studio in lingua originale" mandatory_enabled="#Tassonomia_TitoloStudio2.checked()" />
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<table class="Modulo" style="border: 1px solid grey; margin-top: -1px;">
+  <tbody>
+    <tr class="Rigaintestazioneridotta">
+      <td style="width: 75%;">
+        <p class="Labelcella">
+          Conseguito presso l'istituto
+        </p>
+      </td>
+      <td style="width: 25%;">
+        <p class="Labelcella">
+          Durata legale del corso di studi
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input class="inputNormal" id="Parametri_IstitutoConseguimentoTitolo" name="Parametri_IstitutoConseguimentoTitolo" style="width: 100%;" label="Istituto"/>
+      </td>
+      <td>
+        <p>
+          <input class="inputNormal" id="Parametri_DurataCorsoStudi" name="Parametri_DurataCorsoStudi" style="width: 75%;" label="Durata corso di studi" mandatory_enabled="#Parametri_IstitutoConseguimentoTitolo.value() != ''" format="number"/> anni
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td colspan="2">
+        <p class="Labelcella">
+          Specificare il titolo di studio
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2">
+        <input class="inputNormal" id="Parametri_TitoloDiStudio" name="Parametri_TitoloDiStudio" style="width: 100%;" label="Titolo di studio" mandatory_enabled="#Parametri_IstitutoConseguimentoTitolo.value() != ''"/>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<div id="Tassonomia_Cittadinanza" name="Tassonomia_Cittadinanza" label="Cittadinanza" mandatory="true"></div>
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="3">
+        <p class="Labeltabella">
+          requisiti generali
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td colspan="3">
+        <p class="Labelcella">
+          Cittadinanza
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="Tassonomia_Cittadinanza1" name="Tassonomia_Cittadinanza" type="radio" value="1" />
+      </td>
+      <td colspan="2">
+        <p>
+          di essere cittadino italiano
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td rowspan="2" style="vertical-align: top; width: 4%;">
+        <input id="Tassonomia_Cittadinanza2" name="Tassonomia_Cittadinanza" type="radio" value="2" />
+      </td>
+      <td colspan="2">
+        <p>
+          di essere cittadino italiano non appartenente alla Repubblica
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="Tassonomia_ConoscenzaItaliano11" name="Tassonomia_ConoscenzaItaliano11" type="checkbox" value="SI" enabled="#Tassonomia_Cittadinanza2.checked()" dynamic_check="#Tassonomia_Cittadinanza2.checked()"/>
+      </td>
+      <td>
+        <p>
+          di avere adeguata conoscenza della lingua italiana
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td rowspan="3" style="vertical-align: top; width: 4%;">
+        <input id="Tassonomia_Cittadinanza3" name="Tassonomia_Cittadinanza" type="radio" value="3" />
+      </td>
+      <td colspan="2">
+        <p>
+          di essere cittadino di uno Stato membro dell'Unione europea (e i loro familiari non aventi la cittadinanza di uno Stato membro che siano titolari del diritto di soggiorno o del diritto di soggiorno permanente)
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="Tassonomia_ConoscenzaItaliano21" name="Tassonomia_ConoscenzaItaliano21" type="checkbox" value="SI" enabled="#Tassonomia_Cittadinanza3.checked()" dynamic_check="#Tassonomia_Cittadinanza3.checked()"/>
+      </td>
+      <td>
+        <p>
+          di avere adeguata conoscenza della lingua italiana
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="Tassonomia_DirittiCiviliPolitici1" name="Tassonomia_DirittiCiviliPolitici1" type="checkbox" value="SI" enabled="#Tassonomia_Cittadinanza3.checked()" dynamic_check="#Tassonomia_Cittadinanza3.checked()"/>
+      </td>
+      <td>
+        <p>
+          di godere dei diritti civili e politici anche nello Stato di appartenenza o provenienza
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td rowspan="2" style="vertical-align: top; width: 4%;">
+        <input id="Tassonomia_Cittadinanza4" name="Tassonomia_Cittadinanza" type="radio" value="4" />
+      </td>
+      <td colspan="2">
+        <p>
+          di essere cittadino di paesi terzi titolare del permesso di soggiorno CE per soggiornanti di lungo periodo, o titolare dello status di rifugiato, ovvero dello status di protezione sussidiaria, in possesso dei requisiti previsti dalla legge
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="Tassonomia_ConoscenzaItaliano31" name="Tassonomia_ConoscenzaItaliano31" type="checkbox" value="SI" enabled="#Tassonomia_Cittadinanza4.checked()" dynamic_check="#Tassonomia_Cittadinanza4.checked()"/>
+      </td>
+      <td>
+        <p>
+          di avere adeguata conoscenza della lingua italiana
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td colspan="3">
+        <p class="Labelcella">
+          Età
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <div id="Tassonomia_DichiarazioneEta" name="Tassonomia_DichiarazioneEta" label="Età" mandatory="true"></div>
+        <input group="Tassonomia_DichiarazioneEta" id="Tassonomia_DichiarazioneEta1" name="Tassonomia_DichiarazioneEta1" type="checkbox" value="SI" checked="checked" dynamic_check="true"/>
+      </td>
+      <td colspan="2">
+        <p>
+          di avere un'età non inferiore ai 18 anni
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td colspan="3">
+        <p class="Labelcella">
+          Idoneità fisica
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <div id="Tassonomia_DichiaraIdoneitaFisica" name="Tassonomia_DichiaraIdoneitaFisica" label="Idoneità fisica" mandatory="true"></div>
+        <input group="Tassonomia_DichiaraIdoneitaFisica" id="Tassonomia_DichiaraIdoneitaFisica1" name="Tassonomia_DichiaraIdoneitaFisica1" type="checkbox" value="SI" checked="checked" dynamic_check="true"/>
+      </td>
+      <td colspan="2">
+        <p>
+          di essere fisicamente idoneo alle mansioni relative al posto messo a selezione
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td colspan="3">
+        <p class="Labelcella">
+          Esclusioni
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <div id="Tassonomia_DichiaraNoEsclusioni" name="Tassonomia_DichiaraNoEsclusioni" label="Esclusioni" mandatory="true"></div>
+        <input group="Tassonomia_DichiaraNoEsclusioni" id="Tassonomia_DichiaraNoEsclusioni1" name="Tassonomia_DichiaraNoEsclusioni1" type="checkbox" value="SI" checked="checked" dynamic_check="true"/>
+      </td>
+      <td colspan="2">
+        <p>
+          di non essere escluso dall'elettorato politico attivo
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input group="Tassonomia_DichiaraNoEsclusioni" id="Tassonomia_DichiaraNoEsclusioni2" name="Tassonomia_DichiaraNoEsclusioni2" type="checkbox" value="SI" checked="checked" dynamic_check="true"/>
+      </td>
+      <td colspan="2">
+        <p>
+          di non essere stato destituito o dispensato dall'impiego presso una pubblica amministrazione per persistente o insufficiente rendimento, o dichiarato decaduto da un pubblico impiego
+        </p>
+      </td>
+    </tr>
+  <tbody>
+</table>
+<table class="Modulo" style="border: 1px solid grey; margin-top: -1px;">
+  <tbody>
+    <tr class="Rigaintestazioneridotta">
+      <td colspan="2">
+        <p class="Labelcella">
+          Obbligo di leva militare
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <div id="Tassonomia_ObbligoLevaMilitare" name="Tassonomia_ObbligoLevaMilitare" label="obbligo di leva militare"></div>
+        <input group="Tassonomia_ObbligoLevaMilitare" id="Tassonomia_ObbligoLevaMilitare1" name="Tassonomia_ObbligoLevaMilitare1" type="checkbox" value="SI" />
+      </td>
+      <td>
+        <p>
+          essendo cittadino italiano soggetto all'obbligo di leva, di essere in posizione regolare nei confronti di tale obbligo (per i nati entro il 31/12/1985)
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td colspan="2">
+        <p class="Labelcella">
+          Godimento dei diritti civili e politici
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="Tassonomia_DirittiCivPol" name="Tassonomia_DirittiCivPol" type="checkbox" value="SI" dynamic_check="true" checked="checked"/>
+      </td>
+      <td>
+        <p> di godere dei diritti civili e politici </p>
+      </td>
+    </tr>    
+  </tbody>
+</table>
+
+<h3 class="Modulo">
+  DICHIARA INOLTRE
+</h3>
+
+<div id="Tassonomia_TitoliPreferenza" name="Tassonomia_TitoliPreferenza" label="Titoli di preferenza"></div>
+
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="2">
+        <p class="Labeltabella">
+          condanne e procedimenti penali
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="Tassonomia_CondanneCondannePenali" name="Tassonomia_CondanneCondannePenali" type="checkbox" value="si" checked="checked" dynamic_check="true"/>
+      </td>
+      <td>
+        <p>
+          di non aver riportato condanne penali:
+		  <br/>&nbsp;&nbsp;&nbsp;a. che escludono dall'elettorato attivo
+		  <br/>&nbsp;&nbsp;&nbsp;b. che impediscono l'accesso ai pubblici impieghi
+		  <br/>&nbsp;&nbsp;&nbsp;c. che comportano la destituzione da pubblici impieghi
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="Tassonomia_CondanneCondannePenali2" name="Tassonomia_CondanneCondannePenali2" type="checkbox" value="si" checked="checked" dynamic_check="true"/>
+      </td>
+      <td>
+        <p>
+          l'assenza di condanne penali, anche con sentenza non passata in giudicato, per i reati previsti nel Capo I del Titolo II del Libro II del Codice Penale, ai sensi dell'articolo 35-bis del Decreto Legislativo 30/03/2001, n. 165
+        </p>
+      </td>
+    </tr>		
+    <tr>
+      <td style="vertical-align: top; width: 4%; background-color: white;">
+        <div id="Tassonomia_CondanneProcedimentiPenali" name="Tassonomia_CondanneProcedimentiPenali" label="Presenza condanne o procedimenti penali" mandatory="true"></div>
+        <input id="Tassonomia_CondanneProcedimentiPenali1" name="Tassonomia_CondanneProcedimentiPenali" type="radio" value="1" />
+      </td>
+      <td>
+        <p>
+          di non avere in corso procedimenti penali
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td rowspan="3" style="vertical-align: top; width: 4%; background-color: white;">
+        <input id="Tassonomia_CondanneProcedimentiPenali2" name="Tassonomia_CondanneProcedimentiPenali" type="radio" value="2" />
+      </td>
+      <td>
+        <p>
+          di avere in corso i seguenti procedimenti penali
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          Descrizione dei procedimenti penali a carico
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+		<input class="inputNormal" id="Parametri_DescrizioneCondannePenali" name="Parametri_DescrizioneCondannePenali" style="width: 100%" label="Descrizione condanne o procedimenti penali" mandatory_enabled="#Tassonomia_CondanneProcedimentiPenali2.checked()"/>
+      </td>
+    </tr>
+    <tr>
+      <td rowspan="3" style="vertical-align: top; width: 4%; background-color: white;">
+        <input id="Tassonomia_CondanneProcedimentiPenali5" name="Tassonomia_CondanneProcedimentiPenali5" type="checkbox" value="SI" dynamic_check="true" checked="checked"/>
+      </td>
+      <td>
+        <p> di non essere sottoposto a misure di prevenzione </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="2">
+        <p class="Labeltabella">
+          Situazione di handicap
+        </p>
+      </td>
+    </tr>
+    <div id="Tassonomia_SituazioneHandicap" name="Tassonomia_SituazioneHandicap"></div>
+    <tr>
+      <td rowspan="3" style="vertical-align: top; width: 4%;background-color: white">
+        <input group="Tassonomia_SituazioneHandicap" id="Tassonomia_SituazioneHandicap1" name="Tassonomia_SituazioneHandicap1" type="checkbox" value="SI" />
+      </td>
+      <td>
+        <p>
+          di avere diritto a fruire dei seguenti ausili e tempi aggiuntivi per sostenere le prove
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          Descrizione degli ausili e dei tempi aggiuntivi
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input class="inputNormal" id="Tassonomia_SituazioneHandicap1_Note" name="Tassonomia_SituazioneHandicap1_Note" style="width: 100%;" label="Ausili prove concorsuali" mandatory_enabled="#Tassonomia_SituazioneHandicap1.checked()">
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="2">
+        <p class="Labeltabella">
+          ulteriori dichiarazioni
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="Tassonomia_UlterioriDichiarazioni2" name="Tassonomia_UlterioriDichiarazioni2" type="checkbox" value="SI" checked="checked" dynamic_check="true"/>
+      </td>
+      <td>
+        <p>
+          di essere consapevole che tutte le comunicazioni relative alla procedura saranno pubblicate all'albo pretorio e nella sezione <i>Bandi di concorso</i> del sito web del Comune di Bergamo con valore di notifica a tutti gli effetti di Legge
+        </p>
+      </td>
+    </tr>	
+  </tbody>
+</table>
+
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="5">
+        <p class="Labeltabella">
+          <input id="UlterioreDomicilio" name="UlterioreDomicilio" type="checkbox" value="si"/> Chiede di inviare eventuali comunicazioni cartacee  (non per via telematica) al seguente indirizzo, diverso da quello di residenza
+        </p>
+      </td>
+    </tr>
+          <tr class="Rigaintestazioneridotta">
+            <td style="width:9%;">
+              <p class="Labelcella">Provincia</p>
+            </td>
+            <td style="width:33%;">
+              <p class="Labelcella">Comune</p>
+            </td>
+            <td style="width:33%;">
+              <p class="Labelcella">Indirizzo</p>
+            </td>
+            <td style="width:9%;">
+              <p class="Labelcella">Civico</p>
+            </td>
+            <td style="width:16%;">
+              <p class="Labelcella">CAP</p>
+            </td>
+          </tr>
+          <tr mandatory_enabled="#UlterioreDomicilio.checked()">
+            <td>
+              {{ utils.provincie( 'Domicilio_ProvinciaDomicilio', label="Provincia del domicilio") }}
+            </td>
+            <td>
+              <select class="inputNormal" id="Domicilio_ComuneDomicilio" name="Domicilio_ComuneDomicilio" style="width:100%" label="Comune del domicilio" dynamic_value="getComuniFromProvincia( #Domicilio_ProvinciaDomicilio.value(), 'Domicilio_ComuneDomicilio')"></select>
+            </td>
+            <td>
+              <input class="" id="Domicilio_ViaDomicilio" name="Domicilio_ViaDomicilio" style="width:100%;" label="Via del domicilio" maxlength="60" format="regular_expression" expression="^(.+)\s(.+)$"/>
+            </td>
+            <td>
+              <input class="" id="Domicilio_CivicoDomicilio" name="Domicilio_CivicoDomicilio" style="width:100%;" label="Civico del domicilio" maxlength="10"/>
+            </td>
+            <td>
+              <input class="" id="Domicilio_CAPDomicilio" name="Domicilio_CAPDomicilio" style="width:100%;" format="cap" label="CAP del domicilio" enabled="#UlterioreDomicilio.checked()" mandatory="#UlterioreDomicilio.checked() and #Domicilio_ProvinciaDomicilio.value() != 'EE'"/>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+	
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="2">
+        <p class="Labeltabella">
+          sottoscrizione della domanda e dei relativi allegati
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+		<div id="FirmaRichiesta" name="FirmaRichiesta" mandatory="true" label="Sottoscrizione della domanda e dei relativi allegati"/>
+        <input id="FirmaRichiesta1" name="FirmaRichiesta" type="radio" value="1" />
+      </td>
+      <td>
+        <p>
+          di trasmettere la presente domanda sottoscritta con firma elettronica avanzata o firma qualificata
+        </p>
+      </td>
+    </tr>	
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="FirmaRichiesta2" name="FirmaRichiesta" type="radio" value="2" />
+      </td>
+      <td>
+        <p>
+          che, non sottoscrivendo la domanda con firma elettronica avanzata o firma qualificata, il giorno del colloquio consegnerà al personale addetto all'identificazione dei candidati la domanda di selezione e i relativi allegati firmati con firma autografa
+        </p>
+      </td>
+    </tr>	
+  </tbody>
+</table>
+
+<br>
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          Eventuali annotazioni
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <textarea class="inputNormal" id="Parametri_Annotazioni" name="Parametri_Annotazioni" style="width: 100%; height: 5cm;" label="Eventuali annotazioni"></textarea>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<br>
+
+
+<table class="Modulo" name="Allegati" style="border: 1px solid grey">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="2">
+        <p style="text-align: center;">
+          <b>
+            Elenco degli allegati
+          </b>
+          <br/>
+          <span style="font-size:70%">
+            <i>(barrare tutti gli allegati richiesti in fase di presentazione della pratica ed elencati sul portale)</i>
+          </span>
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="width: 4%; vertical-align: top;">
+        <input id="DOM-MOBI-FOR" name="DOM-MOBI-FOR" type="checkbox" value="OBBLIGATORIO" dynamic_check="#NFormulari.value() != '' and #NFormulari.value() != '0'" enabled="#NFormulari.value() != '' and #NFormulari.value() != '0'"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <div rest-name="/REST/BandiAperti/NFormulari/[BandoConcorso]" rest-type="text" rest-param-out="NFormulari=NFormulari" rest-on="#BandoConcorso:change" rest-allow-edit="false"/> 
+		<p>
+        n.  
+		<input class="inputNormal" id="NFormulari" name="NFormulari" size="1" format="number"/> dichiarazioni integrative specifiche del bando
+        </p>
+      </td>
+    </tr>	
+    <tr>
+      <td style="vertical-align: top; width:3%">
+        <input dynamic_check="#Tassonomia_SituazioneHandicap1.checked()" enabled="#Tassonomia_SituazioneHandicap1.checked()" id="CIM-ACC-CER" name="CIM-ACC-CER" type="checkbox" value="OBBLIGATORIO"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p> copia del certificato medico attestante la situazione di handicap (articolo 4 della Legge 05/02/1992, n.104)
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width:3%">
+        <input dynamic_check="#Tassonomia_TitoloStudio2.checked()" enabled="#Tassonomia_TitoloStudio2.checked()" id="DOC-TIT-STU" name="DOC-TIT-STU" type="checkbox" value="OBBLIGATORIO"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p> copia del provvedimento di equipollenza o di equivalenza del titolo di studio conseguito all'estero ovvero della copia della domanda presentata all'autorità competente per ottenere il rilascio del provvedimento di equipollenza o equivalenza
+        </p>
+      </td>
+    </tr>	
+    <tr>
+      <td style="width: 4%; vertical-align: top;">
+        <input id="LAV-CUR-VIT" name="LAV-CUR-VIT" type="checkbox" value="OBBLIGATORIO" checked="checked" dynamic_check="true"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          curriculum vitae redatto secondo il modello europeo
+        </p>
+      </td>
+    </tr>	
+    <tr>
+      <td style="width: 4%; vertical-align: top;">
+        <input id="COP-ID-PERM-DOTE" name="COP-ID-PERM-DOTE" type="checkbox" value="OBBLIGATORIO" dynamic_check="#Tassonomia_Cittadinanza4.checked()" enabled="#Tassonomia_Cittadinanza4.checked()"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          copia del passaporto e della carta o permesso di soggiorno <br/><span style="font-size: 70%; font-weight: normal;"><i>(per cittadini non comunitari)</i></span>
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="DAE-CDI" name="DAE-CDI" type="checkbox" value="OBBLIGATORIO" checked="checked" dynamic_check="true"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          copia del documento d'identità
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="ALTRI-ALLEGATI" name="ALTRI-ALLEGATI" type="checkbox" value="OBBLIGATORIO"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          altri allegati
+          <span style="font-size:70%">(specificare)</span>
+          <input class="" label="Altri allegati" id="AltriAllegati" mandatory_enabled="#ALTRI_ALLEGATI.checked()" name="AltriAllegati" style="width:79%;"/>
+        </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<br>
+{{ utils.trattamento_dati_personali() }}
+<br/>
+  {{ utils.firma_hidden() }}
+<br/>
+
+<p class="Modulo">
+  <input id="SalvaModulo" name="SalvaModulo" style="height:30px;width:120px;" title="Verifica la corretta compilazione dei campi e salva il modulo nel faldone virtuale dell'istanza." type="submit" value="Salva modulo"/>
+</p>
+
+<input destinatario_amministrazione="getParameter('Ente')" id="GLOBO_modulo_c{{ CodiceModulo }}" name="GLOBO_modulo_c{{ CodiceModulo }}" type="hidden" value="" firmare="#FirmaRichiesta1.checked() ? 'P7M_ELETTRONICA' : 'NO'"/>
+
+<input firmare="'P7M_ELETTRONICA'" id="GLOBO_modulofiglio_cINCARICO_PROCURA" name="GLOBO_modulofiglio_cINCARICO_PROCURA" type="hidden" value=""/>
+
+<input id="GLOBO_allegato_cLAV-CUR-VIT" name="GLOBO_allegato_cLAV-CUR-VIT" type="hidden" value="" obbligatorio="#LAV_CUR_VIT.checked() ? 'OBBLIGATORIO' : ''" firmato="#FirmaRichiesta1.checked() ? 'SI' : 'NO'"/>
+
+<input id="GLOBO_allegato_cCOP-ID-PERM-DOTE" name="GLOBO_allegato_cCOP-ID-PERM-DOTE" type="hidden" value="" obbligatorio="#COP_ID_PERM_DOTE.checked() ? 'OBBLIGATORIO' : ''" firmato="#FirmaRichiesta1.checked() ? 'SI' : 'NO'"/>
+
+<input id="GLOBO_allegato_cDAE-CDI" name="GLOBO_allegato_cDAE-CDI" obbligatorio="#DAE_CDI.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value="" firmato="#FirmaRichiesta1.checked() ? 'SI' : 'NO'"/>
+
+<input id="GLOBO_allegato_cALTRI-ALLEGATI" name="GLOBO_allegato_cALTRI-ALLEGATI" obbligatorio="#ALTRI_ALLEGATI.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value="" firmato="#FirmaRichiesta1.checked() ? 'SI' : 'NO'"/>
+
+<input id="GLOBO_allegato_cDOM-MOBI-FOR" name="GLOBO_allegato_cDOM-MOBI-FOR" obbligatorio="#DOM_MOBI_FOR.checked() ? 'OBBLIGATORIO' : ''" numero="#NFormulari.value()" type="hidden" value="" firmato="#FirmaRichiesta1.checked() ? 'SI' : 'NO'"/>
+
+<input id="GLOBO_allegato_cCIM-ACC-CER" name="GLOBO_allegato_cCIM-ACC-CER" obbligatorio="#CIM_ACC_CER.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value="" firmato="#FirmaRichiesta1.checked() ? 'SI' : 'NO'"/>
+
+<input id="GLOBO_allegato_cDOC-TIT-STU" name="GLOBO_allegato_cDOC-TIT-STU" obbligatorio="#DOC_TIT_STU.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value="" firmato="#FirmaRichiesta1.checked() ? 'SI' : 'NO'"/>
+
+<input id="GLOBO_id_padre" name="GLOBO_id_padre" type="hidden"/>
+<input id="GLOBO_recupera_dati" name="GLOBO_recupera_dati" type="hidden"/>
+<input id="GLOBO_codice_modulo" name="GLOBO_codice_modulo" type="hidden" value="{{ CodiceModulo }}"/>
+
+{% endblock content %}

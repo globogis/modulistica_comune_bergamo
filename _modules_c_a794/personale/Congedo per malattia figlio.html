@@ -1,0 +1,457 @@
+{% set CodiceModulo = "DOM_CONGEDO_MALATT" %}
+{% set Urn = "document:c_a794:congedo.malattia.figlio;domanda" %}
+{% extends "base.html" %}
+
+{% set direzioni = ["Avvocatura comunale",
+                    "Direzione affari generali e staff del sindaco",
+                    "Direzione bilancio tributi società partecipate e retribuzioni",
+                    "Direzione commercio e servizi cimiteriali",
+                    "Direzione edilizia scolastica sportiva e grandi opere pubbliche di riqualificazione",
+                    "Direzione gare appalti e contratti di opere servizi e forniture",
+                    "Direzione generale",
+                    "Direzione lavori pubblici infrastrutture strade coord. reti e opere pubbliche",
+                    "Direzione patrimonio ed espropri",
+                    "Direzione pianificazione strategica e organizzazione",
+                    "Direzione risorse umane e servizi alla persona",
+                    "Direzione servizi polifunzionali partecipazione e cultura",
+                    "Direzione sicurezza ambiente e mobilità",
+                    "Direzione urbanistica edilizia privata e SUEAP",
+                    "Direzione verde pubblico servizio abitativo pubblico edifici e impianti",
+                    "Polizia locale e protezione civile",
+                    "Segreteria generale"] %}
+
+{% block meta %}
+
+<meta campi_firma="Titolare_CodiceFiscale"
+campi_firma_label="il dichiarante"
+classi_modulo="Lavoro"
+codice_modulo="{{ CodiceModulo }}"
+urn="{% block urn %}{{ Urn }}{% endblock urn %}"
+sub_urn_list="avvocatura,affari,bilancio,commercio,edilizia,gare,generale,infrastrutture,patrimonio,pianificazione,risorse,polifunzionali,sicurezza,urbanistica,verde,polizia,segreteria"
+uo_globo_list=""
+descrizione="Domanda di congedo per malattia del figlio/a"
+destinatario_amministrazione=""
+destinatario_ufficio="UOLAVORO"
+dinamico="SI"
+email_a=""
+ente_abilitato="TUTTI"
+filigrana="SI"
+firmare="AUTENTICATO"
+istruzioni_compilazione=""
+istruzioni_invio="mail_pec"
+metodo_invio="mail"
+name="GLOBO_modulo"
+procura="NO,,"
+tipo_modulo="principale"
+urlhelp="/modulistica/moduli/{{ CodiceModulo }}"
+verifica_pagamento="NO"
+versione="1.1|16/10/2019"/>
+
+<meta codice_modulo_figlio="INCARICO_PROCURA"
+urn_modulo_figlio="document:s_italia:generale;incarico.procura"
+name="GLOBO_modulofiglio"
+numero="1"
+obbligatorio="DINAMICO"/>
+
+<meta codice_allegato="CIM-ACC-CER"
+urn_allegato="document:s_italia:generale;capacita.deambulazione.impedita.sensibilmente.ridotta;certificato.medico"
+descrizione_estesa="Copia del certificato medico"
+filename="certificato medico.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/CIM-ACC-CER"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="DAE-CDI"
+urn_allegato="document:s_italia:generale;documento.identita;documentazione"
+descrizione_estesa="Documento di identità"
+filename="Documento identita.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/DAE-CDI"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="ALTRI-ALLEGATI"
+urn_allegato="document:s_italia:altri.allegati"
+descrizione_estesa="Altri allegati"
+filename="Altri allegati.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/ALTRI-ALLEGATI "
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+{% endblock meta %}
+
+{% block title %}
+  Domanda di congedo per malattia del figlio/a
+{% endblock title %}
+
+{% block content %}
+
+<globo_fondo_pagina areaheight="150" scope="3">
+  {{ utils.firma() }}
+</globo_fondo_pagina>
+
+<input id="Parametri_Comune" name="Parametri_Comune" type="hidden" dynamic_value="#Ente.value()"/>
+<input id="Oggetto" name="Oggetto" type="hidden" dynamic_value="#Titolare_Cognome.value().toUpperCase() + ' ' + #Titolare_Nome.value().toUpperCase() + ' - Domanda di congedo per malattia del figlio/a'"/>
+
+{{ intestazioni.intestazione_moduloprincipale_senzabollo() }}
+
+<h1 class="Modulo">
+  Domanda di congedo per malattia del figlio/a
+</h1>
+<h2 class="Modulo">
+  Ai sensi della Legge 08/03/2000, n.53
+</h2>
+
+<input id="Titolare_DatiPersonaObbligatori" name="Titolare_DatiPersonaObbligatori" type="hidden" dynamic_check="true"/>
+<input id="Titolare_Titolo" name="Titolare_Titolo" type="hidden" value="Richiedente"/>
+<input id="Titolare_Ruolo" name="Titolare_Ruolo" type="hidden" value="Richiedente"/>
+{{ anagrafica.persona_fisica("Titolare", "Il sottoscritto", "visibility:visibility", "cursor:pointer", "visibility:visibility", "visibility:visibility", "mail_ordinaria") }}
+<table class="Modulo" style="border: 1px solid grey;margin-top: -1px;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="3">
+        <p class="Labeltabella"> dipendente del Comune di Bergamo </p>
+      </td>
+    </tr>
+     <tr class="Rigaintestazioneridotta">
+       <td style="width: 20%">
+          <p>Num.matricola </p>
+        </td>
+      <td style="width: 50%">
+          <p>Direzione</p>
+        </td>
+      <td style="width: 30%">
+          <p>Servizio</p>
+        </td>
+        </tr>
+    <tr mandatory_enabled="#Titolare_DatiPersonaObbligatori.checked()">
+      <td>
+        <input class="inputNormal" id="Parametri_Num_Matricola" name="Parametri_Num_Matricola" style="width:100%;" label="Numero Matricola"/>
+      </td>
+      <td>
+        <select name="Parametri_Direzioni" id="Parametri_Direzioni" style="width: 100%;" label="Direzioni" >
+                    <option value=""></option>
+                    {% for direzione in direzioni %}
+                    <option value="{{direzione}}">{{direzione}}</option>
+                    {% endfor %}
+         </select>
+       </td>
+      <td>
+        <input class="inputNormal"id="Paramentri_Servizio" name="Servizio" style="width: 100%;" label="Servizio"/>
+      </td>
+      </tr>
+   </tbody>
+</table>
+
+<br>
+<h3 class="Modulo">
+  COMUNICA
+</h3>
+<div id="Tassonomia_Comunica" name="Tassonomia_Comunica" label="Comunica" mandatory="true"></div>
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    {% set congs = ["congedo per malattia del figlio di età inferiore ai 3 anni", "congedo per malattia del figlio dai 3 agli 8 anni di vita"] %}
+    {% for cong in congs %}
+      <tr>
+        <td style="vertical-align: top; width: 4%;">
+          <input id="Tassonomia_Comunica{{loop.index}}" name="Tassonomia_Comunica" type="radio" value="{{loop.index}}" />        
+        </td>
+        <td>
+          <p> {{cong}} </p>
+        </td>
+      </tr>      
+    {% endfor %}
+  </tbody>
+</table>
+<table class="Modulo" style="border: 1px solid grey;margin-top: -1px;" mandatory="true">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="2">
+        <p class="Labeltabella"> a decorrere </p>
+      </td>  
+    </tr>
+    {% set stmts = ["Data inizio", "Data fine"] %}    
+    <tr>
+      {% for par in stmts %}
+        <td style="width: 50%">
+          <input class="inputNormal" id="Parametri_date{{loop.index}}" name="Parametri_date{{loop.index}}" style="width: 100%;" label="{{par}}" format="date" />
+        </td>
+      {% endfor %}
+    </tr>
+  </tbody>
+</table>
+<table class="Modulo" style="border: 1px solid grey;margin-top: -1px;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="3">
+        <p class="Labeltabella"> per il figlio </p>
+      </td>
+    </tr>
+    {% set stmts = [("NumFiglio", "NumFiglio",1,""),("Cognome","Cognome",40,""),("Nome","Nome",40,""),("Data di nascita","DataNascita",20,"date")] %}
+    <tr class="Rigaintestazioneridotta">
+      {% for nam,par,dim,for in stmts %}
+        <td style="width: {{dim}}%">
+          <p class="Labelcella"> {{nam}} </p>
+        </td>        
+      {% endfor %}
+    </tr>
+    {% for i in range(1, 7) %}
+      <tr>
+        {% for nam,par,dim,for in stmts %}
+          <td>
+            <input class="inputNormal" id="AventeTitolo{{i}}_{{par}}" name="AventeTitolo{{i}}_{{par}}" style="width: 100%;" label="{{nam}} {{i}}" format="{{for}}"
+            {% if i == 1 %}
+              mandatory="true"
+            {% else %}
+              {% if loop.index == 1 %}
+                enabled="#AventeTitolo{{i-1}}_Cognome.value()!=''"
+              {% else %}
+                mandatory_enabled="#AventeTitolo{{i}}_Cognome.value()!=''"
+              {% endif %}
+            {% endif %}
+            />
+          </td>        
+      {% endfor %}
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<br>
+
+{{ utils.Dichiara_445() }}
+
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+   <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <div id="Tassonomia_genitore" name="Tassonomia_genitore" label="Altro genitore" mandatory="true"></div>
+        <input id="Tassonomia_genitore1" name="Tassonomia_genitore" type="radio" value="1" />
+      </td> 
+      <td colspan="2">
+        <p> di essere genitore unico</p>
+      </td>
+    </tr>
+    <tr>
+      <td rowspan="3" style="vertical-align: top; width: 4%;background-color: white">
+        <input id="Tassonomia_genitore2" name="Tassonomia_genitore" type="radio" value="2" />
+      </td>
+      <td colspan="2">
+        <p> che l'altro genitore </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella"> Cognome </p>
+      </td>
+      <td>
+        <p class="Labelcella"> Nome </p>
+      </td>
+    </tr>
+    <tr mandatory_enabled="#Tassonomia_genitore2.checked()">
+      <td>
+        <input class="inputNormal" id="Parametri_cognome_altro_gen" name="Parametri_cognome_altro_gen" style="width: 100%;" label="Cognome altro genitore"/>
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_nome_altro_gen" name="Parametri_nome_altro_gen" style="width: 100%;" label="Nome altro genitore"/>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <div id="Tassonomia_lavoro" name="Tassonomia_lavoro" label="lavoro altro genitore" mandatory_enabled="#Tassonomia_genitore2.checked()"></div>
+        <input id="Tassonomia_lavoro1" name="Tassonomia_lavoro" type="radio" value="1" />
+      </td> 
+      <td colspan="2">
+        <p> Non lavora</p>
+      </td>
+    </tr>
+    <tr>
+      <td rowspan="5" style="vertical-align: top; width: 4%;background-color: white">
+        <input id="Tassonomia_lavoro2" name="Tassonomia_lavoro" type="radio" value="2" />
+      </td>
+      <td coldspan="2">
+        <p> lavora presso </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella"> Nome ditta </p>
+      </td>
+      <td>
+        <p class="Labelcella"> Via </p>
+      </td>
+    </tr>
+    <tr mandatory_enabled="#Tassonomia_lavoro2.checked()">
+      <td>
+        <input class="inputNormal" id="Parametri_nome_ditta_altro_gen" name="Parametri_nome_ditta_altro_gen" style="width: 100%;" label="Nome ditta altro genitore"/>
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_via_ditta_altro_gen" name="Parametri_via_ditta_altro_gen" style="width: 100%;" label="Via ditta altro genitore"/>
+      </td>
+    </tr>
+     <tr class="Rigaintestazioneridotta">
+       <td>
+          <p class="Labelcella"> Città </p>
+        </td>
+        <td>
+          <p class="Labelcella">Orario di lavoro</p>
+        </td>
+         <tr mandatory_enabled="#Tassonomia_lavoro2.checked()">
+        <td>
+          <input class="inputNormal" id="Parametri_città_lavoro{{i}}" name="Parametri_città_lavoro{{i}}" style="width: 100%;" label="Città Lavoro" />
+        </td>
+        <td>
+          <input class="inputNormal" id="Parametri_orario_lav{{i}}" name="Parametri_orario_lav{{i}}" style="width: 100%;" label=" Orario di lavoro"/>
+        </td>
+        </tr>
+        <tr>
+            <td style="vertical-align: top; width: 4%;">
+              <div id="Tassonomia_congedo_altro_genitore" name="Tassonomia_congedo_altro_genitore" label=" Congedo altro genitore" mandatory_enabled="#Tassonomia_lavoro2.checked()"></div>
+              <input id="Tassonomia_Congedo_altro_genitore1" name="Tassonomia_congedo_altro_genitore" type="radio" value="1" />
+            </td> 
+            <td colspan="2" >
+              <p> Non ha usufruito del congedo malattia figlio</p>
+            </td>
+          </tr>
+          <tr>
+            <td rowspan="3" style="vertical-align: top; width: 4%;background-color: white">
+              <input id="Tassonomia_Congedo_altro_genitore2" name="Tassonomia_congedo_altro_genitore" type="radio" value="2" />
+            </td>
+            <td colspan="2" >
+              <p> Ha usufruito del congedo malattia figlio nel seguente periodo: </p>
+            </td>
+          </tr>
+          <tr class="Rigaintestazioneridotta">
+            <td colspan="2">
+              <p class="Labelcella"> Periodo </p>
+            </td>
+          </tr>
+          <tr mandatory_enabled="#Tassonomia_Congedo_altro_genitore2.checked()">
+            <td colspan="2">
+              <input class="inputNormal" id="Parametri_periodo_congedo_altro_gen" name="Parametri_periodo_congedo_altro_gen" style="width: 100%;" label="Periodo congedo altro genitore"/>
+            </td>
+          </tr>
+        </tbody>
+    </table>
+
+    <br>
+<h3 class="Modulo">
+  DICHIARA INOLTRE
+</h3>
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    {% set dics = ["di essere a conoscenza di quanto previsto dalla normativa vigente sulla modalità di utilizzo dei congedi", "di essere a conoscenza che congedi e orari vanno concordati con il responsabile del servizio"] %}
+    {% for stmt in dics %}
+      <tr>
+        <td style="vertical-align: top; width: 4%;">
+          <input id="Dichiara{{loop.index}}" name="Dichiara{{loop.index}}" type="checkbox" value="SI" checked="checked" dynamic_check="true"/>
+        </td>
+        <td>
+          <p> {{ stmt }} </p>
+        </td>
+      </tr>      
+    {% endfor %}
+  </tbody>
+</table>
+<br>
+<table class="Modulo" name="Allegati" style="border: 1px solid grey">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="2">
+        <p style="text-align: center;">
+          <b>
+            Elenco degli allegati
+          </b>
+          <br/>
+          <span style="font-size:70%">
+            <i>(barrare tutti gli allegati richiesti in fase di presentazione della pratica ed elencati sul portale)</i>
+          </span>
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="CIM-ACC-CER" name="CIM-ACC-CER" type="checkbox" value="OBBLIGATORIO" checked="checked" dynamic_check="true" />
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          copia del certificato medico
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="DAE-CDI" name="DAE-CDI" type="checkbox" value="OBBLIGATORIO" />
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          copia del documento d'identità
+          <br/>
+          <span style="font-size:70%">
+            <i>(da allegare se il modulo è sottoscritto con firma autografa)</i>
+          </span>
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="ALTRI-ALLEGATI" name="ALTRI-ALLEGATI" type="checkbox" value="OBBLIGATORIO"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          altri allegati
+          <span style="font-size:70%">(specificare)</span>
+          <input class="" label="Altri allegati" id="AltriAllegati" mandatory_enabled="#ALTRI_ALLEGATI.checked()" name="AltriAllegati" style="width:79%;"/>
+        </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+{{ utils.trattamento_dati_personali() }}
+<br/>
+  {{ utils.firma_hidden() }}
+<br/>
+
+<p class="Modulo">
+  <input id="SalvaModulo" name="SalvaModulo" style="height:30px;width:120px;" title="Verifica la corretta compilazione dei campi e salva il modulo nel faldone virtuale dell'istanza." type="submit" value="Salva modulo"/>
+</p>
+
+<input destinatario_amministrazione="getParameter('Ente')" id="GLOBO_modulo_c{{ CodiceModulo }}" name="GLOBO_modulo_c{{ CodiceModulo }}" type="hidden" value=""/>
+<input firmare="'P7M_ELETTRONICA'" id="GLOBO_modulofiglio_cINCARICO_PROCURA" name="GLOBO_modulofiglio_cINCARICO_PROCURA" type="hidden" value=""/>
+<input id="GLOBO_sub_urn" name="GLOBO_sub_urn" type="hidden" dynamic_value="
+#Parametri_Direzioni.value()  == '{{direzioni[0]}}' ? 'avvocatura' :
+(#Parametri_Direzioni.value() == '{{direzioni[1]}}' ? 'affari' :
+(#Parametri_Direzioni.value() == '{{direzioni[2]}}' ? 'bilancio' :
+(#Parametri_Direzioni.value() == '{{direzioni[3]}}' ? 'commercio' :
+(#Parametri_Direzioni.value() == '{{direzioni[4]}}' ? 'edilizia' :
+(#Parametri_Direzioni.value() == '{{direzioni[5]}}' ? 'gare' :
+(#Parametri_Direzioni.value() == '{{direzioni[6]}}' ? 'generale' :
+(#Parametri_Direzioni.value() == '{{direzioni[7]}}' ? 'infrastrutture' :
+(#Parametri_Direzioni.value() == '{{direzioni[8]}}' ? 'patrimonio' :
+(#Parametri_Direzioni.value() == '{{direzioni[9]}}' ? 'pianificazione' :
+(#Parametri_Direzioni.value() == '{{direzioni[10]}}' ? 'risorse' :
+(#Parametri_Direzioni.value() == '{{direzioni[11]}}' ? 'polifunzionali' :
+(#Parametri_Direzioni.value() == '{{direzioni[12]}}' ? 'sicurezza' :
+(#Parametri_Direzioni.value() == '{{direzioni[13]}}' ? 'urbanistica' :
+(#Parametri_Direzioni.value() == '{{direzioni[14]}}' ? 'verde' :
+(#Parametri_Direzioni.value() == '{{direzioni[15]}}' ? 'polizia' :
+(#Parametri_Direzioni.value() == '{{direzioni[16]}}' ? 'segreteria' : ''))))))))))))))))" />
+
+<input id="GLOBO_allegato_cCIM-ACC-CER" name="GLOBO_allegato_cCIM-ACC-CER" obbligatorio="#CIM_ACC_CER.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+<input id="GLOBO_allegato_cDAE-CDI" name="GLOBO_allegato_cDAE-CDI" obbligatorio="#DAE_CDI.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+<input id="GLOBO_allegato_cALTRI-ALLEGATI" name="GLOBO_allegato_cALTRI-ALLEGATI" obbligatorio="#ALTRI_ALLEGATI.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_id_padre" name="GLOBO_id_padre" type="hidden"/>
+<input id="GLOBO_recupera_dati" name="GLOBO_recupera_dati" type="hidden"/>
+<input id="GLOBO_codice_modulo" name="GLOBO_codice_modulo" type="hidden" value="{{ CodiceModulo }}"/>
+
+{% endblock content %}

@@ -1,0 +1,328 @@
+{% set CodiceModulo = "CONSDON" %}
+{% set Urn = "document:c_a794:adesione.consiglio.donne;domanda" %}
+{% extends "base.html" %}
+
+{% block meta %}
+
+<meta campi_firma="Titolare_CodiceFiscale"
+campi_firma_label="il dichiarante"
+classi_modulo="Servizio Servizi Ausiliari"
+codice_modulo="{{ CodiceModulo }}"
+urn="{% block urn %}{{ Urn }}{% endblock urn %}"
+sub_urn_list=""
+uo_globo_list=""
+descrizione="Domanda di adesione al Consiglio delle donne"
+destinatario_amministrazione=""
+destinatario_ufficio="UOCULTURA"
+dinamico="SI"
+email_a=""
+ente_abilitato="TUTTI"
+filigrana="SI"
+firmare="P7M_ELETTRONICA"
+istruzioni_compilazione=""
+istruzioni_invio="mail_pec"
+metodo_invio="mail"
+name="GLOBO_modulo"
+procura="NO,,"
+tipo_modulo="principale"
+urlhelp="/modulistica/moduli/{{ CodiceModulo }}"
+verifica_pagamento="NO"
+versione="1.1|24/06/2019"/>
+
+<meta codice_modulo_figlio="INCARICO_PROCURA"
+urn_modulo_figlio="document:s_italia:generale;incarico.procura"
+name="GLOBO_modulofiglio"
+numero="1"
+obbligatorio="DINAMICO"/>
+
+<meta codice_allegato="OCC-ASS-ATT"
+urn_allegato="document:s_italia:associazionismo;atto.costitutivo.statuto.registrati;atto"
+descrizione_estesa="Copia dell'atto costitutivo e statuto registrati"
+filename="Copia atto e statuto.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/OCC-ASS-ATT"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="ELE-DETT-ATT"
+urn_allegato="document:c_a794:elenco.attività"
+descrizione_estesa="Elenco dettagliato delle attività"
+filename="Elenco dettagliato attività.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/ELE-DETT-ATT"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="ALTRI-ALLEGATI"
+urn_allegato="document:s_italia:altri.allegati"
+descrizione_estesa="Altri allegati"
+filename="Altri allegati.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/ALTRI-ALLEGATI"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+{% endblock meta %}
+
+{% block title %}
+  Domanda di adesione al Consiglio delle donne
+{% endblock title %}
+ 
+{% block content %}
+
+<globo_fondo_pagina areaheight="150" scope="2">
+  {{ utils.firma() }}
+</globo_fondo_pagina>
+
+<input id="Parametri_Comune" name="Parametri_Comune" type="hidden" dynamic_value="#Ente.value()"/>
+<input id="Oggetto" name="Oggetto" type="hidden" dynamic_value="#Titolare_Cognome.value().toUpperCase() + ' ' + #Titolare_Nome.value().toUpperCase() + ' - Adesione al Consiglio delle Donne'"/>
+
+{{ intestazioni.intestazione_moduloprincipale_senzabollo() }}
+
+<h1 class="Modulo">
+  Domanda di adesione al Consiglio delle Donne
+</h1>
+
+{{ anagrafica.societa("Titolare", "Il sottoscritto/a", ["Titolare", "Legale rappresentante"], "Richiedente", "visibility:visibility", "cursor:pointer", "mail_ordinaria", "false") }}
+<h3 class="Modulo" >
+  <table class="Modulo" style="border:1px solid grey;margin-top: -1px">
+  <tbody>
+    <tr class="Rigaintestazioneridotta">
+      <td colspan="3">
+        <p class="Labeltabella"> 
+          sito web del gruppo/associazione/organizzazione
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input class="inputNormal" id="Parametri_Sito" name="Parametri_Sito" style="width: 100%;" label="Sito Web" expression="text-align" />
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<br>
+<h3 class="Modulo">
+  CHIEDE
+</h3>
+<table class="Modulo" style="border:1px solid grey;margin-top: -1px">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="3">
+        <p class="Labeltabella"> 
+          di aderire al Consiglio delle Donne per il mandato
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input class="inputNormal" id="Parametri_Mandato" name="Parametri_Mandato" style="width: 100%;" label="Anni Mandato" mandatory="true" expression="text-align" />
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 class="Modulo">
+  DICHIARA 
+</h3>
+<table class="Modulo" style="border:1px solid grey;margin-top: -1px">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="3">
+        <p class="Labeltabella"> 
+          che il gruppo/associazione/organizzazione che rappresenta, sul territorio della città di Bergamo, si occupa di promuovere: 
+        </p>
+      </td>
+    </tr>
+<tr class="Rigaintestazioneridotta">
+      <td style="width: 40%;">
+        <p class="Labelcella">
+          indicare brevemente le finalità e gli scopi 
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <textarea class="inputNormal" id="Parametri_finalita" name="Parametri_finalita" style="width: 100%; height: 5cm;" label="finalita" mandatory="true" > </textarea>
+      </td>
+    </tr>
+    <tr class="Rigaintestazione">
+      <td style="width: 40%;">
+        <p class="Labeltabella">
+          che il numero degli iscritti è di
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input class="inputNormal" id="Parametri_iscritti" name="Parametri_iscritti" style="width: 100%;" label="iscritti" mandatory="true" /> 
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+ <h3 class="Modulo">
+  COMUNICA 
+</h3>
+<table class="Modulo" style="border:1px solid grey;margin-top: -1px">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="3">
+        <p class="Labeltabella"> 
+         che la rappresentante designata a far parte del Consiglio delle Donne è la Signora:
+        </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<table class="Modulo" style="border:1px solid grey;margin-top: -1px">
+  <tr class="Rigaintestazione">
+    <td style="width: 50%">
+      <p class="Labelcella">
+        Cognome
+      </p>
+    </td>
+      <td style="width: 50%">
+      <p class="Labelcella">
+        Nome
+      </p>
+    </td>
+</tr>
+    <tr>
+      <td style="width: 50%">
+        <input class="inputNormal" id="Parametri_Cognome_Rapp" name="Parametri_Cognome_Rapp" style="width: 100%;" label="CognomeRappresentante" mandatory="true" />
+      </td>
+      <td style="width: 50%">
+      <input class="inputNormal" id="Parametri_Nome_Rapp" name="Parametri_Nome_Rapp" style="width: 100%;" label="NomeRappresentante" mandatory="true" />
+      </td>
+</tr>
+<tr class="Rigaintestazione">
+    <td style="width: 50%">
+      <p class="Labelcella">
+        Luogo di nascita
+      </p>
+    </td>
+      <td style="width: 50%">
+      <p class="Labelcella">
+        Data di nascita
+      </p>
+    </td>
+</tr>
+    <tr>
+      <td style="width: 50%">
+        <input class="inputNormal" id="Parametri_LuogoNascita_Rapp" name="Parametri_LuogoNascita_Rapp" style="width: 100%;" label="LuogoNascitaRappresentante" mandatory="true" />
+      </td>
+      <td style="width: 50%">
+      <input class="inputNormal" id="Parametri_Data_Nascita_Rapp" name="Parametri_Data_Nascita_Rapp" style="width: 100%;" label="DataNascitaRappresentante" mandatory="true" type="date"/>
+      </td>
+</tr>
+<tr class="Rigaintestazione">
+    <td style="width: 50%">
+      <p class="Labelcella">
+        Recapito Telefonico
+      </p>
+    </td>
+      <td style="width: 50%">
+      <p class="Labelcella">
+        Indirizzo email
+      </p>
+    </td>
+</tr>
+    <tr>
+      <td style="width: 50%">
+        <input class="inputNormal" id="Parametri_Tel_Rapp" name="Parametri_Tel_Rapp" style="width: 100%;" label="TelRappresentante" mandatory="true" />
+      </td>
+      <td style="width: 50%">
+      <input class="inputNormal" id="Parametri_Email_Rapp" name="Parametri_Email_Rapp" style="width: 100%;" label="EmailRappresentante" mandatory="true" expression="email_a" />
+      </td>
+</tr>
+</table>
+ 
+   
+
+<br>
+<table class="Modulo" name="Allegati" style="border: 1px solid grey">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="2">
+        <p style="text-align: center;">
+          <b>
+            Elenco degli allegati
+          </b>
+          <br/>
+          <span style="font-size:70%">
+            <i>(barrare tutti gli allegati richiesti in fase di presentazione della pratica ed elencati sul portale)</i>
+          </span>
+        </p>
+      </td>
+    </tr>
+         <tr>
+            <td style="width: 4%; vertical-align: top;">
+                <input id="OCC-ASS-ATT" name="OCC-ASS-ATT" type="checkbox" mandatory_enabled="true" dynamic_check="true" checked="checked"/>
+            </td>
+            <td style="background-color: #eeeeee;">
+                <p>
+                    Copia dell’atto costitutivo e statuto registrati
+                    <span style="font-size:70%">
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 4%; vertical-align: top;">
+                <input id="ELE-DETT-ATT" name="ELE-DETT-ATT" type="checkbox" mandatory_enabled="true" dynamic_check="true" checked="checked" />
+            </td>
+            <td style="background-color: #eeeeee;">
+                <p>
+                    Elenco dettagliato delle attività svolte nell'ultimo biennio
+                </p>
+            </td>
+        </tr>
+       <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="ALTRI-ALLEGATI" name="ALTRI-ALLEGATI" type="checkbox" value="OBBLIGATORIO"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          altri allegati
+          <span style="font-size:70%">(specificare)</span>
+          <input class="" label="Altri allegati" id="AltriAllegati" mandatory_enabled="#ALTRI_ALLEGATI.checked()" name="AltriAllegati" style="width:79%;"/>
+        </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<br>
+{{ utils.trattamento_dati_personali() }}
+<br/>
+
+{{ utils.firma_hidden() }}
+</br>
+
+
+
+<p class="Modulo">
+  <input id="SalvaModulo" name="SalvaModulo" style="height:30px;width:120px;" title="Verifica la corretta compilazione dei campi e salva il modulo nel faldone virtuale dell'istanza." type="submit" value="Salva modulo"/>
+</p>
+
+<input destinatario_amministrazione="getParameter('Ente')" id="GLOBO_modulo_c{{ CodiceModulo }}" name="GLOBO_modulo_c{{ CodiceModulo }}" type="hidden" value=""/>
+<input firmare="'P7M_ELETTRONICA'" id="GLOBO_modulofiglio_cINCARICO_PROCURA" name="GLOBO_modulofiglio_cINCARICO_PROCURA" type="hidden" value=""/>
+
+<input id="GLOBO_allegato_cALTRI-ALLEGATI" name="GLOBO_allegato_cALTRI-ALLEGATI" obbligatorio="#ALTRI_ALLEGATI.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+<input id="GLOBO_allegato_cOCC-ASS-ATT" name="GLOBO_allegato_cOCC-ASS-ATT" obbligatorio="#OCC_ASS_ATT.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_allegato_cELE-DETT-ATT" name="GLOBO_allegato_cELE-DETT-ATT" obbligatorio="#ELE_DETT_ATT.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_id_padre" name="GLOBO_id_padre" type="hidden"/>
+<input id="GLOBO_recupera_dati" name="GLOBO_recupera_dati" type="hidden"/>
+<input id="GLOBO_codice_modulo" name="GLOBO_codice_modulo" type="hidden" value="{{ CodiceModulo }}"/>
+
+{% endblock content %}

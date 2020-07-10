@@ -1,0 +1,496 @@
+{% set CodiceModulo = "POS_MON_FUN" %}
+{% set Urn = "document:c_a794:cimitero;posa.monumento.funebre;domanda;" %}{% extends "base.html" %}
+{% block meta %}
+
+<meta campi_firma="Titolare_CodiceFiscale"
+campi_firma_label="il dichiarante"
+classi_modulo="Servizi cimiteriali"
+codice_modulo="{{ CodiceModulo }}"
+urn="{% block urn %}{{ Urn }}{% endblock urn %}"
+sub_urn_list=""
+uo_globo_list=""
+descrizione="Domanda di autorizzazione per la posa di monumento funebre"
+destinatario_amministrazione=""
+destinatario_ufficio="{% block ufficio_destinatario %}UOSERVIZICIMITERIALI{% endblock ufficio_destinatario %}"
+dinamico="SI"
+email_a=""
+ente_abilitato="TUTTI"
+filigrana="NO"
+firmare="AUTENTICATO"
+istruzioni_compilazione=""
+istruzioni_invio="mail_pec"
+metodo_invio="mail"
+name="GLOBO_modulo"
+procura="NO,,"
+tipo_modulo="principale"
+urlhelp="/modulistica/moduli/{{ CodiceModulo }}"
+verifica_pagamento="NO"
+versione="1.8|19/10/2017"/>
+
+<meta codice_modulo_figlio="INCARICO_PROCURA"
+urn_modulo_figlio="document:s_italia:generale;incarico.procura"
+name="GLOBO_modulofiglio"
+numero="1"
+obbligatorio="DINAMICO"/>
+
+
+<meta codice_allegato="FUN-PRO-MON"
+urn_allegato="document:s_italia:cimitero;posa.monumento.funebre;progetto.quotato;elaborato.grafico"
+descrizione_estesa="Progetto quotato"
+filename="Progetto quotato.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/FUN-PRO-MON"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="COP-CON-INC"
+urn_allegato="document:s_italia:cimitero;conferimento.incarico.impresa.funebre;documentazione"
+descrizione_estesa="Copia del conferimento dell'incarico"
+filename="Conferimento incarico.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/FUN-PRO-MON"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="ALTRI-ALLEGATI"
+urn_allegato="document:s_italia:altri.allegati"
+descrizione_estesa="Altri allegati"
+filename="Altri allegati.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/ALTRI-ALLEGATI"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="DAE-CDI"
+urn_allegato="document:s_italia:generale;documento.identita;documentazione"
+descrizione_estesa="Documento di identità"
+filename="Documento identita.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/DAE-CDI"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="COP_ID_DEL"
+urn_allegato="document:c_a794:copia.documento.identita.delegante;allegato"
+descrizione_estesa="Copia documento di identità delegante"
+filename="Documento identita delegante.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/COP_ID_DEL"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<style>
+  .noBorder, .noBorder td, .noBorder tr{border:0 !important;}
+</style>
+
+{% endblock meta %}
+
+{% block title %}
+  Domanda di autorizzazione per la posa di monumento funebre
+{% endblock title %}
+
+{% block content %}
+
+<globo_fondo_pagina areaheight="150" scope="3">
+{{ utils.firma() }}
+</globo_fondo_pagina>
+
+<input dynamic_value="#Ente.value()" id="Parametri_Comune" name="Parametri_Comune" type="hidden"/>
+
+<input dynamic_value="#Titolare_Cognome.value().toUpperCase() + ' ' + #Titolare_Nome.value().toUpperCase() + ' - posa monumento funebre'" id="Oggetto" name="Oggetto" type="hidden"/>
+
+{{ intestazioni.intestazione_moduloprincipale_senzabollo() }}
+
+<h1 class="Modulo">
+   Domanda di autorizzazione per la posa di monumento funebre
+</h1>
+
+{{anagrafica.societa("Titolare","Il sottoscritto rappresentante della società incaricata per l'esecuzione dei lavori",["Titolare", "Legale rappresentante"], "Richiedente")}}
+
+<table class="Modulo" style="border:1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="2">
+        <p class="Labeltabella">
+          in relazione alla reversale della concessione cimiteriale
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td style="width:50%">
+        <p class="Labelcella">
+          Numero
+        </p>
+      </td>
+      <td>
+        <p class="Labelcella">
+          Data
+        </p>
+      </td>
+    </tr>
+    <tr mandatory="true">
+      <td>
+        <input class="inputNormal" id="Parametri_ConcessioneCimiteriale" name="Parametri_ConcessioneCimiteriale"  style="width: 100%;" label="Numero concessione cimiteriale">
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_DataConcessioneCimiteriale" name="Parametri_DataConcessioneCimiteriale"  style="width: 100%;" label="Data concessione cimiteriale" format="date">
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<input dynamic_check="true" id="AventeTitolo_DatiPersonaObbligatori" name="AventeTitolo_DatiPersonaObbligatori" type="hidden"/>
+
+<input id="AventeTitolo_Titolo" name="AventeTitolo_Titolo" type="hidden" value="Richiedente"/>
+
+<input id="AventeTitoloe_Ruolo" name="AventeTitoloe_Ruolo" type="hidden" value="Richiedente"/>
+
+{{ anagrafica.persona_fisica("AventeTitolo", "rilasciata a", "display:none", "cursor:default", "visibility:visibility", "visibility:visibility", "mail_ordinaria") }}
+
+<globo_salto_pagina>
+</globo_salto_pagina>
+
+<h3 class="Modulo">
+  CHIEDE
+</h3>
+
+<p class="Modulo">
+
+</p>
+
+<table class="Modulo" style="border:1px solid grey;">
+  <tbody>
+    <tr>
+      <td style="width:4%">
+        <div id="Tassonomia_TipoIntervento" name="Tassonomia_CompletamentoArredo"  label="Tipo di intervento" mandatory="true"></div>
+        <input id="Tassonomia_TipoIntervento1" name="Tassonomia_TipoIntervento" type="radio" value="1"/>
+      </td>
+      <td colspan="2">
+        <p>
+          il rilascio dell'autorizzazione per la posa di monumento funebre su sepoltura a terra
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input id="Tassonomia_TipoIntervento2" name="Tassonomia_TipoIntervento" type="radio" value="2"/>
+      </td>
+      <td colspan="2">
+        <p>
+          il rilascio dell'autorizzazione per la modifica di monumento funebre su sepoltura a terra
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td rowspan="4" style="vertical-align:top; background-color:white">
+        <input id="Tassonomia_TipoIntervento3" name="Tassonomia_TipoIntervento" type="radio" value="3"/>
+      </td>
+      <td colspan="2">
+        <p>
+          il rilascio dell'autorizzazione per l'arredo di lastra a copertura di
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="width:4%">
+        <div id="Tassonomia_TipoInterventoSecondarioBis" name="Tassonomia_TipoInterventoSecondarioBis"  label="Tipo di lastra a copertura" mandatory_enabled="#Tassonomia_TipoIntervento3.checked()"></div>
+        <input id="Tassonomia_TipoInterventoSecondarioBis1" name="Tassonomia_TipoInterventoSecondarioBis" type="radio" value="1"/>
+      </td>
+      <td>
+        <p>
+          loculo
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input id="Tassonomia_TipoInterventoSecondarioBis2" name="Tassonomia_TipoInterventoSecondarioBis" type="radio" value="2"/>
+      </td>
+      <td>
+        <p>
+          ossario
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input id="Tassonomia_TipoInterventoSecondarioBis3" name="Tassonomia_TipoInterventoSecondarioBis" type="radio" value="3"/>
+      </td>
+      <td>
+        <p>
+          cinerario
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td rowspan="4" style="vertical-align:top; background-color:white">
+        <input id="Tassonomia_TipoIntervento4" name="Tassonomia_TipoIntervento" type="radio" value="4"/>
+      </td>
+      <td colspan="2">
+        <p>
+          il rilascio dell'autorizzazione per la modifica di lastra a copertura di
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="width:4%">
+        <div id="Tassonomia_TipoInterventoSecondario" name="Tassonomia_TipoInterventoSecondario"  label="Tipo di lastra a copertura" mandatory_enabled="#Tassonomia_TipoIntervento4.checked()"></div>
+        <input id="Tassonomia_TipoInterventoSecondario1" name="Tassonomia_TipoInterventoSecondario" type="radio" value="1"/>
+      </td>
+      <td>
+        <p>
+          loculo
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input id="Tassonomia_TipoInterventoSecondario2" name="Tassonomia_TipoInterventoSecondario" type="radio" value="2"/>
+      </td>
+      <td>
+        <p>
+          ossario
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input id="Tassonomia_TipoInterventoSecondario3" name="Tassonomia_TipoInterventoSecondario" type="radio" value="3"/>
+      </td>
+      <td>
+        <p>
+          cinerario
+        </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<table class="Modulo" style="border:1px solid grey;">
+ <tbody>
+  <tr class="Rigaintestazione">
+   <td colspan="3">
+    <p class="Labeltabella">
+     in memoria del defunto
+    </p>
+   </td>
+  </tr>
+  <tr class="Rigaintestazioneridotta">
+   <td style="width: 42%;">
+    <p class="Labelcella">
+     Cognome
+    </p>
+   </td>
+   <td>
+    <p class="Labelcella">
+     Nome
+    </p>
+   </td>
+   <td style="width: 14%;">
+    <p class="Labelcella">
+     Data del decesso
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td>
+    <input class="inputNormal" id="Parametri_DefCognome" label="Cognome defunto" mandatory="true" name="Parametri_DefCognome" style="width:100%"/>
+   </td>
+   <td>
+    <input class="inputNormal" id="Parametri_DefNome" label="Nome defunto" mandatory="true" name="Parametri_DefNome" style="width:100%"/>
+   </td>
+   <td>
+    <input class="inputNormal" format="date" id="Parametri_DefDataMorte" label="Data del decesso defunto" mandatory="true" name="Parametri_DefDataMorte" style="width:100%"/>
+   </td>
+  </tr>
+ </tbody>
+</table>
+
+<table class="Modulo" style="border:1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td>
+        <p class="Labeltabella">
+          collocato nel cimitero
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          Collocazione (indicare la tipologia di sepoltura, ad esempio loculo, tomba, ecc. e la relativa posizione)
+        </p>
+      </td>
+    </tr>
+    <tr mandatory="true">
+      <td>
+        <input class="inputNormal" id="Parametri_PosizioneCimitero" name="Parametri_PosizioneCimitero"  style="width: 100%;" label="Collocazione del defunto">
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+{{utils.Dichiara_445()}}
+
+<table class="Modulo" style="border:0px">
+  <tbody>
+    <tr style="border:0px">
+      <td style="vertical-align: top; width: 4%; border:0px">
+        <input id="Tassonomia_Dichiara11" name="Tassonomia_Dichiara11" type="checkbox" checked="checked" dynamic_check="true" value="SI"/>
+      </td>
+      <td style="border:0px">
+        <p>
+          che le opere saranno realizzate nel rispetto di quanto disposto dal Regolamento comunale di polizia mortuaria e cimiteriale
+        </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<br/>
+
+<table class="Modulo" style="border:1px solid grey">
+ <tbody>
+  <tr class="Rigaintestazioneridotta">
+   <td colspan="2">
+    <p class="Labelcella">
+     Eventuali annotazioni
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td colspan="2">
+    <textarea class="inputNormal" id="Parametri_Annotazioni" name="Parametri_Annotazioni" style="width:100%;height:5cm;">
+    </textarea>
+   </td>
+  </tr>
+ </tbody>
+</table>
+
+<br/>
+
+<table class="Modulo" name="Allegati" style="border: 1px solid grey">
+ <tbody>
+  <tr class="Rigaintestazione">
+   <td colspan="2">
+    <p style="text-align: center;">
+     <b>
+      Elenco degli allegati
+    </b>
+     <br/>
+     <span style="font-size:70%">
+      <i>
+       (barrare tutti gli allegati richiesti in fase di presentazione della pratica ed elencati sul portale)
+     </i>
+   </span>
+    </p>
+   </td>
+  </tr>
+  <tr>
+    <td style="vertical-align: top; width:4%">
+        <input id="COP-CON-INC" name="COP-CON-INC"  type="checkbox" value="OBBLIGATORIO" checked="checked" dynamic_check="true" />
+      </td>
+      <td style="background-color: #eeeeee;">
+         <p>
+            copia del conferimento dell'incarico
+         </p>
+      </td>
+  </tr>
+  <tr>
+    <td style="vertical-align: top; width:4%">
+        <input id="FUN-PRO-MON" name="FUN-PRO-MON"  type="checkbox" value="OBBLIGATORIO" checked="checked" dynamic_check="true" />
+      </td>
+      <td style="background-color: #eeeeee;">
+         <p>
+            progetto quotato del monumento (pianta, prospetti e sezioni) e/o dell'arredo lastra loculo/ossario/cinerario
+         </p>
+      </td>
+  </tr>
+  <tr>
+   <td style="vertical-align: top; width:4%">
+    <input id="COP_ID_DEL" name="COP_ID_DEL" type="checkbox" value="OBBLIGATORIO" dynamic_check="true" checked="checked"/>
+   </td>
+   <td style="background-color: #eeeeee;">
+    <p>
+     copia documento di identità delegante
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td style="vertical-align: top;width:4%">
+    <input id="DAE-CDI" name="DAE-CDI" type="checkbox" value="OBBLIGATORIO"/>
+   </td>
+   <td style="background-color: #eeeeee;">
+    <p>
+     copia del documento d'identità
+     <br/>
+     <span style="font-size:70%">
+      <i>
+       (da non allegare se l'istanza è presentata in modalità telematica o se la firma autografa è apposta di fronte a un pubblico ufficiale)
+      </i>
+     </span>
+    </p>
+   </td>
+  </tr>
+  <tr>
+    <td width="4%">
+     <input id="ALTRI-ALLEGATI" name="ALTRI-ALLEGATI" type="checkbox" value="OBBLIGATORIO"/>
+    </td>
+    <td style="background-color: #eeeeee;">
+     <p>
+      altri allegati
+      <span style="font-size:70%">
+       (specificare)
+      </span>
+      <input class="" label="Altri allegati" id="AltriAllegati" mandatory_enabled="#ALTRI_ALLEGATI.checked()" name="AltriAllegati" style="width:79%;"/>
+     </p>
+    </td>
+   </tr>
+ </tbody>
+</table>
+
+
+<br/>
+
+<globo_salto_pagina></globo_salto_pagina>
+
+{{ utils.trattamento_dati_personali() }}
+
+<br/>
+{{ utils.firma_hidden() }}
+<br/>
+
+<p class="Modulo">
+  <input id="SalvaModulo" name="SalvaModulo" style="height:30px;width:120px;" title="Verifica la corretta compilazione dei campi e salva il modulo nel faldone virtuale dell'istanza." type="submit" value="Salva modulo"/>
+</p>
+
+<input destinatario_amministrazione="getParameter('Ente')" id="GLOBO_modulo_c{{ CodiceModulo }}" name="GLOBO_modulo_c{{ CodiceModulo }}" type="hidden" value=""/>
+
+
+<input firmare="'P7M_ELETTRONICA'" id="GLOBO_modulofiglio_cINCARICO_PROCURA" name="GLOBO_modulofiglio_cINCARICO_PROCURA" type="hidden" value=""/>
+
+<input id="GLOBO_allegato_cFUN-PRO-MON" name="GLOBO_allegato_cFUN-PRO-MON" type="hidden" value="" obbligatorio="#FUN_PRO_MON.checked() ? 'OBBLIGATORIO' : ''"/>
+
+<input id="GLOBO_allegato_cCOP-CON-INC" name="GLOBO_allegato_cCOP-CON-INC" type="hidden" value="" obbligatorio="#COP_CON_INC.checked() ? 'OBBLIGATORIO' : ''"/>
+
+<input id="GLOBO_allegato_cCOP_ID_DEL" name="GLOBO_allegato_cCOP_ID_DEL" type="hidden" value="" obbligatorio="#COP_ID_DEL.checked() ? 'OBBLIGATORIO' : ''"/>
+
+<input id="GLOBO_allegato_cALTRI-ALLEGATI" name="GLOBO_allegato_cALTRI-ALLEGATI" type="hidden" value="" obbligatorio="#ALTRI_ALLEGATI.checked() ? 'OBBLIGATORIO' : ''"/>
+
+<input id="GLOBO_allegato_cDAE-CDI" name="GLOBO_allegato_cDAE-CDI" type="hidden" value="" obbligatorio="#DAE_CDI.checked() ? 'OBBLIGATORIO' : ''"/>
+
+<input id="GLOBO_id_padre" name="GLOBO_id_padre" type="hidden"/>
+<input id="GLOBO_recupera_dati" name="GLOBO_recupera_dati" type="hidden"/>
+<input id="GLOBO_codice_modulo" name="GLOBO_codice_modulo" type="hidden" value="{{ CodiceModulo }}"/>
+
+{% endblock content %}

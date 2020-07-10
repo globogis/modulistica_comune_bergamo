@@ -1,0 +1,1007 @@
+{% set CodiceModulo = "SCHEDA_VAL_MENSA" %}
+{% set Urn = "document:c_a794:mensa.assaggiatori;valutazione" %}
+{% extends "base.html" %}
+
+{% block meta %}
+
+<meta campi_firma="Titolare_CodiceFiscale"
+campi_firma_label="il dichiarante"
+classi_modulo="Servizi scolastici"
+codice_modulo="{{ CodiceModulo }}"
+urn="{% block urn %}{{ Urn }}{% endblock urn %}"
+sub_urn_list=""
+uo_globo_list=""
+descrizione="Scheda di verifica del servizio di ristorazione scolastica"
+destinatario_amministrazione=""
+destinatario_ufficio="UOPUBBLICAISTRUZIONE"
+dinamico="SI"
+email_a=""
+ente_abilitato="TUTTI"
+filigrana="NO"
+firmare="P7M_ELETTRONICA"
+istruzioni_compilazione=""
+istruzioni_invio="mail_pec"
+metodo_invio="mail"
+name="GLOBO_modulo"
+procura="NO,,"
+tipo_modulo="principale"
+urlhelp="/modulistica/moduli/{{ CodiceModulo }}"
+verifica_pagamento="NO"
+versione="1.1|28/03/2019"/>
+
+<meta codice_modulo_figlio="Incarico_procura"
+urn_modulo_figlio="document:s_italia:generale;incarico.procura"
+name="GLOBO_modulofiglio"
+numero="1"
+obbligatorio="DINAMICO"/>
+
+<meta codice_allegato="DAE-CDI"
+urn_allegato="document:s_italia:generale;documento.identita;documentazione"
+descrizione_estesa="Documento di identità"
+filename="Documento identita.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/DAE-CDI"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="ALTRI-ALLEGATI"
+urn_allegato="document:s_italia:altri.allegati"
+descrizione_estesa="Altri allegati"
+filename="Altri allegati.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/ALTRI-ALLEGATI"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+{% endblock meta %}
+
+{% block title %}
+    Scheda di verifica del servizio di ristorazione scolastica
+{% endblock title %}
+
+{% block content %}
+
+<globo_fondo_pagina areaheight="150" scope="2">
+    {{ utils.firma() }}
+</globo_fondo_pagina>
+
+<input id="Parametri_Comune" name="Parametri_Comune" type="hidden" dynamic_value="#Ente.value()"/>
+<input id="Oggetto" name="Oggetto" type="hidden" dynamic_value="#Titolare_Cognome.value().toUpperCase() + ' ' + #Titolare_Nome.value().toUpperCase() + ' - verifica servizio di ristorazione scolastica'"/>
+
+{{ intestazioni.intestazione_moduloprincipale_senzabollo() }}
+
+<h1 class="Modulo">
+    Scheda di verifica del servizio di ristorazione scolastica
+</h1>
+
+<h2 class="Modulo">
+    Regolamento 25-07-2017, n. 102 Regolamento per il servizio di ristorazione scolastica
+</h2>
+
+<table class="Modulo" style="border: 1px solid grey;">
+    <tbody>
+        <tr class="Rigaintestazione">
+            <td colspan="3">
+                <p class="Labeltabella">
+                    Dati della rilevazione
+                </p>
+            </td>
+        </tr>
+        <tr class="Rigaintestazioneridotta">
+            <td style="width: 33.33%;">
+                <p class="Labelcella">
+                    Istituto comprensivo
+                </p>
+            </td>
+            <td style="width: 33.33%;">
+                <p class="Labelcella">
+                    Scuola
+                </p>
+            </td>
+            <td style="width: 33.33%;">
+                <p class="Labelcella">
+                    Data della visita
+                </p>
+            </td>
+        </tr>
+        <tr mandatory="true">
+            <td>
+                <input class="inputNormal" id="Parametri_IstitutoComprensivo" name="Parametri_IstitutoComprensivo" style="width: 100%;" label="Istituto comprensivo"/>
+            </td>
+            <td>
+                <input class="inputNormal" id="Parametri_Scuola" name="Parametri_Scuola" style="width: 100%;" label="Scuola" />
+            </td>
+            <td>
+                <input class="inputNormal" id="Parametri_DataVisita" name="Parametri_DataVisita" style="width: 100%;" label="Data visita" format="date" />
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+{{ anagrafica.cognome_nome("Titolare", "Genitore assaggiatore", "Richiedente", "visibility:visibility", "cursor:pointer", "visibility:visibility; margin-top: -1px;") }}
+
+
+
+<div id="Tassonomia_PrimoPiatto_TemperaturaCibo" name="Tassonomia_PrimoPiatto_TemperaturaCibo" label="Temperatura cibo" mandatory="true"></div>
+<div id="Tassonomia_PrimoPiatto_CotturaCibo" name="Tassonomia_PrimoPiatto_CotturaCibo" label="Cottura cibo" mandatory="true"></div>
+<div id="Tassonomia_PrimoPiatto_QuantitaPorzioni" name="Tassonomia_PrimoPiatto_QuantitaPorzioni" label="Quantità porzioni" mandatory="true"></div>
+<div id="Tassonomia_PrimoPiatto_Sapore" name="Tassonomia_PrimoPiatto_Sapore" label="Sapore" mandatory="true"></div>
+
+<div id="Tassonomia_SecondoPiatto_TemperaturaCibo" name="Tassonomia_SecondoPiatto_TemperaturaCibo" label="Temperatura cibo" mandatory="true"></div>
+<div id="Tassonomia_SecondoPiatto_CotturaCibo" name="Tassonomia_SecondoPiatto_CotturaCibo" label="Cottura cibo" mandatory="true"></div>
+<div id="Tassonomia_SecondoPiatto_QuantitaPorzioni" name="Tassonomia_SecondoPiatto_QuantitaPorzioni" label="Quantità porzioni" mandatory="true"></div>
+<div id="Tassonomia_SecondoPiatto_Sapore" name="Tassonomia_SecondoPiatto_Sapore" label="Sapore" mandatory="true"></div>
+
+<div id="Tassonomia_Contorno_TemperaturaCibo" name="Tassonomia_Contorno_TemperaturaCibo" label="Temperatura cibo" mandatory="true"></div>
+<div id="Tassonomia_Contorno_CotturaCibo" name="Tassonomia_Contorno_CotturaCibo" label="Cottura cibo" mandatory="true"></div>
+<div id="Tassonomia_Contorno_QuantitaPorzioni" name="Tassonomia_Contorno_QuantitaPorzioni" label="Quantità porzioni" mandatory="true"></div>
+<div id="Tassonomia_Contorno_Sapore" name="Tassonomia_Contorno_Sapore" label="Sapore" mandatory="true"></div>
+
+<div id="Tassonomia_Pane_TipoFarina" name="Tassonomia_Pane_TipoFarina" label="Tipo farina" mandatory="true"></div>
+<div id="Tassonomia_Pane_Qualita" name="Tassonomia_Pane_Qualita" label="Qualità" mandatory="true"></div>
+<div id="Tassonomia_Pane_Presenza" name="Tassonomia_Pane_Presenza" label="Presenza pane" mandatory="true"></div>
+
+<div id="Tassonomia_Frutta_StatoMaturazione" name="Tassonomia_Frutta_StatoMaturazione" label="Stato maturazione" mandatory="true"></div>
+<div id="Tassonomia_Frutta_Orario" name="Tassonomia_Frutta_Orario" label="Orario frutta" mandatory="true"></div>
+
+<div id="Tassonomia_GiudizioGlobale_QualitaPasto" name="Tassonomia_GiudizioGlobale_QualitaPasto" label="Qualità pasto" mandatory="true"></div>
+<div id="Tassonomia_luogo_sepoltura_prec" name="Tassonomia_luogo_sepoltura_prec" label="Luogo di sepoltura" mandatory="true"></div>
+<table class="Modulo" style="border:1px solid grey;">
+    <tbody>
+      <tr class="Rigaintestazione">
+        <td colspan="4">
+          <p class="Labeltabella">
+           Menù del giorno
+          </p>
+        </td>
+      <tr class="Rigaintestazioneridotta">
+        <td colspan="3" style="width: 50%;">
+          <p class="Labelcella">
+            portata
+          </p>
+        </td>
+        <td style="width: 50%;">
+          <p class="Labelcella">
+            pietanza del menù
+          </p>
+        </td>
+      </tr>
+      <tr>
+        <td style="vertical-align: top; width: 4%;">
+          <input id="Tassonomia_pietanza_prec1" name="Tassonomia_pietanza_prec" type="checkbox" value="2"/>
+        </td>
+        <td colspan="2">
+          <p>
+            primo piatto
+          </p>
+        </td>
+        <td>
+          <input class="inputNormal" id="Parametri_pietanza_prec1" name="Parametri_pietanza_prec1" style="width: 100%;" label="Pietanza del menù" mandatory_enabled="#Tassonomia_pietanza_prec1.checked()">
+        </td>
+      </tr>
+      <tr>
+        <td style="vertical-align: top; width: 4%;">
+          <input id="Tassonomia_pietanza_prec2" name="Tassonomia_pietanza_prec" type="checkbox" value="2"/>
+        </td>
+        <td colspan="2">
+          <p>
+            secondo piatto
+          </p>
+        </td>
+        <td>
+          <input class="inputNormal" id="Parametri_pietanza_prec2" name="Parametri_pietanza_prec2" style="width: 100%;" label="Pietanza del menù" mandatory_enabled="#Tassonomia_pietanza_prec2.checked()">
+        </td>
+      </tr>
+      <tr>
+        <td style="vertical-align: top; width: 4%;">
+          <input id="Tassonomia_pietanza_prec3" name="Tassonomia_pietanza_prec" type="checkbox" value="2"/>
+        </td>
+        <td colspan="2">
+          <p>
+            contorno
+          </p>
+        </td>
+        <td>
+          <input class="inputNormal" id="Parametri_pietanza_prec3" name="Parametri_pietanza_prec3" style="width: 100%;" label="Pietanza del menù"mandatory_enabled="#Tassonomia_pietanza_prec3.checked()">
+        </td>
+      </tr>
+	        <tr>
+        <td style="vertical-align: top; width: 4%;">
+          <input id="Tassonomia_pietanza_prec4" name="Tassonomia_pietanza_prec" type="checkbox" value="2"/>
+        </td>
+        <td colspan="2">
+          <p>
+            frutta
+          </p>
+        </td>
+        <td>
+          <input class="inputNormal" id="Parametri_pietanza_prec4" name="Parametri_pietanza_prec4" style="width: 100%;" label="Pietanza del menù"mandatory_enabled="#Tassonomia_pietanza_prec4.checked()">
+        </td>
+      </tr>
+    </tbody>
+  </table>
+<table class="Modulo" style="border: 1px solid grey;">
+    <tbody>
+        <tr class="Rigaintestazione">
+            <td colspan="4">
+                <p class="Labeltabella" style="text-align : center;">
+                    Valutazione personale dell’assaggio
+                </p>
+            </td>
+        </tr>
+        <tr class="Rigaintestazione">
+            <td colspan="4">
+                <p class="Labeltabella">
+                    Primo piatto
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 43%;">
+                <p> Temperatura del cibo </p>
+            </td>
+            <td style="width: 19%;">
+                <p>
+                    <input id="Tassonomia_PrimoPiatto_TemperaturaCibo1" name="Tassonomia_PrimoPiatto_TemperaturaCibo" type="radio" value="1" />
+                    Caldo
+                </p>
+            </td>
+            <td style="width: 19%;">
+                <p>
+                    <input id="Tassonomia_PrimoPiatto_TemperaturaCibo2" name="Tassonomia_PrimoPiatto_TemperaturaCibo" type="radio" value="2" />
+                    Tiepido
+                </p>
+            </td>
+            <td style="width: 19%;">
+                <p>
+                    <input id="Tassonomia_PrimoPiatto_TemperaturaCibo3" name="Tassonomia_PrimoPiatto_TemperaturaCibo" type="radio" value="3" />
+                    Freddo
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <p> Cottura del cibo </p>
+            </td>
+            <td>
+                <p>
+                    <input id="Tassonomia_PrimoPiatto_CotturaCibo1" name="Tassonomia_PrimoPiatto_CotturaCibo" type="radio" value="1" />
+                    Adeguata
+                </p>
+            </td>
+            <td>
+                <p>
+                    <input id="Tassonomia_PrimoPiatto_CotturaCibo2" name="Tassonomia_PrimoPiatto_CotturaCibo" type="radio" value="2" />
+                    Eccessiva
+                </p>
+            </td>
+            <td>
+                <p>
+                    <input id="Tassonomia_PrimoPiatto_CotturaCibo3" name="Tassonomia_PrimoPiatto_CotturaCibo" type="radio" value="3" />
+                    Scarsa
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <p> Quantità delle porzioni </p>
+            </td>
+            <td>
+                <p>
+                    <input id="Tassonomia_PrimoPiatto_QuantitaPorzioni1" name="Tassonomia_PrimoPiatto_QuantitaPorzioni" type="radio" value="1" />
+                    Sufficiente
+                </p>
+            </td>
+            <td>
+                <p>
+                    <input id="Tassonomia_PrimoPiatto_QuantitaPorzioni2" name="Tassonomia_PrimoPiatto_QuantitaPorzioni" type="radio" value="2" />
+                    Abbondante
+                </p>
+            </td>
+            <td>
+                <p>
+                    <input id="Tassonomia_PrimoPiatto_QuantitaPorzioni3" name="Tassonomia_PrimoPiatto_QuantitaPorzioni" type="radio" value="3" />
+                    Scarsa
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <p> Sapore </p>
+            </td>
+            <td>
+                <p>
+                    <input id="Tassonomia_PrimoPiatto_Sapore1" name="Tassonomia_PrimoPiatto_Sapore" type="radio" value="1" />
+                    Gradevole
+                </p>
+            </td>
+            <td>
+                <p>
+                    <input id="Tassonomia_PrimoPiatto_Sapore2" name="Tassonomia_PrimoPiatto_Sapore" type="radio" value="2" />
+                    Accettabile
+                </p>
+            </td>
+            <td>
+                <p>
+                    <input id="Tassonomia_PrimoPiatto_Sapore3" name="Tassonomia_PrimoPiatto_Sapore" type="radio" value="3" />
+                    Non accettabile
+                </p>
+            </td>
+        </tr>
+        <tr class="Rigaintestazione">
+            <td colspan="4">
+                <p class="Labeltabella">
+                    Secondo piatto
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 43%;">
+                <p> Temperatura del cibo </p>
+            </td>
+            <td style="width: 19%;">
+                <p>
+                    <input id="Tassonomia_SecondoPiatto_TemperaturaCibo1" name="Tassonomia_SecondoPiatto_TemperaturaCibo" type="radio" value="1" />
+                    Caldo
+                </p>
+            </td>
+            <td style="width: 19%;">
+                <p>
+                    <input id="Tassonomia_SecondoPiatto_TemperaturaCibo2" name="Tassonomia_SecondoPiatto_TemperaturaCibo" type="radio" value="2" />
+                    Tiepido
+                </p>
+            </td>
+            <td style="width: 19%;">
+                <p>
+                    <input id="Tassonomia_SecondoPiatto_TemperaturaCibo3" name="Tassonomia_SecondoPiatto_TemperaturaCibo" type="radio" value="3" />
+                    Freddo
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <p> Cottura del cibo </p>
+            </td>
+            <td>
+                <p>
+                    <input id="Tassonomia_SecondoPiatto_CotturaCibo1" name="Tassonomia_SecondoPiatto_CotturaCibo" type="radio" value="1" />
+                    Adeguata
+                </p>
+            </td>
+            <td>
+                <p>
+                    <input id="Tassonomia_SecondoPiatto_CotturaCibo2" name="Tassonomia_SecondoPiatto_CotturaCibo" type="radio" value="2" />
+                    Eccessiva
+                </p>
+            </td>
+            <td>
+                <p>
+                    <input id="Tassonomia_SecondoPiatto_CotturaCibo3" name="Tassonomia_SecondoPiatto_CotturaCibo" type="radio" value="3" />
+                    Scarsa
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <p> Quantità delle porzioni </p>
+            </td>
+            <td>
+                <p>
+                    <input id="Tassonomia_SecondoPiatto_QuantitaPorzioni1" name="Tassonomia_SecondoPiatto_QuantitaPorzioni" type="radio" value="1" />
+                    Sufficiente
+                </p>
+            </td>
+            <td>
+                <p>
+                    <input id="Tassonomia_SecondoPiatto_QuantitaPorzioni2" name="Tassonomia_SecondoPiatto_QuantitaPorzioni" type="radio" value="2" />
+                    Abbondante
+                </p>
+            </td>
+            <td>
+                <p>
+                    <input id="Tassonomia_SecondoPiatto_QuantitaPorzioni3" name="Tassonomia_SecondoPiatto_QuantitaPorzioni" type="radio" value="3" />
+                    Scarsa
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <p> Sapore </p>
+            </td>
+            <td>
+                <p>
+                    <input id="Tassonomia_SecondoPiatto_Sapore1" name="Tassonomia_SecondoPiatto_Sapore" type="radio" value="1" />
+                    Gradevole
+                </p>
+            </td>
+            <td>
+                <p>
+                    <input id="Tassonomia_SecondoPiatto_Sapore2" name="Tassonomia_SecondoPiatto_Sapore" type="radio" value="2" />
+                    Accettabile
+                </p>
+            </td>
+            <td>
+                <p>
+                    <input id="Tassonomia_SecondoPiatto_Sapore3" name="Tassonomia_SecondoPiatto_Sapore" type="radio" value="3" />
+                    Non accettabile
+                </p>
+            </td>
+        </tr>
+        <tr class="Rigaintestazione">
+            <td colspan="4">
+                <p class="Labeltabella">
+                    Contorno
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 43%;">
+                <p> Temperatura del cibo </p>
+            </td>
+            <td style="width: 19%;">
+                <p>
+                    <input id="Tassonomia_Contorno_TemperaturaCibo1" name="Tassonomia_Contorno_TemperaturaCibo" type="radio" value="1" />
+                    Caldo
+                </p>
+            </td>
+            <td style="width: 19%;">
+                <p>
+                    <input id="Tassonomia_Contorno_TemperaturaCibo2" name="Tassonomia_Contorno_TemperaturaCibo" type="radio" value="2" />
+                    Tiepido
+                </p>
+            </td>
+            <td style="width: 19%;">
+                <p>
+                    <input id="Tassonomia_Contorno_TemperaturaCibo3" name="Tassonomia_Contorno_TemperaturaCibo" type="radio" value="3" />
+                    Freddo
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <p> Cottura del cibo </p>
+            </td>
+            <td>
+                <p>
+                    <input id="Tassonomia_Contorno_CotturaCibo1" name="Tassonomia_Contorno_CotturaCibo" type="radio" value="1" />
+                    Adeguata
+                </p>
+            </td>
+            <td>
+                <p>
+                    <input id="Tassonomia_Contorno_CotturaCibo2" name="Tassonomia_Contorno_CotturaCibo" type="radio" value="2" />
+                    Eccessiva
+                </p>
+            </td>
+            <td>
+                <p>
+                    <input id="Tassonomia_Contorno_CotturaCibo3" name="Tassonomia_Contorno_CotturaCibo" type="radio" value="3" />
+                    Scarsa
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <p> Quantità delle porzioni </p>
+            </td>
+            <td>
+                <p>
+                    <input id="Tassonomia_Contorno_QuantitaPorzioni1" name="Tassonomia_Contorno_QuantitaPorzioni" type="radio" value="1" />
+                    Sufficiente
+                </p>
+            </td>
+            <td>
+                <p>
+                    <input id="Tassonomia_Contorno_QuantitaPorzioni2" name="Tassonomia_Contorno_QuantitaPorzioni" type="radio" value="2" />
+                    Abbondante
+                </p>
+            </td>
+            <td>
+                <p>
+                    <input id="Tassonomia_Contorno_QuantitaPorzioni3" name="Tassonomia_Contorno_QuantitaPorzioni" type="radio" value="3" />
+                    Scarsa
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <p> Sapore </p>
+            </td>
+            <td>
+                <p>
+                    <input id="Tassonomia_Contorno_Sapore1" name="Tassonomia_Contorno_Sapore" type="radio" value="1" />
+                    Gradevole
+                </p>
+            </td>
+            <td>
+                <p>
+                    <input id="Tassonomia_Contorno_Sapore2" name="Tassonomia_Contorno_Sapore" type="radio" value="2" />
+                    Accettabile
+                </p>
+            </td>
+            <td>
+                <p>
+                    <input id="Tassonomia_Contorno_Sapore3" name="Tassonomia_Contorno_Sapore" type="radio" value="3" />
+                    Non accettabile
+                </p>
+            </td>
+        </tr>
+        <tr class="Rigaintestazione">
+            <td colspan="4">
+                <p class="Labeltabella">
+                    Pane
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <p> Tipo di farina </p>
+            </td>
+            <td>
+                <p>
+                    <input id="Tassonomia_Pane_TipoFarina1" name="Tassonomia_Pane_TipoFarina" type="radio" value="1" />
+                    Integrale
+                </p>
+            </td>
+            <td>
+                <p>
+                    <input id="Tassonomia_Pane_TipoFarina2" name="Tassonomia_Pane_TipoFarina" type="radio" value="2" />
+                    00/0
+                </p>
+            </td>
+            <td>
+                <p>
+                    <input id="Tassonomia_Pane_TipoFarina3" name="Tassonomia_Pane_TipoFarina" type="radio" value="3" />
+                    1/2
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <p> Qualità </p>
+            </td>
+            <td>
+                <p>
+                    <input id="Tassonomia_Pane_Qualita1" name="Tassonomia_Pane_Qualita" type="radio" value="1" />
+                    Buona
+                </p>
+            </td>
+            <td>
+                <p>
+                    <input id="Tassonomia_Pane_Qualita2" name="Tassonomia_Pane_Qualita" type="radio" value="2" />
+                    Mediocre
+                </p>
+            </td>
+            <td>
+                <p>
+                    <input id="Tassonomia_Pane_Qualita3" name="Tassonomia_Pane_Qualita" type="radio" value="3" />
+                    Scarsa
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <p> È presente sui tavoli prima della refezione </p>
+            </td>
+            <td>
+                <p>
+                    <input id="Tassonomia_Pane_Presenza1" name="Tassonomia_Pane_Presenza" type="radio" value="1" />
+                    Sì
+                </p>
+            </td>
+            <td>
+                <p>
+                    <input id="Tassonomia_Pane_Presenza2" name="Tassonomia_Pane_Presenza" type="radio" value="2" />
+                    No
+                </p>
+            </td>
+            <td></td>
+        </tr>
+        <tr class="Rigaintestazione">
+            <td colspan="4">
+                <p class="Labeltabella">
+                    Frutta
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <p> Stato di maturazione </p>
+            </td>
+            <td>
+                <p>
+                    <input id="Tassonomia_Frutta_StatoMaturazione1" name="Tassonomia_Frutta_StatoMaturazione" type="radio" value="1" />
+                    Accettabile
+                </p>
+            </td>
+            <td>
+                <p>
+                    <input id="Tassonomia_Frutta_StatoMaturazione2" name="Tassonomia_Frutta_StatoMaturazione" type="radio" value="2" />
+                    Insufficiente
+                </p>
+            </td>
+            <td>
+                <p>
+                    <input id="Tassonomia_Frutta_StatoMaturazione3" name="Tassonomia_Frutta_StatoMaturazione" type="radio" value="3" />
+                    Eccessivo
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <p> Viene servita </p>
+            </td>
+            <td>
+                <p>
+                    <input id="Tassonomia_Frutta_Orario1" name="Tassonomia_Frutta_Orario" type="radio" value="1" />
+                    Durante il pasto
+                </p>
+            </td>
+            <td>
+                <p>
+                    <input id="Tassonomia_Frutta_Orario2" name="Tassonomia_Frutta_Orario" type="radio" value="2" />
+                    A metà mattina
+                </p>
+            </td>
+            <td></td>
+        </tr>
+        <tr class="Rigaintestazione">
+            <td colspan="4">
+                <p class="Labeltabella">
+                    Giudizio globale
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <p> Nel complesso la qualità del pasto è </p>
+            </td>
+            <td>
+                <p>
+                    <input id="Tassonomia_GiudizioGlobale_QualitaPasto1" name="Tassonomia_GiudizioGlobale_QualitaPasto" type="radio" value="1" />
+                    Buona
+                </p>
+            </td>
+            <td>
+                <p>
+                    <input id="Tassonomia_GiudizioGlobale_QualitaPasto2" name="Tassonomia_GiudizioGlobale_QualitaPasto" type="radio" value="2" />
+                    Sufficiente
+                </p>
+            </td>
+            <td>
+                <p>
+                    <input id="Tassonomia_GiudizioGlobale_QualitaPasto3" name="Tassonomia_GiudizioGlobale_QualitaPasto" type="radio" value="3" />
+                    Insufficiente
+                </p>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<globo_salto_pagina></globo_salto_pagina>
+
+<div id="Tassonomia_PuliziaLocali" name="Tassonomia_PuliziaLocali" label="Pulizia locali" mandatory="true"></div>
+<div id="Tassonomia_PuliziaArredi" name="Tassonomia_PuliziaArredi" label="Pulizia arredi" mandatory="true"></div>
+<table class="Modulo" style="border: 1px solid grey;">
+    <tbody>
+        <tr class="Rigaintestazione">
+            <td colspan="4">
+                <p class="Labeltabella">
+                    Valutazione degli ambienti
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 43%;">
+                <p>
+                    Pulizia dei locali
+                </p>
+            </td>
+            <td style="width: 19%;">
+                <p>
+                    <input id="Tassonomia_PuliziaLocali1" name="Tassonomia_PuliziaLocali" type="radio" value="1" />
+                    Buona
+                </p>
+            </td>
+            <td style="width: 19%;">
+                <p>
+                    <input id="Tassonomia_PuliziaLocali2" name="Tassonomia_PuliziaLocali" type="radio" value="2" />
+                    Sufficiente
+                </p>
+            </td>
+            <td style="width: 19%;">
+                <p>
+                    <input id="Tassonomia_PuliziaLocali3" name="Tassonomia_PuliziaLocali" type="radio" value="3" />
+                    Insufficiente
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <p>
+                    Pulizia degli arredi
+                </p>
+            </td>
+            <td>
+                <p>
+                    <input id="Tassonomia_PuliziaArredi1" name="Tassonomia_PuliziaArredi" type="radio" value="1" />
+                    Buona
+                </p>
+            </td>
+            <td>
+                <p>
+                    <input id="Tassonomia_PuliziaArredi2" name="Tassonomia_PuliziaArredi" type="radio" value="2" />
+                    Sufficiente
+                </p>
+            </td>
+            <td>
+                <p>
+                    <input id="Tassonomia_PuliziaArredi3" name="Tassonomia_PuliziaArredi" type="radio" value="3" />
+                    Insufficiente
+                </p>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<table class="Modulo" style="border: 1px solid grey;">
+    <tbody>
+        <tr class="Rigaintestazione">
+            <td colspan="3">
+                <p class="Labeltabella">
+                    Valutazione dei tempi del servizio
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 43%;">
+                <p>
+                    Durata della distribuzione
+                </p>
+            </td>
+            <td style="width: 10%; border-right: 0;">
+                <input class="inputNormal" id="Parametri_DurataDistribuzione" name="Parametri_DurataDistribuzione" style="width: 100%;" label="Durata distribuzione" format="number" mandatory="true" />
+            </td>
+            <td style="border-left: 0">
+                <p>
+                    minuti
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 43%;">
+                <p>
+                    Durata complessiva del pasto
+                </p>
+            </td>
+            <td style="width: 10%; border-right: 0;">
+                <input class="inputNormal" id="Parametri_DurataComplessivaPasto" name="Parametri_DurataComplessivaPasto" style="width: 100%;" label="Durata complessiva pasto" format="number" mandatory="true" />
+            </td>
+            <td style="border-left: 0">
+                <p>
+                    minuti
+                </p>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<table class="Modulo" style="border: 1px solid grey;">
+    <tbody>
+        <tr class="Rigaintestazione">
+            <td colspan="4">
+                <p class="Labeltabella" style="text-align: center">
+                    Indice di gradimento del pasto
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <p>
+                    Numero totale di bambini presenti in mensa:
+                </p>
+            </td>
+            <td colspan="2">
+                <input class="inputNormal" id="Parametri_NumeroTotaleBambini" name="Parametri_NumeroTotaleBambini" style="width: 19%;" label="Numero bambini" format="number" mandatory="true"/>
+            </td>
+        </tr>
+        <tr class="Rigaintestazione">
+            <td colspan="4">
+                <p class="Labeltabella">
+                    Numero dei bambini che hanno mangiato più della metà della porzione servita
+                </p>
+            </td>
+        </tr>
+        <tr class="Rigaintestazioneridotta">
+            <td style="width: 25%;">
+                <p class="Labelcella">
+                    Primo piatto
+                </p>
+            </td>
+            <td style="width: 25%;">
+                <p class="Labelcella">
+                    Secondo piatto
+                </p>
+            </td>
+            <td style="width: 25%;">
+                <p class="Labelcella">
+                    Contorno
+                </p>
+            </td>
+            <td style="width: 25%;">
+                <p class="Labelcella">
+                    Frutta
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input class="inputNormal" id="Parametri_PrimoPiatto_NumeroBambiniMetaPorzione" name="Parametri_PrimoPiatto_NumeroBambiniMetaPorzione" style="width: 100%;" label="Numero bambini" format="number" mandatory="true"/>
+            </td>
+            <td>
+                <input class="inputNormal" id="Parametri_SecondoPiatto_NumeroBambiniMetaPorzione" name="Parametri_SecondoPiatto_NumeroBambiniMetaPorzione" style="width: 100%;" label="Numero bambini" format="number" mandatory="true"/>
+            </td>
+            <td>
+                <input class="inputNormal" id="Parametri_Contorno_NumeroBambiniMetaPorzione" name="Parametri_Contorno_NumeroBambiniMetaPorzione" style="width: 100%;" label="Numero bambini" format="number" mandatory="true"/>
+            </td>
+            <td>
+                <input class="inputNormal" id="Parametri_Frutta_NumeroBambiniMetaPorzione" name="Parametri_Frutta_NumeroBambiniMetaPorzione" style="width: 100%;" label="Numero bambini" format="number" mandatory="true"/>
+            </td>
+        </tr>
+        <tr class="Rigaintestazione">
+            <td colspan="4">
+                <p class="Labeltabella">
+                    Indice di gradimento del piatto (*)
+                </p>
+            </td>
+        </tr>
+        <tr class="Rigaintestazioneridotta">
+            <td style="width: 25%;">
+                <p class="Labelcella">
+                    Primo piatto
+                </p>
+            </td>
+            <td style="width: 25%;">
+                <p class="Labelcella">
+                    Secondo piatto
+                </p>
+            </td>
+            <td style="width: 25%;">
+                <p class="Labelcella">
+                    Contorno
+                </p>
+            </td>
+            <td style="width: 25%;">
+                <p class="Labelcella">
+                    Frutta
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input class="inputNormal" id="Parametri_PrimoPiatto_IndiceGradimento" name="Parametri_PrimoPiatto_IndiceGradimento" style="width: 100%;" label="Indice gradimento"
+                dynamic_value="(#Parametri_PrimoPiatto_NumeroBambiniMetaPorzione.value() == '' || #Parametri_NumeroTotaleBambini.value() == '') ? '' :
+                                ((parseFloat((parseInt(#Parametri_PrimoPiatto_NumeroBambiniMetaPorzione.value())/(parseInt(#Parametri_NumeroTotaleBambini.value()))) > 0 ? (parseInt(#Parametri_PrimoPiatto_NumeroBambiniMetaPorzione.value())/(parseInt(#Parametri_NumeroTotaleBambini.value()))) : 0)) >= parseFloat(0.75) ? 'totalmente accettato' :
+                                ((parseFloat((parseInt(#Parametri_PrimoPiatto_NumeroBambiniMetaPorzione.value())/(parseInt(#Parametri_NumeroTotaleBambini.value()))) > 0 ? (parseInt(#Parametri_PrimoPiatto_NumeroBambiniMetaPorzione.value())/(parseInt(#Parametri_NumeroTotaleBambini.value()))) : 0)) >= parseFloat(0.5) ? 'parzialmente accettato' :
+                                ((parseFloat((parseInt(#Parametri_PrimoPiatto_NumeroBambiniMetaPorzione.value())/(parseInt(#Parametri_NumeroTotaleBambini.value()))) > 0 ? (parseInt(#Parametri_PrimoPiatto_NumeroBambiniMetaPorzione.value())/(parseInt(#Parametri_NumeroTotaleBambini.value()))) : 0)) >= parseFloat(0.25) ? 'parzialmente rifiutato' : 'totalmente rifiutato')))" readonly/>
+            </td>
+            <td>
+                <input class="inputNormal" id="Parametri_SecondoPiatto_IndiceGradimento" name="Parametri_SecondoPiatto_IndiceGradimento" style="width: 100%;" label="Indice gradimento"
+                dynamic_value="(#Parametri_SecondoPiatto_NumeroBambiniMetaPorzione.value() == '' || #Parametri_NumeroTotaleBambini.value() == '') ? '' :
+                                ((parseFloat((parseInt(#Parametri_SecondoPiatto_NumeroBambiniMetaPorzione.value())/(parseInt(#Parametri_NumeroTotaleBambini.value()))) > 0 ? (parseInt(#Parametri_SecondoPiatto_NumeroBambiniMetaPorzione.value())/(parseInt(#Parametri_NumeroTotaleBambini.value()))) : 0)) >= parseFloat(0.75) ? 'totalmente accettato' :
+                                ((parseFloat((parseInt(#Parametri_SecondoPiatto_NumeroBambiniMetaPorzione.value())/(parseInt(#Parametri_NumeroTotaleBambini.value()))) > 0 ? (parseInt(#Parametri_SecondoPiatto_NumeroBambiniMetaPorzione.value())/(parseInt(#Parametri_NumeroTotaleBambini.value()))) : 0)) >= parseFloat(0.5) ? 'parzialmente accettato' :
+                                ((parseFloat((parseInt(#Parametri_SecondoPiatto_NumeroBambiniMetaPorzione.value())/(parseInt(#Parametri_NumeroTotaleBambini.value()))) > 0 ? (parseInt(#Parametri_SecondoPiatto_NumeroBambiniMetaPorzione.value())/(parseInt(#Parametri_NumeroTotaleBambini.value()))) : 0)) >= parseFloat(0.25) ? 'parzialmente rifiutato' : 'totalmente rifiutato')))" readonly/>
+            </td>
+            <td>
+                <input class="inputNormal" id="Parametri_Contorno_IndiceGradimento" name="Parametri_Contorno_IndiceGradimento" style="width: 100%;" label="Indice gradimento"
+                dynamic_value="(#Parametri_Contorno_NumeroBambiniMetaPorzione.value() == '' || #Parametri_NumeroTotaleBambini.value() == '') ? '' :
+                                ((parseFloat((parseInt(#Parametri_Contorno_NumeroBambiniMetaPorzione.value())/(parseInt(#Parametri_NumeroTotaleBambini.value()))) > 0 ? (parseInt(#Parametri_Contorno_NumeroBambiniMetaPorzione.value())/(parseInt(#Parametri_NumeroTotaleBambini.value()))) : 0)) >= parseFloat(0.75) ? 'totalmente accettato' :
+                                ((parseFloat((parseInt(#Parametri_Contorno_NumeroBambiniMetaPorzione.value())/(parseInt(#Parametri_NumeroTotaleBambini.value()))) > 0 ? (parseInt(#Parametri_Contorno_NumeroBambiniMetaPorzione.value())/(parseInt(#Parametri_NumeroTotaleBambini.value()))) : 0)) >= parseFloat(0.5) ? 'parzialmente accettato' :
+                                ((parseFloat((parseInt(#Parametri_Contorno_NumeroBambiniMetaPorzione.value())/(parseInt(#Parametri_NumeroTotaleBambini.value()))) > 0 ? (parseInt(#Parametri_Contorno_NumeroBambiniMetaPorzione.value())/(parseInt(#Parametri_NumeroTotaleBambini.value()))) : 0)) >= parseFloat(0.25) ? 'parzialmente rifiutato' : 'totalmente rifiutato')))" readonly/>
+            </td>
+            <td>
+                <input class="inputNormal" id="Parametri_Frutta_IndiceGradimento" name="Parametri_Frutta_IndiceGradimento" style="width: 100%;" label="Indice gradimento"
+                dynamic_value="(#Parametri_Frutta_NumeroBambiniMetaPorzione.value() == '' || #Parametri_NumeroTotaleBambini.value() == '') ? '' :
+                                ((parseFloat((parseInt(#Parametri_Frutta_NumeroBambiniMetaPorzione.value())/(parseInt(#Parametri_NumeroTotaleBambini.value()))) > 0 ? (parseInt(#Parametri_Frutta_NumeroBambiniMetaPorzione.value())/(parseInt(#Parametri_NumeroTotaleBambini.value()))) : 0)) >= parseFloat(0.75) ? 'totalmente accettato' :
+                                ((parseFloat((parseInt(#Parametri_Frutta_NumeroBambiniMetaPorzione.value())/(parseInt(#Parametri_NumeroTotaleBambini.value()))) > 0 ? (parseInt(#Parametri_Frutta_NumeroBambiniMetaPorzione.value())/(parseInt(#Parametri_NumeroTotaleBambini.value()))) : 0)) >= parseFloat(0.5) ? 'parzialmente accettato' :
+                                ((parseFloat((parseInt(#Parametri_Frutta_NumeroBambiniMetaPorzione.value())/(parseInt(#Parametri_NumeroTotaleBambini.value()))) > 0 ? (parseInt(#Parametri_Frutta_NumeroBambiniMetaPorzione.value())/(parseInt(#Parametri_NumeroTotaleBambini.value()))) : 0)) >= parseFloat(0.25) ? 'parzialmente rifiutato' : 'totalmente rifiutato')))" readonly/>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<p class="Modulo" style="font-size:80%;">
+    <i>Opzioni (relative al numero dei bambini che hanno mangiato più della metà della porzione servita) (*)</i>:<br/>
+    (tra il 75% e 100%)	totalmente accettato,
+    (tra il 50% e 74%) parzialmente accettato,
+    (tra il 25% e 49%) parzialmente rifiutato,
+    (tra 0% e 24%) totalmente rifiutato
+</p>
+<br>
+
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          Eventuali annotazioni
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <textarea class="inputNormal" id="Parametri_Annotazioni" name="Parametri_Annotazioni" style="width: 100%; height: 5cm;" label="Eventuali annotazioni"></textarea>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<br>
+
+<table class="Modulo" name="Allegati" style="border: 1px solid grey">
+    <tbody>
+        <tr class="Rigaintestazione">
+            <td colspan="2">
+                <p style="text-align: center;">
+                    <b>
+                        Elenco degli allegati
+                    </b>
+                    <br/>
+                    <span style="font-size:70%">
+                        <i>(barrare tutti gli allegati richiesti in fase di presentazione della pratica ed elencati sul portale)</i>
+                    </span>
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td style="vertical-align: top; width: 4%;">
+                <input id="DAE-CDI" name="DAE-CDI" type="checkbox" value="OBBLIGATORIO" />
+            </td>
+            <td style="background-color: #eeeeee;">
+                <p>
+                    copia del documento d'identità
+                    <br/>
+                    <span style="font-size:70%">
+                        <i>(da allegare se il modulo è sottoscritto con firma autografa)</i>
+                    </span>
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td style="vertical-align: top; width: 4%;">
+                <input id="ALTRI-ALLEGATI" name="ALTRI-ALLEGATI" type="checkbox" value="OBBLIGATORIO"/>
+            </td>
+            <td style="background-color: #eeeeee;">
+                <p>
+                    altri allegati
+                    <span style="font-size:70%">(specificare)</span>
+                    <input class="" label="Altri allegati" id="AltriAllegati" mandatory_enabled="#ALTRI_ALLEGATI.checked()" name="AltriAllegati" style="width:79%;"/>
+                </p>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<br/>
+    {{ utils.firma_hidden() }}
+<br/>
+
+<p class="Modulo">
+    <input id="SalvaModulo" name="SalvaModulo" style="height:30px;width:120px;" title="Verifica la corretta compilazione dei campi e salva il modulo nel faldone virtuale dell'istanza." type="submit" value="Salva modulo"/>
+</p>
+
+<input destinatario_amministrazione="getParameter('Ente')" id="GLOBO_modulo_c{{ CodiceModulo }}" name="GLOBO_modulo_c{{ CodiceModulo }}" type="hidden" value=""/>
+<input firmare="'NO'" id="GLOBO_modulofiglio_cIncarico_procura" name="GLOBO_modulofiglio_cIncarico_procura" type="hidden" value=""/>
+
+<input id="GLOBO_allegato_cDAE-CDI" name="GLOBO_allegato_cDAE-CDI" obbligatorio="#DAE_CDI.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+<input id="GLOBO_allegato_cALTRI-ALLEGATI" name="GLOBO_allegato_cALTRI-ALLEGATI" obbligatorio="#ALTRI_ALLEGATI.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_id_padre" name="GLOBO_id_padre" type="hidden"/>
+<input id="GLOBO_recupera_dati" name="GLOBO_recupera_dati" type="hidden"/>
+<input id="GLOBO_codice_modulo" name="GLOBO_codice_modulo" type="hidden" value="{{ CodiceModulo }}"/>
+
+{% endblock content %}

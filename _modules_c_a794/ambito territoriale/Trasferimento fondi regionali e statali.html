@@ -1,0 +1,417 @@
+{% set CodiceModulo = "FON_REG_STAT" %}
+{% set Urn = "document:c_a794:trasferimento.fondi.statali.regionali;domanda" %}
+{% extends "base.html" %}
+
+{% block meta %}
+
+<meta campi_firma="Titolare_CodiceFiscale"
+campi_firma_label="il dichiarante"
+classi_modulo="Servizi scolastici"
+codice_modulo="{{ CodiceModulo }}"
+urn="{% block urn %}{{ Urn }}{% endblock urn %}"
+sub_urn_list=""
+uo_globo_list=""
+descrizione="Trasferimento fondi regionali o statali"
+destinatario_amministrazione=""
+destinatario_ufficio="UOAMBITOTERRITORIALE"
+dinamico="SI"
+email_a=""
+ente_abilitato="TUTTI"
+filigrana="SI"
+firmare="P7M_ELETTRONICA"
+istruzioni_compilazione=""
+istruzioni_invio="mail_pec"
+metodo_invio="mail"
+name="GLOBO_modulo"
+procura="NO,,"
+tipo_modulo="principale"
+urlhelp="/modulistica/moduli/{{ CodiceModulo }}"
+verifica_pagamento="NO"
+versione="1.5|23/07/2019"/>
+
+<meta codice_modulo_figlio="INCARICO_PROCURA"
+urn_modulo_figlio="document:s_italia:generale;incarico.procura"
+name="GLOBO_modulofiglio"
+numero="1"
+obbligatorio="DINAMICO"/>
+
+<meta codice_allegato="ALTRI-ALLEGATI"
+urn_allegato="document:s_italia:altri.allegati"
+descrizione_estesa="Altri allegati"
+filename="Altri allegati.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/ALTRI-ALLEGATI"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+{% endblock meta %}
+
+{% block title %}
+ Trasferimento fondi regionali o statali
+{% endblock title %}
+ 
+{% block content %}
+
+<globo_fondo_pagina areaheight="150" scope="2">
+  {{ utils.firma() }}
+</globo_fondo_pagina>
+
+<input id="Parametri_Comune" name="Parametri_Comune" type="hidden" dynamic_value="#Ente.value()" />
+<input id="Oggetto" name="Oggetto" type="hidden" dynamic_value="#Titolare_Cognome.value().toUpperCase() + ' ' + #Titolare_Nome.value().toUpperCase() + ' - Trasferimento fondi regionali o statali '"/>
+
+{{ intestazioni.intestazione_moduloprincipale_senzabollo() }}
+
+<h1 class="Modulo">
+  Trasferimento fondi regionali o statali
+</h1>
+
+{{ anagrafica.societa("Titolare", "Il sottoscritto", ["Persona fisica", "Titolare", "Legale rappresentante"], "Richiedente", "visibility:visibility", "cursor:pointer", "mail_ordinaria", "false") }}
+
+<br>
+<div id="Tassonomia_TipologiaAssociazione" name="Tassonomia_TipologiaAssociazione" label="Tipologia Associazione" mandatory="true"></div>
+<table class="Modulo" style="border: 1px solid grey;">
+    <tbody>
+        <tr class="Rigaintestazione">
+            <td colspan="2">
+                <p class="Labeltabella">
+                     Selezionare la tipologia di Associazione o Ente
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td style="vertical-align: top; width: 4%;">
+                <input id="Tassonomia_TipologiaAssociazione1" name="Tassonomia_TipologiaAssociazione" type="radio" value="1" />
+            </td>
+            <td>
+                <p>
+                    Associazione di promozione sociale, ai sensi della legge 383/2000
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td style="vertical-align: top; width: 4%;">
+                <input id="Tassonomia_TipologiaAssociazione2" name="Tassonomia_TipologiaAssociazione" type="radio" value="2" />
+            </td>
+            <td>
+                <p>
+                    Ente di volontariato, ai sensi della legge 266/1991
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td style="vertical-align: top; width: 4%;">
+                <input id="Tassonomia_TipologiaAssociazione3" name="Tassonomia_TipologiaAssociazione" type="radio" value="3" />
+            </td>
+            <td>
+                <p>
+                    Associazione non governativa, ai sensi della legge 49/1987
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td style="vertical-align: top; width: 4%;">
+                <input id="Tassonomia_TipologiaAssociazione4" name="Tassonomia_TipologiaAssociazione" type="radio" value="4" />
+            </td>
+            <td>
+                <p>
+                    Cooperativa sociale, ai sensi della legge 381/1991
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td style="vertical-align: top; width: 4%;">
+                <input id="Tassonomia_TipologiaAssociazione5" name="Tassonomia_TipologiaAssociazione" type="radio" value="5" />
+            </td>
+            <td>
+                <p>
+                    Associazione sportiva dilettantistica, ai sensi dell'art. 90 della legge 289/2002
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td style="vertical-align: top; width: 4%;">
+                <input id="Tassonomia_TipologiaAssociazione6" name="Tassonomia_TipologiaAssociazione" type="radio" value="6" />
+            </td>
+            <td>
+                <p>
+                    Associazione rappresentativa, di coordinamento e di supporto degli enti territoriali e locali
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td style="vertical-align: top; width: 4%;">
+                <input id="Tassonomia_TipologiaAssociazione7" name="Tassonomia_TipologiaAssociazione" type="radio" value="7" />
+            </td>
+            <td>
+                <p>
+                    Fondazione istituita con lo scopo di promuovere lo sviluppo tecnologico
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td style="vertical-align: top; width: 4%;">
+                <input id="Tassonomia_TipologiaAssociazione8" name="Tassonomia_TipologiaAssociazione" type="radio" value="8" />
+            </td>
+            <td>
+                <p>
+                    Fondazione istituita con lo scopo di promuovere l'alta formazione tecnologica
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td style="vertical-align: top; width: 4%;">
+                <input id="Tassonomia_TipologiaAssociazione9" name="Tassonomia_TipologiaAssociazione" type="radio" value="9" />
+            </td>
+            <td>
+                <p>
+                    Fondazione operante nel campo dei servizi socio-assistenziali
+                </p>
+            </td>
+        </tr>
+        <tr>
+        <td style="vertical-align: top; width: 4%;">
+                <input id="Tassonomia_TipologiaAssociazione10" name="Tassonomia_TipologiaAssociazione" type="radio" value="10" />
+            </td>
+            <td>
+                <p>
+                    Fondazione operante nel campo dell'istruzione e della formazione
+                </p>
+            </td>
+        </tr>
+        <td style="vertical-align: top; width: 4%;">
+                <input id="Tassonomia_TipologiaAssociazione11" name="Tassonomia_TipologiaAssociazione" type="radio" value="11" />
+            </td>
+            <td>
+                <p>
+                    Altro
+                </p>
+                  <input class="inputNormal" id="Parametri_AltroAssociazione" name="Parametri_AltroAssociazione" style="width: 100%;" label="Altro Associazione" mandatory_enabled="#Tassonomia_TipologiaAssociazione11.checked()" />
+            </td>
+        </tr>
+        </tbody>
+        </table>
+<br>
+<h3 class="Modulo">
+  AVVISO/BANDO DI RIFERIMENTO (specificare deliberazione e/o determinazione e nome progetto)
+</h3>
+<table class="Modulo" style="border:1px solid grey;margin-top: -1px">
+  <tr class="Rigaintestazione">
+    <td style="width: 50%">
+      <p class="Labelcella">
+        N.Protocollo
+      </p>
+    </td>
+      <td style="width: 50%">
+      <p class="Labelcella">
+        Anno Protocollo
+      </p>
+    </td>
+</tr>
+<tr>
+      <td style="width: 50%">
+        <input class="inputNormal" id="Parametri_NumeroProtocollo" name="Parametri_NumeroProtocollp" style="width: 100%;" label="NumeroProtocollo" mandatory="true" />
+      </td>
+      <td style="width: 50%">
+      <input class="inputNormal" id="Parametri_AnnoProtocollo" name="Parametri_AnnoProtocollo" style="width: 100%;" label="AnnoProtocollo" mandatory="true" />
+      </td>
+</tr>
+</table>
+<table class="Modulo" style="border:1px solid grey;margin-top: -1px">
+  <tr class="Rigaintestazione">
+    <td>
+        <p class="Labelcella">
+        Nome Progetto regionale o statale
+      </p>
+      </td>
+  </tr>
+  <tr>
+    <td>
+      <input class="inputNormal" id="Parametri_NomeProgetto" name="Parametri_NomeProgetto" style="width: 100%;" label="Nome del progetto" mandatory_enabled="true"/>
+    </td>    
+  </tr>
+  </table>
+  <h3 class="Modulo">
+  CHIEDE 
+</h3>
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+   <p>
+     il trasferimento della quota di finaziamento regionale / statale 
+   </p>
+   <tr class="Rigaintestazione">
+    <td style="width: 50%">
+        <p class="Labelcella">
+        Importo
+      </p>
+      </td>
+      <td style="width: 50%">
+      N. Tranche
+      </td>
+  </tr>
+  <tr>
+    <td>
+      <input class="inputNormal" id="Parametri_Importo" name="Parametri_Importo" style="width: 100%;" mandatory_enabled="true"/>
+    </td>
+    <td>
+    <select name="Parametri_NumeroTranche" id="Parametri_NumeroTranche" style="width: 100%;" label="Numero Tranche" >
+            <option value=""></option>
+            <option value="prima"> Prima tranche </option>
+            <option value="seconda">Seconda tranche</option>
+            <option value="terza">Terza tranche</option>
+            <option value="quarta">Quarta tranche</option>
+            <option value="quinta">Quinta tranche</option>
+            <option value="sesta"> Sesta tranche</option>
+            <option value="settima">Settima tranche</option>
+            <option value="ottava">Ottava tranche</option>
+            <option value="nona">Nona tranche</option>
+            <option value="decima">Decima tranche</option>
+    </select>
+    </td>
+    </tr>
+     </tbody>
+  </table>
+  {{ utils.Dichiara_445() }}
+
+  <p class="Modulo">
+  che la somma corrisposta da comune di Bergamo a titolo di trasferimento finanziamento regionale o statale per
+la realizzazione delle azioni del progetto di cui al sopracitato bando, in qualità di partner effettivo
+</p>
+<table class="Modulo" style="border: 1px solid">
+ <div id="Tassonomia_Ricavo" name="Tassonomia_Ricavo" label="Ricavo" mandatory="true"></div>
+    <tr>
+            <td style="vertical-align: top; width: 4%;">
+                <input id="Tassonomia_Ricavo1" name="Tassonomia_Ricavo" type="radio" value="1" />
+            </td>
+            <td>
+                <p>
+                    Costituisce ricavo
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td style="vertical-align: top; width: 4%;">
+                <input id="Tassonomia_Ricavo2" name="Tassonomia_Ricavo" type="radio" value="2" />
+            </td>
+            <td>
+                <p>
+                    Non costituisce ricavo
+                </p>
+            </td>
+        </tr>
+    </table>
+<table class="Modulo" style="border: 1px solid">
+<tr>
+  <td style="width: 4%" >
+  <input id="SPESE" name="SPESE" type="checkbox" dynamic_check="true" checked="checked"/>
+  </td>
+  <td>
+    Dichiara, inoltre, che quanto richiesto corrisponde alle spese effettivamente sostenute per la realizzazione delle azioni afferenti al progetto e
+rendicontabili attraverso documentazione giustificativa
+  </td>
+</tr>
+
+</table>
+
+<table class="Modulo" style="border:1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="2">
+        <p class="Labeltabella"> Chiede che il finanziamento venga erogato sul seguente conto corrente bancario </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td style="width: 50%;">
+        <p class="Labelcella"> Istituto </p>
+      </td>
+      <td style="width: 50%;">
+        <p class="Labelcella"> Numero conto corrente </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input class="inputNormal" id="Parametri_Istituto" name="Parametri_Istituto" style="width: 100%;" label="Istituto" mandatory_enabled="true">
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_Numero_CC" name="Parametri_Numero_CC" style="width: 100%;" label="Numero conto corrente" mandatory_enabled="true">
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella"> IBAN </p>
+      </td>
+      <td>
+        <p class="Labelcella"> Codice BIC (swift) </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input class="inputNormal" id="Parametri_IBAN" name="Parametri_IBAN" style="width: 100%;" label="IBAN" mandatory="true"/>
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_BIC_swift" name="Parametri_BIC_swift" style="width: 100%;" label="Codice BIC (swift)" mandatory_enabled="#Parametri_IBAN.value() != '' and (!#Parametri_IBAN.value().toUpperCase().startsWith('IT'))">
+      </td>
+    </tr>
+  </tbody>
+</table>
+<input type="hidden" id="CheckIBAN1" name="CheckIBAN1" dynamic_check="(#Parametri_IBAN.value().toUpperCase().startsWith('IT')) and (#Parametri_IBAN.value().toString().length != 27)">
+<input type="hidden" id="CheckIBAN2" name="CheckIBAN2" dynamic_check="(#Parametri_IBAN.value().toUpperCase().startsWith('IT')) and (#Parametri_IBAN.value().toString().length == 27) and (!/^IT[0-9]{2}[a-zA-Z][a-zA-Z0-9]{22}$/.test(#Parametri_IBAN.value()))">
+<input type="hidden" id="CheckIBAN3" name="CheckIBAN3" dynamic_check="(#Parametri_IBAN.value().toUpperCase().startsWith('IT')) and (#Parametri_IBAN.value().toString().length == 27) and (#Parametri_IBAN.value().substring(15, 27) != #Parametri_Numero_CC.value())">
+<input type="hidden" id="CheckIBANInput1" name="CheckIBANInput1" label="Controlla la lunghezza del codice IBAN" mandatory="#CheckIBAN1.checked()">
+<input type="hidden" id="CheckIBANInput2" name="CheckIBANInput2" label="Controlla il formato del codice IBAN" mandatory="#CheckIBAN2.checked()">
+<input type="hidden" id="CheckIBANInput3" name="CheckIBANInput3" label="Le ultime 12 cifre dell'IBAN non corrispondono al numero di conto corrente" mandatory="#CheckIBAN3.checked()">
+
+<br>
+
+<br>
+<table class="Modulo" name="Allegati" style="border: 1px solid grey">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="2">
+        <p style="text-align: center;">
+          <b>
+            Elenco degli allegati
+          </b>
+          <br/>
+          <span style="font-size:70%">
+            <i>(barrare tutti gli allegati richiesti in fase di presentazione della pratica ed elencati sul portale)</i>
+          </span>
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="ALTRI-ALLEGATI" name="ALTRI-ALLEGATI" type="checkbox" value="OBBLIGATORIO"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          altri allegati
+          <span style="font-size:70%">(specificare)</span>
+          <input class="" label="Altri allegati" id="AltriAllegati" mandatory_enabled="#ALTRI_ALLEGATI.checked()" name="AltriAllegati" style="width:79%;"/>
+        </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<br>
+{{ utils.trattamento_dati_personali() }}
+<br/>
+  {{ utils.firma_hidden() }}
+<br/>
+
+<p class="Modulo">
+  <input id="SalvaModulo" name="SalvaModulo" style="height:30px;width:120px;" title="Verifica la corretta compilazione dei campi e salva il modulo nel faldone virtuale dell'istanza." type="submit" value="Salva modulo"/>
+</p>
+
+<input destinatario_amministrazione="getParameter('Ente')" id="GLOBO_modulo_c{{ CodiceModulo }}" name="GLOBO_modulo_c{{ CodiceModulo }}" type="hidden" value=""/>
+<input firmare="'P7M_ELETTRONICA'" id="GLOBO_modulofiglio_cINCARICO_PROCURA" name="GLOBO_modulofiglio_cINCARICO_PROCURA" type="hidden" value=""/>
+
+<input id="GLOBO_allegato_cALTRI-ALLEGATI" name="GLOBO_allegato_cALTRI-ALLEGATI" obbligatorio="#ALTRI_ALLEGATI.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_id_padre" name="GLOBO_id_padre" type="hidden"/>
+<input id="GLOBO_recupera_dati" name="GLOBO_recupera_dati" type="hidden"/>
+<input id="GLOBO_codice_modulo" name="GLOBO_codice_modulo" type="hidden" value="{{ CodiceModulo }}"/>
+
+{% endblock content %}

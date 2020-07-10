@@ -1,0 +1,990 @@
+{% set CodiceModulo = "DICHIARAZIONE_TARI_DOM" %}
+{% set Urn = "document:c_a794:tassa.rifiuti;utenze.domestiche;dichiarazione" %}
+{% extends "base.html" %}
+{% block meta %}
+
+<meta campi_firma="Titolare_CodiceFiscale"
+campi_firma_label="il dichiarante"
+classi_modulo="Tributi"
+codice_modulo="{{ CodiceModulo }}"
+urn="{% block urn %}{{ Urn }}{% endblock urn %}"
+sub_urn_list=""
+uo_globo_list=""
+descrizione="Dichiarazione di inizio/variazione/cessazione di occupazione unità immobiliare ai fini TARI (Tassa Rifiuti) per utenze domestiche"
+destinatario_amministrazione=""
+destinatario_ufficio="UOTRIBUTI"
+dinamico="SI"
+email_a=""
+ente_abilitato="TUTTI"
+filigrana="NO"
+firmare="P7M_ELETTRONICA"
+istruzioni_compilazione=""
+istruzioni_invio="mail_pec"
+metodo_invio="mail"
+name="GLOBO_modulo"
+procura="NO,,"
+tipo_modulo="principale"
+urlhelp="/modulistica/moduli/{{ CodiceModulo }}"
+verifica_pagamento="NO"
+versione="1.0|03/05/2019"/>
+
+<meta codice_modulo_figlio="INCARICO_PROCURA"
+urn_modulo_figlio="document:s_italia:generale;incarico.procura"
+name="GLOBO_modulofiglio"
+numero="1"
+obbligatorio="DINAMICO"/>
+
+
+<meta codice_allegato="DOC-TIT-POS"
+urn_allegato="document:s_italia:tassa.rifiuti;comprova.possesso.locali;documentazione"
+descrizione_estesa="Documentazione attestante il titolo di possesso"
+filename="Titolo possesso.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/DOC-TIT-POS"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="DOC-RIL-LOC"
+urn_allegato="document:c_a794:documentazione.attestante.rilascio.locali"
+descrizione_estesa="Documentazione attestante il rilascio dei locali (atto vendita, disdetta affitto)"
+filename="Diritto riduzione esenzione.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/DOC-RIL-LOC"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="DAE-CDI"
+urn_allegato="document:s_italia:generale;documento.identita;documentazione"
+descrizione_estesa="Documento di identità"
+filename="Documento identita.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/DAE-CDI"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="ALTRI-ALLEGATI"
+urn_allegato="document:s_italia:altri.allegati"
+descrizione_estesa="Altri allegati"
+filename="Altri allegati.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/ALTRI-ALLEGATI"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+{% endblock meta %}
+
+{% block title %}
+   Dichiarazione di inizio/variazione/cessazione di occupazione unità immobiliare ai fini TARI (Tassa Rifiuti) per utenze domestiche
+{% endblock title %}
+
+{% block content %}
+
+<style>
+
+.inputBordoSotto {
+  border-top: 0px;
+  border-left: 0px;
+  border-right: 0px;
+  border-bottom: 1px solid black;
+}
+
+  @media pdf {
+    .inputNormal2 {
+      margin-bottom: 5px;
+      border-top: 0px;
+      border-bottom: 1px solid gray;
+      border-right: 0px;
+      border-left: 0px;
+    }
+  }
+
+</style>
+
+<globo_fondo_pagina areaheight="150" scope="4">
+{{ utils.firma() }}
+</globo_fondo_pagina>
+
+<input dynamic_value="#Ente.value()" id="Parametri_Comune" name="Parametri_Comune" type="hidden"/>
+
+<input dynamic_value="#Titolare_Cognome.value().toUpperCase() + ' ' + #Titolare_Nome.value().toUpperCase() + ' - dichiarazione TARI (utenze domestiche)'" id="Oggetto" name="Oggetto" type="hidden"/>
+
+<style>
+
+  @media pdf {
+
+    .metriPDF {
+      text-align: right;
+    }
+  }
+
+</style>
+
+{{ intestazioni.intestazione_moduloprincipale_senzabollo() }}
+<input checked="checked()" dynamic_check="true" id="SempreSI" name="SempreSI" style="display:none;" type="checkbox" value="si"/>
+
+<h1 class="Modulo">Dichiarazione di inizio/variazione/cessazione di occupazione unità immobiliare ai fini TARI (Tassa Rifiuti) per utenze domestiche</h1>
+<h2 class="Modulo">Ai sensi dell'articolo 1 della Legge 27/12/2013, n. 147 e del Regolamento comunale</h2>
+
+
+<input id="Titolare_DatiPersonaObbligatori" name="Titolare_DatiPersonaObbligatori" type="hidden" dynamic_check="true"/>
+<input id="Titolare_Titolo" name="Titolare_Titolo" type="hidden" value="Richiedente"/>
+<input id="Titolare_Ruolo" name="Titolare_Ruolo" type="hidden" value="Richiedente"/>
+{{ anagrafica.persona_fisica("Titolare", "Il sottoscritto", "visibility:visibility", "cursor:pointer", "visibility:visibility", "visibility:visibility", "mail_ordinaria") }}
+
+
+{{ utils.Dichiara_445() }}
+
+
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <div id="Tassonomia_TipoUtenza" name="Tassonomia_TipoUtenza" label="TipoUtenza" mandatory="true"></div>
+        <input id="Tassonomia_TipoUtenza1" name="Tassonomia_TipoUtenza" type="radio" value="1" />
+      </td>
+      <td>
+        <p>
+          la prima occupazione (nuova utenza)
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="Tassonomia_TipoUtenza2" name="Tassonomia_TipoUtenza" type="radio" value="2" />
+      </td>
+      <td>
+        <p>
+          la variazione rispetto alla dichiarazione iniziale <span style="font-size: 70%;"><i>(specificare)</i></span>
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="Tassonomia_TipoUtenza3" name="Tassonomia_TipoUtenza" type="radio" value="3" />
+      </td>
+      <td>
+        <p>
+          la cessazione dell'utenza
+        </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td>
+        <p class="Labeltabella">
+          a decorrere dal
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          Data di decorrenza
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input class="inputNormal" id="Parametri_DataDecorrenza" name="Parametri_DataDecorrenza" format="date" style="width: 100%;" label="Data decorrenza" mandatory="true"/>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<input checked='checked' id='Immobile1_DatiCatastaliObbligatori' name='Immobile1_DatiCatastaliObbligatori' type='checkbox' style='display:none' value='si' />
+
+{{ immobili.immobile_secondario('Immobile1', "<input checked='checked' id='Immobile1_DatiImmobileRichiesti' name='Immobile1_DatiImmobileRichiesti' type='checkbox' dynamic_check='true' value='si' style='pd4ml-display: none;'/> dell'immobile collocato in", "Immobile oggetto dell'istanza", "display:visibility", "", "visibility:hidden", "cursor:default", "true", "false", "false", ["unità immobiliare urbana"]) }}
+
+ <table class="Modulo" style="border:1px solid grey; margin-top:-1px">
+ <tbody>
+  <tr class="Rigaintestazioneridotta">
+   <td style="width:32%">
+    <p class="Labelcella">
+     Superficie calpestabile
+    </p>
+   </td>
+   <td style="width:68%">
+    <p class="Labelcella">
+     Titolo di possesso, occupazione o detenzione dei locali (*)
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td>
+    <p class="metriPDF"><input class="inputNormal" id="Immobile1_Superficie" name="Immobile1_Superficie" label="Superficie calpestabile" format="positive_float" mandatory_enabled="#Immobile1_DatiImmobileRichiesti.checked()" style="width:80%"/> m²</p>
+	</td>
+   <td>
+    <select class="inputNormal" id="Immobile1_TitoloLocali1" name="Immobile1_TitoloLocali1" label="Titolo di possesso occupazione o detenzione dei locali" format="" mandatory_enabled="#Immobile1_DatiImmobileRichiesti.checked()" style="width:100%;">
+	    <option value=""></option>
+      <option value="proprietà">proprietà</option>
+	    <option value="usufrutto">usufrutto</option>
+	    <option value="locazione (affitto)">locazione (affitto)</option>
+	    <option value="comodato">comodato</option>
+	    <option value="altro titolo">altro titolo</option>
+	</select>
+   </td>
+  </tr>
+ </tbody>
+</table>
+
+
+<input type="hidden" class="inputNormal" id="Parametri_Immobile1_CategoriaCodice" name="Parametri_Immobile1_CategoriaCodice" style="width: 100%;" label="Categoria (codice)" dynamic_value="#Parametri_Immobile1_Categoria.value()">
+<input type="hidden" class="inputNormal" id="Parametri_Immobile1_CategoriaTestuale" name="Parametri_Immobile1_CategoriaTestuale" style="width: 100%;" label="Categoria (testuale)" dynamic_value="
+(#Parametri_Immobile1_CategoriaCodice.value() == '1' ? 'abitazione di residenza' : '')
++ (#Parametri_Immobile1_CategoriaCodice.value() == '2' ? 'Garage domestico' : '')
++ (#Parametri_Immobile1_CategoriaCodice.value() == '4' ? 'Locali privati non accessori' : '')
++ (#Parametri_Immobile1_CategoriaCodice.value() == '5' ? 'Cantina' : '')
++ (#Parametri_Immobile1_CategoriaCodice.value() == '6' ? 'Soffitta' : '')
++ (#Parametri_Immobile1_CategoriaCodice.value() == '7' ? 'Locali uso domestico' : '')
++ (#Parametri_Immobile1_CategoriaCodice.value() == '50001' ? 'Abitazione a disposizione residenti' : '')
++ (#Parametri_Immobile1_CategoriaCodice.value() == '50002' ? 'garage a disposizione residenti' : '')
++ (#Parametri_Immobile1_CategoriaCodice.value() == '50005' ? 'cantina a disposizione residenti' : '')
++ (#Parametri_Immobile1_CategoriaCodice.value() == '50006' ? 'soffitta a disposizione residenti' : '')
++ (#Parametri_Immobile1_CategoriaCodice.value() == '50007' ? 'locali uso domestico a disposizione residenti' : '')
++ (#Parametri_Immobile1_CategoriaCodice.value() == '60001' ? 'abitazione non residenti' : '')
++ (#Parametri_Immobile1_CategoriaCodice.value() == '60002' ? 'garage non residenti' : '')
++ (#Parametri_Immobile1_CategoriaCodice.value() == '60005' ? 'cantina non residenti' : '')
++ (#Parametri_Immobile1_CategoriaCodice.value() == '60006' ? 'soffitta non residenti' : '')
++ (#Parametri_Immobile1_CategoriaCodice.value() == '60007' ? 'locali uso domestico non residenti' : '')
+">
+
+
+{% for i in range(2, 5) %}  
+
+  {% if i==3 %}
+    <globo_salto_pagina></globo_salto_pagina>
+  {% endif %}
+
+  <input checked='checked' id='Immobile{{i}}_DatiCatastaliObbligatori' name='Immobile{{i}}_DatiCatastaliObbligatori' type='checkbox' style='display:none' value='si' />
+
+  {{ immobili.immobile_secondario('Immobile'~i, "<input id='Immobile"~i~"_DatiImmobileRichiesti' name='Immobile"~i~"_DatiImmobileRichiesti' type='checkbox' value='si' style='pd4ml-display: none;'/> ulteriore immobile o pertinenza (autorimessa, cantina, soffitta, ecc.)", "Immobile oggetto dell'istanza", "display:visibility", "", "visibility:hidden", "cursor:default", "true", "false", "false", ["unità immobiliare urbana"]) }}
+
+  <table class="Modulo" style="border:1px solid grey; margin-top:-1px">
+    <tbody>
+      <tr class="Rigaintestazioneridotta">
+        <td style="width:32%">
+          <p class="Labelcella"> Superficie calpestabile </p>
+        </td>
+        <td style="width:68%">
+          <p class="Labelcella"> Titolo di possesso, occupazione o detenzione dei locali (*) </p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p class="metriPDF"><input class="inputNormal" id="Immobile{{i}}_Superficie" name="Immobile{{i}}_Superficie" label="Superficie calpestabile" format="positive_float" mandatory_enabled="#Immobile{{i}}_DatiImmobileRichiesti.checked()" style="width:80%"/> m²</p>
+        </td>
+        <td>
+          <select class="inputNormal" id="Immobile{{i}}_TitoloLocali1" name="Immobile{{i}}_TitoloLocali1" label="Titolo di possesso occupazione o detenzione dei locali" format="" mandatory_enabled="#Immobile{{i}}_DatiImmobileRichiesti.checked()" style="width:100%;">
+            <option value=""></option>
+            <option value="proprietà">proprietà</option>
+            <option value="usufrutto">usufrutto</option>
+            <option value="locazione (affitto)">locazione (affitto)</option>
+            <option value="comodato">comodato</option>
+            <option value="altro titolo">altro titolo</option>
+          </select>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+
+  <input type="hidden" class="inputNormal" id="Parametri_Immobile{{i}}_CategoriaCodice" name="Parametri_Immobile{{i}}_CategoriaCodice" style="width: 100%;" label="Categoria (codice)" dynamic_value="#Parametri_Immobile{{i}}_Categoria.value()">
+  <input type="hidden" class="inputNormal" id="Parametri_Immobile{{i}}_CategoriaTestuale" name="Parametri_Immobile{{i}}_CategoriaTestuale" style="width: 100%;" label="Categoria (testuale)" dynamic_value="
+  (#Parametri_Immobile{{i}}_CategoriaCodice.value() == '1' ? 'abitazione di residenza' : '')
+  + (#Parametri_Immobile{{i}}_CategoriaCodice.value() == '2' ? 'Garage domestico' : '')
+  + (#Parametri_Immobile{{i}}_CategoriaCodice.value() == '4' ? 'Locali privati non accessori' : '')
+  + (#Parametri_Immobile{{i}}_CategoriaCodice.value() == '5' ? 'Cantina' : '')
+  + (#Parametri_Immobile{{i}}_CategoriaCodice.value() == '6' ? 'Soffitta' : '')
+  + (#Parametri_Immobile{{i}}_CategoriaCodice.value() == '7' ? 'Locali uso domestico' : '')
+  + (#Parametri_Immobile{{i}}_CategoriaCodice.value() == '50001' ? 'Abitazione a disposizione residenti' : '')
+  + (#Parametri_Immobile{{i}}_CategoriaCodice.value() == '50002' ? 'garage a disposizione residenti' : '')
+  + (#Parametri_Immobile{{i}}_CategoriaCodice.value() == '50005' ? 'cantina a disposizione residenti' : '')
+  + (#Parametri_Immobile{{i}}_CategoriaCodice.value() == '50006' ? 'soffitta a disposizione residenti' : '')
+  + (#Parametri_Immobile{{i}}_CategoriaCodice.value() == '50007' ? 'locali uso domestico a disposizione residenti' : '')
+  + (#Parametri_Immobile{{i}}_CategoriaCodice.value() == '60001' ? 'abitazione non residenti' : '')
+  + (#Parametri_Immobile{{i}}_CategoriaCodice.value() == '60002' ? 'garage non residenti' : '')
+  + (#Parametri_Immobile{{i}}_CategoriaCodice.value() == '60005' ? 'cantina non residenti' : '')
+  + (#Parametri_Immobile{{i}}_CategoriaCodice.value() == '60006' ? 'soffitta non residenti' : '')
+  + (#Parametri_Immobile{{i}}_CategoriaCodice.value() == '60007' ? 'locali uso domestico non residenti' : '')">
+{% endfor %}
+
+<p class="Modulo" style="font-size:70%"><i>Titolo di possesso, occupazione o detenzione dei locali (*) </i>: <br/> proprietà, usufrutto, locazione (affitto), comodato, altro titolo</p>
+
+<br/>
+
+<!-- proprietario -->
+
+	<table class="Modulo" style="border:1px solid grey">
+		<tbody>
+			<tr class="Rigaintestazione">
+				<td colspan="5">
+					<p class="Labeltabella"><input id='Proprietario_DatiPersonaObbligatori' name='Proprietario_DatiPersonaObbligatori' type='checkbox' enabled='(!#Immobile1_TitoloLocali1.check_value([&quot;&quot;]) and !#Immobile1_TitoloLocali1.check_value([&quot;proprietà&quot;])) || (!#Immobile2_TitoloLocali1.check_value([&quot;&quot;]) and !#Immobile2_TitoloLocali1.check_value([&quot;proprietà&quot;])) || (!#Immobile3_TitoloLocali1.check_value([&quot;&quot;]) and !#Immobile3_TitoloLocali1.check_value([&quot;proprietà&quot;])) || (!#Immobile4_TitoloLocali1.check_value([&quot;&quot;]) and !#Immobile4_TitoloLocali1.check_value([&quot;proprietà&quot;]))' dynamic_check='(!#Immobile1_TitoloLocali1.check_value([&quot;&quot;]) and !#Immobile1_TitoloLocali1.check_value([&quot;proprietà&quot;])) || (!#Immobile2_TitoloLocali1.check_value([&quot;&quot;]) and !#Immobile2_TitoloLocali1.check_value([&quot;proprietà&quot;])) || (!#Immobile3_TitoloLocali1.check_value([&quot;&quot;]) and !#Immobile3_TitoloLocali1.check_value([&quot;proprietà&quot;])) || (!#Immobile4_TitoloLocali1.check_value([&quot;&quot;]) and !#Immobile4_TitoloLocali1.check_value([&quot;proprietà&quot;]))' value='si' style='pd4ml-display: none;'/> il cui proprietario è <br/><span style='font-size:70%; font-weight: normal;'><i>(sezione da compilare solo se il proprietario è diverso dal dichiarante)</i></span></p>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<table class="Modulo" style="border:1px solid grey; margin-top:-1px;">
+    <tbody>
+      <tr class="Rigaintestazione">
+ 				<div mandatory_enabled="#Proprietario_DatiPersonaObbligatori.checked()" label="Proprietario" id="Proprietario"></div>
+				<td colspan="6" style="border-right:0px">
+					<p class="Labeltabella"><input id="Proprietario1" name="Proprietario" type="radio" value="1"/> soggetto fisico
+					</p>
+				</td>
+      </tr>
+		</tbody>
+  </table>
+	<input id="AventeTitolo_DatiPersonaObbligatori" name="AventeTitolo_DatiPersonaObbligatori" type="hidden" value="si" dynamic_check="#Proprietario1.checked()"/>
+  
+  <div type="Anagrafica_persona_fisica">
+    
+	{{anagrafica.persona_fisica("AventeTitolo", "", "visibility:visibility", "cursor:pointer", "display:none" ) }}
+      <!--<table class="Modulo" style="border:1px solid grey; display:none">
+        <tbody>
+          <tr class="Rigaintestazione">
+            <td style="border-right:0px">
+              <p class="Labeltabella"  style="vertical-align:middle"></p>
+            </td>
+            <td style="width:38%; border-left:0px; border-right:0px">
+              <p class="Labeltabella"></p>
+            </td>
+            <td style="width:3%; cursor:pointer; border-left:0px; border-right:0px">
+              <span style="pd4ml-visibility: hidden; pd4ml-display: none;">
+                {{ utils.recupero_dati( 'AventeTitolo', 'visibility:visibility' ) }}
+              </span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <table class="Modulo" style="border:1px solid grey; margin-top:-1px" enabled="#AventeTitolo_DatiPersonaObbligatori.checked()">
+        <tbody>
+          <tr class="Rigaintestazioneridotta">
+            <td colspan="2">
+              <p class="Labelcella">Cognome</p>
+            </td>
+            <td>
+              <p class="Labelcella">Nome</p>
+            </td>
+            <td>
+              <p class="Labelcella">Codice Fiscale</p>
+            </td>
+          </tr>
+          <tr mandatory="#AventeTitolo_DatiPersonaObbligatori.checked()">
+            <td colspan="2">
+              <input class="" id="AventeTitolo_Cognome" name="AventeTitolo_Cognome" style="width:100%" label="Cognome" />
+            </td>
+            <td>
+              <input class="" id="AventeTitolo_Nome" name="AventeTitolo_Nome" style="width:100%" label="Nome"/>
+            </td>
+            <td>
+              <input class="" id="AventeTitolo_CodiceFiscale" name="AventeTitolo_CodiceFiscale" style="width:100%; " onkeyup="this.value = this.value.toUpperCase();" format="cf" label="Il codice fiscale"/>
+            </td>
+          </tr>
+          <tr class="Rigaintestazioneridotta">
+            <td style="width:24%;">
+              <p class="Labelcella">Data di nascita</p>
+            </td>
+            <td style="width:9%;">
+              <p class="Labelcella">Sesso (M/F)</p>
+            </td>
+            <td style="width: 33%;">
+              <p class="Labelcella">Cittadinanza</p>
+            </td>
+            <td style="width: 34%;">
+              <p class="Labelcella">Luogo di nascita</p>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <input class="" id="AventeTitolo_DataNascita" name="AventeTitolo_DataNascita" style="width:100%;" format="date" label="Data di nascita"/>
+            </td>
+            <td>
+              <select class="inputNormal" id="AventeTitolo_Sesso" name="AventeTitolo_Sesso" style="width:100%;" label="Sesso">
+                <option value=""></option>
+                <option value="M">M</option>
+                <option value="F">F</option>
+              </select>
+            </td>
+            <td>
+              {{ utils.nazionalita( 'AventeTitolo_Cittadinanza', 'Cittadinanza' )}}
+            </td>
+            <td>
+              <input class="" id="AventeTitolo_LuogoNascita" name="AventeTitolo_LuogoNascita" style="width:100%;" label="Luogo di nascita"/>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <table class="Modulo" style="border:1px solid grey; margin-top:-1px; visibility:visibility " mandatory="false" enabled="#AventeTitolo_DatiPersonaObbligatori.checked()">
+        <tbody>
+          <tr class="Rigaintestazioneridotta">
+            <td colspan="5">
+              <p class="Labelcella">Residenza</p>
+            </td>
+          </tr>
+          <tr class="Rigaintestazioneridotta">
+            <td style="width:9%;">
+              <p class="Labelcella">Provincia</p>
+            </td>
+            <td style="width:33%;">
+              <p class="Labelcella">Comune</p>
+            </td>
+            <td style="width:33%;">
+              <p class="Labelcella">Indirizzo</p>
+            </td>
+            <td style="width:9%;">
+              <p class="Labelcella">Civico</p>
+            </td>
+            <td style="width:16%;">
+              <p class="Labelcella">CAP</p>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              {{ utils.provincie( 'AventeTitolo_ProvinciaResidenza', "Provincia di residenza") }}
+            </td>
+            <td>
+              <select class="inputNormal" id="AventeTitolo_ComuneResidenza" name="AventeTitolo_ComuneResidenza" style="width:100%" label="Comune di residenza" dynamic_value="getComuniFromProvincia( #AventeTitolo_ProvinciaResidenza.value(), 'AventeTitolo_ComuneResidenza')"></select>
+            </td>
+            <td>
+              <input class="" id="AventeTitolo_ViaResidenza" name="AventeTitolo_ViaResidenza" style="width:100%;" label="Via di residenza" maxlength="60" format="regular_expression" expression="^(.+)\s(.+)$"/>
+            </td>
+            <td>
+              <input class="" id="AventeTitolo_CivicoResidenza" name="AventeTitolo_CivicoResidenza" style="width:100%;" label="Civico di residenza" maxlength="10"/>
+            </td>
+            <td>
+              <input class="" id="AventeTitolo_CAPResidenza" name="AventeTitolo_CAPResidenza" style="width:100%;" format="cap" label="CAP di residenza" enabled="false"/>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <table class="Modulo" style="border:1px solid grey; margin-top:-1px;" enabled="#AventeTitolo_DatiPersonaObbligatori.checked()">
+        <tbody>
+          <tr class="Rigaintestazioneridotta">
+            <td style="width:21%;">
+              <p class="Labelcella">
+                Telefono casa
+              </p>
+            </td>
+            <td style="width:21%;">
+              <p class="Labelcella">
+                Telefono cellulare
+              </p>
+            </td>
+            <td>
+              <p class="Labelcella">
+                E-mail
+                <i>
+                  (posta elettronica ordinaria)
+                </i>
+              </p>
+            </td>
+            <td style="width:34%;">
+              <p class="Labelcella">
+                E-mail PEC
+                <i>
+                  (domicilio digitale)
+                </i>
+              </p>
+            </td>
+          </tr>
+          <tr>
+            <!-- telefono casa
+            <td>
+              <input class="inputNormal" id="AventeTitolo_Telefono" label="Telefono" name="AventeTitolo_Telefono" style="width:100%" mandatory="false" format="regular_expression" expression="[^.0-]+"/>
+            </td>
+            <!-- telefono cellulare
+            <td>
+              <input class="inputNormal" id="AventeTitolo_TelefonoCellulare" label="Telefono cellulare" name="AventeTitolo_TelefonoCellulare" style="width:100%" mandatory="false"/>
+            </td>
+            <!-- email ordinaria
+            <td>
+              <input class="inputNormal" format="email" id="AventeTitolo_EMail" label="E-mail ordinaria" mandatory="false" name="AventeTitolo_EMail" style="width:100%;"/>	
+            </td>
+            <!-- email PEC
+            <td>
+              <input class="inputNormal" format="pec" id="AventeTitolo_EMailPEC" label="E-mail PEC del {{ Solo1 }}" name="AventeTitolo_EMailPEC" style="width:100%;" mandatory="false"/>
+            </td>
+          </tr>
+        </tbody>
+      </table> -->
+    </div>
+  
+	<table class="Modulo" style="border:1px solid grey; margin-top:-1px;">
+    <tbody>
+      <tr class="Rigaintestazione">
+				<td colspan="6" style="border-right:0px">
+					<p class="Labeltabella"><input id="Proprietario2" name="Proprietario" type="radio" value="2"/> soggetto giuridico
+					</p>
+				</td>
+      </tr>
+		</tbody>
+  </table>
+	<input id="AventeTitolo_DatiSocietaObbligatori" name="AventeTitolo_DatiSocietaObbligatori" type="hidden" value="si" dynamic_check="#Proprietario2.checked()"/>
+	{{anagrafica.societa_senza_richiedente("AventeTitolo", "", "Proprietario", "visibility:visibility", "cursor:pointer", "display:none", "", "mail_pec", "true", "false" ) }}
+
+<!-- precedente proprietario -->
+
+<globo_salto_pagina></globo_salto_pagina>
+
+<table class="Modulo" style="border:1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td style="width:35%; border-right:0px">
+        <p class="Labeltabella"><input id='PrecedenteProprietario_DatiPersonaObbligatori' name='PrecedenteProprietario_DatiPersonaObbligatori' type='checkbox'/> il cui precedente detentore fino al</p>
+      </td>
+      <td style="width:13%; border-left: 0px; border-right:0px">
+          <div class="inputNormal2" width="100%">
+            <input class="inputBordoSotto" format="date" id="PrecedenteProprietario_DataAlloggio" name="PrecedenteProprietario_DataAlloggio" style="width:100%" mandatory_enabled="#PrecedenteProprietario_DatiPersonaObbligatori.checked()" label="Data inizio alloggio"/>
+            </div>
+          </td>
+          <td style="border-left: 0px;">
+        <p class="Labeltabella">era</p>
+       </td>
+        </tr>
+      </tbody>
+    </table>
+	<table class="Modulo" style="border:1px solid grey; margin-top:-1px;">
+        <tbody>
+            <tr class="Rigaintestazione">
+ 				<div mandatory_enabled="#PrecedenteProprietario_DatiPersonaObbligatori.checked()" label="Precedente detentore" id="PrecedenteProprietario"></div>
+				<td colspan="6" style="border-right:0px">
+					<p class="Labeltabella"><input id="PrecedenteProprietario1" name="PrecedenteProprietario" type="radio" value="1"/> soggetto fisico
+					</p>
+				</td>
+            </tr>
+		</tbody>
+    </table>
+	<input id="AventeTitolo1_DatiPersonaObbligatori" name="AventeTitolo1_DatiPersonaObbligatori" type="hidden" value="si" dynamic_check="#PrecedenteProprietario1.checked()"/>
+  
+  <div type="Anagrafica_persona_fisica">
+      <table class="Modulo" style="border:1px solid grey; display:none">
+        <tbody>
+          <tr class="Rigaintestazione">
+            <td style="border-right:0px">
+              <p class="Labeltabella"  style="vertical-align:middle"></p>
+            </td>
+            <td style="width:38%; border-left:0px; border-right:0px">
+              <p class="Labeltabella"></p>
+            </td>
+            <td style="width:3%; cursor:pointer; border-left:0px; border-right:0px">
+              <span style="pd4ml-visibility: hidden; pd4ml-display: none;">
+                {{ utils.recupero_dati( 'AventeTitolo1', 'visibility:visibility' ) }}
+              </span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <table class="Modulo" style="border:1px solid grey; margin-top:-1px" enabled="#AventeTitolo1_DatiPersonaObbligatori.checked()">
+        <tbody>
+          <tr class="Rigaintestazioneridotta">
+            <td colspan="2">
+              <p class="Labelcella">Cognome</p>
+            </td>
+            <td>
+              <p class="Labelcella">Nome</p>
+            </td>
+            <td>
+              <p class="Labelcella">Codice Fiscale</p>
+            </td>
+          </tr>
+          <tr mandatory="#AventeTitolo1_DatiPersonaObbligatori.checked()">
+            <td colspan="2">
+              <input class="" id="AventeTitolo1_Cognome" name="AventeTitolo1_Cognome" style="width:100%" label="Cognome" />
+            </td>
+            <td>
+              <input class="" id="AventeTitolo1_Nome" name="AventeTitolo1_Nome" style="width:100%" label="Nome"/>
+            </td>
+            <td>
+              <input class="" id="AventeTitolo1_CodiceFiscale" name="AventeTitolo1_CodiceFiscale" style="width:100%; " onkeyup="this.value = this.value.toUpperCase();" format="cf" label="Il codice fiscale"/>
+            </td>
+          </tr>
+          <tr class="Rigaintestazioneridotta">
+            <td style="width:24%;">
+              <p class="Labelcella">Data di nascita</p>
+            </td>
+            <td style="width:9%;">
+              <p class="Labelcella">Sesso (M/F)</p>
+            </td>
+            <td style="width: 33%;">
+              <p class="Labelcella">Cittadinanza</p>
+            </td>
+            <td style="width: 34%;">
+              <p class="Labelcella">Luogo di nascita</p>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <input class="" id="AventeTitolo1_DataNascita" name="AventeTitolo1_DataNascita" style="width:100%;" format="date" label="Data di nascita"/>
+            </td>
+            <td>
+              <select class="inputNormal" id="AventeTitolo1_Sesso" name="AventeTitolo1_Sesso" style="width:100%;" label="Sesso">
+                <option value=""></option>
+                <option value="M">M</option>
+                <option value="F">F</option>
+              </select>
+            </td>
+            <td>
+              {{ utils.nazionalita( 'AventeTitolo1_Cittadinanza', 'Cittadinanza' )}}
+            </td>
+            <td>
+              <input class="" id="AventeTitolo1_LuogoNascita" name="AventeTitolo1_LuogoNascita" style="width:100%;" label="Luogo di nascita"/>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <table class="Modulo" style="border:1px solid grey; margin-top:-1px; visibility:visibility " mandatory="false" enabled="#AventeTitolo1_DatiPersonaObbligatori.checked()">
+        <tbody>
+          <tr class="Rigaintestazioneridotta">
+            <td colspan="5">
+              <p class="Labelcella">Residenza</p>
+            </td>
+          </tr>
+          <tr class="Rigaintestazioneridotta">
+            <td style="width:9%;">
+              <p class="Labelcella">Provincia</p>
+            </td>
+            <td style="width:33%;">
+              <p class="Labelcella">Comune</p>
+            </td>
+            <td style="width:33%;">
+              <p class="Labelcella">Indirizzo</p>
+            </td>
+            <td style="width:9%;">
+              <p class="Labelcella">Civico</p>
+            </td>
+            <td style="width:16%;">
+              <p class="Labelcella">CAP</p>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              {{ utils.provincie( 'AventeTitolo1_ProvinciaResidenza', "Provincia di residenza") }}
+            </td>
+            <td>
+              <select class="inputNormal" id="AventeTitolo1_ComuneResidenza" name="AventeTitolo1_ComuneResidenza" style="width:100%" label="Comune di residenza" dynamic_value="getComuniFromProvincia( #AventeTitolo1_ProvinciaResidenza.value(), 'AventeTitolo1_ComuneResidenza')"></select>
+            </td>
+            <td>
+              <input class="" id="AventeTitolo1_ViaResidenza" name="AventeTitolo1_ViaResidenza" style="width:100%;" label="Via di residenza" maxlength="60" format="regular_expression" expression="^(.+)\s(.+)$"/>
+            </td>
+            <td>
+              <input class="" id="AventeTitolo1_CivicoResidenza" name="AventeTitolo1_CivicoResidenza" style="width:100%;" label="Civico di residenza" maxlength="10"/>
+            </td>
+            <td>
+              <input class="" id="AventeTitolo1_CAPResidenza" name="AventeTitolo1_CAPResidenza" style="width:100%;" format="cap" label="CAP di residenza"/>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <table class="Modulo" style="border:1px solid grey; margin-top:-1px;" enabled="#AventeTitolo1_DatiPersonaObbligatori.checked()">
+        <tbody>
+          <tr class="Rigaintestazioneridotta">
+            <td style="width:21%;">
+              <p class="Labelcella">
+                Telefono casa
+              </p>
+            </td>
+            <td style="width:21%;">
+              <p class="Labelcella">
+                Telefono cellulare
+              </p>
+            </td>
+            <td>
+              <p class="Labelcella">
+                E-mail
+                <i>
+                  (posta elettronica ordinaria)
+                </i>
+              </p>
+            </td>
+            <td style="width:34%;">
+              <p class="Labelcella">
+                E-mail PEC
+                <i>
+                  (domicilio digitale)
+                </i>
+              </p>
+            </td>
+          </tr>
+          <tr>
+            <!-- telefono casa -->
+            <td>
+              <input class="inputNormal" id="AventeTitolo1_Telefono" label="Telefono" name="AventeTitolo1_Telefono" style="width:100%" mandatory="false" format="regular_expression" expression="[^.0-]+"/>
+            </td>
+            <!-- telefono cellulare -->
+            <td>
+              <input class="inputNormal" id="AventeTitolo1_TelefonoCellulare" label="Telefono cellulare" name="AventeTitolo1_TelefonoCellulare" style="width:100%" mandatory="false"/>
+            </td>
+            <!-- email ordinaria -->
+            <td>
+              <input class="inputNormal" format="email" id="AventeTitolo1_EMail" label="E-mail ordinaria" mandatory="false" name="AventeTitolo1_EMail" style="width:100%;"/>	
+            </td>
+            <!-- email PEC -->
+            <td>
+              <input class="inputNormal" format="pec" id="AventeTitolo1_EMailPEC" label="E-mail PEC del {{ Solo1 }}" name="AventeTitolo1_EMailPEC" style="width:100%;" mandatory="false"/>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+	<table class="Modulo" style="border:1px solid grey; margin-top:-1px;">
+        <tbody>
+            <tr class="Rigaintestazione">
+				<td colspan="6" style="border-right:0px">
+					<p class="Labeltabella"><input id="PrecedenteProprietario2" name="PrecedenteProprietario" type="radio" value="2"/> soggetto giuridico
+					</p>
+				</td>
+            </tr>
+		</tbody>
+    </table>
+	<input id="AventeTitolo1_DatiSocietaObbligatori" name="AventeTitolo1_DatiSocietaObbligatori" type="hidden" value="si" dynamic_check="#PrecedenteProprietario2.checked()"/>
+	{{anagrafica.societa_senza_richiedente("AventeTitolo1", "", "Precedente detentore", "visibility:visibility", "cursor:pointer", "display:none", "", "mail_pec", "true", "false" ) }}
+
+
+
+
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td>
+        <p class="Labeltabella">
+          il cui numero degli occupanti è <br/><span style="font-size: 70%; font-weight: normal;"><i>(comprese eventuali altre persone non facenti parte del nucleo familiare ma stabilmente conviventi, ad esempio badantie colf)</i></span>
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          numero degli occupanti totali
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input class="inputNormal" id="Parametri_NumOccupantiTotali" name="Parametri_NOccupantiTotali" style="width: 100%;" label="Numero occupanti totali" mandatory="true"/>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          numero dei componenti del nucleo familiare residenti
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input class="inputNormal" id="Parametri_ComponentiNucleoFamiliare" name="Parametri_ComponentiNucleoFamiliare" style="width: 100%;" label="Componenti nucleo familiare" mandatory="true"/>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          numero persone stabilmente conviventi non residenti
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input class="inputNormal" id="Parametri_NumConviventi" name="Parametri_NumConviventi" style="width: 100%;" label="Numero conviventi" mandatory="true"/>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<table class="Modulo" style="border: 1px solid grey">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="2">
+        <p class="Labeltabella">
+          <input id='Tassonomia_TariffaAgevolata' name='Tassonomia_TariffaAgevolata' type='checkbox' value="si" /> CHIEDE inoltre le seguenti riduzioni o esenzioni tariffarie <br/> <span style="font-size: 70%; font-weight: normal;"><i>(come previsto dal Regolamento comunale)</i></span>
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td colspan="2">
+        <p class="Labelcella">
+          Riduzioni o esenzioni tariffarie richieste
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <div id="Tassonomia_PersoneSingoleUltrasessantenni" name="Tassonomia_PersoneSingoleUltrasessantenni" label="Ultrasessantenni" enabled="#Tassonomia_TariffaAgevolata.checked()"> </div>
+        <input group="Tassonomia_PersoneSingoleUltrasessantenni" id="Tassonomia_PersoneSingoleUltrasessantenni1" name="Tassonomia_PersoneSingoleUltrasessantenni1" type="checkbox" value="SI"/>
+      </td>
+      <td>
+        <p>
+          riduzione per persone singole con più di 60 anni
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <div id="Tassonomia_UtenzeNonStabilmenteAttive" name="Tassonomia_UtenzeNonStabilmenteAttive" label="Utenze non stabilmente attive" enabled="#Tassonomia_TariffaAgevolata.checked()"> </div>
+        <input group="Tassonomia_UtenzeNonStabilmenteAttive" id="Tassonomia_UtenzeNonStabilmenteAttive1" name="Tassonomia_UtenzeNonStabilmenteAttive1" type="checkbox" value="SI"/>
+      </td>
+      <td>
+        <p>
+          riduzione per utenze D non stabilmente attive
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <div id="Tassonomia_PensionatiAIRE" name="Tassonomia_PensionatiAIRE" label="Pensionati AIRE" enabled="#Tassonomia_TariffaAgevolata.checked()"> </div>
+        <input group="Tassonomia_PensionatiAIRE" id="Tassonomia_PensionatiAIRE1" name="Tassonomia_PensionatiAIRE1" type="checkbox" value="SI"/>
+      </td>
+      <td>
+        <p>
+          riduzione per pensionati iscritti AIRE (Decreto Legislativo 28/03/2014)
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%; background-color: white;" rowspan="2">
+        <div id="Tassonomia_LocaliSfitti" name="Tassonomia_LocaliSfitti" label="Locali sfitti" enabled="#Tassonomia_TariffaAgevolata.checked()"> </div>
+        <input group="Tassonomia_LocaliSfitti" id="Tassonomia_LocaliSfitti1" name="Tassonomia_LocaliSfitti1" type="checkbox" value="SI"/>
+      </td>
+      <td>
+        <p>
+          locali sfitti e mai utilizzati pertanto
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazione">
+      <td>
+        <p class="Labeltabella">
+          allega documentazione attestante il rilascio dei locali (atto vendita, disdetta affitto)
+        </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<br/>
+
+
+<table class="Modulo" style="border:1px solid grey">
+ <tbody>
+  <tr class="Rigaintestazioneridotta">
+   <td colspan="1">
+    <p class="Labelcella">
+     Eventuali annotazioni
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td colspan="1">
+    <textarea class="inputNormal" id="Parametri_Annotazioni" name="Parametri_Annotazioni" style="width:100%;height:5cm;">
+    </textarea>
+   </td>
+  </tr>
+ </tbody>
+</table>
+
+
+<br/>
+
+
+<table class="Modulo" name="Allegati" style="border: 1px solid grey">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="2">
+        <p style="text-align: center;">
+          <b>
+            Elenco degli allegati
+          </b>
+          <br/>
+          <span style="font-size:70%"><i>(barrare tutti gli allegati richiesti in fase di presentazione della pratica ed elencati sul portale)</i></span>
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="DOC-TIT-POS" name="DOC-TIT-POS" type="checkbox" value="OBBLIGATORIO" />
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          documentazione attestante il titolo di possesso indicato
+        </p>
+    </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">
+        <input id="DOC-RIL-LOC" name="DOC-RIL-LOC" type="checkbox" value="OBBLIGATORIO" enabled="#Tassonomia_LocaliSfitti.checked()" dynamic_check="#Tassonomia_LocaliSfitti.checked()"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          documentazione attestante il rilascio dei locali
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">
+        <input id="DAE-CDI" name="DAE-CDI" type="checkbox" value="OBBLIGATORIO" />
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          copia del documento d'identità
+          <br/>
+          <span style="font-size:70%"><i>(da allegare se il modulo è sottoscritto con firma autografa)</i></span>
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input id="ALTRI-ALLEGATI" name="ALTRI-ALLEGATI" type="checkbox" value="OBBLIGATORIO" />
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          altri allegati
+          <span style="font-size:70%">(specificare)</span>
+          <input class="" label="Altri allegati" id="AltriAllegati" mandatory_enabled="#ALTRI_ALLEGATI.checked()" name="AltriAllegati" style="width:79%;" />
+        </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<br/>
+{{ utils.trattamento_dati_personali() }}
+<br/>
+{{ utils.firma_hidden() }}
+<br/>
+
+
+<p class="Modulo">
+ <input id="SalvaModulo" name="SalvaModulo" style="height:30px;width:120px;" title="Verifica la corretta compilazione dei campi e salva il modulo nel faldone virtuale dell'istanza." type="submit" value="Salva modulo"/>
+</p>
+
+<input destinatario_amministrazione="getParameter('Ente')" id="GLOBO_modulo_c{{ CodiceModulo }}" name="GLOBO_modulo_c{{ CodiceModulo }}" type="hidden" value=""/>
+<input firmare="'P7M_ELETTRONICA'" id="GLOBO_modulofiglio_cINCARICO_PROCURA" name="GLOBO_modulofiglio_cINCARICO_PROCURA" type="hidden" value=""/>
+
+
+<input id="GLOBO_allegato_cDOC-TIT-POS" name="GLOBO_allegato_cDOC-TIT-POS" obbligatorio="#DOC_TIT_POS.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value="" />
+<input id="GLOBO_allegato_cDOC-RIL-LOC" name="GLOBO_allegato_cDOC-RIL-LOC" obbligatorio="#DOC_RIL_LOC.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value="" />
+<input id="GLOBO_allegato_cDAE-CDI" name="GLOBO_allegato_cDAE-CDI" obbligatorio="#DAE_CDI.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+<input id="GLOBO_allegato_cALTRI-ALLEGATI" name="GLOBO_allegato_cALTRI-ALLEGATI" obbligatorio="#ALTRI_ALLEGATI.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value="" />
+
+<input id="GLOBO_id_padre" name="GLOBO_id_padre" type="hidden"/>
+<input id="GLOBO_recupera_dati" name="GLOBO_recupera_dati" type="hidden"/>
+<input id="GLOBO_codice_modulo" name="GLOBO_codice_modulo" type="hidden" value="{{ CodiceModulo }}"/>
+
+{% endblock content %}

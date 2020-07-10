@@ -1,0 +1,368 @@
+{% set CodiceModulo =  "001-156s" %}{% extends "base.html" %}
+{% set Urn = "document:c_a794:occupazione.suolo.pubblico;autorizzazione.manifestazioni.deroga.limiti.acustici" %}
+{% block meta %}<meta campi_firma="Titolare_CodiceFiscale"
+campi_firma_label="il dichiarante"
+classi_modulo="Ecologia"
+contesto_procedurale="Ecologia"
+codice_modulo="{{ CodiceModulo }}"
+urn="{% block urn %}{{ Urn }}{% endblock urn %}"
+sub_urn_list=""
+uo_globo_list=""
+descrizione="Autorizzazione per manifestazioni in deroga ai limiti acustici (allegata a autorizzazione suolo pubblico)"
+destinatario_amministrazione=""
+destinatario_ufficio=""
+dinamico="SI"
+email_a=""
+ente_abilitato="TUTTI"
+filigrana="NO"
+firmare="P7M_ELETTRONICA"
+in_bollo="SI"
+istruzioni_compilazione="ATTENZIONE: questo modulo deve essere compilato con i dati del richiedente, cambiare i dati di intestazione se necessario."
+istruzioni_invio="mail_pec"
+metodo_invio="mail"
+name="GLOBO_modulo"
+procura="NO,,"
+tipo_modulo="secondario"
+ufficio=""
+urlhelp="DomandeRisposte/FAQ"
+verifica_pagamento="NO"
+versione="1.0|01/01/2015"/>
+
+<meta codice_modulo_figlio="MARCA_BOLLO"
+urn_modulo_figlio="document:s_italia:pagamento.imposta.bollo;apposizione.domanda;dichiarazione.sostitutiva"
+name="GLOBO_modulofiglio"
+numero="1"
+obbligatorio="DINAMICO"/>
+
+<meta codice_allegato="DOC-RED-TEC"
+urn_allegato="document:c_a794:occupazione.suolo.pubblico;documentazione.redatta.tecnico;acustica.ambientale"
+descrizione_estesa="Documentazione redatta da tecnico competente in acustica ambientale"
+filename="DocAcusticaAmb.pdf"
+firmatari="Titolare_CodiceFiscale"
+firmatari_label="il dichiarante"
+firmato="SI"
+istruzioni="/modulistica/moduli/DOC-RED-TEC"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="ALTRI-ALLEGATI"
+urn_allegato="document:s_italia:altri.allegati"
+descrizione_estesa="Altri allegati"
+filename="Altri allegati.pdf"
+firmato="SI"
+istruzioni="/modulistica/moduli/ALTRI-ALLEGATI"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="DAE-CDI"
+urn_allegato="document:s_italia:generale;documento.identita;documentazione"
+descrizione_estesa="Documento di identità"
+filename="Documento identita.pdf"
+firmato="SI"
+istruzioni="/modulistica/moduli/DAE-CDI"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+
+{% endblock meta %}
+
+{% block title %}Autorizzazione per manifestazioni in deroga ai limiti acustici{% endblock title %}
+
+{% block content %}
+
+ <globo_fondo_pagina areaheight="150" scope="2">
+ {{ utils.firma() }}
+</globo_fondo_pagina>
+
+
+ {{ intestazioni.intestazione_moduloprincipale_conbollo() }}
+ <input checked="checked" dynamic_check="true" id="SempreSI" name="SempreSI" style="display:none;" type="checkbox" value="si"/>
+
+<input dynamic_value="#Ente.value()" id="Parametri_Comune" name="Parametri_Comune" type="hidden"/>
+<div id="Tassonomia_AutInDeroga1_se"> </div>
+<input id="Tassonomia_AutInDeroga1_se3" name="Tassonomia_AutInDeroga1_se" type="radio" dynamic_check="true" checked="checked" value="3" style="display:none"/>
+
+<div id="AutInDeroga"> </div>
+<input id="AutInDeroga1" name="AutInDeroga" type="radio" dynamic_check="true" checked="checked" value="1" style="display:none"/>
+
+<input dynamic_value="#Titolare_Cognome.value().toUpperCase() + ' - Autorizzazione per manifestazioni in deroga ai limiti acustici'" id="Oggetto" name="Oggetto" type="hidden"/>
+
+<h1 class="Modulo">
+ Autorizzazione per manifestazioni in deroga ai limiti acustici
+</h1>
+
+<h2 class="Modulo">
+  Ai sensi dell’articolo 3.2 del Regolamento Comunale n. 61
+</h2>
+
+<input id="Titolare_DatiPersonaObbligatori" name="Titolare_DatiPersonaObbligatori" dynamic_check="true" type="hidden"/>
+{{ anagrafica.societa( 'Titolare', "Il sottoscritto", ["Persona fisica", "Titolare", "Legale rappresentante"], "Richiedente", "visibility:visibility", "cursor:pointer",  "mail_ordinaria","false" ) }}
+
+<p class='Modulo'>
+Valendosi della facoltà prevista dagli articoli 46 e 47 del Decreto del Presidente della Repubblica 28/12/2000, n. 445, consapevole delle sanzioni penali previste dall’articolo 76 del Decreto del Presidente della Repubblica 28/12/2000, n. 445 e dall’articolo 483 del Codice Penale nel caso di dichiarazioni non veritiere e di falsità in atti,
+</p>
+
+<h3 class="Modulo">
+DICHIARA CHE
+</h3>
+
+   
+<table class="Modulo" style="border:1px solid grey; margin-top:-1px">
+   <tbody>
+    <tr class="Rigaintestazioneridotta">
+      <td colspan="2" style="width: 50%;">
+        <p class="Labelcella">
+          Dal giorno
+        </p>
+      </td>
+      <td style="width: 50%;">
+        <p class="Labelcella">
+          Al giorno
+        </p>
+      </td>      
+    </tr>
+    <tr>
+      <td colspan="2" style="vertical-align: top;">
+        <input class="inputNormal" id="Parametri_DicDalGiorno" name="Parametri_DicDalGiorno" label="Dal giorno" mandatory="true" format="date" style="width:100%"/>
+      </td>
+      <td colspan="2" style="vertical-align: top;">
+        <input class="inputNormal" id="Parametri_DicAlGiorno" name="Parametri_DicAlGiorno" label="Al giorno" mandatory="true" format="date" style="width:100%"/>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="3" style="vertical-align: top;">
+        <p>Si svolgerà la seguente manifestazione:</p>
+      </td>
+    </tr>       
+    <!--
+    <tr class="Rigaintestazioneridotta">
+      <td colspan="3">
+        <p class="Labelcella">
+          Per i seguenti motivi di orario e/o acustici
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="width: 4%; vertical-align: top;"> 
+        <div id="AutorizLimiti" name="AutorizLimiti" label="Riferimento dei limiti di orario o acustici" mandatory="true" > </div>      
+    <input group="AutorizLimiti" id="AutorizLimiti2" name="AutorizLimiti2" type="checkbox" value="SI"/>
+      </td>
+      <td colspan="2" style="vertical-align: top;">
+        <p>Saranno superati i limiti acustici previsti dal regolamento comunale</p>
+      </td>
+    </tr>
+    <tr>
+      <td style="width: 4%; vertical-align: top;"> 
+        <div id="DurataSup" name="DurataSup" label="Durata della manifestazione" mandatory="false" > </div>    
+        <input group="AutorizLimiti" id="AutorizLimiti3" name="AutorizLimiti3" type="checkbox" value="SI"/>
+      </td>
+      <td colspan="2" style="vertical-align: top;">
+        <p>La manifestazione durerà più di quattro giorni consecutivi</p>
+      </td>
+    </tr> 
+    <tr>
+      <td style="width: 4%; vertical-align: top;">
+        <input group="AutorizLimiti" id="AutorizLimiti4" name="AutorizLimiti4" type="checkbox" value="SI"/>
+      </td>
+      <td colspan="2" style="vertical-align: top;">
+        <p>La manifestazione durerà complessivamente più di dieci giorni, anche non consecutivi.</p>
+      </td>
+    </tr>
+   --> 
+   </tbody>
+</table>
+
+<table class="Modulo" style="border: 1px solid grey; margin-top:-1px">
+ <tbody>
+  <tr class="Rigaintestazioneridotta">
+   <td>
+    <p class="Labelcella">
+      Descrizione dell’attività (specificando tipologia della manifestazione ed eventuale utilizzo di strumenti/impianti)
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td>
+    <textarea class="inputnormal" id="Parametri_DescrAtt" label="descrizione attività" mandatory="true" name="Parametri_DescrAtt" style="width:100%; height:3cm;">
+    </textarea>
+   </td>
+  </tr>
+ </tbody>
+</table>  
+
+<input checked="checked" dynamic_check="true" style="display:none" id="Immobile_DatiCatastaliObbligatori" name="Immobile_DatiCatastaliObbligatori" type="checkbox" value="si"/>
+{{ immobili.immobile_toponomastica( "Immobile", "Area", "Immobile principale oggetto dell'istanza", "display:visibility", "visibility:hidden", "cursor:default", "true" ) }}
+<table class="Modulo" style="border:1px solid grey; margin-top:-1px">
+   <tbody>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          Superficie dell’area
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input class="inputNormal" id="Parametri_SupArea" name="Parametri_SupArea" label="Superficie area" format="positive_float" style="width:100%"/>
+      </td>
+    </tr>  
+   </tbody>
+</table>  
+
+<h3 class='Modulo'>
+  CHIEDE AUTORIZZAZIONE PER EVENTI/MANIFESTAZIONI:
+</h3>  
+
+<table class="Modulo" style="border:1px solid grey">
+  <tbody>
+     <tr>
+    <td style="width:4%; vertical-align:top">
+     <div id="Tassonomia_Casistiche" label="Casistiche" mandatory="true">
+     </div>
+      <input id="Tassonomia_CasisticheA" name="Tassonomia_Casistiche" type="radio" value="1"/>
+    </td>
+    <td colspan="4">
+     <p>
+      <strong>caso A</strong><br>
+  esercitati per un numero massimo di 36 giorni nell’arco dell’anno solare e comunque non più di 12 giorni nell’arco del mese, nella medesima localizzazione, ancorché presentati da soggetti diversi.<br><br>
+  In tal caso DICHIARA che:   
+     </p>
+     <ul>
+        <li>il limite in deroga per gli eventi non supera gli 80 dB(A). </li>
+        <li>nei restanti giorni della manifestazione dovrà essere rispettato il limite posto dalla zonizzazione acustica comunale.</li>
+        <li>l'orario massimo consentito per le manifestazioni è stabilito nelle ore 24:00</li>
+    </ul>
+
+    </td>
+   </tr>
+   <tr>
+    <td style="vertical-align:top">
+      <input id="Tassonomia_CasisticheB" name="Tassonomia_Casistiche" type="radio" value="2"/>
+    </td>
+    <td colspan="4">
+     <p>
+     <strong>caso B</strong><br>
+     continuative caratterizzate da eventi di tipo ripetitivo (es. circo, luna park, pista di pattinaggio, festival, sagre, etc.), svolte nel rispetto dei seguenti valore limite in deroga (LAeq):
+        </p>
+       <ul>
+        <li>60 dB(A) previsto per i giorni di lunedi, martedi, mercoledi, giovedi, domenica dalle ore 8.00 fino alle ore 24.00 </li>
+        <li>65 dB(A) previsto per i giorni di venerdi, sabato dalle ore 8.00 fino alle ore 24.00</li>
+    </ul>
+
+
+    </td>
+   </tr>
+  </tbody>
+ </table>  
+
+
+<br/>
+<table class="Modulo" style="border:1px solid grey">
+ <tbody>
+  <tr class="Rigaintestazione">
+   <td colspan="2">
+    <p style="text-align: center;">
+     <b>
+      Elenco degli allegati
+     </b>
+     <br/>
+     <span style="font-size:70%">
+      <i>
+       (barrare tutti gli allegati richiesti in fase di presentazione della pratica ed elencati sul portale)
+      </i>
+     </span>
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td style="width: 3%">
+    <input id="DOC-RED-TEC" name="DOC-RED-TEC" type="checkbox" checked="checked" dynamic_check="true" value="OBBLIGATORIO"/>
+   </td>
+   <td style="background-color: #eeeeee;">
+    <p>
+     Previsionale di impatto acustico redatta da tecnico competente in acustica ambientale, definito ai sensi dell’articolo 2, della legge 26 -10-1995, n. 447.
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td>
+    <input checked="checked" dynamic_check="true" id="MARCA_BOLLO" name="MARCA_BOLLO" type="checkbox" value="OBBLIGATORIO"/>
+   </td>
+   <td style="background-color: #eeeeee;">
+    <p>
+     pagamento dell'imposta di bollo
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td style="vertical-align: top;">
+    <input enabled="false" id="DAE-CDI" name="DAE-CDI" type="checkbox" value="OBBLIGATORIO"/>
+   </td>
+   <td style="background-color: #eeeeee;">
+    <p>
+     copia del documento d'identità
+     <br/>
+     <span style="font-size:70%">
+      <i>
+       (da non allegare se il modulo è sottoscritto con firma elettronica o se la firma autografa è apposta in presenza del dipendente addetto alla ricezione) 
+      </i>
+     </span>
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td>
+    <input id="ALTRI-ALLEGATI" name="ALTRI-ALLEGATI" type="checkbox" value="OBBLIGATORIO"/>
+   </td>
+   <td style="background-color: #eeeeee;">
+    <p>
+     altri allegati
+     <span style="font-size:70%">
+      (specificare)
+     </span>
+     <input class="" id="AltriAllegati" label="Altri allegati" mandatory_enabled="#ALTRI_ALLEGATI.checked()" name="AltriAllegati" style="width:79%;"/>
+    </p>
+   </td>
+  </tr>
+ </tbody>
+</table>
+
+<br/>
+
+
+ {{ utils.firma_hidden() }}
+ <br/>
+
+<p class="Modulo">
+ <input id="SalvaModulo" name="SalvaModulo" style="height:30px;width:120px;" title="Verifica la corretta compilazione dei campi e salva il modulo nel faldone virtuale dell'istanza." type="submit" value="Salva modulo"/>
+</p>
+
+<input destinatario_amministrazione="getParameter('Ente')" id="GLOBO_modulo_c{{ CodiceModulo }}" name="GLOBO_ modulo_c{{ CodiceModulo }}" type="hidden" value=""/>
+
+<input id="GLOBO_allegato_cDOC-RED-TEC" name="GLOBO_allegato_cDOC-RED-TEC" obbligatorio="#DOC_RED_TEC.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_allegato_cALTRI-ALLEGATI" name="GLOBO_allegato_cALTRI-ALLEGATI" obbligatorio="#ALTRI_ALLEGATI.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_allegato_cDAE-CDI" name="GLOBO_allegato_cDAE-CDI" obbligatorio="#DAE_CDI.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+
+<input id="GLOBO_modulofiglio_cMARCA_BOLLO" name="GLOBO_modulofiglio_cMARCA_BOLLO" obbligatorio="#MARCA_BOLLO.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_id_padre" name="GLOBO_id_padre" type="hidden"/>
+
+<input id="GLOBO_recupera_dati" name="GLOBO_recupera_dati" type="hidden"/>
+
+<input id="GLOBO_codice_modulo" name="GLOBO_codice_modulo" type="hidden" value="{{ CodiceModulo }}"/>
+
+
+{% endblock content %}
+
+
+
+

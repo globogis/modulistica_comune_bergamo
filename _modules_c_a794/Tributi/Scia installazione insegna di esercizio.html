@@ -1,0 +1,770 @@
+{% set CodiceModulo = "SEGN_INSE_ESER" %}
+{% set Urn = "document:c_a794:installazione.insegna.esercizio;segnalazione.certificata" %}
+{% extends "base.html" %}
+{% block meta %}
+
+<meta campi_firma="Titolare_CodiceFiscale"
+campi_firma_label="il dichiarante"
+classi_modulo="Generale"
+codice_modulo="{{ CodiceModulo }}"
+urn="{% block urn %}{{ Urn }}{% endblock urn %}"
+sub_urn_list=""
+uo_globo_list=""
+descrizione="Segnalazione certificata di inizio attività per l'installazione di insegna di esercizio"
+destinatario_amministrazione=""
+destinatario_ufficio="UOTRIBUTI"
+dinamico="SI"
+email_a=""
+ente_abilitato="TUTTI"
+filigrana="NO"
+firmare="P7M_ELETTRONICA"
+istruzioni_compilazione=""
+istruzioni_invio="mail_pec"
+metodo_invio="mail"
+name="GLOBO_modulo"
+procura="NO,,"
+tipo_modulo="principale"
+urlhelp="/modulistica/moduli/{{ CodiceModulo }}"
+verifica_pagamento="NO"
+versione="2.1|04/07/2019"/>
+
+<meta codice_modulo_figlio="INCARICO_PROCURA"
+urn_modulo_figlio="document:s_italia:generale;incarico.procura"
+name="GLOBO_modulofiglio"
+numero="1"
+obbligatorio="DINAMICO"/>
+
+<meta codice_allegato="DIC-AUT-PAES"
+urn_allegato="document:c_a794:impianti.teleradiocomunicazioni;autorizzazione.paesaggistica;allegato"
+descrizione_estesa="Autorizzazione paesaggistica"
+filename="Autorizzazione paesaggistica.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/DIC-AUT-PAES"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="COP-VOL-AUT"
+urn_allegato="document:c_a794:copia.volantino"
+descrizione_estesa="Copia del volantino da distribuire"
+filename="Volantino.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/COP-VOL-AUT"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="LIST-VIE-VOLA"
+urn_allegato="document:c_a794:indirizzi.distribuzione;elenco"
+descrizione_estesa="Lista delle vie oggetto della distribuzione del volantino"
+filename="Elenco vie.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/LIST-VIE-VOLA"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="DESCR-MEZZI-PUBBL"
+urn_allegato="document:c_a794:pubblicita;mezzi.pubblicitari;descrizione.mezzi.pubblicitari;dichiarazione.sostitutiva"
+descrizione_estesa="Breve descrizione dei mezzi pubblicitari oggetto della segnalazione"
+filename="Breve descrizione mezzi.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/DESCR-MEZZI-PUBBL"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="NULL-OST-PUBB"
+urn_allegato="document:c_a794:presentare.scia.pubblicità;copia.nulla.osta"
+descrizione_estesa="Copia del nulla osta della proprieta o dell'amministratore di condominio"
+filename="Copia nulla osta proprieta.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/NULL-OST-PUBB"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="DICH-CONF-PUBB"
+urn_allegato="document:c_a794:presentare.scia.pubblicità;dichiarazione.conformita"
+descrizione_estesa="Dichiarazione di conformità impianto elettrico"
+filename="Conformita impianto elettrico.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/DICH-CONF-PUBB"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="DOC-FOT-PUBB"
+urn_allegato="document:c_a794:presentare.scia.pubblicità;documentazione.fotografica"
+descrizione_estesa="Documentazione fotografica a colori"
+filename="Documentazione fotografica.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/DOC-FOT-PUBB"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="IND-POS-PUBB"
+urn_allegato="document:c_a794:presentare.scia.pubblicità;indicazione.georeferenziazione"
+descrizione_estesa="Indicazione dell'esatta posizione del mezzo pubblicitario"
+filename="Posizione mezzo pubblicitario.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/IND-POS-PUBB"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="NULL-OST-SOPR"
+urn_allegato="document:c_a794:presentare.scia.pubblicità;nulla.osta.sopraintendenza"
+descrizione_estesa="Nulla osta della Soprintendenza ai beni architettonici e culturali"
+filename="Nulla osta della soprintendenza.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/NULL-OST-SOPR"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="SCH-TECN-PUBB"
+urn_allegato="document:c_a794:presentare.scia.pubblicità;scheda.tecnica.mezzo.pubblicitario"
+descrizione_estesa="Scheda tecnica dettagliata del tipo di mezzo pubblicitario richiesto"
+filename="Scheda tecnica mezzo pubblicitario.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/SCH-TECN-PUBB"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="ALTRI-ALLEGATI"
+urn_allegato="document:s_italia:altri.allegati"
+descrizione_estesa="Altri allegati"
+filename="Altri allegati.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/ALTRI-ALLEGATI"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+{% endblock meta %}
+
+{% block title %}
+  Segnalazione certificata di inizio attività per l'installazione di insegna di esercizio
+{% endblock title %}
+
+{% block content %}
+
+<globo_fondo_pagina areaheight="150" scope="3">
+  {{ utils.firma() }}
+</globo_fondo_pagina>
+
+<input id="Parametri_Comune" name="Parametri_Comune" type="hidden" dynamic_value="#Ente.value()"/>
+<input id="Oggetto" name="Oggetto" type="hidden" dynamic_value="#Titolare_Cognome.value().toUpperCase() + ' ' + #Titolare_Nome.value().toUpperCase() + ' - installazione insegna di esercizio'"/>
+
+{{ intestazioni.intestazione_moduloprincipale_senzabollo() }}
+
+<h1 class="Modulo">
+  Segnalazione certificata di inizio attività per l'installazione di insegna di esercizio
+</h1>
+
+<h2 class="Modulo">
+  Ai sensi dell'articolo 9, comma 2  del vigente Regolamento per l'applicazione dell'Imposta sulla pubblicità e dei diritti sulle Pubbliche affissioni
+</h2>
+
+{{ anagrafica.societa("Titolare", "Il sottoscritto", ["Persona fisica", "Titolare", "Legale rappresentante"], "Richiedente", "visibility:visibility", "cursor:pointer", "mail_ordinaria", "false") }}
+
+<br>
+<h3 class="Modulo">
+  SEGNALA
+</h3>
+
+<div id="Tassonomia_Segnalazione" name="Tassonomia_Segnalazione" label="Segnalazione" mandatory="true"></div>
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr>
+      <td rowspan="7" style="vertical-align: top; width: 4%;">
+        <input id="Tassonomia_Segnalazione1" name="Tassonomia_Segnalazione" type="radio" value="1" />
+      </td>
+      <td colspan="2">
+        <p> l'installazione di un'insegna d'esercizio di cui nel Piano Generale degli Impianti Pubblicitari, art. 6, com. 1, lettera A e art. 7, com. 1, lettere a), b), d), e), g) </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazione">
+      <td colspan="2">
+        <p class="Labeltabella"> che la collocazione dell'insegna d'esercizio è </p>
+      </td>
+    </tr>
+    <div id="Tassonomia_CollocazioneInsegna" name="Tassonomia_CollocazioneInsegna" label="Collocazione insegna" mandatory_enabled="#Tassonomia_Segnalazione1.checked()"></div>
+    {% set tips = [ "in apposita fascia porta-insegna ove esistente",
+                    "negli spazi previsti in sede di progettazione delle opere",
+                    "all'interno o nello spazio della vetrina",
+                    "sul muro soprastante le vetrine quando non esiste fascia portainsegna limitatamente allo spazio sovrastante la larghezza della vetrina e non oltre l'altezza del piano terra",
+                    "su parete ad altezza uomo in prossimità della vetrina, limitatamente ad una dimensione massima di 1 mq"] %}
+    {% for tip in tips %}
+      <tr>
+        <td style="vertical-align: top; width: 4%;">
+          <input id="Tassonomia_CollocazioneInsegna{{loop.index}}" name="Tassonomia_CollocazioneInsegna" type="radio" value="{{loop.index}}" />
+        </td>
+        <td>
+          <p> {{ tip|safe }} </p>
+        </td>
+      </tr>      
+    {% endfor %}
+  </tbody>
+</table>
+<table class="Modulo" style="border: 1px solid grey;margin-top: -1px;">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="Tassonomia_Segnalazione2" name="Tassonomia_Segnalazione" type="radio" value="2" />
+      </td>
+      <td>
+        <p> l'installazione di targhe di cui il Piano Generale degli Impianti Pubblicitari, art. 6, com. 1, lettera B e art. 8, di dimensioni superiori a 0,25 mq </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<table class="Modulo" style="border: 1px solid grey;margin-top: -1px;">
+  <tbody>
+    <tr>
+      <td rowspan="12" style="vertical-align: top; width: 4%;">
+        <input id="Tassonomia_Segnalazione3" name="Tassonomia_Segnalazione" type="radio" value="3" />
+      </td>
+      <td colspan="5">
+        <p> l'avvio di un'attività di volantinaggio del Piano Generale degli Impianti Pubblicitari, art. 6, com. 1, lettera Q e art. 22. </p>
+      </td>
+    </tr>
+    <div id="Tassonomia_Volantinaggio" name="Tassonomia_Volantinaggio" label="Volantinaggio" mandatory_enabled="#Tassonomia_Segnalazione3.checked()"></div>
+    {% set tips = [ ("che l'attività di volantinaggio sarà effettuata all'esterno delle zone di cat. A e B, indicate nell'allegato A del Piano Generale degli Impianti Pubblicitari",4,8),
+                    ("la distribuzione del materiale pubblicitario avverrà esclusivamente con consegna a mano, senza apposizione du veicoli in sosta nè abbandono sulle pubbliche vie",4,1),
+                    ("in concomitanza con eventi sportivi e mercati settimanali la distribuzione avverrà ad almeno cento metri dalle aree interessate agli eventi suddetti",4,1)] %}
+    <tr class="Rigaintestazione">
+      <td colspan="5">
+        <p class="Labeltabella"> per il volantinaggio </p>
+      </td>
+    </tr>
+    {% for tip,cpan,rpan in tips %}
+      <tr>
+        <td rowspan="{{rpan}}" style="vertical-align: top; width: 4%;">
+          <input id="Tassonomia_Volantinaggio{{loop.index}}" name="Tassonomia_Volantinaggio{{loop.index}}" type="checkbox" value="{{loop.index}}" dynamic_check="#Tassonomia_Segnalazione3.checked()" enabled="#Tassonomia_Segnalazione3.checked()"/>
+        </td>
+        <td colspan="{{cpan}}">
+          <p> {{ tip|safe }} </p>
+        </td>
+      </tr>    
+      {% set father = loop.index %}
+      {% if loop.first %}  
+        <tr class="Rigaintestazione">
+          <td colspan="4">
+           <p class="Labeltabella">nelle seguenti date e per le seguenti ore comprese tra</p>
+          </td>
+         </tr>
+         <tr class="Rigaintestazioneridotta">
+          <td style="width:25%;">
+           <p class="Labelcella">Giorno</p>
+          </td>
+          <td style="width:25%;">
+           <p class="Labelcella">Ora inizio</p>
+          </td>
+          <td style="width:25%;">
+           <p class="Labelcella">Ora fine</p>
+          </td>
+          <td>
+           <p class="Labelcella">Numero personale</p>
+          </td>
+         </tr>
+         {% for i in range(1, 6) %}
+           <tr {% if loop.first %} mandatory_{% endif %}enabled="#Tassonomia_Volantinaggio{{father}}.checked()" >
+             <td>
+               <input class="inputNormal" id="Parametri_VolantData{{loop.index}}" name="Parametri_VolantData{{loop.index}}" label="Giorno volantinaggio" format="date" style="width:100%" {% if loop.index > 1 %} mandatory="#Parametri_VolantOraInizio{{loop.index}}.value().length > 0 || #Parametri_VolantOraFine{{loop.index}}.value().length > 0 || #Parametri_NumPers{{loop.index}}.value().length > 0" {% endif %} />
+             </td>
+             <td >
+               <input class="inputNormal" id="Parametri_VolantOraInizio{{loop.index}}" name="Parametri_VolantOraInizio{{loop.index}}" label="Ora inizio volantinaggio" format="time" style="width:100%" {% if loop.index > 1 %} mandatory="(#Parametri_VolantData{{loop.index}}.value() != 'gg/mm/aaaa' and #Parametri_VolantData{{loop.index}}.value() != '') || #Parametri_VolantOraFine{{loop.index}}.value().length > 0 || #Parametri_NumPers{{loop.index}}.value().length > 0" {% endif %} />
+             </td>
+             <td >
+               <input class="inputNormal" id="Parametri_VolantOraFine{{loop.index}}" name="Parametri_VolantOraFine{{loop.index}}" label="Ora fine volantinaggio"  format="time" style="width:100%" {% if loop.index > 1 %} mandatory="(#Parametri_VolantData{{loop.index}}.value() != 'gg/mm/aaaa' and #Parametri_VolantData{{loop.index}}.value() != '') || #Parametri_VolantOraInizio{{loop.index}}.value().length > 0 || #Parametri_NumPers{{loop.index}}.value().length > 0" {% endif %} />
+             </td>
+             <td >
+               <input class="inputNormal" id="Parametri_NumPers{{loop.index}}" name="Parametri_NumPers{{loop.index}}" label="Numero personale" format="number" style="width:100%" {% if loop.index > 1 %} mandatory="(#Parametri_VolantData{{loop.index}}.value() != 'gg/mm/aaaa' and #Parametri_VolantData{{loop.index}}.value() != '') || #Parametri_VolantOraInizio{{loop.index}}.value().length > 0 || #Parametri_VolantOraFine{{loop.index}}.value().length > 0" {% endif %} />
+             </td>      
+           </tr>
+         {% endfor %}   
+      {% endif %}
+    {% endfor %}
+  </tbody>
+</table>
+
+
+<table class="Modulo" style="border: 1px solid grey;margin-top: -1px;">
+  <tbody>
+    <tr>
+      <td rowspan="5" style="vertical-align: top; width: 4%;">
+        <input id="Tassonomia_Segnalazione4" name="Tassonomia_Segnalazione" type="radio" value="4" />
+      </td>
+      <td colspan="2">
+        <p> l'installazione di impianti di cantiere definiti dal Piano Generale degli Impianti Pubblicitari, art. 6, com. 1 </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazione">
+      <td colspan="2">
+        <p class="Labeltabella"> caratteristiche per gli impianti di cantiere </p>
+      </td>
+    </tr>
+    <div id="Tassonomia_Cantieri" name="Tassonomia_Cantieri" label="Volantinaggio" mandatory_enabled="#Tassonomia_Segnalazione4.checked()"></div>
+    {% set tips = [ "che l'impianto pubblicitario si troverà all'interno di un'area di cantiere",
+                    "che l'impianto pubblicizzerà attività connesse all'attività edilizia in corso",
+                    "che la segnalazione è per il periodo dal 
+                      <input class='inputNormal' id='Parametri_InizioSegnalazioneCantiere' name='Parametri_InizioSegnalazioneCantiere' format='date' style='width: 100;' label='inizio segnalazione cantiere' mandatory_enabled='#Tassonomia_Cantieri3.checked()'/> al 
+                      <input class='inputNormal' id='Parametri_FineSegnalazioneCantiere' name='Parametri_FineSegnalazioneCantiere' format='date' style='width: 100;' label='Fine segnalazione cantiere' mandatory_enabled='#Tassonomia_Cantieri3.checked()'/>"] %}
+    {% for tip in tips %}
+      <tr>
+        <td style="vertical-align: top; width: 4%;">
+          <input id="Tassonomia_Cantieri{{loop.index}}" name="Tassonomia_Cantieri{{loop.index}}" type="checkbox" value="{{loop.index}}" dynamic_check="#Tassonomia_Segnalazione4.checked()" enabled="#Tassonomia_Segnalazione4.checked()"/>
+        </td>
+        <td>
+          <p> {{ tip|safe }} </p>
+        </td>
+      </tr>      
+    {% endfor %}
+   </tbody>
+ </table>
+<input dynamic_value="#Immobile_NumeroAltriImmobili.value() == 0 ? '0' :  Math.ceil(#Immobile_NumeroAltriImmobili.value() / 16) " id="Immobile_NumeroUlterioriImmobili" name="Immobile_NumeroUlterioriImmobili" type="hidden">
+ <input id="Immobile_DatiCatastaliObbligatori" name="Immobile_DatiCatastaliObbligatori" type="checkbox" style="display:none" value="si"/>
+ {{ immobili.immobile_secondario("Immobile","<input id='Immobile_DatiImmobileRichiesti' name='Immobile_DatiImmobileRichiesti' type='checkbox' value='si' dynamic_check='!#Tassonomia_Segnalazione3.checked()'/> collocazione territoriale","Immobile principale oggetto dell'installazione", "display:visibility", "", "visibility:hidden", "cursor:default", "false") }}
+ <table class="Modulo" enabled="#Immobile_DatiImmobileRichiesti.checked()" style="border:1px solid grey; margin-top:-1px">
+  <tbody>
+            <tr class="Rigaintestazioneridotta">
+                <td>
+                    <p class="Labelcella">Ulteriori immobili oggetto del procedimento
+						<i>(allegare il modulo "Ulteriori immobili oggetto del procedimento")</i>
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p>il procedimento riguarda <input class="" id="Immobile_NumeroAltriImmobili" name="Immobile_NumeroAltriImmobili" style="width:5%;" value="0" label="Numero altri immobili"/> ulteriori immobli
+                    </p>
+                </td>
+            </tr>
+  </tbody>
+ </table>
+
+<globo_salto_pagina></globo_salto_pagina>
+
+<br>
+{{ utils.Dichiara_445() }}
+
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="5">
+        <p class="Labeltabella">
+          che l'immobile su cui è prevista la collocazione dell'insegna targa è
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td colspan="5">
+        <p class="Labelcella"> Vincolo paesaggistico </p>
+      </td>
+    </tr>
+    <tr>
+      <td rowspan="5" style="vertical-align: top; width: 4%;background-color:white">
+        <div id="Tassonomia_VincoloPaesaggistico" name="Tassonomia_VincoloPaesaggistico" label="Collocazione targa" mandatory_enabled="!#Tassonomia_Segnalazione3.checked()"></div>
+        <input id="Tassonomia_VincoloPaesaggistico1" name="Tassonomia_VincoloPaesaggistico" type="radio" value="1" />
+      </td>
+      <td colspan="4">
+        <p>
+          assoggettato a vincolo paesaggistico ai sensi del Decreto Legislativo 22/01/2004 n. 42
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td rowspan="3" style="vertical-align: top; width: 4%;background-color:white">
+        <div id="Tassonomia_VincoloPaesaggistico1_" name="Tassonomia_VincoloPaesaggistico1_" enabled="#Tassonomia_VincoloPaesaggistico1.checked()"></div>
+        <input id="Tassonomia_VincoloPaesaggistico1_1" name="Tassonomia_VincoloPaesaggistico1_" type="radio" value="1" />
+      </td>
+      <td colspan="3">
+        <p>
+          è stata acquisita l'autorizzazione paesaggistica di cui all'art. 146 del D.Lgs 22/01/2004, n. 42 in quanto le opere rientrano tra quelle previste dal Decreto Legislativo 22/01/2004 n. 42, art. 149
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td style="border: 1px solid grey;">
+        <p class="Labelcella">
+          Protocollo/Numero
+        </p>
+      </td>
+      <td style="border: 1px solid grey;">
+        <p class="Labelcella">
+          Data
+        </p>
+      </td>
+      <td style="border: 1px solid grey;">
+        <p class="Labelcella">
+          Ente di riferimento
+        </p>
+      </td>
+    </tr>
+    <tr mandatory_enabled="#Tassonomia_VincoloPaesaggistico1_1.checked()">
+      <td style="width: 33%">
+        <input class="inputNormal" id="Parametri_Protocollo" name="Parametri_Protocollo" style="width: 100%;" label="Numero di protocollo" />
+      </td>
+      <td style="width: 33%">
+        <input class="inputNormal" id="Parametri_Protocollo_Data" name="Parametri_Protocollo_Data" style="width: 100%;" label="Data del protocollo" format="date"/>
+      </td>
+      <td style="width: 33%">
+        <input class="inputNormal" id="Parametri_Protocollo_Note" name="Parametri_Protocollo_Note" style="width: 100%;" label="Ente di riferimento" />
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;background-color:white">
+        <input id="Tassonomia_VincoloPaesaggistico1_2" name="Tassonomia_VincoloPaesaggistico1_" type="radio" value="2" />
+      </td>
+      <td colspan="3">
+        <p>
+          non è stata acquisita l'autorizzazione paesaggistica di cui all'art. 146 del D.Lgs 22/01/2004, n. 42 in quanto le opere rientrano tra quelle previste dal Decreto Legislativo 22/01/2004 n. 42, art. 149
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;background-color:white">
+        <input id="Tassonomia_VincoloPaesaggistico2" name="Tassonomia_VincoloPaesaggistico" type="radio" value="2" />
+      </td>
+      <td colspan="4">
+        <p>
+          non assoggettato a vincolo paesaggistico ai sensi del Decreto Legislativo 22/01/2004 n. 42
+        </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<table class="Modulo" style="border: 1px solid grey;margin-top: -1px;">
+  <tbody>
+    <tr class="Rigaintestazioneridotta">
+      <td colspan="3">
+        <p class="Labelcella"> Vincolo culturale </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <div id="Tassonomia_VincoloCulturale" name="Tassonomia_VincoloCulturale" label="Collocazione targa" mandatory_enabled="!#Tassonomia_Segnalazione3.checked()"></div>
+        <input id="Tassonomia_VincoloCulturale1" name="Tassonomia_VincoloCulturale" type="radio" value="1" />
+      </td>
+      <td colspan="2">
+        <p>
+         assoggettato a vincolo culturale ai sensi del D.Lgs 22/01/2004 n. 42 con parere favorevole della soprintendenza <input class="inputNormal" id="Parametri_Soprintendenza" name="Parametri_Soprintendenza" style="width: 100;" label="Soprintendenza" mandatory_enabled="#Tassonomia_VincoloCulturale1.checked()"/>
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="Tassonomia_VincoloCulturale2" name="Tassonomia_VincoloCulturale" type="radio" value="2" />
+      </td>
+      <td colspan="2">
+        <p>
+          non assoggettato a vincolo culturale ai sensi del D.Lgs 22/01/2004 n. 42
+        </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<table class="Modulo" style="border: 1px solid grey; margin-top: -1px;">
+  <tbody>
+    <tr class="Rigaintestazioneridotta">
+      <td colspan="2">
+        <p class="Labelcella"> Visibilità dell'impianto pubblicitario </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <div id="Tassonomia_VisibilitaTarga" name="Tassonomia_VisibilitaTarga" label="visibilità targa" mandatory_enabled="!#Tassonomia_Segnalazione3.checked()"></div>
+        <input id="Tassonomia_VisibilitaTarga1" name="Tassonomia_VisibilitaTarga" type="radio" value="1" />
+      </td>
+      <td>
+        <p>
+          non risulta visibile da itinerari internazionali, autostrade i strade extra-urbane principali e relativi accessi (es. tangenziali), ai sensi del Codice della Strada, art. 23, com. 7
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="Tassonomia_VisibilitaTarga2" name="Tassonomia_VisibilitaTarga" type="radio" value="2" />
+      </td>
+      <td>
+        <p>
+          risulta visibile da itinerari internazionali, autostrade o strade extra-urbane principali e relativi accessi (es. tangenziali), ai sensi del Codice della Strada, art.23, com.7, 
+          per il quale è stato acquisito il nulla osta da parte di <input class="inputNormal" id="Parametri_EnteRilascioNullaOsta1" name="Parametri_EnteRilascioNullaOsta1" style="width: 100;" label="Ente rilascio nulla osta 1" mandatory_enabled="#Tassonomia_VisibilitaTarga2.checked()"/> 
+          in data <input class="inputNormal" id="Parametri_DataRilascioNullaOsta1" name="Parametri_DataRilascioNullaOsta1" format="date" style="width: 100;" label="Data rilascio nulla osta 1" mandatory_enabled="#Tassonomia_VisibilitaTarga2.checked()"/>
+        </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<table class="Modulo" style="border: 1px solid grey;margin-top: -1px;">
+  <tbody>
+    <tr class="Rigaintestazioneridotta">
+      <td colspan="2">
+        <p class="Labelcella"> Proprietà </p>
+      </td>
+    </tr>
+    <div id="Parametri_INSCollocaz" name="Parametri_INSCollocaz" label="Proprietà immobile" mandatory_enabled="!#Tassonomia_Segnalazione3.checked()">
+    {% set tips = [ "installato su edificio o in area privata",
+                    "installato su suolo pubblico"] %}
+    {% for tip in tips %}
+      <tr>
+        <td style="vertical-align: top; width: 4%;">
+          <input id="Parametri_INSCollocaz{{loop.index}}" name="Parametri_INSCollocaz" type="radio" value="{{loop.index}}" />
+        </td>
+        <td>
+          <p> {{ tip|safe }} </p>
+        </td>
+      </tr>      
+    {% endfor %}
+  </tbody>
+</table>
+ {% set tips = ["opaco","luminoso","illuminato"] %}
+ <table class="Modulo" style="border: 1px solid grey;margin-top: -1px;">
+   <tbody>
+     <tr class="Rigaintestazioneridotta">
+       <td colspan="2">
+         <p class="Labelcella"> Luminosità </p>
+       </td>
+     </tr>
+    <div id="Tassonomia_Luminosita" label="Tipo di luminosità" mandatory_enabled="!#Tassonomia_Segnalazione3.checked()">  
+     {% for tip in tips %}
+      <tr>
+        <td style="width:4%">
+          <input id="Tassonomia_Luminosita{{loop.index}}" name="Tassonomia_Luminosita" type="radio" value="{{loop.index}}"/>
+        </td>
+        <td>
+          <p> {{tip}} </p>
+        </td>
+      </tr> 
+       
+     {% endfor %}
+   </tbody>
+ </table>
+
+
+<br>
+<h3 class="Modulo">
+  DICHIARA INOLTRE
+</h3>
+{% set tips = [ "che quanto richiesto è conforme alle disposizioni del vigente regolamento per l'Applicazione dell'imposta sulla Pubblicità e dei diritti sulle Pubbliche affissioni e del vigente Piano Generale per gli Impianti Pubblicitari",
+                "dichiara inoltre di essere consapevole che il Comune, ai sensi della legge 07/08/1990 n. 241, art. 19, com.3 e s.m.i., potrà verificare d'ufficio entro 60 giorni dalla presente Segnalazione la sussistenza dei presupposti e dei requisiti di legge richiesti, in mancanza dei quali addotterà motivati provvedimenti di contestazione/rimozione dei mezzi installati o da installare slavo che, ove ciò sia possibile, vengano eliminate le ragioni di difformità contestate entro un termine fissato dal Comune in ogni caso non superiore a trenta giorni, fatto comunque salvo il potere del Comune medesimo di assumere, anche successivamente, determinazioni in via di auto tutela ai della Legge07/08/1990 n.241 art. 21 - quinquies e art. 21 - nonies",
+                "che i manufatti da collocare sono stati realizzati e saranno installati in conformità alle disposizioni contenute nell'articolo 23 del Decreto Legislativo 30/04/1992, n. 285, di quelle contenute al paragrafo terzo del Decreto del Presidente della Repubblica 16/12/1992, n. 495 e di quelle contenute nel vigente Regolamento comunale",
+                "che i manufatti da collocare sono stati calcolati e realizzati e saranno posti in opera tenendo conto della natura del terreno, della spinta del vento, ecc. in modo da garantire la stabilità e non costituire pericolo per la pubblica incolumità",
+                "che i manufatti da collocare sono conformi alle disposizione contenute nelle disposizioni nazionali e regionali vigenti in materia di inquinamento luminoso"] %}
+<table class="Modulo" style="border: 0px;">
+  <tbody>
+    {% for tip in tips %}
+      <tr style="border: 0px;">
+        <td style="vertical-align: top; width: 4%; border: 0px;">
+          <input id="Dichiara{{loop.index}}" name="Dichiara{{loop.index}}" type="checkbox" value="SI" dynamic_check="true" checked="checked"/>
+        </td>
+        <td style="border: 0px;">
+          <p> {{ tip|safe }} </p>
+        </td>
+      </tr>      
+    {% endfor %}
+  </tbody>
+</table>
+
+
+<br/>
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          Eventuali annotazioni
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <textarea class="inputNormal" id="Parametri_Annotazioni" name="Parametri_Annotazioni" style="width: 100%; height: 5cm;" label="Eventuali annotazioni"></textarea>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<br/>
+<table class="Modulo" name="Allegati" style="border: 1px solid grey">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="2">
+        <p style="text-align: center;">
+          <b>
+            Elenco degli allegati
+          </b>
+          <br/>
+          <span style="font-size:70%"><i>(barrare tutti gli allegati richiesti in fase di presentazione della pratica ed elencati sul portale)</i></span>
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="width: 4%; vertical-align: top;">
+        <input id="DIC-AUT-PAES" name="DIC-AUT-PAES" type="checkbox" value="OBBLIGATORIO" enabled="#Tassonomia_VincoloPaesaggistico1.checked()" dynamic_check="#Tassonomia_VincoloPaesaggistico1.checked()"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          autorizzazione paesaggistica <br/>
+          <span style="font-size:70%"><i>(da non allegare in caso di volantinaggio)</i></span>
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="width: 4%; vertical-align: top;">
+        <input id="DESCR-MEZZI-PUBBL" name="DESCR-MEZZI-PUBBL" type="checkbox" value="OBBLIGATORIO" enabled="!#Tassonomia_Segnalazione3.checked()" dynamic_check="!#Tassonomia_Segnalazione3.checked()"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          breve descrizione dei mezzi pubblicitari oggetto della domanda di autorizzazione <br/>
+          <span style="font-size:70%"><i>(da non allegare in caso di volantinaggio)</i></span>
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="width: 4%; vertical-align: top;">
+        <input id="NULL-OST-PUBB" name="NULL-OST-PUBB" type="checkbox" value="OBBLIGATORIO" enabled="#Parametri_INSCollocaz1.checked()" dynamic_check="#Parametri_INSCollocaz1.checked()"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          copia del nulla osta della proprietà o dell'amministratore di condominio, attestante la disponibilità allo sfruttamento dell'area o l'utilizzo della unità immobiliare indicata <br/>
+          <span style="font-size:70%"><i>(se al documento è apposta una firma autografa allegare copia del documento d'identità del sottoscrittore. Da non allegare nel caso di volantinaggio)</i></span>
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="width: 4%; vertical-align: top;">
+        <input id="DICH-CONF-PUBB" name="DICH-CONF-PUBB" type="checkbox" value="OBBLIGATORIO" dynamic_check="#Tassonomia_Luminosita2.checked() || #Tassonomia_Luminosita3.checked()" enabled="#Tassonomia_Luminosita2.checked() || #Tassonomia_Luminosita3.checked()"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          dichiarazione di conformità dell'eventuale impianto elettrico e dichiarazione attestante che l'impianto non produce abbagliamento <br/>
+          <span style="font-size:70%"><i>(da allegare in caso di impianti non d’esercizio la dichiarazione di conformità sottoscritta da tecnico abilitato)</i></span>
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="width: 4%; vertical-align: top;">
+        <input id="DOC-FOT-PUBB" name="DOC-FOT-PUBB" type="checkbox" value="OBBLIGATORIO" enabled="!#Tassonomia_Segnalazione3.checked()" dynamic_check="!#Tassonomia_Segnalazione3.checked()"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          documentazione fotografica esplicativa a colori che illustra lo stato attuale dei luoghi con l'ambiente circostante e lo stato dei luoghi successivo all'apposizione dei mezzi tramite fotomontaggi <br/>
+          <span style="font-size:70%"><i>(da non allegare nel caso di volantinaggio)</i></span>
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="width: 4%; vertical-align: top;">
+        <input id="IND-POS-PUBB" name="IND-POS-PUBB" type="checkbox" value="OBBLIGATORIO" enabled="!#Tassonomia_Segnalazione3.checked()" dynamic_check="!#Tassonomia_Segnalazione3.checked()"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          indicazione dell'esatta posizione del mezzo pubblicitario richiesto con georeferenziazione del punto baricentrico di installazione <br/>
+          <span style="font-size:70%"><i>(da non allegare nel caso di volantinaggio)</i></span>
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="width: 4%; vertical-align: top;">
+        <input id="NULL-OST-SOPR" name="NULL-OST-SOPR" type="checkbox" value="OBBLIGATORIO" enabled="#Tassonomia_VincoloPaesaggistico4.checked()" dynamic_check="#Tassonomia_VincoloPaesaggistico4.checked()"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          nulla osta della Soprintendenza ai beni architettonici e culturali <br/>
+          <span style="font-size:70%"><i>(da non allegare nel caso di volantinaggio)</i></span>
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="width: 4%; vertical-align: top;">
+        <input id="SCH-TECN-PUBB" name="SCH-TECN-PUBB" type="checkbox" value="OBBLIGATORIO" enabled="!#Tassonomia_Segnalazione3.checked()" dynamic_check="!#Tassonomia_Segnalazione3.checked()"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          scheda tecnica dettagliata del tipo di mezzo pubblicitario richiesto <br/>
+          <span style="font-size:70%"><i>(da non allegare nel caso di volantinaggio)</i></span>
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="width: 4%; vertical-align: top;">
+        <input id="COP-VOL-AUT" name="COP-VOL-AUT" type="checkbox" value="OBBLIGATORIO" enabled="#Tassonomia_Segnalazione3.checked()" dynamic_check="#Tassonomia_Segnalazione3.checked()"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          copia del volantino da distribuire <br/>
+          <span style="font-size:70%"><i>(da allegare nel caso di volantinaggio)</i></span>
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="width: 4%; vertical-align: top;">
+        <input id="LIST-VIE-VOLA" name="LIST-VIE-VOLA" type="checkbox" value="OBBLIGATORIO" enabled="#Tassonomia_Segnalazione3.checked()" dynamic_check="#Tassonomia_Segnalazione3.checked()"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          lista delle vie oggetto della distribuzione del volantino <br/>
+          <span style="font-size:70%"><i>(da allegare nel caso di volantinaggio)</i></span>
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="ALTRI-ALLEGATI" name="ALTRI-ALLEGATI" type="checkbox" value="OBBLIGATORIO"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          altri allegati
+          <span style="font-size:70%">(specificare)</span>
+          <input class="" label="Altri allegati" id="AltriAllegati" mandatory_enabled="#ALTRI_ALLEGATI.checked()" name="AltriAllegati" style="width:79%;"/>
+        </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br/>
+{{ utils.trattamento_dati_personali() }}
+<br/>
+  {{ utils.firma_hidden() }}
+<br/>
+
+<p class="Modulo">
+  <input id="SalvaModulo" name="SalvaModulo" style="height:30px;width:120px;" title="Verifica la corretta compilazione dei campi e salva il modulo nel faldone virtuale dell'istanza." type="submit" value="Salva modulo"/>
+</p>
+
+<input destinatario_amministrazione="getParameter('Ente')" id="GLOBO_modulo_c{{ CodiceModulo }}" name="GLOBO_modulo_c{{ CodiceModulo }}" type="hidden" value=""/>
+<input firmare="'P7M_ELETTRONICA'" id="GLOBO_modulofiglio_cINCARICO_PROCURA" name="GLOBO_modulofiglio_cINCARICO_PROCURA" type="hidden" value=""/>
+
+<input id="GLOBO_allegato_cDIC-AUT-PAES" name="GLOBO_allegato_cDIC-AUT-PAES" type="hidden" value="" obbligatorio="#DIC_AUT_PAES.checked() ? 'OBBLIGATORIO' : ''"/>
+<input id="GLOBO_allegato_cDESCR-MEZZI-PUBBL" name="GLOBO_allegato_cDESCR-MEZZI-PUBBL" obbligatorio="#DESCR_MEZZI_PUBBL.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+<input id="GLOBO_allegato_cNULL-OST-PUBB" name="GLOBO_allegato_cNULL-OST-PUBB" type="hidden" value="" obbligatorio="#NULL_OST_PUBB.checked() ? 'OBBLIGATORIO' : ''"/>
+<input id="GLOBO_allegato_cDICH-CONF-PUBB" name="GLOBO_allegato_cDICH-CONF-PUBB" type="hidden" value="" obbligatorio="#DICH_CONF_PUBB.checked() ? 'OBBLIGATORIO' : ''"/>
+<input id="GLOBO_allegato_cDOC-FOT-PUBB" name="GLOBO_allegato_cDOC-FOT-PUBB" type="hidden" value="" obbligatorio="#DOC_FOT_PUBB.checked() ? 'OBBLIGATORIO' : ''"/>
+<input id="GLOBO_allegato_cIND-POS-PUBB" name="GLOBO_allegato_cIND-POS-PUBB" type="hidden" value="" obbligatorio="#IND_POS_PUBB.checked() ? 'OBBLIGATORIO' : ''"/>
+<input id="GLOBO_allegato_cNULL-OST-SOPR" name="GLOBO_allegato_cNULL-OST-SOPR" type="hidden" value="" obbligatorio="#NULL_OST_SOPR.checked() ? 'OBBLIGATORIO' : ''"/>
+<input id="GLOBO_allegato_cSCH-TECN-PUBB" name="GLOBO_allegato_cSCH-TECN-PUBB" type="hidden" value="" obbligatorio="#SCH_TECN_PUBB.checked() ? 'OBBLIGATORIO' : ''"/>
+<input id="GLOBO_allegato_cCOP-VOL-AUT" name="GLOBO_allegato_cCOP-VOL-AUT" type="hidden" value="" obbligatorio="#COP_VOL_AUT.checked() ? 'OBBLIGATORIO' : ''"/>
+<input id="GLOBO_allegato_cLIST-VIE-VOLA" name="GLOBO_allegato_cLIST-VIE-VOLA" type="hidden" value="" obbligatorio="#LIST_VIE_VOLA.checked() ? 'OBBLIGATORIO' : ''"/>
+<input id="GLOBO_allegato_cALTRI-ALLEGATI" name="GLOBO_allegato_cALTRI-ALLEGATI" obbligatorio="#ALTRI_ALLEGATI.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_id_padre" name="GLOBO_id_padre" type="hidden"/>
+<input id="GLOBO_recupera_dati" name="GLOBO_recupera_dati" type="hidden"/>
+<input id="GLOBO_codice_modulo" name="GLOBO_codice_modulo" type="hidden" value="{{ CodiceModulo }}"/>
+
+{% endblock content %}

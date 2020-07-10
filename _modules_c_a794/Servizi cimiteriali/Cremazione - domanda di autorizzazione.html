@@ -1,0 +1,507 @@
+{% set CodiceModulo = "DOM_CREMAZIONE_SALMA" %}
+{% set Urn = "document:c_a794:cadavere.cremazione;domanda" %}
+{% extends "base.html" %}
+{% block meta %}
+
+<meta campi_firma="Titolare_CodiceFiscale"
+campi_firma_label="il dichiarante"
+classi_modulo="Servizi cimiteriali"
+codice_modulo="{{ CodiceModulo }}"
+urn="{% block urn %}{{ Urn }}{% endblock urn %}"
+sub_urn_list="statocivile,servizicimi"
+uo_globo_list=""
+descrizione="Domanda di autorizzazione alla cremazione"
+destinatario_amministrazione=""
+destinatario_ufficio="UOSERVIZICIMITERIALI"
+dinamico="SI"
+email_a=""
+ente_abilitato="TUTTI"
+filigrana="NO"
+firmare="P7M_ELETTRONICA"
+istruzioni_compilazione=""
+istruzioni_invio="mail_pec"
+metodo_invio="mail"
+name="GLOBO_modulo"
+procura="NO,,"
+tipo_modulo="principale"
+urlhelp="/modulistica/moduli/{{ CodiceModulo }}"
+verifica_pagamento="NO"
+versione="1.0|13/03/2019"/>
+
+<meta codice_modulo_figlio="INCARICO_PROCURA"
+urn_modulo_figlio="document:s_italia:generale;incarico.procura"
+name="GLOBO_modulofiglio"
+numero="1"
+obbligatorio="DINAMICO"/>
+
+<meta codice_modulo_figlio="MARCA_BOLLO"
+urn_modulo_figlio="document:s_italia:pagamento.imposta.bollo;apposizione.domanda;dichiarazione.sostitutiva"
+name="GLOBO_modulofiglio"
+numero="1"
+obbligatorio="DINAMICO"/>
+
+<meta codice_modulo_figlio="DICH_DISPERSIONE_CENERI"
+urn_modulo_figlio="document:s_italia:dispersione.ceneri;dichiarazione"
+name="GLOBO_modulofiglio"
+numero="1"
+obbligatorio="DINAMICO"/>
+
+<meta codice_modulo_figlio="DICH_AFFIDAMENTO_CENERI-S"
+urn_modulo_figlio="document:s_italia:affidamento.ceneri;dichiarazione;secondario"
+name="GLOBO_modulofiglio"
+numero="1"
+obbligatorio="DINAMICO"/>
+
+<meta codice_allegato="ACC-MOR-DEF"
+urn_allegato="document:s_italia:polizia.mortuaria;accertamento.morte;documentazione"
+descrizione_estesa="Copia dell'accertamento di morte"
+filename="Accertamento di morte.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/ACC-MOR-DEF"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="DOC-CRE-DEF"
+urn_allegato="document:s_italia:cadavere.cremazione;comprova.volonta.defunto.parenti;documentazione"
+descrizione_estesa="Copia della documentazione attestante la volontà del defunto o dei parenti"
+filename="Volonta cremazione.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/DOC-CRE-DEF"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="NUL-AUT-GIU"
+urn_allegato="document:s_italia:polizia.mortuaria;nulla.osta.autorita.giudiziaria.morte.violenta.improvvisa;documentazione"
+descrizione_estesa="Copia del nulla osta rilasciato dall'autorità giudiziaria"
+filename="Nulla osta.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/NUL-AUT-GIU"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="DAE-CDI"
+urn_allegato="document:s_italia:generale;documento.identita;documentazione"
+descrizione_estesa="Documento di identità"
+filename="Documento identita.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/DAE-CDI"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="ALTRI-ALLEGATI"
+urn_allegato="document:s_italia:altri.allegati"
+descrizione_estesa="Altri allegati"
+filename="Altri allegati.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/ALTRI-ALLEGATI"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+{% endblock meta %}
+
+{% block title %}
+  Domanda di autorizzazione alla cremazione
+{% endblock title %}
+
+{% block content %}
+
+<globo_fondo_pagina areaheight="150" scope="2">
+{{ utils.firma() }}
+</globo_fondo_pagina>
+
+<input dynamic_value="#Ente.value()" id="Parametri_Comune" name="Parametri_Comune" type="hidden"/>
+
+<input dynamic_value="#Titolare_Cognome.value().toUpperCase() + ' ' + #Titolare_Nome.value().toUpperCase() + ' - autorizzazione alla cremazione'" id="Oggetto" name="Oggetto" type="hidden"/>
+
+<div id="Tassonomia_aut_cim_dom" name="Tassonomia_aut_cim_dom" label="Label"></div>
+<input id="Tassonomia_aut_cim_dom3" name="Tassonomia_aut_cim_dom" type="radio" value="3" dynamic_check="true" style="display: none;"/>
+
+{{ intestazioni.intestazione_moduloprincipale_conbollo() }}
+
+<h1 class="Modulo">
+  Domanda di autorizzazione alla cremazione
+</h1>
+
+<h2 class="Modulo">
+  Ai sensi dell'articolo 79 del Decreto del Presidente della Repubblica 10/09/1990, n. 285, dell'articolo 73 della Legge Regionale 30/12/2009, n. 33 e dell'articolo 12 del Regolamento Regionale 09/11/2004, n. 6
+</h2>
+
+<input dynamic_check="true" id="Titolare_DatiPersonaObbligatori" name="Titolare_DatiPersonaObbligatori" type="hidden"/>
+<input id="Titolare_Titolo" name="Titolare_Titolo" type="hidden" value="Richiedente"/>
+<input id="Titolare_Ruolo" name="Titolare_Ruolo" type="hidden" value="Richiedente"/>
+{{ anagrafica.persona_fisica("Titolare", "Il sottoscritto", "visibility:visibility", "cursor:pointer", "visibility:visibility", "visibility:visibility", "mail_ordinaria") }}
+
+<table class="Modulo" style="border:1px solid grey; margin-top: -1px;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td>
+        <p class="Labeltabella">
+          in qualità di
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">Ruolo (*)</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <select class="inputNormal" id="Titolare_Note" name="Titolare_Note" style="width: 100%;" label="Ruolo" mandatory="true">
+          <option value=""></option>
+          <option value="coniuge del defunto">coniuge del defunto</option>
+          <option value="convivente del defunto">convivente del defunto</option>
+          <option value="esecutore testamentario del defunto">esecutore testamentario del defunto</option>
+          <option value="figlio del defunto">figlio del defunto</option>
+          <option value="genitore del defunto">genitore del defunto</option>
+        </select>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<p class="Modulo" style="font-size:80%">
+  <i>Ruolo (*)</i>:<br/>
+  coniuge del defunto, convivente del defunto, esecutore testamentario del defunto, figlio del defunto, genitore del defunto
+</p>
+
+<h3 class="Modulo">
+  CHIEDE
+</h3>
+
+<p class="Modulo">il rilascio dell'autorizzazione alla cremazione</p>
+
+<table class="Modulo" style="border:1px solid grey;">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <div id="Tassonomia_FormaDefunto" name="Tassonomia_FormaDefunto" label="Forme del defunto"></div>
+        <input id="Tassonomia_FormaDefunto1" name="Tassonomia_FormaDefunto" type="radio" value="1"/>
+      </td>
+      <td colspan="3">
+        <p>
+          del cadavere
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td rowspan="4" style="vertical-align: top; width: 4%; background-color: white;">
+        <input id="Tassonomia_FormaDefunto3" name="Tassonomia_FormaDefunto" type="radio" value="3"/>
+      </td>
+      <td colspan="3">
+        <p>
+          dei resti mortali o resti ossei del defunto tumulati/inumati
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td colspan="3">
+        <p class="Labelcella">
+          Titolo autorizzativo alla esumazione/estumulazione
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td style="width: 22%;">
+        <p class="Labelcella">
+          Numero
+        </p>
+      </td>
+      <td style="width: 22%;">
+        <p class="Labelcella">
+          Data
+        </p>
+      </td>
+      <td>
+        <p class="Labelcella">
+          Ente di riferimento
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input class="inputNormal" id="Parametri_Aut_esumestum" name="Parametri_Aut_esumestum" style="width: 100%;" label="Numero titolo autorizzativo alla esumazione/estumulazione" mandatory_enabled="#Tassonomia_FormaDefunto3.checked()">
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_Aut_esumestum_Data" name="Parametri_Aut_esumestum_Data" style="width: 100%;" label="Data titolo autorizzativo alla esumazione/estumulazione" format="date" mandatory_enabled="#Tassonomia_FormaDefunto3.checked()">
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_Aut_esumestum_Note" name="Parametri_Aut_esumestum_Note" style="width: 100%;" label="Ente di riferimento titolo autorizzativo alla esumazione/estumulazione" mandatory_enabled="#Tassonomia_FormaDefunto3.checked()">
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<input id="AventeTitolo1_DatiObbligatori" name="AventeTitolo1_DatiObbligatori" type="checkbox" dynamic_check="true" style="display: none;">
+{{ utilscimiteriali.defunto("AventeTitolo1", "del defunto", "Defunto") }}
+
+<globo_salto_pagina></globo_salto_pagina>
+
+{{ utils.Dichiara_445() }}
+
+<p class="Modulo">che la volontà della cremazione risulta da</p>
+
+<table class="Modulo" style="border:1px solid grey;">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <div id="Tassonomia_volonta_cremaz" name="Tassonomia_volonta_cremaz"  label="Volontà cremazione"></div>
+        <input id="Tassonomia_volonta_cremaz1" name="Tassonomia_volonta_cremaz" type="radio" value="1"/>
+      </td>
+      <td>
+        <p>
+          disposizione testamentaria del defunto
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="Tassonomia_volonta_cremaz2" name="Tassonomia_volonta_cremaz" type="radio" value="2"/>
+      </td>
+      <td>
+        <p>
+          volontà del coniuge
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="Tassonomia_volonta_cremaz3" name="Tassonomia_volonta_cremaz" type="radio" value="3"/>
+      </td>
+      <td>
+        <p>
+          volontà del parente più prossimo
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="width: 4%;">
+        <input id="Tassonomia_volonta_cremaz4" name="Tassonomia_volonta_cremaz" type="radio" value="4"/>
+      </td>
+      <td style="border-right: 0; white-space: nowrap;">
+        <p>
+          volontà dei parenti più prossimi, in numero di<span style="font-size:70%">
+            (specificare)
+          </span><input class="inputNormal" id="Tassonomia_volonta_cremaz4_Note" name="Tassonomia_volonta_cremaz4_Note" style="width: 25px;" label="Numero parenti" format="number" mandatory_enabled="#Tassonomia_volonta_cremaz4.checked()">
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="Tassonomia_volonta_cremaz5" name="Tassonomia_volonta_cremaz" type="radio" value="5"/>
+      </td>
+      <td>
+        <p>
+          volontà del defunto per iscrizione ad associazione riconosciuta avente tra i propri fini quello della cremazione
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="Tassonomia_volonta_cremaz6" name="Tassonomia_volonta_cremaz" type="radio" value="6"/>
+      </td>
+      <td>
+        <p>
+          volontà manifestata dai legali rappresentanti per i minori e per le persone interdette
+        </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 class="Modulo">DICHIARA INOLTRE</h3>
+
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    {% set dics = [ "che le ceneri saranno disperse","che le ceneri saranno conservate"] %}
+    <div id="Tassonomia_dichinolt" name="Tassonomia_dichinolt" label="Ceneri del defunto" mandatory="true"></div>
+    {% for dic in dics %}
+      <tr>
+        <td style="vertical-align: top; width: 4%;">
+          <input id="Tassonomia_dichinolt{{loop.index}}" name="Tassonomia_dichinolt" type="radio" value="{{loop.index}}" />
+        </td>
+        <td>
+          <p> {{ dic|safe }} </p>
+        </td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<br/>
+
+<table class="Modulo" style="border:1px solid grey">
+ <tbody>
+  <tr class="Rigaintestazioneridotta">
+   <td colspan="2">
+    <p class="Labelcella">
+     Eventuali annotazioni
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td colspan="2">
+    <textarea class="inputNormal" id="Parametri_Annotazioni" name="Parametri_Annotazioni" style="width:100%;height:5cm;">
+    </textarea>
+   </td>
+  </tr>
+ </tbody>
+</table>
+
+<br/>
+
+<table class="Modulo" name="Allegati" style="border: 1px solid grey">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="2">
+        <p style="text-align: center;">
+          <b>Elenco degli allegati</b>
+          <br/>
+          <span style="font-size:70%">
+            <i>(barrare tutti gli allegati richiesti in fase di presentazione della pratica ed elencati sul portale)</i>
+          </span>
+        </p>
+      </td>
+    </tr>
+    <tr>
+    	<td style="width: 4%; vertical-align: top;">
+    		<input id="ACC-MOR-DEF" name="ACC-MOR-DEF" type="checkbox" value="OBBLIGATORIO" checked="checked" dynamic_check="true"/>
+    	</td>
+    	<td style="background-color: #eeeeee;">
+    		<p>
+    			copia dell'accertamento di morte
+    		</p>
+    	</td>
+    </tr>
+    <tr>
+    	<td style="width: 4%; vertical-align: top;">
+    		<input id="DOC-CRE-DEF" name="DOC-CRE-DEF" type="checkbox" value="OBBLIGATORIO"/>
+    	</td>
+    	<td style="background-color: #eeeeee;">
+    		<p>
+    			copia della documentazione che dimostra la volontà del defunto o dei parenti alla cremazione
+    		</p>
+    	</td>
+    </tr>
+    <tr>
+    	<td style="width: 4%; vertical-align: top;">
+    		<input id="NUL-AUT-GIU" name="NUL-AUT-GIU" type="checkbox" value="OBBLIGATORIO"/>
+    	</td>
+    	<td style="background-color: #eeeeee;">
+    		<p>
+    			copia del nulla osta rilasciato dall'autorità giudiziaria per morte violenta o improvvisa<br/>
+          <span style="font-size:70%">
+            <i>
+              (da allegare se il decesso è avvenuto a seguito di morte violenta o improvvisa)
+            </i>
+          </span>
+    		</p>
+    	</td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">
+        <input id="DICH_DISPERSIONE_CENERI" name="DICH_DISPERSIONE_CENERI" type="checkbox" value="OBBLIGATORIO" dynamic_check="#Tassonomia_dichinolt1.checked()" enabled="#Tassonomia_dichinolt1.checked()"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          dichiarazioni di dispersione delle ceneri
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="width: 4%; vertical-align: top;">
+        <input id="DICH_AFFIDAMENTO_CENERI-S" name="DICH_AFFIDAMENTO_CENERI-S" type="checkbox" value="OBBLIGATORIO" dynamic_check="#Tassonomia_dichinolt2.checked()" enabled="#Tassonomia_dichinolt2.checked()"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          dichiarazione di affidamento delle ceneri
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input id="MARCA_BOLLO" name="MARCA_BOLLO" type="checkbox" value="OBBLIGATORIO" checked="checked" dynamic_check="true"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          pagamento dell'imposta di bollo
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="DAE-CDI" name="DAE-CDI" type="checkbox" value="OBBLIGATORIO" />
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          copia del documento d'identità
+          <br/>
+          <span style="font-size:70%">
+            <i>
+              (da allegare se il modulo è sottoscritto con firma autografa)
+            </i>
+          </span>
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="ALTRI-ALLEGATI" name="ALTRI-ALLEGATI" type="checkbox" value="OBBLIGATORIO"/>
+      </td>
+        <td style="background-color: #eeeeee;">
+          <p>
+            altri allegati
+            <span style="font-size:70%">
+              (specificare)
+            </span>
+            <input class="" label="Altri allegati" id="AltriAllegati" mandatory_enabled="#ALTRI_ALLEGATI.checked()" name="AltriAllegati" style="width:79%;"/>
+          </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<br/>
+
+{{ utils.trattamento_dati_personali() }}
+
+<br/>
+  {{ utils.firma_hidden() }}
+<br/>
+
+<p class="Modulo">
+  <input id="SalvaModulo" name="SalvaModulo" style="height:30px;width:120px;" title="Verifica la corretta compilazione dei campi e salva il modulo nel faldone virtuale dell'istanza." type="submit" value="Salva modulo"/>
+</p>
+
+<input destinatario_amministrazione="getParameter('Ente')" id="GLOBO_modulo_c{{ CodiceModulo }}" name="GLOBO_modulo_c{{ CodiceModulo }}" type="hidden" value=""/>
+<input firmare="'P7M_ELETTRONICA'" id="GLOBO_modulofiglio_cINCARICO_PROCURA" name="GLOBO_modulofiglio_cINCARICO_PROCURA" type="hidden" value=""/>
+<input id="GLOBO_sub_urn" name="GLOBO_sub_urn" type="hidden" dynamic_value="#Tassonomia_FormaDefunto1.checked() ? 'statocivile' : (#Tassonomia_FormaDefunto3.checked() ? 'servizicimi' : '')" />
+
+<input id="GLOBO_modulofiglio_cMARCA_BOLLO" name="GLOBO_modulofiglio_cMARCA_BOLLO" obbligatorio="#MARCA_BOLLO.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_modulofiglio_cDICH_DISPERSIONE_CENERI" name="GLOBO_modulofiglio_cDICH_DISPERSIONE_CENERI" obbligatorio="#DICH_DISPERSIONE_CENERI.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+<input id="GLOBO_modulofiglio_cDICH_AFFIDAMENTO_CENERI-S" name="GLOBO_modulofiglio_cDICH_AFFIDAMENTO_CENERI-S" type="hidden" value="" obbligatorio="#DICH_AFFIDAMENTO_CENERI_S.checked() ? 'OBBLIGATORIO' : ''"/>
+
+<input id="GLOBO_allegato_cACC-MOR-DEF" name="GLOBO_allegato_cACC-MOR-DEF" type="hidden" value="" obbligatorio="#ACC_MOR_DEF.checked() ? 'OBBLIGATORIO' : ''"/>
+<input id="GLOBO_allegato_cDOC-CRE-DEF" name="GLOBO_allegato_cDOC-CRE-DEF" type="hidden" value="" obbligatorio="#DOC_CRE_DEF.checked() ? 'OBBLIGATORIO' : ''"/>
+<input id="GLOBO_allegato_cNUL-AUT-GIU" name="GLOBO_allegato_cNUL-AUT-GIU" type="hidden" value="" obbligatorio="#NUL_AUT_GIU.checked() ? 'OBBLIGATORIO' : ''"/>
+
+<input id="GLOBO_allegato_cDAE-CDI" name="GLOBO_allegato_cDAE-CDI" obbligatorio="#DAE_CDI.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+<input id="GLOBO_allegato_cALTRI-ALLEGATI" name="GLOBO_allegato_cALTRI-ALLEGATI" obbligatorio="#ALTRI_ALLEGATI.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value="" />
+
+<input id="GLOBO_id_padre" name="GLOBO_id_padre" type="hidden"/>
+<input id="GLOBO_recupera_dati" name="GLOBO_recupera_dati" type="hidden"/>
+<input id="GLOBO_codice_modulo" name="GLOBO_codice_modulo" type="hidden" value="{{ CodiceModulo }}"/>
+
+{% endblock content %}

@@ -1,0 +1,561 @@
+{% set CodiceModulo = "DIC_MAN_INT" %}
+{% set Urn = "document:c_a794:dichiarazioni.manifestazione.interesse;dichiarazioni" %}
+{% extends "base.html" %}
+
+{% block meta %}
+
+<meta campi_firma="Titolare_CodiceFiscale"
+campi_firma_label="il dichiarante"
+classi_modulo="Segreteria Generale"
+codice_modulo="{{ CodiceModulo }}"
+urn="{% block urn %}{{ Urn }}{% endblock urn %}"
+sub_urn_list=""
+uo_globo_list=""
+descrizione="Dichiarazioni relative a manifestazione di interesse ambito territoriale"
+destinatario_amministrazione=""
+destinatario_ufficio="GENERALE"
+dinamico="SI"
+email_a=""
+ente_abilitato="TUTTI"
+filigrana="SI"
+firmare="P7M_ELETTRONICA"
+istruzioni_compilazione=""
+istruzioni_invio="mail_pec"
+metodo_invio="mail"
+name="GLOBO_modulo"
+procura="NO,,"
+tipo_modulo="principale"
+urlhelp="/modulistica/moduli/{{ CodiceModulo }}"
+verifica_pagamento="NO"
+versione="1.0|04/03/2020"/>
+
+<meta codice_modulo_figlio="INCARICO_PROCURA"
+urn_modulo_figlio="document:s_italia:generale;incarico.procura"
+name="GLOBO_modulofiglio"
+numero="1"
+obbligatorio="DINAMICO"/>
+
+<meta codice_modulo_figlio="ULT_SOGG_MAN"
+urn_modulo_figlio="document:c_a794:ulteriori.soggetti.manifestazione;allegato"
+name="GLOBO_modulofiglio"
+numero="1"
+obbligatorio="DINAMICO"/>
+
+<meta codice_allegato="ALTRI-ALLEGATI"
+urn_allegato="document:s_italia:altri.allegati"
+descrizione_estesa="Altri allegati"
+filename="Altri allegati.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/ALTRI-ALLEGATI"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+{% endblock meta %}
+
+{% block title %}
+  Dichiarazioni relative alla manifestazione di interesse a partecipare alla programmazione territoriale integrata per la definizione di percorsi di inclusione attiva a favore di persone in condizioni di vulnerabilità.
+{% endblock title %}
+ 
+{% block content %}
+
+<globo_fondo_pagina areaheight="150" scope="4">
+  {{ utils.firma() }}
+</globo_fondo_pagina>
+
+<input id="Parametri_Comune" name="Parametri_Comune" type="hidden" dynamic_value="#Ente.value()"/>
+<input id="Oggetto" name="Oggetto" type="hidden" dynamic_value="#Titolare_Cognome.value().toUpperCase() + ' ' + #Titolare_Nome.value().toUpperCase() + ' - Dichiarazioni relative a manifestazione di interesse ambito territoriale'"/>
+
+{{ intestazioni.intestazione_moduloprincipale_senzabollo() }}
+
+<h1 class="Modulo">
+ Dichiarazioni relative alla manifestazione di interesse a partecipare alla programmazione territoriale integrata per la definizione di percorsi di inclusione attiva a favore di persone in condizioni di vulnerabilità.
+</h1>
+
+<h2 class="Modulo">
+    Decreto Legislativo 18 aprile 2016, n. 50 articolo 36, comma 2 lettera b) 
+</h2>
+
+{{ anagrafica.societa("Titolare", "Il sottoscritto", ["Persona fisica", "Titolare", "Legale rappresentante"], "Richiedente", "visibility:visibility", "cursor:pointer", "mail_ordinaria", "false") }}
+
+<br>
+<p class="Modulo">
+  ai fini della partecipazione alla programmazione territoriale integrata per la definizione di percorsi di inclusione attiva a favore di persone in condizione di vulnerabilità e disagio
+</p>
+<br>
+
+{{ utils.Dichiara_445() }}
+ 
+<br>
+<div id="Tassonomia_Cessati" name="Tassonomia_Cessati" label="Cessati" mandatory="true"></div>
+<table class="Modulo" style="border: 1px solid grey;">
+  <tr>
+    <td style="vertical-align: top; width: 4%;"> 
+      <input id="dichiara" name="dichiara" type="checkbox" value="SI" checked="checked" dynamic_check="true"/> 
+    </td>
+    <td colspan="4">
+      che la suddetta impresa è iscritta alla C.C.I.A.A. di <input class="inputNormal"id="Parametri_Sede_Cam" name="Parametri_Sede_Cam" style="width: 55%;" label="Sede Camera di Commercio" mandatory="true" />
+    </td>
+  </tr>
+  </tbody>
+</table>
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr>
+      <td colspan="3" > 
+        Numero di iscrizione
+      </td>
+      <td colspan="3" > 
+        Data di iscrizione
+      </td>
+    </tr>
+    <tr>
+      <td colspan="3">
+        <input class='inputNormal' id='Parametri_Num_Iscr' name='Parametri_Num_Iscr' style='width: 100%;' label='Numero iscrizione' mandatory='true'/>
+      </td>
+      <td colspan="3"> 
+        <input class='inputNormal' id='Parametri_Data_Iscr' name='Parametri_Data_Iscr' style='width: 100%;' label='Data iscrizione' format='date' mandatory='true' />
+      </td>
+    </tr>
+    <td colspan="4">
+      per un'attività coerente a quella del presente appalto
+    </td>
+  </tbody>
+</table>
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top; width: 4%;"> 
+        <input id="dichiara1" name="dichiara1" type="checkbox" value="SI" checked="checked" dynamic_check="true"/>
+      </td>
+      <td colspan="3">
+        di non incorrere in nessuno dei motivi di esclusione di cui al Decreto Legislativo del 18 aprile 2016, art. 80 e successivo Decreto Legislativo del 19 aprile 2017, n.56 e in particolare:
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input class="inputNormal" id="Parametri_fall" name="Parametri_fall" type="checkbox" value="SI" checked="checked" dynamic_check="true"/>
+      </td>
+      <td colspan="3">
+        che non si trova in stato di fallimento, di liquidazione coatta, di concordato preventivo, con continuità aziendale o altra situazione equivalente secondo la legislazione del Paese di stabilimento, e che non sono in corso procedimenti per la dichiarazione di una di tali situazioni;
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input class="inputNormal" id="Parametri_sogg" name="Parametri_sogg" type="checkbox" value="SI"/>
+      </td>
+      <td colspan="3">
+        che i soggetti di cui al Decreto Legislativo del 18 aprile 2016, n. 50, art.80 comma 3, i titolari di poteri institori ex art.2203 del c.c. nonché i procuratori muniti di poteri decisionali di particolare ampiezza e riferiti ad una pluralità di oggetti così che, per sommatoria, possono configurarsi omologhi se non di spessore superiore, a quelli che lo statuto assegna agli amministratori attualmente in carica sono i seguenti:
+      </td>
+    </tr>
+  </tbody>
+</table>
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazioneridotta">
+      <tr>
+    <td style="width: 40%;">
+     <p class="Labelcella">
+        Cognome
+        </p>
+    </td>
+    <td style="width: 40%;">
+     <p class="Labelcella">
+        Nome
+        </p>
+    </td>
+    <td style="width: 20%;" >
+    <p class="Labelcella">
+      Data di nascita
+      </p>
+    </td>
+</tr>
+    </tr>
+    <tr >
+      <td style="width: 40%;">
+        <input class="InputNormal" id="Parametri_Cogn_Sogg1" name="Parametri_Cogn_Sogg1" label="Cognome Soggetto" style="width: 100%;" mandatory_enabled="#Parametri_sogg.checked()"/>
+      </td>
+      <td style="width: 40%;">
+        <input class="InputNormal" id="Parametri_Nom_Sogg1" name="Parametri_Nom_Sogg1" label="Cognome Soggetto" style="width: 100%;"mandatory_enabled="#Parametri_sogg.checked()"/>
+      </td>
+      <td style="width: 20%;">
+        <input class="InputNormal" id="Parametri_Nascita_Sogg1" name="Parametri_Nascita_Sogg1" format="date" label="Data di nascita Soggetto" style="width: 100%;"mandatory_enabled="#Parametri_sogg.checked()"/>
+      </td>
+    </tr>
+    <tr>
+      <td style="width: 40%;">
+              <input class="InputNormal" id="Parametri_Cogn_Sogg2" name="Parametri_Cogn_Sogg2" label="Cognome Soggetto" style="width: 100%;"/>
+      </td>
+      <td style="width: 40%;">
+        <input class="InputNormal" id="Parametri_Nom_Sogg2" name="Parametri_Nom_Sogg2" label="Cognome Soggetto" style="width: 100%;"/>
+      </td>
+      <td style="width: 20%;">
+        <input class="InputNormal" id="Parametri_Nascita_Sogg2" name="Parametri_Nascita_Sogg2" format="date" label="Data di nascita Soggetto" style="width: 100%;"/>
+      </td>
+    </tr>
+    <tr>
+      <td style="width: 40%;">
+      
+        <input class="InputNormal" id="Parametri_Cogn_Sogg3" name="Parametri_Cogn_Sogg3" label="Cognome Soggetto" style="width: 100%;"/>
+      </td>
+      <td style="width: 40%;">
+      
+        <input class="InputNormal" id="Parametri_Nom_Sogg3" name="Parametri_Nom_Sogg3" label="Cognome Soggetto" style="width: 100%;"/>
+      </td>
+      <td style="width: 20%;">
+        <input class="InputNormal" id="Parametri_Nascita_Sogg3" name="Parametri_Nascita_Sogg3" format="date" label="Data di nascita Soggetto" style="width: 100%;"/>
+      </td>
+    </tr>
+    <tr>
+      <td style="width: 40%;">
+      
+        <input class="InputNormal" id="Parametri_Cogn_Sogg4" name="Parametri_Cogn_Sogg4" label="Cognome Soggetto" style="width: 100%;"/>
+      </td>
+      <td style="width: 40%;">
+      
+        <input class="InputNormal" id="Parametri_Nom_Sogg4" name="Parametri_Nom_Sogg4" label="Cognome Soggetto" style="width: 100%;"/>
+      
+      </td>
+      <td style="width: 20%;">
+        <input class="InputNormal" id="Parametri_Nascita_Sogg4" name="Parametri_Nascita_Sogg4" format="date" label="Data di nascita Soggetto" style="width: 100%;"/>
+      </td>
+    </tr>
+    <tr>
+      <td style="width: 40%;">
+        <input class="InputNormal" id="Parametri_Cogn_Sogg5" name="Parametri_Cogn_Sogg5" label="Cognome Soggetto" style="width: 100%;"/>
+      </td>
+     <td style="width: 40%;">
+        <input class="InputNormal" id="Parametri_Nom_Sogg5" name="Parametri_Nom_Sogg5" label="Cognome Soggetto" style="width: 100%;"/>
+      </td>
+      <td style="width: 20%;">
+        <input class="InputNormal" id="Parametri_Nascita_Sogg5" name="Parametri_Nascita_Sogg5" format="date" label="Data di nascita Soggetto" style="width: 100%;"/>
+      </td>
+    </tr>
+    <tr>
+      <td style="width: 40%;">
+        <input class="InputNormal" id="Parametri_Cogn_Sogg6" name="Parametri_Cogn_Sogg6" label="Cognome Soggetto" style="width: 100%;"/>
+      </td>
+      <td style="width: 40%;">
+        <input class="InputNormal" id="Parametri_Nom_Sogg6" name="Parametri_Nom_Sogg6" label="Cognome Soggetto" style="width: 100%;"/>
+      </td>
+      <td style="width: 20%;">
+        <input class="InputNormal" id="Parametri_Nascita_Sogg6" name="Parametri_Nascita_Sogg6" format="date" label="Data di nascita Soggetto" style="width: 100%;"/>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<table class="Modulo" style="border: 1px solid grey;margin-top: -1px;" enabled="#Parametri_Cogn_Sogg6.value()">
+  <tbody>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella"> Ulteriori soggetti indicati nel Decreto Legislativo del 18 aprile 2016, n. 50, art. 80 (allegare il modulo "ulteriori soggetti")</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <p> 
+          nell'impresa sono presenti
+          <input class="" id="Parametri_num_altr_sogg" name="Parametri_num_altr_sogg" style="width:5%;" value="0" label="Numero ulteriori Soggeti" format="number"/> 
+          ulteriori soggetti
+        </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top; width: 4%;"> 
+        <input id="dichiara2" name="dichiara2" type="checkbox" value="SI" checked="checked" dynamic_check="true"/>
+      </td>
+      <td>
+        che nei confronti dei soggetti sopra richiamati non sono state pronunciate sentenze definitive di condanna o emessi decreti penali di condanna divenuti irrevocabili o sentenze di applicazione della pena su richiesta, ai sensi del codice di procedura penale, art.444  per uno dei reati di cui al Decreto Legislativo del 18 aprile 2016, n. 50, art.80, comma 1;
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;"> 
+        <input id="Tassonomia_Cessati1" name="Tassonomia_Cessati" type="radio" value="1"/>
+      </td>
+      <td>
+        che nell'anno antecedente al rilascio della presente dichiarazione non è cessato dalla carica alcun soggetto di cui al Decreto Legislativo 18 aprile 2016, n.50, comma 3, alcun titolare di poteri institori ex art. 2203 del c.c. nonché alcun procuratore munito di poteri decisionali di particolare ampiezza e riferiti ad una pluralità di oggetti così che, per sommatoria, possano configurarsi omologhi, se non di spessore superiore, a quelli che lo statuto assegna agli amministratori;
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;"> 
+        <input id="Tassonomia_Cessati2" name="Tassonomia_Cessati" type="radio" value="2"/>
+      </td>
+      <td>
+        che nell'anno antecedente al rilascio della presente dichiarazione sono cessati dalla carica soggetti di cui al Decreto Legislativo del 18 aprile 2016, n. 50 art.80 comma 3, alcun titolare di poteri institori ex art. 2203 del c.c. nonché alcun procuratore munito di poteri decisionali di particolare ampiezza e riferiti ad una pluralità di oggetti così che, per sommatoria, possano configurarsi omologhi, se non di spessore superiore, a quelli che lo statuto assegna agli amministratori, ma per quanto a diretta conoscenza del sottoscritto, non si trovano nelle condizioni previste dal Decreto Legislativo 18 aprile 2016, n. 50, art. 80;
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;"> 
+        <input id="dichiara4" name="dichiara4" type="checkbox" value="SI" checked="checked" dynamic_check="true"/>
+      </td>
+      <td>
+        che nell'anno antecedente la data di sottoscrizione della presente dichiarazione non si è verificata alcuna operazione societaria riconducibile a cessione/affitto, incorporazione o fusione societaria;
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;"> 
+        <input id="dichiara5" name="dichiara5" type="checkbox" value="SI" checked="checked" dynamic_check="true"/>
+      </td>
+      <td>
+        che l'impresa non si trova in alcuna delle cause di esclusione di cui al Decreto Legislativo del 18 aprile 2016, art. 80 comma 5 lett. c), d), ed e);
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;"> 
+        <input id="dichiara6" name="dichiara6" type="checkbox" value="SI"/>
+      </td>
+      <td>
+        che l'Impresa rientra tra le Micro, Piccole e Medie Imprese secondo i parametri fissati dalla raccomandazione della Commissione europea 2003/361/CE del 6 maggio 2003;
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;"> 
+        <input id="dichiara7" name="dichiara7" type="checkbox" value="SI" checked="checked" dynamic_check="true"/>
+      </td>
+      <td>
+        che l'Impresa, nell'anno antecedente la sottoscrizione della presente dichiarazione non ha violato il divieto di intestazione fiduciaria posto dalla legge 19 marzo 1990, n. 55, art. 17 o qualora violato in un periodo antecedente, la violazione è stata comunque rimossa;
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;"> 
+        <input id="dichiara8" name="dichiara8" type="checkbox" value="SI" checked="checked" dynamic_check="true"/>
+      </td>
+      <td>
+        che l'Impresa non ha commesso gravi infrazioni debitamente accertate, alle norme in materia di sicurezza e a ogni altro obbligo derivante dai rapporti di lavoro, nonché agli obblighi di cui al Decreto Legislativo del 18 aprile 2016, n. 50 art. 30 comma 3;
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;"> 
+        <input id="dichiara9" name="dichiara9" type="checkbox" value="SI" checked="checked" dynamic_check="true"/>
+      </td>
+      <td>
+        che non sussistono cause di decadenza, di sospensione o di divieto previste dal Decreto Legislativo del 6 settembre 2011, n. 159, art. 67  o di un tentativo di infiltrazione mafiosa di cui all'articolo 84, comma 4, del medesimo decreto. Resta fermo quanto previsto dallo stesso decreto agli articoli 88, comma 4-bis, e 92, commi 2 e 3, con riferimento rispettivamente alle comunicazioni antimafia e alle informazioni antimafia;
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;"> 
+        <input id="dichiara10" name="dichiara10" type="checkbox" value="SI" checked="checked" dynamic_check="true"/>
+      </td>
+      <td>
+        che l'Impresa non ha commesso gravi violazioni, ai sensi del Decreto del Presidente della Repubblica, del 29 settembre 1973, n. 602 art. 48 bis commi 1 e 2bis definitivamente accertate, rispetto agli obblighi relativi al pagamento delle imposte e tasse o dei contributi previdenziali secondo la legislazione italiana o quella dello Stato in cui è stabilita;
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;"> 
+        <input id="dichiara11" name="dichiara11" type="checkbox" value="SI" checked="checked" dynamic_check="true"/>
+      </td>
+      <td>
+        che nei confronti dell'Impresa non risulta l'iscrizione nel casellario informatico tenuto dall'Osservatorio dell'ANAC per aver presentato false dichiarazioni o falsa documentazione in merito a requisiti e condizioni rilevanti per la partecipazione a procedure di gara, per l'affidamento dei subappalti o ai fini del rilascio dell'attestazione di qualificazione;
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;"> 
+        <input id="dichiara12" name="dichiara12" type="checkbox" value="SI" checked="checked" dynamic_check="true"/>
+      </td>
+      <td>
+        che l'Impresa non ha commesso violazioni gravi in materia contributiva e previdenziale, ovvero ostative al rilascio del DURC di cui al decreto del Ministero del Lavoro e delle Politiche Sociali del 30 gennaio 2015, art. 8 o secondo la legislazione italiana dello Stato in cui è stabilita;
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;"> 
+        <input id="dichiara13" name="dichiara13" type="checkbox" value="SI" checked="checked" dynamic_check="true"/>
+      </td>
+      <td>
+        che, ai sensi delle disposizioni di cui alla Legge del 12 marzo 1999, n. 68, questa Impresa è in regola con le norme che disciplinano il diritto al lavoro dei disabili e ha un numero di dipendenti pari a <input class="InputNormal" id="Parametri_unita" name="Parametri_unita" label="unita" style="width: 5%;" format="number" mandatory="true"/> unità;
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;"> 
+        <input id="dichiara14" name="dichiara14" type="checkbox" value="SI" checked="checked" dynamic_check="true"/>
+      </td>
+      <td>
+        che nei confronti dell'Impresa non è stata applicata la sanzione interdittiva di cui al Decreto Legislativo dell' 8 giugno 2001, n. 231, art. 9,comma 2,lettera c) o altra sanzione che comporta il divieto di contrarre con la pubblica amministrazione compresi i provvedimenti interdittivi di cui al Decreto Legislativo del 9 aprile 2008, n. 81 art. 14;
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;"> 
+        <input id="dichiara15" name="dichiara15" type="checkbox" value="SI" checked="checked" dynamic_check="true"/>
+      </td>
+      <td>
+        che i soggetti attualmente in carica di cui al Decreto Legislativo del 18 aprile 2016, n. 50, art. 80, comma 3, i titolari di poteri institori ex art. 2203 del c.c. nonché dei procuratori muniti di poteri decisionali di particolare ampiezza e riferiti ad una pluralità di oggetti cosicchè, per sommatoria, possano configurarsi omologhi, se non di spessore superiore, a quelli che lo statuto assegna agli amministratori, non sono stati vittime dei reati previsti e puniti dagli articoli 317 e 629 del codice penale aggravati ai sensidell'articolo 7 del decreto legge 13 maggio 1991 n.152, convertito, con modificazioni, dalla legge 12 luglio 1991, n. 203 o,
+        pur essendo stati vittime dei surrichiamati reati, hanno denunciato i fatti all'Autorità giudiziaria, salvo che ricorrano i casi previsti dall'articolo 4, primo comma, della legge 24 novembre 1981, n. 689;
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;"> 
+        <input id="dichiara16" name="dichiara16" type="checkbox" value="SI" checked="checked" dynamic_check="true"/>
+      </td>
+      <td>
+        che la PEC ufficio provinciale competente al rilascio attestazione regolarità in tema di diritto al lavoro dei disabili è la seguente:
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2">
+        <input class="InputNormal" id="Parametri_Pec" name="Parametri_Pec" label="unita" style="width: 100%;"  mandatory="true"/>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    {% set dichiara17 = [  "di essere in regola con l’assolvimento degli obblighi contributivi previsti dalle leggi e dai contratti di lavoro;",
+    "di aver tenuto conto nell’offerta degli obblighi relativi alle norme in materia di sicurezza di previdenza ed assistenza nel luogo di esecuzione del servizio e di aver effettuato verifica della disponibilità della mano d’opera necessaria per l’esecuzione del servizio o fornitura, nonché della disponibilità di attrezzature adeguate all’entità ed alla tipologia dell’appalto; ",
+    "di essere a conoscenza che l’amministrazione comunale di Bergamo ha approvato il codice di comportamento dei dipendenti (delibera della Giunta Comunale n.457 -13 del 18.12.2013) e che lo stesso è applicabile anche ai collaboratori a qualsiasi titolo di imprese fornitrici di beni e servizi e che realizzano opere in favore dell’Amministrazione. La violazione degli obblighi previsti nel suddetto codice comporta la risoluzione dell’appalto;",
+    "di non aver concluso, ai sensi del Decreto Legislativo del 30 marzo 2001, n. 165, art. 53, comma 16, contratti di lavoro subordinato o autonomo e comunque di non avere attribuito nel triennio successivo alla cessazione di lavoro, incarichi a dipendenti del Comune di Bergamo, che hanno esercitato poteri autoritativi o negoziale nei propri confronti.",
+    "che quanto espresso è vero e documentabile su richiesta delle amministrazioni competenti ovvero è accertabile, per le dichiarazioni sostitutive di certificazione, ai sensi del Decreto del Presidente della Repubblica, del 28 dicembre 2000, n. 445, art. 43",
+    "che lo statuto e/o l’atto costitutivo prevodono attività o servizi analoghi a quelli oggetto del presente avviso",
+    "di aver preso esatta e completa cognizione della normativa posta a base del presente avviso e di accettare senza riserva, eccezione, condizione, esclusione e opposizione alcuna, tutte le modalità e la procedura nonché tutte le altre clausole specificate in modo dettagliato nell’Avviso di cui all’oggetto e negli altri documenti ad esso allegati",
+    "di essere a  conoscenza  che sui dati  dichiarati  potranno essere effettuati controlli ai sensi del Decreto del Presidente della Repubblica del 28/12/2000, n. 445, art. 71"] %}
+    {% for i in dichiara17 %}
+    <tr >
+      <td style="vertical-align: top; width: 4%;">
+        <input id="Dichiara17{{ loop.index }}" name="Dichiara17{{ loop.index }}" type="checkbox" value="SI" checked="checked" dynamic_check="true"/>
+      </td>
+      <td>
+        {{ i }}
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+<table class="Modulo" style="border: 1px solid grey;">
+ <tr>
+    <td style="vertical-align: top; width: 4%;"> 
+      <input id="dichiara19" name="dichiara19" type="checkbox" value="SI" checked="checked" dynamic_check="true"/> 
+    </td>
+     <td>
+      di possedere esperienza nella innovazione sociale comprovata da attività e/o servizi maturata nei due anni antecedenti la pubblicazione del presente Avviso, con almeno un’attività o servizio analogo tra quelli indicati all’art. 7 dell’Avviso del 05.04.2019 del Dipartimento della Funzione Pubblica - Aree di intervento a) inclusione sociale, b) animazione culturale, c) lotta alla dispersione scolastica; quale/i):
+    </td>
+  </tr>
+  <tr >
+    <td colspan="2">
+      <input class="InputNormal" id="Parametri_Esperienza1" name="Parametri_Esperienza1" label="Esperienza" style="width: 100%;"  mandatory="true"/>
+    </td>
+  </tr>
+  <tr >
+    <td colspan="2">
+      <input class="InputNormal" id="Parametri_Esperienza2" name="Parametri_Esperienza2" label="Esperienza" style="width: 100%;" />
+    </td>
+  </tr>
+  <tr >
+    <td colspan="2">
+      <input class="InputNormal" id="Parametri_Esperienza3" name="Parametri_Esperienza3" label="Esperienza" style="width: 100%;" />
+    </td>
+  </tr>
+  <tr >
+    <td colspan="2">
+      <input class="InputNormal" id="Parametri_Esperienza4" name="Parametri_Esperienza4" label="Esperienza" style="width: 100%;" />
+    </td>
+  </tr>
+  <tr >
+    <td colspan="2">
+      <input class="InputNormal" id="Parametri_Esperienza5" name="Parametri_Esperienza5" label="Esperienza" style="width: 100%;"  />
+    </td>
+  </tr>
+  <tr >
+    <td colspan="2">
+      <input class="InputNormal" id="Parametri_Esperienza6" name="Parametri_Esperienza6" label="Esperienza" style="width: 100%;" />
+    </td>
+  </tr>
+ <tr>
+    <td style="vertical-align: top; width: 4%;"> 
+      <input id="dichiara18" name="dichiara18" type="checkbox" value="SI" checked="checked" dynamic_check="true"/> 
+    </td>
+    <td>
+      di autorizzare l’Amministrazione comunale appaltante ad effettuare comunicazione di cui al Decreto Legislativo del  18 aprile 2016, n. 50, art.40 ai seguenti indirizzi di posta elettronica:
+    </td>
+  </tr>
+  <tr class="Rigaintestazioneridotta">
+    <td colspan="2">
+      <p class="Labelcella">
+        Email
+      </p>
+    </td>
+  </tr>
+  <tr >
+    <td colspan="2">
+      <input class="InputNormal" id="Parametri__Com_Mail" name="Parametri_Com_Mail" label="Email" style="width: 100%;"  mandatory="true"/>
+    </td>
+  </tr>
+  <tr class="Rigaintestazioneridotta">
+    <td colspan="2">
+      <p class="Labelcella">
+        Pec 
+      </p>
+    </td>
+   </tr>
+  <tr>
+    <td colspan="2">
+      <input class="InputNormal" id="Parametri__Com_Pec" name="Parametri_Com_Pec" label="unita" style="width: 100%;"  mandatory="true"/>
+    </td>
+  </tr>
+  </tbody>
+</table>
+<br>
+<table class="Modulo" name="Allegati" style="border: 1px solid grey">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="2">
+        <p style="text-align: center;">
+          <b>
+          Elenco degli allegati
+          </b>
+          <br/>
+          <span style="font-size:70%">
+          <i>(barrare tutti gli allegati richiesti in fase di presentazione della pratica ed elencati sul portale)</i>
+          </span>
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input dynamic_check="(parseInt(#Parametri_num_ult_sogg_isc.value()) / 16) &gt; 0" enabled="(parseInt(#Parametri_num_ult_sogg_isc.value()) / 16) &gt; 0" id="ULT_SOGG_MAN" name="ULT_SOGG_MAN" type="checkbox" value="OBBLIGATORIO"/>
+      </td>
+      <td colspan="1" style="background-color: #eeeeee;">
+        <p> 
+          n° 
+          <input class="inputNormal" id="Parametri_num_ult_sogg_isc" name="Parametri_num_ult_sogg_isc" style="width: 4%;" dynamic_value="#Parametri_num_altr_sogg.value()" format="number" readonly/> 
+          ulteriori soggetti 
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="ALTRI-ALLEGATI" name="ALTRI-ALLEGATI" type="checkbox" value="OBBLIGATORIO"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          altri allegati
+          <span style="font-size:70%">(specificare)</span>
+          <input class="" label="Altri allegati" id="AltriAllegati" mandatory_enabled="#ALTRI_ALLEGATI.checked()" name="AltriAllegati" style="width:79%;"/>
+        </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<br>
+{{ utils.trattamento_dati_personali() }}
+<br/>
+  {{ utils.firma_hidden() }}
+<br/>
+
+<p class="Modulo">
+  <input id="SalvaModulo" name="SalvaModulo" style="height:30px;width:120px;" title="Verifica la corretta compilazione dei campi e salva il modulo nel faldone virtuale dell'istanza." type="submit" value="Salva modulo"/>
+</p>
+
+<input destinatario_amministrazione="getParameter('Ente')" id="GLOBO_modulo_c{{ CodiceModulo }}" name="GLOBO_modulo_c{{ CodiceModulo }}" type="hidden" value=""/>
+<input firmare="'P7M_ELETTRONICA'" id="GLOBO_modulofiglio_cINCARICO_PROCURA" name="GLOBO_modulofiglio_cINCARICO_PROCURA" type="hidden" value=""/>
+<input id="GLOBO_allegato_cALTRI-ALLEGATI" name="GLOBO_allegato_cALTRI-ALLEGATI" obbligatorio="#ALTRI_ALLEGATI.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+<input id="GLOBO_modulofiglio_cULT_SOGG_MAN" name="GLOBO_modulofiglio_cULT_SOGG_MAN" type="hidden" value="" obbligatorio="#ULT_SOGG_MAN.checked() ? 'OBBLIGATORIO' : ''"/>
+
+<input id="GLOBO_id_padre" name="GLOBO_id_padre" type="hidden"/>
+<input id="GLOBO_recupera_dati" name="GLOBO_recupera_dati" type="hidden"/>
+<input id="GLOBO_codice_modulo" name="GLOBO_codice_modulo" type="hidden" value="{{ CodiceModulo }}"/>
+
+{% endblock content %}

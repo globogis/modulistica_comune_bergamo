@@ -1,0 +1,284 @@
+{% set CodiceModulo = "DOM_CONTR_FSR" %}
+{% set Urn = "document:c_a794:ambito.territoriale;accesso.FSR" %}
+{% extends "base.html" %}
+
+{% block meta %}
+
+<meta campi_firma="Titolare_CodiceFiscale"
+campi_firma_label="il dichiarante"
+classi_modulo="Servizi sociali"
+codice_modulo="{{ CodiceModulo }}"
+urn="{% block urn %}{{ Urn }}{% endblock urn %}"
+sub_urn_list=""
+uo_globo_list=""
+descrizione="Domanda di accesso al Fondo Sociale Regionale (FSR) per l'anno 2019"
+destinatario_amministrazione=""
+destinatario_ufficio="UOAMBITOTERRITORIALE"
+dinamico="SI"
+email_a=""
+ente_abilitato="TUTTI"
+filigrana="NO"
+firmare="NO"
+istruzioni_compilazione=""
+istruzioni_invio="mail_pec"
+metodo_invio="mail"
+name="GLOBO_modulo"
+procura="NO,,"
+tipo_modulo="principale"
+urlhelp="/modulistica/moduli/{{ CodiceModulo }}"
+verifica_pagamento="NO"
+versione="1.4|20/08/2019"/>
+
+<meta codice_modulo_figlio="Incarico_procura"
+urn_modulo_figlio="document:s_italia:generale;incarico.procura"
+name="GLOBO_modulofiglio"
+numero="1"
+obbligatorio="DINAMICO"/>
+
+<meta codice_allegato="DAE-CDI"
+urn_allegato="document:s_italia:generale;documento.identita;documentazione"
+descrizione_estesa="Documento di identità"
+filename="Documento identita.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/DAE-CDI"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="SCHE_ANALITICA_UDO"
+urn_allegato="document:c_a794:ambito.territoriale:udo.consuntivo"
+descrizione_estesa="Scheda analitica di consuntivo 2018 in formato XLS necessaria alla valutazione della domanda"
+filename="Scheda analitica UDO.xls"
+firmato="NO"
+istruzioni="/modulistica/moduli/SCHE_ANALITICA_UDO"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/vnd.ms-excel"/>
+
+<meta codice_allegato="ISCR-FUORI-AMB-UDO"
+urn_allegato="document:c_a794:ambito.territoriale:udo.iscritti.fuori.ambito"
+descrizione_estesa="comunicazione degli iscritti per UDO fuori ambito"
+filename="Iscritti fuori ambito.xls"
+firmato="NO"
+istruzioni="/modulistica/moduli/CONS_FUORI_AMB_UDO"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/vnd.ms-excel"/>
+
+<meta codice_allegato="ALTRI-ALLEGATI"
+urn_allegato="document:s_italia:altri.allegati"
+descrizione_estesa="Altri allegati"
+filename="Altri allegati.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/ALTRI-ALLEGATI"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+{% endblock meta %}
+
+{% block title %}
+Domanda di accesso al Fondo Sociale Regionale (FSR) per l'anno 2019
+{% endblock title %}
+
+{% block content %}
+
+<globo_fondo_pagina areaheight="150" scope="2">
+  {{ utils.firma() }}
+</globo_fondo_pagina>
+
+<input id="Parametri_Comune" name="Parametri_Comune" type="hidden" dynamic_value="#Ente.value()"/>
+<input id="Oggetto" name="Oggetto" type="hidden" dynamic_value="#Titolare_Cognome.value().toUpperCase() + ' ' + #Titolare_Nome.value().toUpperCase() + ' - Domanda di accesso al Fondo Sociale Regionale (FSR)'"/>
+
+{{ intestazioni.intestazione_moduloprincipale_senzabollo() }}
+
+<h1 class="Modulo">
+  Domanda di accesso al Fondo Sociale Regionale (FSR) per l'anno 2019
+</h1>
+
+<input id="Titolare_DatiPersonaObbligatori" name="Titolare_DatiPersonaObbligatori" type="hidden" dynamic_check="true"/>
+<input id="Titolare_Titolo" name="Titolare_Titolo" type="hidden" value="Richiedente"/>
+<input id="Titolare_Ruolo" name="Titolare_Ruolo" type="hidden" value="Richiedente"/>
+{{anagrafica.societa("Titolare","Il sottoscritto",["Persona fisica","Titolare", "Legale rappresentante", "Procuratore con potere di rappresentanza legale"], "Richiedente")}}
+
+
+<br>
+
+<h3 class="Modulo">
+  CHIEDE
+</h3>
+<p class="Modulo">
+  la concessione di un contributo a valere sul Fondo Sociale Regionale.
+</p>
+
+<globo_salto_pagina></globo_salto_pagina>
+<br>
+{{ utils.Dichiara_445() }}
+
+<p class="Modulo">
+  che in caso di accoglimento della domanda il contributo venga assegnato nella seguente modalità
+</p>
+<table class="Modulo" style="border:1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="2">
+        <p class="Labeltabella"> Domiciliazione bancaria o postale del conto corrente: </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td style="width: 50%;">
+        <p class="Labelcella"> Istituto </p>
+      </td>
+      <td style="width: 50%;">
+        <p class="Labelcella"> Numero conto corrente </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input class="inputNormal" id="Parametri_Istituto" name="Parametri_Istituto" style="width: 100%;" label="Istituto" mandatory="true">
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_Numero_CC" name="Parametri_Numero_CC" style="width: 100%;" label="Numero conto corrente" format="regular_expression" expression="^[a-zA-Z0-9]{12}$" onblur="PadCC()" mandatory="true">
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella"> Coordinate IBAN </p>
+      </td>
+      <td>
+        <p class="Labelcella"> Codice BIC (swift) </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input class="inputNormal" id="Parametri_IBAN" name="Parametri_IBAN" style="width: 100%;" label="Coordinate IBAN" mandatory="true">
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_BIC_swift" name="Parametri_BIC_swift" style="width: 100%;" label="Codice BIC (swift)" mandatory_enabled="#Parametri_IBAN.value() != '' and (!#Parametri_IBAN.value().toUpperCase().startsWith('IT'))">
+      </td>
+    </tr>
+  </tbody>
+</table>
+<input type="hidden" id="CheckIBAN1" name="CheckIBAN1" dynamic_check="(#Parametri_IBAN.value().toUpperCase().startsWith('IT')) and (#Parametri_IBAN.value().toString().length != 27)">
+<input type="hidden" id="CheckIBAN2" name="CheckIBAN2" dynamic_check="(#Parametri_IBAN.value().toUpperCase().startsWith('IT')) and (#Parametri_IBAN.value().toString().length == 27) and (!/^IT[0-9]{2}[a-zA-Z][a-zA-Z0-9]{22}$/.test(#Parametri_IBAN.value()))">
+<input type="hidden" id="CheckIBAN3" name="CheckIBAN3" dynamic_check="(#Parametri_IBAN.value().toUpperCase().startsWith('IT')) and (#Parametri_IBAN.value().toString().length == 27) and (#Parametri_IBAN.value().substring(15, 27) != #Parametri_Numero_CC.value())">
+<input type="hidden" id="CheckIBANInput1" name="CheckIBANInput1" label="Controlla la lunghezza del codice IBAN" mandatory="#CheckIBAN1.checked()">
+<input type="hidden" id="CheckIBANInput2" name="CheckIBANInput2" label="Controlla il formato del codice IBAN" mandatory="#CheckIBAN2.checked()">
+<input type="hidden" id="CheckIBANInput3" name="CheckIBANInput3" label="Le ultime 12 cifre dell'IBAN non corrispondono al numero di conto corrente" mandatory="#CheckIBAN3.checked()">
+
+<br>
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          Eventuali annotazioni
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <textarea class="inputNormal" id="Parametri_Annotazioni" name="Parametri_Annotazioni" style="width: 100%; height: 5cm;" label="Eventuali annotazioni"></textarea>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+
+<table class="Modulo" name="Allegati" style="border: 1px solid grey">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="2">
+        <p style="text-align: center;">
+          <b>
+            Elenco degli allegati
+          </b>
+          <br/>
+          <span style="font-size:70%">
+            <i>(barrare tutti gli allegati richiesti in fase di presentazione della pratica ed elencati sul portale)</i>
+          </span>
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;width: 4%">
+		<input checked="checked" dynamic_check="true" id="DAE-CDI" name="DAE-CDI" type="checkbox" value="OBBLIGATORIO"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          copia del documento d'identità del richiedente
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;width: 4%">
+        <input checked="checked" dynamic_check="true" id="SCHE_ANALITICA_UDO" name="SCHE_ANALITICA_UDO" type="checkbox" value="OBBLIGATORIO"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          scheda analitica di consuntivo delle unità d'offerta sociale (UDO)
+          <br/>
+          <span style="font-size:70%">
+            <i>(Scheda analitica di consuntivo 2018 in formato XLS necessaria alla valutazione della domanda)</i>
+          </span>
+        </p>
+      </td>
+    </tr>
+	<tr>
+      <td style="vertical-align: top;width: 4%">
+         <input id="ISCR-FUORI-AMB-UDO" name="ISCR-FUORI-AMB-UDO" type="checkbox" value="OBBLIGATORIO" />
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          comunicazione degli iscritti per UDO fuori ambito
+		  <br/>
+          <span style="font-size:70%">
+            <i>(Elenco iscritti ai servizi in formato XLS necessari per le UDO iscritte fuori ambito)</i>
+          </span>
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td width="4%">
+        <input id="ALTRI-ALLEGATI" name="ALTRI-ALLEGATI" type="checkbox" value="OBBLIGATORIO"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          altri allegati
+          <span style="font-size:70%">
+            (specificare)
+          </span>
+          <input class="" label="Altri allegati" id="AltriAllegati" mandatory_enabled="#ALTRI_ALLEGATI.checked()" name="AltriAllegati" style="width:79%;"/>
+        </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<br/>
+{{ utils.trattamento_dati_personali() }}
+<br/>
+  {{ utils.firma_hidden() }}
+<br/>
+
+<p class="Modulo">
+  <input id="SalvaModulo" name="SalvaModulo" style="height:30px;width:120px;" title="Verifica la corretta compilazione dei campi e salva il modulo nel faldone virtuale dell'istanza." type="submit" value="Salva modulo"/>
+</p>
+
+<input destinatario_amministrazione="getParameter('Ente')" id="GLOBO_modulo_c{{ CodiceModulo }}" name="GLOBO_modulo_c{{ CodiceModulo }}" type="hidden" value=""/>
+<input firmare="'P7M_ELETTRONICA'" id="GLOBO_modulofiglio_cIncarico_procura" name="GLOBO_modulofiglio_cIncarico_procura" type="hidden" value=""/>
+
+<input id="GLOBO_allegato_cDAE-CDI" name="GLOBO_allegato_cDAE-CDI" obbligatorio="#DAE_CDI.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+<input id="GLOBO_allegato_cSCHE_ANALITICA_UDO" name="GLOBO_allegato_cSCHE_ANALITICA_UDO" obbligatorio="#SCHE_ANALITICA_UDO.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+<input id="GLOBO_allegato_cISCR-FUORI-AMB-UDO" name="GLOBO_allegato_cISCR-FUORI-AMB-UDO" obbligatorio="#ISCR_FUORI_AMB_UDO.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+<input id="GLOBO_allegato_cALTRI-ALLEGATI" name="GLOBO_allegato_cALTRI-ALLEGATI" obbligatorio="#ALTRI_ALLEGATI.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_id_padre" name="GLOBO_id_padre" type="hidden"/>
+<input id="GLOBO_recupera_dati" name="GLOBO_recupera_dati" type="hidden"/>
+<input id="GLOBO_codice_modulo" name="GLOBO_codice_modulo" type="hidden" value="{{ CodiceModulo }}"/>
+
+{% endblock content %}

@@ -1,0 +1,296 @@
+{% set CodiceModulo = "ULT_SOGG_MAN_BIS" %}
+{% set Urn = "document:c_a794:ulteriori.soggetti.manifestazione.bis;allegato" %}
+{% extends "base.html" %}
+
+{% block meta %}
+
+<meta campi_firma="TitolareNonImportare_CodiceFiscale"
+campi_firma_label="il dichiarante"
+classi_modulo="Segreteria Generale"
+codice_modulo="{{ CodiceModulo }}"
+urn="{% block urn %}{{ Urn }}{% endblock urn %}"
+descrizione="Ulteriori soggetti manifestazione"
+destinatario_amministrazione=""
+destinatario_ufficio=""
+dinamico="SI"
+email_a=""
+ente_abilitato="TUTTI"
+filigrana="NO"
+firmare="P7M_ELETTRONICA"
+istruzioni_compilazione="ATTENZIONE: questo modulo deve essere compilato con i dati del sottoscrivente."
+istruzioni_invio=""
+metodo_invio="mail"
+name="GLOBO_modulo"
+procura="NO,,"
+tipo_modulo="secondario"
+urlhelp="/modulistica/moduli/{{ CodiceModulo }}"
+verifica_pagamento="NO"
+versione="1.0|29/11/2019"/>
+
+{% endblock meta %}
+
+{% block title %}
+  Ulteriori soggetti dell'impresa
+{% endblock title %}
+
+{% block content %}
+
+<globo_fondo_pagina areaheight="150" scope="2">
+  {{ utils.firma() }}
+</globo_fondo_pagina>
+
+<input id="Oggetto" name="Oggetto" type="hidden" dynamic_value="'Ulteriori soggetti art.80 comma 3 D.lgs56/2017 ' + #TitolareNonImportare_Cognome.value().toUpperCase() + ' ' + #TitolareNonImportare_Nome.value().toUpperCase()"/>
+
+{{ intestazioni.intestazione_modulosecondario_senzabollo() }}
+
+<h1 class="Modulo">
+  Ulteriori soggetti art.80 comma 3 D.lgs56/2017
+</h1>
+
+<!-- DATI DEL TITOLARE -->
+{{anagrafica.cognome_nome("TitolareNonImportare","Il sottoscritto", "Richiedente", "visibility:hidden", "cursor:default")}}
+
+<br>
+
+<p class="Modulo">
+ in allegato alla manifestazione di interesse a partecipare all'indagine di mercato di cui al modulo principale
+</p>
+<br>
+
+
+{{ utils.Dichiara_445() }}
+
+<br>
+
+<p class="Modulo">che gli ulteriori soggetti di cui all’art.80 comma 3 del D.Lgs n.50/2016, i titolari di poteri institori ex art.2203 del c.c. nonché i procuratori muniti di poteri decisionali di particolare ampiezza e riferiti ad una pluralità di oggetti così che, per sommatoria, possono configurarsi omologhi se non di spessore superiore, a quelli che lo statuto assegna agli amministratori attualmente in carica sono i seguenti: </p>
+<br>
+<table class="Modulo" style="border: 1px solid grey;">
+        <tbody>  
+ <tr>
+    <td style="width: 35%;">
+        Cognome
+    </td>
+    <td style="width: 35%;">
+        Nome
+    </td>
+    <td style="width: 30%;" >
+      Data di nascita
+    </td>
+</tr>
+<tr>
+        <td style="width: 35%;">
+            <input class="InputNormal" id="Parametri_Cogn_Sogg21" name="Parametri_Cogn_Sogg21" label="Cognome Soggetto" style="width: 100%;" mandatory="true"/>
+            </td>
+            <td style="width: 35%;">
+                    <input class="InputNormal" id="Parametri_Nom_Sogg21" name="Parametri_Nom_Sogg21" label="Cognome Soggetto" style="width: 100%;" mandatory="true"/>
+            </td>
+            <td style="width: 30%;">
+              <input class="InputNormal" id="Parametri_Dat_Nasc_Sogg21" name="Parametri_Dat_Nasc_Sogg21" label="Data di Nascita Soggetto" style="width: 100%;" mandatory="true"/>
+            </td>
+</tr>
+<tr>
+        <td style="width: 35%;">
+            <input class="InputNormal" id="Parametri_Cogn_Sogg22" name="Parametri_Cogn_Sogg22" label="Cognome Soggetto" style="width: 100%;"/>
+            </td>
+            <td style="width: 35%;">
+                    <input class="InputNormal" id="Parametri_Nom_Sogg22" name="Parametri_Nom_Sogg22" label="Cognome Soggetto" style="width: 100%;"/>
+            </td>
+             <td style="width: 30%;">
+              <input class="InputNormal" id="Parametri_Dat_Nasc_Sogg22" name="Parametri_Dat_Nasc_Sogg22" label="Data di Nascita Soggetto" style="width: 100%;" />
+            </td>
+</tr>
+<tr>
+        <td style="width: 35%;">
+            <input class="InputNormal" id="Parametri_Cogn_Sogg23" name="Parametri_Cogn_Sogg23" label="Cognome Soggetto" style="width: 100%;"/>
+            </td>
+            <td style="width: 35%;">
+                    <input class="InputNormal" id="Parametri_Nom_Sogg23" name="Parametri_Nom_Sogg23" label="Cognome Soggetto" style="width: 100%;"/>
+            </td>
+             <td style="width: 30%;">
+              <input class="InputNormal" id="Parametri_Dat_Nasc_Sogg23" name="Parametri_Dat_Nasc_Sogg23" label="Data di Nascita Soggetto" style="width: 100%;" />
+            </td>
+</tr>
+<tr>
+        <td style="width: 35%;">
+            <input class="InputNormal" id="Parametri_Cogn_Sogg24" name="Parametri_Cogn_Sogg24" label="Cognome Soggetto" style="width: 100%;"/>
+            </td>
+            <td style="width: 35%;">
+                    <input class="InputNormal" id="Parametri_Nom_Sogg24" name="Parametri_Nom_Sogg24" label="Cognome Soggetto" style="width: 100%;"/>
+            </td>
+             <td style="width: 30%;">
+              <input class="InputNormal" id="Parametri_Dat_Nasc_Sogg24" name="Parametri_Dat_Nasc_Sogg24" label="Data di Nascita Soggetto" style="width: 100%;" />
+            </td>
+</tr>
+<tr>
+        <td style="width: 35%;">
+            <input class="InputNormal" id="Parametri_Cogn_Sogg25" name="Parametri_Cogn_Sogg25" label="Cognome Soggetto" style="width: 100%;"/>
+            </td>
+            <td style="width: 35%;">
+                    <input class="InputNormal" id="Parametri_Nom_Sogg25" name="Parametri_Nom_Sogg25" label="Cognome Soggetto" style="width: 100%;"/>
+            </td>
+             <td style="width: 30%;">
+              <input class="InputNormal" id="Parametri_Dat_Nasc_Sogg25" name="Parametri_Dat_Nasc_Sogg25" label="Data di Nascita Soggetto" style="width: 100%;" />
+            </td>
+</tr>
+<tr>
+        <td style="width: 35%;">
+            <input class="InputNormal" id="Parametri_Cogn_Sogg26" name="Parametri_Cogn_Sogg26" label="Cognome Soggetto" style="width: 100%;"/>
+            </td>
+            <td style="width: 35%;">
+                    <input class="InputNormal" id="Parametri_Nom_Sogg26" name="Parametri_Nom_Sogg26" label="Cognome Soggetto" style="width: 100%;"/>
+            </td>
+             <td style="width: 30%;">
+              <input class="InputNormal" id="Parametri_Dat_Nasc_Sogg26" name="Parametri_Dat_Nasc_Sogg26" label="Data di Nascita Soggetto" style="width: 100%;" />
+            </td>
+</tr>
+<tr>
+        <td style="width: 35%;">
+            <input class="InputNormal" id="Parametri_Cogn_Sogg27" name="Parametri_Cogn_Sogg27" label="Cognome Soggetto" style="width: 100%;"/>
+            </td>
+            <td style="width: 35%;">
+                    <input class="InputNormal" id="Parametri_Nom_Sogg27" name="Parametri_Nom_Sogg27" label="Cognome Soggetto" style="width: 100%;"/>
+            </td>
+             <td style="width: 30%;">
+              <input class="InputNormal" id="Parametri_Dat_Nasc_Sogg27" name="Parametri_Dat_Nasc_Sogg27" label="Data di Nascita Soggetto" style="width: 100%;" />
+            </td>
+</tr>
+<tr>
+        <td style="width: 35%;">
+            <input class="InputNormal" id="Parametri_Cogn_Sogg28" name="Parametri_Cogn_Sogg28" label="Cognome Soggetto" style="width: 100%;"/>
+            </td>
+            <td style="width: 35%;">
+                    <input class="InputNormal" id="Parametri_Nom_Sogg28" name="Parametri_Nom_Sogg28" label="Cognome Soggetto" style="width: 100%;"/>
+            </td>
+             <td style="width: 30%;">
+              <input class="InputNormal" id="Parametri_Dat_Nasc_Sogg28" name="Parametri_Dat_Nasc_Sogg28" label="Data di Nascita Soggetto" style="width: 100%;" />
+            </td>
+</tr>
+<tr>
+        <td style="width: 35%;">
+            <input class="InputNormal" id="Parametri_Cogn_Sogg29" name="Parametri_Cogn_Sogg29" label="Cognome Soggetto" style="width: 100%;"/>
+            </td>
+            <td style="width: 35%;">
+                    <input class="InputNormal" id="Parametri_Nom_Sogg29" name="Parametri_Nom_Sogg29" label="Cognome Soggetto" style="width: 100%;"/>
+            </td>
+             <td style="width: 30%;">
+              <input class="InputNormal" id="Parametri_Dat_Nasc_Sogg29" name="Parametri_Dat_Nasc_Sogg29" label="Data di Nascita Soggetto" style="width: 100%;" />
+            </td>
+</tr>
+<tr>
+        <td style="width: 35%;">
+            <input class="InputNormal" id="Parametri_Cogn_Sogg30" name="Parametri_Cogn_Sogg30" label="Cognome Soggetto" style="width: 100%;"/>
+            </td>
+            <td style="width: 35%;">
+                    <input class="InputNormal" id="Parametri_Nom_Sogg30" name="Parametri_Nom_Sogg30" label="Cognome Soggetto" style="width: 100%;"/>
+            </td>
+             <td style="width: 30%;">
+              <input class="InputNormal" id="Parametri_Dat_Nasc_Sogg30" name="Parametri_Dat_Nasc_Sogg30" label="Data di Nascita Soggetto" style="width: 100%;" />
+            </td>
+</tr>
+<tr>
+        <td style="width: 35%;">
+            <input class="InputNormal" id="Parametri_Cogn_Sogg31" name="Parametri_Cogn_Sogg31" label="Cognome Soggetto" style="width: 100%;"/>
+            </td>
+            <td style="width: 35%;">
+                    <input class="InputNormal" id="Parametri_Nom_Sogg31" name="Parametri_Nom_Sogg31" label="Cognome Soggetto" style="width: 100%;"/>
+            </td>
+             <td style="width: 30%;">
+              <input class="InputNormal" id="Parametri_Dat_Nasc_Sogg31" name="Parametri_Dat_Nasc_Sogg31" label="Data di Nascita Soggetto" style="width: 100%;" />
+            </td>
+</tr>
+<tr>
+        <td style="width: 35%;">
+            <input class="InputNormal" id="Parametri_Cogn_Sogg32" name="Parametri_Cogn_Sogg32" label="Cognome Soggetto" style="width: 100%;"/>
+            </td>
+            <td style="width: 35%;">
+                    <input class="InputNormal" id="Parametri_Nom_Sogg32" name="Parametri_Nom_Sogg32" label="Cognome Soggetto" style="width: 100%;"/>
+            </td>
+             <td style="width: 30%;">
+              <input class="InputNormal" id="Parametri_Dat_Nasc_Sogg32" name="Parametri_Dat_Nasc_Sogg32" label="Data di Nascita Soggetto" style="width: 100%;" />
+            </td>
+</tr>
+<tr>
+        <td style="width: 35%;">
+            <input class="InputNormal" id="Parametri_Cogn_Sogg33" name="Parametri_Cogn_Sogg33" label="Cognome Soggetto" style="width: 100%;"/>
+            </td>
+            <td style="width: 35%;">
+                    <input class="InputNormal" id="Parametri_Nom_Sogg33" name="Parametri_Nom_Sogg33" label="Cognome Soggetto" style="width: 100%;"/>
+            </td>
+             <td style="width: 30%;">
+              <input class="InputNormal" id="Parametri_Dat_Nasc_Sogg33" name="Parametri_Dat_Nasc_Sogg33" label="Data di Nascita Soggetto" style="width: 100%;" />
+            </td>
+</tr>
+<tr>
+        <td style="width: 35%;">
+            <input class="InputNormal" id="Parametri_Cogn_Sogg34" name="Parametri_Cogn_Sogg34" label="Cognome Soggetto" style="width: 100%;"/>
+            </td>
+            <td style="width: 35%;">
+                    <input class="InputNormal" id="Parametri_Nom_Sogg34" name="Parametri_Nom_Sogg34" label="Cognome Soggetto" style="width: 100%;"/>
+            </td>
+             <td style="width: 30%;">
+              <input class="InputNormal" id="Parametri_Dat_Nasc_Sogg34" name="Parametri_Dat_Nasc_Sogg34" label="Data di Nascita Soggetto" style="width: 100%;" />
+            </td>
+</tr>
+</tbody>
+ 
+<br>
+
+<h3 class="modulo">
+DICHIARA INOLTRE
+</h3>
+ <div id="Tassonomia_Cessati_Ter" name="Tassonomia_Cessati_Ter" label="Dichiarazione cessati" mandatory="true"></div>
+ <table class="Modulo" style="border: 1px solid grey;">
+        <tbody>  
+        <tr>
+        <td style="vertical-align: top; width: 4%;">
+        <input id="Tassonomia_Ult_Sogg_Ter" name="Tassonomia_Ult_Sogg_Ter" type="checkbox" value="si" checked="checked" mandatory="true" dynamic_check="true"/>
+        </td>
+        <td>
+        <p class="labelcella">
+         che i soggetti di sopra indicati, per quanto è a mia diretta conoscenza, non si trovano nelle condizioni previste dal Decreto Legislativo 18 aprile 2016, n. 50, art. 80 ed elencate nel modulo principale
+         </p>
+         </td>
+         </tr>
+         <tr>
+         <td style="vertical-align: top; width: 4%;">
+        <input id="1Tassonomia_Cessati_Ter1" name="Tassonomia_Cessati_Ter" type="radio" value="1"/>
+        </td>
+        <td>
+        <p class="labelcella">
+        che non ci sono soggetti cessati dalla carica nell’anno antecedente la data dell'avviso
+        </p>
+        </td>
+        </tr>
+        <tr>
+        <td style="vertical-align: top; width: 4%;">
+        <input id="Tassonomia_Cessati_Ter2" name="Tassonomia_Cessati_Ter" type="radio" value="2" />
+        </td>
+        <td>
+        <p class="labelcella">
+        che i soggetti cessati dalla carica nell'anno antecedente all'avviso non si trovano nelle condizioni previste dal Decreto Legislativo 18 aprile 2016, n. 50, art. 80 ed elencate nel modulo principale
+        </p>
+        </td>
+        </tr>
+        </tbody>
+        </tbody>
+        </table>
+
+<br>
+
+
+<br/>
+  {{ utils.firma_hidden() }}
+<br/>
+
+<p class="Modulo">
+  <input id="SalvaModulo" name="SalvaModulo" style="height:30px;width:120px;" title="Verifica la corretta compilazione dei campi e salva il modulo nel faldone virtuale dell'istanza." type="submit" value="Salva modulo"/>
+</p>
+
+<input id="GLOBO_modulo_c{{ CodiceModulo }}" name="GLOBO_modulo_c{{ CodiceModulo }}" type="hidden" value=""/>
+
+
+<input id="GLOBO_id_padre" name="GLOBO_id_padre" type="hidden"/>
+<input id="GLOBO_recupera_dati" name="GLOBO_recupera_dati" type="hidden"/>
+<input id="GLOBO_codice_modulo" name="GLOBO_codice_modulo" type="hidden" value="{{ CodiceModulo }}"/>
+
+{% endblock content %}

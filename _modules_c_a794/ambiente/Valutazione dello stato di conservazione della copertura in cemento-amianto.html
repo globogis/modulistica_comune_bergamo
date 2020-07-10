@@ -1,0 +1,714 @@
+{% set CodiceModulo = "AMIANTO_ID" %}
+{% set Urn = "document:c_a794:stato.conservazione.copertura.amianto;valutazione" %}
+{% extends "base.html" %}
+{% block meta %}
+
+<meta
+campi_firma="Titolare_CodiceFiscale"
+campi_firma_label="il tecnico abilitato"
+classi_modulo="Ecologia"
+codice_modulo="{{ CodiceModulo }}"
+urn="{% block urn %}{{ Urn }}{% endblock urn %}"
+descrizione="Valutazione dello stato di conservazione della copertura in cemento-amianto"
+destinatario_amministrazione=""
+destinatario_ufficio="UOAMBIENTE"
+dinamico="SI"
+email_a=""
+ente_abilitato="TUTTI"
+filigrana="SI"
+firmare="P7M_ELETTRONICA"
+in_bollo="NO"
+istruzioni_compilazione="ATTENZIONE: questo modulo deve essere compilato con i dati del richiedente, cambiare i dati di intestazione se necessario."
+istruzioni_invio="mail_pec"
+metodo_invio="MINIMALE"
+name="GLOBO_modulo"
+procura="NO,,"
+tipo_modulo="principale"
+ufficio=""
+urlhelp="DomandeRisposte/FAQ"
+verifica_pagamento="NO"
+versione="1.2|1/04/2019"/>
+
+
+
+<meta codice_modulo_figlio="DICH-PROP-AMI"
+urn_modulo_figlio="document:c_a794:proprietario.copertura.amianto;dichiarazione"
+name="GLOBO_modulofiglio"
+numero="1"
+obbligatorio="DINAMICO"/>
+
+<meta codice_allegato="ALTRI-ALLEGATI"
+urn_allegato="document:s_italia:altri.allegati"
+descrizione_estesa="Altri allegati"
+filename="Altri allegati.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/ALTRI-ALLEGATI"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+
+{% endblock meta %}
+{% block title %}
+   Valutazione dello stato di conservazione della copertura in cemento-amianto
+  {% endblock title %}
+{% block content %}
+ <globo_fondo_pagina areaheight="150" scope="2">
+ {{ utils.firma() }}
+</globo_fondo_pagina>
+
+<input dynamic_value="#Titolare_Cognome.value().toUpperCase() + ' - Valutazione dello stato di conservazione della copertura in cemento-amianto'" id="Oggetto" name="Oggetto" type="hidden"/>
+
+<input dynamic_value="#Ente.value()" id="Parametri_Comune" name="Parametri_Comune" type="hidden"/>
+
+
+{{ intestazioni.intestazione_moduloprincipale_senzabollo() }}
+<h1 class="Modulo">
+
+ Valutazione dello stato di conservazione della copertura in cemento-amianto
+ </h1>
+ <h1 class="Modulo">
+  Asseverazione dell'Indice di Degrado (ID)
+ </h1>
+ 
+ <h2 class="Modulo">Ai sensi dell'art. 186, comma 1, del Decreto Legislativo 3-4-2006, n.152</h2>
+
+<input type="hidden" id="Titolare_DatiProfessionistaObbligatori" name="Titolare_DatiProfessionistaObbligatori" checked="checked" dynamic_check="true"/>
+ <input type="hidden" id="Titolare_DatiAlboProfessionistaObbligatori" name="Titolare_DatiAlboProfessionistaObbligatori" checked="checked" dynamic_check="true"/>
+{{ anagrafica.professionista("Titolare","il sottoscritto tecnico abilitato", "Professionista") }} 
+
+<input dynamic_check="true" id="Immobile_DatiImmobileRichiesti" name="Immobile_DatiImmobileRichiesti" type="checkbox" style="display:none" value="si"/>
+<input style="display:none" id="Immobile_DatiCatastaliObbligatori" name="Immobile_DatiCatastaliObbligatori" type="checkbox" value="no"/>
+ 
+ {{ immobili.immobile_secondario("Immobile","in relazione all'immobile sito in","Localizzazione intervento") }}
+ 
+ <table class="Modulo" style="border:1px solid grey;">
+ 
+<globo_salto_pagina>
+</globo_salto_pagina>
+<br/>
+{{ utils.Dichiara_445("DICHIARA E ASSEVERA") }}
+
+<p class="Modulo">di aver effettuato la valutazione dello stato di conservazione della copertura in cemento-amianto, ottenendo il seguente esito:</p>
+<table class="Modulo" style="border:1px solid grey;">
+   <tbody>
+    <tr class="Rigaintestazione">
+
+
+      <td colspan="3">
+        <p class="Labeltabella">
+          A) Grado di consistenza del materiale
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="width: 4%">
+        <div id="Parametri_Consistenza" name="Parametri_Consistenza" label="Consistenza" mandatory="true" > </div>    
+        <input id="Parametri_ConsistenzaSiRompe" name="Parametri_Consistenza" type="radio" value="1"/>
+      </td>
+      <td>
+        <p>Se un angolo flesso con una pinza si rompe nettamente con suono secco</p>
+      </td>
+      <td style="width: 4%">
+        <p>1</p>
+      </td>
+    </tr> 
+    <tr>
+      <td style="width: 4%">
+        <input id="Parametri_ConsistenzaSiRompeFacilmente" name="Parametri_Consistenza" type="radio" value="2"/>
+      </td>
+      <td>
+        <p>Se la rottura è facile, sfrangiata, con un suono sordo</p>
+      </td>
+      <td style="width: 4%">
+        <p>2</p>
+      </td>
+    </tr>       
+    <tr class="Rigaintestazione">
+      <td colspan="3">
+
+
+        <p class="Labeltabella">
+          B) Presenza di fessurazioni/sfaldature/crepe
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="width: 4%">
+        <div id="Parametri_Sfaldature" name="Parametri_Sfaldature" label="Sfaldature" mandatory="true" > </div>    
+        <input id="Parametri_SfaldatureAssenti" name="Parametri_Sfaldature" type="radio" value="0"/>
+      </td>
+      <td>
+
+
+
+        <p>Assenti</p>
+      </td>
+
+
+      <td style="width: 4%">
+        <p>0</p>
+      </td>
+    </tr>
+    <tr>
+      <td style="width: 4%">
+
+        <input id="Parametri_SfaldatureRare" name="Parametri_Sfaldature" type="radio" value="2"/>
+      </td>
+
+      <td>
+        <p>Rare</p>
+      </td>
+      <td style="width: 4%">
+
+
+        <p>2</p>
+      </td>
+    </tr>
+    <tr>
+      <td style="width: 4%">
+
+        <input id="Parametri_SfaldatureNumerose" name="Parametri_Sfaldature" type="radio" value="3"/>
+      </td>
+      <td>
+        <p>Numerose</p>
+      </td>
+      <td style="width: 4%">
+        <p>3</p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazione">
+      <td colspan="3">
+        <p class="Labeltabella">
+          C) Presenza di stalattiti ai punti di gocciolamento
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="width: 4%">
+
+
+        <div id="Parametri_Stalattiti" name="Parametri_Stalattiti" label="Stalattiti" mandatory="true" > </div>    
+        <input id="Parametri_StalattitiAssenti" name="Parametri_Stalattiti" type="radio" value="0"/>
+      </td>
+      <td>
+        <p>Assenti</p>
+      </td>
+      <td style="width: 4%">
+        <p>0</p>
+      </td>
+    </tr>
+    <tr>
+      <td style="width: 4%">
+        <input id="Parametri_StalattitiPresenti" name="Parametri_Stalattiti" type="radio" value="3"/>
+      </td>
+      <td>
+        <p>Presenti</p>
+      </td>
+      <td style="width: 4%">
+        <p>3</p>
+      </td>
+    </tr>    
+    <tr class="Rigaintestazione">
+      <td colspan="3">
+        <p class="Labeltabella">
+          D) Friabilità/sgretolamento
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="width: 4%">
+
+        <div id="Parametri_Sgretolamento" name="Parametri_Sgretolamento" label="Sgretolamento" mandatory="true" > </div>    
+        <input id="Parametri_Sgretolamento1" name="Parametri_Sgretolamento" type="radio" value="1"/>
+      </td>
+
+
+      <td>
+        <p>Fasci di fibre sono inglobati completamente</p>
+      </td>
+      <td style="width: 4%">
+
+
+
+
+
+
+        <p>1</p>
+      </td>
+    </tr>
+    <tr>
+      <td style="width: 4%">
+         <input id="Parametri_Sgretolamento2" name="Parametri_Sgretolamento" type="radio" value="2"/>
+      </td>
+      <td>
+        <p>Fasci di fibre sono inglobati solo parzialmente</p>
+      </td>
+      <td style="width: 4%">
+        <p>2</p>
+      </td>
+    </tr>
+    <tr>
+      <td style="width: 4%">
+        <input id="Parametri_Sgretolamento3" name="Parametri_Sgretolamento" type="radio" value="3"/>
+      </td>
+      <td>
+        <p>Fasci di fibre sono facilmente asportabili</p>
+      </td>
+      <td style="width: 4%">
+        <p>3</p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazione">
+      <td colspan="3">
+
+
+        <p class="Labeltabella">
+          E) Ventilazione
+        </p>
+      </td>
+    </tr>
+    <tr>
+
+
+      <td style="width: 4%">
+        <div id="Parametri_Ventilazione" name="Parametri_Ventilazione" label="Ventilazione" mandatory="true" > </div>    
+        <input id="Parametri_Ventilazione1" name="Parametri_Ventilazione" type="radio" value="1"/>
+      </td>
+
+
+
+      <td>
+        <p>La copertura NON si trova in prossimità di bocchette di ventilazione o flussi d'aria</p>
+      </td>
+
+
+
+
+      <td style="width: 4%">
+        <p>1</p>
+      </td>
+
+
+
+
+    </tr>
+    <tr>
+      <td style="width: 4%">
+        <input id="Parametri_Ventilazione2" name="Parametri_Ventilazione" type="radio" value="2"/>
+      </td>
+
+
+
+
+      <td>
+        <p>La copertura si trova in prossimità di bocchette di ventilazione o flussi d'aria</p>
+      </td>
+
+
+
+      <td style="width: 4%">
+        <p>2</p>
+      </td>
+    </tr>
+
+
+
+    <tr class="Rigaintestazione">
+      <td colspan="3">
+        <p class="Labeltabella">
+          F) Luogo di vita/lavoro
+        </p>
+      </td>
+
+
+
+
+    </tr>
+    <tr>
+      <td style="width: 4%">
+        <div id="Parametri_Visibile" name="Parametri_Visibile" label="Visibilità" mandatory="true" > </div>    
+        <input id="Parametri_Visibile1" name="Parametri_Visibile" type="radio" value="1"/>
+      </td>
+
+
+
+
+      <td>
+        <p>La copertura NON è visibile dal sotto (presenza di controsoffitto/soletta)</p>
+      </td>
+
+
+
+      <td style="width: 4%">
+        <p>1</p>
+      </td>
+    </tr>
+    <tr>
+
+      <td style="width: 4%">
+        <input id="Parametri_Visibile2" name="Parametri_Visibile" type="radio" value="2"/>
+      </td>
+
+
+
+      <td>
+        <p>La copertura è a vista dall'interno</p>
+      </td>
+
+
+
+
+      <td style="width: 4%">
+        <p>2</p>
+      </td>
+    </tr>    
+    <tr class="Rigaintestazione">
+      <td colspan="3">
+
+
+        <p class="Labeltabella">
+          G) Distanza da finestra/balconi/terrazze
+        </p>
+      </td>
+    </tr>
+    <tr>
+
+      <td style="width: 4%">
+        <div id="Parametri_Distanza" name="Parametri_Distanza" label="Distanza da finestra/balconi/terrazze" mandatory="true" > </div>    
+        <input id="Parametri_Distanza1" name="Parametri_Distanza" type="radio" value="1"/>
+      </td>
+
+
+
+      <td>
+        <p>La copertura è a più di 5 metri da finestre/terrazze/balconi</p>
+      </td>
+
+
+
+
+      <td style="width: 4%">
+        <p>1</p>
+      </td>
+
+
+
+
+    </tr>
+    <tr>
+      <td style="width: 4%">
+        <input id="Parametri_Distanza2" name="Parametri_Distanza" type="radio" value="2"/>
+      </td>
+
+
+
+
+      <td>
+        <p>Vi sono finestre/terrazze/balconi prospicenti/attigue</p>
+      </td>
+
+
+
+      <td style="width: 4%">
+        <p>2</p>
+      </td>
+    </tr>
+
+
+
+    <tr class="Rigaintestazione">
+      <td colspan="3">
+        <p class="Labeltabella">
+          H) Aree sensibili
+        </p>
+      </td>
+
+
+
+
+    </tr>
+    <tr>
+      <td style="width: 4%">
+        <div id="Parametri_areeS" name="Parametri_areeS" label="Aree sensibili" mandatory="true" > </div>    
+        <input id="Parametri_areeS1" name="Parametri_areeS" type="radio" value="1"/>
+      </td>
+
+
+
+
+
+
+      <td>
+        <p>Assenza nel raggio di 300 metri di aree scolastiche/luoghi di cura</p>
+      </td>
+      <td style="width: 4%">
+        <p>1</p>
+      </td>
+    </tr>
+    <tr>
+      <td style="width: 4%">
+        <input id="Parametri_areeS2" name="Parametri_areeS" type="radio" value="3"/>
+      </td>
+      <td>
+        <p>Vicinanza ad aree scolastiche/luoghi di cura</p>
+      </td>
+      <td style="width: 4%">
+        <p>3</p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazione">
+      <td colspan="3">
+        <p class="Labeltabella">
+          I) Vetustità, in anni (fattore moltiplicatore)
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+
+    <td colspan="3">
+     <p class="Labelcella">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      se è difficoltoso risalire alla data di installazione della copertura, si fa riferimento alla data di costruzione dell'edificio
+     </p>
+    </td>
+
+
+
+
+
+    </tr>
+    <tr>
+      <td style="width: 4%">
+        <div id="Parametri_anni" name="Parametri_anni" label="Vetustità" mandatory="true" > </div>    
+        <input id="Parametri_anni2" name="Parametri_anni" type="radio" value="2"/>
+      </td>
+      <td>
+        <p>Copertura installata dopo il 1990</p>
+      </td>
+      <td style="width: 4%">
+        <p>2</p>
+      </td>
+    </tr>
+    <tr>
+      <td style="width: 4%">
+        <input id="Parametri_anni3" name="Parametri_anni" type="radio" value="3"/>
+      </td>
+      <td>
+        <p>Copertura installata tra il 1980 e il 1990</p>
+      </td>
+      <td style="width: 4%">
+        <p>3</p>
+      </td>
+    </tr>
+    <tr>
+      <td style="width: 4%">
+        <input id="Parametri_anni4" name="Parametri_anni" type="radio" value="4"/>
+      </td>
+      <td>
+        <p>Copertura installata prima del 1980</p>
+      </td>
+      <td style="width: 4%">
+        <p>4</p>
+      </td>
+    </tr>
+   </tbody>
+</table>
+
+<br/>
+
+
+
+
+
+
+<table class="Modulo" style="border:1px solid grey;">
+   <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <tr class="Rigaintestazione">
+    	<td> 
+    		<p><b>ID, <i>Indice di degrado:</i></b> (A+B+C+D+E+F+G+H) x I </p>
+   		</td>
+    	<td style="width: 20%"> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    	<input class="" label="Indice" id="Parametri_IndiceDegrado" name="Parametri_IndiceDegrado"  dynamic_value="Math.ceil(Math.ceil(#Parametri_Sfaldature.value()) + Math.ceil(#Parametri_Consistenza.value()) + Math.ceil(#Parametri_Stalattiti.value()) + Math.ceil(#Parametri_Sgretolamento.value()) + Math.ceil(#Parametri_Ventilazione.value()) + Math.ceil(#Parametri_Visibile.value())+ Math.ceil(#Parametri_Distanza.value()) + Math.ceil(#Parametri_areeS.value()))* #Parametri_anni.value()"/>
+    	</td>
+    </tr>    
+   </tbody>
+</table>
+<table class="Modulo" style="border:1px solid grey;">
+   <tbody>
+    <tr>
+    	<td style="width: 15%"> 
+    	  <p>ID &lt;= 25</p>
+    	</td>
+    	<td>
+    		<p>
+    			Nessun intervento di bonifica. E' prevista la valutazione dell'indice di degrado con frequenza biennale.
+    		</p>
+    	</td>
+    </tr>
+    <tr>
+    	<td style="width: 15%"> 
+    	  <p>25 &lt; ID &lt; 44</p>
+    	</td>
+    	<td>
+    		<p>
+    			Esecuzione della bonifica entro 3 anni.
+    		</p>
+    	</td>
+    </tr>
+    <tr>
+    	<td style="width: 15%"> 
+    	  <p>ID =&gt; 45</p>
+    	</td>
+    	<td>
+    		<p>
+    			Esecuzione della bonifica entro 12 mesi.
+    		</p>
+    	</td>
+    </tr>
+   </tbody>
+</table>
+
+
+  <table class="Modulo" name="Allegati" style="border:1px solid grey">
+   <tbody>
+    <tr class="Rigaintestazione">
+     <td colspan="2">
+      <p style="text-align: center;">
+       <b>
+        Elenco degli allegati
+       </b>
+       <br/>
+       <span style="font-size:70%">
+        <i>
+         (barrare tutti gli allegati richiesti in fase di presentazione della pratica ed elencati sul portale)
+        </i>
+       </span>
+      </p>
+     </td>
+    </tr>
+	<tr>
+   <td style="width: 3%">
+    <input checked="checked" dynamic_check="true" id="DICH-PROP-AMI" name="DICH-PROP-AMI" type="checkbox" value="OBBLIGATORIO"/>
+   </td>
+   <td style="background-color: #eeeeee;">
+    <p>
+     Dichiarazione del proprietario dell'immobile o dell'amministratore
+    </p>
+   </td>
+  </tr>
+   <tr>
+     <td>
+      <input id="ALTRI-ALLEGATI" name="ALTRI-ALLEGATI" type="checkbox" value="OBBLIGATORIO"/>
+     </td>
+     <td style="background-color: #eeeeee;">
+      <p>
+       altri allegati 
+       <span style="font-size:70%">
+        (specificare)
+       </span>
+       <input class="" id="AltriAllegati" label="Altri allegati" mandatory_enabled="#ALTRI_ALLEGATI.checked()" name="AltriAllegati" style="width:79%;"/>
+      </p>
+     </td>
+    </tr>
+   </tbody>
+  </table>
+  <br/>
+
+{{ utils.trattamento_dati_personali() }}
+
+<br/>
+ {{ utils.firma_hidden() }}
+ <br/>
+  <p class="Modulo">
+   <input id="SalvaModulo" name="SalvaModulo" style="height:30px;width:120px;" title="Verifica la corretta compilazione dei campi e salva il modulo nel faldone virtuale dell'istanza." type="submit" value="Salva modulo"/>
+  </p>
+  <input destinatario_amministrazione="getParameter('Ente')" id="GLOBO_modulo_c{{ CodiceModulo }}" name="GLOBO_modulo_c{{ CodiceModulo }}" type="hidden" value=""/>
+  <input id="GLOBO_modulofiglio_cDICH-PROP-AMI" name="GLOBO_modulofiglio_cDICH-PROP-AMI" obbligatorio="#DICH_PROP_AMI.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+  <input id="GLOBO_allegato_cALTRI-ALLEGATI" name="GLOBO_allegato_cALTRI-ALLEGATI" obbligatorio="#ALTRI_ALLEGATI.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+  <input id="GLOBO_id_padre" name="GLOBO_id_padre" type="hidden"/>
+  <input id="GLOBO_recupera_dati" name="GLOBO_recupera_dati" type="hidden"/>
+  <input id="GLOBO_codice_modulo" name="GLOBO_codice_modulo" type="hidden" value="{{ CodiceModulo }}"/>
+  <input id="Metadati_ValoreID" name="Metadati_ValoreID" dynamic_value="#Parametri_IndiceDegrado.value()" type="hidden"/>
+  {% endblock content %}
+ </input>
+</input>

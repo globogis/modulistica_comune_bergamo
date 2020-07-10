@@ -1,0 +1,1555 @@
+{% set CodiceModulo = "PROG-PERS-TOFIR" %}
+{% set Urn = "document:c_a794:progetto.personalizzato.tofir" %}
+{% extends "base.html" %}
+
+{% block meta %}
+
+<meta campi_firma="TitolareNonImportare_CodiceFiscale"
+campi_firma_label="il dichiarante"
+classi_modulo="Generale"
+codice_modulo="{{ CodiceModulo }}"
+urn="{% block urn %}{{ Urn }}{% endblock urn %}"
+descrizione="Progetto personalizzato"
+destinatario_amministrazione=""
+destinatario_ufficio=""
+dinamico="SI"
+email_a=""
+ente_abilitato="TUTTI"
+filigrana="NO"
+firmare="P7M_ELETTRONICA"
+istruzioni_compilazione=""
+istruzioni_invio=""
+metodo_invio="mail"
+name="GLOBO_modulo"
+procura="NO,,"
+tipo_modulo="secondario"
+urlhelp="/modulistica/moduli/{{ CodiceModulo }}"
+verifica_pagamento="NO"
+versione="1.0|01/07/2019"/>
+
+{% endblock meta %}
+
+{% block title %}
+  Progetto personalizzato
+{% endblock title %}
+
+{% block content %}
+
+<globo_fondo_pagina areaheight="150" scope="6">
+  {{ utils.firma() }}
+</globo_fondo_pagina>
+
+<input id="Oggetto" name="Oggetto" type="hidden" dynamic_value="'Progetto personalizzato'"/>
+
+{{ intestazioni.intestazione_modulosecondario_senzabollo() }}
+
+<h1 class="Modulo">
+  Progetto personalizzato
+</h1>
+
+
+<h2 class="Modulo">
+  Per tirocini di orientamento, formazione e inserimento/reinserimento finalizzati all'inclusione sociale, 
+  all'autonomia delle persone e alla ri-abilitazione, in attenuazione alla Deliberazione della Giunta Regionale del 25/07/2016, n. 5451
+</h2>
+
+
+<input id="TitolareNonImportare_DatiPersonaObbligatori" name="TitolareNonImportare_DatiPersonaObbligatori" type="hidden" dynamic_check="true"/>
+<input id="TitolareNonImportare_Titolo" name="TitolareNonImportare_Titolo" type="hidden" value="Richiedente"/>
+<input id="TitolareNonImportare_Ruolo" name="TitolareNonImportare_Ruolo" type="hidden" value="Richiedente"/>
+{{ anagrafica.persona_fisica("TitolareNonImportare", "Il tirocinante", "display:none", "cursor:default", "visibility:visibility", "visibility:visibility", "mail_ordinaria", "", "true", "true", "false", "", "true", "true", "visibility:visibility") }}
+
+
+<input id="Referente1_DatiPersonaObbligatori" name="Referente1_DatiPersonaObbligatori" type="hidden" dynamic_check="true"/>
+<input id="Referente1_Titolo" name="Referente1_Titolo" type="hidden" value="Richiedente"/>
+<input id="Referente1_Ruolo" name="Referente1_Ruolo" type="hidden" value="Richiedente"/>
+{{ anagrafica.persona_fisica("Referente1", "Il soggetto proponente", "visibility:visibility", "cursor:pointer", "visibility:visibility", "visibility:visibility", "mail_ordinaria", "", "true", "true", "false", "", "true", "true", "visibility:visibility") }}
+
+
+<input id="Referente2_Titolo" name="Referente2_Titolo" type="hidden" value="Richiedente"/>
+<input id="Referente2_Ruolo" name="Referente2_Ruolo" type="hidden" value="Richiedente"/>
+{{ anagrafica.persona_fisica("Referente2", "<input id='Referente2_DatiPersonaObbligatori' name='Referente2_DatiPersonaObbligatori' type='checkbox' value='SI'/> soggetto promotore <br/> <span style='font-size: 70%; font-weight: normal'><i>(se diverso dal soggetto proponente)</i></span>", "visibility:visibility", "cursor:pointer", "visibility:visibility", "visibility:visibility", "mail_ordinaria", "", "true", "true", "false", "", "true", "true", "visibility:visibility") }}
+
+
+<table class="Modulo" style="border: 1px solid grey; margin-top: -1px;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="4">
+        <p class="Labeltabella">
+          il responsabile <br/>
+          <span style="font-size: 70%;font-weight: normal;"><i>(nominativo del responsabile aziendale della gestione del tirocinio, può corrispondere al tutor)</i></span>
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          Cognome
+        </p>
+      </td>
+      <td>
+        <p class="Labelcella">
+          Nome
+        </p>
+      </td>
+      <td colspan="2">
+        <p class="Labelcella">
+          Codice Fiscale
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input class="inputNormal" id="Parametri_CognomeRespPromotore" name="Parametri_CognomeRespPromotore" style="width: 100%;" label="Cognome responsabile" enabled="#Referente2_DatiPersonaObbligatori.checked()"/>
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_NomeRespPromotore" name="Parametri_NomeRespPromotore" style="width: 100%;" label="Nome responsabile" mandatory_enabled="#Parametri_CognomeRespPromotore.value()"/>
+      </td>
+      <td colspan="2">
+        <input class="inputNormal" id="Parametri_CodFiscRespPromotore" name="Parametri_CodFiscRespPromotore" style="width: 100%;" label="Codice fiscale responsabile" mandatory_enabled="#Parametri_CognomeRespPromotore.value()"/>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          Telefono
+        </p>
+      </td>
+      <td>
+        <p class="Labelcella">
+          Cellulare
+        </p>
+      </td>
+      <td>
+        <p class="Labelcella">
+          Cellulare
+        </p>
+      </td>
+      <td>
+        <p class="Labelcella">
+          E-mail (posta elettronica ordinaria)
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input class="inputNormal" id="Parametri_TelefonoRespPromotore" name="Parametri_TelefonoRespPromotore" style="width: 100%;" label="Telefono responsabile" mandatory_enabled="#Parametri_CognomeRespPromotore.value()"/>
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_Cellulare1RespPromotore" name="Parametri_Celluelare1RespPromotore" style="width: 100%;" label="Cellulare responsabile" mandatory_enabled="#Parametri_CognomeRespPromotore.value()"/>
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_Cellulare2RespPromotore" name="Parametri_Cellulare2RespPromotore" style="width: 100%;" label="Cellulare responsabile" mandatory_enabled="#Parametri_CognomeRespPromotore.value()"/>
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_EmailRespPromotore" name="Parametri_EmailRespPromotore" style="width: 100%;" label="E-mail responsabile" mandatory_enabled="#Parametri_CognomeRespPromotore.value()"/>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="5">
+        <p class="Labeltabella">
+          <input id="SoggettoOspitante" name="SoggettoOspitante" type="checkbox" value="SI" /> soggetto ospitante <br/>
+          <span style="font-size: 70%; font-weight: normal;"><i>(se diverso dal soggetto proponente)</i></span>
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td colspan="2">
+        <p class="Labelcella">
+          Denominazione
+        </p>
+      </td>
+      <td colspan="3">
+        <p class="Labelcella">
+          Natura giuridica
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2">
+        <input class="inputNormal" id="Parametri_DenominazioneSoggettoOspitante" name="Parametri_DenominazioneSoggettoOspitante" style="width: 100%;" label="Denominazione" mandatory_enabled="#SoggettoOspitante.checked()"/>
+      </td>
+      <td colspan="3">
+        <select class="inputNormal" id="Parametri_NaturaGiuridicaSoggettoOspitante" label="Ruolo titolare" name="Parametri_NaturaGiuridicaSoggettoOspitante" style="width:100%" mandatory="#SoggettoOspitante.checked()">
+          <option value=""></option>
+          <option value="Ente pubblico">Ente pubblico</option>
+          <option value="Privato">Privato</option>
+        </select>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          Codice Fiscale
+        </p>
+      </td>
+      <td>
+        <p class="Labelcella">
+          Partita IVA
+        </p>
+      </td>
+      <td colspan="3">
+        <p class="Labelcella">
+          Codice ATECO
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input class="inputNormal" id="Parametri_CodFiscSoggettoOspitante" name="Parametri_CodFiscSoggettoOspitante" style="width: 100%;" foramt="cf" label="Codice fiscale" mandatory_enabled="#SoggettoOspitante.checked()"/>
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_PIVASoggettoOspitante" name="Parametri_PIVASoggettoOspitante" style="width: 100%;" format="number" label="partita IVA" mandatory_enabled="#SoggettoOspitante.checked()"/>
+      </td>
+      <td colspan="3">
+        <input class="inputNormal" id="Parametri_CodATECOSoggettoOspitante" name="Parametri_CodATECOSoggettoOspitante" style="width: 100%;" label="Codice ATECO" mandatory_enabled="#SoggettoOspitante.checked()"/>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td colspan="5">
+        <p class="Labelcella">
+          Sede legale
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          Comune
+        </p>
+      </td>
+      <td>
+        <p class="Labelcella">
+          indirizzo
+        </p>
+      </td>
+      <td>
+        <p class="Labelcella">
+          Civico
+        </p>
+      </td>
+      <td>
+        <p class="Labelcella">
+          CAP
+        </p>
+      </td>
+      <td>
+        <p class="Labelcella">
+          Provincia
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input class="inputNormal" id="Parametri_ComuneSedeLegaleOspitante" name="Parametri_ComuneSedeLegaleOspitante" style="width: 100%;" label="Comune" mandatory_enabled="#SoggettoOspitante.checked()"/>
+      </td>
+       <td>
+        <input class="inputNormal" id="Parametri_IndirizzoSedeLegaleOspitante" name="Parametri_IndirizzoSedeLegaleOspitante" style="width: 100%;" label="Indirizzo" mandatory_enabled="#SoggettoOspitante.checked()"/>
+      </td>
+       <td>
+        <input class="inputNormal" id="Parametri_CivicoSedeLegaleOspitante" name="Parametri_CivicoSedeLegaleOspitante" style="width: 100%;" label="Civico" mandatory_enabled="#SoggettoOspitante.checked()"/>
+      </td>
+       <td>
+        <input class="inputNormal" id="Parametri_CAPSedeLegaleOspitante" name="Parametri_CAPSedeLegaleOspitante" style="width: 100%;" label="CAP" format="number" mandatory_enabled="#SoggettoOspitante.checked()"/>
+      </td>
+       <td>
+        <input class="inputNormal" id="Parametri_ProvinciaSedeLegaleOspitante" name="Parametri_ProvinciaSedeLegaleOspitante" style="width: 100%;" label="Provincia" mandatory_enabled="#SoggettoOspitante.checked()"/>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td colspan="5">
+        <p class="Labelcella">
+          Sede operativa
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          Comune
+        </p>
+      </td>
+      <td>
+        <p class="Labelcella">
+          indirizzo
+        </p>
+      </td>
+      <td style="width: 10%">
+        <p class="Labelcella">
+          Civico
+        </p>
+      </td>
+      <td style="width: 10%">
+        <p class="Labelcella">
+          CAP
+        </p>
+      </td>
+      <td style="width: 10%">
+        <p class="Labelcella">
+          Provincia
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input class="inputNormal" id="Parametri_ComuneSedeOperativaOspitante" name="Parametri_ComuneSedeOperativaOspitante" style="width: 100%;" label="Comune" mandatory_enabled="#SoggettoOspitante.checked()"/>
+      </td>
+       <td>
+        <input class="inputNormal" id="Parametri_IndirizzoSedeOperativaOspitante" name="Parametri_IndirizzoSedeOperativaOspitante" style="width: 100%;" label="Indirizzo" mandatory_enabled="#SoggettoOspitante.checked()"/>
+      </td>
+       <td>
+        <input class="inputNormal" id="Parametri_CivicoSedeOperativaOspitante" name="Parametri_CivicoSedeOperativaOspitante" style="width: 100%;" label="Civico" mandatory_enabled="#SoggettoOspitante.checked()"/>
+      </td>
+       <td>
+        <input class="inputNormal" id="Parametri_CAPSedeOperativaOspitante" name="Parametri_CAPSedeOperativaOspitante" style="width: 100%;" format="number" label="CAP" mandatory_enabled="#SoggettoOspitante.checked()"/>
+      </td>
+       <td>
+        <input class="inputNormal" id="Parametri_ProvinciaSedeOperativaOspitante" name="Parametri_ProvinciaSedeOperativaOspitante" style="width: 100%;" label="Provincia" mandatory_enabled="#SoggettoOspitante.checked()"/>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<table class="Modulo" style="border: 1px solid grey; margin-top: -1px;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="4">
+        <p class="Labeltabella">
+          il responsabile <br>
+          <span style="font-size: 70%; font-weight: normal;"><i>(nominativo del responsabile aziendale della gestione del tirocinio, può corrispondere al tutor)</i></span>
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          Cognome
+        </p>
+      </td>
+      <td>
+        <p class="Labelcella">
+          Nome
+        </p>
+      </td>
+      <td colspan="2">
+        <p class="Labelcella">
+          Codice Fiscale
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input class="inputNormal" id="Parametri_CognomeRespOspitante" name="Parametri_CognomeRespOspitante" style="width: 100%;" label="Cognome responsabile" enabled="#SoggettoOspitante.checked()"/>
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_NomeRespOspitante" name="Parametri_NomeRespOspitante" style="width: 100%;" label="Nome responsabile" mandatory_enabled="#Parametri_CognomeRespOspitante.value()"/>
+      </td>
+      <td colspan="2">
+        <input class="inputNormal" id="Parametri_CodFiscRespOspitante" name="Parametri_CodFiscRespOspitante" style="width: 100%;" label="Codice fiscale responsabile" mandatory_enabled="#Parametri_CognomeRespOspitante.value()"/>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          Telefono
+        </p>
+      </td>
+      <td>
+        <p class="Labelcella">
+          Cellulare
+        </p>
+      </td>
+      <td>
+        <p class="Labelcella">
+          Cellulare
+        </p>
+      </td>
+      <td>
+        <p class="Labelcella">
+          E-mail (posta elettronica ordinaria)
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input class="inputNormal" id="Parametri_TelefonoRespOspitante" name="Parametri_TelefonoRespOspitante" style="width: 100%;" label="Telefono responsabile" mandatory_enabled="#Parametri_CognomeRespOspitante.value()"/>
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_Cellulare1RespOspitante" name="Parametri_Celluelare1RespOspitante" style="width: 100%;" label="Cellulare responsabile" mandatory_enabled="#Parametri_CognomeRespOspitante.value()"/>
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_Cellulare2RespOspitante" name="Parametri_Cellulare2RespOspitante" style="width: 100%;" label="Cellulare responsabile" mandatory_enabled="#Parametri_CognomeRespOspitante.value()"/>
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_EmailRespOspitante" name="Parametri_EmailRespOspitante" style="width: 100%;" label="E-mail responsabile" mandatory_enabled="#Parametri_CognomeRespOspitante.value()"/>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<h3 class="Modulo">
+  INFORMAZIONI SPECIFICHE
+</h3>
+
+
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="2">
+        <p class="Labeltabella">
+          convenzione di riferimento
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          Data sottoscrizione
+        </p>
+      </td>
+      <td>
+        <p class="Labelcella">
+          Numero di convenzione di riferimento
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input class="inputNormal" id="Parametri_DataSottoscrizione" name="Parametri_DataSottoscrizione" style="width: 100%;" format="date" label="Data sottoscrizione" mandatory_enabled="true"/>
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_NumConvRif" name="Parametri_NumConvRif" style="width: 100%;" label="Numero di convenzione di riferimento" mandatory_enabled="true"/>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="2">
+        <p class="Labeltabella">
+          soggetto promotore
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td colspan="2">
+        <p class="Labelcella">
+          Classificazione ai sensi degli indirizzi regionali
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <div id="Tassonomia_SoggettoPromotore" name="Tassonomia_SoggettoPromotore" label="Soggetto promotore" mandatory="true"></div>
+        <input group="Tassonomia_SoggettoPromotore" id="Tassonomia_SoggettoPromotore1" name="Tassonomia_SoggettoPromotore1" type="checkbox" value="SI" />
+      </td>
+      <td>
+        <p>
+          accreditato ai servizi di istruzione e formazione professionale di cui all'articolo 25 della Legge Regionale del 06/08/2007, n.19 (sezione A dell'albo)
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input group="Tassonomia_SoggettoPromotore" id="Tassonomia_SoggettoPromotore2" name="Tassonomia_SoggettoPromotore2" type="checkbox" value="SI" />
+      </td>
+      <td>
+        <p>
+          accreditato ai servizi di istruzione e formazione professionale di cui all'articolo 25 della legge regionale del 06/08/2007, n.19 (sezione B dell'albo)
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input group="Tassonomia_SoggettoPromotore" id="Tassonomia_SoggettoPromotore3" name="Tassonomia_SoggettoPromotore3" type="checkbox" value="SI" />
+      </td>
+      <td>
+        <p>
+          accreditato ai servizi per il lavoro ai sensi dell'articolo 13 della legge regionale del 28/09/2006, n. 22
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input group="Tassonomia_SoggettoPromotore" id="Tassonomia_SoggettoPromotore4" name="Tassonomia_SoggettoPromotore4" type="checkbox" value="SI" />
+      </td>
+      <td>
+        <p>
+          autorizzato ai servizi per il lavoro ai sensi degli articoli 14 e 15 della legge regionale del 28/09/2006, n. 22 e della D.G.R del 18/04/2007 n. 4561
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input group="Tassonomia_SoggettoPromotore" id="Tassonomia_SoggettoPromotore5" name="Tassonomia_SoggettoPromotore5" type="checkbox" value="SI" />
+      </td>
+      <td>
+        <p>
+          autorizzato nazionale ai servizi per il lavoro ai sensi degli articoli 4, 5 e 6 del Decreto Legislativo del 10/09/2003 n.276
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input group="Tassonomia_SoggettoPromotore" id="Tassonomia_SoggettoPromotore6" name="Tassonomia_SoggettoPromotore6" type="checkbox" value="SI" />
+      </td>
+      <td>
+        <p>
+          comunità terapeutica o cooperativa sociale, iscritta nello specifico albo regionale, operante a favore dei disabili e dei soggetti appartenenti alle categorie svantaggiate che ha in carico quali utenti di servizi da essa gestiti
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input group="Tassonomia_SoggettoPromotore" id="Tassonomia_SoggettoPromotore7" name="Tassonomia_SoggettoPromotore7" type="checkbox" value="SI" />
+      </td>
+      <td>
+        <p>
+          ente in house dek Ministero del Lavoro e delle Politiche Sociali
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input group="Tassonomia_SoggettoPromotore" id="Tassonomia_SoggettoPromotore8" name="Tassonomia_SoggettoPromotore8" type="checkbox" value="SI" />
+      </td>
+      <td>
+        <p>
+          servizio pubblico che ha in carico il soggetto tramite i propri uffici competenti di cui alla DGR 825/2013
+        </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="2">
+        <p class="Labeltabella">
+          il tirocinante
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td colspan="2">
+        <p class="Labelcella">
+          Condizione del tirocinante ad avvio tirocinio
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="Tirocinante" name="Tirocinante" type="checkbox" value="SI" />
+      </td>
+      <td>
+        soggetto svantaggiato di cui alla DGR 25/07/2016, n. 5451
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td colspan="2">
+        <p class="Labelcella">
+          Titolo di studio del tirocinante
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <div id="Tassonomia_TitoloStudio" name="Tassonomia_TitoloStudio" label="Titolo di studio del tirocinante" mandatory="true"></div>
+        <input group="Tassonomia_TitoloStudio" id="Tassonomia_TitoloStudio1" name="Tassonomia_TitoloStudio1" type="checkbox" value="SI" />
+      </td>
+      <td>
+        Licenza elementare
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input group="Tassonomia_TitoloStudio" id="Tassonomia_TitoloStudio2" name="Tassonomia_TitoloStudio2" type="checkbox" value="SI" />
+      </td>
+      <td>
+        Licenza media
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input group="Tassonomia_TitoloStudio" id="Tassonomia_TitoloStudio3" name="Tassonomia_TitoloStudio3" type="checkbox" value="SI" />
+      </td>
+      <td>
+        qualifica professionale regionale (durata biennale)
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input group="Tassonomia_TitoloStudio" id="Tassonomia_TitoloStudio4" name="Tassonomia_TitoloStudio4" type="checkbox" value="SI" />
+      </td>
+      <td>
+        qualifica del sistema di istruzione (durata triennale)
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input group="Tassonomia_TitoloStudio" id="Tassonomia_TitoloStudio5" name="Tassonomia_TitoloStudio5" type="checkbox" value="SI" />
+      </td>
+      <td>
+        diploma professionale del sistema di IeFP (durata quadriennale)
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input group="Tassonomia_TitoloStudio" id="Tassonomia_TitoloStudio6" name="Tassonomia_TitoloStudio6" type="checkbox" value="SI" />
+      </td>
+      <td>
+        diploma professionale del sistema di istruzione (durata quinquiennale)
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input group="Tassonomia_TitoloStudio" id="Tassonomia_TitoloStudio7" name="Tassonomia_TitoloStudio7" type="checkbox" value="SI" />
+      </td>
+      <td>
+        diploma tecnico del sistema di istruzione (durata quinquiennale)
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input group="Tassonomia_TitoloStudio" id="Tassonomia_TitoloStudio8" name="Tassonomia_TitoloStudio8" type="checkbox" value="SI" />
+      </td>
+      <td>
+        diploma maturità (durata quinquiennale)
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input group="Tassonomia_TitoloStudio" id="Tassonomia_TitoloStudio9" name="Tassonomia_TitoloStudio9" type="checkbox" value="SI" />
+      </td>
+      <td>
+        attestato di specializzazione tecnica superiore (I.F.T.S.)
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input group="Tassonomia_TitoloStudio" id="Tassonomia_TitoloStudio10" name="Tassonomia_TitoloStudio10" type="checkbox" value="SI" />
+      </td>
+      <td>
+        diploma di tecnico superiore (I.T.S.)
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input group="Tassonomia_TitoloStudio" id="Tassonomia_TitoloStudio11" name="Tassonomia_TitoloStudio11" type="checkbox" value="SI" />
+      </td>
+      <td>
+        altro diploma terziario extra-universitario
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input group="Tassonomia_TitoloStudio" id="Tassonomia_TitoloStudio12" name="Tassonomia_TitoloStudio12" type="checkbox" value="SI" />
+      </td>
+      <td>
+        diploma universitario
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input group="Tassonomia_TitoloStudio" id="Tassonomia_TitoloStudio13" name="Tassonomia_TitoloStudio13" type="checkbox" value="SI" />
+      </td>
+      <td>
+        master universitario
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input group="Tassonomia_TitoloStudio" id="Tassonomia_TitoloStudio14" name="Tassonomia_TitoloStudio14" type="checkbox" value="SI" />
+      </td>
+      <td>
+        laurea (vecchio ordinamento)
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input group="Tassonomia_TitoloStudio" id="Tassonomia_TitoloStudio15" name="Tassonomia_TitoloStudio15" type="checkbox" value="SI" />
+      </td>
+      <td>
+        laurea di primo livello (durata triennale)
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input group="Tassonomia_TitoloStudio" id="Tassonomia_TitoloStudio16" name="Tassonomia_TitoloStudio16" type="checkbox" value="SI" />
+      </td>
+      <td>
+        laurea di secondo livello (laurea magistrale o specialistica o a ciclo unico)
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input group="Tassonomia_TitoloStudio" id="Tassonomia_TitoloStudio17" name="Tassonomia_TitoloStudio17" type="checkbox" value="SI" />
+      </td>
+      <td>
+        altro<span style="font-size: 70%;"><i>(specificare)</i></span>
+        <input class="inputNormal" id="Parametri_AltroTitoloSutdio" name="Parametri_AltroTitoloSutdio" style="width: 100%;" label="Altro" mandatory_enabled="#Tassonomia_TitoloStudio17.checked()"/>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<h3 class="Modulo">
+  GESTIONE DEL TIROCINIO
+</h3>
+
+
+
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="4">
+        <div id="Tassonomia_TutorPromotore" name="Tassonomia_TutorPromotore" label="Tutor del soggetto promotore"></div>
+        <p class="Labeltabella">
+          <input group="Tassonomia_TutorPromotore" id="Tassonomia_TutorPromotore1" name="Tassonomia_TutorPromotore1" type="checkbox" value="SI" />
+          tutor del soggetto promotore
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          Cognome
+        </p>
+      </td>
+      <td>
+        <p class="Labelcella">
+          Nome
+        </p>
+      </td>
+      <td colspan="2">
+        <p class="Labelcella">
+          Codice Fiscale
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input class="inputNormal" id="Parametri_CognomeTutorPromotore" name="Parametri_CognomeTutorPromotore" style="width: 100%;" label="Cognome tutor" mandatory_enabled="#Tassonomia_TutorPromotore1.checked()"/>
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_NomeTutorPromotore" name="Parametri_NomeTutorPromotore" style="width: 100%;" label="Nome tutor" mandatory_enabled="#Tassonomia_TutorPromotore1.checked()"/>
+      </td>
+      <td colspan="2">
+        <input class="inputNormal" id="Parametri_CodFiscTutorPromotore" name="Parametri_CodFiscTutorPromotore" style="width: 100%;" format="cf" label="Codice Fiscale tutor" mandatory_enabled="#Tassonomia_TutorPromotore1.checked()"/>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          Telefono
+        </p>
+      </td>
+      <td>
+        <p class="Labelcella">
+          Cellulare
+        </p>
+      </td>
+      <td>
+        <p class="Labelcella">
+          Cellulare
+        </p>
+      </td>
+      <td>
+        <p class="Labelcella">
+          E-mail (posta elettronica ordinaria)
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input class="inputNormal" id="Parametri_TelefonoTutorPromotore" name="Parametri_TelefonoTutorPromotore" style="width: 100%;" format="number" label="Telefono tutor" mandatory_enabled="#Tassonomia_TutorPromotore1.checked()"/>
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_Cellulare1TutorPromotore" name="Parametri_Cellulare1TutorPromotore" style="width: 100%;" format="number" label="Cellulare tutor" mandatory_enabled="#Tassonomia_TutorPromotore1.checked()"/>
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_Cellulare2TutorPromotore" name="Parametri_Cellulare2TutorPromotore" style="width: 100%;" format="number" label="Cellulare tutor" mandatory_enabled="#Tassonomia_TutorPromotore1.checked()"/>
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_MailTutorPromotore" name="Parametri_MailTutorPromotore" style="width: 100%;" label="E-mail (posta elettronica ordinaria) tutor" mandatory_enabled="#Tassonomia_TutorPromotore1.checked()"/>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<table class="Modulo" style="border: 1px solid grey; margin-top: -1px;">
+  <tbody>
+    <tr class="Rigaintestazioneridotta">
+      <td colspan="2">
+        <p class="Labelcella">
+          Titolo di studio del tutor
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <div id="Tassonomia_TitoloStudioTutor" name="Tassonomia_TitoloStudioTutor" label="Titolo di studio del tutor" mandatory="true"></div>
+        <input group="Tassonomia_TitoloStudioTutor" id="Tassonomia_TitoloStudioTutor1" name="Tassonomia_TitoloStudioTutor1" type="checkbox" value="SI" />
+      </td>
+      <td>
+        <p>
+          qualifica del sistema di IeFP (durata triennale)
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input group="Tassonomia_TitoloStudioTutor" id="Tassonomia_TitoloStudioTutor2" name="Tassonomia_TitoloStudioTutor2" type="checkbox" value="SI" />
+      </td>
+      <td>
+        <p>
+          qualifica del sistema di istruzione (durata triennale)
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input group="Tassonomia_TitoloStudioTutor" id="Tassonomia_TitoloStudioTutor3" name="Tassonomia_TitoloStudioTutor3" type="checkbox" value="SI" />
+      </td>
+      <td>
+        <p>
+          diploma professionale del sistema di IeFP (durata quinquiennale)
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input group="Tassonomia_TitoloStudioTutor" id="Tassonomia_TitoloStudioTutor4" name="Tassonomia_TitoloStudioTutor4" type="checkbox" value="SI" />
+      </td>
+      <td>
+        <p>
+          diploma professionale del sistema di istruzione (durata quinquiennale)
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input group="Tassonomia_TitoloStudioTutor" id="Tassonomia_TitoloStudioTutor5" name="Tassonomia_TitoloStudioTutor5" type="checkbox" value="SI" />
+      </td>
+      <td>
+        <p>
+          diploma tecnico del sistema di istruzione (durata quinquiennale)
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input group="Tassonomia_TitoloStudioTutor" id="Tassonomia_TitoloStudioTutor6" name="Tassonomia_TitoloStudioTutor6" type="checkbox" value="SI" />
+      </td>
+      <td>
+        <p>
+          diploma maturità
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input group="Tassonomia_TitoloStudioTutor" id="Tassonomia_TitoloStudioTutor7" name="Tassonomia_TitoloStudioTutor7" type="checkbox" value="SI" />
+      </td>
+      <td>
+        <p>
+          attestato di specializzazione tecnica superiore (I.F.T.S.)
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input group="Tassonomia_TitoloStudioTutor" id="Tassonomia_TitoloStudioTutor8" name="Tassonomia_TitoloStudioTutor8" type="checkbox" value="SI" />
+      </td>
+      <td>
+        <p>
+          diploma tecnico superiore (I.T.S.)
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input group="Tassonomia_TitoloStudioTutor" id="Tassonomia_TitoloStudioTutor9" name="Tassonomia_TitoloStudioTutor9" type="checkbox" value="SI" />
+      </td>
+      <td>
+        <p>
+          altro diploma terziario extra-universitario
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input group="Tassonomia_TitoloStudioTutor" id="Tassonomia_TitoloStudioTutor10" name="Tassonomia_TitoloStudioTutor10" type="checkbox" value="SI" />
+      </td>
+      <td>
+        <p>
+          laurea o altro titolo universitario
+        </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="4">
+        <div id="Tassonomia_TutorOspitante" name="Tassonomia_TutorOspitante" label="Tutor del soggetto ospitante"></div>
+        <p class="Labeltabella">
+          <input group="Tassonomia_TutorOspitante" id="Tassonomia_TutorOspitante1" name="Tassonomia_TutorOspitante1" type="checkbox" value="SI" />
+          tutor del soggetto ospitante
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          Cognome
+        </p>
+      </td>
+      <td>
+        <p class="Labelcella">
+          Nome
+        </p>
+      </td>
+      <td colspan="2">
+        <p class="Labelcella">
+          Codice Fiscale
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input class="inputNormal" id="Parametri_CognomeTutorOspitante" name="Parametri_CognomeTutorOspitante" style="width: 100%;" label="Cognome tutor" mandatory_enabled="#Tassonomia_TutorOspitante1.checked()"/>
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_NomeTutorOspitante" name="Parametri_NomeTutorOspitante" style="width: 100%;" label="Nome tutor" mandatory_enabled="#Tassonomia_TutorOspitante1.checked()"/>
+      </td>
+      <td colspan="2">
+        <input class="inputNormal" id="Parametri_CodFiscTutorOspitante" name="Parametri_CodFiscTutorOspitante" style="width: 100%;" format="cf" label="Codice fiscale tutor" mandatory_enabled="#Tassonomia_TutorOspitante1.checked()"/>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          Telefono
+        </p>
+      </td>
+      <td>
+        <p class="Labelcella">
+          Cellulare
+        </p>
+      </td>
+      <td>
+        <p class="Labelcella">
+          Cellulare
+        </p>
+      </td>
+      <td>
+        <p class="Labelcella">
+          E-mail (posta elettronica ordinaria)
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input class="inputNormal" id="Parametri_TelefonoTutorOspitante" name="Parametri_TelefonoTutorOspitante" style="width: 100%;" format="number" label="Telefono tutor" mandatory_enabled="#Tassonomia_TutorOspitante1.checked()"/>
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_Cellulare1TutorOspitante" name="Parametri_Cellulare1TutorOspitante" style="width: 100%;" format="number" label="Cellulare tutor" mandatory_enabled="#Tassonomia_TutorOspitante1.checked()"/>
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_Cellulare2TutorOspitante" name="Parametri_Cellulare2TutorOspitante" style="width: 100%;" format="number" label="Cellulare tutor" mandatory_enabled="#Tassonomia_TutorOspitante1.checked()"/>
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_MailTutorOspitante" name="Parametri_MailTutorOspitante" style="width: 100%;" label="E-mail (posta elettronica ordinaria) tutor" mandatory_enabled="#Tassonomia_TutorOspitante1.checked()"/>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<table class="Modulo" style="border: 1px solid grey;margin-top: -1px;">
+  <tbody>
+    <tr class="Rigaintestazioneridotta">
+      <td colspan="2">
+        <p class="Labelcella">
+          Inquadramento
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <div id="Tassonomia_Inquadramento" name="Tassonomia_Inquadramento" label="Inquadramento" mandatory="true"></div>
+        <input group="Tassonomia_Inquadramento" id="Tassonomia_Inquadramento1" name="Tassonomia_Inquadramento1" type="checkbox" value="SI" />
+      </td>
+      <td>
+        <p>
+          titolare di impresa o coadiuvanti o libero professionista (singolo o associato)
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input group="Tassonomia_Inquadramento" id="Tassonomia_Inquadramento2" name="Tassonomia_Inquadramento2" type="checkbox" value="SI" />
+      </td>
+      <td>
+        <p>
+          dipendente con contratto a tempo indeterminato
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input group="Tassonomia_Inquadramento" id="Tassonomia_Inquadramento3" name="Tassonomia_Inquadramento3" type="checkbox" value="SI" />
+      </td>
+      <td>
+        <p>
+          dipendente con contratto a tempo determinato (durata di almeno 12 mesi)
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input group="Tassonomia_Inquadramento" id="Tassonomia_Inquadramento4" name="Tassonomia_Inquadramento4" type="checkbox" value="SI" />
+      </td>
+      <td>
+        <p>
+          socio lavoratore di cooperativa ai sensi della Legge 142/2001 (per rapporti a rempo determinato durata di almeno 12 mesi)
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input group="Tassonomia_Inquadramento" id="Tassonomia_Inquadramento5" name="Tassonomia_Inquadramento5" type="checkbox" value="SI" />
+      </td>
+      <td>
+        <p>
+          esperienze e competenze professionali possedute
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td colspan="2">
+        <p class="Labelcella">
+          Descrizione sintetica delle esperienze e competenze professionali comprovanti l'adeguatezza al ruolo di tutor
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2">
+        <textarea class="inputNormal" id="Parametri_DescrizioneSinteticaEsperienze" name="Parametri_DescrizioneSinteticaEsperienze" style="width: 100%; height: 5cm;" label="Descrizione sintetica delle esperienze e competenze professionali comprovanti l'adeguatezza al ruolo di tutor"mandatory_enabled="#Tassonomia_Inquadramento5.checked()"></textarea>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td colspan="2">
+        <p class="Labelcella">
+          Numero dei tirocinanti affidati all'avvio del presente tirocinio
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2">
+        <input class="inputNormal" id="Parametri_NumeroTirocinantiAvvio" name="Parametri_NumeroTirocinantiAvvio" style="width: 100%;" label="Numero dei tirocinanti affidati all'avvio del presente tirocinio" mandatory_enabled="true"/>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="2">
+        <p class="Labeltabella">
+          indennità di partecipazione (ove prevista) e costo
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <p>
+          importo mensile indennità
+        </p>
+      </td>
+      <td style="width: 20%;">
+        <p>
+          <input class="inputNormal" id="Parametri_ImportoMensileIndennita" name="Parametri_ImportoMensileIndennita" style="width: 85%;" format="valuta_positiva" label="Importo mensile indennità"/> €
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <p>
+          importo eventuale buono pasto giornaliero
+        </p>
+      </td>
+      <td  style="width: 20%;">
+        <p>
+          <input class="inputNormal" id="Parametri_ImportoBuonoPasto" name="Parametri_ImportoBuonoPasto" style="width: 85%;" format="valuta_positiva" label="importo eventuale buono pasto giornaliero"/> €
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <p>
+          costo ente per assistenza educativa
+        </p>
+      </td>
+      <td  style="width: 20%;">
+        <p>
+          <input class="inputNormal" id="Parametri_CostoEnteAssistenza" name="Parametri_CostoEnteAssistenza" style="width: 85%;" format="valuta_positiva" label="Costo ente per assistenza educativa"/> €
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <p>
+          costo inail
+        </p>
+      </td>
+      <td  style="width: 20%;">
+        <p>
+          <input class="inputNormal" id="Parametri_CostoInail" name="Parametri_CostoInail" style="width: 85%;" format="valuta_positiva" label="Costo inail"/> €
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <p>
+          costi vari
+        </p>
+      </td>
+      <td  style="width: 20%;">
+        <p>
+          <input class="inputNormal" id="Parametri_CostiVari" name="Parametri_CostiVari" style="width: 85%;" format="valuta_positiva" label="Costi vari"/> €
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <p>
+          totale costo progetto
+        </p>
+      </td>
+      <td  style="width: 20%;">
+        <p>
+          <input class="inputNormal" id="Parametri_TotCostoProgetto" name="Parametri_TotCostoProgetto" style="width: 85%;" format="valuta_positiva" label="Totale costo progetto" dynamic_value="((#Parametri_CostiVari.value() != '' ? (parseFloat(#Parametri_CostiVari.value())) : 0) + (#Parametri_CostoInail.value() != '' ? (parseFloat(#Parametri_CostoInail.value())) : 0) + (#Parametri_CostoEnteAssistenza.value() != '' ? (parseFloat(#Parametri_CostoEnteAssistenza.value())) : 0) + (#Parametri_ImportoBuonoPasto.value() != '' ? (parseFloat(#Parametri_ImportoBuonoPasto.value())) : 0) + (#Parametri_ImportoMensileIndennita.value() != '' ? (parseFloat(#Parametri_ImportoMensileIndennita.value())) : 0)).toFixed(2).replace('.' , ',')"/> €
+        </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="2">
+        <p class="Labeltabella">
+          garanzie assicurative obbligatorie
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td colspan="2">
+        <p class="Labelcella">
+          Inail
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <p>
+          n° PAT <br/>
+          <span style="font-size: 70%;"><i>(inserire il numero della Polizia Assicurativa Territoriale di riferimento)</i></span>
+        </p>
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_NPAT" name="Parametri_NPAT" style="width: 100%;" label="N° PAT" mandatory_enabled="true"/>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td colspan="2">
+        <p class="Labelcella">
+          Responsabilità civile
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <p>
+          Assicurazione <br/>
+          <span style="font-size: 70%; font-weight: normal;"><i>(inserire il nominativo della posizione assicurativa territoriale di riferimento)</i></span>
+        </p>
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_Assicurazione" name="Parametri_Assicurazione" style="width: 100%;" label="Assicurazione" mandatory_enabled="true"/>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <p>
+          n° polizza <br/>
+          <span style="font-size: 70%; font-weight: normal;"><i>(inserire il numero identificativo della polizza )</i></span>
+        </p>
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_IdPolizza" name="Parametri_IdPolizza" style="width: 100%;" label="N° polizza" mandatory_enabled="true"/>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="2">
+        <p class="Labeltabella">
+          durata, obiettivi e modalità di svolgimento deel tirocinio
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <p>
+          durata <br/>
+          <span style="font-size: 70%;"><i>(inserire il numero di mesi)</i></span>
+        </p>
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_MesiDurata" name="Parametri_MesiDurata" style="width: 100%;" format="number" label="Durata" mandatory_enabled="true"/>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <p>
+          data inizio
+        </p>
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_DataInizio" name="Parametri_DataInizio" style="width: 100%;" format="date" label="Data inizio" mandatory_enabled="true"/>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <p>
+          data fine
+        </p>
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_DataFine" name="Parametri_DataFine" style="width: 100%;" format="date" label="Data fine" mandatory_enabled="true"/>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <p>
+          articolazione oraria <br/>
+          <span style="font-size: 70%; font-weight: normal;"><i>(indicare gli orari di svolgimento e  l'articolazione settimanale prevista, anche fra le diverse sedi se previste)</i></span>
+        </p>
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_ArticolazioneOraria" name="Parametri_ArticolazioneOraria" style="width: 100%;" label="Articolazione oraria" mandatory_enabled="true"/>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <p>
+          sintesi della relazione del servizio pubblico
+        </p>
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_RelazioneServizioPubblico" name="Parametri_RelazioneServizioPubblico" style="width: 100%;" label="Sintesi della relazione del servizio pubblico" mandatory_enabled="true"/>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+{{ immobili.immobile_toponomastica_secondario("Immobile1", "<input id='Immobile1_DatiImmobileRichiesti' name='Immobile1_DatiImmobileRichiesti' type='checkbox' value='si'/> eventuale altra sede di svolgimento", "Localizzazione intervento", "visibility:visibility") }}
+
+
+{{ immobili.immobile_toponomastica_secondario("Immobile2", "<input id='Immobile2_DatiImmobileRichiesti' name='Immobile2_DatiImmobileRichiesti' type='checkbox' value='si'/> eventuale altra sede di svolgimento", "Localizzazione intervento", "visibility:visibility") }}
+
+
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td>
+        <p class="Labeltabella">
+          ambito di inserimento
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          Descrivere brevemente l'ambito aziendale in cui si svolgerà il tirocinio (settore, reparto, descrizione dell'attività)
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <textarea class="inputNormal" id="Parametri_AmbitoInserimento" name="Parametri_AmbitoInserimento" style="width: 100%; height: 5cm;" label="Ambito di inserimento" mandatory_enabled="true"></textarea>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td>
+        <p class="Labeltabella">
+          attività oggetto del tirocinio
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          Descrivere brevemente le attività che saranno affidate al tirocinante
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <textarea class="inputNormal" id="Parametri_AttivitaTirocinio" name="Parametri_AttivitaTirocinio" style="width: 100%; height: 5cm;" label="Descrivere brevemente le attività che saranno affidate al tirocinante" mandatory_enabled="true"></textarea>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td>
+        <p class="Labeltabella">
+          obiettivi formativi di orientamento
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          Descrivere brevemente gli obiettivi che dovevano essere perseguiti durante il periodo di tirocinio
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <textarea class="inputNormal" id="Parametri_ObiettiviFormativi" name="Parametri_ObiettiviFormativi" style="width: 100%; height: 5cm;" label="Descrivere brevemente gli obiettivi che dovranno essere perseguiti durante il periodo di tirocinio" mandatory_enabled="true"></textarea>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<table class="Modulo" style="border: 0px;">
+  <tbody>
+    <tr style="border: 0px;">
+      <td colspan="3" style="border: 0px;">
+        <p>
+          inoltre il tirocinante dichiara di essere a conoscenza che ai sensi della Convenzione sopra richiamata:
+        </p>
+      </td>
+    </tr>
+    <tr style="border: 0px;">
+      <td style="vertical-align: top; width: 4%; border: 0px;">
+        1)
+      </td>
+      <td colspan="2" style="border: 0px;">
+        <p>
+          in caso di proprio comportamento tale da far venir meno le finalità del Progetto Personalizzato, le parti potranno recedere dalla Convenzione stessa e conseguentemente il tirocinio sarà interrortto
+        </p>
+      </td>
+    </tr>
+    <tr style="border: 0px;">
+      <td style="vertical-align: top; width: 4%; border: 0px;">
+        2)
+      </td>
+      <td colspan="2" style="border: 0px;">
+        <p>
+          ha la possibilità di interrompere il tirocinio in qualsiasi momento, dandone comunicazione al tutor del soggetto promotore e al tutor del soggetto ospitante
+        </p>
+      </td>
+    </tr>
+    <tr style="border: 0px;">
+      <td style="vertical-align: top; width: 4%; border: 0px;">
+        3)
+      </td>
+      <td colspan="2" style="border: 0px;">
+        <p>
+          per la partecipazione al tirocinio riceverà quanto definito al precedente punto di indennità di partecipazione
+        </p>
+      </td>
+    </tr>
+    <tr style="border: 0px;">
+      <td rowspan="2" style="vertical-align: top; width: 4%; border: 0px;">
+        4)
+      </td>
+      <td colspan="2" style="border: 0px;">
+        <p>
+          al termine del tirocinio riceverà:
+        </p>
+      </td>
+    </tr>
+    <tr style="border: 0px;">
+      <td style="vertical-align: top; width: 4%; border: 0px;">
+        a)
+      </td>
+      <td style="border: 0px;">
+        <p>
+          una attestazione rilasciata dal soggetto dal promotore di svolgimento del tirocinio, attestante la tipologia di tirocinio, la sede e il periodo di svolgimento in caso di partecipazione 
+          almeno al 70% della durata prevista dal presente Progetto formativo
+        </p>
+      </td>
+    </tr>
+    <tr style="border: 0px;">
+      <td colspan="3" style="border: 0px;">
+        un attestato di competenze eventualmente acquisite durante il periodo di tirocinio, con riferimento, ove possibile, al Quadro regionale degli standard professionale o, quando istituito, al
+        Repertorio nazionale di cui all'articolo 4 comma 67 della Legge n. 92 del 2012
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td>
+        <p class="Labeltabella">
+          compiti e responsabilità del tutor del soggetto promotore
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          Tutor del soggetto promotore collabora alla stesura del progetto personalizzato, si occupa dell'organizzazione e del montaggio del tirocinio e alla redazione delle attestazioni finali
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <textarea class="inputNormal" id="Parametri_CompitiRespTutorPromotore" name="Parametri_CompitiRespTutorPromotore" style="width: 100%; height: 5cm;" label="Tutor del soggetto promotore collabora alla stesura del progetto personalizzato, si occupa dell'organizzazione e del montaggio del tirocinio e alla redazione delle attestazioni finali" mandatory_enabled="true"></textarea>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td>
+        <p class="Labeltabella">
+          compiti e responsabilità del tutor del soggetto ospitante
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          Il tutor del soggetto ospitante è responsabile dell'attuazione del progetto personalizzato e dell'inserimento e affiancamento del tirocinante  sul luogo di lavoro per tutta la durata del tirocinio, anche aggiornando la documentazione relativa al tirocinio (registri, ecc...)
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <textarea class="inputNormal" id="Parametri_CompitiRespTutorOspitante" name="Parametri_CompitiRespTutorOspitante" style="width: 100%; height: 5cm;" label="Il tutor del soggetto ospitante è responsabile dell'attuazione del progetto personalizzato e dell'inserimento e affiancamento del tirocinante  sul luogo di lavoro per tutta la durata del tirocinio, anche aggiornando la documentazione relativa al tirocinio (registri, ecc...)" mandatory_enabled="true"></textarea>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+
+
+<table class="Modulo" style="border: 0px;">
+  <tbody>
+    <tr style="border: 0px;">
+      <td colspan="2" style="border: 0px;">
+        <p>
+          con la sottoscrizione del presente Progetto personalizzato, il tirocinante, il soggetto promotore ed il soggetto ospitante si danno reciprocamente atto e altresì dichiarano:
+        </p>
+      </td>
+    </tr>
+    <tr style="border: 0px;">
+      <td style="vertical-align: top; width: 4%; border: 0px;">
+        <p>
+          •
+        </p>
+      </td>
+      <td style="border: 0px;">
+        <p>
+          che questo Progetto Personalizzato con la relazione rilasciata dal Servizio Pubblico è parte integrante della Convenzione sopra richiamata
+        </p>
+      </td>
+    </tr>
+    <tr style="border: 0px;">
+      <td style="vertical-align: top; width: 4%; border: 0px;">
+        <p>
+          •
+        </p>
+      </td>
+      <td style="border: 0px;">
+        <p>
+          che le informazioni contenute nel presente Progetto Personalizzato sono rese ai senssi dell'articolo 7 del D.P.R. del 28/12/2000 n. 445 e di essere consapevoli delle responsabilità penali a 
+          cui è possibile andare incontro in caso di dichiarazione mendace o di esibizione di atto falso o contenente dati non rispondenti a verità, ai sensi dell'articolo 76 del D.P.R.28/12/2000 n. 445
+        </p>
+      </td>
+    </tr>
+    <tr style="border: 0px;">
+      <td style=" vertical-align: top; width: 4%; border: 0px;">
+        <p>
+          •
+        </p>
+      </td>
+      <td style="border: 0px;">
+        <p>
+          di esprimere, ai sensi dell'articolo 13 del Regolamento UE n. 2016/679 (Regolamento generale sulla protezione dei dati personali), il consenso al trattamento, anche automatizzato, 
+          dei dati personali contenuti nel presente Progetto Personalizzato, inclusa la loro eventuale comunicazione a soggetti terzi specificatamente incaricati, limitatamente ai fini della 
+          corretta gestione del tirocinio, da parte di Regione Lombardia qualora venissero da questa acquisiti ai fini delle funzioni di controllo e monitoraggio
+        </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<br/>
+  {{ utils.firma_hidden() }}
+<br/>
+
+<p class="Modulo">
+  <input id="SalvaModulo" name="SalvaModulo" style="height:30px;width:120px;" title="Verifica la corretta compilazione dei campi e salva il modulo nel faldone virtuale dell'istanza." type="submit" value="Salva modulo"/>
+</p>
+
+<input id="GLOBO_modulo_c{{ CodiceModulo }}" name="GLOBO_modulo_c{{ CodiceModulo }}" type="hidden" value=""/>
+
+<input id="GLOBO_id_padre" name="GLOBO_id_padre" type="hidden"/>
+<input id="GLOBO_recupera_dati" name="GLOBO_recupera_dati" type="hidden"/>
+<input id="GLOBO_codice_modulo" name="GLOBO_codice_modulo" type="hidden" value="{{ CodiceModulo }}"/>
+
+{% endblock content %}

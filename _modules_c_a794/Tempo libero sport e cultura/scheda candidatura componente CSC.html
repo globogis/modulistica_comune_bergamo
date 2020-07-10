@@ -1,0 +1,355 @@
+{% set CodiceModulo = "SCHEDA_CSC" %}
+{% set Urn = "document:c_a794:scheda.candidatura.csc;allegato" %}
+{% extends "base.html" %}
+
+{% block meta %}
+
+<meta campi_firma="Titolare_CodiceFiscale"
+campi_firma_label="il dichiarante"
+classi_modulo="Sport e tempo libero"
+codice_modulo="{{ CodiceModulo }}"
+urn="{% block urn %}{{ Urn }}{% endblock urn %}"
+sub_urn_list=""
+uo_globo_list=""
+descrizione="scheda per la candidatura come componente di un CSC"
+destinatario_amministrazione=""
+destinatario_ufficio="UOTEMPOLIBEROSPORTCULTURA"
+dinamico="SI"
+email_a=""
+ente_abilitato="TUTTI"
+filigrana="SI"
+firmare="P7M_ELETTRONICA"
+istruzioni_compilazione=""
+istruzioni_invio="mail_pec"
+metodo_invio="mail"
+name="GLOBO_modulo"
+procura="NO,,"
+tipo_modulo="secondario"
+urlhelp="/modulistica/moduli/{{ CodiceModulo }}"
+verifica_pagamento="NO"
+versione="1.0|18/11/2019"/>
+
+<meta codice_modulo_figlio="INCARICO_PROCURA"
+urn_modulo_figlio="document:s_italia:generale;incarico.procura"
+name="GLOBO_modulofiglio"
+numero="1"
+obbligatorio="DINAMICO"/>
+
+<meta codice_allegato="DAE-CDI"
+urn_allegato="document:s_italia:generale;documento.identita;documentazione"
+descrizione_estesa="Documento di identità"
+filename="Documento identita.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/DAE-CDI"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="ALTRI-ALLEGATI"
+urn_allegato="document:s_italia:altri.allegati"
+descrizione_estesa="Altri allegati"
+filename="Altri allegati.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/ALTRI-ALLEGATI"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+{% endblock meta %}
+
+{% block title %}
+  Scheda per la candidatura come componenente di un centro socio culturale
+{% endblock title %}
+
+{% block content %}
+
+<globo_fondo_pagina areaheight="150" scope="4">
+  {{ utils.firma() }}
+</globo_fondo_pagina>
+
+<input id="Parametri_Comune" name="Parametri_Comune" type="hidden" dynamic_value="#Ente.value()"/>
+<input id="Oggetto" name="Oggetto" type="hidden" dynamic_value="#Titolare_Cognome.value().toUpperCase() + ' ' + #Titolare_Nome.value().toUpperCase() + ' - scheda di candidatura componente centro socio culturale'"/>
+
+{{ intestazioni.intestazione_moduloprincipale_senzabollo() }}
+
+<h1 class="Modulo">
+  Scheda di presentazione personale per la candidatura quale componente di un centro socio culturale
+</h1>
+
+<input id="Titolare_DatiPersonaObbligatori" name="Titolare_DatiPersonaObbligatori" type="hidden" dynamic_check="true"/>
+<input id="Titolare_Titolo" name="Titolare_Titolo" type="hidden" value="Richiedente"/>
+<input id="Titolare_Ruolo" name="Titolare_Ruolo" type="hidden" value="Richiedente"/>
+{{ anagrafica.persona_fisica("Titolare", "Il sottoscritto", "visibility:visibility", "cursor:pointer", "visibility:visibility", "visibility:visibility", "mail_ordinaria" ) }}
+
+<h3 class="Modulo">
+  con riferimento alla domanda di candidatura quale componente di un centro socio culturale
+</h3>
+
+<br>
+{{ utils.Dichiara_445() }}
+<br>
+
+
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+     <tr>
+        <td style="vertical-align: top; width: 4%;">
+          <input class="InputNormal" id="Parametri_Ass_Naz" name="Parametri_Ass_Naz" label="Associazione Nazionale" type="checkbox">
+        </td>
+        <td>
+        <p class="LabelTabella">
+        di fare parte di una associazione sociale o culturale nazionale
+        </p>
+      </td>
+      </tr>
+      <tr>
+        <td style="vertical-align: top; width: 4%;">
+          <input class="InputNormal" id="Parametri_Ass_Reg" name="Parametri_Ass_Reg" label="Associazione Nazionale" type="checkbox">
+        </td>
+        <td>
+        <p class="LabelTabella">
+        di fare parte di una associazione sociale o culturale regionale
+        </p>
+      </td>
+      </tr>
+      <tr>
+        <td style="vertical-align: top; width: 4%;">
+          <input class="InputNormal" id="Parametri_Ass_Loc" name="Parametri_Ass_Loc" label="Associazione Nazionale" type="checkbox">
+        </td>      
+      <td>
+        <p class="LabelTabella">
+        di fare parte di una associazione sociale o culturale locale
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta" mandatory_enabled="#Parametri_Ass_Naz.checked()" >
+     <td colspan="2" >
+        Denominazione associazione
+       <input class="InputNormal" id="Parametri_Denominazione_Ass_naz" name="Parametri_Denominazione_Ass_naz" label="Denominazione associazione nazionale" style="width: 100%;">
+    </tr>
+    <tr class="Rigaintestazioneridotta" mandatory_enabled="#Parametri_Ass_Naz.checked()">
+      <td colspan="2" >
+        Ruolo rivestito all'interno dell'associazione
+      <input class="InputNormal" id="Parametri_Ruolo_Ass_naz" name="Parametri_Ruolo_Ass_naz" label="Ruolo associazione nazionale" style="width: 100%;">
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta" mandatory_enabled="#Parametri_Ass_Reg.checked()" >
+     <td colspan="2" >
+        Denominazione associazione
+       <input class="InputNormal" id="Parametri_Denominazione_Ass_Reg" name="Parametri_Denominazione_Ass_Reg" label="Denominazione associazione regionale" style="width: 100%;">
+    </tr>
+    <tr class="Rigaintestazioneridotta" mandatory_enabled="#Parametri_Ass_Reg.checked()">
+      <td colspan="2" >
+        Ruolo rivestito all'interno dell'associazione
+      <input class="InputNormal" id="Parametri_Ruolo_Ass_Reg" name="Parametri_Ruolo_Ass_Reg" label="Ruolo associazione regionale" style="width: 100%;">
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta" mandatory_enabled="#Parametri_Ass_Loc.checked()" >
+     <td colspan="2" >
+        Denominazione associazione
+       <input class="InputNormal" id="Parametri_Denominazione_Ass_Loc" name="Parametri_Denominazione_Ass_Loc" label="Denominazione associazione locale" style="width: 100%;">
+    </tr>
+    <tr class="Rigaintestazioneridotta" mandatory_enabled="#Parametri_Ass_Loc.checked()">
+      <td colspan="2" >
+        Ruolo rivestito all'interno dell'associazione
+      <input class="InputNormal" id="Parametri_Ruolo_Ass_Loc" name="Parametri_Ruolo_Ass_Loc" label="Ruolo associazione locale" style="width: 100%;">
+      </td>
+    </tr>
+  </tbody>
+</table>
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+     <tr>
+       <td style="vertical-align: top; width: 4%;">
+        <input class="InputNormal" id="Parametri_Ass_Qua" name="Parametri_Ass_Qua" label="Partecipazione associazione quartiere" type="checkbox"> 
+        </td>
+      <td>
+       <p class="LabelTabella">
+         di aver maturato le seguenti esperienze nelle associazioni di quartiere
+       </p>
+       </td>
+       </tr>
+       <tr mandatory_enabled="#Parametri_Ass_Qua.checked()">
+         <td colspan="2">       
+         <textarea class="InputNormal" id="Parametri_Esp_Qua_Des" name="Parametri_Esp_Qua_Des" label="Descrizione esperienze associazioni di quartiere" style="width: 100%; height: 5cm;">
+         </textarea>
+         </td>
+       </tr>
+       <tr>
+       <td style="vertical-align: top; width: 4%;">
+        <input class="InputNormal" id="Parametri_Ass_Circ" name="Parametri_Ass_Circ" label="Partecipazione reti territoriali circoscrizioni" type="checkbox"> 
+        </td>
+      <td>
+       <p class="LabelTabella">
+         di aver maturato le seguenti esperienze nelle reti territoriali e nei consigli di circoscrizione 
+       </p>
+       </td>
+       </tr>
+       <tr mandatory_enabled="#Parametri_Ass_Circ.checked()">
+         <td colspan="2">       
+         <textarea class="InputNormal" id="Parametri_Esp_Circ_Des" name="Parametri_Esp_Circ_Des" label="Descrizione esperienze reti territoriali, circoscrizioni" style="width: 100%; height: 5cm;">
+         </textarea>
+         </td>
+       </tr>
+       <tr>
+       <td style="vertical-align: top; width: 4%;">
+        <input class="InputNormal" id="Parametri_Ass_No" name="Parametri_Ass_No" label="Partecipazione no associazioni" type="checkbox"> 
+        </td>
+      <td>
+       <p class="LabelTabella">
+         di aver maturato le seguenti esperienze nell'ambito socio-culturale non in forma associativa 
+       </p>
+       </td>
+       </tr>
+       <tr mandatory_enabled="#Parametri_Ass_No.checked()">
+         <td colspan="2">       
+         <textarea class="InputNormal" id="Parametri_Ass_No_Des" name="Parametri_Ass_No_Des" label="Descrizione esperienze non in forma associativa" style="width: 100%; height: 5cm;">
+         </textarea>
+         </td>
+       </tr>
+       </tbody>
+       </table>
+       <table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="2">
+      <p class="LabelTabella">
+        di avere le seguenti motivazioni <i>(sono possibili più risposte)</i>
+      </p>
+      </td>
+    </tr>
+    {% set motivi = [ "Desidero impegnarmi per il mio quartiere",
+                        "Conosco bene il territorio di riferimento del CSC",
+                        "Voglio contribuire allo sviluppo delle attività del CSC",
+                        "Vorrei poter dire la mia sulle iniziative culturali ed i corsi",
+                        "Ho idee nuove per migliorare i CSC",
+                        "Desidero favorire l’incontro intergenerazionale",
+                        "Desidero favorire l’incontro intergenerazionale",
+                        "Altro: <input class='inputNormal' id='Parametri_Altro_mot' name='Parametri_Altro_mot' style='width: 90%;' label=' Altra motivazione' />." ] %}
+    {% for i in motivi %}
+      <tr>
+        <td style="vertical-align: top; width: 4%;">
+          <input id="motivi{{ loop.index }}" name="motivi{{ loop.index }}" type="checkbox" value="SI" mandatory="true"/>
+        </td>
+        <td>
+          {{ i|safe }}
+        </td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<br>
+<h3 class="Modulo">
+  PROPONE
+</h3>
+
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="2">
+      <p class="LabelTabella">
+       le seguenti migliorie al fine di sviluppare il servizio secondo le finalità e le linee guida dei CSC <i>(come riportato negli artt 1 e 2 del regolamento dei centri socio educativi)</i>
+      </p>
+      </td>
+    </tr>
+    <tr>
+         <td colspan="2">       
+         <textarea class="InputNormal" id="Parametri_Migl" name="Parametri_Migl" label="Proposte migliorie" style="width: 100%; height: 5cm;">
+         </textarea>
+         </td>
+       </tr>
+       </tbody>
+       </table>
+
+
+<br>
+
+<globo_salto_pagina></globo_salto_pagina>
+
+<br>
+
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          Eventuali annotazioni
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <textarea class="inputNormal" id="Parametri_Annotazioni" name="Parametri_Annotazioni" style="width: 100%; height: 5cm;" label="Eventuali annotazioni"></textarea>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<br>
+<table class="Modulo" name="Allegati" style="border: 1px solid grey">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="2">
+        <p style="text-align: center;">
+          <b>
+            Elenco degli allegati
+          </b>
+          <br/>
+          <span style="font-size:70%">
+            <i>(barrare tutti gli allegati richiesti in fase di presentazione della pratica ed elencati sul portale)</i>
+          </span>
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="DAE-CDI" name="DAE-CDI" type="checkbox" value="OBBLIGATORIO" />
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p> 
+          copia del documento d'identità
+          <br/>
+          <span style="font-size:70%">
+            <i>(da allegare se il modulo è sottoscritto con firma autografa)</i>
+          </span>
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="ALTRI-ALLEGATI" name="ALTRI-ALLEGATI" type="checkbox" value="OBBLIGATORIO"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          altri allegati
+          <span style="font-size:70%">(specificare)</span>
+          <input class="" label="Altri allegati" id="AltriAllegati" mandatory_enabled="#ALTRI_ALLEGATI.checked()" name="AltriAllegati" style="width:79%;"/>
+        </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+{{ utils.trattamento_dati_personali() }}
+<br/>
+  {{ utils.firma_hidden() }}
+<br/>
+
+<p class="Modulo">
+  <input id="SalvaModulo" name="SalvaModulo" style="height:30px;width:120px;" title="Verifica la corretta compilazione dei campi e salva il modulo nel faldone virtuale dell'istanza." type="submit" value="Salva modulo"/>
+</p>
+
+<input destinatario_amministrazione="getParameter('Ente')" id="GLOBO_modulo_c{{ CodiceModulo }}" name="GLOBO_modulo_c{{ CodiceModulo }}" type="hidden" value=""/>
+<input firmare="'P7M_ELETTRONICA'" id="GLOBO_modulofiglio_cINCARICO_PROCURA" name="GLOBO_modulofiglio_cINCARICO_PROCURA" type="hidden" value=""/>
+
+<input id="GLOBO_allegato_cDAE-CDI" name="GLOBO_allegato_cDAE-CDI" obbligatorio="#DAE_CDI.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+<input id="GLOBO_allegato_cALTRI-ALLEGATI" name="GLOBO_allegato_cALTRI-ALLEGATI" obbligatorio="#ALTRI_ALLEGATI.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_id_padre" name="GLOBO_id_padre" type="hidden"/>
+<input id="GLOBO_recupera_dati" name="GLOBO_recupera_dati" type="hidden"/>
+<input id="GLOBO_codice_modulo" name="GLOBO_codice_modulo" type="hidden" value="{{ CodiceModulo }}"/>
+
+{% endblock content %}

@@ -1,0 +1,99 @@
+{% set CodiceModulo = "DICH-ART-80" %}
+{% set Urn = "document:c_a794:dichiarazione.art80;allegato" %}
+{% extends "base.html" %}
+
+{% block meta %}
+
+<meta campi_firma="TitolareNonImportare_CodiceFiscale"
+campi_firma_label="il dichiarante"
+classi_modulo="Segreteria Generale"
+codice_modulo="{{ CodiceModulo }}"
+urn="{% block urn %}{{ Urn }}{% endblock urn %}"
+descrizione="Dichiarazione relativa alle condizioni previste dall' art. 80 comma 5 lett. c), c-bis), c-ter del D.Lgs. 50/2016"
+destinatario_amministrazione=""
+destinatario_ufficio=""
+dinamico="SI"
+email_a=""
+ente_abilitato="TUTTI"
+filigrana="NO"
+firmare="P7M_ELETTRONICA"
+istruzioni_compilazione="ATTENZIONE: questo modulo deve essere compilato con i dati del sottoscrivente."
+istruzioni_invio=""
+metodo_invio="mail"
+name="GLOBO_modulo"
+procura="NO,,"
+tipo_modulo="secondario"
+urlhelp="/modulistica/moduli/{{ CodiceModulo }}"
+verifica_pagamento="NO"
+versione="1.0|04/12/2019"/>
+
+{% endblock meta %}
+
+{% block title %}
+
+Dichiarazione relativa alle condizioni previste dall' art. 80 comma 5 lett. c), c-bis), c-ter del D.Lgs. 50/2016
+ 
+{% endblock title %}
+
+{% block content %}
+
+<globo_fondo_pagina areaheight="150" scope="2">
+  {{ utils.firma() }}
+</globo_fondo_pagina>
+
+<input id="Oggetto" name="Oggetto" type="hidden" dynamic_value="'Dichiarazione condizioni art. 80 ' + #TitolareNonImportare_Cognome.value().toUpperCase() + ' ' + #TitolareNonImportare_Nome.value().toUpperCase()"/>
+
+{{ intestazioni.intestazione_modulosecondario_senzabollo() }}
+
+<h1 class="Modulo">
+Dichiarazione relativa alle condizioni previste dall' art. 80 comma 5 lett. c), c-bis), c-ter del D.Lgs. 50/2016
+  
+</h1>
+
+<!-- DATI DEL TITOLARE -->
+{{anagrafica.cognome_nome("TitolareNonImportare","Il sottoscritto", "Richiedente", "visibility:hidden", "cursor:default")}}
+
+<br>
+
+<p class="Modulo">
+  con riferimento alla domanda di iscrizione all'albo fornitori gestito in modalità telematica su piattaforma Sintel
+</p>
+<br>
+
+
+{{ utils.Dichiara_445() }}
+
+<br>
+
+<p class="Modulo">che le condizioni previste dall’art. 80 comma 5 lett. c), c-bis), c-ter del D.Lgs. 50/2016 nelle quali è incorso sono: </p>
+<br>
+<table class="Modulo" style="border: 1px solid grey;">
+        <tbody>  
+ <tr class="Rigaintestazione">
+   <td>
+     <p class="Labeltabella">
+       Descrizione dettagliata in ordine alle singole situazioni di cui alle lettere c), c- bis), c-ter) dell'art. 80 comma DLgs. 50/2016
+     </p>
+   </td>
+ </tr>
+<tr>
+        <td >
+            <textarea class="inputNormal" id="Parametri_Dichiarazione" name="Parametri_Dichiarazione" style="width: 100%; height: 20cm;" label="Dichiarazione" mandatory="true"></textarea>
+ 
+
+
+<br/>
+  {{ utils.firma_hidden() }}
+<br/>
+
+<p class="Modulo">
+  <input id="SalvaModulo" name="SalvaModulo" style="height:30px;width:120px;" title="Verifica la corretta compilazione dei campi e salva il modulo nel faldone virtuale dell'istanza." type="submit" value="Salva modulo"/>
+</p>
+
+<input id="GLOBO_modulo_c{{ CodiceModulo }}" name="GLOBO_modulo_c{{ CodiceModulo }}" type="hidden" value=""/>
+
+<input id="GLOBO_id_padre" name="GLOBO_id_padre" type="hidden"/>
+<input id="GLOBO_recupera_dati" name="GLOBO_recupera_dati" type="hidden"/>
+<input id="GLOBO_codice_modulo" name="GLOBO_codice_modulo" type="hidden" value="{{ CodiceModulo }}"/>
+
+{% endblock content %}

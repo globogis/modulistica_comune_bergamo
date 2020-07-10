@@ -1,0 +1,812 @@
+{% set CodiceModulo = "CONF_DOC_EST" %}
+{% set Urn ="document:c_a794:procedura.esterna.confermienti.incarichi;istanza" %}
+{% extends "base.html" %}
+{% block meta %}
+
+<meta campi_firma="Titolare_CodiceFiscale"
+campi_firma_label="il dichiarante"
+classi_modulo="Tempo libero sport e cultura"
+codice_modulo="{{ CodiceModulo }}"
+urn="{% block urn %}{{ Urn }}{% endblock urn %}"
+sub_urn_list=""
+uo_globo_list=""
+descrizione="Conferimento incarichi docenti esterni"
+destinatario_amministrazione=""
+destinatario_ufficio="UOTEMPOLIBEROSPORTECULTURA"
+dinamico="SI"
+email_a=""
+ente_abilitato="TUTTI"
+filigrana="SI"
+firmare="AUTENTICATO"
+istruzioni_compilazione=""
+istruzioni_invio="mail_pec" 
+metodo_invio="mail"
+name="GLOBO_modulo"
+procura="NO,,"
+tipo_modulo="principale"
+urlhelp="/modulistica/moduli/{{ CodiceModulo }}"
+verifica_pagamento="NO"
+versione="1.0|04/06/2020"/>
+
+<meta codice_modulo_figlio="INCARICO_PROCURA"
+urn_modulo_figlio="document:s_italia:generale;incarico.procura"
+name="GLOBO_modulofiglio"
+numero="1"
+obbligatorio="DINAMICO"/>
+
+<meta codice_modulo_figlio="DIC_TIT_STU"
+urn_modulo_figlio="document:c_a794:dichiarazione.titoli.studio;dichiarazione"
+name="GLOBO_modulofiglio"
+numero="1"
+obbligatorio="DINAMICO"/>
+
+<meta codice_modulo_figlio="DIC_TIT_SERV"
+urn_modulo_figlio="document:c_a794:dichiarazione.titoli.servizio;dichiarazione"
+name="GLOBO_modulofiglio"
+numero="1"
+obbligatorio="DINAMICO"/>
+
+<meta codice_modulo_figlio="DIC_TIT_CULT"
+urn_modulo_figlio="document:c_a794:dichiarazione.titoli.culturali;dichiarazione"
+name="GLOBO_modulofiglio"
+numero="1"
+obbligatorio="DINAMICO"/>
+
+
+<meta codice_allegato="DAE-CDI"
+urn_allegato="document:s_italia:generale;documento.identita;documentazione"
+descrizione_estesa="Documento di identità"
+filename="Documento identita.pdf"
+firmato="SI"
+istruzioni="/modulistica/moduli/DAE-CDI"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="ALTRI-ALLEGATI"
+urn_allegato="document:s_italia:altri.allegati"
+descrizione_estesa="Altri allegati"
+filename="Altri allegati.pdf"
+firmato="SI"
+istruzioni="/modulistica/moduli/ALTRI-ALLEGATI"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="DOM-MOBI-FOR"
+urn_allegato="document:c_a794:concorsi.selezioni;formulario"
+descrizione_estesa="Dichiarazione integrativa (formulario) specifico del bando"
+filename="Dichiarazione integrativa.pdf"
+firmato="SI"
+istruzioni="/modulistica/moduli/DOM-MOBI-FOR"
+name="GLOBO_allegato"
+numero="2"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="CIM-ACC-CER"
+urn_allegato="document:s_italia:generale;capacita.deambulazione.impedita.sensibilmente.ridotta;certificato.medico"
+descrizione_estesa="Copia del certificato medico"
+filename="Certificato medico.pdf"
+firmato="SI"
+istruzioni="/modulistica/moduli/CIM-ACC-CER"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+
+{% endblock meta %}
+
+{% block title %}
+  Conferimento incarichi docenti esterni
+{% endblock title %}
+
+{% block content %}
+
+<globo_fondo_pagina areaheight="150" scope="4">
+  {{ utils.firma() }}
+</globo_fondo_pagina>
+
+<input id="Parametri_Comune" name="Parametri_Comune" type="hidden" dynamic_value="#Ente.value()"/>
+<input id="Oggetto" name="Oggetto" type="hidden" dynamic_value="#Titolare_Cognome.value().toUpperCase() + ' ' + #Titolare_Nome.value().toUpperCase() + ' - Conferimento incarichi docenti esterni' "/>
+
+{{ intestazioni.intestazione_moduloprincipale_senzabollo() }}
+
+<h1 class="Modulo">
+ Conferimento incarichi docenti esterni
+</h1>
+
+<input id="Titolare_DatiPersonaObbligatori" name="Titolare_DatiPersonaObbligatori" type="hidden" dynamic_check="true"/>
+<input id="Titolare_Titolo" name="Titolare_Titolo" type="hidden" value="Richiedente"/>
+<input id="Titolare_Ruolo" name="Titolare_Ruolo" type="hidden" value="Richiedente"/>
+{{ anagrafica.persona_fisica("Titolare", "Il sottoscritto", "visibility:visibility", "cursor:pointer", "visibility:visibility", "visibility:visibility", "mail_ordinaria") }}
+
+<h3 class="Modulo">
+  CHIEDE
+</h3>
+
+
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="3">
+        <p class="Labeltabella">
+          di essere ammesso a partecipare alla procedura selettiva pubblica per il conferimento di incarichi a docenti con contratti di collaborazione autonoma annuali e con graduatoria triennale a partire dall’a.a. 2020/2021 relativa all’insegnamento di
+        </p>
+      </td>
+    </tr>
+    {% set ins =[ "Codice SSD - Settore disciplinare - Disciplina",
+                   "ABAV01 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Anatomia artistica &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Anatomia artistica",
+                   "ABAV02 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   Tecniche dell'Incisione - Grafica d'Arte  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	Tecniche dell'incisione - Grafica d'arte",
+                   "ABAV03 -	Disegno -	Disegno per la pittura",
+                   "ABAV05 -	Pittura -	Pittura",
+                   "ABAV06 -	Tecniche per la pittura -	Tecniche pittoriche",
+                   "ABPC65 -	Teoria e metodo dei mass media -	Fenomenologia dei media",
+                   "ABPC67 -	Metodologie e tecniche della comunicazione -	Sistemi editoriali per l'arte",
+                   "ABPR31 -	Fotografia -	Fotografia",
+                   "ABPR35 -	Regia -	Regia",
+                   "ABPR36 -  Tecniche performative per le arti visive -	Tecniche performative per le arti visive",
+                   "ABST45 -	Teoria delle arti multimediali -	Culture digitali",
+                   "ABST46 -	Estetica -	Estetica",
+                   "ABST47 -	Stile, Storia dell'arte e del costume - Storia dell'arte contemporanea",
+                   "ABST47 -	Stile, Storia dell'arte e del costume - Storia dell'arte moderna",
+                   "ABST51 -	Fenomenologia delle arti contemporanee -Fenomenologia delle arti contemporanee",
+                   "ABST52 -	Storia e metodologia della critica d'arte - 	Storia e metodologia della critica d'arte",
+                   "ABST52 -	Storia e metodologia della critica d'arte - 	Metodologie e tecniche del contemporaneo",
+                   "ABST55 -	Antropologia culturale - 	Antropologia culturale",
+                   "ABST58 - 	Teoria della percezione e psicologia della forma - 	Teoria della percezione e psicologia della forma",
+                   "ABTEC37 -	Metotodologia progett. della comunicaz. visiva - 	Metodologia progettuale della comunicazione visiva",
+                   "ABTEC38 - Applicazioni digitali per le arti visive - 	Applicazioni digitali per le arti visive",
+                   "ABTEC39 - Tecnologie per l'informatica - 	Fondamenti di informatica",
+                   "ABTEC40 -	Progettazione multimediale -	Progettazione multimediale",
+                   "ABTEC42 -	Sistemi interattivi -	Sistemi interattivi",
+                   "ABTEC43 -	Linguaggi e tecniche dell'audiovisivo - 	Elementi di produzione video",
+                   "ABTEC43 -	Linguaggi e tecniche dell'audiovisivo - 	Audiovisivi lineari",
+                   "ABTEC44 -	Sound Design -	Sound design" ] %}
+   <tr class="Rigaintestazioneridotta">
+     <td style="width: 10%;" >
+       <p class="Labelcella">
+         Codice SSD
+       </p>
+     </td>
+     <td style="width: 45%;">
+       <p class="Labelcella">
+         Settore disciplinare
+       </p>
+     </td>
+     <td style="width: 45%;">
+       <p class="Labelcella">
+         Disciplina
+       </p>
+     </td>
+   </tr>     
+   <tr>
+     <td colspan="3">
+        <select class="inputNormal" id="Parametri_Scelta_Insegnamento" name="Parametri_Scelta_Insegnamento" style="width: 100%;" label="Scelta insegnamento" mandatory="true"> 
+          <option value=""></option>
+          {% for item in ins %}
+            <option value="{{ item }}"> {{ item }} </option>
+          {% endfor %}
+        </select>
+      </td>
+    </tr>
+      </tbody>
+      </table>
+
+{{ utils.Dichiara_445() }}
+<div id="Tassonomia_DirittiPolitici" name="Tassonomia_DirittiPolitici" label="Diritti politici" mandatory="true"></div>
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <colgroup>
+      <col style="width: 4%;">
+      <col style="width: 4%;">
+      <col style="width: 92%;">
+    </colgroup>
+    <tr class="Rigaintestazione">
+      <td colspan="3">
+        <p class="Labeltabella">
+          requisiti generali
+        </p> <input id="Tassonomia_Cittadinanza" name="Tassonomia_Cittadinanza" type="checkbox" value="SI" checked="checked" dynamic_check="true"/>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+       
+      </td>
+      <td colspan="2">
+        <p>
+          di essere in possesso della cittadinanza:
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="3">
+          <input id="Tassonomia_StatoCittadinanza" name="Tassonomia_StatoCittadinanza" label="Cittadinaza" style="width: 100%;" mandatory="true"/>
+      </td>
+    </tr>
+     <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="Tassonomia_ConoscenzaItaliano11" name="Tassonomia_ConoscenzaItaliano11" type="checkbox" value="SI" checked="checked" dynamic_check="true"/>
+      </td>
+      <td colspan="2">
+        <p>
+          di avere adeguata conoscenza della lingua italiana
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td colspan="3">
+        <p class="Labelcella">
+          Godimento dei diritti civili e politici
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="Tassonomia_DirittiPolitici1" name="Tassonomia_DirittiPolitici" type="radio" value="1"/>
+      </td>
+      <td colspan="2">
+        <p>
+          di godere dei diritti civili e politici anche nello Stato di appartenenza o provenienza
+        </p>
+      </td>
+    </tr>
+    <tr>
+    <td style="vertical-align: top; width: 4%;" rowspan="2">
+        <input id="Tassonomia_DirittiPolitici2" name="Tassonomia_DirittiPolitici" type="radio" value="2"/>
+      </td>
+      <td colspan="2">
+        <p>
+          di non godere dei diritti civili e politici anche nello Stato di appartenenza o provenienza per i seguenti motivi:
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2">
+            <input id="Tassonomia_NoDiritti" name="Tassonomia_NoDiritti" style="width: 100%;" label=" Motivo no diritti politici" mandatory_enabled="#Tassonomia_DirittiPolitici2.checked()"/>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td colspan="3">
+        <p class="Labelcella">
+          Età
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+         <input  id="Tassonomia_DichiarazioneEta1" name="Tassonomia_DichiarazioneEta1" type="checkbox" value="SI" checked="checked" dynamic_check="true"/>
+      </td>
+      <td colspan="2">
+        <p>
+          di avere un'età non inferiore ai 18 anni e non superiore ai 70 anni compiuti alla data di scadenza della procedura selettiva
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td colspan="3">
+        <p class="Labelcella">
+          Idoneità fisica
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+         <input id="Tassonomia_DichiaraIdoneitaFisica1" name="Tassonomia_DichiaraIdoneitaFisica1" type="checkbox" value="SI" checked="checked" dynamic_check="true"/>
+      </td>
+      <td colspan="2">
+        <p>
+          di essere fisicamente idoneo alle mansioni relative al posto messo a selezione
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td colspan="3">
+        <p class="Labelcella">
+          Esclusioni
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <div id="Tassonomia_DichiaraNoEsclusioni" name="Tassonomia_DichiaraNoEsclusioni" label="Esclusioni" mandatory="true"></div>
+        <input group="Tassonomia_DichiaraNoEsclusioni" id="Tassonomia_DichiaraNoEsclusioni1" name="Tassonomia_DichiaraNoEsclusioni1" type="checkbox" value="SI" checked="checked" dynamic_check="true"/>
+      </td>
+      <td colspan="2">
+        <p>
+          di non essere escluso dall'elettorato politico attivo
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input group="Tassonomia_DichiaraNoEsclusioni" id="Tassonomia_DichiaraNoEsclusioni2" name="Tassonomia_DichiaraNoEsclusioni2" type="checkbox" value="SI" checked="checked" dynamic_check="true"/>
+      </td>
+      <td colspan="2">
+        <p>
+          di non essere stato destituito o dispensato dall'impiego presso una pubblica amministrazione per persistente o insufficiente rendimento, o dichiarato decaduto da un pubblico impiego
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input group="Tassonomia_DichiaraNoEsclusioni" id="Tassonomia_DichiaraNoEsclusioni3" name="Tassonomia_DichiaraNoEsclusioni3" type="checkbox" value="SI" checked="checked" dynamic_check="true"/>
+      </td>
+      <td colspan="2">
+        <p>
+          di non essere stato licenziato per aver conseguito l’impiego mediante la produzione di documenti falsi o con mezzi fraudolenti
+        </p>
+      </td>
+    </tr>
+     <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input group="Tassonomia_DichiaraNoEsclusioni" id="Tassonomia_DichiaraNoEsclusioni4" name="Tassonomia_DichiaraNoEsclusioni4" type="checkbox" value="SI" checked="checked" dynamic_check="true"/>
+      </td>
+      <td colspan="2">
+        <p>
+          di non essere in situazioni di incompatibilità previste dalla normativa vigente e di non avere in atto alcuna controversia con il Comune di Bergamo
+        </p>
+      </td>
+    </tr>
+  <tbody>
+</table>
+<table class="Modulo" style="border: 1px solid grey; margin-top: -1px;">
+  <tbody>
+    <tr class="Rigaintestazioneridotta">
+      <td colspan="2">
+        <p class="Labelcella">
+          Obbligo di leva militare
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        
+        <input id="Tassonomia_ObbligoLevaMilitare" name="Tassonomia_ObbligoLevaMilitare" type="checkbox" value="SI" />
+      </td>
+      <td>
+        <p>
+          essendo cittadino italiano soggetto all'obbligo di leva, di essere in posizione regolare nei confronti di tale obbligo (per i nati entro il 31/12/1985)
+        </p>
+      </td>
+    </tr>
+    </tbody>
+</table>
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="2">
+        <p class="Labeltabella">
+          condanne e procedimenti penali
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="Tassonomia_CondanneCondannePenali" name="Tassonomia_CondanneCondannePenali" type="checkbox" value="si" checked="checked" dynamic_check="true"/>
+      </td>
+      <td>
+        <p>
+          di non aver riportato condanne penali:
+		  <br/>&nbsp;&nbsp;&nbsp;a. che escludono dall'elettorato attivo
+		  <br/>&nbsp;&nbsp;&nbsp;b. che impediscono l'accesso ai pubblici impieghi
+		  <br/>&nbsp;&nbsp;&nbsp;c. che comportano la destituzione da pubblici impieghi
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="Tassonomia_CondanneCondannePenali2" name="Tassonomia_CondanneCondannePenali2" type="checkbox" value="si" checked="checked" dynamic_check="true"/>
+      </td>
+      <td>
+        <p>
+          l'assenza di condanne penali, anche con sentenza non passata in giudicato, per i reati previsti nel Capo I del Titolo II del Libro II del Codice Penale, ai sensi dell'articolo 35-bis del Decreto Legislativo 30/03/2001, n. 165
+        </p>
+      </td>
+    </tr>		
+    <tr>
+      <td style="vertical-align: top; width: 4%; background-color: white;">
+        <div id="Tassonomia_CondanneProcedimentiPenali" name="Tassonomia_CondanneProcedimentiPenali" label="Presenza condanne o procedimenti penali" mandatory="true"></div>
+        <input id="Tassonomia_CondanneProcedimentiPenali1" name="Tassonomia_CondanneProcedimentiPenali" type="radio" value="1" />
+      </td>
+      <td>
+        <p>
+          di non avere in corso procedimenti penali
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td rowspan="3" style="vertical-align: top; width: 4%; background-color: white;">
+        <input id="Tassonomia_CondanneProcedimentiPenali2" name="Tassonomia_CondanneProcedimentiPenali" type="radio" value="2" />
+      </td>
+      <td>
+        <p>
+          di avere in corso i seguenti procedimenti penali
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          Descrizione dei procedimenti penali a carico
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+		<input class="inputNormal" id="Parametri_DescrizioneCondannePenali" name="Parametri_DescrizioneCondannePenali" style="width: 100%" label="Descrizione condanne o procedimenti penali" mandatory_enabled="#Tassonomia_CondanneProcedimentiPenali2.checked()"/>
+      </td>
+    </tr>
+    <tr>
+      <td rowspan="3" style="vertical-align: top; width: 4%; background-color: white;">
+        <input id="Tassonomia_CondanneProcedimentiPenali5" name="Tassonomia_CondanneProcedimentiPenali5" type="checkbox" value="SI" dynamic_check="true" checked="checked"/>
+      </td>
+      <td>
+        <p> di non essere sottoposto a misure di prevenzione </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="2">
+        <p class="Labeltabella">
+          Situazione di handicap
+        </p>
+      </td>
+    </tr>
+    <div id="Tassonomia_SituazioneHandicap" name="Tassonomia_SituazioneHandicap"></div>
+    <tr>
+      <td rowspan="3" style="vertical-align: top; width: 4%;background-color: white">
+        <input group="Tassonomia_SituazioneHandicap" id="Tassonomia_SituazioneHandicap1" name="Tassonomia_SituazioneHandicap1" type="checkbox" value="SI" />
+      </td>
+      <td>
+        <p>
+          di avere diritto a fruire dei seguenti ausili e tempi aggiuntivi per sostenere le prove
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          Descrizione degli ausili e dei tempi aggiuntivi
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input class="inputNormal" id="Tassonomia_SituazioneHandicap1_Note" name="Tassonomia_SituazioneHandicap1_Note" style="width: 100%;" label="Ausili prove concorsuali" mandatory_enabled="#Tassonomia_SituazioneHandicap1.checked()">
+      </td>
+    </tr>
+  </tbody>
+</table>
+<div id="Tassonomia_IncarichiPubblici" name="Tassonomia_IncarichiPubblici" label="Incarichi Pubbliche Amministrazioni" mandatory="true"></div>
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="3">
+        <p class="Labeltabella">
+          incarichi pubbliche amministrazioni
+        </p>
+      </td>
+    </tr>
+<tr>
+      <td style="vertical-align: top; width: 4%;">
+         <input id="Tassonomia_Tassonomia_IncarichiPubblici1" name="Tassonomia_IncarichiPubblici" type="radio" value="1" />
+      </td>
+      <td colspan="3">
+        di non essere dipendente di amministrazione pubblica 
+      </td>
+</tr>
+<tr>
+  <td style="vertical-align: top; width: 4%;" rowspan="3" >
+         <input id="Tassonomia_Tassonomia_IncarichiPubblici2" name="Tassonomia_IncarichiPubblici" type="radio" value="2" />
+  </td>
+  <td colspan="3">
+    di essere dipendente della seguente Amministrazione Pubblica e di impegnarsi a produrre il nulla osta dell’amministrazione di appartenenza prima dell'eventuale stipula del contratto
+  </td>
+</tr> 
+<tr class="Rigaintestazioneridotta">
+  <td>
+    <p class="Labelcella">
+      Amministrazione
+    </p>
+  </td>
+    <td>
+    <p class="Labelcella">
+      Qualifica
+    </p>
+  </td>
+</tr>   
+<tr>
+  <td>
+    <input id="Tassonomia_PubblicaAmministrazione" name="Tassonomia_PubblicaAmministrazione" label="Pubblica Amministrazione" style="width: 100%;" mandatory_enabled="#Tassonomia_Tassonomia_IncarichiPubblici2.checked()"/>
+  </td>
+   <td>
+    <input id="Tassonomia_QualificaPubblicaAmministrazione" name="Tassonomia_QualificaPubblicaAmministrazione" label="Qualifica Pubblica Amministrazione" style="width: 100%;" mandatory_enabled="#Tassonomia_Tassonomia_IncarichiPubblici2.checked()"/>
+  </td>
+</tr>
+</tbody>
+</table>
+<br>
+<h3 class="Modulo">
+DICHIARA INOLTRE
+
+</h3>
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="2">
+        <p class="Labeltabella">
+          ulteriori dichiarazioni
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="Tassonomia_UlterioriDichiarazioni1" name="Tassonomia_UlterioriDichiarazioni1" type="checkbox" value="SI" checked="checked" dynamic_check="true"/>
+      </td>
+      <td>
+        <p>
+          di aver preso visione di tutte le prescrizioni nonché di tutte le modalità e condizioni di ammissione alla procedura selettiva
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="Tassonomia_UlterioriDichiarazioni2" name="Tassonomia_UlterioriDichiarazioni2" type="checkbox" value="SI" checked="checked" dynamic_check="true"/>
+      </td>
+      <td>
+        <p>
+          di prendere atto che a seguito della statizzazione dell’Accademia i contratti stipulati a partire dal 1^ novembre 2020 alla data del 1^ gennaio 2021 verranno ceduti alle medesime condizioni contrattuali e senza nulla da eccepire dal Comune di Bergamo all’Istituto Musicale Donizetti
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="Tassonomia_UlterioriDichiarazioni3" name="Tassonomia_UlterioriDichiarazioni3" type="checkbox" value="SI"/>
+      </td>
+      <td>
+        <p>
+          di essere a conoscenza del disposto di cui all'art. 71 (controllo di veridicità da parte dell'Amministrazione), all'art. 75 (decadenza dai benefici per dichiarazione non veritiera) e all'art. 76 (sanzioni penali per dichiarazione mendace) del Decreto del Presidente della Repubblica  del 28 dicembre 2000, n. 445 (disposizioni legislative in materia di documentazione amministrativa).
+        </p>
+      </td>
+    </tr>	
+  </tbody>
+</table>
+<br>
+
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="5">
+        <p class="Labeltabella">
+          <input id="UlterioreDomicilio" name="UlterioreDomicilio" type="checkbox" value="si"/> Chiede di inviare eventuali comunicazioni al seguente indirizzo <i>da compilare se diverso da quello indicato come residenza</i>
+        </p>
+      </td>
+    </tr>
+          <tr class="Rigaintestazioneridotta">
+            <td style="width:9%;">
+              <p class="Labelcella">Provincia</p>
+            </td>
+            <td style="width:33%;">
+              <p class="Labelcella">Comune</p>
+            </td>
+            <td style="width:33%;">
+              <p class="Labelcella">Indirizzo</p>
+            </td>
+            <td style="width:9%;">
+              <p class="Labelcella">Civico</p>
+            </td>
+            <td style="width:16%;">
+              <p class="Labelcella">CAP</p>
+            </td>
+          </tr>
+          <tr mandatory_enabled="#UlterioreDomicilio.checked()">
+            <td>
+              {{ utils.provincie( 'Domicilio_ProvinciaDomicilio', label="Provincia del domicilio") }}
+            </td>
+            <td>
+              <select class="inputNormal" id="Domicilio_ComuneDomicilio" name="Domicilio_ComuneDomicilio" style="width:100%" label="Comune del domicilio" dynamic_value="getComuniFromProvincia( #Domicilio_ProvinciaDomicilio.value(), 'Domicilio_ComuneDomicilio')"></select>
+            </td>
+            <td>
+              <input class="" id="Domicilio_ViaDomicilio" name="Domicilio_ViaDomicilio" style="width:100%;" label="Via del domicilio" maxlength="60" format="regular_expression" expression="^(.+)\s(.+)$"/>
+            </td>
+            <td>
+              <input class="" id="Domicilio_CivicoDomicilio" name="Domicilio_CivicoDomicilio" style="width:100%;" label="Civico del domicilio" maxlength="10"/>
+            </td>
+            <td>
+              <input class="" id="Domicilio_CAPDomicilio" name="Domicilio_CAPDomicilio" style="width:100%;" format="cap" label="CAP del domicilio" enabled="#UlterioreDomicilio.checked()" mandatory="#UlterioreDomicilio.checked() and #Domicilio_ProvinciaDomicilio.value() != 'EE'"/>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <br>
+	
+<h3 class="Modulo">
+DICHIARA INFINE
+
+</h3>
+
+<br>
+
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="2">
+        <p class="Labeltabella">
+          ulteriori dichiarazioni
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="Tassonomia_UlterioriDichiarazioni4" name="Tassonomia_UlterioriDichiarazioni4" type="checkbox" value="SI" checked="checked" dynamic_check="true"/>
+      </td>
+      <td>
+        <p>
+          di impegnarsi a comunicare tempestivamente le eventuali variazioni del proprio indirizzo che dovessero intervenire successivamente alla data di presentazione della domanda di partecipazione alla presente procedura selettiva
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="Tassonomia_UlterioriDichiarazioni5" name="Tassonomia_UlterioriDichiarazioni5" type="checkbox" value="SI" checked="checked" dynamic_check="true"/>
+      </td>
+      <td>
+        <p>
+          di accettare l'orario dell’attività didattica da svolgere, così come sarà messo a punto dalla Direzione in base alla programmazione didattica e alla formulazione dell’orario di servizio in caso di eventuale proposta di contratto
+        </p>
+      </td>
+    </tr>
+    </tbody>
+</table>
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          Eventuali annotazioni
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <textarea class="inputNormal" id="Parametri_Annotazioni" name="Parametri_Annotazioni" style="width: 100%; height: 5cm;" label="Eventuali annotazioni"></textarea>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<br>
+
+
+<table class="Modulo" name="Allegati" style="border: 1px solid grey">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="2">
+        <p style="text-align: center;">
+          <b>
+            Elenco degli allegati
+          </b>
+          <br/>
+          <span style="font-size:70%">
+            <i>(barrare tutti gli allegati richiesti in fase di presentazione della pratica ed elencati sul portale)</i>
+          </span>
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="width: 4%; vertical-align: top;">
+        <input id="DOM-MOBI-FOR" name="DOM-MOBI-FOR" type="checkbox" value="OBBLIGATORIO" dynamic_check="#NFormulari.value() != '' and #NFormulari.value() != '0'" enabled="#NFormulari.value() != '' and #NFormulari.value() != '0'"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <div rest-name="/REST/BandiAperti/NFormulari/[BandoConcorso]" rest-type="text" rest-param-out="NFormulari=NFormulari" rest-on="#BandoConcorso:change" rest-allow-edit="false"/> 
+		<p>
+        n.  
+		<input class="inputNormal" id="NFormulari" name="NFormulari" size="1" format="number"/> dichiarazioni integrative specifiche del bando
+        </p>
+      </td>
+    </tr>	
+    <tr>
+      <td style="vertical-align: top; width:3%">
+        <input dynamic_check="#Tassonomia_SituazioneHandicap1.checked()" enabled="#Tassonomia_SituazioneHandicap1.checked()" id="CIM-ACC-CER" name="CIM-ACC-CER" type="checkbox" value="OBBLIGATORIO"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p> copia del certificato medico attestante la situazione di handicap (articolo 4 della Legge 05/02/1992, n.104)
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="width: 4%; vertical-align: top;">
+        <input id="DIC_TIT_STU" name="DIC_TIT_STU" type="checkbox" value="OBBLIGATORIO" checked="checked" dynamic_check="true"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          dichiarazione sostitutiva di certificazione attestante il possesso dei titoli di studio
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="width: 4%; vertical-align: top;">
+        <input id="DIC_TIT_SERV" name="DIC_TIT_SERV" type="checkbox" value="OBBLIGATORIO" checked="checked" dynamic_check="true"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          dichiarazione sostitutiva di certificazione attestante il possesso dei titoli di servizio
+        </p>
+      </td>
+    </tr>	
+    <tr>
+      <td style="width: 4%; vertical-align: top;">
+        <input id="DIC_TIT_CULT" name="DIC_TIT_CULT" type="checkbox" value="OBBLIGATORIO" checked="checked" dynamic_check="true"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          dichiarazione sostitutiva atto di notorietà attestante i titoli artistico-culturali e professionali, nonché le pubblicazioni, le attività espositive e professionali
+        </p>
+      </td>
+    </tr>	
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="DAE-CDI" name="DAE-CDI" type="checkbox" value="OBBLIGATORIO" checked="checked" dynamic_check="true"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          copia del documento d'identità
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="ALTRI-ALLEGATI" name="ALTRI-ALLEGATI" type="checkbox" value="OBBLIGATORIO"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          altri allegati
+          <span style="font-size:70%">(specificare)</span>
+          <input class="" label="Altri allegati" id="AltriAllegati" mandatory_enabled="#ALTRI_ALLEGATI.checked()" name="AltriAllegati" style="width:79%;"/>
+        </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<br>
+{{ utils.trattamento_dati_personali() }}
+<br/>
+  {{ utils.firma_hidden() }}
+<br/>
+
+<p class="Modulo">
+  <input id="SalvaModulo" name="SalvaModulo" style="height:30px;width:120px;" title="Verifica la corretta compilazione dei campi e salva il modulo nel faldone virtuale dell'istanza." type="submit" value="Salva modulo"/>
+</p>
+
+<input destinatario_amministrazione="getParameter('Ente')" id="GLOBO_modulo_c{{ CodiceModulo }}" name="GLOBO_modulo_c{{ CodiceModulo }}" type="hidden" value=""/>
+
+<input firmare="'P7M_ELETTRONICA'" id="GLOBO_modulofiglio_cINCARICO_PROCURA" name="GLOBO_modulofiglio_cINCARICO_PROCURA" type="hidden" value=""/>
+
+<input id="GLOBO_modulofiglio_cDIC_TIT_STU" name="GLOBO_modulofiglio_cDIC_TIT_STU" type="hidden" value="" obbligatorio="#DIC_TIT_STU.checked() ? 'OBBLIGATORIO' : ''"/>
+
+<input id="GLOBO_allegato_cDAE-CDI" name="GLOBO_allegato_cDAE-CDI" obbligatorio="#DAE_CDI.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_allegato_cALTRI-ALLEGATI" name="GLOBO_allegato_cALTRI-ALLEGATI" obbligatorio="#ALTRI_ALLEGATI.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_allegato_cDOM-MOBI-FOR" name="GLOBO_allegato_cDOM-MOBI-FOR" obbligatorio="#DOM_MOBI_FOR.checked() ? 'OBBLIGATORIO' : ''" numero="#NFormulari.value()" type="hidden" value=""/>
+
+<input id="GLOBO_allegato_cCIM-ACC-CER" name="GLOBO_allegato_cCIM-ACC-CER" obbligatorio="#CIM_ACC_CER.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_modulofiglio_cDIC_TIT_SERV" name="GLOBO_modulofiglio_cDIC_TIT_SERV" obbligatorio="#DIC_TIT_SERV.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_modulofiglio_cDIC_TIT_CULT" name="GLOBO_modulofiglio_cDIC_TIT_CULT" obbligatorio="#DIC_TIT_CULT.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_id_padre" name="GLOBO_id_padre" type="hidden"/>
+<input id="GLOBO_recupera_dati" name="GLOBO_recupera_dati" type="hidden"/>
+<input id="GLOBO_codice_modulo" name="GLOBO_codice_modulo" type="hidden" value="{{ CodiceModulo }}"/>
+
+{% endblock content %}

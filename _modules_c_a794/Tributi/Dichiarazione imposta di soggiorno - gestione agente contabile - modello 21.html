@@ -1,0 +1,816 @@
+{% set CodiceModulo = "MOD-21" %}
+{% set Urn = "document:c_a794:imposta.soggiorno;modello.21;report" %}
+{% extends "base.html" %}
+{% block meta %}
+
+<meta campi_firma="DichiarazioneCF"
+campi_firma_label="il dichiarante"
+classi_modulo="Tributi"
+codice_modulo="{{ CodiceModulo }}"
+urn="{% block urn %}{{ Urn }}{% endblock urn %}"
+sub_urn_list=""
+uo_globo_list=""
+descrizione="Modello 21 - conto della gestione dell'agente contabile"
+destinatario_amministrazione=""
+destinatario_ufficio=""
+dinamico="SI"
+email_a=""
+ente_abilitato="TUTTI"
+filigrana="NO"
+firmare="P7M_ELETTRONICA"
+istruzioni_compilazione=""
+istruzioni_invio="mail_pec"
+metodo_invio="mail"
+name="GLOBO_modulo"
+procura="NO,,"
+tipo_modulo="secondario"
+urlhelp="/modulistica/moduli/{{ CodiceModulo }}"
+verifica_pagamento="NO"
+versione="1.1|15/01/2020"/>
+
+{% endblock meta %}
+
+{% block title %}
+   Modello 21 - conto della gestione dell'agente contabile
+{% endblock title %}
+
+{% block content %}
+
+<globo_fondo_pagina areaheight="150" scope="3">
+{{ utils.firma() }}
+</globo_fondo_pagina>
+
+<script type="text/javascript">
+
+  // aggiorna la tabella al caricamento della pagina
+  document.body.onload = function() { aggiornaTabella();};
+
+  function aggiornaTabella()
+  {
+    var mesi = ["Gennaio", "Febbraio", "Marzo", "Aprile", "Maggio", "Giugno", "Luglio", "Agosto", "Settembre", "Ottobre", "Novembre", "Dicembre", "DicembreBis"];
+
+    var paramTotaleImportoEstremiRiscossione = document.getElementById("Parametri_TotaleImportoEstRisc");
+    var paramTotaleImportoVersamentoTesoriera = document.getElementById("Parametri_TotaleImportoVersTes");
+
+    var totImportoEstremiRiscossione = 0;
+    var totImportoVersamentoTesoriera = 0;
+
+    for(i=0; i<13; i++)
+    {
+      var paramImportoEstremiRiscossioneMese = document.getElementById("Parametri_ImportoEstRisc" + mesi[i]);
+      var paramImportoVersamentoTesorieraMese = document.getElementById("Parametri_ImportoVersTes" + mesi[i]);
+
+      var importoEstremiRiscossioneMese = parseFloat(paramImportoEstremiRiscossioneMese.value.replace(',', '.'));
+      var importoVersamentoTesorieraMese = parseFloat(paramImportoVersamentoTesorieraMese.value.replace(',', '.'));
+
+      if(isNaN(importoEstremiRiscossioneMese))
+        importoEstremiRiscossioneMese = 0;
+
+      if(isNaN(importoVersamentoTesorieraMese))
+        importoVersamentoTesorieraMese = 0;
+
+      totImportoEstremiRiscossione += importoEstremiRiscossioneMese;
+      totImportoVersamentoTesoriera += importoVersamentoTesorieraMese;
+    }
+
+    paramTotaleImportoEstremiRiscossione.value = totImportoEstremiRiscossione.toFixed(2);
+    paramTotaleImportoVersamentoTesoriera.value = totImportoVersamentoTesoriera.toFixed(2);
+  }
+
+</script>
+
+<style>
+
+  .inputBordoSotto {
+    border-top: 0px;
+    border-left: 0px;
+    border-right: 0px;
+    border-bottom: 1px dotted black;
+  }
+
+  .inputBordoSotto:focus {
+    outline: none;
+  }
+
+  @media pdf {
+
+    .destraPDF {
+      text-align: right;
+    }
+
+    .inputBordoSotto2 {
+      border-top: 0px;
+      border-left: 0px;
+      border-right: 0px;
+      border-bottom: 1px dotted black;
+    }
+
+  }
+
+</style>
+
+<input dynamic_value="'Modello 21 - conto della gestione dell\'agente contabile'" id="Oggetto" name="Oggetto" type="hidden"/>
+
+   <!-- da eliminare, segnalazione issues 133 -->
+    <div style="visibility:none">{{anagrafica.cognome_nome_fittizio()}}</div>
+   <!-- -->
+
+<input id="DichiarazioneCF" name="DichiarazioneCF" type="hidden"/>
+
+{{ utils.get_ufficio_dest()}}
+<table class="Modulo" style="border: 0px; margin-top:-1px">
+   <tbody>
+    <tr style="border: 0px;">
+       <td width="50%" style="border: 0px; vertical-align:top">
+         <p style="font-size: 12px;">
+           <b>CONTO DELLA GESTIONE DELL'AGENTE CONTABILE</b>
+         </p>
+       </td>
+       <td style="border: 0px; ">
+         <p style="font-size: 11px;">
+           ENTE TITOLARE DELL'ENTRATA: <br/><b>COMUNE DI</b> <input id="Ente" name="Ente" readonly="readonly" style="font-weight: bold; color: black; font-size: 11px; width:30%; border:0px"/>
+         </p>
+       </td>
+     </tr>
+  </tbody>
+</table>
+
+<table class="Modulo" style="border: 0px; margin-top:0px">
+   <tbody>
+     <tr style="border: 0px;">
+       <td width="50%" style="border: 0px;">
+         <p style="font-size: 10px;">
+           <b>IMPOSTA DI SOGGIORNO</b>
+         </p>
+       </td>
+       <td width="10%" style="border: 0px;">
+         <p style="font-size: 11px;">
+           ESERCIZIO:
+         </p>
+       </td>
+       <td style="border: 0px;">
+        <input class="inputNormal" id="Parametri_Esercizio" name="Parametri_Esercizio" label="Esercizio" style="width:67%; font-size:80%" mandatory="true"/>
+       </td>
+     </tr>
+   </tbody>
+</table>
+
+<br/>
+
+<!-- precaricamento campi dal modulo principale -->
+{% do TitolareNonImportarePresente.append('0') %}
+{% do all_prefix.append( "Immobile" ) %}
+<table class="Modulo" style="border: 0px; margin-top:-1px">
+   <tbody>
+    <tr style="border: 0px;">
+      <td style="border: 0px; vertical-align: top;" width="13%">
+        <p style="font-size: 11px;">
+          <b>GESTORE:</b>
+        </p>
+      </td>
+      <td style="border: 0px;">
+
+        <table cellpadding="0" cellspacing="0" style="width: 100%; border: 1px solid gray; border-bottom:0px">
+          <tbody>
+            <tr style="border: 0px;">
+              <td style="border: 0px;" width="25%">
+                <p>denominazione:</p>
+              </td>
+              <td style="border: 0px;">
+                <input class="inputNormal" id="TitolareNonImportare_Denominazione" name="TitolareNonImportare_Denominazione" label="Denominazione" style="width:100%; font-size:80%" mandatory="true"/>
+              </td>
+            </tr>
+			</tbody>
+		</table>
+              </td>
+            </tr>
+
+   </tbody>
+</table>
+<table class="Modulo" style="border: 0px; margin-top:-1px">
+   <tbody>
+	 <tr style="border: 0px;">
+      <td style="border: 0px; vertical-align: top;" width="13%">
+        <p style="font-size: 11px;">
+        </p>
+      </td>
+	  <td style="border: 0px;">
+        <table cellpadding="0" cellspacing="0" style="width: 100%; border: 1px solid gray; border-top:0px; border-bottom:0px">
+          <tbody>
+           <tr style="border: 0px;">
+              <td style="border: 0px;" width="25%">
+                <p>legale rappresentante:<br/>
+				<span style="font-weight:normal; font-size:70%"><i>(cognome e nome)</i></span></p>
+              </td>
+              <td style="border: 0px;">
+                <input class="inputNormal" id="TitolareNonImportare_Cognome" name="TitolareNonImportare_Cognome" label="Cognome legale rappresentante" style="width:100%; font-size:80%" mandatory="true"/>
+              </td>
+              <td style="border: 0px;">
+				<input class="inputNormal" id="TitolareNonImportare_Nome" name="TitolareNonImportare_Nome" label="Nome legale rappresentante" style="width:100%; font-size:80%" mandatory="true"/>
+              </td>
+            </tr>
+			</tbody>
+		</table>
+              </td>
+            </tr>
+   </tbody>
+</table>
+<table class="Modulo" style="border: 0px; margin-top:-1px">
+   <tbody>
+	 <tr style="border: 0px;">
+      <td style="border: 0px; vertical-align: top;" width="13%">
+        <p style="font-size: 11px;">
+        </p>
+      </td>
+	  <td style="border: 0px;">
+        <table cellpadding="0" cellspacing="0" style="width: 100%; border: 1px solid gray; border-top:0px; border-bottom:0px">
+          <tbody>
+           <tr style="border: 0px;">
+              <td style="border: 0px;" width="25%">
+                <p>indirizzo:<br/>
+				<span style="font-weight:normal; font-size:70%"><i>(indirizzo,  civico e barrato)</i></span></p>
+              </td>
+              <td style="border: 0px;">
+                <input class="inputNormal" id="Immobile_Via" name="Immobile_Via" label="Indirizzo" style="width:100%; font-size:80%" mandatory="true"/>
+              </td>
+			  <td style="border: 0px; width:10%">
+				<input class="inputNormal" id="Immobile_Civico" name="Immobile_Civico" label="Indirizzo" style="width:100%; font-size:80%" mandatory="true"/>
+              </td>
+			  <td style="border: 0px; width:10%">
+				<input class="inputNormal" id="Immobile_Barrato" name="Immobile_Barrato" label="Indirizzo" style="width:100%; font-size:80%"/>
+              </td>
+            </tr>
+			</tbody>
+		</table>
+              </td>
+            </tr>
+   </tbody>
+</table>
+<table class="Modulo" style="border: 0px; margin-top:-1px">
+   <tbody>
+	 <tr style="border: 0px;">
+      <td style="border: 0px; vertical-align: top;" width="13%">
+        <p style="font-size: 11px;">
+        </p>
+      </td>
+	  <td style="border: 0px;">
+        <table cellpadding="0" cellspacing="0" style="width: 100%; border: 1px solid gray; border-top:0px;">
+          <tbody>
+           <tr style="border: 0px;">
+              <td style="border: 0px;" width="25%">
+                <p>P.IVA/C.F.:</p>
+              </td>
+              <td style="border: 0px;">
+                <input class="inputNormal" id="TitolareNonImportare_PI" name="TitolareNonImportare_PI" label="P.IVA/C.F." style="width:100%; font-size:80%" mandatory="true"/>
+              </td>
+              <td style="border: 0px;">
+				<input class="inputNormal" id="TitolareNonImportare_CFPI" name="TitolareNonImportare_CFPI" label="P.IVA/C.F." style="width:100%; font-size:80%" mandatory="true"/>
+              </td>
+            </tr>
+			</tbody>
+		</table>
+              </td>
+            </tr>
+   </tbody>
+</table>
+
+<table class="Modulo" style="border: 0px; margin-top: 10px">
+   <tbody>
+    <tr style="border: 0px;">
+      <td style="border: 0px; vertical-align: top;" width="13%">
+        <p style="font-size: 11px;">
+          <b>STRUTTURA:</b>
+        </p>
+      </td>
+      <td style="border: 0px;">
+
+        <table cellpadding="0" cellspacing="0" style="width: 100%; border: 1px solid gray;">
+          <tbody>
+            <tr style="border: 0px;">
+              <td colspan="2" style="border: 0px;">
+                <p>denominazione e classificazione:</p>
+              </td>
+            </tr>
+            <tr style="border: 0px;">
+              <td style="border: 0px;">
+                <input class="inputNormal" id="Parametri_StrutturaDenomClass" name="Parametri_StrutturaDenomClass" label="Denominazione e classificazione della struttura" style="width:100%; font-size:80%" mandatory="true"/>
+              </td>
+              <td style="border: 0px;">
+				<input class="inputNormal" id="Parametri_StrutturaDenomClass2" name="Parametri_StrutturaDenomClass2" label="Denominazione e classificazione della struttura" style="width:100%; font-size:80%" mandatory="true"/>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+      </td>
+    </tr>
+   </tbody>
+</table>
+
+<br/>
+
+<table class="Modulo" style="border: 0px; margin-top:-1px">
+   <tbody>
+     <tr>
+       <td width="10%" rowspan="2">
+         <p style="text-align:center; font-size:80%">
+           <b>N. ORDINE</b>
+         </p>
+       </td>
+       <td width="18%" rowspan="2">
+         <p style="text-align:center; font-size:80%">
+           <b>PERIODO E OGGETTO <br>DELLA RISCOSSIONE</b>
+         </p>
+       </td>
+       <td colspan="2">
+         <p style="text-align:center; font-size:80%">
+           <b>ESTREMI RISCOSSIONE</b>
+         </p>
+       </td>
+       <td colspan="2">
+         <p style="text-align:center; font-size:80%">
+           <b>VERSAMENTO IN TESORERIA</b>
+         </p>
+       </td>
+       <td rowspan="2" style="width:18%">
+         <p style="text-align:center; font-size:80%">
+           <b>NOTE</b>
+         </p>
+       </td>
+     </tr>
+     <tr>
+       <td width="10%">
+         <p style="text-align:center; font-size:80%">
+           <b>RICEVUTA<br/>NN.(1)</b>
+         </p>
+       </td>
+       <td>
+         <p style="text-align:center; font-size:80%">
+           <b>IMPORTO</b>
+         </p>
+       </td>
+       <td width="10%">
+         <p style="text-align:center; font-size:80%">
+           <b>QUIETANZA<br/>NN.(2)</b>
+         </p>
+       </td>
+       <td>
+         <p style="text-align:center; font-size:80%">
+           <b>IMPORTO</b>
+         </p>
+       </td>
+      </tr>
+     <tr>
+       <td>
+        <input class="inputNormal" id="Parametri_NOrdineGennaio" name="Parametri_NOrdineGennaio" label="N. ordine di Gennaio" format="number" style="width:100%; font-size:80%"/>
+       </td>
+       <td>
+         <p>
+           GENNAIO - IDS
+         </p>
+       </td>
+       <td>
+        <input class="inputNormal" id="Parametri_RicevutaNN1Gennaio" name="Parametri_RicevutaNN1Gennaio" label="Ricevuta NN. estremi riscossione di Gennaio" mandatory_enabled="#Parametri_NOrdineGennaio.value() != ''" style="width:100%; font-size:80%"/>
+       </td>
+       <td>
+        <p class="destraPDF"><input class="inputNormal" id="Parametri_ImportoEstRiscGennaio" name="Parametri_ImportoEstRiscGennaio" label="Importo estremi riscossione di Gennaio" format="positive_float" style="width:80%; font-size:80%" mandatory_enabled="#Parametri_NOrdineGennaio.value() != ''" onkeyup="aggiornaTabella()"/> €</p>
+       </td>
+       <td>
+        <input class="inputNormal" id="Parametri_QuietanzaNNGennaio" name="Parametri_QuietanzaNNGennaio" label="Quietanza NN. del versamento in tesoriera di Gennaio" mandatory_enabled="#Parametri_NOrdineGennaio.value() != ''" style="width:100%; font-size:80%"/>
+       </td>
+       <td>
+        <p class="destraPDF"><input class="inputNormal" id="Parametri_ImportoVersTesGennaio" name="Parametri_ImportoVersTesGennaio" label="Importo del versamento in tesoriera di Gennaio" style="width:80%; font-size:80%" mandatory_enabled="#Parametri_NOrdineGennaio.value() != ''" onkeyup="aggiornaTabella()"/> €</p>
+       </td>
+       <td>
+        <input class="inputNormal" id="Parametri_NoteGennaio" name="Parametri_NoteGennaio" label="Note di Gennaio" enabled="#Parametri_NOrdineGennaio.value() != ''" style="width:100%; font-size:80%"/>
+       </td>
+     </tr>
+     <tr>
+       <td>
+        <input class="inputNormal" id="Parametri_NOrdineFebbraio" name="Parametri_NOrdineFebbraio" label="N. ordine di Febbraio" format="number" style="width:100%; font-size:80%"/>
+       </td>
+       <td>
+         <p>
+           FEBBRAIO - IDS
+         </p>
+       </td>
+       <td>
+        <input class="inputNormal" id="Parametri_RicevutaNN1Febbraio" name="Parametri_RicevutaNN1Febbraio" label="Ricevuta NN. estremi riscossione di Febbraio" mandatory_enabled="#Parametri_NOrdineFebbraio.value() != ''" style="width:100%; font-size:80%"/>
+       </td>
+       <td>
+        <p class="destraPDF"><input class="inputNormal" id="Parametri_ImportoEstRiscFebbraio" name="Parametri_ImportoEstRiscFebbraio" label="Importo estremi riscossione di Febbraio" format="positive_float" mandatory_enabled="#Parametri_NOrdineFebbraio.value() != ''" style="width:80%; font-size:80%" onkeyup="aggiornaTabella()"/> €</p>
+       </td>
+       <td>
+        <input class="inputNormal" id="Parametri_QuietanzaNNFebbraio" name="Parametri_QuietanzaNNFebbraio" label="Quietanza NN. del versamento in tesoriera di Febbraio" mandatory_enabled="#Parametri_NOrdineFebbraio.value() != ''" style="width:100%; font-size:80%"/>
+       </td>
+       <td>
+        <p class="destraPDF"><input class="inputNormal" id="Parametri_ImportoVersTesFebbraio" name="Parametri_ImportoVersTesFebbraio" label="Importo del versamento in tesoriera di Febbraio" style="width:80%; font-size:80%" mandatory_enabled="#Parametri_NOrdineFebbraio.value() != ''"  onkeyup="aggiornaTabella()"/> €</p>
+       </td>
+       <td>
+        <input class="inputNormal" id="Parametri_NoteFebbraio" name="Parametri_NoteFebbraio" label="Note di Febbraio" enabled="#Parametri_NOrdineFebbraio.value() != ''" style="width:100%; font-size:80%"/>
+       </td>
+     </tr>
+     <tr>
+       <td>
+        <input class="inputNormal" id="Parametri_NOrdineMarzo" name="Parametri_NOrdineMarzo" label="N. ordine di Marzo" format="number" style="width:100%; font-size:80%"/>
+       </td>
+       <td>
+         <p>
+           MARZO - IDS
+         </p>
+       </td>
+       <td>
+        <input class="inputNormal" id="Parametri_RicevutaNN1Marzo" name="Parametri_RicevutaNN1Marzo" label="Ricevuta NN. estremi riscossione di Marzo" mandatory_enabled="#Parametri_NOrdineMarzo.value() != ''" style="width:100%; font-size:80%"/>
+       </td>
+       <td>
+        <p class="destraPDF"><input class="inputNormal" id="Parametri_ImportoEstRiscMarzo" name="Parametri_ImportoEstRiscMarzo" label="Importo estremi riscossione di Marzo" format="positive_float" style="width:80%; font-size:80%" mandatory_enabled="#Parametri_NOrdineMarzo.value() != ''" onkeyup="aggiornaTabella()"/> €</p>
+       </td>
+       <td>
+        <input class="inputNormal" id="Parametri_QuietanzaNNMarzo" name="Parametri_QuietanzaNNMarzo" label="Quietanza NN. del versamento in tesoriera di Marzo" mandatory_enabled="#Parametri_NOrdineMarzo.value() != ''" style="width:100%; font-size:80%"/>
+       </td>
+       <td>
+        <p class="destraPDF"><input class="inputNormal" id="Parametri_ImportoVersTesMarzo" name="Parametri_ImportoVersTesMarzo" label="Importo del versamento in tesoriera di Marzo" style="width:80%; font-size:80%" mandatory_enabled="#Parametri_NOrdineMarzo.value() != ''"  onkeyup="aggiornaTabella()"/> €</p>
+       </td>
+       <td>
+        <input class="inputNormal" id="Parametri_NoteMarzo" name="Parametri_NoteMarzo" label="Note di Marzo" enabled="#Parametri_NOrdineMarzo.value() != ''" style="width:100%; font-size:80%"/>
+       </td>
+     </tr>
+     <tr>
+       <td>
+        <input class="inputNormal" id="Parametri_NOrdineAprile" name="Parametri_NOrdineAprile" label="N. ordine di Aprile" format="number" style="width:100%; font-size:80%"/>
+       </td>
+       <td>
+         <p>
+           APRILE - IDS
+         </p>
+       </td>
+       <td>
+        <input class="inputNormal" id="Parametri_RicevutaNN1Aprile" name="Parametri_RicevutaNN1Aprile" label="Ricevuta NN. estremi riscossione di Aprile" mandatory_enabled="#Parametri_NOrdineAprile.value() != ''" style="width:100%; font-size:80%"/>
+       </td>
+       <td>
+        <p class="destraPDF"><input class="inputNormal" id="Parametri_ImportoEstRiscAprile" name="Parametri_ImportoEstRiscAprile" label="Importo estremi riscossione di Aprile" format="positive_float" mandatory_enabled="#Parametri_NOrdineAprile.value() != ''" style="width:80%; font-size:80%" onkeyup="aggiornaTabella()"/> €</p>
+       </td>
+       <td>
+        <input class="inputNormal" id="Parametri_QuietanzaNNAprile" name="Parametri_QuietanzaNNAprile" label="Quietanza NN. del versamento in tesoriera di Aprile" mandatory_enabled="#Parametri_NOrdineAprile.value() != ''" style="width:100%; font-size:80%"/>
+       </td>
+       <td>
+        <p class="destraPDF"><input class="inputNormal" id="Parametri_ImportoVersTesAprile" name="Parametri_ImportoVersTesAprile" label="Importo del versamento in tesoriera di Aprile" style="width:80%; font-size:80%" mandatory_enabled="#Parametri_NOrdineAprile.value() != ''"  onkeyup="aggiornaTabella()"/> €</p>
+       </td>
+       <td>
+        <p><span style="font-size:70%">Nella casella "versamento in tesoreria" è indicato l'importo riversato e riferito al 1° trimestre </span></p>
+       </td>
+     </tr>
+     <tr>
+       <td>
+        <input class="inputNormal" id="Parametri_NOrdineMaggio" name="Parametri_NOrdineMaggio" label="N. ordine di Maggio" format="number" style="width:100%; font-size:80%"/>
+       </td>
+       <td>
+         <p>
+           MAGGIO - IDS
+         </p>
+       </td>
+       <td>
+        <input class="inputNormal" id="Parametri_RicevutaNN1Maggio" name="Parametri_RicevutaNN1Maggio" label="Ricevuta NN. estremi riscossione di Maggio" mandatory_enabled="#Parametri_NOrdineMaggio.value() != ''" style="width:100%; font-size:80%"/>
+       </td>
+       <td>
+        <p class="destraPDF"><input class="inputNormal" id="Parametri_ImportoEstRiscMaggio" name="Parametri_ImportoEstRiscMaggio" label="Importo estremi riscossione di Maggio" format="positive_float" mandatory_enabled="#Parametri_NOrdineMaggio.value() != ''" style="width:80%; font-size:80%" onkeyup="aggiornaTabella()"/> €</p>
+       </td>
+       <td>
+        <input class="inputNormal" id="Parametri_QuietanzaNNMaggio" name="Parametri_QuietanzaNNMaggio" label="Quietanza NN. del versamento in tesoriera di Maggio" mandatory_enabled="#Parametri_NOrdineMaggio.value() != ''" style="width:100%; font-size:80%"/>
+       </td>
+       <td>
+        <p class="destraPDF"><input class="inputNormal" id="Parametri_ImportoVersTesMaggio" name="Parametri_ImportoVersTesMaggio" label="Importo del versamento in tesoriera di Maggio" style="width:80%; font-size:80%" mandatory_enabled="#Parametri_NOrdineMaggio.value() != ''" onkeyup="aggiornaTabella()"/> €</p>
+       </td>
+       <td>
+        <input class="inputNormal" id="Parametri_NoteMaggio" name="Parametri_NoteMaggio" label="Note di Maggio" enabled="#Parametri_NOrdineMaggio.value() != ''" style="width:100%; font-size:80%"/>
+       </td>
+     </tr>
+     <tr>
+       <td>
+        <input class="inputNormal" id="Parametri_NOrdineGiugno" name="Parametri_NOrdineGiugno" label="N. ordine di Giugno" format="number" style="width:100%; font-size:80%"/>
+       </td>
+       <td>
+         <p>
+           GIUGNO - IDS
+         </p>
+       </td>
+       <td>
+        <input class="inputNormal" id="Parametri_RicevutaNN1Giugno" name="Parametri_RicevutaNN1Giugno" label="Ricevuta NN. estremi riscossione di Giugno" mandatory_enabled="#Parametri_NOrdineGiugno.value() != ''" style="width:100%; font-size:80%"/>
+       </td>
+       <td>
+        <p class="destraPDF"><input class="inputNormal" id="Parametri_ImportoEstRiscGiugno" name="Parametri_ImportoEstRiscGiugno" label="Importo estremi riscossione di Giugno" format="positive_float" mandatory_enabled="#Parametri_NOrdineGiugno.value() != ''" style="width:80%; font-size:80%" onkeyup="aggiornaTabella()"/> €</p>
+       </td>
+       <td>
+        <input class="inputNormal" id="Parametri_QuietanzaNNGiugno" name="Parametri_QuietanzaNNGiugno" label="Quietanza NN. del versamento in tesoriera di Giugno" mandatory_enabled="#Parametri_NOrdineGiugno.value() != ''" style="width:100%; font-size:80%"/>
+       </td>
+       <td>
+        <p class="destraPDF"><input class="inputNormal" id="Parametri_ImportoVersTesGiugno" name="Parametri_ImportoVersTesGiugno" label="Importo del versamento in tesoriera di Giugno" style="width:80%; font-size:80%" mandatory_enabled="#Parametri_NOrdineGiugno.value() != ''" onkeyup="aggiornaTabella()"/> €</p>
+       </td>
+       <td>
+        <input class="inputNormal" id="Parametri_NoteGiugno" name="Parametri_NoteGiugno" label="Note di Giugno" enabled="#Parametri_NOrdineGiugno.value() != ''" style="width:100%; font-size:80%"/>
+       </td>
+     </tr>
+     <tr>
+       <td>
+        <input class="inputNormal" id="Parametri_NOrdineLuglio" name="Parametri_NOrdineLuglio" label="N. ordine di Luglio" format="number" style="width:100%; font-size:80%"/>
+       </td>
+       <td>
+         <p>
+           LUGLIO - IDS
+         </p>
+       </td>
+       <td>
+        <input class="inputNormal" id="Parametri_RicevutaNN1Luglio" name="Parametri_RicevutaNN1Luglio" label="Ricevuta NN. estremi riscossione di Luglio" mandatory_enabled="#Parametri_NOrdineLuglio.value() != ''" style="width:100%; font-size:80%"/>
+       </td>
+       <td>
+        <p class="destraPDF"><input class="inputNormal" id="Parametri_ImportoEstRiscLuglio" name="Parametri_ImportoEstRiscLuglio" label="Importo estremi riscossione di Luglio" format="positive_float" mandatory_enabled="#Parametri_NOrdineLuglio.value() != ''" style="width:80%; font-size:80%" onkeyup="aggiornaTabella()"/> €</p>
+       </td>
+       <td>
+        <input class="inputNormal" id="Parametri_QuietanzaNNLuglio" name="Parametri_QuietanzaNNLuglio" label="Quietanza NN. del versamento in tesoriera di Luglio" mandatory_enabled="#Parametri_NOrdineLuglio.value() != ''" style="width:100%; font-size:80%"/>
+       </td>
+       <td>
+        <p class="destraPDF"><input class="inputNormal" id="Parametri_ImportoVersTesLuglio" name="Parametri_ImportoVersTesLuglio" label="Importo del versamento in tesoriera di Luglio" style="width:80%; font-size:80%" mandatory_enabled="#Parametri_NOrdineLuglio.value() != ''" onkeyup="aggiornaTabella()"/> €</p>
+       </td>
+       <td>
+        <p><span style="font-size:70%">Nella casella "versamento in tesoreria" è indicato l'importo riversato e riferito al 1° trimestre </span></p>
+       </td>
+     </tr>
+     <tr>
+       <td>
+        <input class="inputNormal" id="Parametri_NOrdineAgosto" name="Parametri_NOrdineAgosto" label="N. ordine di Agosto" format="number" style="width:100%; font-size:80%"/>
+       </td>
+       <td>
+         <p>
+           AGOSTO - IDS
+         </p>
+       </td>
+       <td>
+        <input class="inputNormal" id="Parametri_RicevutaNN1Agosto" name="Parametri_RicevutaNN1Agosto" label="Ricevuta NN. estremi riscossione di Agosto" mandatory_enabled="#Parametri_NOrdineAgosto.value() != ''" style="width:100%; font-size:80%"/>
+       </td>
+       <td>
+        <p class="destraPDF"><input class="inputNormal" id="Parametri_ImportoEstRiscAgosto" name="Parametri_ImportoEstRiscAgosto" label="Importo estremi riscossione di Agosto" format="positive_float" mandatory_enabled="#Parametri_NOrdineAgosto.value() != ''" style="width:80%; font-size:80%" onkeyup="aggiornaTabella()"/> €</p>
+       </td>
+       <td>
+        <input class="inputNormal" id="Parametri_QuietanzaNNAgosto" name="Parametri_QuietanzaNNAgosto" label="Quietanza NN. del versamento in tesoriera di Agosto" mandatory_enabled="#Parametri_NOrdineAgosto.value() != ''" style="width:100%; font-size:80%"/>
+       </td>
+       <td>
+        <p class="destraPDF"><input class="inputNormal" id="Parametri_ImportoVersTesAgosto" name="Parametri_ImportoVersTesAgosto" label="Importo del versamento in tesoriera di Agosto" style="width:80%; font-size:80%" mandatory_enabled="#Parametri_NOrdineAgosto.value() != ''" onkeyup="aggiornaTabella()"/> €</p>
+       </td>
+       <td>
+        <input class="inputNormal" id="Parametri_NoteAgosto" name="Parametri_NoteAgosto" label="Note di Agosto" enabled="#Parametri_NOrdineAgosto.value() != ''" style="width:100%; font-size:80%"/>
+       </td>
+     </tr>
+     <tr>
+       <td>
+        <input class="inputNormal" id="Parametri_NOrdineSettembre" name="Parametri_NOrdineSettembre" label="N. ordine di Settembre" format="number" style="width:100%; font-size:80%"/>
+       </td>
+       <td>
+         <p>
+           SETTEMBRE - IDS
+         </p>
+       </td>
+       <td>
+        <input class="inputNormal" id="Parametri_RicevutaNN1Settembre" name="Parametri_RicevutaNN1Settembre" label="Ricevuta NN. estremi riscossione di Settembre" mandatory_enabled="#Parametri_NOrdineSettembre.value() != ''" style="width:100%; font-size:80%"/>
+       </td>
+       <td>
+        <p class="destraPDF"><input class="inputNormal" id="Parametri_ImportoEstRiscSettembre" name="Parametri_ImportoEstRiscSettembre" label="Importo estremi riscossione di Settembre" format="positive_float" mandatory_enabled="#Parametri_NOrdineSettembre.value() != ''" style="width:80%; font-size:80%" onkeyup="aggiornaTabella()"/> €</p>
+       </td>
+       <td>
+        <input class="inputNormal" id="Parametri_QuietanzaNNSettembre" name="Parametri_QuietanzaNNSettembre" label="Quietanza NN. del versamento in tesoriera di Settembre" mandatory_enabled="#Parametri_NOrdineSettembre.value() != ''" style="width:100%; font-size:80%"/>
+       </td>
+       <td>
+        <p class="destraPDF"><input class="inputNormal" id="Parametri_ImportoVersTesSettembre" name="Parametri_ImportoVersTesSettembre" label="Importo del versamento in tesoriera di Settembre" style="width:80%; font-size:80%" mandatory_enabled="#Parametri_NOrdineSettembre.value() != ''" onkeyup="aggiornaTabella()"/> €</p>
+       </td>
+       <td>
+        <input class="inputNormal" id="Parametri_NoteSettembre" name="Parametri_NoteSettembre" label="Note di Settembre" enabled="#Parametri_NOrdineSettembre.value() != ''" style="width:100%; font-size:80%"/>
+       </td>
+     </tr>
+     <tr>
+       <td>
+        <input class="inputNormal" id="Parametri_NOrdineOttobre" name="Parametri_NOrdineOttobre" label="N. ordine di Ottobre" format="number" style="width:100%; font-size:80%"/>
+       </td>
+       <td>
+         <p>
+           OTTOBRE - IDS
+         </p>
+       </td>
+       <td>
+        <input class="inputNormal" id="Parametri_RicevutaNN1Ottobre" name="Parametri_RicevutaNN1Ottobre" label="Ricevuta NN. estremi riscossione di Ottobre" mandatory_enabled="#Parametri_NOrdineOttobre.value() != ''" style="width:100%; font-size:80%"/>
+       </td>
+       <td>
+        <p class="destraPDF"><input class="inputNormal" id="Parametri_ImportoEstRiscOttobre" name="Parametri_ImportoEstRiscOttobre" label="Importo estremi riscossione di Ottobre" format="positive_float" mandatory_enabled="#Parametri_NOrdineOttobre.value() != ''" style="width:80%; font-size:80%" onkeyup="aggiornaTabella()"/> €</p>
+       </td>
+       <td>
+        <input class="inputNormal" id="Parametri_QuietanzaNNOttobre" name="Parametri_QuietanzaNNOttobre" label="Quietanza NN. del versamento in tesoriera di Ottobre" mandatory_enabled="#Parametri_NOrdineOttobre.value() != ''" style="width:100%; font-size:80%"/>
+       </td>
+       <td>
+        <p class="destraPDF"><input class="inputNormal" id="Parametri_ImportoVersTesOttobre" name="Parametri_ImportoVersTesOttobre" label="Importo del versamento in tesoriera di Ottobre" style="width:80%; font-size:80%" mandatory_enabled="#Parametri_NOrdineOttobre.value() != ''" onkeyup="aggiornaTabella()"/> €</p>
+       </td>
+       <td>
+        <p><span style="font-size:70%">Nella casella "versamento in tesoreria" è indicato l'importo riversato e riferito al 1° trimestre </span></p>
+       </td>
+     </tr>
+     <tr>
+       <td>
+        <input class="inputNormal" id="Parametri_NOrdineNovembre" name="Parametri_NOrdineNovembre" label="N. ordine di Novembre" format="number" style="width:100%; font-size:80%"/>
+       </td>
+       <td>
+         <p>
+           NOVEMBRE - IDS
+         </p>
+       </td>
+       <td>
+        <input class="inputNormal" id="Parametri_RicevutaNN1Novembre" name="Parametri_RicevutaNN1Novembre" label="Ricevuta NN. estremi riscossione di Novembre" mandatory_enabled="#Parametri_NOrdineNovembre.value() != ''" style="width:100%; font-size:80%"/>
+       </td>
+       <td>
+        <p class="destraPDF"><input class="inputNormal" id="Parametri_ImportoEstRiscNovembre" name="Parametri_ImportoEstRiscNovembre" label="Importo estremi riscossione di Novembre" format="positive_float" mandatory_enabled="#Parametri_NOrdineNovembre.value() != ''" style="width:80%; font-size:80%" onkeyup="aggiornaTabella()"/> €</p>
+       </td>
+       <td>
+        <input class="inputNormal" id="Parametri_QuietanzaNNNovembre" name="Parametri_QuietanzaNNNovembre" label="Quietanza NN. del versamento in tesoriera di Novembre" mandatory_enabled="#Parametri_NOrdineNovembre.value() != ''" style="width:100%; font-size:80%"/>
+       </td>
+       <td>
+        <p class="destraPDF"><input class="inputNormal" id="Parametri_ImportoVersTesNovembre" name="Parametri_ImportoVersTesNovembre" label="Importo del versamento in tesoriera di Novembre" style="width:80%; font-size:80%" mandatory_enabled="#Parametri_NOrdineNovembre.value() != ''" onkeyup="aggiornaTabella()"/> €</p>
+       </td>
+       <td>
+        <input class="inputNormal" id="Parametri_NoteNovembre" name="Parametri_NoteNovembre" label="Note di Novembre" enabled="#Parametri_NOrdineNovembre.value() != ''" style="width:100%; font-size:80%"/>
+       </td>
+     </tr>
+     <tr>
+       <td>
+        <input class="inputNormal" id="Parametri_NOrdineDicembre" name="Parametri_NOrdineDicembre" label="N. ordine di Dicembre" format="number" style="width:100%; font-size:80%"/>
+       </td>
+       <td>
+         <p>
+           DICEMBRE - IDS
+         </p>
+       </td>
+       <td>
+        <input class="inputNormal" id="Parametri_RicevutaNN1Dicembre" name="Parametri_RicevutaNN1Dicembre" label="Ricevuta NN. estremi riscossione di Dicembre" mandatory_enabled="#Parametri_NOrdineDicembre.value() != ''" style="width:100%; font-size:80%"/>
+       </td>
+       <td>
+        <p class="destraPDF"><input class="inputNormal" id="Parametri_ImportoEstRiscDicembre" name="Parametri_ImportoEstRiscDicembre" label="Importo estremi riscossione di Dicembre" format="positive_float" mandatory_enabled="#Parametri_NOrdineDicembre.value() != ''" style="width:80%; font-size:80%" onkeyup="aggiornaTabella()"/> €</p>
+       </td>
+       <td>
+        <input class="inputNormal" id="Parametri_QuietanzaNNDicembre" name="Parametri_QuietanzaNNDicembre" label="Quietanza NN. del versamento in tesoriera di Dicembre" mandatory_enabled="#Parametri_NOrdineDicembre.value() != ''" style="width:100%; font-size:80%"/>
+       </td>
+       <td>
+        <p class="destraPDF"><input class="inputNormal" id="Parametri_ImportoVersTesDicembre" name="Parametri_ImportoVersTesDicembre" label="Importo del versamento in tesoriera di Dicembre" style="width:80%; font-size:80%" mandatory_enabled="#Parametri_NOrdineDicembre.value() != ''" onkeyup="aggiornaTabella()"/> €</p>
+       </td>
+       <td>
+        <input class="inputNormal" id="Parametri_NoteDicembre" name="Parametri_NoteDicembre" label="Note di Dicembre" enabled="#Parametri_NOrdineDicembre.value() != ''" style="width:100%; font-size:80%"/>
+       </td>
+     </tr>
+     <tr>
+       <td>
+        <input class="inputNormal" id="Parametri_NOrdineDicembreBis" name="Parametri_NOrdineDicembreBis" label="N. ordine di Dicembre" format="number" style="width:100%; font-size:80%"/>
+       </td>
+       <td>
+         <p>
+           
+         </p>
+       </td>
+       <td>
+        <input class="inputNormal" id="Parametri_RicevutaNN1DicembreBis" name="Parametri_RicevutaNN1DicembreBis" label="Ricevuta NN. estremi riscossione di Dicembre" mandatory_enabled="#Parametri_NOrdineDicembreBis.value() != ''" style="width:100%; font-size:80%"/>
+       </td>
+       <td>
+        <p class="destraPDF"><input class="inputNormal" id="Parametri_ImportoEstRiscDicembreBis" name="Parametri_ImportoEstRiscDicembreBis" label="Importo estremi riscossione di Dicembre" format="positive_float" mandatory_enabled="#Parametri_NOrdineDicembreBis.value() != ''" style="width:80%; font-size:80%" onkeyup="aggiornaTabella()"/> €</p>
+       </td>
+       <td>
+        <input class="inputNormal" id="Parametri_QuietanzaNNDicembreBis" name="Parametri_QuietanzaNNDicembreBis" label="Quietanza NN. del versamento in tesoriera di Dicembre" mandatory_enabled="#Parametri_NOrdineDicembreBis.value() != ''" style="width:100%; font-size:80%"/>
+       </td>
+       <td>
+        <p class="destraPDF"><input class="inputNormal" id="Parametri_ImportoVersTesDicembreBis" name="Parametri_ImportoVersTesDicembreBis" label="Importo del versamento in tesoriera di Dicembre" style="width:80%; font-size:80%" mandatory_enabled="#Parametri_NOrdineDicembreBis.value() != ''" onkeyup="aggiornaTabella()"/> €</p>
+       </td>
+       <td>
+        <p><span style="font-size:70%">Nella casella "versamento in tesoreria" è indicato l'importo riversato e riferito al 1° trimestre </span></p>
+       </td>	   
+     </tr>	 
+     <tr style="border: 0px;">
+      <td colspan="3" style="border: 0px;">
+        <p style="font-size: 11px; text-align: right;">TOTALE....</p>
+      </td>
+      <td style="border-top: 2px solid black;">
+        <p class="destraPDF"><input class="inputNormal" id="Parametri_TotaleImportoEstRisc" name="Parametri_TotaleImportoEstRisc" label="Totale imposta degli estremi riscossione" readonly="readonly" style="width:80%; font-size:80%"/> €</p>
+      </td>
+      <td style="border: 0px;">
+        <p style="font-size: 11px; text-align: right;">TOTALE....</p>
+      </td>
+      <td style="border-top: 2px solid black;">
+        <p class="destraPDF"><input class="inputNormal" id="Parametri_TotaleImportoVersTes" name="Parametri_TotaleImportoVersTes" label="Totale imposta versamento in tesoriera" readonly="readonly" style="width:80%; font-size:80%"/> €</p>
+      </td>
+     </tr>
+   </tbody>
+</table>
+
+<input class="inputNormal" id="ControlloImporti" name="ControlloImporti" label="Totale degli importi previsti deve essere uguale" mandatory="#Parametri_TotaleImportoEstRisc.value() != #Parametri_TotaleImportoVersTes.value()" type="hidden"/>
+
+<br/>
+
+<p class="Modulo" style="font-size:70%">
+  (1) numeri di ricevute o fatture attestanti la riscossione dell'imposta<br/>
+  (2) numero di bolletta rilasciato dalla Tesoreria all'atto del versamento<br/><br/>
+</p>
+
+<br/>
+
+<table style="border: 0px; margin-top:-1px; max-width: 19cm;" cellpadding="0" cellspacing="0">
+   <tbody>
+    <tr style="border: 0px;">
+      <td  style="border: 0px;" colspan="5">
+        <table width="100%" style="border: 0px; margin-top:-1px">
+           <tbody>
+            <tr style="border: 0px;">
+              <td width="22%" style="border: 0px;">
+                <p style="font-size: 11px;">Luogo e data</p>
+              </td>
+              <td  width="80%" style="border: 0px;">
+                <input id="Luogo" label="Luogo" mandatory="true" name="Luogo" style="width:100%; border: 0px;" type="hidden"/>
+                <input format="date" id="Data" label="Data" mandatory="true" name="Data" style="width:60%; border: 0px;" type="hidden"/>
+                <input id="LuogoData" label="Luogo e Data" dynamic_value="#Luogo.value() + ', ' + #Data.value()" name="LuogoData" style="width:100%; border: 0px;" readonly="readonly"/>
+              </td>
+            </tr>
+           </tbody>
+        </table>
+      </td>
+      <td style="border: 0px;" width="300px">
+        <p style="font-size: 11px; text-align: center;"><b>L'AGENTE CONTABILE</b></p>
+      </td>
+    </tr>
+    <tr style="border: 0px;">
+      <td style="border: 0px; width:22%">
+        <p style="font-size: 11px;">Il presente conto contiene n.</p>
+      </td>
+      <td style="border: 0px;">
+        <div class="inputBordoSotto2" style="display: inline; width:50px; margin-bottom: 12px;">
+        <input class="inputBordoSotto" id="Parametri_NRegistrazioni" name="Parametri_NRegistrazioni" label="N. registrazioni contenute nel conto" format="number" mandatory_enabled="true" style="width:40px; font-size:80%"/>
+        </div>
+      </td>
+      <td style="border: 0px; width:14%">
+        <p style="font-size: 11px;">registrazioni in n.</p>
+      </td>
+      <td style="border: 0px;">
+        <div class="inputBordoSotto2" style="display: inline; width:50px; margin-bottom: 12px;">
+        <input class="inputBordoSotto" id="Parametri_NPagine" name="Parametri_NPagine" label="N. pagine" format="number" mandatory_enabled="true" dynamic_value="#Metadati_NumeroModelli21.value()" style="width:40px; font-size:80%"/>
+        </div>
+      </td>
+      <td style="border: 0px; width:15%">
+        <p style="font-size: 11px;">modelli 21</p>
+      </td>
+      <td style="border: 0px; text-align: center;">
+        <div class="inputBordoSotto2" style="display: inline; width:160px; margin-bottom: 12px;">
+        <input class="inputBordoSotto" id="Parametri_AgenteContabile" name="Parametri_AgenteContabile" label="Agente contabile" style="width:160px" enabled="false"/>
+        </div>
+      </td>
+    </tr>
+   </tbody>
+</table>
+
+<br/>
+
+<table class="Modulo" style="border: 1px solid gray; margin-top:-1px;">
+   <tbody>
+    <tr style="border: 0px;">
+      <td width="40%" style="border: 0px; vertical-align: top;" colspan="3">
+        <p style="font-size: 11px;">compilazione a cura del Comune</p>
+      </td>
+      <td width="60%" style="border: 0px; vertical-align: bottom;">
+        <p style="text-align: center; font-size: 11px;"><b>IL RESPONSABILE DEL SERVIZIO<br/>FINANZIARIO</b></p>
+      </td>
+    </tr>
+    <tr style="border: 0px;">
+      <td width="25%" style="border: 0px; vertical-align: bottom; padding-bottom: 10px;">
+        <p style="font-size: 11px;">VISTO DI REGOLARITA'</p>
+      </td>
+      <td width="3%" style="border: 0px; vertical-align: bottom; padding-bottom: 10px;">
+        <p style="font-size: 11px;">lì</p>
+      </td>
+      <td width="12%" style="border: 0px; padding-bottom: 10px;">
+        <div class="inputBordoSotto2" style="display: inline; width:50px;">
+        <input class="inputBordoSotto" id="Parametri_Data2" name="Parametri_Data2" label="Adata visto di regolarità" style="width:100%" enabled="false"/>
+        </div>
+      </td>
+      <td width="60%" style="border: 0px; text-align: center; padding-bottom: 10px;">
+        <div class="inputBordoSotto2" style="display: inline; width: 75%;">
+        <input class="inputBordoSotto" id="Parametri_RespServFinanz" name="Parametri_RespServFinanz" label="Responsabile del servizio finanziario" style="width:75%" enabled="false"/>
+        </div>
+      </td>
+    </tr>
+   </tbody>
+</table>
+
+<br/>
+
+<p class="Modulo">
+ <input id="SalvaModulo" name="SalvaModulo" style="height:30px;width:120px;" title="Verifica la corretta compilazione dei campi e salva il modulo nel faldone virtuale dell'istanza." type="submit" value="Salva modulo"/>
+</p>
+
+<input id="GLOBO_modulo_c{{ CodiceModulo }}" name="GLOBO_modulo_c{{ CodiceModulo }}" type="hidden" value=""/>
+<input id="GLOBO_id_padre" name="GLOBO_id_padre" type="hidden"/>
+<input id="GLOBO_recupera_dati" name="GLOBO_recupera_dati" type="hidden"/>
+<input id="GLOBO_codice_modulo" name="GLOBO_codice_modulo" type="hidden" value="{{ CodiceModulo }}"/>
+
+{{ utils.passaggio_metadati() }}
+<!-- passaggio dati tra moduli -->
+<input id="Metadati_NumeroModelli21" name="Metadati_NumeroModelli21" type="hidden"/> 
+
+{% endblock content %}

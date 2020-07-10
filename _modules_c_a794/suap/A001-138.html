@@ -1,0 +1,1369 @@
+{% set CodiceModulo =  "A001-138" %}
+{% extends "base.html" %}
+{% set Urn = "document:c_a794:impianti.teleradiocomunicazioni;relazione.tecnica" %}
+{% block meta %}
+
+<meta campi_firma="Referente_CodiceFiscale"
+campi_firma_label="il dichiarante"
+classi_modulo="Ecologia"
+codice_modulo="{{ CodiceModulo }}"
+urn="{% block urn %}{{ Urn }}{% endblock urn %}"
+sub_urn_list=""
+uo_globo_list=""
+descrizione="Relazione tecnica asseverata"
+destinatario_amministrazione=""
+destinatario_ufficio="U0233"
+contesto_procedurale="Ecologia"
+dinamico="SI"
+email_a=""
+ente_abilitato="TUTTI"
+filigrana="NO"
+firmare="P7M_ELETTRONICA"
+istruzioni_compilazione=""
+istruzioni_invio="mail_minimale"
+metodo_invio="MINIMALE"
+name="GLOBO_modulo"
+procura="NO,,"
+tipo_modulo="secondario"
+ufficio=""
+urlhelp="DomandeRisposte/FAQ"
+verifica_pagamento="NO"
+versione="1.1|29/03/2019"/>
+
+<meta codice_allegato="esamepaes"
+descrizione_estesa="Esame paesistico"
+urn_allegato="document:c_a794:impianti.teleradiocomunicazioni;esame.paesistico;allegato"
+filename="esame paesistico.pdf"
+firmato="NO"
+istruzioni="/servizio-attivita-produttive-e-commercio/vincolo-paesaggistico-esame-dellimpatto-paesistico-del-progetto"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="SCHEDA-PAR-COLLI"
+descrizione_estesa="Scheda parco dei colli"
+urn_allegato="document:c_a794:impianti.teleradiocomunicazioni;scheda.parco.colli;allegato"
+filename="scheda parco dei colli.pdf"
+firmato="SI"
+istruzioni="servizio-ecologia-e-ambiente/scheda-parco-dei-colli"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="noparaltro"
+descrizione_estesa="Nulla osta della Soprintendenza"
+urn_allegato="document:c_a794:impianti.teleradiocomunicazioni;pareri;allegato"
+filename="NO pareri altri atti.pdf"
+firmato="SI"
+istruzioni="servizio-ecologia-e-ambiente/nulla-osta-o-altro-atto-di-assenso"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="progimpstrutt"
+descrizione_estesa="Progetto dell'impianto e della struttura di supporto"
+urn_allegato="document:c_a794:impianti.teleradiocomunicazioni;progetto.impianto.struttura.supporto;allegato"
+filename="Planimetria generale ante opera.pdf"
+firmato="SI"
+istruzioni="/servizio-ecologia-e-ambiente/progetto-dellimpianto-e-della-struttura-di-supporto"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="OST-PAR-ESE"
+descrizione_estesa="Nulla osta parere rilasciato o dichiarazione di esenzione dall'acquisizione dello stesso"
+urn_allegato="document:c_a794:impianti.teleradiocomunicazioni;nulla.osta.dichiarazione.esenzione;allegato"
+filename="NO Parere rilasciato o dichiarazione esenzione.pdf"
+firmatari="Titolare_CodiceFiscale"
+firmatari_label="il dichiarante"
+firmato="SI"
+istruzioni="/servizio-ecologia-e-ambiente/copia-del-nulla-osta-parere-rilasciato-o-dichiarazione-di-esenzione-dallacquisizione-dello-stesso"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="AUT-OCC-SUO"
+descrizione_estesa="Atto autorizzativo per occupazione del suolo pubblico"
+urn_allegato="document:c_a794:impianti.teleradiocomunicazioni;atto.autorizzativo.occupazione.suolo.pubblico;allegato"
+filename="Atto autorizzativo per occupazione del suolo pubblico.pdf"
+firmatari="Titolare_CodiceFiscale"
+firmatari_label="il dichiarante"
+firmato="SI"
+istruzioni="/servizio-ecologia-e-ambiente/atto-autorizzativo-per-occupazione-del-suolo-pubblico"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="COP-AUT-PAES"
+descrizione_estesa="dell'autorizzazione paesaggistica"
+urn_allegato="document:c_a794:impianti.teleradiocomunicazioni;autorizzazione.paesaggistica;allegato"
+filename="autorizzazione paesaggistica.pdf"
+firmatari="Titolare_CodiceFiscale"
+firmatari_label="il dichiarante"
+firmato="SI"
+istruzioni="/servizio-ecologia-e-ambiente/autorizzazione-paesaggistica"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="REL-FIRM-PROF"
+descrizione_estesa="Relazione a firma del professionista abilitato comprovante la compatibilità dell'intervento con la situazione idrogeologica del terreno"
+urn_allegato="document:c_a794:impianti.teleradiocomunicazioni;relazione.firma.professionista;allegato"
+filename="relazione_professionista_idr.pdf"
+firmatari="Titolare_CodiceFiscale"
+firmatari_label="il dichiarante"
+firmato="SI"
+istruzioni="/servizio-ecologia-e-ambiente/relazione-a-firma-del-professionista-abilitato-comprovante-la-compatibilita-dellintervento-con-la-s"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_modulo_figlio="INCARICO_PROCURA"
+urn_modulo_figlio="document:s_italia:generale;incarico.procura"
+name="GLOBO_modulofiglio"
+numero="1"
+obbligatorio="DINAMICO"/>
+
+<meta codice_allegato="ALTRI-ALLEGATI"
+descrizione_estesa="Altri allegati"
+urn_allegato="document:s_italia:altri.allegati"
+filename="Altri allegati.pdf"
+firmato="SI"
+istruzioni="/servizio-attivita-produttive-e-commercio/altri-allegati-allistanza"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+{% endblock meta %}
+{% block title %}
+   Relazione tecnica di asseverazione
+{% endblock title %}
+{% block content %}
+ <globo_fondo_pagina areaheight="150" scope="4">
+ {{ utils.firma() }}
+</globo_fondo_pagina>
+
+<input dynamic_value="#Referente_Cognome.value().toUpperCase() + ' - relazione tecnica asseverata '" id="Oggetto" name="Oggetto" type="hidden"/>
+
+ {{ intestazioni.intestazione_moduloprincipale_senzabollo() }}
+ <input checked="checked" dynamic_check="true" id="SempreSI" name="SempreSI" style="display:none;" type="checkbox" value="si"/>
+
+<input dynamic_value="#Ente.value()" id="Parametri_Comune" name="Parametri_Comune" type="hidden"/>
+
+<h1 class="Modulo">
+ Relazione tecnica di asseverazione
+</h1>
+
+<h2 class="Modulo">
+ Per impianti di teleradiocomunicazione
+</h2>
+
+<input type="hidden" id="Referente_DatiProfessionistaObbligatori" name="Referente_DatiProfessionistaObbligatori" dynamic_check="true"/>
+<input type="hidden" id="Referente_DatiAlboProfessionistaObbligatori" name="Referente_DatiAlboProfessionistaObbligatori" dynamic_check="true"/>
+ {{ anagrafica.professionista("Referente","il sottoscritto progettista dell'impianto","Direttore dei lavori") }}
+ 
+ <table class="Modulo" style="border:1px solid grey; margin-top:-1px;">
+        <tbody>
+            <tr class="Rigaintestazione">
+                <td colspan="5">
+                    <p><b>su incarico di</b>
+                       <span style="font-size:70%"><i>(questa sezione deve essere compilata se il dichiarante non è la persona fisica)</i></span>
+                    </p>
+                </td>
+            </tr>	
+            <tr class="Rigaintestazioneridotta">
+                <td colspan="2">
+                    <p class="Labelcella">Cognome</p>
+                </td>
+                <td colspan="2">
+                    <p class="Labelcella">Nome</p>
+                </td>
+                <td>
+                    <p class="Labelcella">Codice Fiscale</p>
+                </td>
+            </tr>
+            <tr mandatory="true">
+                <td colspan="2">
+                    <input class="" id="Titolare_Cognome" name="Titolare_Cognome" style="width:100%" label="Cognome"/>
+                </td>
+                <td colspan="2">
+                    <input class="" id="Titolare_Nome" name="Titolare_Nome" style="width:100%" label="Nome"/>
+                </td>
+                <td>
+                    <input class="" id="Titolare_CodiceFiscale" name="Titolare_CodiceFiscale" style="width:100%" format="cf" label="Il codice fiscale del Richiedente"/>
+                </td>
+            </tr>
+           
+            <tr class="Rigaintestazioneridotta">
+                <td colspan="5">
+                    <p class="Labelcella">Ruolo</p>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="5">
+                    <select class="inputNormal" id="Titolare_Ruolo" name="Titolare_Ruolo" style="width:100%;" mandatory_enabled="true" label="Ruolo">
+							<option value=""></option>
+						
+							<option value="Procuratore">Procuratore</option>
+						
+							<option value="Legale rappresentante">Legale rappresentante</option>
+						
+							<option value="Per conto di">Per conto di</option>
+						
+                    </select>
+                </td>
+            </tr>
+            <tr class="Rigaintestazioneridotta">
+                <td colspan="3">
+                    <p class="Labelcella">Denominazione/Ragione sociale</p>
+                </td>
+                <td colspan="2">
+                    <p class="Labelcella">Tipologia</p>
+                </td>
+            </tr>
+            <tr mandatory_enabled="true">
+                <td colspan="3">
+                    <input class="" id="Referente_Denominazione" name="Referente_Denominazione" style="width:100%" label="Denominazione/Ragione sociale"/>
+                </td>
+                <td colspan="2">
+					<select id="Referente_TipologiaImpresa" name="Referente_TipologiaImpresa" label="Tipologia società" style="width:100%">
+      <option value=""></option>
+      <option value="ditta individuale">ditta individuale</option>
+      <option value="SNC">SNC</option>
+      <option value="SAPA">SAPA</option>
+      <option value="SAS">SAS</option>
+      <option value="SRL">SRL</option>
+      <option value="SURL">SURL</option>
+      <option value="SPA">SPA</option>
+      <option value="SS">SS</option>
+      <option value="ente pubblico">ente pubblico</option>
+      <option value="societa cooperativa">società cooperativa</option>
+      <option value="associazione">associazione</option>
+      <option value="altro">altro</option>
+</select>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+	<input id="Referente_Attributi_CCIAAProv_categoria" 		name="Referente_Attributi_CCIAAProv_categoria" 		type="hidden" value="Altri dati"/>
+	<input id="Referente_Attributi_CCIAAProv_nome" 			name="Referente_Attributi_CCIAAProv_nome" 			type="hidden" value="Provincia registro imprese Camera Commercio"/>
+	<input id="Referente_Attributi_CCIAANumero_categoria" 	name="Referente_Attributi_CCIAANumero_categoria" 	type="hidden" value="Altri dati"/>
+	<input id="Referente_Attributi_CCIAANumero_nome" 		name="Referente_Attributi_CCIAANumero_nome" 			type="hidden" value="Numero iscrizione registro imprese Camera Commerci"/>
+	<input id="Referente_Attributi_IscrittoCCIAA_categoria" 	name="Referente_Attributi_IscrittoCCIAA_categoria" 	type="hidden" value="Altri dati"/>
+	<input id="Referente_Attributi_IscrittoCCIAA_nome" 		name="Referente_Attributi_IscrittoCCIAA_nome" 		type="hidden" value="Iscrizione registro imprese Camera Commercio"/>
+<br/>
+
+
+ {{ utils.Dichiara_445('DICHIARA') }}
+ <p class="Modulo">
+  di avere espletato le necessarie verifiche ed accertamenti, in merito agli aspetti edilizi urbanistici, vincolistici e di seguito riportati, 
+
+ </p>
+ <h3 class="Modulo">
+   E ASSEVERA, QUANTO SEGUE
+ </h3>
+ <BR/>
+<table class="Modulo" style="border: 1px solid grey">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td>
+        <p class="Labeltabella">
+          oggetto dell'intervento:
+          <span style="font-size: 70%; font-style: italic">
+            (si descriva sinteticamente ma in modo esauriente in che cosa consistono le opere)
+          </span>
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <textarea label="oggetto dell'intervento" id="Parametri_oggettointerv" mandatory="true" name="Parametri_oggettointerv" style="width:100%;height:5cm;"></textarea>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<globo_salto_pagina></globo_salto_pagina>
+<input checked="checked" dynamic_check="true" style="display:none" id="Immobile_DatiCatastaliObbligatori" name="Immobile_DatiCatastaliObbligatori" type="checkbox" value="si"/>
+ {{ immobili.immobile("Immobile","collocazione dell'impianto", "Collocazione impianto" ) }}
+
+<table class="Modulo" style="border: 1px solid grey">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="2">
+        <p class="Labeltabella">
+          Identificativi dell'impianto
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          Codice sito
+        </p>
+      </td>
+      <td>
+        <p class="Labelcella">
+          Denominazione impianto
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input type="text" id="Parametri_codicesito" name="Parametri_codicesito" style="width:100%" />
+      </td>
+      <td>
+        <input type="text" id="Parametri_denominimp" name="Parametri_denominimp" style="width:100%"/>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+ <h1 style="background-color: #EEEEEE; width: 19cm; font-size: 12pt; margin-bottom:5px">
+  Normativa urbanistica ed edilizia
+</h1>
+<h2 style="width: 19cm; font-size: 12pt; margin-bottom:5px">
+ <i>
+  Piano del governo di territorio
+ </i>
+</h2>
+
+<p class="Modulo">
+  Dichiara che l'area di intervento  è classificata come segue nel Piano Governo del Territorio vigente:
+</p>
+ <table class="Modulo" style="border: 0px solid grey;">
+  <tr style="height: 0px; visibility:hidden; border:0px">
+   <td style="width: auto; border: 0px">
+   </td>
+   <td style="width: auto; border: 0px">
+   </td>
+   <td style="width: auto; border: 0px">
+   </td>
+  </tr>
+  <tr class="Rigaintestazioneridotta">
+   <td>
+    <p class="Labelcella">
+     Sistema
+    </p>
+   </td>
+   <td>
+    <p class="Labelcella">
+     Ambito
+    </p>
+   </td>
+   <td>
+    <p class="Labelcella">
+     Tessuto
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td>
+    <p>
+     <input id="Parametri_sistema" name="Parametri_sistema" style="width: 100%" type="text"/>
+    </p>
+   </td>
+   <td>
+    <p>
+     <input id="Parametri_ambito" name="Parametri_ambito" style="width: 100%" type="text"/>
+    </p>
+   </td>
+   <td>
+    <p>
+     <input id="Parametri_tessuto" name="Parametri_tessuto" style="width: 100%" type="text"/>
+    </p>
+   </td>
+  </tr>
+ </table>
+<h2 style="width: 19cm; font-size: 12pt; margin-bottom:5px">
+ <i>
+  Presenza di vincoli-tutele
+ </i>
+</h2>
+ <p class="Modulo">
+  Ai sensi del Decreto Legislativo 22/01/2004 n. 42, della Legge
+Regionale 11/03/2005 n. 12.
+ </p>
+ <p class="Modulo">
+  Dichiara che l'intervento:
+ </p>
+ <table class="Modulo" style="border: 0px solid grey;">
+  <tr style="height: 0px; visibility:hidden; border:0px">
+   <td style="width: 4%; border: 0px">
+   </td>
+   <td style="width: 4%; border: 0px">
+   </td>
+   <td style="width: auto; border: 0px">
+   </td>
+  </tr>
+  <tr>
+    <div id="Tassonomia_VincTutNn" name="Tassonomia_VincTutNn" value="" mandatory="true" label="Presenza di vincoli-tutele"/>
+   <td style="vertical-align:top">
+    <input id="Tassonomia_VincTutNn1" name="Tassonomia_VincTutNn" type="radio" value="1"/>
+   </td>
+   <td colspan="2" style="vertical-align:top">
+    <p>
+     non riguarda un'area o immobile tutelati.
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td rowspan="2" style="vertical-align:top">
+    <input id="Tassonomia_VincTutNn2" name="Tassonomia_VincTutNn" type="radio" value="2"/>
+   </td>
+   <td colspan="2" style="vertical-align:top">
+    <p>
+     non riguarda un'area o immobile tutelati, ma comporta consistenti opere di trasformazione delle aree o delle costruzioni fuori dagli ambiti
+  vincolati sotto l'aspetto paesistico, pertanto
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td colspan="2" style="vertical-align:top; background: #eeeeee; font-weight:bold; height: 12pt;">
+    <p class="Labeltabella">
+     allega esame dell'impatto paesistico del progetto.
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td rowspan="8" style="vertical-align:top">
+    <input id="Tassonomia_VincTutNn3" name="Tassonomia_VincTutNn" type="radio" value="3"/>
+   </td>
+   <td colspan="2" style="vertical-align:top">
+    <p>
+     riguarda un'area o immobile tutelati, ed interessati dai seguenti vincoli:
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td rowspan="2" style="vertical-align:top">
+    <div id="articoli" name="articoli" mandatory_enabled="#Tassonomia_VincTutNn3.checked()" label="I seguenti vincoli"/>
+    <input id="Tassonomia_immtutsegvinc_art10" name="Tassonomia_immtutsegvinc_art10" type="checkbox" value="SI" group="articoli"/>
+   </td>
+   <td style="vertical-align:top">
+    <p>
+     art. 10 Beni culturali (ex art. 18 Legge 1089/39) Decreto di vincolo:
+     <input id="Parametri_decrvinc" name="Parametri_decrvinc" style="width: 15%" type="text" label="Decreto vincolo" mandatory_enabled="#Tassonomia_immtutsegvinc_art10.checked()"/>
+     , nei casi previsti dalla legge, pertanto
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td style="vertical-align:top; background: #eeeeee; font-weight:bold; height: 12pt;">
+    <p>
+     allega copia del nulla osta della Soprintendenza in data
+     <input id="Parametri_nodata" name="Parametri_nodata" style="width: 15%" type="text" format="date" label="Data nulla osta sopraintendenza" mandatory_enabled="#Tassonomia_immtutsegvinc_art10.checked()"/>
+      e progetto allegato
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td style="vertical-align:top" rowspan="2">
+    <input id="Tassonomia_immtutsegvinc_art134" name="Tassonomia_immtutsegvinc_art134" type="checkbox" value="SI" group="articoli"/>
+   </td>
+   <td style="vertical-align:top">
+    <p>
+     art.134 Beni paesaggistici (ex art. 1 Legge 1497/39), nei casi previsti dalla legge, pertanto:
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td style="vertical-align:top; background: #eeeeee; font-weight:bold; height: 12pt;">
+    <p>
+     allega copia dell'autorizzazione paesaggistica rilasciata da
+     <input id="Parametri_autpaes134" name="Parametri_autpaes134" style="width: 15%" type="text" mandatory_enabled="#Tassonomia_immtutsegvinc_art134.checked()"  label="Emittente autorizzazione paesaggistica"/>
+      in data
+     <input id="Parametri_autpaes134_Data" name="Parametri_autpaes134_Data" style="width: 15%" type="text" mandatory_enabled="#Tassonomia_immtutsegvinc_art134.checked()" format="date"  label="Data rilascio autorizzazione paesaggistica"/>
+      protocollo n. 
+     <input id="Parametri_autpaes134_Note" name="Parametri_autpaes134_Note" style="width: 15%" type="text" mandatory_enabled="#Tassonomia_immtutsegvinc_art134.checked()" label="Protocollo rilascio autorizzazione paesaggistica"/>
+      e progetto allegato solo nei casi non di competenza del comune
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td style="vertical-align:top">
+    <input id="Tassonomia_immtutsegvinc_art149" name="Tassonomia_immtutsegvinc_art149" type="checkbox" value="SI" group="articoli"/>
+   </td>
+   <td style="vertical-align:top">
+    <p>
+     art. 149 interventi non soggetti ad autorizzazione, in quanto l'intervento proposto non altera lo stato dei luoghi e l'aspetto 
+  esteriore degli edifici
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td rowspan="2" style="vertical-align:top">
+    <input id="Tassonomia_immtutsegvinc_art142" name="Tassonomia_immtutsegvinc_art142" type="checkbox" value="SI" group="articoli"/>
+   </td>
+   <td style="vertical-align:top">
+    <p>
+     art.142 Aree tutelate per legge (ex art. 1 Legge 431/85), nei casi previsti dalla legge, pertanto
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td style="vertical-align:top; background: #eeeeee; font-weight:bold; height: 12pt;" >
+    <p>
+     allega copia dell'autorizzazione paesaggistica rilasciata da
+     <input id="Parametri_autpaes142" name="Parametri_autpaes142" style="width: 15%" type="text" mandatory_enabled="#Tassonomia_immtutsegvinc_art142.checked()" label="Rilasciata da"/>
+      in data
+     <input id="Parametri_autpaes1142_Data" name="Parametri_autpaes142_Data" style="width: 15%" type="text" mandatory_enabled="#Tassonomia_immtutsegvinc_art142.checked()" label="Data" format="date"/>
+      protocollo n.
+     <input id="Parametri_autpaes1142_Note" name="Parametri_autpaes142_Note" style="width: 15%" type="text" mandatory_enabled="#Tassonomia_immtutsegvinc_art142.checked()" label="Numero protocollo"/>
+      e progetto allegato solo nei casi non di competenza del comune
+    </p>
+   </td>
+  </tr>
+ </table>
+ <h2 style="width: 19cm; font-size: 12pt; margin-bottom:5px">
+ <i>
+ Studio paesistico di dettaglio del PGT
+</i>
+</h2>
+ <p class="Modulo">
+  Dichiara che l'intervento:
+ </p>
+ <table class="Modulo" style="border: 0px solid grey;">
+  <tr style="height: 0px; visibility:hidden; border:0px">
+   <td style="width: 4%; border: 0px">
+   </td>
+   <td style="width: auto; border: 0px">
+   </td>
+  </tr>
+  <tr>
+   <td style="vertical-align:top">
+    <div id="Tassonomia_nonricbosc" name="Tassonomia_nonricbosc" mandatory="true" label="Studio paesistico di dettaglio"/>
+    <input id="Tassonomia_nonricbosc1" name="Tassonomia_nonricbosc" type="radio" value="1"/>
+   </td>
+   <td style="vertical-align:top">
+    <p>
+     non ricade negli ambiti boschivi, negli ambiti verdi di pregio, negli ambiti di grande intervisibilità di valore ecologico e ambientale (riferimento tavola SP3)
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td style="vertical-align:top">
+    <input id="Tassonomia_nonricbosc3" name="Tassonomia_nonricbosc" type="radio" value="3"/>
+   </td>
+   <td style="vertical-align:top">
+    <p>
+     ricade negli ambiti boschivi, negli ambiti verdi di pregio, negli ambiti di grande intervisibilità di valore ecologico e ambientale (riferimento tavola SP3) ma l'intervento proposto non altera lo stato dei luoghi e l'aspetto esteriore degli edifici
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td style="vertical-align:top" rowspan="2">
+    <input id="Tassonomia_nonricbosc2" name="Tassonomia_nonricbosc" type="radio" value="2"/>
+   </td>
+   <td style="vertical-align:top">
+    <p>
+     ricade negli ambiti boschivi, negli ambiti verdi di pregio, negli ambiti di grande intervisibilità di valore ecologico e ambientale (riferimento tavola SP3)
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td style="vertical-align:top; background: #eeeeee; font-weight:bold; height: 12pt;">
+    <p>
+     allega esame dell'impatto paesistico del progetto.
+    </p>
+   </td>
+  </tr>
+</table>
+<p class="Modulo">
+e:
+</p>
+<table class="Modulo" style="border: 0px solid grey;">
+  <tr style="height: 0px; visibility:hidden; border:0px">
+   <td style="width: 4%; border: 0px">
+   </td>
+   <td style="width: auto; border: 0px">
+   </td>
+  </tr>
+  <tr>
+    <div id="Tassonomia_nonsensvis" name="Tassonomia_nonsensvis" mandatory="true" label="ambiti definiti ad 'alta' e 'molto alta' sensibiità visiva" />
+   <td style="vertical-align:top">
+    <input id="Tassonomia_nonsensvis1" name="Tassonomia_nonsensvis" type="radio" value="1" />
+   </td>
+   <td style="vertical-align:top">
+    <p>
+     non ricade negli ambiti definiti ad "alta" e "molto alta" sensibiità visiva (riferimento tavola SP5)
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td style="vertical-align:top" rowspan="2">
+    <input id="Tassonomia_nonsensvis3" name="Tassonomia_nonsensvis" type="radio" value="3" />
+   </td>
+   <td style="vertical-align:top">
+    <p>
+     ricade negli ambiti definiti ad alta e molto alta sensibilità visiva (riferimento tavola SP5) ma l'intervento proposto non altera lo stato dei luoghi e l'aspetto esteriore degli edifici
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td style="vertical-align:top; background: #eeeeee; font-weight:bold; height: 12pt;">
+    <p>
+     allega esame dell'impatto paesistico del progetto.
+    </p>  
+   </td>
+  </tr>
+  <tr>
+   <td style="vertical-align:top" rowspan="2">
+    <input id="Tassonomia_nonsensvis2" name="Tassonomia_nonsensvis" type="radio" value="2" />
+   </td>
+   <td style="vertical-align:top">
+    <p>
+     ricade negli ambiti definiti ad "alta" e "molto alta" sensibiità visiva (riferimento tavola SP5)
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td style="vertical-align:top; background: #eeeeee; font-weight:bold; height: 12pt;">
+    <p>
+     allega esame dell'impatto paesistico del progetto.
+    </p>  
+   </td>
+  </tr>
+  <tr>
+   <td style="vertical-align:top">
+    <input id="Tassonomia_nonsensvis4" name="Tassonomia_nonsensvis" type="radio" value="4" />
+   </td>
+   <td style="vertical-align:top">
+    <p>
+     non ricade in ambiti con presenza degli elementi della struttura visiva del paesaggio (corridoi visivi, percorsi panoramici...) le visualità, in particolare quelle aperte e parziali, le emergenze architettoniche di riferimento visivo (riferimento a tavola SP3)
+    </p>
+   </td>
+  </tr>
+ </table>
+ <h2 style="width: 19cm; font-size: 12pt; margin-bottom:5px">
+ <i>
+ Piano territoriale di coordinamento-Parco Regionale dei Colli di Bergamo
+</i>
+</h2>
+ <p class="Modulo">
+  Ai sensi della Legge Regionale 18/08/1977 n. 36 e della Legge Regionale13/04/1991 n. 8.
+</p>
+<p class="Moduo">
+  Dichiara che l'intervento in oggetto:
+ </p>
+ <table class="Modulo" style="border: 0px solid grey;">
+  <tr style="height: 0px; visibility:hidden; border:0px">
+   <td style="width: 4%; border: 0px">
+   </td>
+   <td style="width: 4%; border: 0px">
+   </td>
+   <td style="width: 4%; border: 0px">
+   </td>
+   <td style="width: auto; border: 0px">
+   </td>
+  </tr>
+  <tr>
+   <td style="vertical-align:top">
+    <div id="Tassonomia_prdeicolli" name="Tassonomia_prdeicolli" mandatory="true" label="Piano territoriale di coordinamento Parco Regionale dei Colli di Bergamo" />
+    <input id="Tassonomia_prdeicolli1" name="Tassonomia_prdeicolli" type="radio" value="1"/>
+   </td>
+   <td colspan="3" style="vertical-align:top">
+    <p>
+     non ricade all'interno del perimetro del&nbsp; Parco Regionale&nbsp; dei Colli di Bergamo.
+    </p>
+   </td>
+  </tr>
+  
+  <tr>
+   <td style="vertical-align:top" rowspan="3">
+    <input id="Tassonomia_prdeicolli3" name="Tassonomia_prdeicolli" type="radio" value="3"/>
+   </td>
+   <td colspan="3" style="vertical-align:top">
+    <p>
+     ricade all'interno del perimetro del Parco Regionale dei Colli di Bergamo, ma l'intervento proposto non altera lo stato dei luoghi e l'aspetto esteriore degli edifici
+    </p>
+   </td>
+  </tr>
+  <tr>
+    <td colspan="3">
+      <p>
+        solo se fuori da zone d'iniziativa comunale
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <input type="checkbox" id="NonImportare_SchedaParcoReg" name="NonImportare_SchedaParcoReg" value="SI"  enabled="#Tassonomia_prdeicolli3.checked()"/>
+    </td>
+    <td colspan="2" style="vertical-align:top; background: #eeeeee; font-weight:bold; height: 12pt;">
+      allega scheda Parco Regionale dei Colli attestante quanto sopra
+    </td>
+  </tr>
+  <tr>
+   <td rowspan="5" style="vertical-align:top">
+    <input id="Tassonomia_prdeicolli2" name="Tassonomia_prdeicolli" type="radio" value="2"/>
+   </td>
+   <td colspan="3" style="vertical-align:top">
+    <p>
+     ricade all'interno del perimetro del Parco Regionale&nbsp; dei Colli di Bergamo.
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td rowspan="2" style="vertical-align:top">
+    <div id="Tassonomia_zoneinizcom" name="Tassonomia_zoneinizcom" mandatory_enabled="#Tassonomia_prdeicolli2.checked()" label="Zone di iniziative comunale"/>
+    <input id="Tassonomia_zoneinizcom1" name="Tassonomia_zoneinizcom" type="radio" value="1"/>
+   </td>
+   <td colspan="2" style="vertical-align:top">
+    <p>
+     in zone d'iniziativa comunale, pertanto, nei casi previsti dalla legge,
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td style="vertical-align:top">
+    <input id="Tassonomia_inzona" name="Tassonomia_inzona" type="checkbox" value="SI" dynamic_check="#Tassonomia_zoneinizcom1.checked()" enabled="#Tassonomia_zoneinizcom1.checked()"/>
+   </td>
+   <td style="vertical-align:top; background: #eeeeee; font-weight:bold; height: 12pt;">
+    <p>
+      allega copia dell'autorizzazione paesaggistica rilasciata dal Comune di Bergamo in data
+     <input id="Parametri_IncopiaAutPaesagg_Data" name="Parametri_IncopiaAutPaesagg_Data" style="width: 15%" type="text" format="date" label="Data rilascio autorizzazione paesaggistica" mandatory_enabled="#Tassonomia_inzona.checked()"/>
+      protocollo n.
+     <input id="Parametri_IncopiaAutPaesagg" name="Parametri_IncopiaAutPaesagg" style="width: 15%" label="Protocollo rilascio autorizzazione paesaggistica" type="text" mandatory_enabled="#Tassonomia_inzona.checked()"/>
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td rowspan="2" style="vertical-align:top">
+    <input id="Tassonomia_zoneinizcom2" name="Tassonomia_zoneinizcom" type="radio" value="2"/>
+   </td>
+   <td colspan="2" style="vertical-align:top">
+    <p>
+     fuori da zone d'iniziativa comunale, pertanto, nei casi previsti dalla legge,
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td style="vertical-align:top">
+    <input id="Tassonomia_copiaConsPar" name="Tassonomia_copiaConsPar" type="checkbox" value="SI" dynamic_check="#Tassonomia_zoneinizcom2.checked()" enabled="#Tassonomia_zoneinizcom2.checked()"/>
+   </td>
+   <td style="vertical-align:top; background: #eeeeee; font-weight:bold; height: 12pt;">
+    <p>
+      allega copia dell'autorizzazione paesaggistica rilasciata dal Consorzio Parco dei Colli di Bergamo in data
+     <input id="Parametri_OutcopiaAutPaesagg_Data" name="Parametri_OutcopiaAutPaesagg_Data" style="width: 15%" type="text" format="date" label="Data rilascio autorizzazione paesaggistica" mandatory_enabled="#Tassonomia_copiaConsPar.checked()"/>
+      protocollo n.
+     <input id="Parametri_OutcopiaAutPaesagg" name="Parametri_OutcopiaAutPaesagg" style="width: 15%" type="text" label="Protocollo rilascio autorizzazione paesaggistica" mandatory_enabled="#Tassonomia_copiaConsPar.checked()"/>
+      e progetto allegato
+    </p>
+   </td>
+  </tr>
+ </table>
+ <h2 style="width: 19cm; font-size: 12pt; margin-bottom:5px">
+ <i>
+ Presenza di altri vincoli di interesse sovracomunale
+</i>
+</h2>
+ <p class="Modulo">
+  Ai sensi delle norme vigenti.
+ </p>
+ <p class="MsoNormal">
+  Dichiara che l'intervento:
+ </p>
+ <table class="Modulo" style="border: 0px solid grey;">
+  <tr style="height: 0px; visibility:hidden; border:0px">
+   <td style="width: 4%; border: 0px">
+   </td>
+   <td style="width: 4%; border: 0px">
+   </td>
+   <td style="width: 4%; border: 0px">
+   </td>
+    <td style="width: auto; border: 0px">
+   </td>
+  </tr>
+  <tr>
+    <div id="Tassonomia_soggavincolo" name="Tassonomia_soggavincolo" mandatory="true" label="Presenza di altri vincoli di interesse sovracomunale" />
+   <td style="vertical-align:top">
+    <input id="Tassonomia_soggavincolo1" name="Tassonomia_soggavincolo" type="radio" value="1"/>
+   </td>
+   <td colspan="4" style="vertical-align:top">
+    <p>
+     non riguarda un'area o immobile soggetti a vincolo.
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td rowspan="13" style="vertical-align:top">
+    <input id="Tassonomia_soggavincolo2" name="Tassonomia_soggavincolo" type="radio" value="2"/>
+   </td>
+   <td colspan="4" style="vertical-align:top">
+    <p>
+     riguarda un'area o immobile soggetti a vincolo:
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td rowspan="2" style="vertical-align:top">
+    <div id="vincolotip" name="vincolotip" mandatory_enabled="#Tassonomia_soggavincolo2.checked()" label="Tipologia vincolo"/>
+    <input id="Tassonomia_vincidro" name="Tassonomia_vincidro" type="checkbox" value="SI" group="vincolotip"/>
+   </td>
+   <td style="vertical-align:top" colspan="2">
+    <p>
+     Idrogeologico
+     <span>
+     </span>
+     (RD
+  30/12/1923 n. 3267) pertanto
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td style="vertical-align:top; background: #eeeeee; font-weight:bold; height: 12pt;" colspan="2">
+    <p>
+     allega copia dell'autorizzazione paesaggistica rilasciata in data
+     <input id="Parametri_autpa_Data" name="Parametri_autpa_Data" format="date" style="width: 15%" type="text" label="Data rilascio autorizzazione paesaggistica" mandatory_enabled="#Tassonomia_vincidro.checked()"/>
+      protocollo n.
+     <input id="Parametri_autpa_Note" name="Parametri_autpa_Note" style="width: 15%" type="text" label="Data rilascio autorizzazione paesaggistica" mandatory_enabled="#Tassonomia_vincidro.checked()"/>
+      e progetto allegato solo nei casi non di competenza del comune.
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td style="vertical-align:top" rowspan="3">
+    <input id="Tassonomia_vincaer" name="Tassonomia_vincaer" type="checkbox" value="SI" group="vincolotip"/>
+   </td>
+   <td style="vertical-align:top" colspan="2">
+    <p>
+     Aeroportuale (articoli 707 708 715 del Codice della Navigazione Aerea) in relazione:
+    </p>
+   </td>
+  </tr>
+  <tr>
+    <td>
+      <div id="limitazioni" name="limitazioni" mandatory_enabled="#Tassonomia_vincaer.checked()" label="Aereoportuale"/>
+      <input type="checkbox" value="SI" id="Tassonomia_limialtez" name="Tassonomia_limialtez" group="limitazioni"/>
+    </td>
+    <td>
+      <p>
+        alle limitazioni relative alle altezze di edifici e di manufatti costituenti ostacoli per la navigazione aerea
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td style="vertical-align:top">
+      <input type="checkbox" value="SI" id="Tassonomia_limiemiss" name="Tassonomia_limiemiss" group="limitazioni">
+    </td>
+    <td>
+      <p>
+        alle emissioni di onde elettromagnetiche che possono creare interferenze con gli apparati di radionavigazione aerea
+      </p>
+    </td>
+  </tr>
+  <tr>
+   <td style="vertical-align:top">
+    <input id="Tassonomia_vincstra" name="Tassonomia_vincstra" type="checkbox" value="SI" group="vincolotip"/>
+   </td>
+   <td style="vertical-align:top" colspan="2">
+    <p>
+     Stradale (DLGS 30/04/1992 n. 285, DPR 16/12/1992 n.
+  495).
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td style="vertical-align:top" >
+    <input id="Tassonomia_vincelettr" name="Tassonomia_vincelettr" type="checkbox" value="SI"  group="vincolotip"/>
+   </td>
+   <td style="vertical-align:top" colspan="2">
+    <p>
+     Elettrodotto (DPR 21/06/1968 n. 1062, DPCM
+  08/07/2003)
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td style="vertical-align:top">
+    <input id="Tassonomia_vincferr" name="Tassonomia_vincferr" type="checkbox" value="SI" group="vincolotip"/>
+   </td>
+   <td style="vertical-align:top" colspan="2">
+    <p>
+     Ferroviario (DPR 11/07/1980 n. 753).
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td style="vertical-align:top">
+    <input id="Tassonomia_vincCim" name="Tassonomia_vincCim" type="checkbox" value="SI" group="vincolotip"/>
+   </td>
+   <td style="vertical-align:top" colspan="2">
+    <p>
+     Cimiteriale (RD 27/07/1934 n. 1265, L 01/08/2002 n.
+  166)
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td style="vertical-align:top">
+    <input id="Tassonomia_vinctutac" name="Tassonomia_vinctutac" type="checkbox" value="SI" group="vincolotip"/>
+   </td>
+   <td style="vertical-align:top" colspan="2">
+    <p>
+     Di tutela delle acque (RD 04/12/1923 n. 3267, DLGS
+  03/04/2006 n. 152 e LR 05/12/2008 n. 31)
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td style="vertical-align:top">
+    <input id="Tassonomia_vincservmil" name="Tassonomia_vincservmil" type="checkbox" value="SI" group="vincolotip"/>
+   </td>
+   <td colspan="2" style="vertical-align:top">
+    <p>
+     Di servit&ugrave; militare (Legge 24/12/1976 n. 898 e disposizioni di cui al Titolo VI del libro II dell'ordinamento militare)
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td colspan="4" style="vertical-align:top; background: #eeeeee; font-weight:bold; height: 12pt;">
+    <p>
+     allega copia del Nulla Osta Parere rilasciato in data
+     <input id="Parametri_no_Data" name="Parametri_no_Data" format="date" style="width: 15%" type="text" label="Data rilascio nulla osta parere" mandatory_enabled="#Tassonomia_soggavincolo2.checked()"/>
+      protocollo n.
+     <input id="Parametri_no_Note" name="Parametri_no_Note" style="width: 15%" type="text" label="Protocollo rilascio nulla osta parere" mandatory_enabled="#Tassonomia_soggavincolo2.checked()"/>
+     da
+     <input id="Parametri_no_Emettitore" name="Parametri_no_Emettitore" style="width: 20%" type="text" label="Emittente nulla osta parere" mandatory_enabled="#Tassonomia_soggavincolo2.checked()"/>
+      o dichiarazione di esenzione dall'acquisizione dello stesso, in tal caso precisare la motivazione
+    </p>
+   </td>
+  </tr>
+ </table>
+  <h2 style="width: 19cm; font-size: 12pt; margin-bottom:5px">
+ <i>
+ Occupazione di Suolo
+</i>
+</h2>
+ <p class="Modulo">
+  Dichiara che l'intervento in oggetto:
+ </p>
+ <table class="Modulo" style="border: 0px solid grey;">
+  <tr style="height: 0px; visibility:hidden; border:0px">
+   <td style="width: 4%; border: 0px">
+   </td>
+   <td style="width: auto; border: 0px">
+   </td>
+  </tr>
+  <tr>
+   <td style="vertical-align:top">
+    <div id="Tassonomia_operecivili" name="Tassonomia_operecivili" mandatory="true" label="Occupazione suolo"/>
+    <input id="Tassonomia_operecivili1" name="Tassonomia_operecivili" type="radio" value="1"/>
+   </td>
+   <td style="vertical-align:top" colspan="2">
+    <p>
+     non comporta opere civili, scavi e occupazione di suolo pubblico prevista dagli artt. 88 e 89 del D. L.vo 01/0/2003 n. 259
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td rowspan="3" style="vertical-align:top">
+    <input id="Tassonomia_operecivili2" name="Tassonomia_operecivili" type="radio" value="2"/>
+   </td>
+   <td style="vertical-align:top" colspan="2">
+    <p>
+     comporta opere civili, scavi e occupazione di suolo pubblico prevista dagli artt. 88 e 89 del D. L.vo 01/0/2003 n. 259
+    </p>
+   </td>
+  </tr>
+  <tr>
+    <div id="operecivili" name="operecivili" mandatory_enabled="#Tassonomia_operecivili2.checked()" label="Opere civili"/>
+    <td><input type="checkbox" id="Tassonomia_opciviliallega" name="Tassonomia_opciviliallega" group="operecivili"/></td>
+   <td style="vertical-align:top; background: #eeeeee; font-weight:bold; height: 12pt;">
+    <p>
+     allega copia dell'atto autorizzativo rilasciato in data
+     <input id="Parametri_occsuoloattaut_Data" name="Parametri_occsuoloattaut_Data" style="width: 15%" type="text" format="date" label="Data rilascio autorizzazione occupazione suolo" mandatory_enabled="#Tassonomia_opciviliallega.checked()"/>
+      protocollo n.
+     <input id="Parametri_occsuoloattaut_Note" name="Parametri_occsuoloattaut_Note" style="width: 15%" type="text" label="Protocollo rilascio autorizzazione occupazione suolo" mandatory_enabled="#Tassonomia_opciviliallega.checked()"/>
+      .
+    </p>
+   </td>
+  </tr>
+  <tr>
+    <td><input type="checkbox" id="Tassonomia_opcivilisiimp" name="Tassonomia_opcivilisiimp" group="operecivili"/></td>
+   <td style="vertical-align:top">
+    <p>
+     si impegna a presentare apposita istanza di occupazione/manomissione suolo al competente ufficio comunale
+    </p>
+   </td>
+  </tr>
+ </table>
+<h2 style="width: 19cm; font-size: 12pt; margin-bottom:5px">
+ <i>
+ Requisiti acustici
+</i>
+</h2>
+ <p class="Modulo">
+  Ai sensi della Legge 26/10/1995 n. 447, del DPCM 05/12/1997, della Legge Regionale 10/08/2001 n. 13,
+della DGR 08/03/2002 n. 7/8313.
+ </p>
+ <p class="Modulo">
+  Dichiara che l'intervento:
+ </p> <table class="Modulo" style="border: 0px solid grey;">
+  <tr style="height: 0px; visibility:hidden; border:0px">
+   <td style="width: 4%; border: 0px">
+   </td>
+   <td style="width: auto; border: 0px">
+   </td>
+  </tr>
+  <tr>
+   <td style="vertical-align:top">
+    <input id="Tassonomia_reqacustici" name="Tassonomia_reqacustici" type="checkbox" value="SI"/>
+   </td>
+   <td style="vertical-align:top">
+    <p>
+     Rispetta i requisiti acustici di cui al DPCM
+  05/12/1997.
+    </p>
+   </td>
+  </tr>
+ </table>
+
+ <h2 style="width: 19cm; font-size: 12pt; margin-bottom:5px">
+ <i>
+ Indagine geologica-geotecnica
+</i>
+</h2>
+
+ <p class="Modulo">
+  Ai sensi del DM dei LL.PP. 11/03/1988 e alla Circolare dei LL.PP. 24/09/1988 e s.m.i. 
+ </p>
+ <p class="Modulo">
+  Dichiara che l'intervento:
+ </p>
+
+ <table class="Modulo" style="border: 0px solid grey;">
+  <tr style="height: 0px; visibility:hidden; border:0px">
+   <td style="width: 4%; border: 0px">
+   </td>
+   <td style="width: auto; border: 0px">
+   </td>
+  </tr>
+  <tr>
+   <td style="vertical-align:top">
+    <div id="Tassonomia_compidrog" name="Tassonomia_compidrog" mandatory="true" label="Indagine geologica-geotecnica" />
+    <input id="Tassonomia_compidrog1" name="Tassonomia_compidrog" type="radio" value="1"/>
+   </td>
+   <td style="vertical-align:top">
+    <p>
+     non è soggette alla valutazione di compatibilit&agrave; idrogeologica.
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td rowspan="2" style="vertical-align:top">
+    <input id="Tassonomia_compidrog2" name="Tassonomia_compidrog" type="radio" value="2"/>
+   </td>
+   <td style="vertical-align:top">
+    <p>
+     è soggetto alla valutazione di compatibilit&agrave; idrogeologica, pertanto
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td style="vertical-align:top; background: #eeeeee; font-weight:bold; height: 12pt;">
+    <p>
+     allega relazione a firma del professionista abilitato comprovante la compatibilit&agrave; dell'intervento con la situazione
+  idrogeologica del terreno.
+    </p>
+   </td>
+  </tr>
+ </table>
+ <h2 style="width: 19cm; font-size: 12pt; margin-bottom:5px">
+ <i>
+ Opere strutturali
+</i>
+</h2>
+ <p class="Modulo">
+  Ai sensi della Legge 05/11/1971 n. 1086, del Decreto del Presidente della Repubblica 06/06/2001, n.380, del Decreto Ministeriale 14/01/2008, della 02/02/1974, n. 64 e della Legge Regionale 24/05/1985, n. 46
+ </p>
+ <p class="Modulo">
+  Dichiara che l'intervento
+ </p>
+ <table class="Modulo" style="border: 1px solid grey">
+    <tbody>
+     <tr>
+      <td colspan="1" rowspan="1" style="width: 2%; background-color: white; vertical-align:top">
+       <div id="Tassonomia_norsic_oca" label="Opere strutturali"></div>
+     <input id="Tassonomia_norsic_oca11" name="Tassonomia_norsic_oca" type="radio" value="11"/>
+      </td>
+      <td colspan="4">
+       <p>
+        non è soggetto alla disciplina prevista per le opere in zona sismica e per le opere in conglomerato cementizio armato naturale, in conglomerato cementizio armato precompresso, a struttura metallica
+       </p>
+      </td>
+     </tr>
+     <tr>
+      <td colspan="1" rowspan="9" style="width: 2%; vertical-align:top; background-color: white">
+       <input id="Tassonomia_norsic_oca22" name="Tassonomia_norsic_oca" type="radio" value="22"/>
+      </td>
+      <td colspan="4">
+       <p>
+        è soggetto alla disciplina prevista per le opere in zona sismica e per le opere in conglomerato cementizio armato naturale, in conglomerato cementizio armato precompresso, a struttura metallica
+       </p>
+      </td>
+     </tr>
+          <tr class="Rigaintestazioneridotta">
+      <td colspan="4">
+       <p class="Labelcella">
+        Classificazione opere
+       </p>
+      </td>
+     </tr>
+   <tr>
+      <td style="width: 2%">
+       <div id="Tassonomia_TipoOpereStr" label="Classificazione opere" mandatory_enabled="#Tassonomia_norsic_oca22.checked()"></div>
+     <input id="Tassonomia_TipoOpereStr1" name="Tassonomia_TipoOpereStr" type="radio" value="1"/>
+      </td>
+      <td colspan="3">
+       <p>
+        opere in zona sismica 
+       </p>
+      </td>
+     </tr>
+   <tr>
+      <td style="vertical-align:top">
+     <input id="Tassonomia_TipoOpereStr2" name="Tassonomia_TipoOpereStr" type="radio" value="2"/>
+      </td>
+      <td colspan="3">
+       <p>
+        opere in conglomerato cementizio armato naturale, in conglomerato cementizio armato precompresso, a struttura metallica
+       </p>
+      </td>
+     </tr>
+   <tr class="Rigaintestazioneridotta">
+      <td colspan="4">
+       <p class="Labelcella">
+        Titolo autorizzativo
+       </p>
+      </td>
+     </tr>
+   <tr>
+      <td rowspan="3" style="width: 2%; vertical-align: top; background-color: white;">
+       <div id="Tassonomia_DEN_OPERE_GIA" label="Ente di riferimento" mandatory_enabled="#Tassonomia_norsic_oca22.checked()"></div>
+     <input id="Tassonomia_DEN_OPERE_GIA1" name="Tassonomia_DEN_OPERE_GIA" type="radio" value="1"/>
+      </td>
+      <td colspan="3">
+       <p>
+        ha presentato denuncia e ha ottenuto attestazione di deposito
+       </p>
+      </td>
+     </tr>
+     <tr class="Rigaintestazioneridotta">
+      <td style="width:20%">
+       <p class="Labelcella">
+        Protocollo
+       </p>
+      </td>
+      <td style="width:20%">
+       <p class="Labelcella">
+        Data
+       </p>
+      </td>
+      <td>
+       <p class="Labelcella">
+        Ente di riferimento
+       </p>
+      </td>
+     </tr>
+     <tr style="background-color: white">
+      <td>
+       <input class="inputNormal" label="Protocollo rilascio attestazione di deposito" mandatory_enabled="#Tassonomia_DEN_OPERE_GIA1.checked()" id="Parametri_p62titolo1" name="Parametri_p62titolo1" style="width: 100%"/>
+      </td>
+      <td>
+       <input class="inputNormal" label="Data rilascio attestazione di deposito" format="date" mandatory_enabled="#Tassonomia_DEN_OPERE_GIA1.checked()" id="Parametri_p62titolo1_data" name="Parametri_p62titolo1_data" style="width: 100%"/>
+      </td>
+      <td>
+       <input class="inputNormal" label="Ente di riferimento" mandatory_enabled="#Tassonomia_DEN_OPERE_GIA1.checked()" id="Parametri_p62titolo1_note" name="Parametri_p62titolo1_note" style="width: 100%"/>
+      </td>
+     </tr>
+     <tr>
+      <td colspan="1" rowspan="1" style="width: 2%; background-color: white">
+       <input id="Tassonomia_DEN_OPERE_GIA2" name="Tassonomia_DEN_OPERE_GIA" type="radio" value="2"/>
+      </td>
+      <td colspan="3">
+       <p>
+        sarà depositata denuncia da parte del costruttore,
+        <b>
+         prima dell'inizio delle opere</b>, allo sportello unico
+       </p>
+      </td>
+     </tr>
+    </tbody>
+   </table>
+ <br/>
+ <p class="Modulo">
+  Dichiara altres&igrave; di essere consapevole che, in assenza dei prescritti provvedimenti autorizzativi è sospeso il decorrere dei termini dell'efficacia dei titoli abilitativi.
+ </p>
+  <table class="Modulo" style="border: 1px solid grey">
+    <tbody>
+     <tr class="Rigaintestazione">
+      <td colspan="2">
+       <p style="text-align: center;">
+        <b>
+         Elenco degli allegati
+        </b>
+        <br/>
+        <span style="font-size:70%">
+         <i>(barrare tutti gli allegati richiesti in fase di presentazione della pratica ed elencati sul portale)</i>
+        </span>
+       </p>
+      </td>
+     </tr>
+     <tr>
+      <td style="width:4%">
+       <input enabled="#Tassonomia_VincTutNn2.checked() || #Tassonomia_nonricbosc2.checked() || #Tassonomia_nonsensvis2.checked() || #Tassonomia_nonsensvis3.checked()" dynamic_check="#Tassonomia_VincTutNn2.checked() || #Tassonomia_nonricbosc2.checked() || #Tassonomia_nonsensvis2.checked() || #Tassonomia_nonsensvis3.checked()" id="esamepaes" name="esamepaes" type="checkbox" value="OBBLIGATORIO"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+       <p>
+         esame dell'impatto paesistico del progetto
+       </p>
+      </td>
+     </tr>
+     <tr>
+      <td style="width:4%">
+       <input enabled="#Tassonomia_soggavincolo2.checked()" dynamic_check="#Tassonomia_soggavincolo2.checked()" id="OST-PAR-ESE" name="OST-PAR-ESE" type="checkbox" value="OBBLIGATORIO"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+       <p>
+         nulla osta parere rilasciato o dichiarazione di esenzione dall'acquisto dello stesso
+       </p>
+      </td>
+     </tr>
+     <tr>
+      <td style="width:4%">
+       <input enabled="#Tassonomia_opciviliallega.checked()" dynamic_check="#Tassonomia_opciviliallega.checked()" id="AUT-OCC-SUO" name="AUT-OCC-SUO" type="checkbox" value="OBBLIGATORIO"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+       <p>
+         atto autorizzativo per occupazione del suolo pubblico
+       </p>
+      </td>
+     </tr>
+     <tr>
+      <td style="width:4%">
+       <input enabled="#Tassonomia_immtutsegvinc_art10.checked()" dynamic_check="#Tassonomia_immtutsegvinc_art10" id="noparaltro" name="noparaltro" type="checkbox" value="OBBLIGATORIO"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+       <p>
+        copia del nulla osta della Soprintendenza
+       </p>
+      </td>
+     </tr>
+     <tr>
+      <td style="width:4%">
+       <input enabled="#Tassonomia_immtutsegvinc_art134.checked() || #Tassonomia_immtutsegvinc_art142.checked() || #Tassonomia_copiaConsPar.checked() || #Tassonomia_vincidro.checked()" dynamic_check="#Tassonomia_immtutsegvinc_art134.checked() || #Tassonomia_immtutsegvinc_art142.checked() || #Tassonomia_copiaConsPar.checked() || #Tassonomia_vincidro.checked()" id="progimpstrutt" name="progimpstrutt" type="checkbox" value="OBBLIGATORIO"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+       <p>
+        progetto allegato
+       </p>
+      </td>
+     </tr>
+     <tr>
+      <td style="vertical-align:top">
+       <input enabled="#Tassonomia_immtutsegvinc_art134.checked() || #Tassonomia_immtutsegvinc_art142.checked() || #Tassonomia_inzona.checked() || #Tassonomia_copiaConsPar.checked() || #Tassonomia_vincidro.checked()" dynamic_check="#Tassonomia_immtutsegvinc_art134.checked() || #Tassonomia_immtutsegvinc_art142.checked() || #Tassonomia_inzona.checked() || #Tassonomia_copiaConsPar.checked() || #Tassonomia_vincidro.checked()" id="COP-AUT-PAES" name="COP-AUT-PAES" type="checkbox" value="OBBLIGATORIO"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+       <p>
+        copia dell'autorizzazione paesaggistica
+       </p>
+      </td>
+     </tr>
+     <tr>
+      <td style="vertical-align:top">
+       <input enabled="#Tassonomia_compidrog2.checked()" dynamic_check="#Tassonomia_compidrog2.checked()" id="REL-FIRM-PROF" name="REL-FIRM-PROF" type="checkbox" value="OBBLIGATORIO"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+       <p>
+        allega relazione a firma del professionista abilitato comprovante la compatibilità dell'intervento con la situazione idrogeologica del terreno
+       </p>
+      </td>
+     </tr>
+     <tr>
+      <td style="vertical-align:top">
+       <input enabled="#NonImportare_SchedaParcoReg.checked()" dynamic_check="#NonImportare_SchedaParcoReg.checked()" id="SCHEDA-PAR-COLLI" name="SCHEDA-PAR-COLLI" type="checkbox" value="OBBLIGATORIO"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+       <p>
+        scheda Parco dei Colli
+       </p>
+      </td>
+     </tr>   
+  <tr>
+   <td style="vertical-align: top;">
+    <input enabled="false" id="DAE-CDI" name="DAE-CDI" type="checkbox" value="OBBLIGATORIO"/>
+   </td>
+   <td style="background-color: #eeeeee;">
+    <p>
+     copia del documento d'identità
+     <br/>
+     <span style="font-size:70%">
+      <i>
+       (da non allegare se il modulo è sottoscritto con firma elettronica o se la firma autografa è apposta in presenza del dipendente addetto alla ricezione) 
+      </i>
+     </span>
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td>
+    <input id="ALTRI-ALLEGATI" name="ALTRI-ALLEGATI" type="checkbox" value="OBBLIGATORIO"/>
+   </td>
+   <td style="background-color: #eeeeee;">
+    <p>
+     altri allegati
+     <span style="font-size:70%">
+      (specificare)
+     </span>
+     <input class="" id="AltriAllegati" label="Altri allegati" mandatory_enabled="#ALTRI_ALLEGATI.checked()" name="AltriAllegati" style="width:79%;"/>
+    </p>
+   </td>
+  </tr>     
+    </tbody>
+  </table>
+ <br/> 
+ {{ utils.firma_hidden() }}
+ 
+ <br/>
+<p class="Modulo">
+ <input id="SalvaModulo" name="SalvaModulo" style="height:30px;width:120px;" title="Verifica la corretta compilazione dei campi e salva il modulo nel faldone virtuale dell'istanza." type="submit" value="Salva modulo"/>
+</p>
+
+<input destinatario_amministrazione="getParameter('Ente')" id="GLOBO_modulo_c{{ CodiceModulo }}" name="GLOBO_modulo_c{{ CodiceModulo }}" type="hidden" value=""/>
+
+<input firmare="'P7M_ELETTRONICA'" id="GLOBO_modulofiglio_cSTU-EDI-IMM" name="GLOBO_modulofiglio_cSTU-EDI-IMM" numero="#Immobile_NumeroUlterioriImmobili.value()" obbligatorio="#STU_EDI_IMM.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_allegato_cesamepaes" name="GLOBO_allegato_cesamepaes" obbligatorio="#esamepaes.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_allegato_cnoparaltro" name="GLOBO_allegato_cnoparaltro" obbligatorio="#noparaltro.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_allegato_cAUT-OCC-SUO" name="GLOBO_allegato_cAUT-OCC-SUO" obbligatorio="AUT_OCC_SUO.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+<input id="GLOBO_allegato_cOST-PAR-ESE" name="GLOBO_allegato_cOST-PAR-ESE" obbligatorio="OST_PAR_ESE.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_allegato_cSCHEDA-PAR-COLLI" name="GLOBO_allegato_cSCHEDA-PAR-COLLI" obbligatorio="SCHEDA_PAR_COLLI.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_allegato_cprogimpstrutt" name="GLOBO_allegato_cprogimpstrutt" obbligatorio="#progimpstrutt.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_allegato_cCOP-AUT-PAES" name="GLOBO_allegato_CCOP-AUT-PAES" obbligatorio="#COP_AUT_PAES.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_allegato_cREL-FIRM-PROF" name="GLOBO_allegato_cREL-FIRM-PROF" obbligatorio="#REL_FIRM_PROF.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_allegato_cALTRI-ALLEGATI" name="GLOBO_allegato_cALTRI-ALLEGATI" obbligatorio="#ALTRI_ALLEGATI.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+<input id="GLOBO_id_padre" name="GLOBO_id_padre" type="hidden"/>
+
+<input id="GLOBO_recupera_dati" name="GLOBO_recupera_dati" type="hidden"/>
+
+<input id="GLOBO_codice_modulo" name="GLOBO_codice_modulo" type="hidden" value="{{ CodiceModulo }}"/>
+
+
+{% endblock content %}

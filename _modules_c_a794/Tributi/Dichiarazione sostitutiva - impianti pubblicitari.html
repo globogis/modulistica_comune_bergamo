@@ -1,0 +1,201 @@
+{% set CodiceModulo =  "INSEGNE_DICHSOST" %}
+{% set Urn = "document:c_a794:pubblicita;mezzi.pubblicitari;insegne.preinsegne.cartelli;rilascio;domanda;autorizzazione" %}
+{% extends "base.html" %}
+
+{% block meta %}
+<meta campi_firma="Dichiarante_CodiceFiscale"
+campi_firma_label="il dichiarante"
+classi_modulo="Generale"
+codice_modulo="{{ CodiceModulo }}"
+urn="{% block urn %}{{ Urn }}{% endblock urn %}"
+descrizione="Dichiarazione sostitutiva di atto di notorietà per installazione impianti pubblicitari"
+destinatario_amministrazione=""
+destinatario_ufficio=""
+dinamico="SI"
+email_a=""
+ente_abilitato="TUTTI"
+filigrana="NO"
+firmare="P7M_ELETTRONICA"
+istruzioni_compilazione="ATTENZIONE: questo modulo deve essere compilato con i dati del dichiarante."
+istruzioni_invio="mail_pec"
+metodo_invio=""
+name="GLOBO_modulo"
+procura="NO,,"
+tipo_modulo="secondario"
+ufficio=""
+urlhelp="DomandeRisposte/FAQ"
+verifica_pagamento="NO"
+versione="1.0|01/01/2015"/>
+
+<meta codice_allegato="ALTRI-ALLEGATI"
+urn_allegato="document:s_italia:altri.allegati"
+descrizione_estesa="Altri allegati"
+filename="Altri allegati.pdf"
+firmato="SI"
+istruzioni="/modulistica/moduli/ALTRI-ALLEGATI"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+
+{% endblock meta %}
+{% block title %}
+   Dichiarazione sostitutiva di atto di notorietà per installazione impianti pubblicitari
+  {% endblock title %}
+{% block content %}
+ <globo_fondo_pagina areaheight="150" scope="2">
+{{ utils.firma() }}
+ </globo_fondo_pagina>
+{{ intestazioni.intestazione_modulosecondario_senzabollo() }}
+ <input type="hidden" id="Oggetto" name="Oggetto" dynamic_value="#Dichiarante_Cognome.value().toUpperCase() + ' - Dichiarazione impianti pubblicitari'"/>
+
+ <h1 class="Modulo">
+  Dichiarazione sostitutiva di atto di notorietà per installazione impianti pubblicitari
+ </h1>
+
+ {{anagrafica.societa("Dichiarante","Il sottoscritto",["Persona fisica", "Titolare", "Legale rappresentante"], "Dichiarante")}}
+
+
+<table class="Modulo" style="border:1px solid grey;">
+  <tbody>
+   <tr class="Rigaintestazioneridotta">
+    <td colspan="2">
+     <p class="Labeltabella">
+      in relazione alla richiesta di installazione di impianti pubblicitari
+    </p>
+    </td>
+   </tr>
+  </tbody>
+ </table>
+<div type="Dichiara_445">
+  <p class="Modulo">Valendosi della facoltà prevista dall'articolo 46 e dall'articolo 47 del Decreto del Presidente della Repubblica 28/12/2000, n. 445, consapevole delle sanzioni penali previste dall'articolo 76 del Decreto del Presidente della Repubblica 28/12/2000, n. 445 e dall'articolo 483 del Codice Penale nel caso di dichiarazioni non veritiere e di falsità in atti, in riferimento all'impatto acustico</p>
+  <h3 class="Modulo">DICHIARA</h3>
+</div>
+ <input checked="checked" id="SempreSI" name="SempreSI" style="display:none;" type="checkbox" value="si"/>
+ 
+
+  <br/>
+
+ <table class="Modulo" style="border: 0px;">
+  <tbody>
+   <tr style="border: 0px;">
+    <td style="width: 20px; border: 0px; vertical-align: top;">
+     <input checked="checked" dynamic_check="true" id="Parametri_INSDichiara1" name="Parametri_INSDichiara1" type="checkbox" value="si"/>
+    </td>
+    <td style="border: 0px;">
+     <p>
+      che i manufatti da collocare sono stati realizzati e saranno installati in modo da garantire la resistenza all'azione degli agenti atmosferici
+     </p>
+    </td>
+   </tr>
+   <tr style="border: 0px;">
+    <td style="width: 20px; border: 0px; vertical-align: top;">
+     <input checked="checked" dynamic_check="true" id="Parametri_INSDichiara2" name="Parametri_INSDichiara2" type="checkbox" value="si"/>
+    </td>
+    <td style="border: 0px;">
+     <p>
+      che i manufatti da collocare sono stati realizzati e saranno installati in conformità alle disposizioni di legge vigenti in materia di sicurezza in modo da tutelare l'incolumità di persone ed animali e la sicurezza delle cose
+     </p>
+    </td>
+   </tr>
+   <tr style="border: 0px;">
+    <td style="width: 20px; border: 0px; vertical-align: top;">
+     <input checked="checked" dynamic_check="true" id="Parametri_INSDichiara3" name="Parametri_INSDichiara3" type="checkbox" value="si"/>
+    </td>
+    <td style="border: 0px;">
+     <p>
+      che i manufatti da collocare sono stati realizzati e saranno installati in conformità alle disposizioni contenute nell'articolo 23 del Decreto Legislativo 30/04/1992, n. 285, di quelle contenute al paragrafo terzo del Decreto del Presidente della Repubblica 16/12/1992, n. 495 e di quelle contenute nel vigente Regolamento comunale
+     </p>
+    </td>
+   </tr>
+   <tr style="border: 0px;">
+    <td style="width: 20px; border: 0px; vertical-align: top;">
+     <input checked="checked" dynamic_check="true" id="Parametri_INSDichiara4" name="Parametri_INSDichiara4" type="checkbox" value="si"/>
+    </td>
+    <td style="border: 0px;">
+     <p>
+      che i manufatti da collocare sono stati calcolati e realizzati e saranno posti in opera tenendo conto della natura del terreno, della spinta del vento, ecc. in modo da garantire la stabilità e non costituire pericolo per la pubblica incolumità
+     </p>
+    </td>
+   </tr>
+   <tr style="border: 0px;">
+    <td style="width: 20px; border: 0px; vertical-align: top;">
+     <input checked="checked" dynamic_check="true" id="Parametri_INSDichiara5" name="Parametri_INSDichiara5" type="checkbox" value="si"/>
+    </td>
+    <td style="border: 0px;">
+     <p>
+      che i manufatti da collocare non pregiudicano la staticità dell'edificio
+     </p>
+    </td>
+   </tr>
+   <tr style="border: 0px;">
+    <td style="width: 20px; border: 0px; vertical-align: top;">
+     <input checked="checked" dynamic_check="true" id="Parametri_INSDichiara6" name="Parametri_INSDichiara6" type="checkbox" value="si"/>
+    </td>
+    <td style="border: 0px;">
+     <p>
+      che i manufatti da collocare sono conformi alle disposizione contenute nella Legge Regionale 27/03/2000, n. 17 in materia di inquinamento luminoso
+     </p>
+    </td>
+   </tr>
+   <tr style="border: 0px;">
+    <td style="width: 20px; border: 0px; vertical-align: top;">
+     <input checked="checked" dynamic_check="true" id="Parametri_INSDichiara7" name="Parametri_INSDichiara7" type="checkbox" value="si"/>
+    </td>
+    <td style="border: 0px;">
+     <p>
+      di essere consapevole che la collocazione del manufatto potrà avvenire solo ad avvenuto rilascio dell'autorizzazione
+     </p>
+    </td>
+   </tr>
+   </tbody>
+ </table>
+
+ <table class="Modulo" name="Allegati" style="border:1px solid grey">
+  <tbody>
+   <tr class="Rigaintestazione">
+    <td colspan="2">
+     <p style="text-align: center;">
+      <b>
+       Elenco degli allegati
+      </b>
+      <br/>
+      <span style="font-size:70%">
+      </span>
+     </p>
+    </td>
+   </tr>
+    <tr>
+     <td>
+      <input id="ALTRI-ALLEGATI" name="ALTRI-ALLEGATI" type="checkbox" value="OBBLIGATORIO"/>
+     </td>
+     <td style="background-color: #eeeeee;">
+      <p>
+       altri allegati
+       <span style="font-size:70%">
+        (specificare)
+       </span>
+       <input class="" id="AltriAllegati" label="Altri allegati" mandatory_enabled="#ALTRI_ALLEGATI.checked()" name="AltriAllegati" style="width:79%;"/>
+      </p>
+     </td>
+    </tr>
+  </tbody>
+ </table>
+
+ <br/>
+{{ utils.firma_hidden() }}
+ <br/>
+ <p class="Modulo">
+  <input id="SalvaModulo" name="SalvaModulo" style="height:30px;width:120px;" title="Verifica la corretta compilazione dei campi e salva il modulo nel faldone virtuale dell'istanza." type="submit" value="Salva modulo"/>
+  
+  
+ </p>
+ <input id="GLOBO_modulo_c{{ CodiceModulo }}" name="GLOBO_modulo_c{{ CodiceModulo }}" type="hidden" value=""/>
+ <input id="GLOBO_id_padre" name="GLOBO_id_padre" type="hidden"/>
+ <input id="GLOBO_recupera_dati" name="GLOBO_recupera_dati" type="hidden"/>
+ <input id="GLOBO_codice_modulo" name="GLOBO_codice_modulo" type="hidden" value="{{ CodiceModulo }}"/>
+ <input id="GLOBO_allegato_cALTRI-ALLEGATI" name="GLOBO_allegato_cALTRI-ALLEGATI" obbligatorio="#ALTRI_ALLEGATI.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+
+{% endblock content %}

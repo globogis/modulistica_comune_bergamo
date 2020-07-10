@@ -1,0 +1,725 @@
+{% set CodiceModulo = "TRASM_PROG_SMART" %}
+{% set Urn = "document:c_a794:progetto.smartworking" %}
+{% extends "base.html" %}
+
+{% block meta %}
+
+<meta campi_firma="Titolare_CodiceFiscale,AventeTitolo1_CodiceFiscale,AventeTitolo2_CodiceFiscale"
+campi_firma_label="il dichiarante,il responsabile del servizio,il dirigente"
+classi_modulo="Personale"
+codice_modulo="{{ CodiceModulo }}"
+urn="{% block urn %}{{ Urn }}{% endblock urn %}"
+sub_urn_list=""
+uo_globo_list=""
+descrizione="Presentazione del progetto di smart working"
+destinatario_amministrazione=""
+destinatario_ufficio="UOLAVORO"
+dinamico="SI"
+email_a=""
+ente_abilitato="TUTTI"
+filigrana="NO"
+firmare="P7M_ELETTRONICA"
+istruzioni_compilazione=""
+istruzioni_invio="mail_pec"
+metodo_invio="mail"
+name="GLOBO_modulo"
+procura="NO,,"
+tipo_modulo="principale"
+urlhelp="/modulistica/moduli/{{ CodiceModulo }}"
+verifica_pagamento="NO"
+versione="1.1|27/10/2019"/>
+
+<meta codice_modulo_figlio="INCARICO_PROCURA"
+urn_modulo_figlio="document:s_italia:generale;incarico.procura"
+name="GLOBO_modulofiglio"
+numero="1"
+obbligatorio="DINAMICO"/>
+
+{% endblock meta %}
+
+{% block title %}
+  Presentazione del progetto di smart working
+{% endblock title %}
+
+{% block content %}
+
+<globo_fondo_pagina areaheight="150" scope="4">
+<div type="firma">
+	<table class="Modulo" name="Firme" style="border:1px solid grey; margin-left: 28pt; display: none; pd4ml-display: inline">
+		<tbody>
+			<tr>
+				<td style="width: 33%; text-align: center;">
+					<input class="" id="Luogo_PDF" name="Luogo_PDF" style="width:80%;" type="text"/>
+				</td>
+				<td style="width: 33%; text-align: center;">
+					<input class="" id="Data_PDF" name="Data_PDF" style="width:50%;" type="text"/>
+				</td>
+				<td style="width: 34%; text-align: center; height: 1.5cm;"></td>
+			</tr>
+			<tr class="Rigaintestazioneridotta">
+				<td>
+					<p class="Labelcella" style="text-align: center">Luogo</p>
+				</td>
+				<td>
+					<p class="Labelcella" style="text-align: center">Data</p>
+				</td>
+				<td>
+					<p class="Labelcella" style="text-align: center">Il dichiarante</p>
+				</td>
+			</tr>
+			<tr>
+				<td style="width: 34%; text-align: center; height: 1.5cm;"></td>
+				<td style="width: 34%; text-align: center; height: 1.5cm;"></td>
+				<td style="width: 34%; text-align: center; height: 1.5cm;"></td>
+			</tr>
+			<tr class="Rigaintestazioneridotta">
+				<td>
+					<p class="Labelcella" style="text-align: center">Il dirigente</p>
+				</td>
+				<td>
+					<p class="Labelcella" style="text-align: center">Il responsabile del servizio</p>
+				</td>
+				<td>
+					<p class="Labelcella" style="text-align: center"></p>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+</globo_fondo_pagina>
+
+<input id="Parametri_Comune" name="Parametri_Comune" type="hidden" dynamic_value="#Ente.value()"/>
+<input id="Oggetto" name="Oggetto" type="hidden" dynamic_value="#Titolare_Cognome.value().toUpperCase() + ' ' + #Titolare_Nome.value().toUpperCase() + ' - presentazione progetto di smart working'"/>
+
+{{ intestazioni.intestazione_moduloprincipale_senzabollo() }}
+
+<h1 class="Modulo">
+  Presentazione del progetto di smart working
+</h1>
+
+{{ anagrafica.cognome_nome("Titolare", "Il sottoscritto", "Richiedente", "visibility:visibility", "cursor:pointer", "visibility:visibility") }}
+
+<table class="Modulo" style="border: 1px solid grey;margin-top: -1px;">
+  <tbody>
+    <tr class="Rigaintestazioneridotta">
+      <td colspan="2">
+        <p class="Labelcella"> in qualità di </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <div id="Tassonomia_Tit_Us" name="Tassonomia_Tit_Us" label="Titolarità del dichiarante" mandatory="true"></div>
+        <input id="Tassonomia_Tit_Us1" name="Tassonomia_Tit_Us" type="radio" value="1" />
+      </td>
+      <td>
+        <p> responsabile di servizio </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="Tassonomia_Tit_Us2" name="Tassonomia_Tit_Us" type="radio" value="2" />
+      </td>
+      <td>
+        <p> non responsabile di servizio </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<h3 class="Modulo">
+  COMUNICA
+</h3>
+
+
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td>
+        <p class="Labeltabella">
+          titolo del progetto
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input class="inputNormal" id="Parametri_TitoloProgetto" name="Parametri_TitoloProgetto" style="width: 100%;" label="Titolo del progetto" mandatory="true"/>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          Obiettivi del progetto di telelavoro/lavoro agile
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <textarea class="inputNormal" id="Parametri_ObiettiviProgetto" name="Parametri_ObiettiviProgetto" style="width: 100%; height: 5cm;" label="Obiettivi del progetto" mandatory="true"></textarea>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<table class="Modulo" style="border: 1px solid grey; margin-top: -1px;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="3">
+        <p class="Labeltabella">
+          attività interessate <span style="font-size: 70%; font-weight: normal;"><i>(processi lavorativi interessati dal progetto)</i></span>
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td style="width: 50%;">
+        <p class="Labelcella">
+          Attività
+        </p>
+      </td>
+      <td style="width: 25%;">
+        <p class="Labelcella">
+          PEG
+        </p>
+      </td>
+      <td style="width: 25%;">
+        <p class="Labelcella">
+          Numero di riferimento
+        </p>
+      </td>
+    </tr>
+    {% for i in range(1, 9) %}
+    <tr {% if i==1 %} mandatory_enabled="true" {% endif %}>
+      <td>
+        <input class="inputNormal" id="Parametri_AttivitaInteressata{{i}}_Nome" name="Parametri_AttivitaInteressata{{i}}_Nome" style="width: 100%;" label="Attività" {% if i!=1 %} enabled="#Parametri_AttivitaInteressata{{i-1}}_Nome.value() != ''" {% endif %}/>
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_AttivitaInteressata{{i}}_PEG" name="Parametri_AttivitaInteressata{{i}}_PEG" style="width: 100%;" label="PEG" {% if i!= 1 %} mandatory_enabled="#Parametri_AttivitaInteressata{{i}}_Nome.value() != ''" {% endif %} />
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_AttivitaInteressata{{i}}_NumeroRiferimento" name="Parametri_AttivitaInteressata{{i}}_NumeroRiferimento" style="width: 100%;" label="Numero di riferimento" {% if i!= 1 %} mandatory_enabled="#Parametri_AttivitaInteressata{{i}}_Nome.value() != ''" {% endif %} />
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<table class="Modulo" style="border: 1px solid grey; margin-top: -1px;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td>
+        <p class="Labeltabella">
+          impostazione del progetto di telelavoro/lavoro agile
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          Modalità di effettuazione del lavoro
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input class="inputNormal" id="Parametri_ModalitaEffettuazioneLavoro" name="Parametri_ModalitaEffettuazioneLavoro" style="width: 100%;" label="Modalità di effettuazione del lavoro" mandatory="true" />
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          Sede del telelavoro
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input class="inputNormal" id="Parametri_SedeTelelavoro" name="Parametri_SedeTelelavoro" style="width: 100%;" label="Sede del telelavoro" mandatory="true"/>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          Tecnologie utilizzate, strumenti e sistemi di supporto e sicurezza
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input class="inputNormal" id="Parametri_TecnologieUtilizzate1" name="Parametri_TecnologieUtilizzate1" style="width: 100%;" label="Tecnologie utilizzate" mandatory="true"/>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          Tecnologie utilizzate, strumenti e sistemi di supporto e sicurezza
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input class="inputNormal" id="Parametri_TecnologieUtilizzate2" name="Parametri_TecnologieUtilizzate2" style="width: 100%;" label="Tecnologie utilizzate" />
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          Alternanza lavoro a distanza e lavoro in ufficio
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input class="inputNormal" id="Parametri_AlternanzaLavoro" name="Parametri_AlternanzaLavoro" style="width: 100%;" label="Alternanza lavoro a distanza e in ufficio" mandatory="true"/>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<table class="Modulo" style="border: 1px solid grey; margin-top: -1px;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="4">
+        <p class="Labeltabella">
+          ulteriori dipendenti coinvolti
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          Nome
+        </p>
+      </td>
+      <td>
+        <p class="Labelcella">
+          Cognome
+        </p>
+      </td>
+      <td>
+        <p class="Labelcella">
+          Categoria
+        </p>
+      </td>
+      <td>
+        <p class="Labelcella">
+          Profilo professionale
+        </p>
+      </td>
+    </tr>
+    {% for i in range(1, 6) %}
+    <tr {% if i!=1 %} enabled="#Parametri_UlterioreDipentente{{i-1}}_Nome.value() != ''" {% endif %}>
+      <td>
+        <input class="inputNormal" id="Parametri_UlterioreDipentente{{i}}_Nome" name="Parametri_UlterioreDipentente{{i}}_Nome" style="width: 100%;" label="Nome del dipendente" />
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_UlterioreDipentente{{i}}_Cognome" name="Parametri_UlterioreDipentente{{i}}_Cognome" style="width: 100%;" label="Cognome del dipendente" mandatory_enabled="#Parametri_UlterioreDipentente{{i}}_Nome.value() != ''" />
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_UlterioreDipentente{{i}}_Categoria" name="Parametri_UlterioreDipentente{{i}}_Categoria" style="width: 100%;" label="Categoria del dipendente" mandatory_enabled="#Parametri_UlterioreDipentente{{i}}_Nome.value() != ''" />
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_UlterioreDipentente{{i}}_ProfiloProfessionale" name="Parametri_UlterioreDipentente{{i}}_ProfiloProfessionale" style="width: 100%;" label="Profilo professionale del dipendente" mandatory_enabled="#Parametri_UlterioreDipentente{{i}}_Nome.value() != ''" />
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td>
+        <p class="Labeltabella">
+          modifiche organizzative necessarie
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <textarea class="inputNormal" id="Parametri_ModificheOrganizzative" name="Parametri_ModificheOrganizzative" style="width: 100%; height: 5cm;" label="Modifiche organizzative necessarie" mandatory="true"></textarea>
+      </td>
+    </tr>
+    <tr class="Rigaintestazione">
+      <td>
+        <p class="Labeltabella">
+          indicazione dei costi e dei benefici, diretti e indiretti che si prevede di realizzare <br>
+          <span style="font-size: 70%; font-weight: normal;"><i>(benefici personali, organizzativi, economici per l'ente)</i></span>
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <textarea class="inputNormal" id="Parametri_CostiBenefici" name="Parametri_CostiBenefici" style="width: 100%; height: 5cm;" label="Indicazione dei costi e benefici" mandatory="true"></textarea>
+      </td>
+    </tr>
+    <tr class="Rigaintestazione">
+      <td>
+        <p class="Labeltabella">
+          possibili ambiti di intervento volti alla razionalizzazione e semplificazione di attività
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <textarea class="inputNormal" id="Parametri_AmbitiIntervento" name="Parametri_AmbitiIntervento" style="width: 100%; height: 5cm;" label="Ambiti di intervento"></textarea>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<div id="Tassonomia_CriteriModalita" name="Tassonomia_CriteriModalita" label="Criteri e modalità di verifica" mandatory="true"></div>
+<table class="Modulo" style="border: 1px solid grey; margin-top: -1px;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="2">
+        <p class="Labeltabella">
+          presenze e prestazioni
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td colspan="2">
+        <p class="Labelcella">
+          Modalità di verifica della presenza in servizio
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2">
+        <textarea class="inputNormal" id="Parametri_ModalitaVerificaPresenza" name="Parametri_ModalitaVerificaPresenza" style="width: 100%; height: 5cm;" label="Modalità di verifica della presenza" mandatory="true"></textarea>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td colspan="2">
+        <p class="Labelcella">
+          Criteri e modalità di verifica qualitativa e quantitativa dell'attività svolta in telelavoro/lavoro agile
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input group="Tassonomia_CriteriModalita" id="Tassonomia_CriteriModalita1" name="Tassonomia_CriteriModalita1" type="checkbox" value="SI" />
+      </td>
+      <td>
+        <p>
+          utilizzo schede di programmazione settimanale/mensile e di report settimanale/mensile
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input group="Tassonomia_CriteriModalita" id="Tassonomia_CriteriModalita2" name="Tassonomia_CriteriModalita2" type="checkbox" value="SI" />
+      </td>
+      <td>
+        <p>
+          consegna delle prestazioni richieste entro i tempi concordati con il responsabile del servizio/dirigente
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input group="Tassonomia_CriteriModalita" id="Tassonomia_CriteriModalita3" name="Tassonomia_CriteriModalita3" type="checkbox" value="SI" />
+      </td>
+      <td>
+        <p>
+          verifica attraverso l’implementazione dei dati nelle procedure
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input group="Tassonomia_CriteriModalita" id="Tassonomia_CriteriModalita4" name="Tassonomia_CriteriModalita4" type="checkbox" value="SI" />
+      </td>
+      <td>
+        <p>
+          altro <span style="font-size: 70%;"><i>(specificare)</i></span> <input class="inputNormal" id="Tassonomia_CriteriModalita_Note" name="Tassonomia_CriteriModalita_Note" style="width: 70%;" label="Altro" mandatory_enabled="#Tassonomia_CriteriModalita4.checked()">
+        </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<table class="Modulo" style="border: 1px solid grey; margin-top: -1px;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td>
+        <p class="Labeltabella">
+          interventi formativi a supporto
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          Tipologia degli interventi formativi a supporto del progetto di telelavoro/lavoro agile
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input class="inputNormal" id="Parametri_TipologiaInterventiFormativi" name="Parametri_TipologiaInterventiFormativi" style="width: 100%;" label="Tipologia degli interventi formativi" mandatory="true" />
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          Durata degli interventi formativi a supporto del progetto di telelavoro/lavoro agile
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input class="inputNormal" id="Parametri_DurataInterventiFormativi" name="Parametri_DurataInterventiFormativi" style="width: 100%;" label="Durata degli interventi formativi" mandatory="true" />
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          Metodologie didattiche individuate per gli interventi formativi a supporto del progetto di telelavoro/lavoro agile
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input class="inputNormal" id="Parametri_MetodologieInterventiFormativi" name="Parametri_MetodologieInterventiFormativi" style="width: 100%;" label="Metodologie per gli interventi formativi" mandatory="true"/>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          Risorse finanziarie dedicate all’intervento formativo
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input class="inputNormal" id="Parametri_RisorseFinanziarieEventiFormativi" name="Parametri_RisorseFinanziarieEventiFormativi" style="width: 100%;" label="Risorse finanziarie" mandatory="true"/>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<div id="Tassonomia_CoerenzaObiettivi1" name="Tassonomia_CoerenzaObiettivi1" label="Coerenza con gli obiettivi dell'azione" mandatory="true"></div>
+<div id="Tassonomia_CoerenzaObiettivi2" name="Tassonomia_CoerenzaObiettivi2" label="Coerenza con i destinatari delle azioni" mandatory="true"></div>
+<table class="Modulo" style="border: 1px solid grey; margin-top: -1px;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="2">
+        <p class="Labeltabella">
+          destinatari ed obiettivi in riferimento all’azione del P.T.O
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td colspan="2">
+        <p class="Labelcella">
+          Coerenza con gli obiettivi dell’azione
+        </p>
+      </td>
+    </tr>
+    {% set obiettivi = ["favorire la conciliazione tra tempi di vita, di lavoro e di cura",
+    "favorire progetti di crescita formativa e professionale e percorsi di studio dei/delle dipendenti del comune",
+    "ridurre o abbattere i tempi obbligati di spostamento casa-lavoro contribuendo alla riduzione del traffico veicolare nelle ore di punta",
+    "diminuire le richieste di mobilità per altre sedi",
+    "incrementare l’equilibrio tra il lavoro retribuito, la vita familiare e le scelte formative di empowerment",
+    "migliorare la qualità e il tempo di lavoro e il benessere organizzativo",
+    "favorire l’equilibrio tra i generi nell’uso del tempo",
+    "supportare progetti di ampliamento della fascia oraria di erogazione dei servizi comunali",
+    "migliorare l’efficienza promuovendo una cultura organizzativa orientata al risultato e non alla presenza"] %}
+    {% for obiettivo in obiettivi %}
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input group="Tassonomia_CoerenzaObiettivi1" id="Tassonomia_CoerenzaObiettivi1{{loop.index}}" name="Tassonomia_CoerenzaObiettivi1{{loop.index}}" type="checkbox" value="SI" />
+      </td>
+      <td>
+        {{obiettivo}}
+      </td>
+    </tr>
+    {% endfor %}
+
+    <tr class="Rigaintestazione">
+      <td colspan="2">
+        <p class="Labeltabella">
+          coerenza con i destinatari delle azioni, come indicati dal P.T.O
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td colspan="2">
+        <p class="Labelcella">
+          Il personale inserito nel progetto è riferito alle seguenti tipologie di lavoratori e lavoratrici già individuati quali destinatari privilegiati delle azioni
+        </p>
+      </td>
+    </tr>
+    {% set obiettivi = ["situazioni di disabilità psicofisiche del lavoratore, tali da rendere disagevole e/o inopportuno il raggiungimento del luogo di lavoro",
+    "esigenze di cura del lavoratore",
+    "esigenze di cura di figli conviventi minori di anni dieci",
+    "esigenze di cura di parenti e affini conviventi (entro il 2° grado di parentela/affinità) o comunque di conviventi (risultati da iscrizione anagrafica o da iscrizione nel Registro delle Unioni Civili istituito dal Comune di Bergamo)",
+    "esigenze collegate alla frequenza di corsi di studio o di percorsi di apprendimento",
+    "maggiore tempo di percorrenza per raggiungere la sede di lavoro, con riferimento al numero di kilometri di distanza dall’abitazione del lavoratore"] %}
+    {% for obiettivo in obiettivi %}
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input group="Tassonomia_CoerenzaObiettivi2" id="Tassonomia_CoerenzaObiettivi2{{loop.index}}" name="Tassonomia_CoerenzaObiettivi2{{loop.index}}" type="checkbox" value="SI" />
+      </td>
+      <td>
+        {{obiettivo}}
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<br>
+
+<h3 class="Modulo"> RICHIEDE </h3>
+<p class="Modulo">
+  l'autorizzazione alle seguenti figure
+</p>
+
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="3">
+        <p class="Labeltabella">
+          <input id='responsabilecheckbox' name='responsabilecheckbox' type='checkbox' value='si' label="al responsabile" dynamic_check="#Tassonomia_Tit_Us2.checked()" enabled="#Tassonomia_Tit_Us2.checked()"/> al responsabile di servizio   
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella"> Cognome </p>
+      </td>
+      <td>
+        <p class="Labelcella"> Nome </p>
+      </td>
+      <td>
+        <p class="Labelcella"> Codice Fiscale </p>
+      </td>
+    </tr>
+    <tr mandatory_enabled="#responsabilecheckbox.checked()" >
+      <td>
+        <input class="InputNormal" id="AventeTitolo1_Cognome" name="AventeTitolo1_Cognome" label="Cognome Responsabile" style="width: 100%;" />
+      </td>
+      <td>
+        <input class="InputNormal" id="AventeTitolo1_Nome" name="AventeTitolo1_Nome" label="Nome Responsabile" style="width: 100%;" />
+      </td>
+      <td>
+        <input class="InputNormal" id="AventeTitolo1_CodiceFiscale" name="AventeTitolo1_CodiceFiscale" label="Codice fiscale Responsabile" style="width: 100%;" />
+      </td>
+    </tr> 
+  </tbody>
+</table>
+
+<table class="Modulo" style="border: 1px solid grey;">
+    <tbody>
+      <tr class="Rigaintestazione">
+        <td colspan="3">
+          <p class="Labeltabella">
+            <input id='dirigentecheckbox' name='dirigentecheckbox' type='checkbox' value='si' label="al dirigente" dynamic_check="true" checked="checked"/> al dirigente
+          </p>
+        </td>
+      </tr>
+      <tr class="Rigaintestazioneridotta">
+        <td>
+          <p class="Labelcella"> Cognome </p>
+        </td>
+        <td>
+          <p class="Labelcella"> Nome </p>
+        </td>
+        <td>
+          <p class="Labelcella"> Codice Fiscale </p>
+        </td>
+      </tr>
+      <tr mandatory_enabled="#dirigentecheckbox.checked()" >
+        <td>
+          <input class="InputNormal" id="AventeTitolo2_Cognome" name="AventeTitolo2_Cognome" label="Cognome Responsabile" style="width: 100%;" />
+        </td>
+        <td>
+          <input class="InputNormal" id="AventeTitolo2_Nome" name="AventeTitolo2_Nome" label="Nome Responsabile" style="width: 100%;" />
+        </td>
+        <td>
+          <input class="InputNormal" id="AventeTitolo2_CodiceFiscale" name="AventeTitolo2_CodiceFiscale" label="Codice fiscale Responsabile" style="width: 100%;" />
+        </td>
+      </tr> 
+    </tbody>
+  </table>
+
+<br>
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          Eventuali annotazioni
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <textarea class="inputNormal" id="Parametri_Annotazioni" name="Parametri_Annotazioni" style="width: 100%; height: 5cm;" label="Eventuali annotazioni"></textarea>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<br>
+{{ utils.trattamento_dati_personali() }}
+<br/>
+
+<table class="Modulo" id="firme" name="Firme" style="border:1px solid grey; pd4ml-display: none;">
+	<tbody>
+		<tr>
+			<td style="width: 33%; text-align: center;">
+				<input class="" id="Luogo" label="Luogo" mandatory="true" name="Luogo" style="width:80%;" type="text"/>
+			</td>
+			<td style="width: 33%; text-align: center;">
+				<input class="" format="date" id="Data" label="Data" mandatory="true" name="Data" style="width:50%;" type="text"/>
+			</td>
+			<td style="width: 34%; text-align: center; height: 1.5cm;">
+			</td>
+		</tr>
+		<tr class="Rigaintestazioneridotta">
+			<td>
+				<p class="Labelcella" style="text-align: center">Luogo</p>
+			</td>
+			<td>
+				<p class="Labelcella" style="text-align: center">Data</p>
+			</td>
+  				<td>
+					<p class="Labelcella" style="text-align: center">Il dichiarante</p>
+				</td>
+			</tr>
+			<tr>
+				<td style="width: 34%; text-align: center; height: 1.5cm;"></td>
+				<td style="width: 34%; text-align: center; height: 1.5cm;"></td>
+				<td style="width: 34%; text-align: center; height: 1.5cm;"></td>
+			</tr>
+			<tr class="Rigaintestazioneridotta">
+				<td>
+					<p class="Labelcella" style="text-align: center">Il dirigente</p>
+				</td>
+				<td>
+					<p class="Labelcella" style="text-align: center">Il responsabile del servizio</p>
+				</td>
+				<td>
+					<p class="Labelcella" style="text-align: center"></p>
+				</td>
+			</tr>
+  </tbody>
+</table>
+
+<br/>
+
+<p class="Modulo">
+  <input id="SalvaModulo" name="SalvaModulo" style="height:30px;width:120px;" title="Verifica la corretta compilazione dei campi e salva il modulo nel faldone virtuale dell'istanza." type="submit" value="Salva modulo"/>
+</p>
+
+<input destinatario_amministrazione="getParameter('Ente')" id="GLOBO_modulo_c{{ CodiceModulo }}" name="GLOBO_modulo_c{{ CodiceModulo }}" type="hidden" value=""/>
+<input firmare="'P7M_ELETTRONICA'" id="GLOBO_modulofiglio_cINCARICO_PROCURA" name="GLOBO_modulofiglio_cINCARICO_PROCURA" type="hidden" value=""/>
+
+
+<input id="GLOBO_id_padre" name="GLOBO_id_padre" type="hidden"/>
+<input id="GLOBO_recupera_dati" name="GLOBO_recupera_dati" type="hidden"/>
+<input id="GLOBO_codice_modulo" name="GLOBO_codice_modulo" type="hidden" value="{{ CodiceModulo }}"/>
+
+{% endblock content %}

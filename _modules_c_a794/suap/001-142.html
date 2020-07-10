@@ -1,0 +1,529 @@
+{% set CodiceModulo =  "001-142" %}
+{% extends "base.html" %}
+{% set Urn = "document:c_a794:impianti.teleradiocomunicazioni;comunicazione" %}
+{% block meta %}
+
+<meta campi_firma="Titolare_CodiceFiscale"
+campi_firma_label="il dichiarante"	
+classi_modulo="Ecologia"
+contesto_procedurale="Ecologia"
+codice_modulo="{{ CodiceModulo }}"
+urn="{% block urn %}{{ Urn }}{% endblock urn %}"
+sub_urn_list=""
+uo_globo_list=""
+descrizione="Comunicazione ai sensi dell'art 7 Legge Regionale 11-05-2001 n. 11"
+destinatario_amministrazione=""
+destinatario_ufficio="U0233"
+dinamico="SI"
+email_a=""
+ente_abilitato="TUTTI"
+filigrana="NO"
+firmare="P7M_ELETTRONICA"
+in_bollo="SI"
+istruzioni_compilazione=""
+istruzioni_invio="mail_minimale"
+metodo_invio="MINIMALE"
+name="GLOBO_modulo"
+procura="NO,,"
+tipo_modulo="principale"
+ufficio=""
+urlhelp="DomandeRisposte/FAQ"
+verifica_pagamento="NO"
+versione="1.1|28/03/2019"/>
+
+<meta codice_modulo_figlio="INCARICO_PROCURA"
+urn_modulo_figlio="document:s_italia:generale;incarico.procura"
+name="GLOBO_modulofiglio"
+numero="1"
+obbligatorio="DINAMICO"/>
+
+<meta codice_allegato="copiatitprop"
+descrizione_estesa="copia del titolo di proprietà o dichiarazione sostitutiva di atto notorio"
+urn_allegato="document:c_a794:impianti.teleradiocomunicazioni;copia.titolo.proprieta;allegato"
+filename="copia titolo prop o dichiaraz sostitut atto notorio.pdf"
+firmato="SI"
+istruzioni="/servizio-ecologia-e-ambiente/copia-del-titolo-di-proprieta-o-dichiarazione-sostitutiva-di-atto-notorio"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="ALTRI-ALLEGATI"
+descrizione_estesa="Altri allegati"
+urn_allegato="document:s_italia:altri.allegati"
+filename="Altri allegati.pdf"
+firmato="SI"
+istruzioni="/servizio-attivita-produttive-e-commercio/altri-allegati-allistanza"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+{% endblock meta %}
+
+{% block title %}
+	Comunicazione ai sensi dell'art 7 Legge Regionale 11-05-2001 n. 11 
+{% endblock title %}
+{% block content %}
+	<globo_fondo_pagina areaheight="150" scope="2">
+ {{ utils.firma() }}
+</globo_fondo_pagina>
+
+<input dynamic_value="#Titolare_Cognome.value().toUpperCase() + ' -  Comunicazione ai sensi dell\'art 7 Legge Regionale 11-05-2001 n. 11'" id="Oggetto" name="Oggetto" type="hidden"/>
+
+<input dynamic_value="#Ente.value()" id="Parametri_Comune" name="Parametri_Comune" type="hidden"/>
+{{ intestazioni.intestazione_moduloprincipale_senzabollo() }}
+<h1 class="Modulo">
+ Comunicazione ai sensi dell'art 7 Legge Regionale 11-05-2001 n. 11
+</h1>
+<input type="hidden" id="Titolare_DatiProfessionistaObbligatori" name="Titolare_DatiProfessionistaObbligatori" dynamic_check="true"/>
+<input type="hidden" id="Titolare_DatiAlboProfessionistaObbligatori" name="Titolare_DatiAlboProfessionistaObbligatori" dynamic_check="true"/>
+
+
+{{anagrafica.societa("Titolare","Il sottoscritto",["Persona fisica", "Titolare", "Legale rappresentante"], "Richiedente")}}
+<br/>
+<table class="Modulo" style="border: 1px solid grey">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="2">
+        <p class="Labeltabella">
+          Requisiti
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          Concessione governativa n.
+        </p>
+      </td>
+      <td>
+        <p class="Labelcella">
+          Data concessione
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input type="text" id="Parametri_concessgov" name="Parametri_concessgov" style="width:100%" mandatory="true" label="Numero concessione governativa"/>
+      </td>
+      <td>
+        <input type="text" id="Parametri_concessgov_data" name="Parametri_concessgov_data" format="date" label="Data concessione" style="width:100%" mandatory="true"/>
+      </td>
+    </tr>
+  </tbody>
+</table>
+{{ utils.Dichiara_445("DICHIARA") }}
+<br/>
+<table class="Modulo" style="border: 1px solid grey">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="5">
+        <p class="Labeltabella">
+           ULTIMO TITOLO ABILITATIVO-AUTORIZZATIVO
+        </p>
+      </td>
+    </tr>
+    <tr style="background-color: #eeeeee; font-weight:bold; height: 8pt;">
+      <td colspan="2">
+        <p class="Labelcella">
+          Tipo
+        </p>
+      </td>
+      <td>
+        <p class="Labelcella">
+          Numero PG
+        </p>
+      </td>
+      <td>
+        <p class="Labelcella">
+          Data PG
+        </p>
+      </td>
+      <td>
+        <p class="Labelcella">
+          Numero pratica
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div id="Tassonomia_legitTramite" name="Tassonomia_legitTramite" mandatory="true" label="Precedente titolo abilitativo-autorizzativo"/>
+        <input type="radio" id="Tassonomia_legitTramite1" name="Tassonomia_legitTramite" value="1" />
+      </td>
+      <td>
+        <p>
+          comunicazione
+        </p>
+      </td>
+      <td>
+        <input type="text" id="Parametri_comnPG" name="Parametri_comnPG" label="Numero protocollo generale comunicazione" mandatory_enabled="#Tassonomia_legitTramite1.checked()" style="width: 100%"/>
+      </td>
+      <td>
+        <input type="text" id="Parametri_comnPG_Data" name="Parametri_comnPG_Data" style="width: 100%" format="date" mandatory_enabled="#Tassonomia_legitTramite1.checked()"  label="Data protocollo generale comunicazione"/>
+      </td>
+      <td>
+        <input type="text" id="Parametri_comnPG_Note" name="Parametri_comnPG_Note" label="Numero pratica" mandatory_enabled="#Tassonomia_legitTramite1.checked()" style="width: 100%"/>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input type="radio" id="Tassonomia_legitTramite2" name="Tassonomia_legitTramite"  value="2" />
+      </td>
+      <td>
+        <p>
+          SCIA/DIA
+        </p>
+      </td>
+      <td>
+        <input type="text" id="Parametri_SCIADIAPG" name="Parametri_SCIADIAPG" mandatory_enabled="#Tassonomia_legitTramite2.checked()" label="Numero  protocollo generale SCIA/DIA" style="width: 100%"/>
+      </td>
+      <td>
+        <input type="text" id="Parametri_SCIADIAPG_Data" mandatory_enabled="#Tassonomia_legitTramite2.checked()" name="Parametri_SCIADIAPG_Data" style="width: 100%" format="date" label="Data protocollo generale SCIA/DIA"/>
+      </td>
+      <td>
+        <input type="text" id="Parametri_SCIADIAPG_Note" mandatory_enabled="#Tassonomia_legitTramite2.checked()" name="Parametri_SCIADIAPG_Note" label="Numero pratica SCIA/DIA" style="width: 100%"/>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td colspan="2">
+        <p class="Labelcella">
+          Tipo
+        </p>
+      </td>
+      <td>
+        <p class="Labelcella">
+          Numero PG
+        </p>
+      </td>
+      <td>
+        <p class="Labelcella">
+          Data PG
+        </p>
+      </td>
+      <td>
+        <p class="Labelcella">
+          Numero pratica
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td rowspan="3" style="vertical-align: top">
+        <input type="radio" id="Tassonomia_legitTramite3" name="Tassonomia_legitTramite" value="3"/>
+      </td>
+      <td rowspan="3" style="vertical-align: top">
+        <p>
+          autorizzazione
+        </p>
+      </td>
+      <td>
+        <input type="text" id="Parametri_autPG" name="Parametri_autPG" label="Numero protocollo generale autorizzazione" mandatory_enabled="#Tassonomia_legitTramite3.checked()" style="width: 100%"/>
+      </td>
+      <td>
+        <input type="text" id="Parametri_autPG_Data" name="Parametri_autPG_Data" mandatory_enabled="#Tassonomia_legitTramite3.checked()" style="width: 100%" format="date" label="Data protocollo generale autorizzazione"/>
+      </td>
+      <td>
+        <input type="text" id="Parametri_autPG_Note" name="Parametri_autPG_Note" mandatory_enabled="#Tassonomia_legitTramite3.checked()" label="Numero pratica autorizzazione" style="width: 100%"/>
+      </td>
+    </tr>
+    <tr style="height: 8pt">
+      <td style="background-color: #eeeeee; font-weight:bold; height: 8pt;">
+        <p class="Labelcella">
+          Numero autorizzazione
+        </p>
+      </td>
+      <td colspan="2" style="background-color: #eeeeee; font-weight:bold; height: 8pt;">
+        <p class="Labelcella">
+          Data autorizzazione
+        </p>
+      </td>
+    </tr>
+   <tr>
+      <td>
+        <input type="text" id="Parametri_auPGnumaut" name="Parametri_auPGnumaut" label="Numero autorizzazione" mandatory_enabled="#Tassonomia_legitTramite3.checked()" style="width: 100%"/>
+      </td>
+      <td colspan="2">
+        <input type="text" id="Parametri_auPGnumaut_Data" name="Parametri_auPGnumaut_Data" style="width: 100%" format="date" mandatory_enabled="#Tassonomia_legitTramite3.checked()" label="Data autorizzazione"/>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<globo_salto_pagina></globo_salto_pagina>
+<input checked="checked" dynamic_check="true" style="display:none" id="Immobile_DatiCatastaliObbligatori" name="Immobile_DatiCatastaliObbligatori" type="checkbox" value="si"/>
+ {{ immobili.immobile("Immobile","collocazione dell'impianto", "Collocazione impianto" ) }}
+<table class="Modulo" style="border: 1px solid grey;margin-top: -1px">
+ <tbody>
+  <tr class="Rigaintestazioneridotta">
+   <td>
+    <p class="Labelcella">
+     Coordinata Est (UTM WGS84) <sup>1</sup>
+    </p>
+   </td>
+   <td>
+    <p class="Labelcella">
+     Coordinata Nord (UTM WGS84) <sup>1</sup>
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td>
+    <input id="Parametri_Coordinata_est" label="Coordinata Est" mandatory="true" name="Parametri_Coordinata_est" style="width:100%" type="text" format="positive_float" value=""/>
+   </td>
+   <td>
+    <input id="Parametri_Coordinata_nord" label="Coordinata Nord" mandatory="true" name="Parametri_Coordinata_nord" style="width:100%" format="positive_float" type="text" value=""/>
+   </td>
+  </tr>
+ </tbody>
+</table>
+<table class="Modulo" style="border: 1px solid grey">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="2">
+        <p class="Labeltabella">
+          Identificativi dell'impianto <sup>1</sup>
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          Codice sito
+        </p>
+      </td>
+      <td>
+        <p class="Labelcella">
+          Denominazione impianto
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input type="text" id="Parametri_codicesito" name="Parametri_codicesito" label="Codica sito" style="width:100%" mandatory="true"/>
+      </td>
+      <td>
+        <input type="text" id="Parametri_denominimp" name="Parametri_denominimp" label="Denominazione impianto" style="width:100%" mandatory="true"/>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<h3 class="Modulo">
+  COMUNICA
+</h3>
+<table class="Modulo" style="border: 0px solid grey; margin-top:-1px">
+  <tbody>
+    <tr style="height: 0px; visibility:hidden; border:0px">
+       <td style="width: 4%; border: 0px">
+       </td>
+       <td style="width: auto; border: 0px">
+       </td>
+       <td style="width: auto; border: 0px">
+       </td>
+       <td style="width: auto; border: 0px">
+       </td>
+       <td style="width: auto; border: 0px">
+       </td>
+    </tr>
+    <tr>
+      <td style="width:4%; vertical-align:top" rowspan="9">
+        <div id="Tassonomia_ComComma" name="Tassonomia_ComComma" mandatory="true" label="Tipologia di comunicazione"/>
+        <input type="radio" id="Tassonomia_ComComma2" name="Tassonomia_ComComma" value="2" />
+      </td>
+      <td colspan="4">
+        <p>
+          ai sensi dell'articolo 7 comma 2 che in data<sup>2</sup> <input type="text" id="Parametri_DataVariazTit" name="Parametri_DataVariazTit" label="Data variazione titolarità impianto" format="date" mandatory_enabled="#Tassonomia_ComComma2.checked()"/> è stata effettuata la variazione della titolarità dell'impianto
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+          da <sup>3</sup>
+      </td>
+      <td colspan="3">
+       <input type="text" id="Parametri_DataVarTitImpDa" name="Parametri_DataVarTitImpDa" mandatory_enabled="#Tassonomia_ComComma2.checked()" style="width:100%" label="Precedente titolare"/>
+      </td>
+    </tr>
+    <tr>
+      <td>
+          a <sup>4</sup>
+     </td>
+     <td colspan="3">
+       <input type="text" id="Parametri_DataVarTitImpA" name="Parametri_DataVarTitImpA" mandatory_enabled="#Tassonomia_ComComma2.checked()" style="width:100%" label="Nuovo titolare"/>
+     </td>
+   </tr>
+   <tr style="height: 12pt">
+     <td colspan="4" style="background: #eeeeee; font-weight:bold; height: 12pt;">
+       <p class="Labeltabella">DICHIARANDO</p>
+     </td>
+   </tr>
+   <tr>
+     <td colspan="4">
+       <p>
+         che il trasferimento-variazione-subentro della titolarità è avvenuta a seguito di
+        </p>
+      </td>
+    </tr>
+    <tr style="height: 8pt">
+        <td style="background-color: #eeeeee; font-weight:bold; height: 8pt;">
+          <p class="Labelcella">
+            atto n. 
+          </p>
+        </td>
+        <td style="background-color: #eeeeee; font-weight:bold; height: 8pt;">
+          <p class="Labelcella">
+            in data
+          </p>
+        </td>
+        <td style="background-color: #eeeeee; font-weight:bold; height: 8pt;">
+          <p class="Labelcella">
+            registrato a
+          </p>
+        </td>
+        <td style="background-color: #eeeeee; font-weight:bold; height: 8pt;">
+          <p class="Labelcella">
+          il
+        </p>
+        </td>
+      </tr>
+      <tr mandatory_enabled="#Tassonomia_ComComma2.checked()">
+        <td>
+          <input type="text" id="Parametri_motTrasfAtto" name="Parametri_motTrasfAtto" style="width:100%" label="Atto numero"/>
+        </td>
+        <td>
+          <input type="text" id="Parametri_motTrasfData" name="Parametri_motTrasfData" style="width:100%" format="date" label="Data atto"/>
+        </td>
+        <td>
+          <input type="text" id="Parametri_motTrasfReg" name="Parametri_motTrasfReg" style="width:100%" label="Luogo di registrazione"/>
+        </td>
+        <td>
+          <input type="text" id="Parametri_motTrasfIl" name="Parametri_motTrasfIl" style="width:100%" label="Data di registrazione"/>
+        </td>
+      </tr>
+      <tr style="height: 8pt">
+        <td style="background-color: #eeeeee; font-weight:bold; height: 8pt;">
+          <p class="Labelcella">
+          al n.
+        </p>
+        </td>
+          <td style="background-color: #eeeeee; font-weight:bold; height: 8pt;">
+            <p class="Labelcella">
+          serie  
+        </p>
+          </td>
+          <td colspan="2" style="background-color: #eeeeee; font-weight:bold; height: 8pt;">
+            <p class="Labelcella">
+          notaio
+            </p>
+          </td>
+      </tr>
+      <tr mandatory_enabled="#Tassonomia_ComComma2.checked()">
+        <td>
+          <input type="text" id="Parametri_motTrasfAlN" name="Parametri_motTrasfAlN" style="width:100%" label="Numero"/>
+        </td>
+        <td>
+          <input type="text" id="Parametri_motTrasfSerie" name="Parametri_motTrasfSerie" style="width:100%" label="Serie"/>
+        </td>
+        <td colspan="2">
+          <input type="text" id="Parametri_motTrasfNot" name="Parametri_motTrasfNot" style="width:100%" label="Notaio"/>
+        </td>
+      </tr>
+  </tbody>
+</table>
+
+
+<table class="Modulo" style="border: 1px solid grey; margin-top:-1px">
+  <tbody>
+    <tr>
+      <td style="width:4%; vertical-align:top">
+        <input type="radio" id="Tassonomia_ComComma3" name="Tassonomia_ComComma" value="3" />
+      </td>
+      <td colspan="2">
+        <p>
+          ai sensi dell'articolo 7 comma 3 che in data <sup>2</sup> <input type="text" id="Parametri_DataDisattImp" name="Parametri_DataDisattImp" format="date" label="Data disattivazione impianto" mandatory_enabled="#Tassonomia_ComComma3.checked()"/> è stata effettuata la disattivazione dell'impianto
+        </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br/>
+<table class="Modulo" name="Allegati" style="border:1px solid grey">
+ <tbody>
+  <tr class="Rigaintestazione">
+   <td colspan="2">
+    <p style="text-align: center;">
+     <b>
+      allega
+     </b>
+     <br/>
+     <span style="font-size:70%">
+      <i>
+       (barrare tutti gli allegati richiesti in fase di presentazione della pratica ed elencati sul portale)
+      </i>
+     </span>
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td style="vertical-align: top; width:4%">
+    <input dynamic_check="#Tassonomia_ComComma2.checked()" id="copiatitprop" name="copiatitprop" type="checkbox" value="OBBLIGATORIO"/>
+   </td>
+   <td style="background-color: #eeeeee;">
+    <p>
+     copia del titolo di proprietà o dichiarazione sostitutiva di atto notorio (accompagnata da copia del documento d'identità) ed eventuale assenso del proprietario
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td>
+    <input id="DAE-CDI" name="DAE-CDI" type="checkbox" value="OBBLIGATORIO" enabled="false"/>
+   </td>
+   <td colspan="1" style="background-color: #eeeeee;">
+    <p>
+     copia del documento d'identità<br/><span style="font-size: 70%; font-style: italic">(da allegare se il modulo è sottoscritto con firma autografa)</span>
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td>
+    <input id="ALTRI-ALLEGATI" name="ALTRI-ALLEGATI" type="checkbox" value="OBBLIGATORIO"/>
+   </td>
+   <td style="background-color: #eeeeee;">
+    <p>
+     altri allegati
+     <span style="font-size:70%">
+      (specificare)
+     </span>
+     <input class="inputNormal" id="AltriAllegati" label="Altri allegati" mandatory_enabled="#ALTRI_ALLEGATI.checked()" name="AltriAllegati" style="width:79%;"/>
+    </p>
+   </td>
+  </tr>
+ </tbody>
+</table>
+
+ {{ utils.firma_hidden() }}
+ <br/>
+
+<p class="Modulo">
+ <input id="SalvaModulo" name="SalvaModulo" style="height:30px;width:120px;" title="Verifica la corretta compilazione dei campi e salva il modulo nel faldone virtuale dell'istanza." type="submit" value="Salva modulo"/>
+</p>
+<h3 class="Modulo">
+  NOTE PER LA COMPILAZIONE
+</h3>
+<ol>
+<li style="width: 17.5cm;text-align:justify">UTM WGS84</li>
+<li style="width: 17.5cm;text-align:justify">entro 30 giorni dalla variazione-disattivazione</li>
+<li style="width: 17.5cm;text-align:justify">inserire il nominativo del precedente titolare</li>
+<li style="width: 17.5cm;text-align:justify">inserire il nominativo del nuovo titolare</li>
+</ol>
+<input destinatario_amministrazione="getParameter('Ente')" id="GLOBO_modulo_c{{ CodiceModulo }}" name="GLOBO_modulo_c{{ CodiceModulo }}" type="hidden" value=""/>
+
+<input firmare="'P7M_ELETTRONICA'" id="GLOBO_modulofiglio_cIncarico_procura" name="GLOBO_modulofiglio_cIncarico_procura" type="hidden" value=""/>
+
+<input id="GLOBO_allegato_ccopiatitprop" name="GLOBO_allegato_ccopiatitprop" obbligatorio="#copiatitprop.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+<input id="GLOBO_allegato_cALTRI-ALLEGATI" name="GLOBO_allegato_cALTRI-ALLEGATI" obbligatorio="#ALTRI_ALLEGATI.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_id_padre" name="GLOBO_id_padre" type="hidden"/>
+<input id="GLOBO_recupera_dati" name="GLOBO_recupera_dati" type="hidden"/>
+<input id="GLOBO_codice_modulo" name="GLOBO_codice_modulo" type="hidden" value="{{ CodiceModulo }}"/>
+<input checked="checked" id="SempreSI" name="SempreSI" style="display:none;" type="checkbox" value="si"/>
+
+{% endblock content %}

@@ -1,0 +1,401 @@
+{% set CodiceModulo = "DOM_AGE_IMU_INAGIB" %}
+{% set Urn = "document:c_a794:agevolazione.imu.inagibile;domanda" %}
+{% extends "base.html" %}
+
+{% block meta %}
+
+<meta campi_firma="Titolare_CodiceFiscale"
+campi_firma_label="il dichiarante"
+classi_modulo="Generale"
+codice_modulo="{{ CodiceModulo }}"
+urn="{% block urn %}{{ Urn }}{% endblock urn %}"
+sub_urn_list=""
+uo_globo_list=""
+descrizione="Dichiarazione per l'applicazione della riduzione del 50% dell'IMU, per immobile inagibile o inabitabile"
+destinatario_amministrazione=""
+destinatario_ufficio="UOTRIBUTI"
+dinamico="SI"
+email_a=""
+ente_abilitato="TUTTI"
+filigrana="NO"
+firmare="P7M_ELETTRONICA"
+istruzioni_compilazione=""
+istruzioni_invio="mail_pec"
+metodo_invio="mail"
+name="GLOBO_modulo"
+procura="NO,,"
+tipo_modulo="principale"
+urlhelp="/modulistica/moduli/{{ CodiceModulo }}"
+verifica_pagamento="NO"
+versione="1.0|03/05/2019"/>
+
+<meta codice_modulo_figlio="INCARICO_PROCURA"
+urn_modulo_figlio="document:s_italia:generale;incarico.procura"
+name="GLOBO_modulofiglio"
+numero="1"
+obbligatorio="DINAMICO"/>
+
+<meta codice_allegato="DAE-CDI"
+urn_allegato="document:s_italia:generale;documento.identita;documentazione"
+descrizione_estesa="Documento di identità"
+filename="Documento identita.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/DAE-CDI"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="DOC-FOTO-INAG"
+urn_allegato="document:c_a794:foto.inagibilita.immobile;documentazione"
+descrizione_estesa="Documentazione fotografica attestante lo stato di degrado e inagibilità dell’immobile"
+filename="Documentazione fotografica.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/DOC-FOTO-INAG"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="ALTRI-ALLEGATI"
+urn_allegato="document:s_italia:altri.allegati"
+descrizione_estesa="Altri allegati"
+filename="Altri allegati.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/ALTRI-ALLEGATI"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+
+{% endblock meta %}
+
+{% block title %}
+  Dichiarazione per l'applicazione della riduzione del 50% dell'IMU, per immobile inagibile o inabitabile
+{% endblock title %}
+
+{% block content %}
+
+<globo_fondo_pagina areaheight="150" scope="3">
+  {{ utils.firma() }}
+</globo_fondo_pagina>
+
+<input id="Parametri_Comune" name="Parametri_Comune" type="hidden" dynamic_value="#Ente.value()"/>
+<input id="Oggetto" name="Oggetto" type="hidden" dynamic_value="#Titolare_Cognome.value().toUpperCase() + ' ' + #Titolare_Nome.value().toUpperCase() + ' - applicazione riduzione IMU, immobile inagibile inabitabile'"/>
+
+{{ intestazioni.intestazione_moduloprincipale_senzabollo() }}
+
+<h1 class="Modulo">
+  Dichiarazione per l'applicazione della riduzione del 50% dell'IMU, per immobile inagibile o inabitabile
+</h1>
+
+<h2 class="Modulo">
+  Ai sensi del Regolamento Comunale per l'applicazione dell'IMU e del Regolamento di Igiene
+</h2>
+
+
+<input id="Titolare_DatiPersonaObbligatori" name="Titolare_DatiPersonaObbligatori" type="hidden" dynamic_check="true"/>
+<input id="Titolare_Titolo" name="Titolare_Titolo" type="hidden" value="TitolareTitolo"/>
+<input id="Titolare_Ruolo" name="Titolare_Ruolo" type="hidden" value="TitolareTitolo"/>
+{{ anagrafica.persona_fisica("Titolare", "Il contribuente", "visibility:visibility", "cursor:pointer", "visibility:visibility", "visibility:visibility", "mail_ordinaria", "", "true", "false", "false", "", "false", "true","visibility:visibility") }}
+
+
+{% for i in range(1, 4) %}
+  <input id="AventeTitolo{{i}}_Titolo" name="AventeTitolo{{i}}_Titolo" type="hidden" value="Avente Titolo"/>
+  <input id="AventeTitolo{{i}}_Ruolo" name="AventeTitolo{{i}}_Ruolo" type="hidden" value="Avente Titolo"/>
+  {% if loop.first %}
+    {{ anagrafica.persona_fisica("AventeTitolo"~i, "<input id='AventeTitolo"~i~"_DatiPersonaObbligatori' name='AventeTitolo"~i~"_DatiPersonaObbligatori' type='checkbox'/> il dichiarante <br/><span style='font-size: 70%; font-weight: normal;'><i> (compilare se diverso dal contribuente) </i></span>", "visibility:visibility", "cursor:pointer", "visibility:visibility", "visibility:visibility", "mail_ordinaria", "", "true", "false", "false", "", "false", "true", "visibility:visibility"  ) }}
+  {% else %}
+    {% if i == 3 %}
+      <globo_salto_pagina></globo_salto_pagina>
+    {% endif %}
+    {{ anagrafica.persona_fisica("AventeTitolo"~i, "<input id='AventeTitolo"~i~"_DatiPersonaObbligatori' name='AventeTitolo"~i~"_DatiPersonaObbligatori' type='checkbox'/> contitolare <br/><span style='font-size: 70%; font-weight: normal;'><i> (compilare se si intende presentare istanza di riduzione anche per altri proprietari dell’immobile) </i></span>", "visibility:visibility", "cursor:pointer", "visibility:visibility", "visibility:visibility", "mail_ordinaria", "", "true", "false", "false", "", "false", "true", "visibility:visibility"  ) }}
+  {% endif %}
+{% endfor %}  
+
+
+<h3 class="Modulo">
+  CHIEDE
+</h3>
+
+
+<p class="Modulo">
+  Ai sensi del regolamento per l'applicazione dell'Imposta Municipale Propria
+  la riduzione della base imponibile del 50% per fabbricati dichiarati inagibili o inabitabili e di fatto non utilizzati, limitatamente al periodo dell'anno durante il quale sussistono dette condizioni.
+</p>
+
+
+{{ utils.Dichiara_445() }}
+
+
+<input id="Immobile_DatiCatastaliObbligatori" name="Immobile_DatiCatastaliObbligatori" type="checkbox" style="display: none;" value="si" checked="checked" dynamic_check="true"/>
+{{ immobili.immobile("Immobile", "che il seguente immobile", "Collocazione immobile") }}
+
+<table class="Modulo" style="border: 1px solid grey; margin-top: -1px;">
+  <tbody>
+    <tr class="Rigaintestazioneridotta">
+      <td colspan="9">
+        <p class="Labelcella">
+          Contitolare
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td colspan="2">
+        <p class="Labelcella">
+          Cognome
+        </p>
+      </td>
+      <td colspan="2">
+        <p class="Labelcella">
+          Nome
+        </p>
+      </td>
+      <td colspan="2" style="width: 15%;">
+        <p class="Labelcella">
+          Rendita
+        </p>
+      </td>
+      <td style="width: 15%;">
+        <p class="Labelcella">
+          % in possesso
+        </p>
+      </td>
+    </tr>
+    <tr mandatory_enabled="#AventeTitolo1_DatiPersonaObbligatori.checked()">
+      <td colspan="2">
+        <input class="inputNormal" id="Parametri_Cognome1" name="Parametri_Cognome1" style="width: 100%;" label="Cognome contitolare" />
+      </td>
+      <td colspan="2">
+        <input class="inputNormal" id="Parametri_Nome1" name="Parametri_Nome1" style="width: 100%;" label="Nome contitolare" />
+      </td>
+      <td colspan="2">
+        <p>
+          <input class="inputNormal" id="Parametri_Rendita1" name="Parametri_Rendita1" format="valuta_positiva" style="width: 80%;" label="Rendita contitolare" /> €
+        </p>
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_Possesso1" name="Parametri_Possesso1" format="positive_float" style="width: 100%;" label="Possesso contitolare" />
+      </td>
+    </tr>
+    <tr mandatory_enabled="#AventeTitolo2_DatiPersonaObbligatori.checked()">
+      <td colspan="2">
+        <input class="inputNormal" id="Parametri_Cognome2" name="Parametri_Cognome2" style="width: 100%;" label="Cognome contitolare" />
+      </td>
+      <td colspan="2">
+        <input class="inputNormal" id="Parametri_Nome2" name="Parametri_Nome2" style="width: 100%;" label="Nome contitolare" />
+      </td>
+      <td colspan="2">
+        <p>
+          <input class="inputNormal" id="Parametri_Rendita2" name="Parametri_Rendita2" format="valuta_positiva" style="width: 80%;" label="Rendita contitolare" /> €
+        </p>
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_Possesso2" name="Parametri_Possesso2" format="positive_float" style="width: 100%;" label="Possesso contitolare" />
+      </td>
+    </tr>
+    <tr mandatory_enabled="#AventeTitolo3_DatiPersonaObbligatori.checked()">
+      <td colspan="2">
+        <input class="inputNormal" id="Parametri_Cognome3" name="Parametri_Cognome3" style="width: 100%;" label="Cognome contitolare" />
+      </td>
+      <td colspan="2">
+        <input class="inputNormal" id="Parametri_Nome3" name="Parametri_Nome3" style="width: 100%;" label="Nome contitolare" />
+      </td>
+      <td colspan="2">
+        <p>
+          <input class="inputNormal" id="Parametri_Rendita3" name="Parametri_Rendita3" format="valuta_positiva" style="width: 80%;" label="Rendita contitolare" /> €
+        </p>
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_Possesso3" name="Parametri_Possesso3" format="positive_float" style="width: 100%;" label="Possesso contitolare" />
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="2">
+        <p class="Labeltabella">
+          è inagibile o inabitabile per il periodo
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          Data inizio
+        </p>
+      </td>
+      <td>
+        <p class="Labelcella">
+          Data fine
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input class="inputNormal" id="Parametri_DataInizio" name="Parametri_DataInizio" format="date" style="width: 100%;" label="Data Inizio" mandatory="true"/>
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_DataFine" name="Parametri_DataFine" format="date" style="width: 100%;" label="Data Fine" mandatory="true"/>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td colspan="2">
+        <p class="Labelcella">
+          Per i seguenti motivi
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2">
+        <textarea class="inputNormal" id="Parametri_Motivazioni" name="Parametri_Motivazioni" style="width: 100%; height: 5cm;" label="Motivazioni" mandatory="true"></textarea>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<globo_salto_pagina></globo_salto_pagina>
+
+
+<h3 class="Modulo">
+  DICHIARA INOLTRE
+</h3>
+
+
+<table class="Modulo" style="border: 0px;">
+  <tbody>
+    <tr style="border: 0px;">
+      <td style="vertical-align: top; width: 4%; border: 0px;">
+        <input id="Ristrutturazione" name="Ristrutturazione" type="checkbox" value="SI" dynamic_check="true" checked="checked"/>
+      </td>
+      <td style="border: 0px;">
+        <p>
+          di essere a conoscenza che alla condizione di degrado di un immobile può porsi rimedi unicamente mediante 
+          interventi di ristrutturazione o di demolizione e mai con interventi di manutenzione
+        </p>
+      </td>
+    </tr>
+    <tr style="border: 0px;">
+      <td style="vertical-align: top; width: 4% ;border: 0px;">
+        <input id="RiduzionedImposta" name="RiduzionedImposta" type="checkbox" value="SI" dynamic_check="true" checked="checked"/>
+      </td>
+      <td style="border: 0px;">
+        <p>
+          di essere a conoscenza che si ha diritto alla riduzione dell'imposta qunado le condizioni di degrado sono tali 
+          da pregiudicare l'incolumità degli occupanti e che l'ufficio si riserva di effettuare i necessari controlli
+        </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<br/>
+
+
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          Eventuali annotazioni
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <textarea class="inputNormal" id="Parametri_Annotazioni" name="Parametri_Annotazioni" style="width: 100%; height: 5cm;" label="Eventuali annotazioni"></textarea>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<br/>
+
+
+<table class="Modulo" name="Allegati" style="border: 1px solid grey">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="2">
+        <p style="text-align: center;">
+          <b>
+            Elenco degli allegati
+          </b>
+          <br/>
+          <span style="font-size:70%"><i>(barrare tutti gli allegati richiesti in fase di presentazione della pratica ed elencati sul portale)</i></span>
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="width: 4%; vertical-align: top;">
+        <input id="DOC-FOTO-INAG" name="DOC-FOTO-INAG" type="checkbox" value="OBBLIGATORIO" dynamic_check="true" checked="checked"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          documentazione fotografica attestante lo stato di degrado e inagibilità dell’immobile
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="DAE-CDI" name="DAE-CDI" type="checkbox" value="OBBLIGATORIO" />
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          copia del documento d'identità
+          <br/>
+          <span style="font-size:70%">
+            <i>(da allegare se il modulo è sottoscritto con firma autografa)</i>
+          </span>
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="ALTRI-ALLEGATI" name="ALTRI-ALLEGATI" type="checkbox" value="OBBLIGATORIO"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          altri allegati
+          <span style="font-size:70%">(specificare)</span>
+          <input class="" label="Altri allegati" id="AltriAllegati" mandatory_enabled="#ALTRI_ALLEGATI.checked()" name="AltriAllegati" style="width:79%;"/>
+        </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<br/>
+{{ utils.trattamento_dati_personali() }}
+<br/>
+  {{ utils.firma_hidden() }}
+<br/>
+
+
+<p class="Modulo">
+  <input id="SalvaModulo" name="SalvaModulo" style="height:30px;width:120px;" title="Verifica la corretta compilazione dei campi e salva il modulo nel faldone virtuale dell'istanza." type="submit" value="Salva modulo"/>
+</p>
+
+
+<input destinatario_amministrazione="getParameter('Ente')" id="GLOBO_modulo_c{{ CodiceModulo }}" name="GLOBO_modulo_c{{ CodiceModulo }}" type="hidden" value=""/>
+<input firmare="'P7M_ELETTRONICA'" id="GLOBO_modulofiglio_cINCARICO_PROCURA" name="GLOBO_modulofiglio_cINCARICO_PROCURA" type="hidden" value=""/>
+
+
+<input id="GLOBO_allegato_cDOC-FOTO-INAG" name="GLOBO_allegato_cDOC-FOTO-INAG" type="hidden" value="" obbligatorio="#DOC_FOTO_INAG.checked() ? 'OBBLIGATORIO' : ''"/>
+<input id="GLOBO_allegato_cDAE-CDI" name="GLOBO_allegato_cDAE-CDI" obbligatorio="#DAE_CDI.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+<input id="GLOBO_allegato_cALTRI-ALLEGATI" name="GLOBO_allegato_cALTRI-ALLEGATI" obbligatorio="#ALTRI_ALLEGATI.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+
+<input id="GLOBO_id_padre" name="GLOBO_id_padre" type="hidden"/>
+<input id="GLOBO_recupera_dati" name="GLOBO_recupera_dati" type="hidden"/>
+<input id="GLOBO_codice_modulo" name="GLOBO_codice_modulo" type="hidden" value="{{ CodiceModulo }}"/>
+
+{% endblock content %}

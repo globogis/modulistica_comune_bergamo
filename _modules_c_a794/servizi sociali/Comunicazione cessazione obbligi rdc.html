@@ -1,0 +1,193 @@
+{% set CodiceModulo = "COM_CESS_RED" %}
+{% set Urn = "document:c_a794:cessazione.obblighi.reddito.cittadinanza" %}
+{% extends "base.html" %}
+
+{% block meta %}
+
+<meta campi_firma="Titolare_CodiceFiscale"
+campi_firma_label="il dichiarante"
+classi_modulo="Servizi sociali"
+codice_modulo="{{ CodiceModulo }}"
+urn="{% block urn %}{{ Urn }}{% endblock urn %}"
+sub_urn_list=""
+uo_globo_list=""
+descrizione="Comunicazione cessazione obblighi reddito di cittadinanza"
+destinatario_amministrazione=""
+destinatario_ufficio="UOSERVIZISOCIALI"
+dinamico="SI"
+email_a=""
+ente_abilitato="TUTTI"
+filigrana="NO"
+firmare="AUTENTICATO"
+istruzioni_compilazione=""
+istruzioni_invio="mail_pec"
+metodo_invio="mail"
+name="GLOBO_modulo"
+procura="NO,,"
+tipo_modulo="principale"
+urlhelp="/modulistica/moduli/{{ CodiceModulo }}"
+verifica_pagamento="NO"
+versione="1.0|17/02/2020"/>
+
+<meta codice_modulo_figlio="INCARICO_PROCURA"
+urn_modulo_figlio="document:s_italia:generale;incarico.procura"
+name="GLOBO_modulofiglio"
+numero="1"
+obbligatorio="DINAMICO"/>
+
+<meta codice_allegato="ALTRI-ALLEGATI"
+urn_allegato="document:s_italia:altri.allegati"
+descrizione_estesa="Altri allegati"
+filename="Altri allegati.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/ALTRI-ALLEGATI"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+{% endblock meta %}
+
+{% block title %}
+  Comunicazione cessazione situazione di esonero dagli obblighi connessa con beneficio reddito di cittadinanza
+{% endblock title %}
+ 
+{% block content %}
+
+<globo_fondo_pagina areaheight="150" scope="2">
+  {{ utils.firma() }}
+</globo_fondo_pagina>
+
+<input id="Parametri_Comune" name="Parametri_Comune" type="hidden" dynamic_value="#Ente.value()"/>
+<input id="Oggetto" name="Oggetto" type="hidden" dynamic_value="#Titolare_Cognome.value().toUpperCase() + ' ' + #Titolare_Nome.value().toUpperCase() + ' - Comunicazione cessazione situazione di esonero dagli obblighi reddito di cittadinanza'"/>
+
+{{ intestazioni.intestazione_moduloprincipale_senzabollo() }}
+
+<h1 class="Modulo">
+  Comunicazione cessazione situazione di esonero dagli obblighi connessa con beneficio reddito di cittadinanza
+</h1>
+
+<h3 class="Modulo">
+ Decreto Legge 28 Gennaio 2019, n.4, art. 4 comma 3
+ </h3>
+
+<input id="Titolare_DatiPersonaObbligatori" name="Titolare_DatiPersonaObbligatori" type="hidden" dynamic_check="true"/>
+<input id="Titolare_Titolo" name="Titolare_Titolo" type="hidden" value="Richiedente"/>
+<input id="Titolare_Ruolo" name="Titolare_Ruolo" type="hidden" value="Richiedente"/>
+{{ anagrafica.persona_fisica("Titolare", "Il sottoscritto", "visibility:visibility", "cursor:pointer", "visibility:visibility", "visibility:visibility", "mail_ordinaria") }}
+
+<br>
+
+<p class="Modulo">
+beneficiario del Reddito di Cittadinaza con riferimento all'autocertificazione situazione di esonero presentata
+</p>
+
+<br>
+
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+  <tr class="Rigaintestazione">
+   <td style="width:50%">
+   Data presentazione autorcertificazione
+   </td>
+   <td style="width:50%">
+   Numero di protocollo <i> riportare solo numeri</i>
+   </td>
+   </tr>
+   <tr>
+   <td style="width:50%">
+   <input class="InputNormal" id="Tassonomia_Data" name="Tassonomia_Data" style="width:100%" label="Data di presentazione" mandatory="true" format="date" />
+   </td>
+   <td style="width:50%">
+   <input class="InputNormal" id="Tassonomia_Prot" name="Tassonomia_Prot" style="width:100%" label="Numero di protocollo" mandatory="true" format="number"/>
+   </td>
+   </tr>
+   </tbody>
+   </table>
+   
+<br>
+<h3 class="Modulo">
+COMUNICA
+</h3>
+
+<br>
+
+<p class="Modulo">
+  che a decorrere dal <input class="InputNormal" id="Tassonomia_Data_Dec" name="Tassonomia_Data_Dec" label="Data decorrenza" format="date" mandatory="true" /> è cessata la seguente situazione di esonero dagli obblighi connessa con la fruizione del beneficio del Reddito di Cittadinanza
+  </p>
+
+
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    {% set dichiara = [ "presenza di carichi di cura con riferimento alla presenza nel nucleo familiare di minore di anni 3",
+                        "presenza di carichi di cura con riferimento alla presenza nel nucleo familiare di persona con disabilità grave o non autosufficienza",
+                        "svolgimento di attività di lavoro dipendente con un reddito corrispondente ad un’imposta lorda pari o inferiore ad €. 8.145,00 annui ed un tempo impiegato nell’attività lavorativa superiore alle 20 ore settimanali ovvero alle 25 ore settimanali aggiungendo il tempo impiegato per raggiungere il luogo di lavoro",
+                        "che il tempo impiegato nell’attività lavorativa come autonomo è superiore alle venti ore settimanali, ovvero superiore alle venticinque ore settimanali, sommando il tempo impiegato per raggiungere il luogo di lavoro e il reddito è corrispondente ad umposta lorda pari o inferiore ad Euro 4.800,00", 
+                        "svolgimento di attività di lavoro autonomo con un reddito corrispondente ad un’imposta lorda pari o inferiore ad €. 4.800,00 annui ed un tempo impiegato nell’attività lavorativa superiore alle 20 ore settimanali ovvero alle 25 ore settimanali aggiungendo il tempo impiegato per raggiungere il luogo di lavoro ",
+                        "frequenza corso di formazione per il raggiungimento di qualifica o diploma professionale",
+                        "condizioni di salute tali da non consentire la partecipazione ad un percorso di inserimento lavorativo",
+                        "svolgimento di Tirocinio formativo e di orientamento ",
+                        "svolgimento di Tirocinio di inclusione" ] %}
+    {% for i in dichiara %}
+      <tr>
+        <td style="vertical-align: top; width: 4%;">
+          <input id="Dichiara{{ loop.index }}" name="Dichiara{{ loop.index }}" type="checkbox" value="SI" />
+        </td>
+        <td>
+          {{ i }}
+        </td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<br>
+<table class="Modulo" name="Allegati" style="border: 1px solid grey">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="2">
+        <p style="text-align: center;">
+          <b>
+            Elenco degli allegati
+          </b>
+          <br/>
+          <span style="font-size:70%">
+            <i>(barrare tutti gli allegati richiesti in fase di presentazione della pratica ed elencati sul portale)</i>
+          </span>
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="ALTRI-ALLEGATI" name="ALTRI-ALLEGATI" type="checkbox" value="OBBLIGATORIO"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          altri allegati
+          <span style="font-size:70%">(specificare)</span>
+          <input class="" label="Altri allegati" id="AltriAllegati" mandatory_enabled="#ALTRI_ALLEGATI.checked()" name="AltriAllegati" style="width:79%;"/>
+        </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<br>
+{{ utils.trattamento_dati_personali() }}
+<br/>
+  {{ utils.firma_hidden() }}
+<br/>
+
+<p class="Modulo">
+  <input id="SalvaModulo" name="SalvaModulo" style="height:30px;width:120px;" title="Verifica la corretta compilazione dei campi e salva il modulo nel faldone virtuale dell'istanza." type="submit" value="Salva modulo"/>
+</p>
+
+<input destinatario_amministrazione="getParameter('Ente')" id="GLOBO_modulo_c{{ CodiceModulo }}" name="GLOBO_modulo_c{{ CodiceModulo }}" type="hidden" value=""/>
+<input firmare="'P7M_ELETTRONICA'" id="GLOBO_modulofiglio_cINCARICO_PROCURA" name="GLOBO_modulofiglio_cINCARICO_PROCURA" type="hidden" value=""/>
+
+<input id="GLOBO_allegato_cALTRI-ALLEGATI" name="GLOBO_allegato_cALTRI-ALLEGATI" obbligatorio="#ALTRI_ALLEGATI.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+<input id="GLOBO_id_padre" name="GLOBO_id_padre" type="hidden"/>
+<input id="GLOBO_recupera_dati" name="GLOBO_recupera_dati" type="hidden"/>
+<input id="GLOBO_codice_modulo" name="GLOBO_codice_modulo" type="hidden" value="{{ CodiceModulo }}"/>
+
+{% endblock content %}

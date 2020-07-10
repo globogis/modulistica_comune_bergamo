@@ -1,0 +1,106 @@
+{% set CodiceModulo = "DOM-MOBI-INTER" %}
+{% set Urn = "document:c_a794:mobilità.interscambio;domanda" %}
+{% extends "base.html" %}
+
+{% block meta %}
+
+<meta campi_firma="AventeTitolo1_CodiceFiscale"
+campi_firma_label="il dichiarante"
+classi_modulo="Occupazione concorsi e assunzione"
+codice_modulo="{{ CodiceModulo }}"
+urn="{% block urn %}{{ Urn }}{% endblock urn %}"
+descrizione="Avviso di selezione: dichiarazioni allegate alla richiesta di partecipazione"
+destinatario_amministrazione=""
+destinatario_ufficio="UOLAVORO"
+dinamico="SI"
+email_a=""
+ente_abilitato="TUTTI"
+filigrana="NO"
+firmare="P7M_ELETTRONICA"
+istruzioni_compilazione=""
+istruzioni_invio=""
+metodo_invio="mail"
+name="GLOBO_modulo"
+procura="NO,,"
+tipo_modulo="secondario"
+urlhelp="/modulistica/moduli/{{ CodiceModulo }}"
+verifica_pagamento="NO"
+versione="1.0|01/04/2019"/>
+
+{% endblock meta %}
+
+{% block title %}
+  Avviso di selezione: dichiarazioni allegate alla richiesta di partecipazione
+{% endblock title %}
+
+{% block content %}
+
+<globo_fondo_pagina areaheight="150" scope="1">
+  {{ utils.firma() }}
+</globo_fondo_pagina>
+
+<input id="Oggetto" name="Oggetto" type="hidden" dynamic_value="'Avviso di selezione: dichiarazioni allegate alla richiesta di partecipazione di ' + #AventeTitolo1_Cognome.value().toUpperCase() + ' ' + #AventeTitolo1_Nome.value().toUpperCase()"/>
+
+{{ intestazioni.intestazione_modulosecondario_senzabollo() }}
+
+<h1 class="Modulo">
+  Avviso di selezione: dichiarazioni allegate alla richiesta di partecipazione
+</h1>
+
+
+{{ anagrafica.cognome_nome("AventeTitolo1", "Il sottoscritto", "Richiedente", "visibility:visibility", "cursor:pointer", "visibility:visibility") }}
+
+{{ utils.Dichiara_445() }}
+
+
+{% set dichiarazioni = ["di essere dipendente di ruolo in servizio a tempo pieno e indeterminato presso una Pubblica Amministrazione del Comparto Regioni e Autonomie Locali con inquadramento nella categoria giuridica prevista dal bando, profilo professionale previsto dal bando o profilo equivalente",
+"di essere dipendente di ruolo in servizio a tempo parziale, presso una pubblica Amministrazione del Comparto Regioni e Autonomie Locali con inquadramento nella categoria giuridica  prevista dal bando, profilo professionale previsto dal bando o profilo equivalente, che intende proporsi per un posto a tempo pieno",
+"di essere disponibile alla trasformazione del rapporto di lavoro, contestualmente all’assunzione,  da tempo parziale a tempo pieno",
+"di aver superato positivamente il periodo di prova presso l’Amministrazione di appartenenza",
+"di aver maturato l’anzianità di servizio prevista dal bando in posizioni funzionali attinenti al posto da ricoprire",
+"di essere dipendente di un’Amministrazione soggetta a limitazioni delle assunzioni ai sensi e per gli effetti di quanto disposto dall'articolo 1, comma 47 della Legge 30-12-2004, n. 311",
+"di aver avuto nulla osta preventivo dell’Amministrazione di appartenenza alla cessione del contratto di lavoro con decorrenza da concordare tra le amministrazioni senza che ciò comporti impegno per l’Amministrazione procedente. Il nulla osta preventivo dovrà indicare che il nulla osta definitivo perverrà nei tempi indicati dall’Amministtrazione procedente, pena lo scorrimento della graduatoria",
+"di non aver riportato sanzioni disciplinari negli ultimi due anni precedenti la data di scadenza del bando e non aver in corso procedimenti disciplinari"] %}
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="2">
+        <p class="Labeltabella">
+          mobilità per interscambio
+        </p>
+      </td>
+    </tr>
+    {% for dichiarazione in dichiarazioni %}
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <div id="Tassonomia_Dichiara{{loop.index}}" name="Tassonomia_Dichiara{{loop.index}}" label="Dichiara"></div>
+        <input group="Tassonomia_Dichiara{{loop.index}}" id="Tassonomia_Dichiara{{loop.index}}1" name="Tassonomia_Dichiara{{loop.index}}1" type="checkbox" value="SI" {% if loop.index > 3 %} checked="checked" dynamic_check="true" {% endif %}/>
+      </td>
+      <td>
+        <p>
+          {{dichiarazione}}.
+        </p>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+
+<br>
+{{ utils.trattamento_dati_personali() }}
+<br/>
+  {{ utils.firma_hidden() }}
+<br/>
+
+<p class="Modulo">
+  <input id="SalvaModulo" name="SalvaModulo" style="height:30px;width:120px;" title="Verifica la corretta compilazione dei campi e salva il modulo nel faldone virtuale dell'istanza." type="submit" value="Salva modulo"/>
+</p>
+
+<input id="GLOBO_modulo_c{{ CodiceModulo }}" name="GLOBO_modulo_c{{ CodiceModulo }}" type="hidden" value=""/>
+
+<input id="GLOBO_id_padre" name="GLOBO_id_padre" type="hidden"/>
+<input id="GLOBO_recupera_dati" name="GLOBO_recupera_dati" type="hidden"/>
+<input id="GLOBO_codice_modulo" name="GLOBO_codice_modulo" type="hidden" value="{{ CodiceModulo }}"/>
+
+{% endblock content %}

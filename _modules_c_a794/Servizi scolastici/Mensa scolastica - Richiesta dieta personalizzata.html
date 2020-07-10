@@ -1,0 +1,471 @@
+{% set CodiceModulo = "RICHIESTA_DIETA_PERSONALIZZATA" %}
+{% set Urn = "document:c_a794:richiesta.tabelle.dietetiche.ats" %}
+{% extends "base.html" %}
+{% block meta %}
+
+<meta campi_firma="DichiarazioneCF"
+campi_firma_label="il dichiarante"
+classi_modulo="Commercio"
+codice_modulo="{{ CodiceModulo }}"
+urn="{% block urn %}{{ Urn }}{% endblock urn %}"
+sub_urn_list=""
+uo_globo_list=""
+descrizione="Richiesta dieta personalizzata"
+destinatario_amministrazione=""
+destinatario_ufficio=""
+dinamico="SI"
+email_a=""
+ente_abilitato="TUTTI"
+filigrana="SI"
+firmare="P7M_ELETTRONICA"
+istruzioni_compilazione=""
+istruzioni_invio=""
+metodo_invio=""
+name="GLOBO_modulo"
+procura="NO,,"
+tipo_modulo="secondario"
+urlhelp="/modulistica/moduli/{{ CodiceModulo }}"
+verifica_pagamento="NO"
+versione="1.2|06/06/2019" />
+
+<style>
+
+  .tableNoBorder, .tableNoBorder tr, .tableNoBorder td {
+    border: 0 !important;
+  }
+
+  .inputBordoSotto {
+    border-top: 0px;
+    border-left: 0px;
+    border-right: 0px;
+  }
+
+  .divMargin {
+    height: 10px;
+  }
+
+  @media pdf {
+    .inputBordoSotto2 {
+      border-top: 0px;
+      border-left: 0px;
+      border-right: 0px;
+      border-bottom: 1px solid black;
+    }
+   }
+
+</style>
+
+{% endblock meta %}
+
+{% block title %}
+  Richiesta dieta personalizzata
+{% endblock title %}
+
+{% block content %}
+
+<globo_fondo_pagina areaheight="150" scope="1">
+  <input id="Luogo_PDF" name="Luogo_PDF" type="hidden"/>
+  <input id="Data_PDF" name="Data_PDF" type="hidden"/>
+</globo_fondo_pagina>
+
+<input type="hidden" id="Oggetto" name="Oggetto" dynamic_value="'Richiesta dieta personalizzata'"/>
+
+
+
+<!-- ------------------------------ Intestazione ------------------------------ -->
+
+{{ utils.get_ufficio_dest()}}
+<input id="DichiarazioneCF" name="DichiarazioneCF" readonly="readonly" style="display: none;"/>
+
+<table class="Modulo tableNoBorder">
+  <tbody>
+    <tr>
+      <td rowspan="3" style="width: 50%;">
+        <img src="./appoggio/img/ats-bergamo.png" alt="ATS Bergamo">
+      </td>
+      <td colspan="2" style="width: 50%;">
+        <p>
+          <b>DA PRESENTARE</b>
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="width: 4%;">
+        <div id="Tassonomia_Da_presentare" name="Tassonomia_Da_presentare" label="Da presentare"></div>
+        <input id="Tassonomia_Da_presentare1" name="Tassonomia_Da_presentare" type="radio" value="1"/>
+      </td>
+      <td>
+        al <b>COMUNE</b> (scuole e nidi pubblici)
+      </td>
+    </tr>
+    <tr>
+      <td style="width: 4%;">
+        <input id="Tassonomia_Da_presentare2" name="Tassonomia_Da_presentare" type="radio" value="2"/>
+      </td>
+      <td>
+        alla <b>SCUOLA/Asilo Nido</b> (privati)
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<br/>
+
+<p class="Modulo" style="font-size: 20px; text-align: center;">
+  RISTORAZIONE SCOLASTICA<br/>
+  <b>RICHIESTA DIETA PERSONALIZZATA</b>
+</p>
+
+<br/>
+
+
+
+<!-- ------------------------------ Anagrafica ------------------------------ -->
+
+{% do all_prefix.append('TitolareNonImportare') %}
+{{ anagrafica.cognome_nome_fittizio('TitolareNonImportare') }}
+
+<table class="Modulo tableNoBorder" style="border:1px solid grey;">
+  <tbody>
+    <tr>
+      <td>
+        <p style="white-space: nowrap;">
+          <b>Cognome e nome del/la bambino/a</b>
+        </p>
+      </td>
+      <td style="width: 100%;">
+        <div class="inputBordoSotto2">
+          <input class="inputBordoSotto" id="Parametri_Bambino_Nome" name="Parametri_Bambino_Nome" style="width: 100%;" label="Cognome e nome del bambino" mandatory="true">
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="divMargin">
+</div>
+
+<table class="Modulo tableNoBorder" style="border:1px solid grey;">
+  <tbody>
+    <tr>
+      <td>
+        <p style="white-space: nowrap;">
+          <b>Data di nascita</b>
+        </p>
+      </td>
+      <td style="width: 100%;">
+        <div class="inputBordoSotto2">
+          <input class="inputBordoSotto" id="Parametri_Bambino_Data_nascita" name="Parametri_Bambino_Data_nascita" style="width: 100%;" label="Data di nascita del bambino" format="date" mandatory="true">
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="divMargin">
+</div>
+
+<table class="Modulo tableNoBorder" style="border:1px solid grey;">
+  <tbody>
+    <tr>
+      <td>
+        <p style="white-space: nowrap;">
+          <b>Indirizzo</b>
+        </p>
+      </td>
+      <td style="width: 100%;">
+        <div class="inputBordoSotto2">
+          <input class="inputBordoSotto" id="Parametri_Bambino_Indirizzo" name="Parametri_Bambino_Indirizzo" style="width: 100%;" label="Indirizzo" mandatory="true">
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="divMargin">
+</div>
+
+<table class="Modulo tableNoBorder" style="border:1px solid grey;">
+  <tbody>
+    <tr>
+      <td>
+        <p style="white-space: nowrap;">
+          <b>Comune</b>
+        </p>
+      </td>
+      <td style="width: 75%;">
+        <div class="inputBordoSotto2">
+          <input class="inputBordoSotto" id="Parametri_Bambino_Comune" name="Parametri_Bambino_Comune" style="width: 100%;" label="Comune" mandatory="true">
+        </div>
+      </td>
+      <td>
+        <p style="white-space: nowrap;">
+          <b>CAP</b>
+        </p>
+      </td>
+      <td style="width: 25%;">
+        <div class="inputBordoSotto2">
+          <input class="inputBordoSotto" id="Parametri_Bambino_CAP" name="Parametri_Bambino_CAP" style="width: 100%;" label="CAP" mandatory="true">
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="divMargin">
+</div>
+
+<table class="Modulo tableNoBorder" style="border:1px solid grey;">
+  <tbody>
+    <tr>
+      <td>
+        <p style="white-space: nowrap;">
+          <b>Telefono</b>
+        </p>
+      </td>
+      <td style="width: 50%;">
+        <div class="inputBordoSotto2">
+          <input class="inputBordoSotto" id="Parametri_Bambino_Telefono" name="Parametri_Bambino_Telefono" style="width: 100%;" label="Telefono" mandatory="true">
+        </div>
+      </td>
+      <td>
+        <p style="white-space: nowrap;">
+          <b>Cellulare</b>
+        </p>
+      </td>
+      <td style="width: 50%;">
+        <div class="inputBordoSotto2">
+          <input class="inputBordoSotto" id="Parametri_Bambino_Cellulare" name="Parametri_Bambino_Cellulare" style="width: 100%;" label="Cellulare" mandatory="true">
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="divMargin">
+</div>
+
+<table class="Modulo tableNoBorder" style="border:1px solid grey;">
+  <tbody>
+    <tr>
+      <td>
+        <p style="white-space: nowrap;">
+          <b>Email (in stampatello)</b>
+        </p>
+      </td>
+      <td style="width: 100%;">
+        <div class="inputBordoSotto2">
+          <input class="inputBordoSotto" id="Parametri_Bambino_Email" name="Parametri_Bambino_Email" style="width: 100%;" label="Email" mandatory="true" format="mail">
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="divMargin">
+</div>
+
+
+
+<!-- ------------------------------ Scuola ------------------------------ -->
+
+<table class="Modulo tableNoBorder" style="border:1px solid grey; width: 380px;">
+  <tbody>
+    <tr>
+      <td>
+        <p style="white-space: nowrap;">
+          <b>Frequentante nell'Anno Scolastico</b>
+        </p>
+      </td>
+      <td>
+        <p style="white-space: nowrap;">
+          <b>20</b>
+        </p>
+      </td>
+      <td style="width: 50%;">
+        <div class="inputBordoSotto2">
+          <input class="inputBordoSotto" id="Parametri_AS_Inizio" name="Parametri_AS_Inizio" style="width: 100%;" label="Inizio anno scolastico" mandatory="true">
+        </div>
+      </td>
+      <td>
+        <p style="white-space: nowrap;">
+          <b>/20</b>
+        </p>
+      </td>
+      <td style="width: 50%;">
+        <div class="inputBordoSotto2">
+          <input class="inputBordoSotto" id="Parametri_AS_Fine" name="Parametri_AS_Fine" style="width: 100%;" label="Fine anno scolastico" mandatory="true">
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="divMargin">
+</div>
+
+<table class="Modulo tableNoBorder" style="border:1px solid grey;">
+  <tbody>
+    <tr>
+      <td>
+        <p style="white-space: nowrap;">
+          <b>la scuola/il nido</b>
+        </p>
+      </td>
+      <td style="width: 100%;">
+        <div class="inputBordoSotto2">
+          <input class="inputBordoSotto" id="Parametri_Scuola" name="Parametri_Scuola" style="width: 100%;" label="Scuola" mandatory="true">
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="divMargin">
+</div>
+
+<table class="Modulo tableNoBorder" style="border:1px solid grey;">
+  <tbody>
+    <tr>
+      <td>
+        <p style="white-space: nowrap;">
+          <b>Indirizzo</b>
+        </p>
+      </td>
+      <td style="width: 100%;">
+        <div class="inputBordoSotto2">
+          <input class="inputBordoSotto" id="Parametri_Scuola_Indirizzo" name="Parametri_Scuola_Indirizzo" style="width: 100%;" label="Indirizzo scuola" mandatory="true">
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="divMargin">
+</div>
+
+<table class="Modulo tableNoBorder" style="border:1px solid grey;">
+  <tbody>
+    <tr>
+      <td>
+        <p style="white-space: nowrap;">
+          <b>Comune</b>
+        </p>
+      </td>
+      <td style="width: 100%;">
+        <div class="inputBordoSotto2">
+          <input class="inputBordoSotto" id="Parametri_Scuola_Comune" name="Parametri_Scuola_Comune" style="width: 100%;" label="Comune scuola" mandatory="true">
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="divMargin">
+</div>
+
+<table class="Modulo tableNoBorder" style="border:1px solid grey;">
+  <tbody>
+    <tr>
+      <td>
+        <p style="white-space: nowrap;">
+          <b>Telefono</b>
+        </p>
+      </td>
+      <td style="width: 25%;">
+        <div class="inputBordoSotto2">
+          <input class="inputBordoSotto" id="Parametri_Scuola_Telefono" name="Parametri_Scuola_Telefono" style="width: 100%;" label="Telefono" mandatory="true">
+        </div>
+      </td>
+      <td>
+        <p style="white-space: nowrap;">
+          <b>Email</b>
+        </p>
+      </td>
+      <td style="width: 75%;">
+        <div class="inputBordoSotto2">
+          <input class="inputBordoSotto" id="Parametri_Scuola_Email" name="Parametri_Scuola_Email" style="width: 100%;" label="Email" mandatory="true" format="mail">
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="divMargin">
+</div>
+
+<div class="divMargin">
+</div>
+
+
+
+<!-- ------------------------------ Firma ------------------------------ -->
+
+<table class="Modulo tableNoBorder" style="border:1px solid grey;">
+  <tbody>
+    <tr>
+      <td>
+        <p style="white-space: nowrap;">
+          <b>Firma del richiedente</b>
+        </p>
+      </td>
+      <td style="width: 100%;">
+        <div class="inputBordoSotto2">
+          <input class="inputBordoSotto" id="Parametri_Firma" name="Parametri_Firma" style="width: 100%;" label="Firma" readonly>
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="divMargin">
+</div>
+
+<table class="Modulo tableNoBorder" style="border:1px solid grey;">
+  <tbody>
+    <tr>
+      <td>
+        <p style="white-space: nowrap;">
+          <b>Data</b>
+        </p>
+      </td>
+      <td style="width: 100%;">
+        <div class="inputBordoSotto2">
+          <input class="inputBordoSotto" id="Data" name="Data" style="width: 100%;" label="Data">
+          <input id="Luogo" name="Luogo" label="Luogo" type="hidden"/>
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="divMargin">
+</div>
+
+<br/>
+
+<p class="Modulo" style="color: blue; text-align: center; line-height: 150%;">
+  È assolutamente <b>INDISPENSABILE</b><br/>
+  ALLEGARE <b>CERTIFICATO MEDICO</b><br/>
+  e compilare il modulo in tutte le sue parti e in modo LEGGIBILE.
+</p>
+
+<br/>
+
+<p class="Modulo">
+  Si ricorda che per poter procedere alla predisposizione di una dieta personalizzata, è necessario acquisire gli esiti (che dovranno essere allegati) degli accertamenti che hanno condotto alla diagnosi di allergia e/o altro disturbo dell’alimentazione.
+</p>
+
+<br/>
+
+<p class="Modulo">
+  <input id="SalvaModulo" name="SalvaModulo" style="height:30px;width:120px;" title="Verifica la corretta compilazione dei campi e salva il modulo nel faldone virtuale dell'istanza." type="submit" value="Salva modulo"/>
+</p>
+
+<input id="GLOBO_modulo_c{{ CodiceModulo }}" name="GLOBO_modulo_c{{ CodiceModulo }}" type="hidden" value=""/>
+
+<input id="GLOBO_id_padre" name="GLOBO_id_padre" type="hidden"/>
+<input id="GLOBO_recupera_dati" name="GLOBO_recupera_dati" type="hidden"/>
+<input id="GLOBO_codice_modulo" name="GLOBO_codice_modulo" type="hidden" value="{{ CodiceModulo }}"/>
+
+{% endblock content %}

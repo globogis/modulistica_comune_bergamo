@@ -1,0 +1,177 @@
+{% set CodiceModulo = "DOM-MOBI-EST" %}
+{% set Urn = "document:c_a794:mobilità.esterna;domanda" %}
+{% extends "base.html" %}
+
+{% block meta %}
+
+<meta campi_firma="AventeTitolo1_CodiceFiscale"
+campi_firma_label="il dichiarante"
+classi_modulo="Occupazione concorsi e assunzione"
+codice_modulo="{{ CodiceModulo }}"
+urn="{% block urn %}{{ Urn }}{% endblock urn %}"
+descrizione="Avviso di selezione: dichiarazioni allegate alla richiesta di partecipazione"
+destinatario_amministrazione=""
+destinatario_ufficio="UOLAVORO"
+dinamico="SI"
+email_a=""
+ente_abilitato="TUTTI"
+filigrana="NO"
+firmare="P7M_ELETTRONICA"
+istruzioni_compilazione=""
+istruzioni_invio=""
+metodo_invio="mail"
+name="GLOBO_modulo"
+procura="NO,,"
+tipo_modulo="secondario"
+urlhelp="/modulistica/moduli/{{ CodiceModulo }}"
+verifica_pagamento="NO"
+versione="1.0|01/04/2019"/>
+
+{% endblock meta %}
+
+{% block title %}
+  Avviso di selezione: dichiarazioni allegate alla richiesta di partecipazione
+{% endblock title %}
+
+{% block content %}
+
+<globo_fondo_pagina areaheight="150" scope="2">
+  {{ utils.firma() }}
+</globo_fondo_pagina>
+
+<input id="Oggetto" name="Oggetto" type="hidden" dynamic_value="'avviso di selezione: dichiarazioni allegate alla richiesta di partecipazione di ' + #AventeTitolo1_Cognome.value().toUpperCase() + ' ' + #AventeTitolo1_Nome.value().toUpperCase()"/>
+
+{{ intestazioni.intestazione_modulosecondario_senzabollo() }}
+
+<h1 class="Modulo">
+  Avviso di selezione: dichiarazioni allegate alla richiesta di partecipazione
+</h1>
+
+
+<h2 class="Modulo">
+  Decreto legislativo 30-03-2001, n. 165
+</h2>
+
+{{ anagrafica.cognome_nome("AventeTitolo1", "Il sottoscritto", "Richiedente", "visibility:visibility", "cursor:pointer", "visibility:visibility") }}
+
+{{ utils.Dichiara_445() }}
+
+<div id="Tassonomia_Comparto" name="Tassonomia_Comparto" label="Comparto" mandatory_enabled="#Tassonomia_Dichiara21.checked()"></div>
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <colgroup>
+      <col style="width: 4%;">
+      <col style="width: 4%;">
+      <col style="width: 32%;">
+      <col style="width: 60%;">
+    </colgroup>
+    <tr class="Rigaintestazione">
+      <td colspan="4">
+        <p class="Labeltabella">
+          mobilità esterna
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <div id="Tassonomia_Dichiara1" name="Tassonomia_Dichiara1" label="Dichiara"></div>
+        <input group="Tassonomia_Dichiara1" id="Tassonomia_Dichiara11" name="Tassonomia_Dichiara11" type="checkbox" value="SI" />
+      </td>
+      <td colspan="3">
+        <p>
+          di essere dipendente di ruolo in servizio a tempo pieno e indeterminato presso una Pubblica Amministrazione del Comparto Regioni e Autonomie Locali con inquadramento nella categoria giuridica prevista dal bando, profilo professionale previsto dal bando o profilo equivalente.
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td rowspan="9" style="vertical-align: top; width: 4%; background-color: white;">
+        <div id="Tassonomia_Dichiara2" name="Tassonomia_Dichiara2" label="Dichiara"></div>
+        <input group="Tassonomia_Dichiara2" id="Tassonomia_Dichiara21" name="Tassonomia_Dichiara21" type="checkbox" value="SI" />
+      </td>
+      <td colspan="3">
+        <p>
+          di essere dipendente di ruolo in servizio a tempo pieno e indeterminato presso la seguente Pubblica Amministrazione, con inquadramento in categoria giuridica e profilo professionale  equiparati:
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+
+      </td>
+      <td>
+        <p class="Labelcella">
+          Comparto
+        </p>
+      </td>
+      <td>
+        <p class="Labelcella">
+          Categoria giuridica
+        </p>
+      </td>
+    </tr>
+    {% set comparti = ["Ministeri",
+    "Agenzie fiscali",
+    "Presidenza del Consiglio dei Ministri",
+    "Enti pubblici non economici",
+    "Servizio sanitario nazionale",
+    "Università",
+    "Ricerca"] %}
+    {% for comparto in comparti %}
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input group="Tassonomia_Comparto" id="Tassonomia_Comparto{{loop.index}}" name="Tassonomia_Comparto{{loop.index}}" type="checkbox" value="SI" />
+      </td>
+      <td>
+        <p>
+          {{comparto}}
+        </p>
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_Comparto{{loop.index}}_CategoriaGiuridica" name="Parametri_Comparto{{loop.index}}_CategoriaGiuridica" style="width: 100%;" label="Categoria giuridica" mandatory_enabled="#Tassonomia_Comparto{{loop.index}}.checked()"/>
+      </td>
+    </tr>
+    {% endfor %}
+
+    {% set dichiarazioni = [
+    "di essere dipendente di ruolo in servizio a tempo parziale, presso una pubblica Amministrazione del Comparto Regioni e Autonomie Locali con inquadramento nella categoria giuridica  prevista dal bando, profilo professionale previsto dal bando o profilo equivalente, che intende proporsi per un posto a tempo pieno",
+    "di essere disponibile alla trasformazione del rapporto di lavoro, contestualmente all’assunzione,  da tempo parziale a tempo pieno",
+    "di aver superato positivamente il periodo di prova presso l’Amministrazione di appartenenza",
+    "di aver maturato l’anzianità di servizio prevista dal bando in posizioni funzionali attinenti al posto da ricoprire",
+    "di essere dipendente di un’Amministrazione soggetta a limitazioni delle assunzioni ai sensi e per gli effetti di quanto disposto dall'articolo 1, comma 47 della Legge 30-12-2004, n. 311",
+    "di aver avuto nulla osta preventivo dell’Amministrazione di appartenenza alla cessione del contratto di lavoro con decorrenza da concordare tra le amministrazioni senza che ciò comporti impegno per l’Amministrazione procedente. Il nulla osta preventivo dovrà indicare che il nulla osta definitivo perverrà nei tempi indicati dall’Amministtrazione procedente, pena lo scorrimento della graduatoria",
+    "di non aver riportato sanzioni disciplinari negli ultimi due anni precedenti la data di scadenza del bando e non aver in corso procedimenti disciplinari"] %}
+
+    {% for dichiarazione in dichiarazioni %}
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <div id="Tassonomia_Dichiara{{loop.index + 2}}" name="Tassonomia_Dichiara{{loop.index + 2}}" label="Dichiara"></div>
+        <input group="Tassonomia_Dichiara{{loop.index + 2}}" id="Tassonomia_Dichiara{{loop.index + 2}}1" name="Tassonomia_Dichiara{{loop.index + 2}}1" type="checkbox" value="SI" {% if loop.index > 2 %} checked="checked" dynamic_check="true" {% endif %} />
+      </td>
+      <td colspan="3">
+        <p>
+          {{dichiarazione}}.
+        </p>
+      </td>
+    </tr>
+    {%if loop.index == 5 %} <globo_salto_pagina></globo_salto_pagina> {% endif %}
+    {% endfor %}
+  </tbody>
+</table>
+
+<br>
+{{ utils.trattamento_dati_personali() }}
+<br/>
+  {{ utils.firma_hidden() }}
+<br/>
+
+<p class="Modulo">
+  <input id="SalvaModulo" name="SalvaModulo" style="height:30px;width:120px;" title="Verifica la corretta compilazione dei campi e salva il modulo nel faldone virtuale dell'istanza." type="submit" value="Salva modulo"/>
+</p>
+
+<input id="GLOBO_modulo_c{{ CodiceModulo }}" name="GLOBO_modulo_c{{ CodiceModulo }}" type="hidden" value=""/>
+
+<input id="GLOBO_id_padre" name="GLOBO_id_padre" type="hidden"/>
+<input id="GLOBO_recupera_dati" name="GLOBO_recupera_dati" type="hidden"/>
+<input id="GLOBO_codice_modulo" name="GLOBO_codice_modulo" type="hidden" value="{{ CodiceModulo }}"/>
+
+{% endblock content %}

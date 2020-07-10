@@ -1,0 +1,876 @@
+{% set CodiceModulo = "DOM_CONTR_CRE_SOGG" %}
+{% set Urn = "document:c_a794:centro.ricreativo.estivo.soggiorni;contributo" %}
+{% extends "base.html" %}
+
+{% block meta %}
+
+<meta campi_firma="Titolare_CodiceFiscale"
+campi_firma_label="il dichiarante"
+classi_modulo="Servizi sociali"
+codice_modulo="{{ CodiceModulo }}"
+urn="{% block urn %}{{ Urn }}{% endblock urn %}"
+sub_urn_list=""
+uo_globo_list=""
+descrizione="Domanda di contributo per la frequenza di centri ricreativi estivi e soggiorni climatici"
+destinatario_amministrazione=""
+destinatario_ufficio="UOSERVIZISOCIALI"
+dinamico="SI"
+email_a=""
+ente_abilitato="TUTTI"
+filigrana="SI"
+firmare="P7M_ELETTRONICA"
+istruzioni_compilazione=""
+istruzioni_invio="mail_pec"
+metodo_invio="mail"
+name="GLOBO_modulo"
+procura="NO,,"
+tipo_modulo="principale"
+urlhelp="/modulistica/moduli/{{ CodiceModulo }}"
+verifica_pagamento="NO"
+versione="1.2|06/11/2019"/>
+
+<meta codice_modulo_figlio="Incarico_procura"
+urn_modulo_figlio="document:s_italia:generale;incarico.procura"
+name="GLOBO_modulofiglio"
+numero="1"
+obbligatorio="DINAMICO"/>
+
+<meta codice_allegato="DIA_MED_DIS"
+urn_allegato="document:c_a794:servizi.sociali;disabilità;diagnosi.medica"
+descrizione_estesa="Copia della diagnosi medica di disabilità"
+filename="Diagnosi medica.pdf"
+firmato="SI"
+istruzioni="/modulistica/moduli/DIA_MED_DIS"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="DEL_RISC"
+urn_allegato="document:c_a794:riscossione;delega"
+descrizione_estesa="Delega alla riscossione"
+filename="Delega riscossione.pdf"
+firmato="SI"
+istruzioni="/modulistica/moduli/DEL_RISC"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="ATT_SPE_SOST"
+urn_allegato="document:c_a794:generale;spese.sostenute;documentazione"
+descrizione_estesa="Descrizione allegato"
+filename="Filename.pdf"
+firmato="SI"
+istruzioni="/modulistica/moduli/ATT_SPE_SOST"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_modulo_figlio="ULT_SOGG_CONTR"
+urn_modulo_figlio="document:c_a794:ulteriori.soggetti.contributo"
+name="GLOBO_modulofiglio"
+numero="1"
+obbligatorio="DINAMICO"/>
+
+<meta codice_allegato="DAE-CDI"
+urn_allegato="document:s_italia:generale;documento.identita;documentazione"
+descrizione_estesa="Documento di identità"
+filename="Documento identita.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/DAE-CDI"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="ALTRI-ALLEGATI"
+urn_allegato="document:s_italia:altri.allegati"
+descrizione_estesa="Altri allegati"
+filename="Altri allegati.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/ALTRI-ALLEGATI"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+{% endblock meta %}
+
+{% block title %}
+  Domanda di contributo per la frequenza di centri ricreativi estivi e soggiorni climatici
+{% endblock title %}
+
+{% block content %}
+
+<globo_fondo_pagina areaheight="150" scope="1">
+  {{ utils.firma() }}
+</globo_fondo_pagina>
+
+<input id="Parametri_Comune" name="Parametri_Comune" type="hidden" dynamic_value="#Ente.value()"/>
+<input id="Oggetto" name="Oggetto" type="hidden" dynamic_value="#Titolare_Cognome.value().toUpperCase() + ' ' + #Titolare_Nome.value().toUpperCase() + ' - Domanda di contributo per la frequenza di centri ricreativi estivi e soggiorni climatici'"/>
+
+{{ intestazioni.intestazione_moduloprincipale_senzabollo() }}
+
+<h1 class="Modulo">
+  Domanda di contributo per la frequenza di centri ricreativi estivi e soggiorni climatici
+</h1>
+
+<input id="Titolare_DatiPersonaObbligatori" name="Titolare_DatiPersonaObbligatori" type="hidden" dynamic_check="true"/>
+<input id="Titolare_Titolo" name="Titolare_Titolo" type="hidden" value="Richiedente"/>
+<input id="Titolare_Ruolo" name="Titolare_Ruolo" type="hidden" value="Richiedente"/>
+{{ anagrafica.persona_fisica("Titolare", "Il sottoscritto", "visibility:visibility", "cursor:pointer", "visibility:visibility", "visibility:visibility", "mail_ordinaria") }}
+
+<br>
+<h3 class="Modulo">
+  CHIEDE
+</h3>
+<p class="Modulo">
+  la concessione di un contributo economico per la frequenza
+</p>
+
+<div id="Tassonomia_contr_eco_fre" name="Tassonomia_contr_eco_fre" label="Contributo economico per la frequenza" mandatory="true"></div>
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input group="Tassonomia_contr_eco_fre" id="Tassonomia_contr_eco_fre1" name="Tassonomia_contr_eco_fre1" type="checkbox" value="SI" />
+      </td>
+      <td colspan="3">
+        <p> del centro ricreativo estivo per minori </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input group="Tassonomia_contr_eco_fre" id="Tassonomia_contr_eco_fre2" name="Tassonomia_contr_eco_fre2" type="checkbox" value="SI" />
+      </td>
+      <td colspan="3">
+        <p> del centro ricreativo estivo per minori disabili </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input group="Tassonomia_contr_eco_fre" id="Tassonomia_contr_eco_fre3" name="Tassonomia_contr_eco_fre3" type="checkbox" value="SI" />
+      </td>
+      <td colspan="3">
+        <p> del soggiorno climatico per minori </p>
+      </td>
+    </tr>
+    <tr>
+      <td rowspan="6" style="vertical-align: top; width: 4%;">
+        <input group="Tassonomia_contr_eco_fre" id="Tassonomia_contr_eco_fre4" name="Tassonomia_contr_eco_fre4" type="checkbox" value="SI" />
+      </td>
+      <td colspan="3">
+        <p> del soggiorno climatico per disabili </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td colspan="3">
+        <p class="Labelcella"> con presenza di staff educativo non appartenente al nucleo familiare </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella"> Nome operatore </p>
+      </td>
+      <td colspan="2">
+        <p class="Labelcella"> Cognome operatore </p>
+      </td>
+    </tr>
+    <tr mandatory_enabled="#Tassonomia_contr_eco_fre4.checked()">
+      <td>
+        <input class="inputNormal" id="Parametri_oper_nome" name="Parametri_oper_nome" style="width: 100%;" label="Nome operatore" />
+      </td>
+      <td colspan="2">
+        <input class="inputNormal" id="Parametri_oper_cogn" name="Parametri_oper_cogn" style="width: 100%;" label="Cognome operatore" />
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella"> Giorni di assistenza erogata </p>
+      </td>
+      <td>
+        <p class="Labelcella"> Spesa sostenuta per l'assistenza </p>
+      </td>
+      <td>
+        <p class="Labelcella"> Qualifica </p>
+      </td>
+    </tr>
+    <tr mandatory_enabled="#Tassonomia_contr_eco_fre4.checked()">
+      <td>
+        <input class="inputNormal" id="Parametri_ass_erog" name="Parametri_ass_erog" style="width: 100%;" label="Giorni di assenza erogata"/>
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_sos_ass" name="Parametri_sos_ass" style="width: 100%;" label="Spesa sostenuta per l'assistenza" />
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_qualif" name="Parametri_qualif" style="width: 100%;" label="Qualifica" />
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+
+<!-- INIZIO -->
+<div type="soggetto_riferimento_servizi_demografici">
+  <input id="AventeTitolo_Titolo" name="AventeTitolo_Titolo" type="hidden" value="Soggetto interessato"/>
+  <input id="AventeTitolo_Ruolo"  name="AventeTitolo_Ruolo"  type="hidden" value="Soggetto interessato"/>
+  <table class="Modulo" style="border:1px solid grey;margin-top:-1px; visibility:visibility">
+    <tbody>
+      <tr class="Rigaintestazioneridotta">
+        <td colspan="5">
+          <p class="Labelcella"> Soggetto interessato </p>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <table class="Modulo" style="border:1px solid grey;margin-top:-1px;">
+    <tbody>
+      <tr>
+        <td style="width:3%" enabled="true">
+          <div id="Tassonomia_SoggettoInteressato" label="Soggetto interessato" mandatory="true"></div>
+          <input id="Tassonomia_SoggettoInteressato1" name="Tassonomia_SoggettoInteressato" type="radio" value="1"/>
+        </td>
+        <td colspan="7">
+          <p> per se stesso </p>
+        </td>
+      </tr>
+      <tr>
+          <td rowspan="8" style="vertical-align:top; background-color:white">
+            <input id="Tassonomia_SoggettoInteressato2" name="Tassonomia_SoggettoInteressato" type="radio" value="2"/>
+          </td>
+        <td colspan="7">
+          <p> per il seguente familiare o tutelato </p>
+        </td>
+      </tr>
+     
+      <tr class="Rigaintestazioneridotta">
+        <td colspan="3">
+          <p class="Labelcella"> Cognome </p>
+        </td>
+        <td colspan="1">
+          <p class="Labelcella"> Nome </p>
+        </td>
+        <td colspan="3">
+          <p class="Labelcella"> Codice Fiscale </p>
+        </td>
+      </tr>
+      <tr mandatory_enabled="#Tassonomia_SoggettoInteressato2.checked()">
+        <td colspan="3">
+          <input class="inputNormal" id="AventeTitolo_Cognome" label="Cognome soggetto interessato" name="AventeTitolo_Cognome" style="width:100%"/>
+        </td>
+        <td colspan="1">
+          <input class="inputNormal" id="AventeTitolo_Nome" label="Nome soggetto interessato" name="AventeTitolo_Nome" style="width:100%"/>
+        </td>
+        <td colspan="3">
+          <input class="inputNormal" format="cf" id="AventeTitolo_CodiceFiscale" label="Codice Fiscale soggetto interessato" name="AventeTitolo_CodiceFiscale" style="width:100%; " onkeyup="this.value = this.value.toUpperCase();"/>
+        </td>
+      </tr>
+      <tr class="Rigaintestazioneridotta">
+        <td style="width:20%;" colspan="2">
+          <p class="Labelcella"> Data di nascita </p>
+        </td>
+        <td style="width:9%;">
+          <p class="Labelcella"> Sesso (M/F) </p>
+        </td>
+        <td style="width: 34%;" colspan="1">
+          <p class="Labelcella"> Luogo di nascita </p>
+        </td>				
+        <td style="width: 33%;" colspan="3">
+          <p class="Labelcella"> Cittadinanza </p>
+        </td>
+      </tr>
+      <tr mandatory_enabled="#Tassonomia_SoggettoInteressato2.checked()">
+        <td colspan="2">
+          <input class="inputNormal" format="date" id="AventeTitolo_DataNascita" label="Data di nascita soggetto interessato" name="AventeTitolo_DataNascita" style="width:100%;" readonly/>
+        </td>
+        <td>
+          <select class="inputNormal" id="AventeTitolo_Sesso" label="Sesso soggetto interessato" name="AventeTitolo_Sesso" style="width:100%; pointer-events:none;">
+            <option value=""></option>
+            <option value="M"> M </option>
+            <option value="F"> F </option>
+          </select>
+        </td>
+        <td colspan="1">
+          <input class="inputNormal" id="AventeTitolo_LuogoNascita" label="Luogo di nascita" name="AventeTitolo_LuogoNascita" style="width:100%;" readonly/>
+        </td>				
+        <td colspan="3">
+          {{ utils.nazionalita( 'AventeTitolo_Cittadinanza', 'Cittadinanza soggetto interessato' )}}
+        </td>
+      </tr>
+        <tr class="Rigaintestazioneridotta">
+          <td colspan="7">
+            <p class="Labelcella">Residenza</p>
+          </td>
+        </tr>
+        <tr class="Rigaintestazioneridotta">
+          <td style="width:9%;">
+            <p class="Labelcella">Provincia</p>
+          </td>
+          <td style="width:29%;" colspan="2">
+            <p class="Labelcella">Comune</p>
+          </td>
+          <td style="width:33%;" colspan="2">
+            <p class="Labelcella">Indirizzo</p>
+          </td>
+          <td style="width:9%;">
+            <p class="Labelcella">Civico</p>
+          </td>
+          <td style="width:16%;">
+            <p class="Labelcella">CAP</p>
+          </td>
+        </tr>
+        <tr>
+          <td mandatory_enabled="#Tassonomia_SoggettoInteressato2.checked()">
+            {{ utils.provincie( 'AventeTitolo_ProvinciaResidenza', label="Provincia di residenza") }}
+          </td>
+          <td colspan="2" mandatory_enabled="#Tassonomia_SoggettoInteressato2.checked()">
+            <select class="inputNormal" id="AventeTitolo_ComuneResidenza" name="AventeTitolo_ComuneResidenza" style="width:100%" label="Comune di residenza" dynamic_value="getComuniFromProvincia( #AventeTitolo_ProvinciaResidenza.value(), 'AventeTitolo_ComuneResidenza')"></select>
+          </td>
+          <td colspan="2" mandatory_enabled="#Tassonomia_SoggettoInteressato2.checked()">
+            <input class="" id="AventeTitolo_ViaResidenza" name="AventeTitolo_ViaResidenza" style="width:100%;" label="Via di residenza" format="regular_expression" expression="^(.+)\s(.+)$"/>
+          </td>
+          <td mandatory_enabled="#Tassonomia_SoggettoInteressato2.checked()">
+            <input class="" id="AventeTitolo_CivicoResidenza" name="AventeTitolo_CivicoResidenza" style="width:100%;" label="Civico di residenza" maxlength="10"/>
+          </td>
+          <td>
+            <input class="" id="AventeTitolo_CAPResidenza" name="AventeTitolo_CAPResidenza" style="width:100%;" format="cap" label="CAP di residenza" enabled="#Tassonomia_SoggettoInteressato2.checked()" {% if residenza_obbligatoria == 'true'%}mandatory="#Tassonomia_SoggettoInteressato2.checked() and #{{ prefix }}_ProvinciaResidenza.value() != 'EE'"{% endif %}/>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+</div>
+<!-- FINE -->
+
+<br>
+{{ utils.Dichiara_445() }}
+
+
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td style="vertical-align: top; width: 4%;"  >
+        <input class="inputNormal" id="Parametri_Sog_Clim" name="Parametri_Sog_Clim" style="width: 100%;" label="Descrizione soggiorno climatico" type="checkbox" dynamic_check="#Tassonomia_contr_eco_fre4.checked()"/>
+      </td>
+      <td >
+        <p class="Labeltabella"> Descrizione del soggiorno climatico </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<table class="Modulo" style="border: 1px solid grey;margin-top:-1px;">
+    <tr class="Rigaintestazioneridotta">
+        <td > 
+          <p class="Labelcella"> Denominazione soggiorno climatico </p>
+        </td>
+        <td>
+          <p class="Labelcella"> Data inizio </p>
+        </td>
+        <td>
+          <p class="Labelcella"> Data fine </p>
+        </td>
+        <td>
+          <p class="Labelcella"> Durata (giorni) </p>
+        </td>
+        <td>
+          <p class="Labelcella"> Spesa sostenuta </p>
+        </td>
+      </tr>
+      <tr mandatory_enabled="#Tassonomia_contr_eco_fre4.checked()"> 
+        <td style="width: 33.2%">
+          <input class="inputNormal" id="Parametri_denom_sog" name="Parametri_denom_sog" style="width: 100%;" label="Denominazione soggiorno climatico"/>
+        </td>
+        <td style="width: 17%">
+          <input class="inputNormal" id="Parametri_dinizio_sog_cli" name="Parametri_dinizio_sog_cli" style="width: 100%;" label="Data inizio sog clim" format="date"/>
+        </td>
+        <td style="width: 17%">
+          <input class="inputNormal" id="Parametri_dfine_sog_cli" name="Parametri_dfine_sog_cli}" style="width: 100%;" label="Data fine sog clim" format="date"/>
+        </td>
+        <td>
+          <input class="inputNormal" id="Parametri_dur_gior_sog_cli" name="Parametri_dur_gior_sog_cli" style="width: 100%;" label="Durata (giorni) sog clim"/>
+        </td>
+        <td>
+          <input class="inputNormal" id="Parametri_spe_sost_sog_cli" name="Parametri_spe_sost_sog_cli" style="width: 100%;" label="Spesa sostenuta sog clim" format="valuta_positiva" />
+        </td>
+      </tr>
+  </tbody>
+</table>
+
+<br>
+
+{% for i in range(1, 4) %}
+
+  <input id="AventeTitolo{{i}}_Titolo" name="AventeTitolo{{i}}_Titolo" type="hidden" value="Avente Titolo"/>
+  <input id="AventeTitolo{{i}}_Ruolo" name="AventeTitolo{{i}}_Ruolo" type="hidden" value="Avente Titolo"/>
+  {% if i == 1 %}
+    {{ anagrafica.persona_fisica("AventeTitolo"~i, "<input id='AventeTitolo"~i~"_DatiPersonaObbligatori' name='AventeTitolo"~i~"_DatiPersonaObbligatori' type='checkbox' dynamic_check='#Tassonomia_contr_eco_fre1.checked() || #Tassonomia_contr_eco_fre2.checked() || #Tassonomia_contr_eco_fre3.checked()' enabled='#Tassonomia_contr_eco_fre1.checked() || #Tassonomia_contr_eco_fre2.checked() || #Tassonomia_contr_eco_fre3.checked()'/> generalità del minore utilizzatore del servizio ("~i~"° iscritto)", 
+    "visibility:visibility", "cursor:pointer", "visibility:visibility", "visibility:none", "none") }}
+  {% else %}
+    {{ anagrafica.persona_fisica("AventeTitolo"~i, "<input id='AventeTitolo"~i~"_DatiPersonaObbligatori' name='AventeTitolo"~i~"_DatiPersonaObbligatori' type='checkbox' enabled='#AventeTitolo"~(i-1)~"_DatiPersonaObbligatori.checked()'/> generalità del minore utilizzatore del servizio ("~i~"° iscritto)", 
+    "visibility:visibility", "cursor:pointer", "visibility:visibility", "visibility:none", "none") }}
+  {% endif %}
+  <table class="Modulo" style="border: 1px solid grey;margin-top: -1px;">
+    <tbody>
+      <tr class="Rigaintestazioneridotta">
+        <td>
+          <p class="Labelcella"> Denominazione CRE/soggiorno climatico </p>
+        </td>
+        <td>
+          <p class="Labelcella"> Data inizio </p>
+        </td>
+        <td>
+          <p class="Labelcella"> Data fine </p>
+        </td>
+        <td>
+          <p class="Labelcella"> Durata (giorni) </p>
+        </td>
+        <td>
+          <p class="Labelcella"> Spesa sostenuta </p>
+        </td>
+      </tr>
+      <tr mandatory_enabled="#AventeTitolo{{i}}_DatiPersonaObbligatori.checked()"> 
+        <td style="width: 33.2%">
+          <input class="inputNormal" id="Parametri_denom_cre{{i}}" name="Parametri_denom_cre{{i}}" style="width: 100%;" label="Denominazione CRE/soggiorno climatico"/>
+        </td>
+        <td style="width: 17%">
+          <input class="inputNormal" id="Parametri_dinizio{{i}}" name="Parametri_dinizio{{i}}" style="width: 100%;" label="Data inizio" format="date"/>
+        </td>
+        <td style="width: 17%">
+          <input class="inputNormal" id="Parametri_dfine{{i}}" name="Parametri_dfine{{i}}" style="width: 100%;" label="Data fine" format="date"/>
+        </td>
+        <td>
+          <input class="inputNormal" id="Parametri_dur_gior{{i}}" name="Parametri_dur_gior{{i}}" style="width: 100%;" label="Durata (giorni)"/>
+        </td>
+        <td>
+          <input class="inputNormal" id="Parametri_spe_sost{{i}}" name="Parametri_spe_sost{{i}}" style="width: 100%;" label="Spesa sostenuta" format="valuta_positiva" />
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  {% if not loop.last %}
+    <br>
+  {% endif %}
+{% endfor %}
+
+<table class="Modulo" style="border: 1px solid grey;margin-top: -1px;" enabled="#AventeTitolo3_DatiPersonaObbligatori.checked()">
+  <tbody>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella"> Ulteriori minori oggetto di richiesta di contributo (allegare il modulo "ulteriori minori iscritti ai servizi")  </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <p> 
+          il procedimento riguarda 
+          <input class="" id="Parametri_num_altr_sogg" name="Parametri_num_altr_sogg" style="width:5%;" value="0" label="Numero ulteriori Soggeti" format="number"/> 
+          ulteriori soggetti
+        </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<br>
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="4">
+        <p class="Labeltabella"> Che il nucleo familiare del minore è cosi composto </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td style="width: 25%">
+        <p class="Labelcella"> Cognome </p>
+      </td>
+      <td style="width: 25%">
+        <p class="Labelcella"> Nome </p>
+      </td>
+      <td style="width: 25%">
+        <p class="Labelcella"> Codice Fiscale </p>        
+      </td>
+      <td style="width: 25%">
+        <p class="Labelcella"> Rapporto di parentela </p>
+      </td>
+    </tr>
+    {% for i in range(1, 9) %}
+      <tr {% if i == 1 %} mandatory_enabled="true" {% endif %} >
+        <td>
+          <input class="inputNormal" id="Parametri_famil{{i}}_Cognome" name="Parametri_famil{{i}}_Cognome" style="width: 100%;" label="Cognome del familiare {{i}}" 
+          {% if i > 1 %} enabled="#Parametri_famil{{i-1}}_Cognome.value()!=''" {% endif %} />
+        </td>
+        <td>
+          <input class="inputNormal" id="Parametri_famil{{i}}_Nome" name="Parametri_famil{{i}}_Nome" style="width: 100%;" label="Nome del familiare {{i}}" 
+          {% if i > 1 %} mandatory_enabled="#Parametri_famil{{i}}_Cognome.value()!=''" {% endif %} />
+        </td>
+        <td>
+          <input class="inputNormal" id="Parametri_famil{{i}}_CodiceFiscale" name="Parametri_famil{{i}}_CodiceFiscale" style="width: 100%; " onkeyup="this.value = this.value.toUpperCase();" format="cf" label="Codice Fiscale del familiare {{i}}" 
+          {% if i > 1 %} mandatory_enabled="#Parametri_famil{{i}}_Cognome.value()!=''" {% endif %} />
+        </td>
+        <td>
+          <select class="inputNormal" id="Parametri_famil{{i}}_rapparent" name="Parametri_famil{{i}}_rapparent" style="width: 100%;" label="Rapporto di parentela del familiare {{i}}" 
+          {% if i > 1 %} mandatory_enabled="#Parametri_famil{{i}}_Cognome.value()!=''" {% endif %} >
+            {% set pars = [ "", "Padre", "Madre", "Figlio", "Coniuge", "Dichiarante", "Altro" ] %}
+            {% for par in pars %}
+              <option value="{{par}}"> {{par}} </option>
+            {% endfor %}
+          </select>
+        </td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<br>
+<table class="Modulo" style="border:0px">
+  <tbody>
+    <tr style="border:0px">
+      <td style="width:4%; vertical-align:top; border:0px; background-color:white">
+        <input id="Tassonomia_RiduzioneTariffaISEE" name="Tassonomia_RiduzioneTariffaISEE" type="checkbox" cheched="true" dynamic_check="true" value="si"/>
+      </td>
+      <td style="border:0px">
+        <p> di essere in possesso di attestazione ISEE </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<table class="Modulo" style="border:0px">
+  <tbody>
+    <tr class="Rigaintestazioneridotta" style="border:0px">
+      <td rowspan="2" style="width:4%; background-color:white; border:0px"></td>
+      <td>
+        <p class="Labelcella"> Valore ISEE </p>
+      </td>
+      <td style="width:24%;">
+        <p class="Labelcella"> Data rilascio </p>
+      </td>
+      <td style="width:24%;">
+        <p class="Labelcella"> Numero di protocollo DSU </p>
+      </td>
+      <td style="width:24%;">
+        <p class="Labelcella"> Data fine validità </p>
+      </td>
+    </tr>
+    <tr style="border:0px" mandatory_enabled="#Tassonomia_RiduzioneTariffaISEE.checked()">
+      <td style="background-color:white">
+        <p> <input class="inputNormal" id="Parametri_Valore_ISEE" label="Valore ISEE" name="Parametri_Valore_ISEE" style="width:80%" format="valuta_positiva"/> € </p>
+      </td>
+      <td style="background-color:white">
+        <input class="inputNormal" id="Parametri_DatarilascioISEE" label="Data rilascio ISEE" name="Parametri_DatarilascioISEE" style="width:100%" format="date"/>
+      </td>
+      <td style="background-color:white">
+        <input class="inputNormal" id="Parametri_ProtocolloDSU" name="Parametri_ProtocolloDSU" style="width: 100%;" label="Numero di protocollo DSU">
+      </td>
+      <td style="background-color:white">
+        <input class="inputNormal" id="Parametri_DataFineValiditaISEE" label="Data fine validità ISEE" name="Parametri_DataFineValiditaISEE" style="width:100%" format="date"/>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<br>
+<h3 class="Modulo">
+  DICHIARA INOLTRE
+</h3>
+<p class="Modulo">
+  che in caso di accoglimento della domanda il contributo venga assegnato nella seguente modalità
+</p>
+
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="2">
+        <p class="Labeltabella"> modalità di pagamento all'ente erogatore </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <div id="Tassonomia_cc_ente_erog" name="Tassonomia_cc_ente_erog" label="Modalità di pagamento all'ente erogatore" mandatory="true"></div>
+        <input id="Tassonomia_cc_ente_erog1" name="Tassonomia_cc_ente_erog" type="radio" value="1"/>
+      </td>
+      <td>
+        <p> accredito su conto corrente intestato all’ente erogatore del servizio </p>
+     </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="Tassonomia_cc_ente_erog2" name="Tassonomia_cc_ente_erog" type="radio" value="2"/>
+      </td>
+      <td>
+        <p> accredito ripartito tra richiedente ed ente erogatore del servizio </p>
+        <span style="font-size: 70%;"><i> flaggare anche la modalità di accredito per il richiedente </i></span>
+      </td>
+    </tr>    
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="Tassonomia_cc_ente_erog3" name="Tassonomia_cc_ente_erog" type="radio" value="3"/>
+      </td>
+      <td colspan="2">
+        <p> non è previsto il versamento del contributo all'ente erogatore </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<table class="Modulo" style="border: 1px solid grey;margin-top: -1px;">
+  <tbody>
+    <tr class="Rigaintestazioneridotta">
+      <td colspan="2">
+        <p class="Labelcella"> Domiciliazione bancaria o postale del conto corrente dell'ente erogatore del servizio  </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td style="width: 50%;">
+        <p class="Labelcella"> Istituto </p>
+      </td>
+      <td style="width: 50%;">
+        <p class="Labelcella"> Numero conto corrente </p>
+      </td>
+    </tr>
+    <tr mandatory_enabled="#Tassonomia_cc_ente_erog1.checked() || #Tassonomia_cc_ente_erog2.checked()">
+        <td>
+          <input class="inputNormal" id="Parametri_Istituto2" name="Parametri_Istituto2" style="width: 100%;" label="Istituto Ente erogatore">
+        </td>
+        <td>
+          <input class="inputNormal" id="Parametri_Numero_CC2" name="Parametri_Numero_CC2" style="width: 100%;" label="Numero conto corrente Ente erogatore" format="regular_expression" expression="^[a-zA-Z0-9]{12}$" onblur="PadCC()">
+        </td>
+      </tr>
+      <tr class="Rigaintestazioneridotta">
+        <td>
+          <p class="Labelcella"> Coordinate IBAN </p>
+        </td>
+        <td>
+          <p class="Labelcella"> Codice BIC (swift) </p>
+        </td>
+      </tr>
+      <tr mandatory_enabled="#Tassonomia_cc_ente_erog1.checked() || #Tassonomia_cc_ente_erog2.checked()">
+        <td>
+          <input class="inputNormal" id="Parametri_IBAN2" name="Parametri_IBAN2" style="width: 100%;" label="Coordinate IBAN Ente Erogatore" >
+        </td>
+        <td>
+          <input class="inputNormal" id="Parametri_BIC_swift2" name="Parametri_BIC_swift2" style="width: 100%;" label="Codice BIC (swift)" mandatory_enabled="#Parametri_IBAN2.value() != '' and (!#Parametri_IBAN2.value().toUpperCase().startsWith('IT'))">
+        </td>
+      </tr>
+      <tr class="Rigaintestazioneridotta" >
+        <td colspan="2">
+          <p class="Labelcella">Indicare la percentuale di ripartizione </p>
+        </td>
+      </tr>
+      <tr mandatory_enabled="#Tassonomia_cc_ente_erog2.checked()">
+        <td colspan="2" >
+          <input class="inputNormal" id="Parametri_Percentuale" name="Parametri_Percentuale" style="width: 100%;" label="Percentuale di ripartizione" >
+        </td>
+      </tr>
+  </tbody>
+</table>
+
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="2">
+        <p class="Labeltabella"> modalità di pagamento al richiedente </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <div id="Tassonomia_contr_cc_mod" name="Tassonomia_contr_cc_mod" label="Modalità assegnatmento contributo al richiedente" mandatory="#Tassonomia_cc_ente_erog2.checked() || #Tassonomia_cc_ente_erog3.checked()" enabled="!#Tassonomia_cc_ente_erog1.checked()"></div>
+        <input group="Tassonomia_contr_cc_mod" id="Tassonomia_contr_cc_mod1" name="Tassonomia_contr_cc_mod1" type="checkbox" value="SI" enabled="!#Tassonomia_contr_cc_mod2.checked()"/>
+      </td>
+      <td>
+        <p> accredito su conto corrente intestato al richiedente </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input group="Tassonomia_contr_cc_mod" id="Tassonomia_contr_cc_mod2" name="Tassonomia_contr_cc_mod2" type="checkbox" value="SI" enabled="!#Tassonomia_contr_cc_mod1.checked()"/>
+      </td>
+      <td>
+        <p> assegno a traenza non trasferibile intestato al richiedente presso l’indirizzo indicato sopra </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<table class="Modulo" style="border: 1px solid grey;margin-top: -1px;">
+  <tbody>
+    <tr class="Rigaintestazioneridotta">
+      <td colspan="2">
+        <p class="Labelcella"> Domiciliazione bancaria o postale del conto corrente del richiedente del servizio  </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td style="width: 50%;">
+        <p class="Labelcella"> Istituto </p>
+      </td>
+      <td style="width: 50%;">
+        <p class="Labelcella"> Numero conto corrente </p>
+      </td>
+    </tr>
+    <tr mandatory_enabled="#Tassonomia_contr_cc_mod1.checked()">
+        <td>
+          <input class="inputNormal" id="Parametri_Istituto1" name="Parametri_Istituto1" style="width: 100%;" label="Istituto Ente erogatore">
+        </td>
+        <td>
+          <input class="inputNormal" id="Parametri_Numero_CC1" name="Parametri_Numero_CC1" style="width: 100%;" label="Numero conto corrente Ente erogatore" format="regular_expression" expression="^[a-zA-Z0-9]{12}$" onblur="PadCC()">
+        </td>
+      </tr>
+      <tr class="Rigaintestazioneridotta">
+        <td>
+          <p class="Labelcella"> Coordinate IBAN </p>
+        </td>
+        <td>
+          <p class="Labelcella"> Codice BIC (swift) </p>
+        </td>
+      </tr>
+      <tr mandatory_enabled="#Tassonomia_contr_cc_mod1.checked()">
+        <td>
+          <input class="inputNormal" id="Parametri_IBAN1" name="Parametri_IBAN1" style="width: 100%;" label="Coordinate IBAN Ente Erogatore" >
+        </td>
+        <td>
+          <input class="inputNormal" id="Parametri_BIC_swift1" name="Parametri_BIC_swift1" style="width: 100%;" label="Codice BIC (swift)" mandatory_enabled="#Parametri_IBAN1.value() != '' and (!#Parametri_IBAN1.value().toUpperCase().startsWith('IT'))">
+        </td>
+      </tr>
+  </tbody>
+</table>
+
+<!--
+<input type="hidden" id="CheckIBAN1" name="CheckIBAN1" dynamic_check="(#Parametri_IBAN.value().toUpperCase().startsWith('IT')) and (#Parametri_IBAN.value().toString().length != 27)">
+<input type="hidden" id="CheckIBAN2" name="CheckIBAN2" dynamic_check="(#Parametri_IBAN.value().toUpperCase().startsWith('IT')) and (#Parametri_IBAN.value().toString().length == 27) and (!/^IT[0-9]{2}[a-zA-Z][a-zA-Z0-9]{22}$/.test(#Parametri_IBAN.value()))">
+<input type="hidden" id="CheckIBAN3" name="CheckIBAN3" dynamic_check="(#Parametri_IBAN.value().toUpperCase().startsWith('IT')) and (#Parametri_IBAN.value().toString().length == 27) and (#Parametri_IBAN.value().substring(15, 27) != #Parametri_Numero_CC.value())">
+<input type="hidden" id="CheckIBANInput1" name="CheckIBANInput1" label="Controlla la lunghezza del codice IBAN" mandatory="#CheckIBAN1.checked()">
+<input type="hidden" id="CheckIBANInput2" name="CheckIBANInput2" label="Controlla il formato del codice IBAN" mandatory="#CheckIBAN2.checked()">
+<input type="hidden" id="CheckIBANInput3" name="CheckIBANInput3" label="Le ultime 12 cifre dell'IBAN non corrispondono al numero di conto corrente" mandatory="#CheckIBAN3.checked()">
+-->
+   
+
+<br>
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          Eventuali annotazioni
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <textarea class="inputNormal" id="Parametri_Annotazioni" name="Parametri_Annotazioni" style="width: 100%; height: 5cm;" label="Eventuali annotazioni"></textarea>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+
+<br>
+<table class="Modulo" name="Allegati" style="border: 1px solid grey">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="2">
+        <p style="text-align: center;">
+          <b>
+            Elenco degli allegati
+          </b>
+          <br/>
+          <span style="font-size:70%">
+            <i>(barrare tutti gli allegati richiesti in fase di presentazione della pratica ed elencati sul portale)</i>
+          </span>
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="width: 4%; vertical-align: top;">
+        <input id="DIA_MED_DIS" name="DIA_MED_DIS" type="checkbox" value="OBBLIGATORIO" dynamic_check="#Tassonomia_contr_eco_fre2.checked() || #Tassonomia_contr_eco_fre4.checked()"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          copia della diagnosi medica di disabilità
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="width: 4%; vertical-align: top;">
+        <input id="DEL_RISC" name="DEL_RISC" type="checkbox" value="OBBLIGATORIO" dynamic_check="#Tassonomia_cc_ente_erog1.checked()"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          delega alla riscossione
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="width: 4%; vertical-align: top;">
+        <input id="ATT_SPE_SOST" name="ATT_SPE_SOST" type="checkbox" value="OBBLIGATORIO" dynamic_check="true" checked="true"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          documentazione attestante le spese sostenute
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input dynamic_check="(parseInt(#Parametri_num_ult_sogg_isc.value()) / 16) &gt; 0" enabled="(parseInt(#Parametri_num_ult_sogg_isc.value()) / 16) &gt; 0" id="ULT_SOGG_CONTR" name="ULT_SOGG_CONTR" type="checkbox" value="OBBLIGATORIO"/>
+      </td>
+      <td colspan="1" style="background-color: #eeeeee;">
+        <p> 
+          n° 
+          <input class="inputNormal" id="Parametri_num_ult_sogg_isc" name="Parametri_num_ult_sogg_isc" style="width: 4%;" dynamic_value="#Parametri_num_altr_sogg.value()" format="number" readonly/> 
+          ulteriori minori iscritti ai servizi 
+        <p>
+      </td>
+    </tr>    
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="DAE-CDI" name="DAE-CDI" type="checkbox" value="OBBLIGATORIO" />
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          copia del documento d'identità
+          <br/>
+          <span style="font-size:70%">
+            <i>(da allegare se il modulo è sottoscritto con firma autografa)</i>
+          </span>
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="ALTRI-ALLEGATI" name="ALTRI-ALLEGATI" type="checkbox" value="OBBLIGATORIO"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          altri allegati
+          <span style="font-size:70%">(specificare)</span>
+          <input class="" label="Altri allegati" id="AltriAllegati" mandatory_enabled="#ALTRI_ALLEGATI.checked()" name="AltriAllegati" style="width:79%;"/>
+        </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+{{ utils.trattamento_dati_personali() }}
+<br/>
+  {{ utils.firma_hidden() }}
+<br/>
+
+<p class="Modulo">
+  <input id="SalvaModulo" name="SalvaModulo" style="height:30px;width:120px;" title="Verifica la corretta compilazione dei campi e salva il modulo nel faldone virtuale dell'istanza." type="submit" value="Salva modulo"/>
+</p>
+
+<input destinatario_amministrazione="getParameter('Ente')" id="GLOBO_modulo_c{{ CodiceModulo }}" name="GLOBO_modulo_c{{ CodiceModulo }}" type="hidden" value=""/>
+<input firmare="'P7M_ELETTRONICA'" id="GLOBO_modulofiglio_cIncarico_procura" name="GLOBO_modulofiglio_cIncarico_procura" type="hidden" value=""/>
+
+<input id="GLOBO_allegato_cDIA_MED_DIS" name="GLOBO_allegato_cDIA_MED_DIS" type="hidden" value="" obbligatorio="#DIA_MED_DIS.checked() ? 'OBBLIGATORIO' : ''"/>
+<input id="GLOBO_allegato_cDEL_RISC" name="GLOBO_allegato_cDEL_RISC" type="hidden" value="" obbligatorio="#DEL_RISC.checked() ? 'OBBLIGATORIO' : ''"/>
+<input id="GLOBO_allegato_cATT_SPE_SOST" name="GLOBO_allegato_cATT_SPE_SOST" type="hidden" value="" obbligatorio="#ATT_SPE_SOST.checked() ? 'OBBLIGATORIO' : ''"/>
+<input id="GLOBO_modulofiglio_cULT_SOGG_CONTR" name="GLOBO_modulofiglio_cULT_SOGG_CONTR" type="hidden" value="" obbligatorio="#ULT_SOGG_CONTR.checked() ? 'OBBLIGATORIO' : ''"/>
+<input id="GLOBO_allegato_cDAE-CDI" name="GLOBO_allegato_cDAE-CDI" obbligatorio="#DAE_CDI.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+<input id="GLOBO_allegato_cALTRI-ALLEGATI" name="GLOBO_allegato_cALTRI-ALLEGATI" obbligatorio="#ALTRI_ALLEGATI.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_id_padre" name="GLOBO_id_padre" type="hidden"/>
+<input id="GLOBO_recupera_dati" name="GLOBO_recupera_dati" type="hidden"/>
+<input id="GLOBO_codice_modulo" name="GLOBO_codice_modulo" type="hidden" value="{{ CodiceModulo }}"/>
+
+{% endblock content %}

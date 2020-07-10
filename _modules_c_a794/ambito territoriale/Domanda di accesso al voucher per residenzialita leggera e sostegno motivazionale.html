@@ -1,0 +1,672 @@
+{% set CodiceModulo = "DOM-VOUC-RES" %}
+{% set Urn = "document:c_a794:voucher.residenza.leggera;domanda" %}
+{% extends "base.html" %}
+
+{% block meta %}
+
+<meta campi_firma="Titolare_CodiceFiscale"
+campi_firma_label="il dichiarante"
+classi_modulo="Generale"
+codice_modulo="{{ CodiceModulo }}"
+urn="{% block urn %}{{ Urn }}{% endblock urn %}"
+sub_urn_list=""
+uo_globo_list=""
+descrizione="Domanda di accesso al voucher per residenzialità leggera e sostegno motivazionale"
+destinatario_amministrazione=""
+destinatario_ufficio=""
+dinamico="SI"
+email_a=""
+ente_abilitato="TUTTI"
+filigrana="NO"
+firmare="P7M_ELETTRONICA"
+istruzioni_compilazione=""
+istruzioni_invio="mail_pec"
+metodo_invio="mail"
+name="GLOBO_modulo"
+procura="NO,,"
+tipo_modulo="principale"
+urlhelp="/modulistica/moduli/{{ CodiceModulo }}"
+verifica_pagamento="NO"
+versione="1.2|16/08/2019"/>
+
+<meta codice_modulo_figlio="INCARICO_PROCURA"
+urn_modulo_figlio="document:s_italia:generale;incarico.procura"
+name="GLOBO_modulofiglio"
+numero="1"
+obbligatorio="DINAMICO"/>
+
+
+<meta codice_modulo_figlio="IND-RES-COMPL"
+urn_modulo_figlio="document:c_a794:progetto.individualizzato.residenzialita.primo.accesso"
+name="GLOBO_modulofiglio"
+numero="1"
+obbligatorio="DINAMICO"/>
+
+<meta codice_modulo_figlio="IND-RES-SEMPL"
+urn_modulo_figlio="document:c_a794:progetto.individualizzato.residenzialita.fruitore"
+name="GLOBO_modulofiglio"
+numero="1"
+obbligatorio="DINAMICO"/>
+
+<meta codice_modulo_figlio="IND-COMP-MOT"
+urn_modulo_figlio="document:c_a794:progetto.individualizzato.compenso"
+name="GLOBO_modulofiglio"
+numero="1"
+obbligatorio="DINAMICO"/>
+
+<meta codice_allegato="MEN-CER-MED"
+urn_allegato="document:s_italia:generale;invalidita.civile;certificato.medico"
+descrizione_estesa="Copia del cerificato di invalidità civile"
+filename="Cerificato invalidità civile.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/MEN-CER-MED"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="DAE-CDI"
+urn_allegato="document:s_italia:generale;documento.identita;documentazione"
+descrizione_estesa="Documento di identità"
+filename="Documento identita.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/DAE-CDI"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="ALTRI-ALLEGATI"
+urn_allegato="document:s_italia:altri.allegati"
+descrizione_estesa="Altri allegati"
+filename="Altri allegati.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/ALTRI-ALLEGATI"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+{% endblock meta %}
+
+{% block title %}
+  Domanda di accesso al voucher per residenzialità leggera e sostegno motivazionale
+{% endblock title %}
+
+{% block content %}
+
+<globo_fondo_pagina areaheight="150" scope="2">
+  {{ utils.firma() }}
+</globo_fondo_pagina>
+
+<input id="Parametri_Comune" name="Parametri_Comune" type="hidden" dynamic_value="#Ente.value()"/>
+<input id="Oggetto" name="Oggetto" type="hidden" dynamic_value="#Titolare_Cognome.value().toUpperCase() + ' ' + #Titolare_Nome.value().toUpperCase() + ' - domanda accesso voucher residenzialità sostegno'"/>
+
+{{ intestazioni.intestazione_moduloprincipale_senzabollo() }}
+
+<h1 class="Modulo">
+  Domanda di accesso al voucher per residenzialità leggera e sostegno motivazionale
+</h1>
+
+
+<input id="Titolare_DatiPersonaObbligatori" name="Titolare_DatiPersonaObbligatori" type="hidden" dynamic_check="true"/>
+<input id="Titolare_Titolo" name="Titolare_Titolo" type="hidden" value="Richiedente"/>
+<input id="Titolare_Ruolo" name="Titolare_Ruolo" type="hidden" value="Richiedente"/>
+{{ anagrafica.persona_fisica("Titolare", "Il sottoscritto", "visibility:visibility", "cursor:pointer", "visibility:visibility", "visibility:visibility", "mail_ordinaria") }}
+
+
+<h3 class="Modulo">
+  CHIEDE
+</h3>
+
+
+<p class="Modulo">
+  l'assegnazione
+</p>
+
+
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr>
+      <td rowspan="3" style="vertical-align: top; width: 4%; background-color: white;">
+        <div id="Tassonomia_AssegnazioneVoucher" name="Tassonomia_AssegnazioneVoucher" label="Tipo voucher" mandatory="true"></div>
+        <input id="Tassonomia_AssegnazioneVoucher1" name="Tassonomia_AssegnazioneVoucher" type="radio" value="1" />
+      </td>
+      <td>
+        del voucher di residenzialità leggera
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          Dell'importo
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <p>
+          <input class="inputNormal" id="Parametri_ImportoVoucherResidenzialita1" name="Parametri_ImportoVoucherResidenzialita1" style="width: 25%;" format="valuta_positiva" label="Importo dovuto" mandatory_enabled="#Tassonomia_AssegnazioneVoucher1.checked()"/> €
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td rowspan="3" style="vertical-align: top; width: 4%; background-color: white;">
+        <input id="Tassonomia_AssegnazioneVoucher2" name="Tassonomia_AssegnazioneVoucher" type="radio" value="2" />
+      </td>
+      <td>
+        di sostegno motivazionale
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          Dell'importo
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <p>
+          <input class="inputNormal" id="Parametri_ImportoVoucherResidenzialita2" name="Parametri_ImportoVoucherResidenzialita2" style="width: 25%;" format="valuta_positiva" label="Importo dovuto" mandatory_enabled="#Tassonomia_AssegnazioneVoucher2.checked()"/> €
+        </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+{{anagrafica.soggetto_riferimento_servizi_demografici("AventeTitolo", "per il seguente familiare o tutelato", "per se stesso", "true", "visibility:visibility", "true")}}
+
+
+{{ utils.Dichiara_445() }}
+
+
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td>
+        <p class="Labeltabella">
+          le seguenti informazioni sanitarie del richiedente
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          Tipologia di disabilità
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2">
+        <select class="inputNormal" id="Parametri_TipologiaDisabilita" name="Parametri_TipologiaDisabilita" style="width: 100%;" label="Tipologia disabilità" mandatory="true">
+          <option value=""></option>
+          <option value="demenza (Alzheimer, demenza da corpi di Lewy, demenza vascolare e altri stati di demenza)">demenza (Alzheimer, demenza da corpi di Lewy, demenza vascolare e altri stati di demenza)</option>
+          <option value="disabilità a seguito di un “evento traumatico” es. incidente stradale, caduta, trauma da parto ecc (Tetraplegia, Emiplegia, Locked-In, Stato vegetativo, Cerebrolesione, ecc.)">disabilità a seguito di un “evento traumatico” es. incidente stradale, caduta, trauma da parto ecc (Tetraplegia, Emiplegia, Locked-In, Stato vegetativo, Cerebrolesione, ecc.)</option>
+          <option value="disabilità non post traumatiche es. ictus o altre malattie cerebrovascolari (Tetraplegia, Emiplegia, ecc.)">disabilità non post traumatiche es. ictus o altre malattie cerebrovascolari (Tetraplegia, Emiplegia, ecc.)</option>
+          <option value="malattia del motoneurone">malattia del motoneurone</option>
+          <option value="encefalopatia di natura metabolica infettiva o ereditaria (Spaticismo, Cerebrolesioni, ecc.)">encefalopatia di natura metabolica infettiva o ereditaria (Spaticismo, Cerebrolesioni, ecc.)</option>
+          <option value="disabilità sensoriale">disabilità sensoriale</option>
+          <option value="altra malattia neurodegenerativa (Parkinson, Malattia di Huntington, ecc.)">altra malattia neurodegenerativa (Parkinson, Malattia di Huntington, ecc.)</option>
+          <option value="disabilità comportamentale (compresi disturbi dello spettro autistico)">disabilità comportamentale (compresi disturbi dello spettro autistico)</option>
+          <option value="ritardo mentale">ritardo mentale</option>
+          <option value="sindromi congenite su base cromosomica (Down, ecc.)">sindromi congenite su base cromosomica (Down, ecc.)</option>
+          <option value="distrofie muscolari e altre miopatie">distrofie muscolari e altre miopatie</option>
+          <option value="sclerosi multipla">sclerosi multipla</option>
+          <option value="altro">altro</option>
+        </select>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<table class="Modulo" style="border: 1px solid grey; margin-top: -1px;">
+  <tbody>
+    <tr class="Rigaintestazioneridotta">
+      <td colspan="2">
+        <p class="Labelcella">
+          Invalidità
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <div id="Tassonomia_Invalidita" name="Tassonomia_Invalidita" label="Invalidità" mandatory="true"></div>
+        <input id="Tassonomia_Invalidita1" name="Tassonomia_Invalidita" type="radio" value="1" />
+      </td>
+      <td>
+        <p>
+          non riconosciuta
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="Tassonomia_Invalidita2" name="Tassonomia_Invalidita" type="radio" value="2" />
+      </td>
+      <td>
+        <p>
+          riconosciuta
+        </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<table class="Modulo" style="border: 1px solid grey; margin-top: -1px;">
+  <tbody>
+    <tr class="Rigaintestazioneridotta">
+      <td colspan="2">
+        <p class="Labelcella">
+          Indennità
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="Indennita" name="Indennita" type="checkbox" value="SI" />
+      </td>
+      <td>
+        <p>
+          indennità di accompagnamento Legge 11/02/1980, n. 18
+        </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<table class="Modulo" style="border: 1px solid grey; margin-top: -1px;">
+  <tbody>
+    <tr class="Rigaintestazioneridotta">
+      <td colspan="2">
+        <p class="Labelcella">
+          Certificazione handicap grave (articolo 3, comma 3 della Legge 05/02/1992, n. 104)
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <div id="Tassonomia_CertificazioneHandicap" name="Tassonomia_CertificazioneHandicap" label="Certificazione handicap grave" mandatory="true"></div>
+        <input id="Tassonomia_CertificazioneHandicap1" name="Tassonomia_CertificazioneHandicap" type="radio" value="1" />
+      </td>
+      <td>
+        <p>
+          sì
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="Tassonomia_CertificazioneHandicap2" name="Tassonomia_CertificazioneHandicap" type="radio" value="2" />
+      </td>
+      <td>
+        <p>
+          no
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="Tassonomia_CertificazioneHandicap3" name="Tassonomia_CertificazioneHandicap" type="radio" value="3" />
+      </td>
+      <td>
+        <p>
+          in fase di accertamento
+        </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<table class="Modulo" style="border: 1px solid grey; margin-top: -1px;">
+  <tbody>
+    <tr class="Rigaintestazioneridotta">
+      <td colspan="2">
+        <p class="Labelcella">
+          Accesso alle misure
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <div id="Tassonomia_AccessoMisure" name="Tassonomia_AccessoMisure" label="Accesso alle misure" mandatory="true"></div>
+        <input id="Tassonomia_AccessoMisure1" name="Tassonomia_AccessoMisure" type="radio" value="1" />
+      </td>
+      <td>
+        <p>
+          ha già usufruito delle misure di residenzialità leggera
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="Tassonomia_AccessoMisure2" name="Tassonomia_AccessoMisure" type="radio" value="2" />
+      </td>
+      <td>
+        <p>
+          non ha mai usufruito delle misure di residenzialità leggera
+        </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="4">
+        <p class="Labeltabella">
+          le seguenti persone di riferimento per l'interessato
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          Cognome
+        </p>
+      </td>
+      <td>
+        <p class="Labelcella">
+          Nome
+        </p>
+      </td>
+      <td>
+        <p class="Labelcella">
+          Telefono
+        </p>
+      </td>
+      <td>
+        <p class="Labelcella">
+          Tipo di aiuto e disponibilità
+        </p>
+      </td>
+    </tr>
+    {% for i in range(1, 7) %}
+      <tr>
+        <td>
+          <input class="inputNormal" id="Parametri_Cognome{{i}}" name="Parametri_Cognome{{i}}" style="width: 100%;" label="Cognome" {% if i == 1 %} mandatory_enabled="true" {% else %} enabled="#Parametri_Cognome{{i-1}}.value()" {% endif %}/>
+        </td>
+        <td>
+          <input class="inputNormal" id="Parametri_Nome{{i}}" name="Parametri_Nome{{i}}" style="width: 100%;" label="Nome" {% if i == 1 %} mandatory_enabled="true" {% else %} mandatory_enabled="#Parametri_Cognome{{i}}.value()" {% endif %}/>
+        </td>
+        <td>
+          <input class="inputNormal" id="Parametri_Telefono{{i}}" name="Parametri_Telefono{{i}}" style="width: 100%;" format="number" label="Telefono" {% if i == 1 %} mandatory_enabled="true" {% else %} mandatory_enabled="#Parametri_Cognome{{i}}.value()" {% endif %}/>
+        </td>
+        <td>
+          <input class="inputNormal" id="Parametri_TipoAuito{{i}}" name="Parametri_TipoAuito{{i}}" style="width: 100%;" label="Tipo di aiuto" {% if i == 1 %} mandatory_enabled="true" {% else %} mandatory_enabled="#Parametri_Cognome{{i}}.value()" {% endif %}/>
+        </td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+
+<h3 class="Modulo">
+  DICHIARA INOLTRE
+</h3>
+
+
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td rowspan="3" style="vertical-align: top; width:4%; background-color: white;">
+        <input id="ISEE" name="ISEE" type="checkbox" value="SI"/>
+      </td>
+      <td colspan="3">
+        <p class="Labeltabella">
+          di possedere il seguente ISEE
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          Valore ISEE
+        </p>
+      </td>
+      <td>
+        <p class="Labelcella">
+          Data di Rilascio
+        </p>
+      </td>
+      <td>
+        <p class="Labelcella">
+          Data di fine validità
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="background-color: white;">
+        <p>
+          <input class="inputNormal" id="Parametri_ValoreISEE" name="Parametri_ValoreISEE" style="width: 85%;" label="Valore ISEE" mandatory_enabled="#ISEE.checked()"/> €
+        </p>
+      </td>
+      <td style="background-color: white;">
+        <input class="inputNormal" id="Parametri_DataRilascio" name="Parametri_DataRilascio" style="width: 100%;" format="date" label="Data rilascio" mandatory_enabled="#ISEE.checked()"/>
+      </td>
+      <td style="background-color: white;">
+        <input class="inputNormal" id="Parametri_DataFineValidita" name="Parametri_DataFineValidita" style="width: 100%;" format="date" label="Data di fine validità" mandatory_enabled="#ISEE.checked()"/>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 class="Modulo">CHIEDE</h3>
+<p class="Modulo">
+  che in caso di accoglimento della domanda il contributo venga assegnato nella seguente modalità
+</p>
+
+
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="Tassonomia_Assegno2" name="Tassonomia_Assegno" type="radio" value="2" />
+      </td>
+      <td>
+        <p>
+          assegno a traenza non trasferibile intestato al richiedente presso l'indirizzo indicato sotto
+        </p>
+      </td>
+    </tr>  
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <div id="Tassonomia_Assegno" name="Tassonomia_Assegno" label="Modalità assegnazione contributo" mandatory="true"></div>
+        <input id="Tassonomia_Assegno1" name="Tassonomia_Assegno" type="radio" value="1" />
+      </td>
+      <td>
+        <p>
+          accredito su conto corrente intestato al richiedente
+        </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<table class="Modulo" style="border: 1px solid grey;" mandatory_enabled="#Tassonomia_Assegno1.checked()">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="2">
+        <p class="Labeltabella">
+          domiciliazione bancaria o postale del conto corrente:
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          Istituto
+        </p>
+      </td>
+      <td>
+        <p class="Labelcella">
+          Numero di conto corrente
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input class="inputNormal" id="Parametri_IsitutoAssegno" name="Parametri_IsitutoAssegno" style="width: 100%;" label="Istituto" />
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_NumeroConto" name="Parametri_NumeroConto" style="width: 100%;" format="number" label="Numero conto corrente" />
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          Coordinate IBAN
+        </p>
+      </td>
+      <td>
+        <p class="Labelcella">
+          Codice BIC (swift)
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input class="inputNormal" id="Parametri_CoordinateIBAN" name="Parametri_CoordinateIBAN" style="width: 100%;" label="Coordinate IBAN" format="regular_expression" expression="^\w{27}$" />
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_BICSwift" name="Parametri_BICSwift" style="width: 100%;" format="number" label="Codice BIC (swift)"  />
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<br/>
+
+
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          Eventuali annotazioni
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <textarea class="inputNormal" id="Parametri_Annotazioni" name="Parametri_Annotazioni" style="width: 100%; height: 5cm;" label="Eventuali annotazioni"></textarea>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<br/>
+
+
+<table class="Modulo" name="Allegati" style="border: 1px solid grey">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="2">
+        <p style="text-align: center;">
+          <b>Elenco degli allegati</b><br/>
+          <span style="font-size:70%"><i>(barrare tutti gli allegati richiesti in fase di presentazione della pratica ed elencati sul portale)</i></span>
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="width: 4%; vertical-align: top;">
+        <input id="IND-RES-COMPL" name="IND-RES-COMPL" type="checkbox" value="OBBLIGATORIO" enabled="#Tassonomia_AssegnazioneVoucher1.checked() and #Tassonomia_AccessoMisure2.checked()" dynamic_check="#Tassonomia_AssegnazioneVoucher1.checked() and #Tassonomia_AccessoMisure2.checked()"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          progetto individuale voucher residenzialità leggera, primo accesso ai servizi
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="width: 4%; vertical-align: top;">
+        <input id="IND-RES-SEMPL" name="IND-RES-SEMPL" type="checkbox" value="OBBLIGATORIO" enabled="#Tassonomia_AssegnazioneVoucher1.checked() and #Tassonomia_AccessoMisure1.checked()" dynamic_check="#Tassonomia_AssegnazioneVoucher1.checked() and #Tassonomia_AccessoMisure1.checked()"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          progetto individuale voucher residenzialità leggera, in precedenza già fruitore dei servizi
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="width: 4%; vertical-align: top;">
+        <input id="IND-COMP-MOT" name="IND-COMP-MOT" type="checkbox" value="OBBLIGATORIO" enabled="#Tassonomia_AssegnazioneVoucher2.checked()" dynamic_check="#Tassonomia_AssegnazioneVoucher2.checked()"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          progetto individuale per l'accesso al compenso motivazionale
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="width: 4%; vertical-align: top;">
+        <input id="MEN-CER-MED" name="MEN-CER-MED" type="checkbox" value="OBBLIGATORIO" enabled="#Tassonomia_Invalidita2.checked()" dynamic_check="#Tassonomia_Invalidita2.checked()"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          copia del certificato di invalidità civile
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="DAE-CDI" name="DAE-CDI" type="checkbox" value="OBBLIGATORIO" />
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          copia del documento d'identità<br/>
+          <span style="font-size:70%"><i>(da allegare se il modulo è sottoscritto con firma autografa)</i></span>
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="ALTRI-ALLEGATI" name="ALTRI-ALLEGATI" type="checkbox" value="OBBLIGATORIO"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          altri allegati<span style="font-size:70%">(specificare)</span>
+          <input class="" label="Altri allegati" id="AltriAllegati" mandatory_enabled="#ALTRI_ALLEGATI.checked()" name="AltriAllegati" style="width:79%;"/>
+        </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<br/>
+  {{ utils.trattamento_dati_personali() }}
+<br/>
+  {{ utils.firma_hidden() }}
+<br/>
+
+<p class="Modulo">
+  <input id="SalvaModulo" name="SalvaModulo" style="height:30px;width:120px;" title="Verifica la corretta compilazione dei campi e salva il modulo nel faldone virtuale dell'istanza." type="submit" value="Salva modulo"/>
+</p>
+
+<input destinatario_amministrazione="getParameter('Ente')" id="GLOBO_modulo_c{{ CodiceModulo }}" name="GLOBO_modulo_c{{ CodiceModulo }}" type="hidden" value=""/>
+<input firmare="'P7M_ELETTRONICA'" id="GLOBO_modulofiglio_cINCARICO_PROCURA" name="GLOBO_modulofiglio_cINCARICO_PROCURA" type="hidden" value=""/>
+
+
+<input firmare="'P7M_ELETTRONICA'" id="GLOBO_modulofiglio_cIND-RES-COMPL" name="GLOBO_modulofiglio_cIND-RES-COMPL" type="hidden" value="" obbligatorio="#IND_RES_COMPL.checked() ? 'OBBLIGATORIO' : ''"/>
+<input firmare="'P7M_ELETTRONICA'" id="GLOBO_modulofiglio_cIND-RES-SEMPL" name="GLOBO_modulofiglio_cIND-RES-SEMPL" type="hidden" value="" obbligatorio="#IND_RES_SEMPL.checked() ? 'OBBLIGATORIO' : ''"/>
+<input firmare="'P7M_ELETTRONICA'" id="GLOBO_modulofiglio_cIND-COMP-MOT" name="GLOBO_modulofiglio_cIND-COMP-MOT" type="hidden" value="" obbligatorio="#IND_COMP_MOT.checked() ? 'OBBLIGATORIO' : ''"/>
+<input id="GLOBO_allegato_cMEN-CER-MED" name="GLOBO_allegato_cMEN-CER-MED" type="hidden" value="" obbligatorio="#MEN_CER_MED.checked() ? 'OBBLIGATORIO' : ''"/>
+<input id="GLOBO_allegato_cDAE-CDI" name="GLOBO_allegato_cDAE-CDI" obbligatorio="#DAE_CDI.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+<input id="GLOBO_allegato_cALTRI-ALLEGATI" name="GLOBO_allegato_cALTRI-ALLEGATI" obbligatorio="#ALTRI_ALLEGATI.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+
+<input id="GLOBO_id_padre" name="GLOBO_id_padre" type="hidden"/>
+<input id="GLOBO_recupera_dati" name="GLOBO_recupera_dati" type="hidden"/>
+<input id="GLOBO_codice_modulo" name="GLOBO_codice_modulo" type="hidden" value="{{ CodiceModulo }}"/>
+
+{% endblock content %}

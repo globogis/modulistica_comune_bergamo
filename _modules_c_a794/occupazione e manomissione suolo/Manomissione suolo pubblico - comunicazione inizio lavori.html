@@ -1,0 +1,271 @@
+{% set CodiceModulo = "COM-MAN-CIL" %}
+{% set Urn = "document:c_a794:manomissione.suolo.pubblico;inizio.lavori;comunicazione" %}
+{% extends "base.html" %}
+{% block meta %}
+
+<meta campi_firma="Titolare_CodiceFiscale"
+campi_firma_label="il dichiarante"
+classi_modulo="Patrimonio"
+codice_modulo="{{ CodiceModulo }}"
+urn="{% block urn %}{{ Urn }}{% endblock urn %}"
+sub_urn_list=""
+uo_globo_list=""
+descrizione="Comunicazione di inizio lavori di manomissione di suolo pubblico"
+destinatario_amministrazione=""
+destinatario_ufficio="{% block ufficio_destinatario %}UOPATRIMONIO{% endblock ufficio_destinatario %}"
+dinamico="SI"
+email_a=""
+ente_abilitato="TUTTI"
+filigrana="NO"
+firmare="P7M_ELETTRONICA"
+generabile_da="001-076,COM_OCC_URGENTE,001-079"
+istruzioni_compilazione=""
+istruzioni_invio="mail_pec"
+metodo_invio="mail"
+name="GLOBO_modulo"
+procura="NO,,"
+tipo_modulo="principale"
+ufficio=""
+urlhelp="/modulistica/moduli/{{ CodiceModulo }}"
+verifica_pagamento="NO"
+versione="1.2|28/08/2019"/>
+
+<meta codice_allegato="ALTRI-ALLEGATI"
+urn_allegato="document:s_italia:altri.allegati"
+descrizione_estesa="Altri allegati"
+filename="Altri allegati.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/ALTRI-ALLEGATI"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_modulo_figlio="INCARICO_PROCURA"
+urn_modulo_figlio="document:s_italia:generale;incarico.procura"
+name="GLOBO_modulofiglio"
+numero="1"
+obbligatorio="DINAMICO"/>
+
+
+{% endblock meta %}
+{% block title %}
+	Comunicazione di inizio lavori di manomissione di suolo pubblico
+{% endblock title %}
+{% block content %}
+<globo_fondo_pagina areaheight="150" scope="2">
+ {{ utils.firma() }}
+</globo_fondo_pagina>
+
+<input dynamic_value="#Titolare_Cognome.value().toUpperCase() + ' ' + #Titolare_Nome.value().toUpperCase() + ' - manomissione suolo pubblico (inizio lavori)'" id="Oggetto" name="Oggetto" type="hidden"/>
+
+<div type="Instestazione">
+ {{ intestazioni.intestazione_moduloprincipale_senzabollo() }}
+ <h1 class="Modulo">
+  Comunicazione di inizio lavori di manomissione di suolo pubblico
+ </h1>
+</div>
+
+{{anagrafica.societa("Titolare", "Il sottoscritto", ["Persona fisica","Titolare", "Legale rappresentante"], "Richiedente", "visibility:visibility", "cursor:pointer", "mail_ordinaria", "false", "false")}}
+<table class="Modulo" style="border: 1px solid grey">
+ <tbody>
+  <tr class="Rigaintestazione">
+   <td colspan="2">
+    <p class="Labeltabella">
+     in relazione all'autorizzazione per manomissione di suolo pubblico
+    </p>
+   </td>
+  </tr>
+  <tr class="Rigaintestazioneridotta">
+   <td colspan="1" style="width:50%;">
+    <p class="Labelcella">
+     Numero
+    </p>
+   </td>
+   <td colspan="1" style="width:50%;">
+    <p class="Labelcella">
+     Data
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td colspan="1">
+    <input class="inputNormal" id="NonImportare_Protocollo" label="Numero autorizzazione" mandatory="true" name="NonImportare_Protocollo" size="1" style="width:100%"/>
+   </td>
+   <td colspan="1">
+    <input class="inputNormal" format="date" id="NonImportare_Data" label="Data autorizzazione" mandatory="true" name="NonImportare_Data" size="1" style="width:100%"/>
+   </td>
+  </tr>
+ </tbody>
+</table>
+<input checked="checked" dynamic_check="true" style="display:none" id="Immobile_DatiCatastaliObbligatori" name="Immobile_DatiCatastaliObbligatori" type="checkbox" value="si"/>
+{{ immobili.immobile_toponomastica( "Immobile", "collocata in", "Collocazione occupazione", "display:visibility", "visibility:hidden", "cursor:default", "true" ) }}
+<h3 class="Modulo">
+ COMUNICA
+</h3>
+
+<p class="Modulo">
+ la data di inizio dei lavori di manomissione di suolo pubblico e la durata dell'intervento
+</p>
+
+<table class="Modulo" style="border: 1px solid grey;">
+ <tbody>
+  <tr class="Rigaintestazioneridotta">
+   <td>
+    <p class="Labelcella">
+     Data inizio lavori
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td>
+    <input class="inputNormal" format="date" id="Parametri_Data_inizio_lavori" label="Data inizio lavori" mandatory="true" name="Parametri_Data_inizio_lavori" style="width:100%"/>
+   </td>
+  </tr>
+	<tr class="Rigaintestazioneridotta">
+   <td>
+    <p class="Labelcella">
+     Durata dell'intervento (numero totale di giorni)
+    </p>
+   </td>
+ </tr>
+ <tr>
+	<td>
+	 <input class="inputNormal" id="Parametri_tot_giorni" label="Data inizio lavori" mandatory="true" name="Parametri_tot_giorni" style="width:100%" format="number"/>
+	</td>
+ </tr>
+ </tbody>
+</table>
+
+<p class="Modulo">
+ Contestualmente alla presente si comunica di aver verificato presso gli enti preposti le interferenze con le reti dei servizi pubblici quali acquedotto, gas, telefono e trasmissione dati, energia elettrica, illuminazione pubblica.
+</p>
+
+<globo_salto_pagina>
+</globo_salto_pagina>
+
+{{ utils.Dichiara_445() }}
+
+<table class="Modulo" style="border: 1px solid grey">
+ <tbody>
+  <tr>
+   <div id="NonImportare_NomSoggCoinv" label="Dichiarazione soggetti coinvolti nel procedimento" mandatory="true" name="NonImportare_NomSoggCoinv">
+   </div>
+   <td style="width:4%">
+    <input id="NonImportare_NomSoggCoinv1" name="NonImportare_NomSoggCoinv" type="radio" value="1"/>
+   </td>
+   <td>
+    <p>
+     che tutti i soggetti coinvolti nel procedimento sono stati nominati all'atto di presentazione dell'istanza
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td style="vertical-align:top">
+    <input id="NonImportare_NomSoggCoinv2" name="NonImportare_NomSoggCoinv" type="radio" value="2"/>
+   </td>
+   <td>
+    <p>
+     di nominare altri soggetti coinvolti nel procedimento<br/>
+     <span style="font-size:70%">
+      <i>
+       (i nominativi sotto indicati saranno aggiunti ai soggetti precedentemente comunicati)
+      </i>
+     </span>
+    </p>
+   </td>
+  </tr>
+ </tbody>
+</table>
+
+ <br/>
+
+ <input type="hidden" id="Referente5_DatiProfessionistaObbligatori" name="Referente5_DatiProfessionistaObbligatori" dynamic_check="#referente5checkbox.checked()"/>
+ <input type="hidden" id="Referente5_DatiAlboProfessionistaObbligatori" name="Referente5_DatiAlboProfessionistaObbligatori"/>
+ {{ anagrafica.professionista("Referente5","<input id='referente5checkbox' name='referente5checkbox' type='checkbox' value='si' enabled='#NonImportare_NomSoggCoinv2.checked()'/> responsabile del cantiere ","Responsabile del cantiere","visibility:visibility","cursor:pointer","", "visibility:visibility", "provinciale", "no") }}
+
+<br/>
+
+  {{anagrafica.societa_senza_richiedente("Referente9","<input id='Referente9_DatiSocietaObbligatori' name='Referente9_DatiSocietaObbligatori' type='checkbox' value='si' enabled='#NonImportare_NomSoggCoinv2.checked()'/> impresa esecutrice", "Impresa esecutrice","visibility:visibility","cursor:pointer","visibility:visibility","") }}
+
+<br/>
+
+<table class="Modulo" name="Allegati" style="border: 1px solid grey">
+ <tbody>
+  <tr class="Rigaintestazione">
+   <td colspan="2">
+    <p style="text-align: center;">
+     <b>
+      Elenco degli allegati
+     </b>
+     <br/>
+     <span style="font-size:70%">
+      <i>
+       (barrare tutti gli allegati richiesti in fase di presentazione della pratica ed elencati sul portale)
+      </i>
+     </span>
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td style="width:3%; vertical-align:top">
+    <input id="DAE-CDI" name="DAE-CDI" type="checkbox" value="OBBLIGATORIO"/>
+   </td>
+   <td style="background-color: #eeeeee;">
+    <p>
+     copia del documento di identità
+     <br/>
+     <span style="font-size:70%">
+      <i>
+       (da non allegare se il modulo è sottoscritto con firma elettronica o se la firma autografa è apposta in presenza del dipendente addetto alla ricezione)
+      </i>
+     </span>
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td style="width:3%">
+    <input id="ALTRI-ALLEGATI" name="ALTRI-ALLEGATI" type="checkbox" value="OBBLIGATORIO"/>
+   </td>
+   <td style="background-color: #eeeeee;">
+    <p>
+     altri allegati
+     <span style="font-size:70%">
+      (specificare)
+     </span>
+     <input class="" id="AltriAllegati" label="Eventuali allegati" mandatory_enabled="#ALTRI_ALLEGATI.checked()" name="AltriAllegati" style="width:75%;"/>
+    </p>
+   </td>
+  </tr>
+ </tbody>
+</table>
+
+
+<br/>
+
+{{ utils.trattamento_dati_personali() }}
+
+<br/>
+
+{{ utils.firma_hidden() }}
+<br/>
+
+<div type="Salvataggio">
+ <p class="Modulo">
+  <input id="SalvaModulo" name="SalvaModulo" style="height:30px;width:120px;" title="Verifica la corretta compilazione dei campi e salva il modulo nel faldone virtuale dell'istanza." type="submit" value="Salva modulo"/>
+ </p>
+</div>
+
+<input firmare="'P7M_ELETTRONICA'" id="GLOBO_modulofiglio_cINCARICO_PROCURA" name="GLOBO_modulofiglio_cINCARICO_PROCURA" type="hidden" value=""/>
+
+<input destinatario_amministrazione="getParameter('Ente')" id="GLOBO_modulo_c{{CodiceModulo}}" name="GLOBO_modulo_c{{CodiceModulo}}" type="hidden" value=""/>
+
+<input id="GLOBO_allegato_cALTRI-ALLEGATI" name="GLOBO_allegato_cALTRI-ALLEGATI" obbligatorio="#ALTRI_ALLEGATI.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_id_padre" name="GLOBO_id_padre" type="hidden"/>
+
+<input id="GLOBO_recupera_dati" name="GLOBO_recupera_dati" type="hidden"/>
+
+<input id="GLOBO_codice_modulo" name="GLOBO_codice_modulo" type="hidden" value="{{CodiceModulo}}"/>
+
+{% endblock content %}

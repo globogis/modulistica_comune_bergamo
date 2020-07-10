@@ -1,0 +1,445 @@
+{% set CodiceModulo = "DOM_VOL_CIV" %}
+{% set Urn = "document:c_a794:iscriversi.albo.volontariato.civico;domanda" %}
+{% extends "base.html" %}
+
+{% block meta %}
+
+<meta campi_firma="Titolare_CodiceFiscale"
+campi_firma_label="il dichiarante"
+classi_modulo="Affari istituzionali"
+codice_modulo="{{ CodiceModulo }}"
+urn="{% block urn %}{{ Urn }}{% endblock urn %}"
+sub_urn_list=""
+uo_globo_list=""
+descrizione="Domanda di iscrizione all'albo di volontariato comunale"
+destinatario_amministrazione=""
+destinatario_ufficio="UOTEMPOLIBEROSPORTECULTURA"
+dinamico="SI"
+email_a=""
+ente_abilitato="TUTTI"
+filigrana="NO"
+firmare="AUTENTICATO"
+istruzioni_compilazione=""
+istruzioni_invio="mail_pec"
+metodo_invio="mail"
+name="GLOBO_modulo"
+procura="NO,,"
+tipo_modulo="principale"
+urlhelp="/modulistica/moduli/{{ CodiceModulo }}"
+verifica_pagamento="NO"
+versione="1.1|23/04/2020"/>
+
+<meta codice_modulo_figlio="INCARICO_PROCURA"
+urn_modulo_figlio="document:s_italia:generale;incarico.procura"
+name="GLOBO_modulofiglio"
+numero="1"
+obbligatorio="DINAMICO"/>
+
+<meta codice_allegato="LAV-CUR-VIT"
+urn_allegato="document:s_italia:concorsi.selezioni;curriculum.professionale;documentazione"
+descrizione_estesa="Curriculum vitae redatto secondo il modello europeo"
+filename="Curriculum vitae.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/LAV-CUR-VIT"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="COP_PROG_BARATT"
+urn_allegato="document:c_a794:progetto.baratto.amministrativo"
+descrizione_estesa="Copia del progetto per l'ammissione al baratto amministrativo"
+filename="Progetto per baratto amministrativo.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/COP_PROG_BARATT"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="DAE-CDI"
+urn_allegato="document:s_italia:generale;documento.identita;documentazione"
+descrizione_estesa="Documento di identità"
+filename="Documento identita.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/DAE-CDI"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="ALTRI-ALLEGATI"
+urn_allegato="document:s_italia:altri.allegati"
+descrizione_estesa="Altri allegati"
+filename="Altri allegati.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/ALTRI-ALLEGATI"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+{% endblock meta %}
+
+{% block title %}
+    Domanda di iscrizione all'albo di volontariato comunale
+{% endblock title %}
+
+{% block content %}
+
+<globo_fondo_pagina areaheight="150" scope="4">
+    {{ utils.firma() }}
+</globo_fondo_pagina>
+
+<input id="Parametri_Comune" name="Parametri_Comune" type="hidden" dynamic_value="#Ente.value()"/>
+<input id="Oggetto" name="Oggetto" type="hidden" dynamic_value="#Titolare_Cognome.value().toUpperCase() + ' ' + #Titolare_Nome.value().toUpperCase() + ' - iscrizione albo volontariato comunale'"/>
+
+{{ intestazioni.intestazione_moduloprincipale_senzabollo() }}
+
+<h1 class="Modulo">
+    Domanda di iscrizione all'albo di volontariato comunale
+</h1>
+
+<input id="Titolare_DatiPersonaObbligatori" name="Titolare_DatiPersonaObbligatori" type="hidden" dynamic_check="true"/>
+<input id="Titolare_Titolo" name="Titolare_Titolo" type="hidden" value="Richiedente"/>
+<input id="Titolare_Ruolo" name="Titolare_Ruolo" type="hidden" value="Richiedente"/>
+{{ anagrafica.persona_fisica("Titolare", "Il sottoscritto", "visibility:visibility", "cursor:pointer", "visibility:visibility", "visibility:visibility", "mail_ordinaria") }}
+
+<h3 class="Modulo">
+    CHIEDE
+</h3>
+
+<p class="Modulo">
+    l’iscrizione all’albo dei volontari civici del Comune di Bergamo in una delle seguenti aree e si dichiara disponibile a svolgere una delle seguenti attività:
+</p>
+
+
+
+<div id="Tassonomia_Attivita1" name="Tassonomia_Attivita1" label="Attività di carattere culturale" mandatory="true"></div>
+<table class="Modulo" style="border: 1px solid grey;">
+    <tbody>
+        <tr class="Rigaintestazione">
+            <td colspan="2">
+                <p class="Labeltabella">
+                    dalle finalità di carattere culturale
+                </p>
+            </td>
+        </tr>
+
+        {% set attivita_culturali = ["accoglienza del pubblico in occasione di manifestazioni presso gli spazi storico culturali",
+            "accoglienza e servizi al pubblico che visita la GAMEC",
+            "verifica degli accessi alle strutture sportive in orari pomeridiani e serali e rilevazione dei dati qualitativi e quantitativi sull’associazionismo sportivo",
+            "attività di supporto ai soggetti gestori nelle aperture al pubblico dei parchi comunali sedi di spazi giovanili in particolare presso il parco della Malpensata",
+            "supporto al soggetto gestore del campo di calcio comunale Grumello al Piano in funzione dell’accesso libero da parte dei residenti",
+            "mettere a disposizione le proprie competenze e saperi artigianali, tecnici e artistici finalizzati a laboratori per adolescenti e giovani",
+            "supporto organizzativo alle attività di volontariato estivo per i giovani (progetto BG+)",
+            "creazione di un database delle licenze edilizie rilasciate dal Comune dal 1954 al 1988",
+            "creazione di un database delle delibere di Giunta e di Consiglio comunale (1950-2005)",
+            "riordino dell’archivio fotografico, custodito presso l’archivio comunale",
+            "supporto alle attività di stampa del materiale delle biblioteche, del centro socio – culturale e dei musei",
+            "altro <span style=\"font-size: 70%;\">(specificare)</span>"] %}
+
+        {% for i in range(attivita_culturali|length) %}
+        <tr>
+            <td style="width: 4%; vertical-align: top;">
+                <input id="Tassonomia_Attivita1{{i}}" name="Tassonomia_Attivita1" type="radio" value="{{i}}" />
+            </td>
+            <td>
+                <p>
+                    {{ attivita_culturali[i]|safe }}
+
+                    {% if i == attivita_culturali|length - 1 %}
+                        <input class="inputNormal" id="Parametri_AttivitaCulturali_Specificare" name="Parametri_AttivitaCulturali_Specificare" style="width: 85%;" label="Specificare" mandatory_enabled="#Tassonomia_Attivita1{{i}}.checked()" />
+                    {% endif %}
+                </p>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<div id="Tassonomia_Attivita2" name="Tassonomia_Attivita2" label="Attività di carattere ambientale" mandatory="true"></div>
+<div id="Tassonomia_Attivita3" name="Tassonomia_Attivita3" label="Attività di istruzione e formazione" mandatory="true"></div>
+<div id="Tassonomia_Attivita4" name="Tassonomia_Attivita4" label="Attività di coesione sociale" mandatory="true"></div>
+
+<table class="Modulo" style="border: 1px solid grey;margin-top: -1px;">
+    <tbody>
+        <tr class="Rigaintestazione">
+            <td colspan="2">
+                <p class="Labeltabella">
+                    dalle finalità di carattere ambientale e di difesa del verde pubblico
+                </p>
+            </td>
+        </tr>
+        {% set attivita_ambientali = [
+            "controllo e monitoraggio del territorio, attraverso la segnalazione di eventuali anomalie rilevate, quali ad esempio: piante morte, erba non tagliata, siepi che sporgono, cestini bruciati o pieni, panchine o tavoli danneggiati, giochi con problemi, impianti di irrigazione danneggiati, vialetti dei parchi con buche, avvallamenti, sporgenze, ecc.",
+            "lavori su piccole aree, quali ad esempio: pulizia da mozziconi o cartacce, pulizia delle erbacce delle aiuole fiorite, taglio erba con attrezzature che saranno concesse in comodato d’uso, piccole siepi da sagomare, impalcatura di piante, potature di roseti, rasatura di piccole superfici di prati, piccoli trapianti o messa a dimora di cespugli e fioriture",
+            "distribuzione presso le diverse sedi comunali di materiale a stampa del servizio Ecologia (campagne di comunicazione sulla qualità dell’aria, sui diritti degli animali, iniziative sulla gestione dei rifiuti, etc.)",
+            "attività di presidio del territorio comunale in tema di igiene urbana attraverso la segnalazione o l’attuazione di eventuali lavori manuali",
+            "affiancamento alle guardie ecologiche volontarie del Comune di bergamo nelle attività di loro competenza",
+            "orto botanico (sezioni di Città Alta e di Astino): supporto alle attività di interpretazione museale delle collezioni viventi (controllo e preparazione dei cartellini, sistemazione pannelli espositivi, ricerca documentale ecc)",
+            "orto botanico (sezioni di Città Alta e di Astino): partecipazione alla cura e monitoraggio dei corridoi ecologici in Valle di Astino, censimento delle specie, contenimento dei rovi, potatura degli arbusti, segnalazione di atti vandalici",
+            "orto botanico (sezioni di Città alta e di Astino): partecipazione alle attività di comunicazione, quali social network, siti internet, mailing list, traduzioni, documentazione fotografica e video, redazione di testi, ricerche bibliografiche e iconografiche",
+            "orto botanico (sezioni di Città Alta e di Astino): accoglienza e assistenza culturale ai visitatori, supporto alle iniziative culturali ed educative",
+            "altro <span style=\"font-size: 70%;\">(specificare)</span>"] %}
+
+        {% for i in range(attivita_ambientali|length) %}
+        <tr>
+            <td style="width: 4%; vertical-align: top;">
+                <input id="Tassonomia_Attivita2{{i+attivita_culturali|length}}" name="Tassonomia_Attivita2" type="radio" value="{{i+attivita_culturali|length}}" />
+            </td>
+            <td>
+                <p>
+                    {{ attivita_ambientali[i]|safe }}
+
+                    {% if i == attivita_ambientali|length - 1 %}
+                        <input class="inputNormal" id="Parametri_AttivitaAmbientali_Specificare" name="Parametri_AttivitaAmbientali_Specificare" style="width: 85%;" label="Specificare" mandatory_enabled="#Tassonomia_Attivita2{{i+attivita_culturali|length}}.checked()"/>
+                    {% endif %}
+                </p>
+            </td>
+        </tr>
+        {% endfor %}
+
+
+        <tr class="Rigaintestazione">
+            <td colspan="2">
+                <p class="Labeltabella">
+                    dalle finalità nell’ambito di istruzione e formazione
+                </p>
+            </td>
+        </tr>
+        {% set attivita_istruzione = [
+            "tinteggiatura di aule scolastiche, di corridoi e spazi comunali e di inferriate esterne",
+            "piccoli lavori di manutenzione negli edifici scolastici",
+            "sgombero di materiali accumulati negli scantinati o nei magazzini degli edifici scolastici",
+            "sistemazione e abbellimento di piccole aree verdi esterne agli edifici scolastici",
+            "partecipazione al servizio piedibus",
+            "altro <span style=\"font-size: 70%;\">(specificare)</span>"] %}
+
+        {% for i in range(attivita_istruzione|length) %}
+        <tr>
+            <td style="width: 4%; vertical-align: top;">
+                <input id="Tassonomia_Attivita3{{i+attivita_culturali|length+attivita_ambientali|length}}" name="Tassonomia_Attivita3" type="radio" value="{{i+attivita_culturali|length+attivita_ambientali|length}}" />
+            </td>
+            <td>
+                <p>
+                    {{ attivita_istruzione[i]|safe }}
+
+                    {% if i == attivita_istruzione|length - 1 %}
+                        <input class="inputNormal" id="Parametri_AttivitaIstruzione_Specificare" name="Parametri_AttivitaIstruzione_Specificare" style="width: 85%;" label="Specificare" mandatory_enabled="#Tassonomia_Attivita3{{i+attivita_culturali|length+attivita_ambientali|length}}.checked()" />
+                    {% endif %}
+                </p>
+            </td>
+        </tr>
+        {% endfor %}
+
+
+        <tr class="Rigaintestazione">
+            <td colspan="2">
+                <p class="Labeltabella">
+                    dalle finalità di coesione sociale
+                </p>
+            </td>
+        </tr>
+        {% set attivita_coesione = [
+            "tinteggiatura di aule scolastiche, di corridoi e spazi comunali e di inferriate esterne",
+            "piccoli lavori di manutenzione negli edifici scolastici",
+            "sgombero di materiali accumulati negli scantinati o nei magazzini degli edifici scolastici",
+            "sistemazione e abbellimento di piccole aree verdi esterne agli edifici scolastici",
+            "partecipazione al servizio piedibus",
+            "altro <span style=\"font-size: 70%;\">(specificare)</span>"] %}
+
+        {% for i in range(attivita_coesione|length) %}
+        <tr>
+            <td style="width: 4%; vertical-align: top;">
+                <input id="Tassonomia_Attivita4{{i+attivita_culturali|length+attivita_ambientali|length+attivita_istruzione|length}}" name="Tassonomia_Attivita4" type="radio" value="{{i+attivita_culturali|length+attivita_ambientali|length+attivita_istruzione|length}}" />
+            </td>
+            <td>
+                <p>
+                    {{ attivita_coesione[i]|safe }}
+
+                    {% if i == attivita_coesione|length - 1 %}
+                        <input class="inputNormal" id="Parametri_AttivitaCoesioneSociale_Specificare" name="Parametri_AttivitaCoesioneSociale_Specificare" style="width: 85%;" label="Specificare" mandatory_enabled="#Tassonomia_Attivita4{{i+attivita_culturali|length+attivita_ambientali|length+attivita_istruzione|length}}.checked()" />
+                    {% endif %}
+                </p>
+            </td>
+        </tr>
+        {% endfor %}
+
+    </tbody>
+</table>
+
+<globo_salto_pagina></globo_salto_pagina>
+
+{{ utils.calendario("con la seguente disponibilità") }}
+
+{{ utils.Dichiara_445() }}
+
+<div id="Tassonomia_SentenzePenali" name="Tassonomia_SentenzePenali" label="Dichiara" mandatory="true"></div>
+<div id="Tassonomia_BarattoAmministrativo" name="Tassonomia_BarattoAmministrativo" label="Dichiara"></div>
+<table class="Modulo" style="border: 1px solid grey;">
+    <tbody>
+
+        <tr>
+            <td style="vertical-align: top; width: 4%;">
+                <input id="Tassonomia_SentenzePenali1" name="Tassonomia_SentenzePenali" type="radio" value="1" />
+            </td>
+            <td>
+                <p>
+                    di non aver riportato sentenze penali di condanna
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td rowspan="3" style="vertical-align: top; width: 4%; background-color: #fff;">
+                <input id="Tassonomia_SentenzePenali2" name="Tassonomia_SentenzePenali" type="radio" value="2" />
+            </td>
+            <td>
+                <p>
+                    di aver riportato delle sentenze penali di condanna
+                </p>
+            </td>
+        </tr>
+        <tr class="Rigaintestazioneridotta">
+            <td>
+                <p class="Labelcella">
+                    Descrizione delle condanna riportata
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <textarea class="inputNormal" id="Parametri_DescrizioneCondannaRiportata" name="Parametri_DescrizioneCondannaRiportata" style="width: 100%; height: 5cm;" label="Descrizione condanna" mandatory_enabled="#Tassonomia_SentenzePenali2.checked()"></textarea>
+            </td>
+        </tr>
+        <tr>
+            <td rowspan="2" style="vertical-align: top; width: 4%;background-color: #fff;">
+                <input group="Tassonomia_BarattoAmministrativo" id="Tassonomia_BarattoAmministrativo1" name="Tassonomia_BarattoAmministrativo1" type="checkbox" value="SI" />
+            </td>
+            <td>
+                <p>
+                    di volersi avvalere del baratto amministrativo, e di essere a conoscenza che l’eventuale riduzione o esenzione di tributi o tariffe sarà concessa solo a seguito dell’approvazione del progetto presentato e nella misura e con le modalità che saranno deliberate dal consiglio comunale
+                </p>
+            </td>
+        </tr>
+        <tr class="Rigaintestazione">
+            <td>
+                <p class="Labeltabella">
+                    allega il progetto
+                </p>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<br>
+
+<globo_salto_pagina></globo_salto_pagina>
+
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          Eventuali annotazioni
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <textarea class="inputNormal" id="Parametri_Annotazioni" name="Parametri_Annotazioni" style="width: 100%; height: 5cm;" label="Eventuali annotazioni"></textarea>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<br>
+
+<table class="Modulo" name="Allegati" style="border: 1px solid grey">
+    <tbody>
+        <tr class="Rigaintestazione">
+            <td colspan="2">
+                <p style="text-align: center;">
+                    <b>
+                        Elenco degli allegati
+                    </b>
+                    <br/>
+                    <span style="font-size:70%">
+                        <i>(barrare tutti gli allegati richiesti in fase di presentazione della pratica ed elencati sul portale)</i>
+                    </span>
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 4%; vertical-align: top;">
+                <input id="LAV-CUR-VIT" name="LAV-CUR-VIT" type="checkbox" value="OBBLIGATORIO" checked="checked" dynamic_check="true"/>
+            </td>
+            <td style="background-color: #eeeeee;">
+                <p>
+                    curriculum vitae redatto secondo il modello europeo
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 4%; vertical-align: top;">
+                <input id="COP_PROG_BARATT" name="COP_PROG_BARATT" type="checkbox" value="OBBLIGATORIO" mandatory_enabled="#Tassonomia_BarattoAmministrativo1.checked()" dynamic_check="#Tassonomia_BarattoAmministrativo1.checked()"/>
+            </td>
+            <td style="background-color: #eeeeee;">
+                <p>
+                    copia del progetto per l’ammissione al baratto amministrativo
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td style="vertical-align: top; width: 4%;">
+                <input id="DAE-CDI" name="DAE-CDI" type="checkbox" value="OBBLIGATORIO" />
+            </td>
+            <td style="background-color: #eeeeee;">
+                <p>
+                    copia del documento d'identità
+                    <br/>
+                    <span style="font-size:70%">
+                        <i>(da allegare se il modulo è sottoscritto con firma autografa)</i>
+                    </span>
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td style="vertical-align: top; width: 4%;">
+                <input id="ALTRI-ALLEGATI" name="ALTRI-ALLEGATI" type="checkbox" value="OBBLIGATORIO"/>
+            </td>
+            <td style="background-color: #eeeeee;">
+                <p>
+                    altri allegati
+                    <span style="font-size:70%">(specificare)</span>
+                    <input class="" label="Altri allegati" id="AltriAllegati" mandatory_enabled="#ALTRI_ALLEGATI.checked()" name="AltriAllegati" style="width:79%;"/>
+                </p>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+
+<br>
+{{ utils.trattamento_dati_personali() }}
+<br/>
+    {{ utils.firma_hidden() }}
+<br/>
+
+<p class="Modulo">
+    <input id="SalvaModulo" name="SalvaModulo" style="height:30px;width:120px;" title="Verifica la corretta compilazione dei campi e salva il modulo nel faldone virtuale dell'istanza." type="submit" value="Salva modulo"/>
+</p>
+
+<input destinatario_amministrazione="getParameter('Ente')" id="GLOBO_modulo_c{{ CodiceModulo }}" name="GLOBO_modulo_c{{ CodiceModulo }}" type="hidden" value=""/>
+<input firmare="'NO'" id="GLOBO_modulofiglio_cINCARICO_PROCURA" name="GLOBO_modulofiglio_cINCARICO_PROCURA" type="hidden" value=""/>
+
+<input id="GLOBO_allegato_cLAV-CUR-VIT" name="GLOBO_allegato_cLAV-CUR-VIT" type="hidden" value="" obbligatorio="#LAV_CUR_VIT.checked() ? 'OBBLIGATORIO' : ''"/>
+<input id="GLOBO_allegato_cCOP_PROG_BARATT" name="GLOBO_allegato_cCOP_PROG_BARATT" type="hidden" value="" obbligatorio="#COP_PROG_BARATT.checked() ? 'OBBLIGATORIO' : ''"/>
+<input id="GLOBO_allegato_cDAE-CDI" name="GLOBO_allegato_cDAE-CDI" obbligatorio="#DAE_CDI.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+<input id="GLOBO_allegato_cALTRI-ALLEGATI" name="GLOBO_allegato_cALTRI-ALLEGATI" obbligatorio="#ALTRI_ALLEGATI.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_id_padre" name="GLOBO_id_padre" type="hidden"/>
+<input id="GLOBO_recupera_dati" name="GLOBO_recupera_dati" type="hidden"/>
+<input id="GLOBO_codice_modulo" name="GLOBO_codice_modulo" type="hidden" value="{{ CodiceModulo }}"/>
+
+{% endblock content %}

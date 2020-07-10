@@ -1,0 +1,481 @@
+{% set CodiceModulo = "TRASM_DOC_OCCUPAZ" %}
+{% set Urn = "document:c_a794:occupazione.suolo;provvedimento" %}
+{% extends "base.html" %}
+{% block meta %}
+
+<meta campi_firma="Titolare_CodiceFiscale"
+campi_firma_label="il dichiarante"
+classi_modulo="Edilizia"
+codice_modulo="{{ CodiceModulo }}"
+urn="{% block urn %}{{ Urn }}{% endblock urn %}"
+sub_urn=""
+sub_urn_list=""
+uo_globo_list=""
+descrizione="Trasmissione della documentazione per il ritiro di concessione di occupazione/manomissione di suolo pubblico"
+destinatario_amministrazione=""
+destinatario_ufficio=""
+dinamico="SI"
+email_a=""
+ente_abilitato="TUTTI"
+filigrana="SI"
+firmare="P7M_ELETTRONICA"
+generabile_da="COM_OCC_URGENTE,001-051,001-050,001-088,001-079,PL_VIAB_CANTIERE,AUT_SUOLO_PUBBL_ELETT"
+istruzioni_compilazione=""
+istruzioni_invio="mail_pec"
+metodo_invio="mail"
+name="GLOBO_modulo"
+procura="NO,,"
+tipo_modulo="principale"
+ufficio=""
+urlhelp="/modulistica/moduli/{{ CodiceModulo }}"
+verifica_pagamento="NO"
+versione="1.0|26/03/2019"/>
+
+<meta codice_modulo_figlio="INCARICO_PROCURA"
+urn_modulo_figlio="document:s_italia:generale;incarico.procura"
+name="GLOBO_modulofiglio"
+numero="1"
+obbligatorio="DINAMICO"/>
+
+<meta codice_modulo_figlio="MARCA_BOLLO"
+urn_modulo_figlio="document:s_italia:pagamento.imposta.bollo;apposizione.domanda;dichiarazione.sostitutiva"
+name="GLOBO_modulofiglio"
+numero="1"
+obbligatorio="DINAMICO"/>
+
+<meta codice_allegato="QUIET_VERS_COSAP"
+urn_allegato="document:c_a794:quietanza.versamento.cosap"
+descrizione_estesa="Quietanza di versamento COSAP"
+filename="Quietanza di versamento COSAP.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/QUIET_VERS_COSAP"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="ALTRI-ALLEGATI"
+urn_allegato="document:s_italia:altri.allegati"
+descrizione_estesa="Altri allegati"
+filename="Altri allegati integrazioni.pdf"
+firmatari="ALTRI-ALLEGATI-FIRMA"
+firmatari_label="il firmatario indicato"
+firmato="SI"
+istruzioni="/modulistica/moduli/ALTRI-ALLEGATI"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="ALTRI-ALLEGATI2"
+urn_allegato="document:s_italia:atto.notarile;copia"
+descrizione_estesa="Altri allegati"
+filename="Altri allegati2.pdf"
+firmatari="ALTRI-ALLEGATI-FIRMA2"
+firmatari_label="il firmatario indicato"
+firmato="SI"
+istruzioni="/modulistica/moduli/ALTRI-ALLEGATI"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="ALTRI-ALLEGATI3"
+urn_allegato="document:s_italia:atto.notarile;copia"
+descrizione_estesa="Altri allegati"
+filename="Altri allegati3.pdf"
+firmatari="ALTRI-ALLEGATI-FIRMA3"
+firmatari_label="il firmatario indicato"
+firmato="SI"
+istruzioni="/modulistica/moduli/ALTRI-ALLEGATI"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="ALTRI-ALLEGATI4"
+urn_allegato="document:s_italia:atto.notarile;copia"
+descrizione_estesa="Altri allegati"
+filename="Altri allegati4.pdf"
+firmatari="ALTRI-ALLEGATI-FIRMA4"
+firmatari_label="il firmatario indicato"
+firmato="SI"
+istruzioni="/modulistica/moduli/ALTRI-ALLEGATI"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="ALTRI-ALLEGATI5"
+urn_allegato="document:s_italia:atto.notarile;copia"
+descrizione_estesa="Altri allegati"
+filename="Altri allegati5.pdf"
+firmatari="ALTRI-ALLEGATI-FIRMA5"
+firmatari_label="il firmatario indicato"
+firmato="SI"
+istruzioni="/modulistica/moduli/ALTRI-ALLEGATI"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="ALTRI-ALLEGATI6"
+urn_allegato="document:s_italia:atto.notarile;copia"
+descrizione_estesa="Altri allegati"
+filename="Altri allegati6.pdf"
+firmatari="ALTRI-ALLEGATI-FIRMA6"
+firmatari_label="il firmatario indicato"
+firmato="SI"
+istruzioni="/modulistica/moduli/ALTRI-ALLEGATI"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="ALTRI-ALLEGATI7"
+urn_allegato="document:s_italia:atto.notarile;copia"
+descrizione_estesa="Altri allegati"
+filename="Altri allegati7.pdf"
+firmatari="ALTRI-ALLEGATI-FIRMA7"
+firmatari_label="il firmatario indicato"
+firmato="SI"
+istruzioni="/modulistica/moduli/ALTRI-ALLEGATI"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+
+<style>
+	.tableNoBorder, .tableNoBorder tr, .tableNoBorder td {
+		border: 0;
+	}
+</style>
+
+<style>
+  .inputNormal{
+    margin:1px;
+  }
+
+  .inputBordoSotto {
+    border-top: 0px;
+    border-left: 0px;
+    border-right: 0px;
+    border-bottom: 1px solid black;
+  }
+
+  @media pdf {
+    .wrapper-cornice {
+      border-bottom: 1px solid gray;
+      margin: 0px;
+      padding:0px;
+    }
+
+    .inputBordoSotto2 {
+      border-top: 0px;
+      border-left: 0px;
+      border-right: 0px;
+      border-bottom: 1px solid black;
+      width: 100%;
+    }
+  }
+</style>
+
+{% endblock meta %}
+
+{% block title %}
+  Trasmissione della documentazione per il ritiro di concessione di occupazione/manomissione di suolo pubblico
+{% endblock title %}
+
+{% block content %}
+
+<globo_fondo_pagina areaheight="150" scope="2">
+  {{ utils.firma() }}
+</globo_fondo_pagina>
+
+<input dynamic_value="#Titolare_Cognome.value().toUpperCase() + ' ' + #Titolare_Nome.value().toUpperCase() + ' - Trasmissione della documentazione per il ritiro di concessione di occupazione/manomissione di suolo pubblico'" id="Oggetto" name="Oggetto" type="hidden"/>
+
+{{ intestazioni.intestazione_moduloprincipale_senzabollo() }}
+
+<h1 class="Modulo">
+  Trasmissione della documentazione per il ritiro di concessione di occupazione/manomissione di suolo pubblico
+</h1>
+
+{{anagrafica.societa("Titolare","Il/La sottoscritto/a",["Persona fisica", "Titolare", "Legale rappresentante", "Procuratore con potere di rappresentanza legale"], "Richiedente")}}
+   <table class='Modulo' style='border: 1px solid grey'>
+<tbody>
+<tr class='Rigaintestazione'>
+<td colspan="2">
+<p class='Labeltabella'>
+        in relazione al procedimento relativo a
+       </p>
+</td>
+</tr>
+<tr class='Rigaintestazioneridotta'>
+<td colspan="2">
+<p class='Labelcella'>
+        Breve descrizione
+       </p>
+</td>
+</tr>
+<tr>
+<td colspan="2">
+<input class="" id="Parametri_InrelazCorpoCom" label="Breve descrizione del documento per il quale è annullata la marca da bollo" mandatory="true" name="Parametri_InrelazCorpoCom" style="width:100%;"/>
+</td>
+</tr>
+<tr class='Rigaintestazioneridotta'>
+<td>
+<p class='Labelcella'>
+        Protocollo/codice istanza
+	</p>
+</td>
+<td>
+<p class='Labelcella'>
+        Data
+       </p>
+</td>
+</tr>
+<tr>
+<td style="width:50%">
+<input class='inputNormal' id='DataPresentazione_Protocollo' label='Protocollo/codice istanza' mandatory='true' name='DataPresentazione_Protocollo' style='width:100%'/>
+</td>
+<td>
+<input class='inputNormal' format='date' id='DataPresentazione' label='Data' mandatory='true' name='DataPresentazione' style='width:100%'/>
+</td>
+</tr>
+</tbody>
+</table>
+
+<globo_salto_pagina></globo_salto_pagina>		 
+		 
+</table>
+<input dynamic_value="#Immobile_NumeroAltriImmobili.value() == 0 ? '0' :  Math.ceil(#Immobile_NumeroAltriImmobili.value() / 16) " id="Immobile_NumeroUlterioriImmobili" name="Immobile_NumeroUlterioriImmobili" type="hidden">
+ <input id="Immobile_DatiCatastaliObbligatori" name="Immobile_DatiCatastaliObbligatori" type="checkbox" style="display:none" value="si"/>
+ {{ immobili.immobile_secondario("Immobile","<input id='Immobile_DatiImmobileRichiesti' name='Immobile_DatiImmobileRichiesti' type='checkbox' value='si' dynamic_check='!#Tassonomia_Trasmette4.checked()'/> collocazione territoriale","Immobile principale oggetto della comunicazione", "display:visibility", "", "visibility:hidden", "cursor:default", "false") }}
+ <table class="Modulo" enabled="#Immobile_DatiImmobileRichiesti.checked()" style="border:1px solid grey; margin-top:-1px">
+  <tbody>
+            <tr class="Rigaintestazioneridotta">
+                <td>
+                    <p class="Labelcella">Ulteriori immobili oggetto del procedimento
+						<i>(allegare il modulo "Ulteriori immobili oggetto del procedimento")</i>
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p>il procedimento riguarda <input class="" id="Immobile_NumeroAltriImmobili" name="Immobile_NumeroAltriImmobili" style="width:5%;" value="0" label="Numero altri immobili"/> ulteriori immobli
+                    </p>
+                </td>
+            </tr>
+  </tbody>
+ </table>
+
+<h3 class='Modulo'>
+    TRASMETTE
+   </h3>
+<p class='Modulo'>la documentazione di seguito indicata </p>
+
+<br/>
+
+<table class='Modulo' name='Allegati' style='border: 1px solid grey'>
+<tbody>
+<tr class='Rigaintestazione'>
+<td colspan='2'>
+<p style='text-align: center;'>
+<b>
+      Elenco degli allegati
+     </b>
+<br/>
+<span style='font-size:70%'>
+<i>
+       (barrare tutti gli allegati richiesti in fase di presentazione della pratica ed elencati sul portale)
+      </i>
+</span>
+</p>
+</td>
+</tr>
+<tr>
+   <td style="vertical-align: top; width:4%">
+<input id='QUIET_VERS_COSAP_INT' name='QUIET_VERS_COSAP_INT' type='checkbox' value='OBBLIGATORIO'/>
+</td>
+<td style='background-color: #eeeeee;'>
+<p>
+      quietanza di versamento COSAP
+</p>
+</td>
+</tr>
+<tr>
+<td style="vertical-align:top">
+<input id='ALTRI-ALLEGATI_INT' name='ALTRI-ALLEGATI_INT' type='checkbox' value='OBBLIGATORIO'/>
+</td>
+<td style='background-color: #eeeeee;'>
+  <p>
+      altri allegati
+</p>
+    <table style="border: 0px; width: 100%; margin-top: -5px; margin-bottom: 2px;">
+      <tbody>
+        <tr style="border: 0px;">
+          <td style="border: 0px; width:50%">
+            <div class="inputBordoSotto2">
+              <p style="text-align: left;">
+                <span style="font-size: 70%;">(specificare altro allegato)</span>
+              </p>
+            </div>
+          </td>
+          <td style="border: 0px;">
+            <div class="inputBordoSotto2">
+              <p style="text-align: left;">
+                <span style="font-size: 70%;">(specificare il codice fiscale del firmatario)</span>
+              </p>
+            </div>
+          </td>
+        </tr>
+        <tr style="border: 0px;">
+          <td style="border: 0px;">
+            <div class="inputBordoSotto2">
+              <p style="text-align: left;">      
+				<input class="inputBordoSotto" id="ALTRI-ALLEGATI1" label="codice fiscale del firmatario" mandatory_enabled="#ALTRI_ALLEGATI_INT.checked()" name="ALTRI-ALLEGATI1" style="width:100%;"/>
+              </p>
+            </div>
+          </td>
+          <td style="border: 0px; width: 100%;">
+            <div class="inputBordoSotto2">
+              <p style="text-align: left;">
+				<input class="inputBordoSotto" id="ALTRI-ALLEGATI-FIRMA" label="codice fiscale del firmatario" mandatory_enabled="#ALTRI_ALLEGATI1.value() != ''" name="ALTRI-ALLEGATI-FIRMA" style="width:50%; " onkeyup="this.value = this.value.toUpperCase();" format="cf"/>
+              </p>
+            </div>
+          </td>
+        </tr>
+        <tr style="border: 0px;">
+          <td style="border: 0px;">
+            <div class="inputBordoSotto2">
+              <p style="text-align: left;">      
+				<input class="inputBordoSotto" id="ALTRI-ALLEGATI2" label="codice fiscale del firmatario" enabled="#ALTRI_ALLEGATI_INT.checked()" name="ALTRI-ALLEGATI2" style="width:100%;"/>
+              </p>
+            </div>
+          </td>
+          <td style="border: 0px; width: 100%;">
+            <div class="inputBordoSotto2">
+              <p style="text-align: left;">
+				<input class="inputBordoSotto" id="ALTRI-ALLEGATI-FIRMA2" label="codice fiscale del firmatario" mandatory_enabled="#ALTRI_ALLEGATI2.value() != ''" name="ALTRI-ALLEGATI-FIRMA2" style="width:50%; " onkeyup="this.value = this.value.toUpperCase();" format="cf"/>
+              </p>
+            </div>
+          </td>
+        </tr>
+        <tr style="border: 0px;">
+          <td style="border: 0px;">
+            <div class="inputBordoSotto2">
+              <p style="text-align: left;">      
+				<input class="inputBordoSotto" id="ALTRI-ALLEGATI3" label="codice fiscale del firmatario" enabled="#ALTRI_ALLEGATI_INT.checked()" name="ALTRI-ALLEGATI3" style="width:100%;"/>
+              </p>
+            </div>
+          </td>
+          <td style="border: 0px; width: 100%;">
+            <div class="inputBordoSotto2">
+              <p style="text-align: left;">
+				<input class="inputBordoSotto" id="ALTRI-ALLEGATI-FIRMA3" label="codice fiscale del firmatario" mandatory_enabled="#ALTRI_ALLEGATI3.value() != ''" name="ALTRI-ALLEGATI-FIRMA3" style="width:50%; " onkeyup="this.value = this.value.toUpperCase();" format="cf"/>
+              </p>
+            </div>
+          </td>
+        </tr>
+        <tr style="border: 0px;">
+          <td style="border: 0px;">
+            <div class="inputBordoSotto2">
+              <p style="text-align: left;">      
+				<input class="inputBordoSotto" id="ALTRI-ALLEGATI4" label="codice fiscale del firmatario" enabled="#ALTRI_ALLEGATI_INT.checked()" name="ALTRI-ALLEGATI4" style="width:100%;"/>
+              </p>
+            </div>
+          </td>
+          <td style="border: 0px; width: 100%;">
+            <div class="inputBordoSotto2">
+              <p style="text-align: left;">
+				<input class="inputBordoSotto" id="ALTRI-ALLEGATI-FIRMA4" label="codice fiscale del firmatario" mandatory_enabled="#ALTRI_ALLEGATI4.value() != ''" name="ALTRI-ALLEGATI-FIRMA4" style="width:50%; " onkeyup="this.value = this.value.toUpperCase();" format="cf"/>
+              </p>
+            </div>
+          </td>
+        </tr>
+        <tr style="border: 0px;">
+          <td style="border: 0px;">
+            <div class="inputBordoSotto2">
+              <p style="text-align: left;">      
+				<input class="inputBordoSotto" id="ALTRI-ALLEGATI5" label="codice fiscale del firmatario" enabled="#ALTRI_ALLEGATI_INT.checked()" name="ALTRI-ALLEGATI5" style="width:100%;"/>
+              </p>
+            </div>
+          </td>
+          <td style="border: 0px; width: 100%;">
+            <div class="inputBordoSotto2">
+              <p style="text-align: left;">
+				<input class="inputBordoSotto" id="ALTRI-ALLEGATI-FIRMA5" label="codice fiscale del firmatario" mandatory_enabled="#ALTRI_ALLEGATI5.value() != ''" name="ALTRI-ALLEGATI-FIRMA5" style="width:50%; " onkeyup="this.value = this.value.toUpperCase();" format="cf"/>
+              </p>
+            </div>
+          </td>
+        </tr>
+        <tr style="border: 0px;">
+          <td style="border: 0px;">
+            <div class="inputBordoSotto2">
+              <p style="text-align: left;">      
+				<input class="inputBordoSotto" id="ALTRI-ALLEGATI6" label="codice fiscale del firmatario" enabled="#ALTRI_ALLEGATI_INT.checked()" name="ALTRI-ALLEGATI6" style="width:100%;"/>
+              </p>
+            </div>
+          </td>
+          <td style="border: 0px; width: 100%;">
+            <div class="inputBordoSotto2">
+              <p style="text-align: left;">
+				<input class="inputBordoSotto" id="ALTRI-ALLEGATI-FIRMA6" label="codice fiscale del firmatario" mandatory_enabled="#ALTRI_ALLEGATI6.value() != ''" name="ALTRI-ALLEGATI-FIRMA6" style="width:50%; " onkeyup="this.value = this.value.toUpperCase();" format="cf"/>
+              </p>
+            </div>
+          </td>
+        </tr>
+        <tr style="border: 0px;">
+          <td style="border: 0px;">
+            <div class="inputBordoSotto2">
+              <p style="text-align: left;">      
+				<input class="inputBordoSotto" id="ALTRI-ALLEGATI7" label="codice fiscale del firmatario" enabled="#ALTRI_ALLEGATI_INT.checked()" name="ALTRI-ALLEGATI7" style="width:100%;"/>
+              </p>
+            </div>
+          </td>
+          <td style="border: 0px; width: 100%;">
+            <div class="inputBordoSotto2">
+              <p style="text-align: left;">
+				<input class="inputBordoSotto" id="ALTRI-ALLEGATI-FIRMA7" label="codice fiscale del firmatario" mandatory_enabled="#ALTRI_ALLEGATI7.value() != ''" name="ALTRI-ALLEGATI-FIRMA7" style="width:50%; " onkeyup="this.value = this.value.toUpperCase();" format="cf"/>
+              </p>
+            </div>
+          </td>
+        </tr>		
+      </tbody>
+    </table>
+</td>
+</tr>
+</tbody>
+</table>
+
+<br/>
+
+{{ utils.trattamento_dati_personali() }}
+
+<br/>
+ {{ utils.firma_hidden() }}
+   <br/>
+<p class='Modulo'>
+<input id='SalvaModulo' name='SalvaModulo' style='height:30px;width:120px;' title="Verifica la corretta compilazione dei campi e salva il modulo nel faldone virtuale dell'istanza." type='submit' value='Salva modulo'/>
+</p>
+
+<input firmare="'P7M_ELETTRONICA'" id="GLOBO_modulofiglio_cSTU-EDI-IMM" name="GLOBO_modulofiglio_cSTU-EDI-IMM" numero="#Immobile_NumeroUlterioriImmobili.value()" obbligatorio="#STU_EDI_IMM.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_modulofiglio_cMARCA_BOLLO" name="GLOBO_modulofiglio_cMARCA_BOLLO" type="hidden" value="" obbligatorio="#MARCA_BOLLO_INT.checked() ? 'OBBLIGATORIO' : ''"/>
+
+<input id="GLOBO_allegato_cQUIET_VERS_COSAP" name="GLOBO_allegato_cQUIET_VERS_COSAP" type="hidden" value="" obbligatorio="#QUIET_VERS_COSAP_INT.checked() ? 'OBBLIGATORIO' : ''"/>
+<input firmare="'P7M_ELETTRONICA'" id='GLOBO_modulofiglio_cINCARICO_PROCURA' name='GLOBO_modulofiglio_cINCARICO_PROCURA' type='hidden' value=''/>
+<input id="GLOBO_allegato_cALTRI-ALLEGATI" name="GLOBO_allegato_cALTRI-ALLEGATI" obbligatorio="#ALTRI_ALLEGATI_INT.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+<input id="GLOBO_allegato_cALTRI-ALLEGATI2" name="GLOBO_allegato_cALTRI-ALLEGATI2" obbligatorio="(#ALTRI_ALLEGATI_FIRMA2.value() != '') ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+<input id="GLOBO_allegato_cALTRI-ALLEGATI3" name="GLOBO_allegato_cALTRI-ALLEGATI3" obbligatorio="(#ALTRI_ALLEGATI_FIRMA3.value() != '') ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+<input id="GLOBO_allegato_cALTRI-ALLEGATI4" name="GLOBO_allegato_cALTRI-ALLEGATI4" obbligatorio="(#ALTRI_ALLEGATI_FIRMA4.value() != '') ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+<input id="GLOBO_allegato_cALTRI-ALLEGATI5" name="GLOBO_allegato_cALTRI-ALLEGATI5" obbligatorio="(#ALTRI_ALLEGATI_FIRMA5.value() != '') ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+<input id="GLOBO_allegato_cALTRI-ALLEGATI6" name="GLOBO_allegato_cALTRI-ALLEGATI6" obbligatorio="(#ALTRI_ALLEGATI_FIRMA6.value() != '') ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+<input id="GLOBO_allegato_cALTRI-ALLEGATI7" name="GLOBO_allegato_cALTRI-ALLEGATI7" obbligatorio="(#ALTRI_ALLEGATI_FIRMA7.value() != '') ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_id_padre" name="GLOBO_id_padre" type="hidden"/>
+<input id="GLOBO_recupera_dati" name="GLOBO_recupera_dati" type="hidden"/>
+<input id="GLOBO_codice_modulo" name="GLOBO_codice_modulo" type="hidden" value="{{ CodiceModulo }}"/>
+
+{% endblock content %}

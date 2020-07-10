@@ -1,0 +1,124 @@
+{% set CodiceModulo = "DIC_TIT_STU" %}
+{% set Urn = "document:c_a794:dichiarazione.titoli.studio;dichiarazione" %}
+{% extends "base.html" %}
+
+{% block meta %}
+
+<meta campi_firma="TitolareNonImportare_CodiceFiscale"
+campi_firma_label="il dichiarante"
+classi_modulo="Tempo libero sport e cultura"
+codice_modulo="{{ CodiceModulo }}"
+urn="{% block urn %}{{ Urn }}{% endblock urn %}"
+descrizione="Dichiarazione relativa ai titoli di studio"
+destinatario_amministrazione=""
+destinatario_ufficio="UOTEMPOLIBEROSPORTECULTURA"
+dinamico="SI"
+email_a=""
+ente_abilitato="TUTTI"
+filigrana="NO"
+firmare="AUTENTICATO"
+istruzioni_compilazione="ATTENZIONE: questo modulo deve essere compilato con i dati del sottoscrivente."
+istruzioni_invio=""
+metodo_invio="mail"
+name="GLOBO_modulo"
+procura="NO,,"
+tipo_modulo="secondario"
+urlhelp="/modulistica/moduli/{{ CodiceModulo }}"
+verifica_pagamento="NO"
+versione="1.0|06/06/2020"/>
+
+{% endblock meta %}
+
+{% block title %}
+
+Dichiarazione sostitutiva di certificazione attestante il possesso dei titoli di studio
+ 
+{% endblock title %}
+
+{% block content %}
+
+<globo_fondo_pagina areaheight="150" scope="2">
+  {{ utils.firma() }}
+</globo_fondo_pagina>
+
+<input id="Oggetto" name="Oggetto" type="hidden" dynamic_value="'Dichiarazione sostitutiva possesso titoli di studio ' + #TitolareNonImportare_Cognome.value().toUpperCase() + ' ' + #TitolareNonImportare_Nome.value().toUpperCase()"/>
+
+{{ intestazioni.intestazione_modulosecondario_senzabollo() }}
+
+<h1 class="Modulo">
+Dichiarazione sostitutiva di certificazione attestante il possesso dei titoli di studio
+  
+</h1>
+
+<!-- DATI DEL TITOLARE -->
+{{anagrafica.cognome_nome("TitolareNonImportare","Il sottoscritto", "Richiedente", "visibility:hidden", "cursor:default")}}
+
+<br>
+
+<p class="Modulo">
+   con riferimento alla domanda di partecipazione alla selezione per il conferimento di incarichi di docente esterno
+</p>
+<br>
+
+
+{{ utils.Dichiara_445() }}
+
+<br>
+<p class="Modulo">di aver conseguito i seguenti titoli di studio:</p>
+<br>
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazioneridotta">
+      <td style="width: 40">
+        <p class="Labelcella"> Titolo di studio  </p>
+      </td>
+      <td style="width: 40%">
+        <p class="Labelcella"> conseguito presso  </p>
+      </td>
+      <td style="width: 12%">
+        <p class="Labelcella"> in data  </p>        
+      </td>
+      <td style="width: 8%">
+        <p class="Labelcella"> con votazione  </p>
+      </td>
+    </tr>
+    {% for i in range(1, 10) %}
+      <tr {% if i == 1 %} mandatory_enabled="true"  {% endif %} >
+        <td>
+          <input class="inputNormal" id="Parametri_Titol{{i}}_Titoli" name="Parametri_Titol{{i}}_Titoli" style="width: 100%;" label="Titolo di studio {{i}}" 
+          {% if i > 1 %} enabled="#Parametri_Titol{{i-1}}_Titoli.value()!=''" {% endif %} />
+        </td>
+        <td>
+          <input class="inputNormal" id="Parametri_Titol{{i}}_Conseguito" name="Parametri_Titol{{i}}_Conseguito" style="width: 100%;" label="conseguito presso {{i}}" 
+          {% if i > 1 %} mandatory_enabled="#Parametri_Titol{{i}}_Titoli.value()!=''" {% endif %} />
+        </td>
+        <td>
+          <input class="inputNormal" id="Parametri_Titol{{i}}_Data" name="Parametri_Titol{{i}}_Data" style="width: 100%; " onkeyup="this.value = this.value.toUpperCase();" format="date" label="data conseguimento {{i}}" 
+          {% if i > 1 %} mandatory_enabled="#Parametri_Titol{{i}}_Titoli.value()!=''" {% endif %} />
+        </td>
+        <td>
+          <input class="inputNormal" id="Parametri_Titol{{i}}_Votazione" name="Parametri_Titol{{i}}_Votazione" style="width: 100%;" label="votazione {{i}}" 
+          {% if i > 1 %} mandatory_enabled="#Parametri_Titol{{i}}_Titoli.value()!=''" {% endif %} >
+        </td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+ 
+
+
+<br/>
+  {{ utils.firma_hidden() }}
+<br/>
+
+<p class="Modulo">
+  <input id="SalvaModulo" name="SalvaModulo" style="height:30px;width:120px;" title="Verifica la corretta compilazione dei campi e salva il modulo nel faldone virtuale dell'istanza." type="submit" value="Salva modulo"/>
+</p>
+
+<input id="GLOBO_modulo_c{{ CodiceModulo }}" name="GLOBO_modulo_c{{ CodiceModulo }}" type="hidden" value=""/>
+
+<input id="GLOBO_id_padre" name="GLOBO_id_padre" type="hidden"/>
+<input id="GLOBO_recupera_dati" name="GLOBO_recupera_dati" type="hidden"/>
+<input id="GLOBO_codice_modulo" name="GLOBO_codice_modulo" type="hidden" value="{{ CodiceModulo }}"/>
+
+{% endblock content %}

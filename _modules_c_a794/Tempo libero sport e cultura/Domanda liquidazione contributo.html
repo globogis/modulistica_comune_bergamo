@@ -1,0 +1,592 @@
+{% set CodiceModulo = "DOM_LIQU_RENDI" %}
+{% set Urn = "document:c_a794:contributi.economici.liquidazione.rendicontata" %}
+{% extends "base.html" %}
+
+{% block meta %}
+
+<meta campi_firma="Titolare_CodiceFiscale"
+campi_firma_label="il dichiarante"
+classi_modulo="Contributi"
+codice_modulo="{{ CodiceModulo }}"
+urn="{% block urn %}{{ Urn }}{% endblock urn %}"
+sub_urn_list=""
+uo_globo_list=""
+descrizione="Domanda di liquidazione del contributo"
+destinatario_amministrazione=""
+destinatario_ufficio="UOPROTOCOLLO"
+dinamico="SI"
+email_a=""
+ente_abilitato="TUTTI"
+filigrana="NO"
+firmare="P7M_ELETTRONICA"
+istruzioni_compilazione=""
+istruzioni_invio="mail_pec"
+metodo_invio="mail"
+name="GLOBO_modulo"
+procura="NO,,"
+tipo_modulo="principale"
+urlhelp="/modulistica/moduli/{{ CodiceModulo }}"
+verifica_pagamento="NO"
+versione="1.0|23/03/2019"/>
+
+<meta codice_modulo_figlio="INCARICO_PROCURA"
+urn_modulo_figlio="document:s_italia:generale;incarico.procura"
+name="GLOBO_modulofiglio"
+numero="1"
+obbligatorio="DINAMICO"/>
+
+<meta codice_allegato="DOC-ATT-SPESE-SOST"
+urn_allegato="document:s_italia:generale;spese.sostenute;documentazione"
+descrizione_estesa="Copia della documentazione attestante le spese sostenute"
+filename="Documentazione spese sostenute.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/DOC-ATT-SPESE-SOST"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="DAE-CDI"
+urn_allegato="document:s_italia:generale;documento.identita;documentazione"
+descrizione_estesa="Documento di identità"
+filename="Documento identita.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/DAE-CDI"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="ALTRI-ALLEGATI"
+urn_allegato="document:s_italia:altri.allegati"
+descrizione_estesa="Altri allegati"
+filename="Altri allegati.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/ALTRI-ALLEGATI"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+{% endblock meta %}
+
+{% block title %}
+    Domanda di liquidazione del contributo
+{% endblock title %}
+
+{% block content %}
+
+<globo_fondo_pagina areaheight="150" scope="3">
+    {{ utils.firma() }}
+</globo_fondo_pagina>
+
+<input id="Parametri_Comune" name="Parametri_Comune" type="hidden" dynamic_value="#Ente.value()"/>
+<input id="Oggetto" name="Oggetto" type="hidden" dynamic_value="#Titolare_Cognome.value().toUpperCase() + ' ' + #Titolare_Nome.value().toUpperCase() + ' - domanda liquidazione del contributo'"/>
+
+{{ intestazioni.intestazione_moduloprincipale_senzabollo() }}
+
+<h1 class="Modulo">
+    Domanda di liquidazione del contributo
+</h1>
+
+{{ anagrafica.societa("Titolare", "Il sottoscritto", ["Persona fisica", "Titolare", "Legale rappresentante"], "Richiedente", "visibility:visibility", "cursor:pointer", "mail_ordinaria", "false", "false") }}
+
+<h3 class="Modulo">
+    CHIEDE
+</h3>
+
+<p class="Modulo">
+    l'erogazione parziale del contributo richiesto
+</p>
+
+
+<table class="Modulo" style="border: 1px solid grey;">
+    <tbody>
+        <tr class="Rigaintestazione">
+            <td colspan="5">
+                <p class="Labeltabella">
+                    con l'istanza
+                </p>
+            </td>
+        </tr>
+        <tr class="Rigaintestazioneridotta">
+            <td style="width: 25%;">
+                <p class="Labelcella">
+                    Data di presentazione della domanda
+                </p>
+            </td>
+            <td style="width: 35%;">
+                <p class="Labelcella">
+                    Numero di protocollo di presentazione della domanda
+                </p>
+            </td>
+            <td style="width: 40%;">
+                <p class="Labelcella">
+                    In relazione alla manifestazione/evento
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input class="inputNormal" id="Parametri_PresentazioneDomanda_Data" name="Parametri_PresentazioneDomanda_Data" style="width: 100%;" label="Data" format="date" mandatory="true" />
+            </td>
+            <td>
+                <input class="inputNormal" id="Parametri_PresentazioneDomanda_NumeroProtocollo" name="Parametri_PresentazioneDomanda_NumeroProtocollo" style="width: 100%;" label="Numero protocollo" mandatory="true" />
+            </td>
+            <td>
+                <input class="inputNormal" id="Parametri_PresentazioneDomanda_Manifestazione" name="Parametri_PresentazioneDomanda_Manifestazione" style="width: 100%;" label="Manifestazione" mandatory="true" />
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+
+<table class="Modulo" style="border: 1px solid grey;">
+    <tbody>
+        <tr class="Rigaintestazione">
+            <td colspan="3">
+                <p class="Labeltabella">
+                    concesso con l'atto
+                </p>
+            </td>
+        </tr>
+        <tr class="Rigaintestazioneridotta">
+            <td style="width:40%;">
+                <p class="Labelcella">
+                    Tipologia di documento (*)
+                </p>
+            </td>
+            <td style="width:30%;">
+                <p class="Labelcella">
+                    Numero
+                </p>
+            </td>
+            <td style="width:29%;">
+                <p class="Labelcella">
+                    Anno di protocollo
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                {% set opzioni = ["", "deliberazione del consiglio comunale", "deliberazione della giunta comunale", "determinazione", "decreto assessoriale"] %}
+                <select name="Parametri_Atto_TipologiaDocumento" id="Parametri_Atto_TipologiaDocumento" label="Tipologia documento" style="width: 100%;" mandatory="true">
+                    {% for opt in opzioni %}
+                        <option value="{{ opt }}">{{ opt }}</option>
+                    {% endfor %}
+                </select>
+            </td>
+            <td>
+                <input class="inputNormal" id="Parametri_Atto_Numero" name="Parametri_Atto_Numero" style="width: 100%;" label="Numero atto" mandatory="true" />
+            </td>
+            <td>
+                <input class="inputNormal" id="Parametri_Atto_DataProtocollo" name="Parametri_Atto_DataProtocollo" style="width: 100%;" label="Data protocollo"  format="date" mandatory="true" />
+            </td>
+        </tr>
+
+    </tbody>
+</table>
+
+<p class="Modulo" style="font-size:80%;">
+    <i>Opzioni (*)</i>:<br/>
+    deliberazione del consiglio comunale, deliberazione della giunta comunale, determinazione, decreto assessoriale
+</p>
+
+<h3 class="Modulo">
+    COMUNICA
+</h3>
+
+<table class="Modulo" style="border: 1px solid grey;">
+    <tbody>
+        <tr class="Rigaintestazione">
+            <td colspan="3">
+                <p class="Labeltabella">
+                    in relazione allo svolgimento dell'iniziativa
+                </p>
+            </td>
+        </tr>
+        <tr class="Rigaintestazioneridotta">
+            <td style="width:30%;">
+                <p class="Labelcella">
+                    Data inizio dell'iniziativa
+                </p>
+            </td>
+            <td style="width:30%;">
+                <p class="Labelcella">
+                    Data fine dell'iniziativa
+                </p>
+            </td>
+            <td style="width:40%;">
+                <p class="Labelcella">
+                    Luogo di svolgimento dell'iniziativa
+                </p>
+            </td>
+        </tr>
+        <tr>
+           <td>
+               <input class="inputNormal" id="Parametri_Iniziativa_DataInizio" name="Parametri_Iniziativa_DataInizio" style="width: 100%;" label="Data inizio" mandatory="true" format="date" />
+           </td>
+            <td>
+                <input class="inputNormal" id="Parametri_Iniziativa_DataFine" name="Parametri_Iniziativa_DataFine" style="width: 100%;" label="Data fine" mandatory="true" format="date" />
+            </td>
+            <td>
+                <input class="inputNormal" id="Parametri_Iniziativa_LuogoSvolgimento" name="Parametri_Iniziativa_LuogoSvolgimento" style="width: 100%;" label="Luogo svolgimento" mandatory="true" />
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<globo_salto_pagina></globo_salto_pagina>
+
+{{ utils.Dichiara_445() }}
+
+<p class="Modulo">
+    che il rendiconto di seguito riportato corrisponde alle spese effettivamente sostenute e alle entrate conseguite per l'organizzazione dell'evento.
+</p>
+
+<table class="Modulo" style="border: 1px solid grey;">
+    <tbody>
+        <tr class="Rigaintestazione">
+            <td colspan="2">
+                <p class="Labeltabella">
+                    uscite <br>
+                    <span style="font-size: 70%;">(specificare nel dettaglio)</span>
+                </p>
+            </td>
+        </tr>
+        <tr class="Rigaintestazioneridotta">
+            <td style="width:80%;">
+                <p class="Labelcella">
+                    Descrizione (*)
+                </p>
+            </td>
+            <td style="width:20%;">
+                <p class="Labelcella">
+                    Importo
+                </p>
+            </td>
+        </tr>
+        <!-- il primo elemento della coppia è senza accenti per evitare errori per option value -->
+        {% set descrizioni = [["", ""],
+                              ["compensi", "compensi"],
+                              ["spese di viaggio","spese di viaggio"],
+                              ["ENPALS","ENPALS"],
+                              ["INPS","INPS"],
+                              ["SIAE","SIAE"],
+                              ["spese di pubblicita e affissioni","spese di pubblicità e affissioni"],
+                              ["inviti e manifesti","inviti e manifesti"],
+                              ["materiali","materiali"],
+                              ["spese di organizzazione","spese di organizzazione"],
+                              ["affitto sale","affitto sale"],
+                              ["noleggio strutture e attrezzature","noleggio strutture e attrezzature"],
+                              ["servizio audio e luci","servizio audio e luci"],
+                              ["assicurazioni","assicurazioni"],
+                              ["premi","premi"],
+                              ["spese di segreteria","spese di segreteria"],
+                              ["altre spese","altre spese"]] %}
+        {% set numero_righe = 14 %}
+
+        {% for i in range(1, numero_righe) %}
+        <tr {% if i==1 %} mandatory_enabled="true" {% endif %}>
+            <td>
+                <select name="Parametri_Uscite_Descrizione{{i}}" id="Parametri_Uscite_Descrizione{{i}}" label="Descrizione" style="width:100%;">
+                    {% for desc in descrizioni %}
+                    <option value="{{desc[0]}}">{{desc[1]}}</option>
+                    {% endfor %}
+                </select>
+            </td>
+            <td>
+                <p style="width: 100%; text-align: right;">
+                    <input class="inputNormal" id="Parametri_Uscite_Importo{{i}}" name="Parametri_Uscite_Importo{{i}}" style="width: 85%;" label="Importo" format="valuta_positiva" {% if i==1 %} mandatory_enabled="true" {% else %} mandatory_enabled="#Parametri_Uscite_Descrizione{{i}}.value() != ''" {% endif %} />
+                    €
+                </p>
+            </td>
+        </tr>
+        {% endfor %}
+        <tr class="Rigaintestazione">
+            <td>
+               <p class="Labeltabella" style="width: 100%; text-align: right;">
+                    totale
+                </p>
+            </td>
+            <td>
+                <p style="width: 100%; text-align: right;">
+                    <input class="inputNormal" id="Parametri_Uscite_Totale" name="Parametri_Uscite_Totale" style="width: 85%;" label="Totale" format="valuta_positiva"
+                    dynamic_value="(
+                    {% for i in range(1, numero_righe) %}
+                    (#Parametri_Uscite_Importo{{i}}.value() != '' ? parseFloat(#Parametri_Uscite_Importo{{i}}.value().replace(',','.')) : 0) +
+                    {% endfor %} 0).toFixed(2).toString().replace('.',',')" readonly />
+                    €
+                </p>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<p class="Modulo" style="font-size:80%;">
+    <i>Opzioni (*)</i>:<br/>
+    compensi,
+    spese di viaggio,
+    ENPALS,
+    INPS,
+    SIAE,
+    spese di pubblicità e affissioni,
+    inviti e manifesti,
+    materiali,
+    spese di organizzazione,
+    affitto sale,
+    noleggio strutture e attrezzature,
+    servizio audio e luci,
+    assicurazioni,
+    premi,
+    spese di segreteria,
+    altre spese
+</p>
+
+<table class="Modulo" style="border: 1px solid grey; margin-top: -1px;">
+    <tbody>
+        <tr class="Rigaintestazione">
+            <td colspan="2">
+                <p class="Labeltabella">
+                    entrate <br>
+                    <span style="font-size: 70%;">(specificare nel dettaglio)</span>
+                </p>
+            </td>
+        </tr>
+        <tr class="Rigaintestazioneridotta">
+            <td style="width:80%;">
+                <p class="Labelcella">
+                    Descrizione (*)
+                </p>
+            </td>
+            <td style="width:20%;">
+                <p class="Labelcella">
+                    Importo
+                </p>
+            </td>
+        </tr>
+        <!-- il primo elemento della coppia è senza accenti per evitare errori per option value -->
+        {% set descrizioniEntrate = ["", "contributi di altri enti",
+                                "sponsorizzazioni o contributi privati",
+                                "mezzi propri da autofinanziamento",
+                                "vendita biglietti d'ingresso",
+                                "vendita di pubblicazioni, cd, materiale vario",
+                                "altre entrate"] %}
+        {% set numero_righe = 14 %}
+
+        {% for i in range(1, numero_righe) %}
+        <tr {% if i==1 %} mandatory_enabled="true" {% endif %}>
+            <td>
+                <select name="Parametri_Entrate_Descrizione{{i}}" id="Parametri_Entrate_Descrizione{{i}}" label="Descrizione" style="width:100%;">
+                    {% for desc in descrizioniEntrate %}
+                    <option value="{{ desc }}">{{desc}}</option>
+                    {% endfor %}
+                </select>
+            </td>
+            <td>
+                <p style="width: 100%; text-align: right;">
+                    <input class="inputNormal" id="Parametri_Entrate_Importo{{i}}" name="Parametri_Entrate_Importo{{i}}" style="width: 85%;" label="Importo" format="valuta_positiva" {% if i==1 %} mandatory_enabled="true" {% else %} mandatory_enabled="#Parametri_Entrate_Descrizione{{i}}.value() != ''" {% endif %} />
+                    €
+                </p>
+            </td>
+        </tr>
+        {% endfor %}
+        <tr class="Rigaintestazione">
+            <td>
+                <p class="Labeltabella" style="width: 100%; text-align: right;">
+                    totale
+                </p>
+            </td>
+            <td>
+                <p style="width: 100%; text-align: right;">
+                    <input class="inputNormal" id="Parametri_Entrate_Totale" name="Parametri_Entrate_Totale" style="width: 85%;" label="Totale" format="valuta_positiva"
+                    dynamic_value="(
+                    {% for i in range(1, numero_righe) %}
+                    (#Parametri_Entrate_Importo{{i}}.value() != '' ? parseFloat(#Parametri_Entrate_Importo{{i}}.value().replace(',','.')) : 0) +
+                    {% endfor %} 0).toFixed(2).toString().replace('.',',')" readonly />
+                    €
+                </p>
+            </td>
+        </tr>
+        <tr class="Rigaintestazione">
+                <td>
+                    <p class="Labeltabella" style="width: 100%; text-align: right;">
+                        saldo
+                    </p>
+                </td>
+                <td>
+                    <p style="width: 100%; text-align: right;">
+                        <input class="inputNormal" id="Parametri_Saldo" name="Parametri_Saldo" style="width: 85%;" label="Saldo" format="valuta"
+                        dynamic_value="(parseFloat(#Parametri_Entrate_Totale.value().replace(',','.')) - parseFloat(#Parametri_Uscite_Totale.value().replace(',','.'))).toFixed(2).toString().replace('.',',')" readonly />
+                        €
+                    </p>
+                </td>
+            </tr>
+    </tbody>
+</table>
+
+<p class="Modulo" style="font-size:80%;">
+    <i>Opzioni (*)</i>:<br/>
+    contributi di altri enti,
+    sponsorizzazioni o contributi privati,
+    mezzi propri da autofinanziamento,
+    vendita biglietti d’ingresso,
+    vendita di pubblicazioni/cd/materiale vario,
+    altre entrate
+</p>
+
+<globo_salto_pagina></globo_salto_pagina>
+
+<h3 class="Modulo">
+    DICHIARA INOLTRE
+</h3>
+
+
+<p class="Modulo">
+        che la somma corrisposta dal Comune di Bergamo a titolo di contributo
+    </p>
+
+<div id="Tassonomia_ContributoRicavo" name="Tassonomia_ContributoRicavo" label="Ricavo contributo" mandatory="true"></div>
+<table class="Modulo" style="border: 1px solid grey;">
+    <tbody>
+        <tr class="Rigaintestazioneridotta">
+            <td colspan="2">
+                <p class="Labelcella">
+                    Valore del contributo
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <input class="inputNormal" id="Parametri_ValoreContributo" name="Parametri_ValoreContributo" style="width: 100%;" label="Valore contributo" mandatory="true" format="valuta_positiva" />
+            </td>
+        </tr>
+        <tr class="Rigaintestazione">
+            <td colspan="2">
+                <p class="Labelcella">
+                    Per l’organizzazione dell’iniziativa il contributo
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td style="vertical-align: top; width: 4%;">
+                <input id="Tassonomia_ContributoRicavo1" name="Tassonomia_ContributoRicavo" type="radio" value="1" />
+            </td>
+            <td>
+                <p>
+                    costituisce ricavo.
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td style="vertical-align: top; width: 4%;">
+                <input id="Tassonomia_ContributoRicavo2" name="Tassonomia_ContributoRicavo" type="radio" value="2" />
+            </td>
+            <td>
+                <p>
+                    non costituisce ricavo.
+                </p>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<br>
+
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          Eventuali annotazioni
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <textarea class="inputNormal" id="Parametri_Annotazioni" name="Parametri_Annotazioni" style="width: 100%; height: 5cm;" label="Eventuali annotazioni"></textarea>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<br>
+
+
+
+<table class="Modulo" name="Allegati" style="border: 1px solid grey">
+    <tbody>
+        <tr class="Rigaintestazione">
+            <td colspan="2">
+                <p style="text-align: center;">
+                    <b>
+                        Elenco degli allegati
+                    </b>
+                    <br/>
+                    <span style="font-size:70%">
+                        <i>(barrare tutti gli allegati richiesti in fase di presentazione della pratica ed elencati sul portale)</i>
+                    </span>
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 4%; vertical-align: top;">
+                <input id="DOC-ATT-SPESE-SOST" name="DOC-ATT-SPESE-SOST" type="checkbox" value="OBBLIGATORIO"/>
+            </td>
+            <td style="background-color: #eeeeee;">
+                <p>
+                    copia della documentazione attestante le spese sostenute
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td style="vertical-align: top; width: 4%;">
+                <input id="DAE-CDI" name="DAE-CDI" type="checkbox" value="OBBLIGATORIO" />
+            </td>
+            <td style="background-color: #eeeeee;">
+                <p>
+                    copia del documento d'identità
+                    <br/>
+                    <span style="font-size:70%">
+                        <i>(da allegare se il modulo è sottoscritto con firma autografa)</i>
+                    </span>
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td style="vertical-align: top; width: 4%;">
+                <input id="ALTRI-ALLEGATI" name="ALTRI-ALLEGATI" type="checkbox" value="OBBLIGATORIO"/>
+            </td>
+            <td style="background-color: #eeeeee;">
+                <p>
+                    altri allegati
+                    <span style="font-size:70%">(specificare)</span>
+                    <input class="" label="Altri allegati" id="AltriAllegati" mandatory_enabled="#ALTRI_ALLEGATI.checked()" name="AltriAllegati" style="width:79%;"/>
+                </p>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<br>
+{{ utils.trattamento_dati_personali() }}
+<br/>
+    {{ utils.firma_hidden() }}
+<br/>
+
+<p class="Modulo">
+    <input id="SalvaModulo" name="SalvaModulo" style="height:30px;width:120px;" title="Verifica la corretta compilazione dei campi e salva il modulo nel faldone virtuale dell'istanza." type="submit" value="Salva modulo"/>
+</p>
+
+<input destinatario_amministrazione="getParameter('Ente')" id="GLOBO_modulo_c{{ CodiceModulo }}" name="GLOBO_modulo_c{{ CodiceModulo }}" type="hidden" value=""/>
+<input firmare="'P7M_ELETTRONICA'" id="GLOBO_modulofiglio_cINCARICO_PROCURA" name="GLOBO_modulofiglio_cINCARICO_PROCURA" type="hidden" value=""/>
+
+<input id="GLOBO_allegato_cDOC-ATT-SPESE-SOST" name="GLOBO_allegato_cDOC-ATT-SPESE-SOST" type="hidden" value="" obbligatorio="#DOC_ATT_SPESE_SOST.checked() ? 'OBBLIGATORIO' : ''"/>
+<input id="GLOBO_allegato_cDAE-CDI" name="GLOBO_allegato_cDAE-CDI" obbligatorio="#DAE_CDI.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+<input id="GLOBO_allegato_cALTRI-ALLEGATI" name="GLOBO_allegato_cALTRI-ALLEGATI" obbligatorio="#ALTRI_ALLEGATI.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_id_padre" name="GLOBO_id_padre" type="hidden"/>
+<input id="GLOBO_recupera_dati" name="GLOBO_recupera_dati" type="hidden"/>
+<input id="GLOBO_codice_modulo" name="GLOBO_codice_modulo" type="hidden" value="{{ CodiceModulo }}"/>
+
+{% endblock content %}

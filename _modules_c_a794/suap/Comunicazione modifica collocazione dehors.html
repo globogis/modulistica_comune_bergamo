@@ -1,0 +1,442 @@
+{% set CodiceModulo =  "MOD_COLL_DEHORS" %}
+{% extends "base.html" %}
+{% set Urn = "document:c_a794:modifica.collocazione.dehors;comunicazione" %}
+{% block meta %}
+
+<meta campi_firma="Titolare_CodiceFiscale"
+campi_firma_label="il dichiarante"
+classi_modulo="Commercio"
+codice_modulo="{{ CodiceModulo }}"
+urn="{% block urn %}{{ Urn }}{% endblock urn %}"
+sub_urn_list=""
+uo_globo_list=""
+descrizione=" Comunicazione di modifica della collocazione del dehors"
+destinatario_amministrazione=""
+destinatario_ufficio="UOSUAP"
+dinamico="SI"
+email_a=""
+ente_abilitato="TUTTI"
+filigrana="SI"
+firmare="P7M_ELETTRONICA"
+istruzioni_compilazione=""
+istruzioni_invio="mail_pec"
+metodo_invio="mail"
+name="GLOBO_modulo"
+procura="NO,,"
+tipo_modulo="principale"
+ufficio=""
+urlhelp="/modulistica/moduli/{{ CodiceModulo }}"
+verifica_pagamento="NO"
+versione="1.0|11/05/2020"/>
+
+<meta codice_allegato="PLAN_DEHOR"
+descrizione_estesa="Planimetria quotata in scala 1:500"
+urn_allegato
+filename="Planimetria in scala.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/PLAN_DEHOR"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="DICH_ASS_ATT"
+descrizione_estesa="Dichiarazione di assenso gestore o proprietario"
+urn_allegato="document:c_a794:dichiarazione.assenso.attivita.attigua;allegato"
+filename="Dichiarazione assenso proprietario o gestore.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/DICH_ASS_ATT"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="DOC-FOT"
+urn_allegato="document:r_lombar:pianificazione.urbanistica;piano.attuativo;documentazione.fotografica"
+descrizione_estesa="Documentazione fotografica"
+filename="Documentazione fotografica.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/DOC-FOT"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+
+<meta codice_allegato="DAE-CDI"
+urn_allegato="document:s_italia:generale;documento.identita;documentazione"
+descrizione_estesa="Documento di identità"
+filename="Documento identita.pdf"
+firmato="SI"
+istruzioni="/modulistica/moduli/DAE-CDI"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+
+
+<meta codice_modulo_figlio="INCARICO_PROCURA"
+urn_modulo_figlio="document:s_italia:generale;incarico.procura"
+name="GLOBO_modulofiglio"
+numero="1"
+obbligatorio="DINAMICO"/>
+
+<meta codice_allegato="ALTRI-ALLEGATI"
+descrizione_estesa="Altri allegati"
+urn_allegato="document:s_italia:altri.allegati"
+filename="Altri allegati.pdf"
+firmato="SI"
+istruzioni="/servizio-attivita-produttive-e-commercio/altri-allegati-allistanza"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+
+
+{% endblock meta %}
+{% block title %}
+    Comunicazione di modifica della collocazione del dehors 
+  {% endblock title %}
+{% block content %}
+ <globo_fondo_pagina areaheight="150" scope="2">
+ {{ utils.firma() }}
+</globo_fondo_pagina>
+
+<input dynamic_value="#Titolare_Cognome.value().toUpperCase() + ' - Comunicazione di modifica della collocazione del dehors '" id="Oggetto" name="Oggetto" type="hidden"/>
+
+<input dynamic_value="#Ente.value()" id="Parametri_Comune" name="Parametri_Comune" type="hidden"/>
+
+{{ intestazioni.intestazione_moduloprincipale_senzabollo() }}
+
+<h1 class='Modulo'>
+ Comunicazione di modifica della collocazione del dehors 
+</h1>
+
+
+{{anagrafica.societa("Titolare","Il sottoscritto",["Persona fisica", "Titolare", "Legale rappresentante"], "Richiedente")}}
+<br/>
+
+
+<p class="Modulo">Al fine di ottemperare alle norme di distanziamento personale stabilite per affrontare il periodo di emergenza sanitaria</p>
+
+<h3 class="Modulo">
+  COMUNICA
+</h3>
+<div id="Tassonomia_Richiesta" name="Tassonomia_Richiesta" label="Tipo Richiesta" mandatory="true" ></div>
+<table class="Modulo" style="border: 1px solid grey">
+  <tbody>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+
+      </td>
+      <td>
+        <p class="Labelcella">
+          Tipo di dehor
+        </p>
+      </td>
+      <td>
+        <p class="Labelcella">
+          Numero protocollo
+        </p>
+      </td>
+      <td>
+      <p class="Labelcella">
+         Data protocollo
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;" >
+        <input id="Tassonomia_Richiesta1" name="Tassonomia_Richiesta" type="radio" value="1" />
+      </td>
+
+      <td >
+       
+             l’ampliamento del dehor permanente concesso
+      
+      </td>
+      <td>
+         <input id="Tassonomia_Prot_Dehor_permanente" name="Tassonomia_Prot_Dehor_permanente" style="width: 100%;" label="Protocollo Dehor permanente" mandatory_enabled="#Tassonomia_Richiesta1.checked()"/>
+      </td>
+      <td>
+         <input id="Tassonomia_Data_Dehor_permanente" name="Tassonomia_Data_Dehor_permanente" style="width: 100%;" label="Data Dehor permanente" mandatory_enabled="#Tassonomia_Richiesta1.checked()"/>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;" >
+        <input id="Tassonomia_Richiesta2" name="Tassonomia_Richiesta" type="radio" value="2" />
+      </td>
+      <td >
+        
+            l’ampliamento del dehor temporaneo concesso
+       
+      </td>
+        <td>
+          <input id="Tassonomia_Dehor_Temporaneo" name="Tassonomia_Dehor_Temporaneo" style="width: 100%;" label="Prot. Dehor temporaneo" mandatory_enabled="#Tassonomia_Richiesta2.checked()"/> 
+        </td>
+        <td>
+          <input id="Tassonomia_Data_Dehor_Temporaneo" name="Tassonomia_Data_Dehor_Temporaneo" style="width: 100%;" label="Data Dehor temporaneo" mandatory_enabled="#Tassonomia_Richiesta2.checked()"/> 
+        </td>
+    </tr>
+<tr>
+      <td style="vertical-align: top; width: 4%;" >
+        <input id="Tassonomia_Richiesta3" name="Tassonomia_Richiesta" type="radio" value="3" />
+      </td>
+      <td >
+        
+            l’ampliamento del dehor temporaneo richiesto  
+       
+      </td>
+       <td>
+          <input id="Tassonomia_Prot_Domanda_Dehor_Temporaneo" name="Tassonomia_Prot_Domanda_Dehor_Temporaneo" style="width: 100%;" label="Prot. domanda dehor temporaneo" mandatory_enabled="#Tassonomia_Richiesta3.checked()"/> 
+        </td>
+        <td>
+          <input id="Tassonomia_Data_Domanda_Dehor_Temporaneo" name="Tassonomia_Data_Domanda_Dehor_Temporaneo" style="width: 100%;" label="Data Doamda Dehor temporaneo" mandatory_enabled="#Tassonomia_Richiesta3.checked()"/> 
+        </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;" >
+        <input id="Tassonomia_Richiesta4" name="Tassonomia_Richiesta" type="radio" value="4" />
+      </td>
+      <td colspan="3" >
+        
+           il dehor temporaneo per l’anno in corso necessitato dall’emergenza sanitaria in essere
+        
+      </td>
+    </tr>
+  </tbody>
+</table>
+<p>come risulta dall'allegato elaborato grafico</p>
+<br/>
+<p class="Modulo">che gli arredi* relativi all'occupazione di suolo pubblico autorizzata/richiesta in 
+</p>
+<i>*allegare documentazione fotografica degli arredi</i>
+<table class="Modulo" style="border: 0px solid grey">
+  <tbody>
+    <tr class="Rigaintestazioneridotta" >
+      <td style="width: 50%;">
+        <p class="Labelcella">
+          Via
+        </p>
+      </td>
+      <td style="width: 15%;" >
+        <p class="Labelcella">
+          Lunghezza metri
+        </p>
+      </td>
+      <td style="width: 15%;">
+        <p class="Labelcella">
+          Larghezza metri
+        </p>
+      </td>
+      <td style="width: 20%;">
+        <p class="Labelcella">
+          Totale spazio occupato metri <sup>2</sup>
+        </p>
+      </td>
+    </tr>
+    <tr mandatory="true">
+      <td>
+      <input id="Tassonomia_Via_Tavoli" name="Tassonomia_Via_Tavoli" style="width: 100%"; label="Via tavoli" />
+      </td>
+      <td>
+      <input id="Tassonomia_Lunghezza_Tavoli" name="Tassonomia_Lunghezza_Tavoli" style="width: 100%"; label="Lunghezza tavoli" />
+      </td>
+       <td>
+      <input id="Tassonomia_Larghezza_Tavoli" name="Tassonomia_Larghezza_Tavoli" style="width: 100%"; label="Larghezza tavoli" />
+      </td>
+      <td>
+      <input id="Tassonomia_Totale_Tavoli" name="Tassonomia_Totale_Tavoli" style="width: 100%"; label="Totale spazio occupato tavoli" />
+      </td>
+    </tr>
+    </tbody>
+    </table>
+   <p class="Modulo">saranno ricollocati come specificato nella planimetria quotata allegata</p>         
+
+<h3 class="Modulo">
+  CHIEDE
+</h3>
+<div id="Tassonomia_Richiesta_Area_Dehor" name="Tassonomia_Richiesta_Area_Dehor" label="Richiesta area dehor" ></div>
+<table class="Modulo" style="border: 0px solid grey">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input group="Tassonomia_Richiesta_Area_Dehor" id="Tassonomia_Area_Tavoli" name="Tassonomia_Area_Tavoli" type="checkbox" value="SI"/>
+      </td>
+      <td>
+        l'utilizzo dell’area verde/piazzetta identificata nella planimetria allegata
+      </td>
+  </tr>
+  <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input group="Tassonomia_Richiesta_Area_Dehor" id="Tassonomia_Stalli" name="Tassonomia_Stalli" type="checkbox" value="SI"/>
+      </td>
+      <td>
+        l'utilizzo di n. stalli di sosta <input id="Tassonomia_Numero_Stalli" name="Tassonomia_Numero_Stalli" label="numero stalli" style="width: 10%;" mandatory_enabled="#Tassonomia_Stalli.checked()" /> come indicati in planimetria allegata
+      </td>
+  </tr>
+   <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input group="Tassonomia_Richiesta_Area_Dehor" id="Tassonomia_Area_Attigua" name="Tassonomia_Area_Attigua" type="checkbox" value="SI"/>
+      </td>
+      <td>
+       l’utilizzo dell’area prospiciente ad un’attività attigua al locale del richiedente
+      </td>
+  </tr>
+  </tbody>
+  </table>
+
+
+<br>
+
+
+{{ utils.Dichiara_445() }}
+
+<div id="Tassonomia_Posti_Persi" name="Tassonomia_Posti_Persi" label="Posti persi" mandatory="true" ></div>
+<table class="Modulo" style="border: 0px solid grey">
+  <tbody>
+   <tr>
+      <td style="vertical-align: top; width: 4%;">
+         <input id="Tassonomia_Posti_Persi1" name="Tassonomia_Posti_Persi" type="radio" value="1"/>
+      </td>
+      <td>
+        che per ottemperare alle norme sul distanziamento delle persone ha perso complessivamente tra esterno e interno n. <input id="Tassonomia_Numero_Posti" name="Tassonomia_Numero_Posti" label="Numero posti" style="width: 15%;" mandatory_enabled="#Tassonomia_Posti_Persi1.checked()"/>posti
+      </td>
+      </tr>
+      <tr>
+        <td style="vertical-align: top; width: 4%;">
+         <input id="Tassonomia_Posti_Persi2" name="Tassonomia_Posti_Persi" type="radio" value="2"/>
+      </td>
+      <td>
+        che rispetta le norme di distanziamento delle persone senza aver perso alcun posto complessivamente tra esterno ed interno
+      </tr>
+    </tbody>
+    </table>
+<br>
+<h3 class="Modulo">
+  DICHIARA INOLTRE
+</h3>
+<table class="Modulo" style="border: 0px solid grey">
+  <tbody>
+   <tr>
+      <td style="vertical-align: top; width: 4%;">
+         <input id="Dichiara" name="Dichiara" type="checkbox" checked="checked" dynamic_check="true" value="si"/>
+      </td>
+      <td>
+        <p>
+          di essere a conoscenza che, qualora l'occupazione di suolo pubblico comporti  l’attraversamento di una strada, dovranno essere realizzate tutte le opere necessarie a tal fine e in particolare, se verrà ritenuto necessario, la realizzazione di un attraversamento pedonale, secondo le indicazioni dei competenti gli uffici comunali e con  oneri a carico del richiedente.
+
+        </p>
+      </td>
+    </tr>
+    </tbody>
+</table>
+<br/>
+
+   <br/>
+
+{{ utils.trattamento_dati_personali() }}
+
+<table class="Modulo" name="Allegati" style="border:1px solid grey">
+ <tbody>
+  <tr class="Rigaintestazione">
+   <td colspan="2">
+    <p style="text-align: center;">
+     <b>
+      Elenco degli allegati
+     </b>
+     <br/>
+     <span style="font-size:70%">
+      <i>
+       (barrare tutti gli allegati richiesti in fase di presentazione della pratica ed elencati sul portale)
+      </i>
+     </span>
+    </p>
+   </td>
+  </tr>
+ <tr>
+   <td style="vertical-align:top">
+    <input checked="checked" dynamic_check="true" id="PLAN_DEHOR" name="PLAN_DEHOR" type="checkbox" value="OBBLIGATORIO"/>
+   </td>
+   <td >
+    <p>
+     Planimetria quotata in scala 1:100 relativa alla superficie occupata dove risulti chiara la disposizione degli elementi di arredo, con le relative distanze ai sensi del DL. 13.05.2020 (c.d. Rilancia Italia). Se necessario, allegare breve relazione tecnico-descrittiva.
+   </p>
+     
+   </td>
+  </tr>
+ <tr>
+   <td style="vertical-align: top; width:4%">
+    <input mandatory_enabled="#Tassonomia_Area_Attigua.checked()" dynamic_check="true"  id="DICH_ASS_ATT" name="DICH_ASS_ATT" type="checkbox" value="OBBLIGATORIO"/>
+   </td>
+   <td style="background-color: #eeeeee;">
+    <p>
+      Dichiarazione di assenso del gestore ( o del proprietario se l'attività è chiusa) per l'utilizzo di area prospicente attività o locale attiguo
+    </p>
+   </td>
+  </tr>
+  <tr>
+            <td style="width: 4%; vertical-align: top;">
+                <input id="DOC-FOT" name="DOC-FOT" type="checkbox" value="OBBLIGATORIO" checked="checked" dynamic_check="true"/>
+            </td>
+            <td style="background-color: #eeeeee;">
+                <p>
+                    documentazione fotografica degli arredi che si intende utilizzare
+                </p>
+            </td>
+        </tr>
+  <tr>
+   <td>
+    <input id="DAE-CDI" name="DAE-CDI" type="checkbox" value="OBBLIGATORIO" enabled="false"/>
+   </td>
+   <td colspan="1" style="background-color: #eeeeee;">
+    <p>
+     copia del documento d'identità<br/><span style="font-size: 70%; font-style: italic">(da non allegare se l'istanza è presentata in modalityà telematica o se la firma autografa è apposta di fronte a un pubblico ufficiale)</span>
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td>
+    <input id="ALTRI-ALLEGATI" name="ALTRI-ALLEGATI" type="checkbox" value="OBBLIGATORIO"/>
+   </td>
+   <td style="background-color: #eeeeee;">
+    <p>
+     altri allegati
+     <span style="font-size:70%">
+      (specificare)
+     </span>
+     <input class="inputNormal" id="AltriAllegati" label="Altri allegati" mandatory_enabled="#ALTRI_ALLEGATI.checked()" name="AltriAllegati" style="width:79%;"/>
+    </p>
+   </td>
+  </tr>
+ </tbody>
+</table>
+
+
+
+
+<br/>
+ {{ utils.firma_hidden() }}
+ <br/>
+
+<p class="Modulo">
+ <input id="SalvaModulo" name="SalvaModulo" style="height:30px;width:120px;" title="Verifica la corretta compilazione dei campi e salva il modulo nel faldone virtuale dell'istanza." type="submit" value="Salva modulo"/>
+</p>
+
+<input destinatario_amministrazione="getParameter('Ente')" id="GLOBO_modulo_c{{ CodiceModulo }}" name="GLOBO_modulo_c{{ CodiceModulo }}" type="hidden" value=""/>
+
+<input id="GLOBO_allegato_cPLAN_DEHOR" name="GLOBO_allegato_cPLAN_DEHOR" obbligatorio="#PLAN_DEHOR.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+<input id="GLOBO_allegato_cDICH_ASS_ATT" name="GLOBO_allegato_cDICH_ASS_ATT" obbligatorio="#DICH_ASS_ATT.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+<input id="GLOBO_allegato_cDOC-FOT" name="GLOBO_allegato_cDOC-FOT" obbligatorio="#DOC_FOT.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+<input id="GLOBO_allegato_cALTRI-ALLEGATI" name="GLOBO_allegato_cALTRI-ALLEGATI" obbligatorio="#ALTRI_ALLEGATI.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_id_padre" name="GLOBO_id_padre" type="hidden"/>
+
+<input id="GLOBO_recupera_dati" name="GLOBO_recupera_dati" type="hidden"/>
+
+<input id="GLOBO_codice_modulo" name="GLOBO_codice_modulo" type="hidden" value="{{ CodiceModulo }}"/>
+
+
+{% endblock content %}

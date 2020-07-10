@@ -1,0 +1,599 @@
+{% set CodiceModulo =  "AUT_PUB_MODIFICA" %}
+{% set Urn = "document:c_a794:pubblicita;mezzi.pubblicitari;rinnovo.subentro;domanda" %}
+{% extends "base.html" %}
+
+{% block meta %}
+<meta campi_firma="Titolare_CodiceFiscale"
+campi_firma_label="il dichiarante"
+classi_modulo="Commercio"
+codice_modulo="{{ CodiceModulo }}"
+urn="{% block urn %}{{ Urn }}{% endblock urn %}"
+descrizione="Domanda per il rinnovo/volturazione dell'autorizzazione per l'installazione di impianti pubblicitari"
+destinatario_amministrazione=""
+destinatario_ufficio="D2HGSD"
+dinamico="SI"
+email_a=""
+ente_abilitato="TUTTI"
+filigrana="SI"
+firmare="P7M_ELETTRONICA"
+in_bollo="SI"
+istruzioni_compilazione="ATTENZIONE: questo modulo deve essere compilato con i dati del richiedente, cambiare i dati di intestazione se necessario."
+istruzioni_invio="mail_pec"
+metodo_invio="mail"
+name="GLOBO_modulo"
+procura="NO,,"
+tipo_modulo="principale"
+ufficio=""
+urlhelp="DomandeRisposte/FAQ"
+verifica_pagamento="NO"
+versione="1.2|09/05/2019"/>
+
+<meta codice_modulo_figlio="MARCA_BOLLO"
+urn_modulo_figlio="document:s_italia:pagamento.imposta.bollo;apposizione.domanda;dichiarazione.sostitutiva"
+name="GLOBO_modulofiglio"
+numero="1"
+obbligatorio="DINAMICO"/>
+
+
+<meta codice_modulo_figlio="INSEGNE_DICHSOST"
+urn_modulo_figlio="document:c_a794:pubblicita;mezzi.pubblicitari;insegne.preinsegne.cartelli;rilascio;domanda;autorizzazione"
+name="GLOBO_modulofiglio"
+numero="1"
+obbligatorio="DINAMICO"/>
+
+<meta codice_allegato="INS-PUB-PLA"
+urn_allegato="document:s_italia:pubblicita;mezzi.pubblicitari;mappa.area;estratto.mappa"
+descrizione_estesa="Planimetria di dettaglio della zona interessata"
+filename="Planimetria dettaglio zona.pdf"
+firmato="SI"
+istruzioni="/modulistica/moduli/INS-PUB-PLA"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+
+<meta codice_allegato="DOC_FOTO"
+urn_allegato="document:s_italia:generale;colori;documentazione.fotografica"
+descrizione_estesa="Documentazione fotografica"
+filename="Documentaz. fotografica.pdf"
+firmato="SI"
+istruzioni="/modulistica/moduli/DOC_FOTO"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="RIC-DIR-SEG"
+urn_allegato="document:s_italia:diritti.segreteria.istruttoria;ricevuta"
+descrizione_estesa="Ricevuta diritti segreteria/istruttoria"
+filename="Ricev. diritti segreteria.pdf"
+firmato="SI"
+istruzioni="/modulistica/moduli/RIC-DIR-SEG"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="ALTRI-ALLEGATI"
+urn_allegato="document:s_italia:altri.allegati"
+descrizione_estesa="Altri allegati"
+filename="Altri allegati.pdf"
+firmato="SI"
+istruzioni="/modulistica/moduli/ALTRI-ALLEGATI"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+
+{% endblock meta %}
+{% block title %}
+   Domanda per il rinnovo/subentro dell'autorizzazione per l'installazione di impianti pubblicitari
+  {% endblock title %}
+{% block content %}
+ <globo_fondo_pagina areaheight="150" scope="4">
+ {{ utils.firma() }}
+</globo_fondo_pagina>
+
+<input dynamic_value="#Titolare_Cognome.value().toUpperCase() + ' - impianti pubblicitari'
+ +(#Tassonomia_TipoDomInsegne2.checked() ?      ' (rinnovo autorizzazione)' : '')
+ +(#Tassonomia_TipoDomInsegne6.checked() ?      ' (subentro autorizzazione)' : '') " id="Oggetto" name="Oggetto" type="hidden"/>
+
+<input dynamic_value="#Ente.value()" id="Parametri_Comune" name="Parametri_Comune" type="hidden"/>
+
+
+{{ intestazioni.intestazione_moduloprincipale_conbollo() }}
+ <h1 class="Modulo">
+ Domanda per il rinnovo/subentro dell'autorizzazione per l'installazione di impianti pubblicitari
+</h1>
+
+<h2 class="Modulo">
+  Ai sensi del Decreto Legislativo 30/04/1992, n. 285, del Decreto del Presidente della Repubblica 16/12/1992, n. 495, del Decreto Legislativo 15/11/1993, n. 507 e del Regolamento comunale
+</h2>
+
+ {{anagrafica.societa("Titolare","Il sottoscritto",["Persona fisica", "Titolare", "Legale rappresentante"], "Richiedente")}}
+ <h3 class="Modulo">
+ CHIEDE
+</h3>
+
+<table class="Modulo" style="border:1px solid grey;">
+ <tbody> 
+  <tr class="Rigaintestazione">
+   <div id="Tassonomia_TipoDomInsegne" label="Tipo istanza" mandatory="true">
+   <td style="vertical-align:top; width:4%">
+    <input id="Tassonomia_TipoDomInsegne2" name="Tassonomia_TipoDomInsegne" type="radio" value="2"/>
+   </td>
+    <td colspan="2">
+    <p>
+     <b>il rinnovo dell'autorizzazione</b>
+    </p>
+   </td>
+  </tr>
+  <tr class="Rigaintestazione">
+   <td rowspan="3" style="vertical-align:top; background-color:white; width:4%">
+    <input id="Tassonomia_TipoDomInsegne6" name="Tassonomia_TipoDomInsegne" type="radio" value="6"/>
+   </td>
+    <td colspan="2">
+    <p>
+     <b>il subentro di un nuovo intestatario nell'autorizzazione</b>
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td style="width:4%">
+    <div id="Tassonomia_TipoDomInsegneVolturazione" label="Modifica testo esposto" mandatory_enabled="#Tassonomia_TipoDomInsegne6.checked()">
+   </div>
+   <input id="Tassonomia_TipoDomInsegneVolturazione1" name="Tassonomia_TipoDomInsegneVolturazione" type="radio" value="1"/>
+   </td>
+    <td colspan="1">
+    <p>
+     senza modifica del testo esposto
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td >
+   <input id="Tassonomia_TipoDomInsegneVolturazione2" name="Tassonomia_TipoDomInsegneVolturazione" type="radio" value="2"/>
+   </td>
+    <td colspan="1">
+    <p>
+     con modifica del testo esposto
+    </p>
+   </td>
+  </tr>
+  </tbody>
+</table>
+
+   <globo_salto_pagina>
+</globo_salto_pagina>
+
+   <table class="Modulo" style="border:1px solid grey">
+    <tbody>
+     <tr class="Rigaintestazione">
+      <td colspan="1" rowspan="8" style="width: 2%; vertical-align: top; background-color: white">
+       <div id="Tassonomia_TipoImpiantoPub" label="Tipologia impianto pubblicitario" mandatory_enabled="true"></div>
+	   <input id="Tassonomia_TipoImpianto_Esercizio" name="Tassonomia_TipoImpiantoPub" type="radio" value="Esercizio"/>
+      </td>
+      <td colspan="3">
+       <p>
+        <b>per l'installazione dei seguenti impianti pubblicitari presso la sede della propria attività</b>
+       </p>
+      </td>
+     </tr>
+     <tr class="Rigaintestazioneridotta">
+      <td colspan="2">
+        <p class="Labelcella">
+        Tipologia
+        </p>  
+      </td>
+      <td>
+        <p class="Labelcella">
+        Numero
+        </p>  
+      </td>
+      </tr>
+      <tr>
+      <td style="width:4%">
+    		<div id="TipoImpianto_Esercizio" label="Classificazione impianti pubblicitari d'esrcizio" mandatory_enabled="#Tassonomia_TipoImpianto_Esercizio.checked()">
+   			 </div>
+   			 <input group="TipoImpianto_Esercizio" id="TipoImpianto_Insegna" name="TipoImpianto_Insegna" type="checkbox" value="si" />
+  		 </td>
+  		<td> Insegne d'esercizio
+        </td>
+        <td style="width:10%">
+    		<input class="" format="number" id="Parametri_NumInsegne" label="Numero insegne d'esercizio" mandatory_enabled="#TipoImpianto_Insegna.checked()" name="Parametri_NumInsegne" style="width:100%"/>
+        </td>
+  	</tr>	
+  	<tr>
+   		<td style="width:4%">
+   			 <input group="TipoImpianto_Esercizio" id="TipoImpianto_Targa" name="TipoImpianto_Targa" type="checkbox" value="si"/>
+  		 </td>
+  		<td> Targhe
+        </td>
+        <td style="width:10%">
+    		 <input class="" format="number" id="Parametri_NumTarghe" label="Numero targhe" mandatory_enabled="#TipoImpianto_Targa.checked()" name="Parametri_NumTarghe" style="width:100%"/>
+        </td>           
+  	</tr>
+  	<tr>
+   		<td style="width:4%">
+   			 <input group="TipoImpianto_Esercizio" id="TipoImpianto_Faretti" name="TipoImpianto_Faretti" type="checkbox" value="si"/>
+  		 </td>
+  		<td> Faretti
+        </td>
+        <td style="width:10%">
+    		<input class="" format="number" id="Parametri_NumFaretti" label="Numero faretti" mandatory_enabled="#TipoImpianto_Faretti.checked()" name="Parametri_NumFaretti" style="width:100%"/>
+        </td>        
+  	</tr>
+    <tr>
+      <td style="width:4%">
+         <input group="TipoImpianto_Esercizio" id="TipoImpianto_Striscione" name="TipoImpianto_Striscione" type="checkbox" value="si"/>
+       </td>
+      <td> Striscioni - stendardi
+        </td>
+        <td style="width:10%">
+        <input class="" format="number" id="Parametri_NumStrisione" label="Numero strisione" mandatory_enabled="#TipoImpianto_Striscione.checked()" name="Parametri_NumStriscioni" style="width:100%"/>
+        </td>        
+    </tr>
+    <tr>
+      <td style="width:4%">
+         <input group="TipoImpianto_Esercizio" id="TipoImpianto_Proiezione" name="TipoImpianto_Proiezione" type="checkbox" value="si"/>
+       </td>
+      <td> Proiezioni luminose
+        </td>
+        <td style="width:10%">
+        <input class="" format="number" id="Parametri_NumProiezioni" label="Numero Proiezioni" mandatory_enabled="#TipoImpianto_Proiezione.checked()" name="Parametri_NumProiezioni" style="width:100%"/>
+        </td>        
+    </tr>    
+    <tr>
+      <td style="width:4%">
+         <input group="TipoImpianto_Esercizio" id="TipoImpianto_Monitor" name="TipoImpianto_Monitor" type="checkbox" value="si"/>
+       </td>
+      <td> Monitor televisivi
+        </td>
+        <td style="width:10%">
+        <input class="" format="number" id="Parametri_NumMonitor" label="Numero Proiezioni" mandatory_enabled="#TipoImpianto_Monitor.checked()" name="Parametri_NumMonitor" style="width:100%"/>
+        </td>        
+    </tr>      
+
+     <tr class="Rigaintestazione">
+      <td colspan="1" rowspan="12" style="width: 2%; vertical-align: top;background-color: white">
+       <input id="Tassonomia_TipoImpianto_NonEsercizio" name="Tassonomia_TipoImpiantoPub" type="radio" value="NonEsercizio"/>
+      </td>
+      <td colspan="3">
+       <p>
+        <b>per l'installazione di un impianto pubblicitario non d'esercizio</b>
+       </p>
+      </td>
+     </tr>
+     <tr>
+      <td colspan="1" style="width: 2%; vertical-align: top;background-color: white">
+       <div id="Tassonomia_TipoImpianto" label="Impianti non d'esercizio" mandatory_enabled="#Tassonomia_TipoImpianto_NonEsercizio.checked()"></div>
+	   <input id="TipoImpianto_5" name="Tassonomia_TipoImpianto" type="radio" value="Preinsegna"/>
+      </td>
+      <td colspan="2">
+       <p>
+       Preinsegna
+       </p>
+      </td>
+     </tr>
+     <tr>
+      <td colspan="1" style="width: 2%; vertical-align: top; background:white;">
+       <input id="TipoImpianto_6" name="Tassonomia_TipoImpianto" type="radio" value="Propaganda"/>
+      </td>
+      <td colspan="2">
+       <p>
+        Impianto pubblicitario o di propaganda
+       </p>
+      </td>
+     </tr>
+     <tr>
+      <td colspan="1" style="width: 2%; vertical-align: top; background:white;">
+       <input id="TipoImpianto_7" name="Tassonomia_TipoImpianto" type="radio" value="Stradale"/>
+      </td>
+      <td colspan="2">
+       <p>
+        Cartello stradale
+       </p>
+      </td>
+     </tr> 
+     <tr>
+      <td colspan="1" style="width: 2%; vertical-align: top; background:white;">
+       <input id="TipoImpianto_8" name="Tassonomia_TipoImpianto" type="radio" value="Cassonetto"/>
+      </td>
+      <td colspan="2">
+       <p>
+        Cassonetto luminoso o non, a pubblicità intercambiabile
+       </p>
+      </td>
+     </tr>
+     <tr>
+      <td colspan="1" style="width: 2%; vertical-align: top; background:white;">
+       <input id="TipoImpianto_9" name="Tassonomia_TipoImpianto" type="radio" value="Striscione"/>
+      </td>
+      <td colspan="2">
+       <p>
+        Striscione - stendardo
+       </p>
+      </td>
+     </tr>
+     <tr>
+      <td colspan="1" style="width: 2%; vertical-align: top; background:white;">
+       <input id="TipoImpianto_10" name="Tassonomia_TipoImpianto" type="radio" value="ManifestiPrivati"/>
+      </td>
+      <td colspan="2">
+       <p>
+        Manufatto per affissione di manifesti da parte di privati
+       </p>
+      </td>
+     </tr>
+     <tr>
+      <td colspan="1" style="width: 2%; vertical-align: top; background:white;">
+       <input id="TipoImpianto_11" name="Tassonomia_TipoImpianto" type="radio" value="Vetrina"/>
+      </td>
+      <td colspan="2">
+       <p>
+        Vetrina Pubblicitaria
+       </p>
+      </td>
+     </tr> 
+     <tr>
+      <td colspan="1" style="width: 2%; vertical-align: top; background:white;">
+       <input id="TipoImpianto_12" name="Tassonomia_TipoImpianto" type="radio" value="Proiezioni"/>
+      </td>
+      <td colspan="2">
+       <p>
+        Proiezione luminosa
+       </p>
+      </td>
+     </tr>   
+     <tr>
+      <td colspan="1" style="width: 2%; vertical-align: top; background:white;">
+       <input id="TipoImpianto_13" name="Tassonomia_TipoImpianto" type="radio" value="Monitor"/>
+      </td>
+      <td colspan="2">
+       <p>
+        Monitor televisivo
+       </p>
+      </td>
+     </tr>
+     <tr>
+      <td colspan="1" style="width: 2%; vertical-align: top; background:white;">
+       <input id="TipoImpianto_14" name="Tassonomia_TipoImpianto" type="radio" value="Turistici"/>
+      </td>
+      <td colspan="2">
+       <p>
+        Segnale turistico e di territorio
+       </p>
+      </td>
+     </tr>  
+     <tr>
+      <td colspan="1" style="width: 2%; vertical-align: top; background:white;">
+       <input id="TipoImpianto_15" name="Tassonomia_TipoImpianto" type="radio" value="Pubblici"/>
+      </td>
+      <td colspan="2">
+       <p>
+        Impianto pubblico di servizio a pubblicità variabile
+       </p>
+      </td>
+     </tr>                                                 
+    </tbody>
+   </table>
+ <table class="Modulo" style="border: 1px solid grey">
+  <tbody>
+   <tr class="Rigaintestazione">
+    <td colspan="5">
+     <p>
+      <b>
+       in precedenza installati tramite
+      </b>
+     </p>
+    </td>
+   </tr>
+   <tr class="Rigaintestazioneridotta">
+    <td colspan="2">
+     <p class="Labelcella">
+      Titolo autorizzativo
+     </p>
+    </td>
+    <td>
+     <p class="Labelcella">
+      Numero
+     </p>
+    </td>
+    <td>
+     <p class="Labelcella">
+      Data rilascio
+     </p>
+    </td>
+    <td>
+     <p class="Labelcella">
+      Data scadenza
+     </p>
+    </td>
+   </tr>
+   <tr>
+    <td style="width:4%">
+     <div id="Parametri_Commercio" label="Titolo autorizzativo" mandatory_enabled="#Tassonomia_TipoDomInsegne2.checked() || #Tassonomia_TipoDomInsegne6.checked()">
+     </div>
+     <input id="Parametri_Commercio1" name="Parametri_Commercio" type="radio" value="ottenimento autorizzazione"/>
+    </td>
+    <td>
+     <p>
+      ottenimento autorizzazione
+     </p>
+    </td>
+    <td style="width:16%">
+     <input class="" id="Parametri_Autorizzazione_corrente" label="Numero autorizzazione" mandatory_enabled="#Parametri_Commercio.check_value(['ottenimento autorizzazione'])" name="Parametri_Autorizzazione_corrente" style="width:100%"/>
+    </td>
+    <td style="width:16%">
+     <input class="" format="date" id="Parametri_Autorizzazione_corrente_Data" label="Data autorizzazione" mandatory_enabled="#Parametri_Commercio.check_value(['ottenimento autorizzazione'])" name="Parametri_Autorizzazione_corrente_Data" style="width:100%"/>
+    </td>
+    <td style="width:16%">
+     <input class=""  format="date" id="Parametri_Autorizzazione_corrente_DataScad" label="Data scadenza autorizzazione" mandatory_enabled="#Parametri_Commercio.check_value(['ottenimento autorizzazione'])" name="Parametri_Autorizzazione_corrente_DataScad" style="width:100%"/>
+    </td>
+   </tr>
+
+   <tr>
+    <td>
+     <input id="Parametri_Commercio2" name="Parametri_Commercio" type="radio" value="Altro Titolo"/>
+    </td>
+    <td colspan="2">
+     <p>
+      Altro <span style="font-size:70%">
+        (specificare)
+       </span>
+       <input class="" id="Parametri_Commercio_AltroTitolo" label="Altro titolo" mandatory_enabled="#Parametri_Commercio.check_value(['Altro Titolo'])" name="Parametri_Commercio_AltroTitolo" style="width:79%;"/>
+    </p>
+    </td>
+    <td>
+     <input class="" format="date" id="Parametri_Commercio_AltroTitoloData" label="Data presentazione" mandatory_enabled="#Parametri_Commercio.check_value(['Altro Titolo'])" name="Parametri_Commercio_AltroTitoloData" style="width:100%"/>
+    </td>
+    <td>
+     <input class="" format="date" id="Parametri_Commercio_AltroTitoloDataScad" label="E" mandatory_enabled="#Parametri_Commercio.check_value(['Altro Titolo'])" name="Parametri_Commercio_AltroTitoloDataScad" style="width:100%"/>
+    </td>
+   </tr> 
+  </tbody>
+ </table>
+
+
+ <input dynamic_check="#Tassonomia_TipoDomInsegne6.checked()" id="AventeTitolo_DatiSubingressoObbligatori" name="AventeTitolo_DatiSubingressoObbligatori" type="hidden">
+  {{ porzioni_scia.suap_subingresso_semplificato("AventeTitolo" , "VOLTURAZIONE AUTORIZZAZIONE - subingresso a") }}
+
+   <globo_salto_pagina>
+</globo_salto_pagina>
+
+    {{ immobili.immobile_toponomastica("Immobile","localizzazione dell'impianto pubblicitario", "collocazione impianto pubblicitario", "visibility:visibility", "cursor:pointer" ) }}
+
+  <br/>
+
+  <table class="Modulo" name="Allegati" style="border:1px solid grey">
+   <tbody>
+    <tr class="Rigaintestazione">
+     <td colspan="2">
+      <p style="text-align: center;">
+       <b>
+        Elenco degli allegati
+       </b>
+       <br/>
+       <span style="font-size:70%">
+        <i>
+         (barrare tutti gli allegati richiesti in fase di presentazione della pratica ed elencati sul portale)
+        </i>
+       </span>
+      </p>
+     </td>
+    </tr>
+    <tr>
+     <td style="vertical-align:top">
+      <input dynamic_check="true" id="DOC_FOTO" name="DOC_FOTO" type="checkbox" value="OBBLIGATORIO"/>
+     </td>
+     <td style="background-color: #eeeeee;">
+      <p>
+       documentazione fotografica esplicativa a colori che illustra lo stato attuale dei luoghi con l'ambiente circostante
+      </p>
+     </td>
+    </tr>
+      <tr>
+     <td style="vertical-align:top">
+      <input dynamic_check="#Tassonomia_TipoImpianto_NonEsercizio.checked() and #Tassonomia_TipoDomInsegne2.checked()" enabled="#Tassonomia_TipoImpianto_NonEsercizio.checked() and #Tassonomia_TipoDomInsegne2.checked()" id="INS-PUB-PLA" name="INS-PUB-PLA" type="checkbox" value="OBBLIGATORIO"/>
+     </td>
+     <td style="background-color: #eeeeee;">
+      <p>
+       planimetria quotata in scala 1:200 con inserito l'impianto pubblicitario indicando le distanze dallo stesso da incroci stradali, cartelli di segnaletica stradale, dal limite della carreggiata e da altri cartelli pubblicitari eventualmente presenti
+      </p>
+     </td>
+    </tr>    
+
+<!--
+    <tr>
+     <td style="width:3%;  vertical-align:top">
+      <input dynamic_check="#Tassonomia_TipoDomInsegne.value() == '1'" enabled="#Tassonomia_TipoDomInsegne.value() == '1'" id="INS-PUB-PLA" name="INS-PUB-PLA" type="checkbox" value="OBBLIGATORIO"/>
+     </td>
+     <td style="background-color: #eeeeee;">
+      <p>
+       Estratto di estratto mappa della zona interessata, all'interno della quale siano ben individuati marciapiedi, aiuole, banchine stradali, scarpate, ecc.
+      </p>
+     </td>
+    </tr>
+    -->
+    <tr>    
+     <td>
+      <input  dynamic_check="#Tassonomia_TipoImpianto_NonEsercizio.checked() and #Tassonomia_TipoDomInsegne2.checked()" enabled="#Tassonomia_TipoImpianto_NonEsercizio.checked() and #Tassonomia_TipoDomInsegne2.checked()" id="INSEGNE_DICHSOST" name="INSEGNE_DICHSOST" type="checkbox" value="OBBLIGATORIO"/>
+     </td>
+     <td style="background-color: #eeeeee;">
+      <p>
+       dichiarazione di conformità dell'impianto (staticità, luminosità, etc)
+      </p>
+     </td>
+    </tr>
+
+    <tr>    
+     <td>
+      <input checked="checked" dynamic_check="true" id="MARCA_BOLLO" name="MARCA_BOLLO" type="checkbox" value="OBBLIGATORIO"/>
+     </td>
+     <td style="background-color: #eeeeee;">
+      <p>
+       pagamento dell'imposta di bollo
+      </p>
+     </td>
+    </tr>
+    <tr>
+     <td style="vertical-align: top; width:4%">
+      <input id="RIC-DIR-SEG" name="RIC-DIR-SEG" type="checkbox" value="OBBLIGATORIO"/>
+     </td>
+     <td style="background-color: #eeeeee;">
+      <p>
+       ricevuta dei diritti di segreteria/istruttoria<br/>
+      </p>
+     </td>
+    </tr>
+    <tr>
+     <td style="vertical-align: top; width:4%">
+      <input dynamic_check="#Titolare_Cittadinanza.element.options[#Titolare_Cittadinanza.element.selectedIndex].parentNode.label == 'NON Unione Europea'" enabled="#Titolare_Cittadinanza.element.options[#Titolare_Cittadinanza.element.selectedIndex].parentNode.label == 'NON Unione Europea'" id="PER-SOG" name="PER-SOG" type="checkbox" value="OBBLIGATORIO"/>
+     </td>
+     <td style="background-color: #eeeeee;">
+      <p>
+       copia del permesso di soggiorno<br/><span style="font-size:70%"><i>(da allegare in caso di cittadino extracomunitario) </i></span>
+      </p>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <input id="ALTRI-ALLEGATI" name="ALTRI-ALLEGATI" type="checkbox" value="OBBLIGATORIO"/>
+     </td>
+     <td style="background-color: #eeeeee;">
+      <p>
+       altri allegati
+       <span style="font-size:70%">
+        (specificare)
+       </span>
+       <input class="" id="AltriAllegati" label="Altri allegati" mandatory_enabled="#ALTRI_ALLEGATI.checked()" name="AltriAllegati" style="width:79%;"/>
+      </p>
+     </td>
+    </tr>
+   </tbody>
+  </table>
+
+
+  <br/>
+  {{ utils.firma_hidden() }}
+  <br/>
+  <p class="Modulo">
+   <input id="SalvaModulo" name="SalvaModulo" style="height:30px;width:120px;" title="Verifica la corretta compilazione dei campi e salva il modulo nel faldone virtuale dell'istanza." type="submit" value="Salva modulo"/>
+  </p>
+  <input destinatario_amministrazione="getParameter('Ente')" id="GLOBO_modulo_c{{ CodiceModulo }}" name="GLOBO_modulo_c{{ CodiceModulo }}" type="hidden" value=""/>
+  <input id="GLOBO_modulofiglio_cMARCA_BOLLO" name="GLOBO_modulofiglio_cMARCA_BOLLO" obbligatorio="#MARCA_BOLLO.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+  <input id="GLOBO_modulofiglio_cINSEGNE_DICHSOST" name="GLOBO_modulofiglio_cINSEGNE_DICHSOST" obbligatorio="#INSEGNE_DICHSOST.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+  <input id="GLOBO_allegato_cPER-SOG" name="GLOBO_allegato_cPER-SOG" type="hidden" value="" obbligatorio="#PER_SOG.checked() ? 'OBBLIGATORIO' : ''"/>
+  <input id="GLOBO_allegato_cINS-PUB-PLA" name="GLOBO_allegato_cINS-PUB-PLA" obbligatorio="#INS_PUB_PLA.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+  <input id="GLOBO_allegato_cDOC_FOTO" name="GLOBO_allegato_cDOC_FOTO" obbligatorio="#DOC_FOTO.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+  <input id="GLOBO_allegato_cRIC-DIR-SEG" name="GLOBO_allegato_cRIC-DIR-SEG" obbligatorio="#RIC_DIR_SEG.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+  <input id="GLOBO_allegato_cALTRI-ALLEGATI" name="GLOBO_allegato_cALTRI-ALLEGATI" obbligatorio="#ALTRI_ALLEGATI.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+  <input firmare="'P7M_ELETTRONICA'" id="GLOBO_modulofiglio_cIncarico_procura" name="GLOBO_modulofiglio_cIncarico_procura" type="hidden" value=""/>
+  <input id="GLOBO_id_padre" name="GLOBO_id_padre" type="hidden"/>
+  <input id="GLOBO_recupera_dati" name="GLOBO_recupera_dati" type="hidden"/>
+  <input id="GLOBO_codice_modulo" name="GLOBO_codice_modulo" type="hidden" value="{{ CodiceModulo }}"/>
+  {% endblock content %}
+ </input>
+</input>

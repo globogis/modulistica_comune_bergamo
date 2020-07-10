@@ -1,0 +1,260 @@
+{% set CodiceModulo = "OFF_TEC_ECO" %}
+{% set Urn = "document:c_a794:offerta.tecnica.economica;allegato" %}
+{% set Campo_firmatario = "TitolareNonImportare_CodiceFiscale" %}
+{% extends "base.html" %}
+{% block meta %}
+
+<meta campi_firma="{{ Campo_firmatario }}"
+campi_firma_label="il dichiarante"
+classi_modulo="UOMOBILITA"
+codice_modulo="{{ CodiceModulo }}"
+urn="{% block urn %}{{ Urn }}{% endblock urn %}"
+descrizione="Offerta tecnico economica"
+destinatario_amministrazione=""
+destinatario_ufficio=""
+dinamico="SI"
+email_a=""
+ente_abilitato="TUTTI"
+filigrana="SI"
+firmare="P7M_ELETTRONICA"
+istruzioni_compilazione=""
+istruzioni_invio=""
+metodo_invio="mail"
+name="GLOBO_modulo"
+procura="NO,,"
+tipo_modulo="secondario"
+urlhelp="/modulistica/moduli/{{ CodiceModulo }}"
+verifica_pagamento="NO"
+versione="1.0|26/05/2020"/>
+
+{% endblock meta %}
+
+{% block title %}
+  Offerta tecnico economica
+{% endblock title %}
+
+{% block content %}
+
+<globo_fondo_pagina areaheight="150" scope="2">
+  {{ utils.firma() }}
+</globo_fondo_pagina>
+
+<input id="Oggetto" name="Oggetto" type="hidden" dynamic_value="'Offerta economica'"/>
+
+{{ intestazioni.intestazione_modulosecondario_conbollo() }}
+
+<h1 class="Modulo">
+  Offerta economica allegata alla domanda di partecipazione alla selezione soggetti interessati alla mobilità in sharing con monopattini elettrici <input style="color: black; border: 0px" name="Codice_istanza" id="Codice_istanza" readonly/>
+</h1>
+
+{{anagrafica.societa("TitolareNonImportare", "Il sottoscritto", ["Persona fisica","Titolare", "Legale rappresentante"], "Richiedente", "visibility:visibility", "cursor:pointer", "mail_ordinaria", "false", "piva_sempre_obbligatoria", "", "visibility:visibility", "display:none", "false", "true")}}
+
+<p class="Modulo">con espresso riferimento alla ditta che rappresenta, si obbliga ad assumere le prestazioni in oggetto e, a tale fine</p>
+
+<h3 class="Modulo">
+  OFFRE
+</h3>
+
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazioneridotta">
+      <td colspan="2">
+        <p class="Labelcella">
+          1. Numero pattini
+        </p>
+      </td>
+    </tr>
+     <tr>
+        <td style="vertical-align: top; width: 4%;">
+          <input id="Tassonomia_Pattini_Si" name="Tassonomia_Pattini_Si" type="checkbox" value="SI"/>
+        </td>
+        <td>
+          <p>Numero di pattini superiore a 200</p><i>Indicare solo il numero superiore a 200. Eventuali frazioni di 50 saranno valutati in difetto</i>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">
+           <input id="Tassonomia_Num_Pattini" name="Tassonomia_Num_Pattini" label="Numero di pattini" style="width: 100%;" mandatory_enabled="#Tassonomia_Pattini_Si.checked()" />
+        </td>
+      </tR>
+      <tr class="Rigaintestazioneridotta">
+        <td colspan="2" >
+          <p class="Labelcella">
+            2.	Area di copertura: 
+          </p>
+        </td>
+      </tr>
+      <tr>
+        <td style="vertical-align: top; width: 4%;">
+          <input id="Tassonomia_KM_Si" name="Tassonomia_KM_Si" type="checkbox" value="SI"/>
+        </td>
+        <td>
+          <p>Numero di km superiore a 14</p><i>indicare i Kmq di copertura del servizio ulteriori rispetto ai 14 kmq previsti nell’avviso  </i>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">
+           <input id="Tassonomia_Num_KM" name="Tassonomia_Num_KM" label="Numero di KM" style="width: 100%;" mandatory_enabled="#Tassonomia_KM_Si.checked()" />
+        </td>
+      </tR>
+      <tr class="Rigaintestazioneridotta">
+        <td colspan="2" >
+          <p class="Labelcella">
+            3.	Velocità dei veicoli: 
+          </p>
+        </td>
+      </tr>
+      <tr>
+        <td style="vertical-align: top; width: 4%;">
+          <input id="Tassonomia_Velocità_Si" name="Tassonomia_Velocità_Si" type="checkbox" value="SI"/>
+        </td>
+        <td>
+          <p>Sistema capace di limitare la velocità per singole strade
+        </td>
+      </tr>
+        </tbody>
+</table>
+     
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+<tr class="Rigaintestazioneridotta">
+  <td colspan="2">
+    <p class="Labelcella">
+    4.  Caratteristiche dei veicoli
+    </p>
+  </td>
+</tr>
+{% set offre = [ " mezzi con presenza di freni a disco",
+                        "mezzi dotati di  autonomia con una sola ricarica superiore a 20km ",
+                        "mezzi con assenza di cavi esterni",
+                        "possesso di certificazioni ambientali nella produzione e smaltimento batterie"
+                        ] %}
+    {% for i in offre %}
+      <tr>
+        <td style="vertical-align: top; width: 4%;">
+          <input id="offre{{ loop.index }}" name="offre{{ loop.index }}" type="checkbox" value="SI"/>
+        </td>
+        <td>
+          {{ i }}
+        </td>
+      </tr>
+    {% endfor %}
+    
+
+    <tr class="Rigaintestazioneridotta">
+      <td colspan="2">
+        <p class="Labelcella">
+          5. Altre città
+        </p>
+      </td>
+    </tr>
+    <tr>
+        <td style="vertical-align: top; width: 4%;" rowspan="2">
+          <input id="Tassonomia_Altre_Citta" name="Tassonomia_Altre_Citta" type="checkbox" value="SI"/>
+        </td>
+        <td>
+          Ha svolto il servizio nelle seguenti altre città:
+        </td>
+        </tr>
+        <tr>
+          <td>
+            <input id="Tassonomia_Nome_Altre_Città" name="Tassonomia_Nome_Altre_Città" label="Altre città" style="width: 100%;" mandatory_enabled="#Tassonomia_Altre_Citta.checked()"/>
+          </td>
+        </tr>
+        {% set offre2 = [ "6. Presenza di piattaforma di dati in tempo reale",
+                        "7. Educazione stradale: è in grado di presentare un piano di educazione e informazione degli utenti sulla sicurezza stradale"
+                       ] %}
+    {% for i in offre2 %}
+      <tr>
+        <td style="vertical-align: top; width: 4%;">
+          <input id="offre2{{ loop.index }}" name="offre2{{ loop.index }}" type="checkbox" value="SI"/>
+        </td>
+        <td>
+          {{ i }}
+        </td>
+      </tr>
+    {% endfor %}
+        <tr class="Rigaintestazioneridotta">
+         
+      <td colspan="2">
+        <p class="Labelcella">
+          Tariffazione
+        </p>
+      </td>
+    </tr>
+    <tr>
+        <td style="vertical-align: top; width: 4%;" rowspan="2">
+          <input id="Tassonomia_Sbocco" name="Tassonomia_Sbocco" type="checkbox" value="SI" checked="checked" dynamic_check="true"/>
+        </td>
+        <td>
+           8.  Tariffazione allo sblocco <i>indicare il  costo di sblocco dei monopattini</i>
+        </td>
+        </tr>
+        <tr>
+          <td>
+            <input id="Tassonomia_Importo_Sblocco" name="Tassonomia_Importo_Sblocco" label="Importo Sblocco" style="width: 100%;" mandatory_enabled="#Tassonomia_Sbocco.checked()"/>
+          </td>
+        </tr>
+        <tr>
+        <td style="vertical-align: top; width: 4%;" rowspan="2">
+          <input id="Tassonomia_Minuti" name="Tassonomia_Minuti" type="checkbox" value="SI" checked="checked" dynamic_check="true"/>
+        </td>
+        <td>
+          9.  Tariffazione al minuto <i>indicare il  costo al minuto dei monopattini</i>
+        </td>
+        </tr>
+        <tr>
+          <td>
+            <input id="Tassonomia_Importo_Minuti" name="Tassonomia_Importo_Minuti" label="Importo Minuti" style="width: 100%;" mandatory_enabled="#Tassonomia_Minuti.checked()"/>
+          </td>
+        </tr>
+        <tr class="Rigaintestazioneridotta">
+      <td>
+
+      </td>
+      <td>
+        <p class="Labelcella">
+         10. Promozioni tariffarie per gli utenti
+        </p>
+      </td>
+    </tr>
+    {% set promozioni = [ " A.	Giornaliero:   forme di abbonamento al servizio (pass) giornaliero ",
+                        "B.	Settimanale:   forme di abbonamento al servizio (pass) settimanale ",
+                        "C.	Mensile:  forme di abbonamento al servizio (pass) mensile",
+                        "D.	Annuale:  forme di abbonamento al servizio (pass) annuale"
+                        ] %}
+    {% for i in promozioni %} 
+          <tr>
+        <td style="vertical-align: top; width: 4%;">
+          <input id="promozioni{{ loop.index }}" name="promozioni{{ loop.index }}" type="checkbox" value="SI"/>
+        </td>
+        <td>
+          {{ i }}
+        </td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+
+
+<br/>
+  {{ utils.firma_hidden() }}
+<br/>
+
+<p class="Modulo">
+  <input id="SalvaModulo" name="SalvaModulo" style="height:30px;width:120px;" title="Verifica la corretta compilazione dei campi e salva il modulo nel faldone virtuale dell'istanza." type="submit" value="Salva modulo"/>
+</p>
+
+<input id="GLOBO_modulo_c{{ CodiceModulo }}" name="GLOBO_modulo_c{{ CodiceModulo }}" type="hidden" value=""/>
+
+<input id="GLOBO_id_padre" name="GLOBO_id_padre" type="hidden"/>
+<input id="GLOBO_recupera_dati" name="GLOBO_recupera_dati" type="hidden"/>
+<input id="GLOBO_codice_modulo" name="GLOBO_codice_modulo" type="hidden" value="{{ CodiceModulo }}"/>
+
+<input id="GLOBO_urn" name="GLOBO_urn" type="hidden" value="{{ self.urn() }}">
+<input id="GLOBO_sub_urn" name="GLOBO_sub_urn" type="hidden" value="">
+<input id="GLOBO_parent_urn" name="GLOBO_parent_urn" type="hidden" dynamic_value="#{{ Campo_firmatario }}.value() ? getParentUrn() : getParentUrn()">
+<input id="GLOBO_parent_sub_urn" name="GLOBO_parent_sub_urn" type="hidden" dynamic_value="#{{ Campo_firmatario }}.value() ? getParentSubUrn() : getParentSubUrn()">
+
+{% endblock content %}

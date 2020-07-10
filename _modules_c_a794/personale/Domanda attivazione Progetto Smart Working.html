@@ -1,0 +1,678 @@
+{% set CodiceModulo = "DOM_ATT_SMART" %}
+{% set Urn = "document:c_a794:attivazione.smart.working;domanda" %}
+{% extends "base.html" %}
+
+{% set direzioni = ["Avvocatura comunale",
+                    "Direzione affari generali e staff del sindaco",
+                    "Direzione bilancio tributi società partecipate e retribuzioni",
+                    "Direzione commercio e servizi cimiteriali",
+                    "Direzione edilizia scolastica sportiva e grandi opere pubbliche di riqualificazione",
+                    "Direzione gare appalti e contratti di opere servizi e forniture",
+                    "Direzione generale",
+                    "Direzione lavori pubblici infrastrutture strade coord. reti e opere pubbliche",
+                    "Direzione patrimonio ed espropri",
+                    "Direzione pianificazione strategica e organizzazione",
+                    "Direzione risorse umane e servizi alla persona",
+                    "Direzione servizi polifunzionali partecipazione e cultura",
+                    "Direzione sicurezza ambiente e mobilità",
+                    "Direzione urbanistica edilizia privata e SUEAP",
+                    "Direzione verde pubblico servizio abitativo pubblico edifici e impianti",
+                    "Polizia locale e protezione civile",
+                    "Segreteria generale"] %}
+
+{% block meta %}
+
+
+<meta campi_firma="Titolare_CodiceFiscale"
+campi_firma_label="il Dipendente"
+classi_modulo="Personale"
+codice_modulo="{{ CodiceModulo }}"
+urn="{% block urn %}{{ Urn }}{% endblock urn %}"
+sub_urn_list="avvocatura,affari,bilancio,commercio,edilizia,gare,generale,infrastrutture,patrimonio,pianificazione,risorse,polifunzionali,sicurezza,urbanistica,verde,polizia,segreteria"
+uo_globo_list=""
+descrizione="Domanda di attivazione del progetto di Smart Working"
+destinatario_amministrazione=""
+destinatario_ufficio="UOLAVORO"
+dinamico="SI"
+email_a=""
+ente_abilitato="TUTTI"
+filigrana="NO"
+firmare="P7M_ELETTRONICA"
+istruzioni_compilazione=""
+istruzioni_invio="mail_pec"
+metodo_invio="mail"
+name="GLOBO_modulo"
+procura="NO,,"
+tipo_modulo="principale"
+urlhelp="/modulistica/moduli/{{ CodiceModulo }}"
+verifica_pagamento="NO"
+versione="1.1|27/10/2019"/>
+
+<meta codice_modulo_figlio="INCARICO_PROCURA"
+urn_modulo_figlio="document:s_italia:generale;incarico.procura"
+name="GLOBO_modulofiglio"
+numero="1"
+obbligatorio="DINAMICO"/>
+
+
+
+<meta codice_allegato="DAE-CDI"
+urn_allegato="document:s_italia:generale;documento.identita;documentazione"
+descrizione_estesa="Documento di identità"
+filename="Documento identita.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/DAE-CDI"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="ALTRI-ALLEGATI"
+urn_allegato="document:s_italia:altri.allegati"
+descrizione_estesa="Altri allegati"
+filename="Altri allegati.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/ALTRI-ALLEGATI"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+{% endblock meta %}
+
+{% block title %}
+  Domanda di attivazione del progetto di Smart Working
+{% endblock title %}
+
+{% block content %}
+
+<style>
+  .noBorder{
+    border: 0 !important;
+  }
+</style>
+
+<globo_fondo_pagina areaheight="150" scope="4">
+  {{ utils.firma() }}
+</globo_fondo_pagina>
+
+<input id="Parametri_Comune" name="Parametri_Comune" type="hidden" dynamic_value="#Ente.value()"/>
+<input id="Oggetto" name="Oggetto" type="hidden" dynamic_value="#Titolare_Cognome.value().toUpperCase() + ' ' + #Titolare_Nome.value().toUpperCase() + ' - Attivazione progetto di Smart Working'"/>
+
+{{ intestazioni.intestazione_moduloprincipale_senzabollo() }}
+
+<h1 class="Modulo">
+  Domanda di attivazione del progetto di Smart Working
+</h1>
+
+<h2 class="Modulo">
+  Legge 22/05/2017, n.81, art. 18, comma 1 
+</h2>
+<br>
+<h2 class="Modulo">
+  Regolamento Policy smart working
+</h2>
+
+<input id="Titolare_DatiPersonaObbligatori" name="Titolare_DatiPersonaObbligatori" type="hidden" dynamic_check="true"/>
+<input id="Titolare_Titolo" name="Titolare_Titolo" type="hidden" value="Richiedente"/>
+<input id="Titolare_Ruolo" name="Titolare_Ruolo" type="hidden" value="Richiedente"/>
+{{ anagrafica.persona_fisica("Titolare", "Il sottoscritto", "visibility:visibility", "cursor:pointer", "visibility:visibility", "visibility:visibility", "mail_ordinaria") }}
+
+<table class="Modulo" style="border: 1px solid grey;margin-top: -1px;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="3">
+        <p class="Labeltabella"> dipendente del Comune di Bergamo </p>
+      </td>
+    </tr>
+     <tr class="Rigaintestazioneridotta">
+       <td style="width: 20%">
+          <p class="Labelcella">
+            Num.matricola 
+          </p>
+        </td>
+      <td style="width: 50%">
+          <p class="Labelcella">
+            Direzione
+          </p>
+        </td>
+      <td style="width: 30%">
+          <p class="Labelcella">
+            Servizio
+          </p>
+        </td>
+        </tr>
+    <tr mandatory_enabled="#Titolare_DatiPersonaObbligatori.checked()">
+      <td>
+        <input class="inputNormal" id="Parametri_Num_Matricola" name="Parametri_Num_Matricola" style="width:100%;" label="Numero Matricola"/>
+      </td>
+      <td>
+        <select  name="Parametri_Direzioni" id="Parametri_Direzioni" style="width: 100%;" label="Direzioni" >
+                    <option value=""></option>
+                    {% for direzione in direzioni %}
+                    <option value="{{direzione}}">{{direzione}}</option>
+                    {% endfor %}
+         </select>
+       </td>
+      <td>
+        <input class="inputNormal"id="Paramentri_Servizio" name="Servizio" style="width: 100%;" label="Servizio"/>
+      </td>
+      </tr>
+      <tr class="Rigaintestazioneridotta">
+       <td  colspan="2">
+          <p class="Labelcella">
+            Profilo professionale 
+          </p>
+      </td>
+      <td>
+          <p class="Labelcella">
+            Categoria giuridica
+          </p>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2">
+      <input class="inputNormal" id="Parametri_Prof_Prof" name="Parametri_Prof_Prof" style="width:100%;" label="Profilo professionale" mandatory="true"/>
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_Cat_Giu" name="Parametri_Cat_Giu" style="width:100%;" label="Categoria giuridica" mandatory="true"/>
+      </td>
+    </tr>
+   </tbody>
+</table>
+
+
+<h3 class="Modulo">
+  CHIEDE 
+</h3>
+
+
+<p class="Modulo">
+  l’attivazione di un progetto di Smart Working
+</p>
+
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="2">
+        <p class="Labeltabella">
+          a decorrere dal *
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          Data inizio
+        </p>
+      </td>
+      <td>
+        <p class="Labelcella">
+          Data fine
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input class="inputNormal" id="Parametri_DataInizio" name="Parametri_DataInizio" style="width: 100%;" label="Data inizio" format="date" mandatory="true" />
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_DataFine" name="Parametri_DataFine" style="width: 100%;" label="Data fine" format="date" mandatory="true" />
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2">
+         <i>* durata massima sei mesi eventualmente prorogabili</i>
+      </td>
+    </tr>
+    
+  </tbody>
+</table>
+
+{{ utils.Dichiara_445() }}
+
+{% set dichiarazioni = ["di aver preso visione e di accettare integralmente quanto definito nella regolamentazione dell’ente in materia di smart working",
+"di essere consapevole delle responsabilità connesse allo svolgimento della prestazione di lavoro in modalità di smart working",
+"di impegnarsi a rispettare le Policies dell’ente in materia di tutela della salute e sicurezza del luogo di lavoro, di tutela e sicurezza dei dati, di utilizzo delle dotazioni tecnologiche e di servizio fornite",
+"di cooperare all’attuazione delle misure di prevenzione predisposte dal datore di lavoro, al fine di fronteggiare i rischi connessi all’esecuzione della prestazione all’esterno dei locali aziendali, come da normativa vigente"] %}
+<table class="Modulo noBorder">
+    <tbody>
+        {% for dichiarazione in dichiarazioni %}
+        <tr class="noBorder">
+            <td class="noBorder" style="vertical-align: top; width: 4%;">
+                <div id="Tassonomia_Dichiara{{loop.index}}" name="Tassonomia_Dichiara{{loop.index}}" label="Dichiara" ></div>
+                <input group="Tassonomia_Dichiara{{loop.index}}" id="Tassonomia_Dichiara{{loop.index}}1" name="Tassonomia_Dichiara{{loop.index}}1" type="checkbox" checked="checked" dynamic_check="true" value="SI" />
+            </td>
+            <td class="noBorder">
+                <p>
+                    {{dichiarazione}}.
+                </p>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<h3 class="Modulo">
+  DESCRIZIONE DEL PROGETTO
+</h3>
+
+<br>
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td>
+        <p class="Labeltabella">
+          Titolo del progetto
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input class="inputNormal" id="Parametri_TitoloProgetto" name="Parametri_TitoloProgetto" style="width: 100%;" label="Titolo del progetto" mandatory="true"/>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          Breve descrizione del progetto 
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <textarea class="inputNormal" id="Parametri_Descrizione_Progetto" name="Parametri_Descrizione_Progetto" style="width: 100%; height: 5cm;" label="Descrizione del progetto" mandatory="true"></textarea>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<table class="Modulo" style="border: 1px solid grey; margin-top: -1px;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="3">
+        <p class="Labeltabella">
+          attività interessate <span style="font-size: 70%; font-weight: normal;"><i>(descrivere le attività e i compiti che si intendono svolgere in modalità SmartWorking)</i></span>
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td style="width: 50%;">
+        <p class="Labelcella">
+          Attività
+        </p>
+      </td>
+      <td style="width: 25%;">
+        <p class="Labelcella">
+          PEG
+        </p>
+      </td>
+      </tr>
+    {% for i in range(1, 9) %}
+    <tr>
+      <td>
+        <input class="inputNormal" id="Parametri_AttivitaInteressata{{i}}_Nome" name="Parametri_AttivitaInteressata{{i}}_Nome" style="width: 100%;" label="Attività" {% if i!=1 %} enabled="#Parametri_AttivitaInteressata{{i-1}}_Nome.value() != ''" {% else %} mandatory="true" {% endif %}/>
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_AttivitaInteressata{{i}}_PEG" name="Parametri_AttivitaInteressata{{i}}_PEG" style="width: 100%;" label="PEG" {% if i!= 1 %} enabled="#Parametri_AttivitaInteressata{{i}}_Nome.value() != ''" {% endif %} />
+      </td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+<table class="Modulo" style="border: 1px solid grey; margin-top: -1px;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="3" >
+        <p class="Labeltabella">
+          Caratteristiche del progetto<span style="font-size: 70%; font-weight: normal;"> <i>riferimento alla Policy “SmartWorking” n.116 del 28.03.2019</i></span>
+        </p>
+      </td>
+      </tr>
+      <tr class="Rigaintestazioneridotta">
+        <td colspan="3">
+          <p class="Labelcella">
+            Periodicità <i>indicare il numero delle  giornate alla settimana o al mese (anche frazionabili) ed eventualmente quali giorni della settimana (es. martedì…)</i> 
+          </p>
+        </td>
+      </tr>
+     <tr class="Rigaintestazioneridotta">
+          <td>
+            <p class="Labelcella">
+              Numero giorni
+            </p>
+          </td>
+           <td>
+            <p class="Labelcella">
+              Frequenza
+            </p>
+          </td>
+          <td>
+            <p class="Labelcella">
+              Orario
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td>
+          <select class="inputNormal" id="Parametri_Giorni" name="Parametri_Giorni" label="Numero Giorni" style="width: 100%;" mandatory="true">
+          <option value=""></option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          </select>
+          </td>
+          <td>
+            <select class="InputNormal" id="Paramentri_Freq" name="Parametri_Freq" label="Frequenza" style="width: 100%;" mandatory="true">
+            <option value=""></option>
+            <option value="Settimanale">Settimanale</option>
+            <option value="Mensile">Mensile</option>
+            </select>
+          </td>
+          <td>
+            <select class="InputNormal" id="Paramentri_Orario" name="Parametri_Orario" label="Orario" style="width: 100%;" mandatory="true">
+            <option value=""></option>
+            <option value="Giornata intera">Giornata intera</option>
+            <option value="Mezza giornata mattina">Mezza giornata mattina</option>
+            <option value="Mezza giornata pomeriggio">Mezza giornata pomeriggio</option>
+            </select>
+          </td>
+        </tr>
+        </tbody>
+</table>
+        {% set days = ["lunedì","martedì","mercoledì","giovedì","venerdì"] %}
+<table class="Modulo" style="border: 1px solid grey;margin-top: -1px;">
+  <tbody>
+    <div id="Tassonomia_Freq_Giorni" name="Tassonomia_Freq_Giorni" label="giorni di frequenza"></div>
+    <tr class="Rigaintestazioneridotta">
+      <td colspan="10">
+        <p class="Labelcella"> nei giorni </p>
+      </td>
+    </tr>
+    <tr>
+      {% for day in days %}
+        <td style="vertical-align: top;width: 4%;">
+          <input group="Tassonomia_Freq_Giorni" id="Tassonomia_Freq_Giorni{{loop.index}}" name="Tassonomia_Freq_Giorni{{loop.index}}" type="checkbox" value="SI" />
+        </td>
+        <td style="width: 16%;">
+          {{ day }}
+        </td>
+      {% endfor %}
+  </tbody>
+</table>
+<table class="Modulo" style="border: 1px solid grey; margin-top: -1px;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="3" >
+        <p class="Labeltabella">
+          Tecnologia necessaria 
+        </p>
+      </td>
+      </tr>
+      <tr >
+        <td style="vertical-align: top;width: 4%;">
+          <input class="InputNormal" id="Parametri_Rich_PC" name="Parametri_Rich_PC" type="checkbox" value="si">
+          </td>
+          <td>
+            <p >
+              Hardware
+            </p>
+          </td>
+          </tr>
+          <tr>
+        <td style="vertical-align: top;width: 4%;" rowspan="3" >
+          <input class="InputNormal" id="Parametri_Rich_Soft" name="Parametri_Rich_Soft" type="checkbox" value="si">
+          </td>
+          <td>
+            <p >
+              Software gestionali
+            </p>
+          </td>
+          </tr>
+          <tr >
+            <td colspan="2">
+              <p >
+                indicare quali:
+              </p>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <input class="InputNormal" id="Parametri_Software" name="Parametri_Software" label="Software richiesti" style="width: 100%;" mandatory_enabled="#Parametri_Rich_Soft.checked()" />
+            </td>
+          </tr>
+          <tr>
+        <td style="vertical-align: top;width: 4%;">
+          <input class="InputNormal" id="Parametri_Rich_Cell" name="Parametri_Rich_Cell" type="checkbox" value="si">
+          </td>
+          <td>
+            <p >
+              Cellulare di servizio
+            </p>
+          </td>
+       </tr>
+      </tbody>
+</table>
+<table class="Modulo" style="border: 1px solid grey; margin-top: -1px;">
+  <tbody>
+    
+    <tr class="Rigaintestazione">
+      <td style="vertical-align: top;width: 4%;" rowspan="7">
+        <input class="" id="Parametri_Gruppo" name="Parametri_Gruppo" type="checkbox" value="si" label="Altri workers" />
+      </td>
+      <td colspan="4">
+        <p class="Labeltabella">
+          Il progetto coinvolge più colleghi come smart workers e più precisamente:
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          Cognome
+        </p>
+      </td>
+      <td>
+        <p class="Labelcella">
+          Nome
+        </p>
+      </td>
+      <td>
+        <p class="Labelcella">
+          Categoria
+        </p>
+      </td>
+      <td>
+        <p class="Labelcella">
+          Profilo professionale
+        </p>
+      </td>
+    </tr>
+    {% for i in range(1, 6) %}
+    
+    <tr {% if i!=1 %} enabled="#Parametri_UlterioreDipentente{{i-1}}_Nome.value() != ''" {% endif %}>
+      <td>
+        <input class="inputNormal" id="Parametri_UlterioreDipentente{{i}}_Cognome" name="Parametri_UlterioreDipentente{{i}}_Cognome" style="width: 100%;" label="Cognome del dipendente"  />
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_UlterioreDipentente{{i}}_Nome" name="Parametri_UlterioreDipentente{{i}}_Nome" style="width: 100%;" label="Nome del dipendente" mandatory_enabled="#Parametri_UlterioreDipentente{{i}}_Cognome.value() != ''" />
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_UlterioreDipentente{{i}}_Categoria" name="Parametri_UlterioreDipentente{{i}}_Categoria" style="width: 100%;" label="Categoria del dipendente" mandatory_enabled="#Parametri_UlterioreDipentente{{i}}_Nome.value() != ''" />
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_UlterioreDipentente{{i}}_ProfiloProfessionale" name="Parametri_UlterioreDipentente{{i}}_ProfiloProfessionale" style="width: 100%;" label="Profilo professionale del dipendente" mandatory_enabled="#Parametri_UlterioreDipentente{{i}}_Nome.value() != ''" />
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+        
+
+{% set motivazioni = ["situazioni di disabilità psicofisiche del lavoratore tali da rendere disagevole e/o inopportuno il raggiungimento del luogo di lavoro",
+"esigenze di cura del lavoratore",
+"esigenze di cura di figli conviventi minori di anni dieci",
+"esigenze di cura di parenti e affini conviventi (entro il 2° grado di parentela/affinità) o comunque di conviventi (risultanti da iscrizione anagrafica o da iscrizione nel Registro delle Unioni Civili istituito dal Comune di Bergamo)",
+"esigenze collegate alla frequenza di corsi di studio o di percorsi di apprendimento",
+"maggiore tempo di percorrenza per raggiungere la sede di lavoro, con riferimento al numero di chilometri di distanza dall’abitazione del lavoratore"] %}
+<table class="Modulo" style="border: 1px solid grey; margin-top: -1px;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="2" >
+        <p class="Labeltabella">
+          Motivazione personale alla base dell’attivazione del progetto
+        </p>
+      </td>
+    </tr>
+ {% for motivazione in motivazioni %}
+        <tr >
+            <td style="vertical-align: top; width: 4%;">
+                
+                <input id="Tassonomia_motivazioni{{loop.index}}1" name="Tassonomia_motivazioni{{loop.index}}1" type="checkbox" value="SI" mandatory="true"  />
+            </td>
+            <td >
+                <p>
+                    {{motivazione}}.
+                </p>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% set benefici = ["Supportare progetti di ampliamento della fascia oraria di erogazione dei servizi ai cittadini",
+"Migliorare l’efficienza promuovendo una cultura organizzativa orientata al raggiungimento del risultato",
+"Diminuire le richieste di mobilità presso altri Enti, a causa della distanza della propria sede di lavoro comunale dal luogo di residenza",
+"Incrementare le capacità nell’utilizzo delle tecnologie digitali tramite lo SmartWorking",
+"Migliorare la qualità del lavoro ed il benessere organizzativo",
+"Favorire progetti di crescita formativa e professionale e percorsi di studio"
+"Ridurre o abbattere i tempi obbligati di spostamento casa-lavoro contribuendo alla riduzione del traffico veicolare nelle ore di punta"
+"Favorire la conciliazione tra tempi di vita, lavoro e cura"] %}
+<table class="Modulo" style="border: 1px solid grey; margin-top: -1px;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="2" >
+        <p class="Labeltabella">
+          Benefici ipotizzati per l’Amministrazione, condivisi con Responsabile e Dirigente
+        </p>
+      </td>
+    </tr>
+ {% for beneficio in benefici %}
+        <tr >
+            <td style="vertical-align: top; width: 4%;">
+                <div id="Tassonomia_benefici{{loop.index}}" name="Tassonomia_benefici{{loop.index}}" label="benefici" mandatory="true" ></div>
+                <input group="Tassonomia_benefici{{loop.index}}" id="Tassonomia_benefici{{loop.index}}1" name="Tassonomia_benefici{{loop.index}}1" type="checkbox" value="SI"   />
+            </td>
+            <td >
+                <p>
+                    {{beneficio}}.
+                </p>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<br>
+
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          Eventuali annotazioni
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <textarea class="inputNormal" id="Parametri_Annotazioni" name="Parametri_Annotazioni" style="width: 100%; height: 5cm;" label="Eventuali annotazioni"></textarea>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<table class="Modulo" name="Allegati" style="border: 1px solid grey">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="2">
+        <p style="text-align: center;">
+          <b>
+            Elenco degli allegati
+          </b>
+          <br/>
+          <span style="font-size:70%">
+            <i>(barrare tutti gli allegati richiesti in fase di presentazione della pratica ed elencati sul portale)</i>
+          </span>
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="DAE-CDI" name="DAE-CDI" type="checkbox" value="OBBLIGATORIO" />
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          copia del documento d'identità
+          <br/>
+          <span style="font-size:70%">
+            <i>(da allegare se il modulo è sottoscritto con firma autografa)</i>
+          </span>
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="ALTRI-ALLEGATI" name="ALTRI-ALLEGATI" type="checkbox" value="OBBLIGATORIO"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          altri allegati
+          <span style="font-size:70%">(specificare)</span>
+          <input class="" label="Altri allegati" id="AltriAllegati" mandatory_enabled="#ALTRI_ALLEGATI.checked()" name="AltriAllegati" style="width:79%;"/>
+        </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+
+<br>
+{{ utils.trattamento_dati_personali() }}
+<br/>
+  {{ utils.firma_hidden() }}
+<br/>
+
+<p class="Modulo">
+  <input id="SalvaModulo" name="SalvaModulo" style="height:30px;width:120px;" title="Verifica la corretta compilazione dei campi e salva il modulo nel faldone virtuale dell'istanza." type="submit" value="Salva modulo"/>
+</p>
+
+<input destinatario_amministrazione="getParameter('Ente')" id="GLOBO_modulo_c{{ CodiceModulo }}" name="GLOBO_modulo_c{{ CodiceModulo }}" type="hidden" value=""/>
+<input firmare="'P7M_ELETTRONICA'" id="GLOBO_modulofiglio_cINCARICO_PROCURA" name="GLOBO_modulofiglio_cINCARICO_PROCURA" type="hidden" value=""/>
+
+
+
+<input id="GLOBO_sub_urn" name="GLOBO_sub_urn" type="hidden" dynamic_value="
+#Parametri_Direzioni.value()  == '{{direzioni[0]}}' ? 'avvocatura' :
+(#Parametri_Direzioni.value() == '{{direzioni[1]}}' ? 'affari' :
+(#Parametri_Direzioni.value() == '{{direzioni[2]}}' ? 'bilancio' :
+(#Parametri_Direzioni.value() == '{{direzioni[3]}}' ? 'commercio' :
+(#Parametri_Direzioni.value() == '{{direzioni[4]}}' ? 'edilizia' :
+(#Parametri_Direzioni.value() == '{{direzioni[5]}}' ? 'gare' :
+(#Parametri_Direzioni.value() == '{{direzioni[6]}}' ? 'generale' :
+(#Parametri_Direzioni.value() == '{{direzioni[7]}}' ? 'infrastrutture' :
+(#Parametri_Direzioni.value() == '{{direzioni[8]}}' ? 'patrimonio' :
+(#Parametri_Direzioni.value() == '{{direzioni[9]}}' ? 'pianificazione' :
+(#Parametri_Direzioni.value() == '{{direzioni[10]}}' ? 'risorse' :
+(#Parametri_Direzioni.value() == '{{direzioni[11]}}' ? 'polifunzionali' :
+(#Parametri_Direzioni.value() == '{{direzioni[12]}}' ? 'sicurezza' :
+(#Parametri_Direzioni.value() == '{{direzioni[13]}}' ? 'urbanistica' :
+(#Parametri_Direzioni.value() == '{{direzioni[14]}}' ? 'verde' :
+(#Parametri_Direzioni.value() == '{{direzioni[15]}}' ? 'polizia' :
+(#Parametri_Direzioni.value() == '{{direzioni[16]}}' ? 'segreteria' : ''))))))))))))))))" />
+
+<input id="GLOBO_allegato_cDAE-CDI" name="GLOBO_allegato_cDAE-CDI" obbligatorio="#DAE_CDI.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+<input id="GLOBO_allegato_cALTRI-ALLEGATI" name="GLOBO_allegato_cALTRI-ALLEGATI" obbligatorio="#ALTRI_ALLEGATI.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_id_padre" name="GLOBO_id_padre" type="hidden"/>
+<input id="GLOBO_recupera_dati" name="GLOBO_recupera_dati" type="hidden"/>
+<input id="GLOBO_codice_modulo" name="GLOBO_codice_modulo" type="hidden" value="{{ CodiceModulo }}"/>
+
+{% endblock content %}

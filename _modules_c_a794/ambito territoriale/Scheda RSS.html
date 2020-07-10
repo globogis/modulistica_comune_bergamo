@@ -1,0 +1,133 @@
+{% set CodiceModulo = "COM_SCALA_RSS" %}
+{% set Urn = "document:c_a794:ambito.territoriale;scala.rss" %}
+{% extends "base.html" %}
+
+{% block meta %}
+
+<meta campi_firma="TitolareNonImportare_CodiceFiscale"
+campi_firma_label="il dichiarante"
+classi_modulo="Ambito territoriale"
+codice_modulo="{{ CodiceModulo }}"
+urn="{% block urn %}{{ Urn }}{% endblock urn %}"
+descrizione="Scheda RSS (relative stress scale)"
+destinatario_amministrazione=""
+destinatario_ufficio="UOAMBITOTERRITORIALE"
+dinamico="SI"
+email_a=""
+ente_abilitato="TUTTI"
+filigrana="NO"
+firmare="P7M_ELETTRONICA"
+istruzioni_compilazione=""
+istruzioni_invio=""
+metodo_invio="mail"
+name="GLOBO_modulo"
+procura="NO,,"
+tipo_modulo="secondario"
+urlhelp="/modulistica/moduli/{{ CodiceModulo }}"
+verifica_pagamento="NO"
+versione="1.0|11/02/2019"/>
+
+{% endblock meta %}
+
+{% block title %}
+    Scheda RSS (relative stress scale)
+{% endblock title %}
+
+{% block content %}
+
+<globo_fondo_pagina areaheight="150" scope="1">
+    {{ utils.firma() }}
+</globo_fondo_pagina>
+
+<input id="Oggetto" name="Oggetto" type="hidden" dynamic_value="'Scheda RSS (relative stress scale) di ' + #TitolareNonImportare_Cognome.value().toUpperCase() + ' ' + #TitolareNonImportare_Nome.value().toUpperCase()"/>
+
+{{ intestazioni.intestazione_modulosecondario_senzabollo() }}
+
+<h1 class="Modulo">
+    Scheda RSS (relative stress scale)
+</h1>
+
+{{anagrafica.cognome_nome("TitolareNonImportare","Il sottoscritto", "Richiedente", "visibility:hidden", "cursor:default")}}
+
+<h3 class="Modulo">
+    COMUNICA
+</h3>
+
+<p class="Modulo">
+    la scala ordinale che definisce forma e intensità dello stress sviluppato nell’assistenza di una persona anziana.
+</p>
+
+{% set rss = ["pensate mai di non riuscire a fronteggiare la situazione?",
+                      "pensate mai di avere bisogno di aiuto?",
+                      "vi capita di sentirvi depressi dalla situazione?",
+                      "la vostra salute ne ha in qualche modo sofferto?",
+                      "vi preoccupate che succedano incidenti?",
+                      "pensate mai che il problema non abbia via d’uscita?",
+                      "avete difficoltà ad andare via per le vacanze?",
+                      "in che misura è stata modificata la vostra vita sociale",
+                      "in che misura è stato turbato il vostro ménage familiare?",
+                      "Il vostro sonno viene interrotto?",
+                      "si è abbassato il vostro tenore di vita?",
+                      "vi sentite mai imbarazzati?",
+                      "siete impossibilitati a ricevere visite?",
+                      "vi capita mai di essere contrariati o arrabbiati?",
+                      "vi capita a volte di sentirvi frustrati?"] %}
+{% set opzioni = ["",
+                  "mai, assolutamente",
+                  "no di rado un po'",
+                  "a volte",
+                  "frequentemente molto",
+                  "sempre moltissimo"] %}
+
+<table class="Modulo" style="border: 1px solid grey;">
+    <tbody>
+        <tr class="Rigaintestazione">
+            <td colspan="2">
+                <p class="Labeltabella">
+                    Relative Stress Scale (RSS) (*)
+                </p>
+            </td>
+        </tr>
+        {% for r in rss %}
+        <tr>
+            <td style="width: 65%;">
+                <p>
+                    {{r}}
+                </p>
+            </td>
+            <td style="width: 35%;">
+                <select name="Parametri_RSS{{loop.index}}" id="Parametri_RSS{{loop.index}}" style="width:100%;" mandatory="true">
+                    {% for op in opzioni %}
+                        <option value="{{op}}">{{op}}</option>
+                    {% endfor %}
+                </select>
+            </td>
+        </tr> 
+        {% endfor %}
+        
+    </tbody>
+</table>
+
+<p class="Modulo" style="font-size:80%;">
+    <i>Opzioni (*)</i>:<br/>
+    mai assolutamente, 
+    no di rado un po',
+    a volte,
+    frequentemente molto,
+    sempre moltissimo.
+</p>
+<br/>
+    {{ utils.firma_hidden() }}
+<br/>
+
+<p class="Modulo">
+    <input id="SalvaModulo" name="SalvaModulo" style="height:30px;width:120px;" title="Verifica la corretta compilazione dei campi e salva il modulo nel faldone virtuale dell'istanza." type="submit" value="Salva modulo"/>
+</p>
+
+<input id="GLOBO_modulo_c{{ CodiceModulo }}" name="GLOBO_modulo_c{{ CodiceModulo }}" type="hidden" value=""/>
+
+<input id="GLOBO_id_padre" name="GLOBO_id_padre" type="hidden"/>
+<input id="GLOBO_recupera_dati" name="GLOBO_recupera_dati" type="hidden"/>
+<input id="GLOBO_codice_modulo" name="GLOBO_codice_modulo" type="hidden" value="{{ CodiceModulo }}"/>
+
+{% endblock content %}

@@ -1,0 +1,377 @@
+{% set CodiceModulo = "DOM_DIR_STU" %}
+{% set Urn = "document:c_a794:sussidio.diritto.studio.famiglie.numerose;domanda" %}
+{% extends "base.html" %}
+
+{% block meta %}
+
+<meta campi_firma="Titolare_CodiceFiscale"
+campi_firma_label="il dichiarante"
+classi_modulo="Generale"
+codice_modulo="{{ CodiceModulo }}"
+urn="{% block urn %}{{ Urn }}{% endblock urn %}"
+sub_urn_list=""
+uo_globo_list=""
+descrizione="Domanda di concessione del sussidio a sostegno del diritto allo studio per famiglie con 3 o più figli in età scolare"
+destinatario_amministrazione=""
+destinatario_ufficio="UOPUBBLICAISTRUZIONE"
+dinamico="SI"
+email_a=""
+ente_abilitato="TUTTI"
+filigrana="NO"
+firmare="P7M_ELETTRONICA"
+istruzioni_compilazione=""
+istruzioni_invio="mail_pec"
+metodo_invio="mail"
+name="GLOBO_modulo"
+procura="NO,,"
+tipo_modulo="principale"
+urlhelp="/modulistica/moduli/{{ CodiceModulo }}"
+verifica_pagamento="NO"
+versione="1.2|25/06/2019"/>
+
+<meta codice_modulo_figlio="INCARICO_PROCURA"
+urn_modulo_figlio="document:s_italia:generale;incarico.procura"
+name="GLOBO_modulofiglio"
+numero="1"
+obbligatorio="DINAMICO"/>
+
+<meta codice_allegato="DAE-CDI"
+urn_allegato="document:s_italia:generale;documento.identita;documentazione"
+descrizione_estesa="Documento di identità"
+filename="Documento identita.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/DAE-CDI"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="ALTRI-ALLEGATI"
+urn_allegato="document:s_italia:altri.allegati"
+descrizione_estesa="Altri allegati"
+filename="Altri allegati.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/ALTRI-ALLEGATI"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+{% endblock meta %}
+
+{% block title %}
+  Domanda di concessione del sussidio a sostegno del diritto allo studio per famiglie numerose
+{% endblock title %}
+
+{% block content %}
+
+<globo_fondo_pagina areaheight="150" scope="2">
+  {{ utils.firma() }}
+</globo_fondo_pagina>
+
+<input id="Parametri_Comune" name="Parametri_Comune" type="hidden" dynamic_value="#Ente.value()"/>
+<input id="Oggetto" name="Oggetto" type="hidden" dynamic_value="#Titolare_Cognome.value().toUpperCase() + ' ' + #Titolare_Nome.value().toUpperCase() + ' - domanda sussidio sostegno studio famiglie numerose'"/>
+
+{{ intestazioni.intestazione_moduloprincipale_senzabollo() }}
+<h1 class="Modulo">
+  Domanda di concessione del sussidio a sostegno del diritto allo studio per famiglie numerose
+</h1>
+
+<input id="Titolare_DatiPersonaObbligatori" name="Titolare_DatiPersonaObbligatori" type="hidden" dynamic_check="true"/>
+<input id="Titolare_Titolo" name="Titolare_Titolo" type="hidden" value="Richiedente"/>
+<input id="Titolare_Ruolo" name="Titolare_Ruolo" type="hidden" value="Richiedente"/>
+{{ anagrafica.persona_fisica("Titolare", "Il sottoscritto", "visibility:visibility", "cursor:pointer", "visibility:visibility", "visibility:visibility", "mail_ordinaria") }}
+
+<h3 class="Modulo">
+  CHIEDE
+</h3>
+
+<p class="Modulo"> l'erogazione del sussidio a sostegno del diritto allo studio per famiglie con tre o più figli in età scolare per l'anno scolastico </p>
+
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella"> Anno scolastico (aaaa/aaaa) </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input class="inputNormal" id="Parametri_AnnoScolasticoInizio" name="Parametri_AnnoScolasticoInizio" style="width: 100%;" label="Inizio Anno scolastico" mandatory="true"/>
+      </td>
+  </tbody>
+</table>
+
+<p> per i seguenti figli </p>
+
+{% for i in range(1, 6) %}
+  <input id="AventeTitolo{{i}}_Titolo" name="AventeTitolo{{i}}_Titolo" type="hidden" value="Avente titolo"/>
+  <input id="AventeTitolo{{i}}_Ruolo" name="AventeTitolo{{i}}_Ruolo" type="hidden" value="Avente titolo"/>
+  {% if loop.first %}    
+    {{ anagrafica.persona_fisica("AventeTitolo"~i, "<input id='AventeTitolo"~i~"_DatiPersonaObbligatori' name='AventeTitolo"~i~"_DatiPersonaObbligatori' type='checkbox' value='SI' checked='checked' dynamic_check='true'/> Figlio "~i, "display:none", "cursor:default", "visibility:visibility", "visibility:none", "display:none")  }}
+  {% else %}
+    {{ anagrafica.persona_fisica("AventeTitolo"~i, "<input id='AventeTitolo"~i~"_DatiPersonaObbligatori' name='AventeTitolo"~i~"_DatiPersonaObbligatori' type='checkbox' value='SI'/> Figlio "~i, "display:none", "cursor:default", "visibility:visibility", "visibility:none", "display:none")  }}
+  {% endif %}
+
+  <table class="Modulo" style="border: 1px solid grey;">
+    <tbody>
+      <tr class="Rigaintestazioneridotta">
+        <td style="width: 33%">
+          <p class="Labelcella"> Iscritto alla classe </p>
+        </td>
+        <td colspan="2" style="width: 34%">
+          <p class="Labelcella"> Della scuola </p>
+        </td>
+        <td style="width: 33%">
+          <p class="Labelcella"> Tipologia scuola </p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <input class="inputNormal" id="Parametri_Iscritto{{i}}" name="Parametri_Iscritto{{i}}" style="width: 100%;" label="Classe" mandatory_enabled="#AventeTitolo{{i}}_DatiPersonaObbligatori.checked()">
+        </td>
+        <td colspan="2" >
+          <input class="inputNormal" id="Parametri_Scuola{{i}}" name="Parametri_Scuola{{i}}" style="width: 100%;" label="Denominazione scuola" mandatory_enabled="#AventeTitolo{{i}}_DatiPersonaObbligatori.checked()">
+        </td>
+        <td>
+          <select name="Parametri_TipologiaScuola{{i}}" id="Parametri_TipologiaScuola{{i}}" style="width: 100%;" label="Tipologia scuola" mandatory_enabled="#AventeTitolo{{i}}_DatiPersonaObbligatori.checked()">
+            <option value=""></option>
+            <option value="secondaria_primo"> secondaria di primo grado </option>
+            <option value="secondaria_secondo">Secondaria di secondo grado</option>
+            <option value="Istruzione_Formazione">Istruzione e Formazione Professionale</option>
+          </select>
+        </td>
+      </tr>
+      <tr class="Rigaintestazioneridotta">
+        <td colspan="2" style="width: 50%">
+          <p class="Labelcella"> Città </p>
+        </td>
+        <td colspan="2" style="width: 50%">
+          <p class="Labelcella"> Provincia </p>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2" >
+          <input class="inputNormal" id="Parametri_Città_Scuola{{i}}" name="Parametri_Città_Scuola{{i}}" style="width: 100%;" label="Città scuola" mandatory_enabled="#AventeTitolo{{i}}_DatiPersonaObbligatori.checked()">
+        </td>
+        <td colspan="2" >
+          <input class="inputNormal" id="Parametri_Provincia_Scuola{{i}}" name="Parametri_Provincia_Scuola{{i}}" style="width: 100%;" label="Provincia scuola" mandatory_enabled="#AventeTitolo{{i}}_DatiPersonaObbligatori.checked()">
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <table class="Modulo" style="border: 1px solid grey;margin-top: -1px;">
+    <tbody>
+      <tr class="Rigaintestazioneridotta">
+        <td colspan="2">
+          <p class="Labelcella"> Ha presentato domanda per la dote scuola per l'anno scolastico di riferimento? </p>
+        </td>
+      </tr>
+      <tr>
+        <td style="vertical-align: top; width: 4%;">
+          <div id="Tassonomia_DoteScuola{{i}}_s" label="Dote scuola" mandatory_enabled="#AventeTitolo{{i}}_DatiPersonaObbligatori.checked()"></div>
+          <input id="Tassonomia_DoteScuola{{i}}_s1" name="Tassonomia_DoteScuola{{i}}_s" type="radio" value="1"/>
+        </td>
+        <td>
+          <p> Sì </p>
+        </td>
+      </tr>
+      <tr>
+        <td style="vertical-align: top; width: 4%;">
+          <input id="Tassonomia_DoteScuola{{i}}_s2" name="Tassonomia_DoteScuola{{i}}_s" type="radio" value="2"/>
+        </td>
+        <td>
+          No
+        </td>
+      </tr>
+    </tbody>
+  </table>
+{% endfor %}
+
+<globo_salto_pagina></globo_salto_pagina>
+
+{{ utils.Dichiara_445() }}
+
+<p class="Modulo"> che il proprio nucleo familiare è così composto </p>
+
+<table class="Modulo" style="border: 1px solid grey; margin-top: -1px;">
+  <tbody>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella"> Cognome </p>
+      </td>
+      <td>
+        <p class="Labelcella"> Nome </p>
+      </td>
+      <td>
+        <p class="Labelcella"> Grado di parentela </p>
+      </td>
+      <td>
+        <p class="Labelcella"> Codice fiscale </p>
+      </td>
+      <td>
+        <p class="Labelcella"> Studente </p>
+      </td>
+    </tr>
+    {% for i in range(1, 7) %}
+    <tr>
+      <td>
+        <input class="inputNormal" id="AventeTitolo{{i}}_CognomeFamiliare" name="AventeTitolo{{i}}_CognomeFamiliare" style="width: 100%;" label="Cognome" {% if n == 1 %} mandatory="true" {% endif %}/>
+      </td>
+      <td>
+        <input class="inputNormal" id="AventeTitolo{{i}}_NomeFamiliare" name="AventeTitolo{{i}}_NomeFamiliare" style="width: 100%;" label="Nome" mandatory_enabled="#AventeTitolo{{i}}_CognomeFamiliare.value() != ''"/>
+      </td>
+      <td>
+        <input class="inputNormal" id="AventeTitolo{{i}}_GradoParentelaFamiliare" name="AventeTitolo{{i}}_GradoParentelaFamiliare" style="width: 100%;" label="Grado parentela" mandatory_enabled="#AventeTitolo{{i}}_CognomeFamiliare.value() != ''"/>
+      </td>
+      <td>
+        <input class="inputNormal" id="AventeTitolo{{i}}_CodicefiscaleFamiliare" name="AventeTitolo{{i}}_CodicefiscaleFamiliare" format="cf" style="width: 100%;" label="Codice fiscale" mandatory_enabled="#AventeTitolo{{i}}_CognomeFamiliare.value() != ''"/>
+      </td>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="Studente{{i}}" name="Studente{{i}}" type="checkbox" value="SI" enabled="#AventeTitolo{{i}}_CognomeFamiliare.value() != ''"/>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<h3 class="Modulo">DICHIARA INOLTRE</h3>
+
+<table class="Modulo" style="border: 0px;">
+  <tbody>
+    <tr style="border: 0px;">
+      <td style="width:4%; vertical-align:top; background-color:white; border:0px" rowspan="3">
+        <p class="Labelcella">
+          <input id="PossiedeISEE" name="PossiedeISEE" type="checkbox" value="SI" /> 
+        </p>
+      </td>
+      <td colspan="3" style="border: 0px;">
+        <p> di possedere seguente ISEE </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta" style="border: 0px;">
+      <td>
+        <p class="Labelcella"> Valore ISEE </p>
+      </td>
+      <td>
+        <p class="Labelcella"> Data di rilascio </p>
+      </td>
+      <td>
+        <p class="Labelcella"> Data fine validità </p>
+      </td>
+    </tr>
+    <tr style="border: 0px;">
+      <td>
+        <p>
+          <input class="inputNormal" id="Parametri_ValoreISEE" name="Parametri_ValoreISEE" format="valuta_positiva" style="width: 80%;" label="Valore ISEE" mandatory_enabled="#PossiedeISEE.checked()"/> €
+        </p>
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_DataRilascio" name="Parametri_DataRilascio" format="date" style="width: 100%;" label="Data rilascio" mandatory_enabled="#PossiedeISEE.checked()"/>
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_DataFineValidità" name="Parametri_DataFineValidità" format="date" style="width: 100%;" label="Data fine validità" mandatory_enabled="#PossiedeISEE.checked()"/>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<table class="Modulo" style="border: 0px">
+  <tbody>
+    <tr style="border: 0px">
+      <td style="vertical-align: top; width: 4%; border:0px">
+        <input id="DomandaDoteScuola" name="DomandaDoteScuola" type="checkbox" value="SI" />
+      </td>
+      <td style="border: 0px">
+        di aver già presentato per l'anno scolastico in corso la domanda per la Dote Scuola di Regione Lombardia
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<br/>
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          Eventuali annotazioni
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <textarea class="inputNormal" id="Parametri_Annotazioni" name="Parametri_Annotazioni" style="width: 100%; height: 5cm;" label="Eventuali annotazioni"></textarea>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<br/>
+<table class="Modulo" name="Allegati" style="border: 1px solid grey">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="2">
+        <p style="text-align: center;">
+          <b>
+          Elenco degli allegati
+          </b>
+          <br/>
+          <span style="font-size:70%">
+          <i>(barrare tutti gli allegati richiesti in fase di presentazione della pratica ed elencati sul portale)</i>
+          </span>
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="DAE-CDI" name="DAE-CDI" type="checkbox" value="OBBLIGATORIO" />
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          copia del documento d'identità
+          <br/>
+          <span style="font-size:70%">
+          <i>(da allegare se il modulo è sottoscritto con firma autografa)</i>
+          </span>
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="ALTRI-ALLEGATI" name="ALTRI-ALLEGATI" type="checkbox" value="OBBLIGATORIO"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          altri allegati
+          <span style="font-size:70%">(specificare)</span>
+          <input class="" label="Altri allegati" id="AltriAllegati" mandatory_enabled="#ALTRI_ALLEGATI.checked()" name="AltriAllegati" style="width:79%;"/>
+        </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<br/>
+  {{ utils.trattamento_dati_personali() }}
+<br/>
+  {{ utils.firma_hidden() }}
+<br/>
+
+
+<p class="Modulo">
+  <input id="SalvaModulo" name="SalvaModulo" style="height:30px;width:120px;" title="Verifica la corretta compilazione dei campi e salva il modulo nel faldone virtuale dell'istanza." type="submit" value="Salva modulo"/>
+</p>
+
+
+<input id="GLOBO_allegato_cDAE-CDI" name="GLOBO_allegato_cDAE-CDI" obbligatorio="#DAE_CDI.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+<input id="GLOBO_allegato_cALTRI-ALLEGATI" name="GLOBO_allegato_cALTRI-ALLEGATI" obbligatorio="#ALTRI_ALLEGATI.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+
+<input destinatario_amministrazione="getParameter('Ente')" id="GLOBO_modulo_c{{ CodiceModulo }}" name="GLOBO_modulo_c{{ CodiceModulo }}" type="hidden" value=""/>
+<input firmare="'P7M_ELETTRONICA'" id="GLOBO_modulofiglio_cINCARICO_PROCURA" name="GLOBO_modulofiglio_cINCARICO_PROCURA" type="hidden" value=""/>
+
+<input id="GLOBO_id_padre" name="GLOBO_id_padre" type="hidden"/>
+<input id="GLOBO_recupera_dati" name="GLOBO_recupera_dati" type="hidden"/>
+<input id="GLOBO_codice_modulo" name="GLOBO_codice_modulo" type="hidden" value="{{ CodiceModulo }}"/>
+
+{% endblock content %}

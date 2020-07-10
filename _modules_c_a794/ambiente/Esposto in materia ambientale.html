@@ -1,0 +1,433 @@
+{% set CodiceModulo =  "ESPOST-AMB" %}
+{% set Urn = "document:c_a794:violazione.normativa.ambientale;segnalazione" %}
+{% set modulo_destinatario = [] %}
+{% extends "base.html" %}
+{% block meta %}
+
+<meta campi_firma="Titolare_CodiceFiscale"
+campi_firma_label="il dichiarante"
+classi_modulo="Ambiente"
+contesto_procedurale="Ecologia"
+codice_modulo="{{ CodiceModulo }}"
+urn="{% block urn %}{{ Urn }}{% endblock urn %}"
+descrizione="Esposto in materia ambientale"
+destinatario_amministrazione=""
+destinatario_ufficio="U0233"
+dinamico="SI"
+email_a=""
+ente_abilitato="TUTTI"
+filigrana="NO"
+firmare="P7M_ELETTRONICA"
+istruzioni_compilazione=""
+istruzioni_invio="mail_pec"
+metodo_invio="mail"
+name="GLOBO_modulo"
+procura="NO,,"
+tipo_modulo="principale"
+ufficio=""
+urlhelp="DomandeRisposte/FAQ"
+verifica_pagamento="NO"
+versione="1.1|08/05/2019"/>
+
+<meta codice_modulo_figlio="INCARICO_PROCURA"
+urn_modulo_figlio="document:s_italia:generale;incarico.procura"
+name="GLOBO_modulofiglio"
+numero="1"
+obbligatorio="DINAMICO"/>
+
+<meta codice_modulo_figlio="STU-EDI-IMM"
+urn_modulo_figlio="document:s_italia:edilizia.privata;ulteriori.immobili;dichiarazione.sostitutiva"
+name="GLOBO_modulofiglio"
+numero="1"
+obbligatorio="DINAMICO"/>
+
+<meta codice_allegato="DOC_FOTO"
+urn_allegato="document:s_italia:generale;colori;documentazione.fotografica"
+descrizione_estesa="Documentazione fotografica a colori"
+filename="Documentaz. fotografica.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/DOC_FOTO"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="ESP-PLA-ARE"
+urn_allegato="document:s_italia:violazione.normativa.ambientale;mappa.area;estratto.mappa"
+descrizione_estesa="Estratto mappa della zona interessata dalla violazione"
+filename="Estratto mappa.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/ESP-PLA-ARE"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="RIC-ALI-ASL"
+urn_allegato="document:s_italia:diritti.sanitari;ricevuta
+descrizione_estesa="Ricevuta diritti sanitari ASL"
+filename="Ricev. diritti ASL.pdf"
+firmato="NO"
+istruzioni="/servizio-attivita-produttive-e-commercio/ricevuta-di-pagamento-diritti-sanitari-allasl"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="DAE-CDI"
+urn_allegato="document:s_italia:generale;documento.identita;documentazione"
+descrizione_estesa="Documento di identità"
+filename="Documento identita.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/DAE-CDI"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="ALTRI-ALLEGATI"
+urn_allegato="document:s_italia:altri.allegati"
+descrizione_estesa="Altri allegati"
+filename="Altri allegati.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/ALTRI-ALLEGATI"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+
+{% endblock meta %}
+
+{% block title %}Esposto in materia ambientale{% endblock title %}
+
+{% block content %}
+ <globo_fondo_pagina areaheight="150" scope="2">
+ {{ utils.firma() }}
+</globo_fondo_pagina>
+
+
+{{intestazioni.intestazione_moduloprincipale_senzabollo()}}
+ <input dynamic_value="#Titolare_Cognome.value().toUpperCase() + ' - Esposto in materia ambientale'" id="Oggetto" name="Oggetto" type="hidden"/>
+<input dynamic_value="#Ente.value()" id="Parametri_Comune" name="Parametri_Comune" type="hidden"/>
+<input checked="checked" dynamic_check="true" id="SempreSI" name="SempreSI" style="display:none;" type="checkbox" value="si"/>
+
+<h1 class="Modulo">
+ Esposto in materia ambientale
+</h1>
+
+{{anagrafica.societa("Titolare", "Il sottoscritto", ["Persona fisica","Titolare", "Legale rappresentante", "Amministratore di condominio"], "Segnalante", "visibility:visibility", "cursor:pointer", "mail_ordinaria")}}
+
+<h3 class="Modulo">
+ SEGNALA
+</h3>
+
+<p class="Modulo">
+ la seguente violazione in materia ambientale
+</p>
+
+<table class="Modulo" style="border:1px solid grey">
+ <tbody>
+  <tr>
+   <td style="width: 4%">
+    <div id="TipoEsposto" label="Tipo violazione in materia ambientale" mandatory="true">
+    </div>
+    <input group="TipoEsposto" id="Tassonomia_TipoEspostoAmbientale1" name="Tassonomia_TipoEspostoAmbientale1" type="checkbox" value="si"/>
+   </td>
+   <td>
+    <p>
+     abbandono di rifiuti
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td>
+    <input group="TipoEsposto" id="Tassonomia_TipoEspostoAmbientale2" name="Tassonomia_TipoEspostoAmbientale2" type="checkbox" value="si"/>
+   </td>
+   <td>
+    <p>
+     scarichi idrici
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td>
+    <input group="TipoEsposto" id="Tassonomia_TipoEspostoAmbientale3" name="Tassonomia_TipoEspostoAmbientale3" type="checkbox" value="si"/>
+   </td>
+   <td>
+    <p>
+     inquinamento atmosferico o molestie olfattive
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td style="vertical-align:top">
+    <input group="TipoEsposto" id="Tassonomia_TipoEspostoAmbientale4" name="Tassonomia_TipoEspostoAmbientale4" type="checkbox" value="si"/>
+   </td>
+   <td>
+    <p>
+     inquinamento acustico, in tal caso si impegna<br/>a consentire l'accesso ai tecnici competenti in acustica incaricati dal titolare dell'attività o dall'ARPA per l'esecuzione dei necessari controlli per verificare i livelli di rumorosità segnalati, secondo quanto previsto dai protocolli ARPA, e per certificare gli esiti di eventuali interventi di bonifica acustica. 
+La negazione dell'accesso da parte dell'esponente, in qualunque fase del processo, comporterà l'archiviazione del procedimento.
+<br/>
+ Autorizza sin d'ora ad utilizzare i miei dati personali e di reperibilità per la pianificazione del sopralluogo, consapevole del fatto che tali dati saranno trasmessi al titolare dell'attività nell'ambito della comunicazione di avvio del procedimento.
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td>
+    <input group="TipoEsposto" id="Tassonomia_TipoEspostoAmbientale5" name="Tassonomia_TipoEspostoAmbientale5" type="checkbox" value="si"/>
+   </td>
+   <td>
+    <p>
+     inconveniente igienico-sanitario
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td>
+    <input group="TipoEsposto" id="Tassonomia_TipoEspostoAmbientale6" name="Tassonomia_TipoEspostoAmbientale6" type="checkbox" value="si"/>
+   </td>
+   <td>
+    <p>
+     presenza di un manufatto contenente amianto
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td>
+    <input group="TipoEsposto" id="Tassonomia_TipoEspostoAmbientale7" name="Tassonomia_TipoEspostoAmbientale7" type="checkbox" value="si"/>
+   </td>
+   <td>
+    <p>
+     inquinamento elettromagnetico
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td>
+    <input group="TipoEsposto" id="Tassonomia_TipoEspostoAmbientale8" name="Tassonomia_TipoEspostoAmbientale8" type="checkbox" value="si"/>
+   </td>
+   <td>
+    <p>
+     altro 
+     <span style="font-size:70%">
+      (specificare)
+     </span>
+     <input class="inputNormal" id="Tassonomia_TipoEspostoAmbientale8_Note" label="Altra violazione in materia ambientale" mandatory_enabled="#Tassonomia_TipoEspostoAmbientale8.checked()" name="Tassonomia_TipoEspostoAmbientale8_Note" style="width:83%;"/>
+    </p>
+   </td>
+  </tr>  
+  </tbody>
+</table>
+
+<table class="Modulo" style="border:1px solid grey; margin-top:-1px">
+ <tbody>
+  <tr class="Rigaintestazioneridotta">
+   <td colspan="1">
+    <p class="Labelcella">
+     Oggetto della segnalazione (descrivere dettagliatamente il problema segnalato indicando, in caso di eventi occasionali, orari frequenza e durata)
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td colspan="1">
+    <textarea class="inputNormal" label="Oggetto della segnalazione" id="Parametri_ContenutoSegnalazione" mandatory="true" name="Parametri_ContenutoSegnalazione" style="width:100%;height:5cm;">
+    </textarea>
+   </td>
+  </tr>
+ </tbody>
+</table>
+
+<input id="Immobile_DatiCatastaliObbligatori" name="Immobile_DatiCatastaliObbligatori" style="display:none" type="checkbox" value="si"/>
+{{ immobili.immobile( "Immobile" , "rilevata presso", "Collocazione oggetto dell'esposto", "visibility:hidden", "cursor:default", "display:visibility", "false" ) }}
+
+	<table class="Modulo" style="border:1px solid grey;">
+        <tbody>
+            <tr class="Rigaintestazione">
+                <td>
+                    <p class="Labeltabella"><input id="ReferentNonImportare_DatiPersonaObbligatori" name="ReferentNonImportare_DatiPersonaObbligatori" type="checkbox"/> di proprietà del seguente soggetto fisico
+					</p>
+                </td>
+            </tr>
+		</tbody>
+    </table>
+    <table class="Modulo" style="border:1px solid grey; margin-top:-1px" mandatory_enabled="#ReferentNonImportare_DatiPersonaObbligatori.checked()">
+        <tbody>
+            <tr class="Rigaintestazioneridotta">
+                <td style="width:50%">
+                    <p class="Labelcella">Cognome</p>
+                </td>
+                <td>
+                    <p class="Labelcella">Nome</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input class="" id="ReferentNonImportare_Cognome" name="ReferentNonImportare_Cognome" style="width:100%" label="Cognome"/>
+                </td>
+                <td>
+                    <input class="" id="ReferentNonImportare_Nome" name="ReferentNonImportare_Nome" style="width:100%" label="Nome"/>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+	<table class="Modulo" style="border:1px solid grey;">
+        <tbody>
+            <tr class="Rigaintestazione">
+                <td>
+                    <p class="Labeltabella"><input id="ReferentNonImportare2_DatiPersonaObbligatori" name="ReferentNonImportare2_DatiPersonaObbligatori" type="checkbox"/> di proprietà del seguente soggetto giuridico
+					</p>
+                </td>
+            </tr>
+		</tbody>
+    </table>	
+  <table class="Modulo" style="border:1px solid grey; margin-top:-1px" mandatory_enabled="#ReferentNonImportare2_DatiPersonaObbligatori.checked()">
+    <tbody>
+      <tr class="Rigaintestazioneridotta">
+        <td >
+          <p class="Labelcella">Denominazione</p>
+        </td>
+        <td style="width: 34%;">
+          <p class="Labelcella">Tipologia</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <input id="ReferentNonImportare2_Denominazione" name="ReferentNonImportare2_Denominazione" style="width:100%" label="Denominazione Impresa Esecutrice"/>
+        </td>
+        <td>
+          {{ utils.tipologiaimpresa( "ReferentNonImportare2" ) }}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+ <input dynamic_check="true" id="Immobile1_DatiImmobileRichiesti" name="Immobile1_DatiImmobileRichiesti" type="checkbox" style="display:none" value="si"/>
+<input id="Immobile1_DatiCatastaliObbligatori" name="Immobile1_DatiCatastaliObbligatori" type="checkbox" style="display:none" value="si"/>
+{{ immobili.immobile_secondario( "Immobile1", "presso l'immobile di proprietà", "Collocazione accesso ai tecnici" ) }}
+
+<br/>
+
+<table class="Modulo" style="border:1px solid grey">
+ <tbody>
+  <tr class="Rigaintestazione">
+   <td colspan="2">
+    <p style="text-align: center;">
+     <b>
+      Elenco degli allegati
+     </b>
+     <br/>
+     <span style="font-size:70%">
+      <i>
+       (barrare tutti gli allegati richiesti in fase di presentazione della pratica ed elencati sul portale)
+      </i>
+     </span>
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td>
+    <input id="DOC_FOTO" name="DOC_FOTO" type="checkbox" value="OBBLIGATORIO"/>
+   </td>
+   <td style="background-color: #eeeeee;">
+    <p>
+     documentazione fotografica a colori
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td>
+    <input id="ESP-PLA-ARE" name="ESP-PLA-ARE" type="checkbox" value="OBBLIGATORIO"/>
+   </td>
+   <td style="background-color: #eeeeee;">
+    <p>
+     planimetria dell'area interessata dall'esposto
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td>
+    <input id="RIC-ALI-ASL" name="RIC-ALI-ASL" type="checkbox" value="OBBLIGATORIO"/>
+   </td>
+   <td colspan="1" style="background-color: #eeeeee;">
+    <p>
+     ricevuta dei diritti sanitari dell'ASL
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td>
+    <input dynamic_check="(parseInt(#Immobile_NumeroAltriImmobili.value()) / 16) &gt; 0" enabled="(parseInt(#Immobile_NumeroAltriImmobili.value()) / 16) &gt; 0" id="STU-EDI-IMM" name="STU-EDI-IMM" type="checkbox" value="OBBLIGATORIO"/>
+   </td>
+   <td colspan="1" style="background-color: #eeeeee;">
+    <p>
+     ulteriori particelle o subalterni oggetto del procedimento
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td style="vertical-align: top;width:4%">
+    <input enabled="false" id="DAE-CDI" name="DAE-CDI" type="checkbox" value="OBBLIGATORIO"/>
+   </td>
+   <td style="background-color: #eeeeee;">
+    <p>
+     copia del documento d'identità
+     <br/>
+     <span style="font-size:70%">
+      <i>
+       (da non allegare se il modulo è sottoscritto con firma elettronica o se la firma autografa è apposta in presenza del dipendente addetto alla ricezione)
+      </i>
+     </span>
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td>
+    <input id="ALTRI-ALLEGATI" name="ALTRI-ALLEGATI" type="checkbox" value="OBBLIGATORIO"/>
+   </td>
+   <td style="background-color: #eeeeee;">
+    <p>
+     altri allegati
+     <span style="font-size:70%">
+      (specificare)
+     </span>
+     <input class="inputNormal" id="AltriAllegati" label="Altri allegati" mandatory_enabled="#ALTRI_ALLEGATI.checked()" name="AltriAllegati" style="width:79%;"/>
+    </p>
+   </td>
+  </tr>
+ </tbody>
+</table>
+
+<br/>
+
+  {{ utils.firma_hidden() }}
+  <br/>
+
+<p class="Modulo">
+ <input id="SalvaModulo" name="SalvaModulo" style="height:30px;width:120px;" title="Verifica la corretta compilazione dei campi e salva il modulo nel faldone virtuale dell'istanza." type="submit" value="Salva modulo"/>
+</p>
+
+<input destinatario_amministrazione="getParameter('Ente')" id="GLOBO_modulo_c{{ CodiceModulo }}" name="GLOBO_modulo_c{{ CodiceModulo }}" type="hidden" value=""/>
+
+<input firmare="'P7M_ELETTRONICA'" id="GLOBO_modulofiglio_cSTU-EDI-IMM" name="GLOBO_modulofiglio_cSTU-EDI-IMM" numero="#Immobile_NumeroUlterioriImmobili.value()" obbligatorio="#STU_EDI_IMM.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_allegato_cDOC_FOTO" name="GLOBO_allegato_cDOC_FOTO" obbligatorio="#DOC_FOTO.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_allegato_cDAE-CDI" name="GLOBO_allegato_cDAE-CDI" obbligatorio="#DAE_CDI.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_allegato_cRIC-ALI-ASL" name="GLOBO_allegato_cRIC-ALI-ASL" obbligatorio="#RIC_ALI_ASL.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_allegato_cESP-PLA-ARE" name="GLOBO_allegato_cESP-PLA-ARE" obbligatorio="#ESP_PLA_ARE.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_allegato_cALTRI-ALLEGATI" name="GLOBO_allegato_cALTRI-ALLEGATI" obbligatorio="#ALTRI_ALLEGATI.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input firmare="'P7M_ELETTRONICA'" id="GLOBO_modulofiglio_cIncarico_procura" name="GLOBO_modulofiglio_cIncarico_procura" type="hidden" value=""/>
+
+<input id="GLOBO_id_padre" name="GLOBO_id_padre" type="hidden"/>
+
+<input id="GLOBO_recupera_dati" name="GLOBO_recupera_dati" type="hidden"/>
+
+<input id="GLOBO_codice_modulo" name="GLOBO_codice_modulo" type="hidden" value="{{ CodiceModulo }}"/>
+
+  {% endblock content %}

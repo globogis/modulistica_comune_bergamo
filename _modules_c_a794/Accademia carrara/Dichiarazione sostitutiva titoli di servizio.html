@@ -1,0 +1,234 @@
+{% set CodiceModulo = "DIC_TIT_SERV" %}
+{% set Urn = "document:c_a794:dichiarazione.titoli.servizio;dichiarazione" %}
+{% extends "base.html" %}
+
+{% block meta %}
+
+<meta campi_firma="TitolareNonImportare_CodiceFiscale"
+campi_firma_label="il dichiarante"
+classi_modulo="Tempo libero sport e cultura"
+codice_modulo="{{ CodiceModulo }}"
+urn="{% block urn %}{{ Urn }}{% endblock urn %}"
+descrizione="Dichiarazione relativa ai titoli di studio"
+destinatario_amministrazione=""
+destinatario_ufficio="UOTEMPOLIBEROSPORTECULTURA"
+dinamico="SI"
+email_a=""
+ente_abilitato="TUTTI"
+filigrana="NO"
+firmare="AUTENTICATO"
+istruzioni_compilazione="ATTENZIONE: questo modulo deve essere compilato con i dati del sottoscrivente."
+istruzioni_invio=""
+metodo_invio="mail"
+name="GLOBO_modulo"
+procura="NO,,"
+tipo_modulo="secondario"
+urlhelp="/modulistica/moduli/{{ CodiceModulo }}"
+verifica_pagamento="NO"
+versione="1.0|06/06/2020"/>
+
+{% endblock meta %}
+
+{% block title %}
+
+Dichiarazione sostitutiva di certificazione attestante il possesso dei titoli di servizio
+ 
+{% endblock title %}
+
+{% block content %}
+
+<globo_fondo_pagina areaheight="150" scope="2">
+  {{ utils.firma() }}
+</globo_fondo_pagina>
+
+<input id="Oggetto" name="Oggetto" type="hidden" dynamic_value="'Dichiarazione sostitutiva possesso titoli di servizio ' + #TitolareNonImportare_Cognome.value().toUpperCase() + ' ' + #TitolareNonImportare_Nome.value().toUpperCase()"/>
+
+{{ intestazioni.intestazione_modulosecondario_senzabollo() }}
+
+<h1 class="Modulo">
+Dichiarazione sostitutiva di certificazione attestante il possesso dei titoli di servizio
+  
+</h1>
+
+<!-- DATI DEL TITOLARE -->
+{{anagrafica.cognome_nome("TitolareNonImportare","Il sottoscritto", "Richiedente", "visibility:hidden", "cursor:default")}}
+
+<br>
+
+<p class="Modulo">
+   con riferimento alla domanda di partecipazione alla selezione per il conferimento di incarichi di docente esterno
+</p>
+<br>
+
+
+{{ utils.Dichiara_445() }}
+
+<br>
+
+<br>
+<div id="Tassonomia_ConseguitoTitoli" name="Tassonomia_ConseguitoTitoli" label="Conseguimento titoli"></div>
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+         <input id="Tassonomia_ConseguitoTitoli1" name="Tassonomia_ConseguitoTitoli" type="radio" value="1"/>
+      </td>
+      <td>
+         di non aver prestato servizi con contratto di collaborazione/prestazione d'opera intellettuale
+      </td>
+    </tr>
+     <tr>
+      <td style="vertical-align: top; width: 4%;">
+         <input id="Tassonomia_ConseguitoTitoli2" name="Tassonomia_ConseguitoTitoli" type="radio" value="2"/>
+      </td>
+      <td>
+         di aver prestato i seguenti servizi con contratto di collaborazione/prestazione d'opera intellettuale
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+ {% for i in range(1, 9) %}
+   
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazioneridotta">
+      <td style="vertical-align: top; width: 4%;" rowspan="8">
+        <input id="Tassonomia_Servizio_{{ loop.index }}" name="Tassonomia_Servizio_{{ loop.index }}" type="checkbox" value="si" enabled="#Tassonomia_ConseguitoTitoli2.checked(){% if i > 2 %} and #Tassonomia_Servizio_{{ loop.index-1 }}.checked(){% endif %}" {% if loop.first %} dynamic_check="#Tassonomia_ConseguitoTitoli2.checked()"{% endif %} />   
+      </td>
+      <td colspan="4">
+        <p class="Labelcella">
+         {{i}}° servizio
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td style="width: 5%">
+        <p class="Labelcella"> A.A.</p>
+      </td>
+      <td style="width: 30%">
+        <p class="Labelcella"> Istituzione  </p>
+      </td>
+      <td style="width: 30%">
+        <p class="Labelcella"> Tipo Istituzione</p>        
+      </td>
+      <td style="width: 25%">
+        <p class="Labelcella"> Tipo Nomina  </p>
+      </td>
+    </tr>
+    <tr mandatory_enabled="#Tassonomia_Servizio_{{ loop.index }}.checked()">
+        <td>
+          <input class="inputNormal" id="Parametri_Serviz{{i}}_AnnoAcc" name="Parametri_Serviz{{i}}_AnnoAcc" style="width: 100%;" label="Anno Accademico {{i}}" 
+          {% if i > 1 %} enabled="#Tassonomia_Servizio_{{ loop.index }}.checked()" {% endif %} />
+        </td>
+        <td>
+          <input class="inputNormal" id="Parametri_Serviz{{i}}_Istituzione" name="Parametri_Serviz{{i}}_Istituzione" style="width: 100%;" label="Istituzione {{i}}" 
+          {% if i > 1 %} mandatory_enabled="#Parametri_Serviz{{i}}_AnnoAcc.value()!=''" {% endif %} />
+        </td>
+        <td>
+          <select class="inputNormal" id="Parametri_Serviz{{i}}_TipoIstituzione" name="Parametri_Serviz{{i}}_TipoIstituzione" style="width: 100%;" label="Tipo Istituzione {{i}}" 
+          {% if i > 1 %} mandatory_enabled="#Parametri_Serviz{{i}}_AnnoAcc.value()!=''" {% endif %} >
+            {% set tipo = [ "", "Statale", "Legalmente riconosciuta", "Altra Istituzione"] %}
+            {% for tip in tipo %}
+              <option value="{{tip}}"> {{tip}} </option>
+            {% endfor %}
+        </td>
+        <td>
+          <select class="inputNormal" id="Parametri_Serviz{{i}}_TipoNomina" name="Parametri_Serviz{{i}}_TipoNomina" style="width: 100%;" label="Tipo Nomina {{i}}" 
+          {% if i > 1 %} mandatory_enabled="#Parametri_Serviz{{i}}_AnnoAcc.value()!=''" {% endif %} >
+            {% set nomi = [ "", "Tempo Indeterminato", "Tempo determinato", "Coll. coord. e contin.", "Coll. occasionale", "scrittura privata"] %}
+            {% for nom in nomi %}
+              <option value="{{nom}}"> {{nom}} </option>
+            {% endfor %}
+        </td>
+      </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          Codice
+        </p>
+      </td>
+      <td>
+        <p class="Labelcella">
+          Settore artistico-scientifico-disciplinare
+        </p>
+      </td>
+       <td>
+        <p class="Labelcella">
+          Disciplina
+        </p>
+      </td>
+        <td>
+        <p class="Labelcella">
+          monte ore annuo
+        </p>
+      </td>
+    </tr>
+    <tr mandatory_enabled="#Tassonomia_Servizio_{{ loop.index }}.checked()">
+        <td>
+          <input class="inputNormal" id="Parametri_Serviz{{i}}_Codice" name="Parametri_Serviz{{i}}_Codice" style="width: 100%;" label="Codice {{i}}" 
+          {% if i > 1 %} enabled="#Tassonomia_Servizio_{{ loop.index }}.checked()" {% endif %} />
+        </td>
+        <td>
+          <input class="inputNormal" id="Parametri_Serviz{{i}}_Settore" name="Parametri_Serviz{{i}}_Settore" style="width: 100%;" label="Settore {{i}}" 
+          {% if i > 1 %} mandatory_enabled="#Parametri_Serviz{{i}}_AnnoAcc.value()!=''" {% endif %} />
+        </td>
+        <td>
+          <input class="inputNormal" id="Parametri_Serviz{{i}}_Disciplina" name="Parametri_Serviz{{i}}_Disciplina" style="width: 100%;" label="Disciplina {{i}}" 
+          {% if i > 1 %} mandatory_enabled="#Parametri_Serviz{{i}}_AnnoAcc.value()!=''" {% endif %} />
+        </td>
+         <td>
+          <input class="inputNormal" id="Parametri_Serviz{{i}}_MonteOre" name="Parametri_Serviz{{i}}_MonteOre" style="width: 100%;" label="MonteOre {{i}}" 
+          {% if i > 1 %} mandatory_enabled="#Parametri_Serviz{{i}}_AnnoAcc.value()!=''" {% endif %} />
+        </td>
+      </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td colspan="4">
+        <p class="Labelcella">
+          Durata incarico
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td colspan="2">
+        <p class="Labelcella">
+          Dal
+        </p>
+      </td>
+       <td colspan="2">
+        <p class="Labelcella">
+          al
+        </p>
+      </td>
+    </tr>
+    <tr mandatory_enabled="#Tassonomia_Servizio_{{ loop.index }}.checked()" >
+        <td colspan="2">
+          <input class="inputNormal" id="Parametri_Serviz{{i}}_DuraraDal" name="Parametri_Serviz{{i}}_DurataDal" style="width: 100%;" label="DurataDal {{i}}" 
+          {% if i > 1 %} enabled="#Tassonomia_Servizio_{{ loop.index }}.checked()" {% endif %} />
+        </td>
+        <td colspan="2">
+          <input class="inputNormal" id="Parametri_Serviz{{i}}_DurataAl" name="Parametri_Serviz{{i}}_DurataAl" style="width: 100%;" label="DurataAl {{i}}" 
+          {% if i > 1 %} mandatory_enabled="#Parametri_Serviz{{i}}_AnnoAcc.value()!=''" {% endif %} />
+        </td>
+    </tr>     
+    {% endfor %}
+  </tbody>
+</table>
+ 
+
+
+<br/>
+  {{ utils.firma_hidden() }}
+<br/>
+
+<p class="Modulo">
+  <input id="SalvaModulo" name="SalvaModulo" style="height:30px;width:120px;" title="Verifica la corretta compilazione dei campi e salva il modulo nel faldone virtuale dell'istanza." type="submit" value="Salva modulo"/>
+</p>
+
+<input id="GLOBO_modulo_c{{ CodiceModulo }}" name="GLOBO_modulo_c{{ CodiceModulo }}" type="hidden" value=""/>
+
+<input id="GLOBO_id_padre" name="GLOBO_id_padre" type="hidden"/>
+<input id="GLOBO_recupera_dati" name="GLOBO_recupera_dati" type="hidden"/>
+<input id="GLOBO_codice_modulo" name="GLOBO_codice_modulo" type="hidden" value="{{ CodiceModulo }}"/>
+
+{% endblock content %}

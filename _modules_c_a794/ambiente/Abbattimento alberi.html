@@ -1,0 +1,387 @@
+{% set CodiceModulo = "DOM-ABB-POTAT" %}
+{% set Urn = "document:c_a794:abbattimento.alberi;domanda" %}
+{% set modulo_destinatario = [] %}
+{% extends "base.html" %}
+{% block meta %}
+
+<meta campi_firma="Titolare_CodiceFiscale"
+campi_firma_label="il dichiarante"
+classi_modulo="Ambiente"
+codice_modulo="{{ CodiceModulo }}"
+urn="{% block urn %}{{ Urn }}{% endblock urn %}"
+sub_urn_list=""
+uo_globo_list=""
+descrizione="Domanda di autorizzazione per abbattimento di alberi"
+destinatario_amministrazione=""
+destinatario_ufficio="{% if modulo_destinatario == [] %}UOAMBIENTE{% else %}{{ modulo_destinatario[0] }}{% endif %}"
+dinamico="SI"
+email_a=""
+ente_abilitato="TUTTI"
+filigrana="NO"
+firmare="P7M_ELETTRONICA"
+istruzioni_compilazione=""
+istruzioni_invio="mail_pec"
+metodo_invio="mail"
+name="GLOBO_modulo"
+procura="NO,,"
+tipo_modulo="principale"
+ufficio=""
+urlhelp="/modulistica/moduli/{{ CodiceModulo }}"
+verifica_pagamento="NO"
+versione="1.0|27/06/2019"/>
+
+<meta codice_modulo_figlio="INCARICO_PROCURA"
+urn_modulo_figlio="document:s_italia:generale;incarico.procura"
+name="GLOBO_modulofiglio"
+numero="1"
+obbligatorio="DINAMICO"/>
+
+<meta codice_allegato="DAE-CDI"
+urn_allegato="document:s_italia:generale;documento.identita;documentazione"
+descrizione_estesa="Documento di identità"
+filename="Documento identita.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/DAE-CDI"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="ALTRI-ALLEGATI"
+urn_allegato="document:s_italia:altri.allegati"
+descrizione_estesa="Altri allegati"
+filename="Altri allegati.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/ALTRI-ALLEGATI"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="ABB-ALB-PER"
+urn_allegato="document:r_lombar:abbattimento.alberi;perizia.specialistica.condizioni.piante;documentazione"
+descrizione_estesa="Perizia tecnica"
+filename="Perizia tecnica.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/ABB-ALB-PER"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="ABB-DOC-ESP"
+urn_allegato="document:r_lombar:abbattimento.alberi;documentazione"
+descrizione_estesa="Relazione o documentazione esplicativa"
+filename="Documentazione.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/ABB-DOC-ESP"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+
+<style>
+  .noBorder, .noBorder tr, .noBorder td{border:0 !important;}
+
+  .bordoSotto{border:0; border-bottom: 1px solid grey;}
+
+  @media pdf{.bordoSotto2{border:0; border-bottom: 1px solid grey;}}
+</style>
+
+{% endblock meta %}
+
+{% block title %}
+  Domanda di autorizzazione per abbattimento di alberi
+{% endblock title %}
+
+{% block content %}
+
+<globo_fondo_pagina areaheight="150" scope="2">
+  {{ utils.firma() }}
+</globo_fondo_pagina>
+
+{{ intestazioni.intestazione_moduloprincipale_senzabollo() }}
+
+<input dynamic_value="#Titolare_Cognome.value().toUpperCase() + ' ' + #Titolare_Nome.value().toUpperCase() + ' - abbattimento alberi'" id="Oggetto" name="Oggetto" type="hidden"/>
+<input dynamic_value="#Ente.value()" id="Parametri_Comune" name="Parametri_Comune" type="hidden"/>
+
+<h1 class="Modulo">
+  Domanda di autorizzazione per abbattimento di alberi
+</h1>
+
+{{ anagrafica.societa("Titolare", "Il sottoscritto", ["Persona fisica", "Titolare", "Legale rappresentante"], "Richiedente", "visibility:visibility", "cursor:pointer", "mail_ordinaria", "false", "false") }}
+
+<h3 class="Modulo">
+  CHIEDE
+</h3>
+
+<table class="Modulo noBorder">
+  <tbody>
+    <tr>
+      <td style="width:37%">
+        <p>
+          l'autorizzazione all'abbattimento di numero
+        </p>
+      </td>
+      <td style="width:5%">
+        <div class="bordoSotto2">
+          <input class="inputNormal bordoSotto" id="Parametri_NumeroAlberi" name="Parametri_NumeroAlberi"  style="width: 100%;" label="Numero alberi da abbattere" format="number" mandatory="true">
+        </div>
+      </td>
+      <td>
+        <p>
+          alberi
+        </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+{{ immobili.immobile_toponomastica( 'Immobile', "collocati in", "Collocazione alberi", "visibility:visibility", "display:none", "cursor:default", "false" ) }}
+
+<table class="Modulo" style="border:1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="2">
+        <p class="Labeltabella">
+          per il seguente motivo
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td colspan="2">
+        <p class="Labelcella">
+          Motivazione abbattimento
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td rowspan="2" style="vertical-align: top; width: 4%; background-color:white">
+        <div id="Tassonomia_Motivo" name="Tassonomia_Motivo" label="Motivazione abbattimento"></div>
+        <input group="Tassonomia_Motivo" id="Tassonomia_Motivo1" name="Tassonomia_Motivo1" type="checkbox" value="SI"/>
+      </td>
+      <td style="width:96%;">
+        <p>
+          prescrizioni del diritto pubblico, pertanto
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazione">
+     <td>
+      <p class="Labeltabella">
+        allega relazione o documentazione esplicativa
+      </p>
+     </td>
+    </tr>
+    <tr>
+      <td rowspan="2" style="vertical-align:top; background-color:white">
+        <input group="Tassonomia_Motivo" id="Tassonomia_Motivo2" name="Tassonomia_Motivo2" type="checkbox" value="SI"/>
+      </td>
+      <td>
+        <p>
+          un'utilizzazione ammessa secondo la norma urbanistica non può altrimenti essere realizzata o possa esserlo solo con limitazioni essenziali, pertanto
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazione">
+     <td>
+      <p class="Labeltabella">
+        allega relazione o documentazione esplicativa
+      </p>
+     </td>
+    </tr>
+    <tr>
+      <td rowspan="2" style="vertical-align:top; background-color:white">
+        <input group="Tassonomia_Motivo" id="Tassonomia_Motivo3" name="Tassonomia_Motivo3" type="checkbox" value="SI"/>
+      </td>
+      <td>
+        <p>
+          dall'albero provengono pericoli per persone o cose che non possono essere evitati in altro modo e con una spesa ammissibile, pertanto
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazione">
+     <td>
+      <p class="Labeltabella">
+        allega perizia tecnica di professionista qualificato
+      </p>
+     </td>
+    </tr>
+    <tr>
+      <td rowspan="2" style="vertical-align:top; background-color:white">
+        <input group="Tassonomia_Motivo" id="Tassonomia_Motivo4" name="Tassonomia_Motivo4" type="checkbox" value="SI"/>
+      </td>
+      <td>
+        <p>
+          albero ammalato la cui conservazione non sia possibile con una spesa tollerabile, pertanto
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazione">
+     <td>
+      <p class="Labeltabella">
+        allega perizia tecnica di professionista qualificato
+      </p>
+     </td>
+    </tr>
+    <tr>
+      <td rowspan="2" style="vertical-align:top; background-color:white">
+        <input group="Tassonomia_Motivo" id="Tassonomia_Motivo5" name="Tassonomia_Motivo5" type="checkbox" value="SI"/>
+      </td>
+      <td>
+        <p>
+          prevalenti interessi pubblici in altro modo non realizzabili, pertanto
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazione">
+     <td>
+      <p class="Labeltabella">
+        allega relazione o documentazione esplicativa
+      </p>
+     </td>
+    </tr>
+    <tr>
+      <td rowspan="2" style="vertical-align:top; background-color:white">
+        <input group="Tassonomia_Motivo" id="Tassonomia_Motivo6" name="Tassonomia_Motivo6" type="checkbox" value="SI"/>
+      </td>
+      <td>
+        <p>
+          bene della collettività, pertanto
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazione">
+     <td>
+      <p class="Labeltabella">
+        allega relazione o documentazione esplicativa
+      </p>
+     </td>
+    </tr>
+  </tbody>
+</table>
+
+<br/>
+
+<table class="Modulo" style="border:1px solid grey">
+ <tbody>
+  <tr class="Rigaintestazioneridotta">
+   <td colspan="2">
+    <p class="Labelcella">
+     Eventuali annotazioni
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td colspan="2">
+    <textarea class="inputNormal" id="Parametri_Annotazioni" name="Parametri_Annotazioni" style="width:100%;height:5cm;">
+    </textarea>
+   </td>
+  </tr>
+ </tbody>
+</table>
+
+<br/>
+
+<table class="Modulo" style="border:1px solid grey">
+ <tbody>
+  <tr class="Rigaintestazione">
+   <td colspan="2">
+    <p style="text-align: center;">
+     <b>
+      Elenco degli allegati
+     </b>
+     <br/>
+     <span style="font-size:70%">
+      <i>
+       (barrare tutti gli allegati richiesti in fase di presentazione della pratica ed elencati sul portale)
+      </i>
+     </span>
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td style="vertical-align: top; width:4%">
+    <input enabled="#Tassonomia_Motivo1.checked() || #Tassonomia_Motivo2.checked() || #Tassonomia_Motivo5.checked() || #Tassonomia_Motivo6.checked()" dynamic_check="#Tassonomia_Motivo1.checked() || #Tassonomia_Motivo2.checked() || #Tassonomia_Motivo5.checked() || #Tassonomia_Motivo6.checked()" id="ABB-DOC-ESP" name="ABB-DOC-ESP" type="checkbox" value="OBBLIGATORIO"/>
+   </td>
+   <td style="background-color: #eeeeee;">
+    <p>
+     relazione o documentazione esplicativa
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td style="vertical-align: top; width:4%">
+    <input enabled="#Tassonomia_Motivo3.checked() || #Tassonomia_Motivo4.checked()" dynamic_check="#Tassonomia_Motivo3.checked() || #Tassonomia_Motivo4.checked()" id="ABB-ALB-PER" name="ABB-ALB-PER" type="checkbox" value="OBBLIGATORIO"/>
+   </td>
+   <td style="background-color: #eeeeee;">
+    <p>
+     perizia tecnica di professionista qualificato
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td style="vertical-align: top;width:4%">
+    <input id="DAE-CDI" name="DAE-CDI" type="checkbox" value="OBBLIGATORIO"/>
+   </td>
+   <td style="background-color: #eeeeee;">
+    <p>
+     copia del documento d'identità
+     <br/>
+     <span style="font-size:70%">
+      <i>
+       (da non allegare se il modulo è sottoscritto con firma elettronica o se la firma autografa è apposta in presenza del dipendente addetto alla ricezione)
+      </i>
+     </span>
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td>
+    <input id="ALTRI-ALLEGATI" name="ALTRI-ALLEGATI" type="checkbox" value="OBBLIGATORIO"/>
+   </td>
+   <td style="background-color: #eeeeee;">
+    <p>
+     altri allegati
+     <span style="font-size:70%">
+      (specificare)
+     </span>
+     <input class="inputNormal" id="AltriAllegati" label="Altri allegati" mandatory_enabled="#ALTRI_ALLEGATI.checked()" name="AltriAllegati" style="width:79%;"/>
+    </p>
+   </td>
+  </tr>
+ </tbody>
+</table>
+
+
+<br/>
+
+{{ utils.trattamento_dati_personali() }}
+
+<br/>
+{{ utils.firma_hidden() }}
+<br/>
+
+<p class="Modulo">
+  <input id="SalvaModulo" name="SalvaModulo" style="height:30px;width:120px;" title="Verifica la corretta compilazione dei campi e salva il modulo nel faldone virtuale dell'istanza." type="submit" value="Salva modulo"/>
+</p>
+
+<input destinatario_amministrazione="getParameter('Ente')" id="GLOBO_modulo_c{{ CodiceModulo }}" name="GLOBO_modulo_c{{ CodiceModulo }}" type="hidden" value=""/>
+
+
+<input id="GLOBO_allegato_cABB-ALB-PER" name="GLOBO_allegato_cABB-ALB-PER" obbligatorio="#ABB_ALB_PER.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_allegato_cABB-DOC-ESP" name="GLOBO_allegato_cABB-DOC-ESP" obbligatorio="#ABB_DOC_ESP.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_allegato_cALTRI-ALLEGATI" name="GLOBO_allegato_cALTRI-ALLEGATI" obbligatorio="#ALTRI_ALLEGATI.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_allegato_cDAE-CDI" name="GLOBO_allegato_cDAE-CDI" obbligatorio="#DAE_CDI.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input firmare="'P7M_ELETTRONICA'" id="GLOBO_modulofiglio_cINCARICO_PROCURA" name="GLOBO_modulofiglio_cINCARICO_PROCURA" type="hidden" value=""/>
+
+<input id="GLOBO_id_padre" name="GLOBO_id_padre" type="hidden"/>
+<input id="GLOBO_recupera_dati" name="GLOBO_recupera_dati" type="hidden"/>
+<input id="GLOBO_codice_modulo" name="GLOBO_codice_modulo" type="hidden" value="{{ CodiceModulo }}"/>
+
+{% endblock content %}

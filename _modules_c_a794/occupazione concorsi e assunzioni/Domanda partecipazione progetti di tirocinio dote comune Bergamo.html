@@ -1,0 +1,646 @@
+{% set CodiceModulo = "DOT-COM-PAR" %}
+{% set Urn = "document:c_a794:dote.comune;partecipare" %}
+{% extends "base.html" %}
+
+{% block meta %}
+
+<meta campi_firma="Titolare_CodiceFiscale"
+campi_firma_label="il dichiarante"
+classi_modulo="Generale"
+codice_modulo="{{ CodiceModulo }}"
+urn="{% block urn %}{{ Urn }}{% endblock urn %}"
+sub_urn=""
+sub_urn_list="ICT,ISTITUZIONALI,DIRGEN,PROGEU,UMANE,BILANCIO,POLLOC,VERDE,PATRIMONIO"
+uo_globo_list=""
+descrizione="Domanda di partecipazione ai progetti di tirocinio Dote Comune nell'ente Comune di Bergamo"
+destinatario_amministrazione=""
+destinatario_ufficio="UOLAVORO"
+dinamico="SI"
+email_a=""
+ente_abilitato="TUTTI"
+filigrana="NO"
+firmare="P7M_ELETTRONICA"
+istruzioni_compilazione=""
+istruzioni_invio="mail_pec"
+metodo_invio="mail"
+name="GLOBO_modulo"
+procura="NO,,"
+tipo_modulo="principale"
+urlhelp="/modulistica/moduli/{{ CodiceModulo }}"
+verifica_pagamento="NO"
+versione="1.1|12/09/2019"/>
+
+<meta codice_modulo_figlio="INCARICO_PROCURA"
+urn_modulo_figlio="document:s_italia:generale;incarico.procura"
+name="GLOBO_modulofiglio"
+numero="1"
+obbligatorio="DINAMICO"/>
+
+<meta codice_allegato="LAV-CUR-VIT"
+urn_allegato="document:s_italia:concorsi.selezioni;curriculum.professionale;documentazione"
+descrizione_estesa="Curriculum vitae in formato europeo firmato in originale"
+filename="Curriculum Vitae europeo.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/LAV-CUR-VIT"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="COP-ID-DOTE"
+urn_allegato="document:c_a794:dote.comune.documenti.comunitario"
+descrizione_estesa="Copia della carta d'identità o passsaporto in corso di validità"
+filename="Carta identita.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/COP-ID-DOTE"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="COP-ID-PERM-DOTE"
+urn_allegato="document:c_a794:dote.comune.documenti.extracomunitario"
+descrizione_estesa="Copia del passaporto e della carta o permesso di soggiorno"
+filename="Permesso soggiorno.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/COP-ID-PERM-DOTE"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="COP-COD-FISC"
+urn_allegato="document:c_a794:dote.comune;codice.fiscale"
+descrizione_estesa="Copia del codice fiscale"
+filename="Codice fiscale.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/COP-COD-FISC"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="DOC-ATT-TITOLI"
+urn_allegato="document:c_a794:dote.comune;attestazione.titoli"
+descrizione_estesa="Copia delle certificazioni relative ai titoli che i candidati ritengano opportuno presentare agli effetti della valutazione di merito"
+filename="Certificazioni valutazione merito.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/DOC-ATT-TITOLI"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="ALTRI-ALLEGATI"
+urn_allegato="document:s_italia:altri.allegati"
+descrizione_estesa="Altri allegati"
+filename="Altri allegati.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/ALTRI-ALLEGATI"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+{% endblock meta %}
+
+{% block title %}
+  Domanda di partecipazione ai progetti di tirocinio "Dote Comune" nell'ente Comune di Bergamo
+{% endblock title %}
+
+{% block content %}
+
+<globo_fondo_pagina areaheight="150" scope="2">
+  {{ utils.firma() }}
+</globo_fondo_pagina>
+
+<input id="Parametri_Comune" name="Parametri_Comune" type="hidden" dynamic_value="#Ente.value()"/>
+<input id="Oggetto" name="Oggetto" type="hidden" dynamic_value="#Titolare_Cognome.value().toUpperCase() + ' ' + #Titolare_Nome.value().toUpperCase() + ' - partecipazione progetti di tirocinio Dote Comune Bergamo'"/>
+
+<div type="intestazione_moduloprincipale_senzabollo">
+  {{ utils.get_ufficio_dest()}}
+  <table class="Modulo" style="border: 1px solid grey">
+    <tbody>
+      <tr>
+        <td style="width: 20%; height:160px; text-align: center;">
+          <img alt="Ente" src="./appoggio/img/RL.jpg"/>
+        </td>
+        <td style="width: 48%">
+          <p style="text-align:center; font-size: 10pt;">
+            Al Comune di<br>
+            <input id="Ente" name="Ente" readonly="readonly" style="border: 0px; font-size: 10pt; width:100%; text-align: center"/><br/><br/><br/>
+            Ufficio destinatario<br>
+            <input id="UfficioDestinatario" name="UfficioDestinatario" readonly="readonly" style="border: 0px; font-size: 10pt; width:100%; text-align: center" dynamic_value="#Parametri_UfficioDestinatario.value() ? get_ufficio_dest() : get_ufficio_dest()"/>
+          </p>
+        </td>
+        <td style="height:160px; text-align: center;">
+          <img alt="Ente" src="./appoggio/img/ANCI.jpg"/>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<h1 class="Modulo">
+  Domanda di partecipazione ai progetti di tirocinio "Dote Comune" nell'ente Comune di Bergamo
+</h1>
+
+
+<input id="Titolare_DatiPersonaObbligatori" name="Titolare_DatiPersonaObbligatori" type="hidden" dynamic_check="true"/>
+<input id="Titolare_Titolo" name="Titolare_Titolo" type="hidden" value="Richiedente"/>
+<input id="Titolare_Ruolo" name="Titolare_Ruolo" type="hidden" value="Richiedente"/>
+{{ anagrafica.persona_fisica("Titolare", "Il sottoscritto", "visibility:visibility", "cursor:pointer", "visibility:visibility", "visibility:visibility", "mail_ordinaria") }}
+
+
+<h3 class="Modulo">
+  CHIEDE
+</h3>
+
+<p>
+  di essere ammesso a svolgere "Dote Comune" presso il Comune di Bergamo per la durata di 12 mesi
+</p>
+
+
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          Codice del progetto prescelto e area di intervento
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <select name="CodiceProgetto" id="CodiceProgetto" label="codice del progetto prescelto" style="width: 100%;" mandatory="true">
+          <option value=" "></option>
+          <option value="Cod. BGM081912H05 - Anagrafe">Cod. BGM081912H05 - Anagrafe</option>
+          <option value="Cod. BGM081912H03 - Tributi">Cod. BGM081912H03 - Tributi</option>
+          <option value="Cod. BGM081912H01 - Gestione del bilancio">Cod. BGM081912H01 - Gestione del bilancio</option>
+          <option value="Cod. BGM081912H10 - Cultura">Cod. BGM081912H10 - Cultura</option>
+          <option value="Cod. BGM081912H11 - Sistema bibliotecario urbano">Cod. BGM081912H11 - Sistema bibliotecario urbano</option>
+          <option value="Cod. BGM081912H14 - Biblioteca Angelo Mai">Cod. BGM081912H14 - Biblioteca Angelo Mai</option>
+          <option value="Cod. BGM081912H16 - Coordinamento Direzione servizi polifunzionali, partecipazione e cultura">Cod. BGM081912H16 - Coordinamento Direzione servizi polifunzionali, partecipazione e cultura</option>
+          <option value="Cod. BGM081912H17 - Musei civici">Cod. BGM081912H17 - Musei civici</option>
+          <option value="Cod. BGM081912H19 - Partecipazione">Cod. BGM081912H19 - Partecipazione</option>
+          <option value="Cod. BGM081912H20 - Comunicazione e supporto al cittadino">Cod. BGM081912H20 - Comunicazione e supporto al cittadino</option>
+          <option value="Cod. BGM081912H21 - Ufficio progettazione europea">Cod. BGM081912H21 - Ufficio progettazione europea</option>
+          <option value="Cod. BGM081912H22 - Servizi alla persona - area Minori">Cod. BGM081912H22 - Servizi alla persona - area Minori</option>
+          <option value="Cod. BGM081912H23 - Risorse umane - gestione dote comune e servizio civile">Cod. BGM081912H23 - Ufficio progettazione europeaRisorse umane - gestione dote comune e servizio civile</option>
+          <option value="Cod. BGM081912H24 - Servizio Abitativo Pubblico (E.R.P)">Cod. BGM081912H24 - Servizio Abitativo Pubblico (E.R.P) </option>
+          <option value="Cod. BGM081912H26 - Servizio patrimonio">Cod. BGM081912H26 - Servizio patrimonio   </option>
+
+          <!--
+          <option value="Direzione ICT, innovazione, gestione documentale, tempi e orari">Direzione servizi polifunzionali partecipazione e cultura</option>
+          <option value="Direzione autonoma affari istituzionali">Direzione Affari Generali e Staff del Sindaco</option>
+          <option value="Direzione generale">Direzione generale</option>
+          <option value="Ufficio progettazione europea">Ufficio progettazione europea</option>
+          <option value="Direzione risorse umane">Direzione risorse umane e servizi alla persona</option>
+          <option value="Direzione bilancio tributi societa partecipate retribuzioni">Direzione bilancio tributi societa partecipate retribuzioni</option>
+          <option value="Servizio anagrafe e stato civile">Servizio anagrafe e stato civile</option>
+          <option value="Corpo di polizia locale e protezione civile">Corpo di polizia locale e protezione civile</option>
+          <option value="Direzione affari generali e staff del sindaco">Direzione affari generali e staff del sindaco</option>
+          <option value="Direzione verde pubblico servizio abitativo pubblico edifici e impianti">Direzione verde pubblico servizio abitativo pubblico edifici e impianti</option>
+          <option value="Direzione patrimonio ed espropri">Direzione patrimonio ed espropri</option>
+          -->
+        </select>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+{{ utils.Dichiara_445() }}
+
+
+<table class="Modulo" style="border: 0px;">
+  <tbody>
+    <tr style="border: 0px;">
+      <td style="vertical-align: top; width: 4%; border: 0px;">
+        <div id="Tassonomia_CittadinoUE" name="Tassonomia_CittadinoUE" label="Cittadino UE" mandatory="true"></div>
+        <input id="Tassonomia_CittadinoUE1" name="Tassonomia_CittadinoUE" type="radio" value="1" enabled="#Titolare_Cittadinanza.element.options[#Titolare_Cittadinanza.element.selectedIndex].parentNode.label == 'Unione Europea'" dynamic_check="#Titolare_Cittadinanza.element.options[#Titolare_Cittadinanza.element.selectedIndex].parentNode.label == 'Unione Europea'"/>
+      </td>
+      <td style="border: 0px;">
+        <p>
+          di essere cittadino comunitario
+        </p>
+      </td>
+    </tr>
+    <tr style="border: 0px;">
+      <td style="vertical-align: top; width: 4%; border: 0px;">
+        <input id="Tassonomia_CittadinoUE2" name="Tassonomia_CittadinoUE" type="radio" value="2" enabled="#Titolare_Cittadinanza.element.options[#Titolare_Cittadinanza.element.selectedIndex].parentNode.label == 'NON Unione Europea'" dynamic_check="#Titolare_Cittadinanza.element.options[#Titolare_Cittadinanza.element.selectedIndex].parentNode.label == 'NON Unione Europea'"/>
+      </td>
+      <td style="border: 0px;">
+        <p>
+          di essere cittadino extracomunitario
+        </p>
+      </td>
+    </tr>
+    <tr style="border: 0px;">
+      <td style="vertical-align: top; width: 4%; border: 0px;">
+        <div id="Tassonomia_DisponibilitaProgetti" name="Tassonomia_DisponibilitaProgetti" label="Disponibilità altri progetti" mandatory="true"></div>
+        <input id="Tassonomia_DisponibilitaProgetti1" name="Tassonomia_DisponibilitaProgetti" type="radio" value="1" />
+      </td>
+      <td style="border: 0px;">
+        di essere disponibile qualora in seguito alle selezioni effettuate non risulti immediatamente beneficiario della dote, ad essere assegnato ad altro progetto
+      </td>
+    </tr>
+    <tr style="border: 0px;">
+      <td style="vertical-align: top; width: 4%; border: 0px;">
+        <input id="Tassonomia_DisponibilitaProgetti2" name="Tassonomia_DisponibilitaProgetti" type="radio" value="2" />
+      </td>
+      <td style="border: 0px;">
+        di non essere disponibile qualora in seguito alle selezioni effettuate non risulti immediatamente beneficiario della dote, ad essere assegnato ad altro progetto
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<h3 class="Modulo">
+  DICHIARA INOLTRE
+</h3>
+
+
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="VeridicitàDichiarazioni" name="VeridicitàDichiarazioni" type="checkbox" value="SI" dynamic_check="true" checked="checked"/>
+      </td>
+      <td>
+        <p>
+          che le dichiarazioni contenute nella presente domanda sono corrispondenti al vero
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="PartecipazioneAltriProgetti" name="PartecipazioneAltriProgetti" type="checkbox" value="SI" dynamic_check="true" checked="checked"/>
+      </td>
+      <td>
+        <p>
+          di non aver prestato ulteriori domande di partecipazione ad altri progetti di DoteComune presso altri enti inclusi nel presente avviso
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td colspan="2">
+        <p class="Labelcella">
+          Che in merito alla propria attuale occupazione
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div id="Tassonomia_AttualeOccupazione" name="Tassonomia_AttualeOccupazione" label="Attuale occupazione" mandatory="true"></div>
+        <input id="Tassonomia_AttualeOccupazione1" name="Tassonomia_AttualeOccupazione" type="radio" value="1" />
+      </td>
+      <td>
+        <p>
+          è studente
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input id="Tassonomia_AttualeOccupazione2" name="Tassonomia_AttualeOccupazione" type="radio" value="2" />
+      </td>
+      <td>
+        <p>
+          disoccupato
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input id="Tassonomia_AttualeOccupazione3" name="Tassonomia_AttualeOccupazione" type="radio" value="3" />
+      </td>
+      <td>
+        <p>
+          percettore di ammortizzatori sociali
+        </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<p class="Modulo">
+  I candidati che a seguito della selezione risulteranno assegnatari di un tirocinio Dote Comune e che nella domanda di partecipazione hanno indocato di essere disoccupati, dovranno presentare la Dichiarazione di Immediata Disponibilità al lavoro (DID)
+</p>
+
+
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="2">
+        <p class="Labeltabella">
+          di essere in possesso del seguente titolo di studio
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <div id="Tassonomia_TitoloStudio" name="Tassonomia_TitoloStudio" label="Titolo di Studio" mandatory="true"></div>
+        <input id="Tassonomia_TitoloStudio1" name="Tassonomia_TitoloStudio" type="radio" value="1" />
+      </td>
+      <td>
+        <p>
+          licenza elementare
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="Tassonomia_TitoloStudio2" name="Tassonomia_TitoloStudio" type="radio" value="2" />
+      </td>
+      <td>
+        <p>
+          licenza media inferiore
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="Tassonomia_TitoloStudio3" name="Tassonomia_TitoloStudio" type="radio" value="3" />
+      </td>
+      <td>
+        <p>
+          diploma di scuola superiore di 2-3 anni
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="Tassonomia_TitoloStudio4" name="Tassonomia_TitoloStudio" type="radio" value="4" />
+      </td>
+      <td>
+        <p>
+          diploma di scuola superiore di 4-5 anni
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="Tassonomia_TitoloStudio5" name="Tassonomia_TitoloStudio" type="radio" value="5" />
+      </td>
+      <td>
+        <p>
+          laurea triennale (nuovo ordinamento)
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="Tassonomia_TitoloStudio6" name="Tassonomia_TitoloStudio" type="radio" value="6" />
+      </td>
+      <td>
+        <p>
+          diploma universitario
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="Tassonomia_TitoloStudio7" name="Tassonomia_TitoloStudio" type="radio" value="7" />
+      </td>
+      <td>
+        <p>
+          master post laurea triennale (o master di I livello)
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="Tassonomia_TitoloStudio8" name="Tassonomia_TitoloStudio" type="radio" value="8" />
+      </td>
+      <td>
+        <p>
+          laurea di durata superiore ai tre anni (diploma di laurea vecchio ordinamento o laurea specialistica nuovo ordinamento)
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="Tassonomia_TitoloStudio9" name="Tassonomia_TitoloStudio" type="radio" value="9" />
+      </td>
+      <td>
+        <p>
+          master post laurea specialistica o post laurea vecchio ordinamento (o master di II livello)
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="Tassonomia_TitoloStudio10" name="Tassonomia_TitoloStudio" type="radio" value="10" />
+      </td>
+      <td>
+        <p>
+          specializzazione post laurea (specializzazione)
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="Tassonomia_TitoloStudio11" name="Tassonomia_TitoloStudio" type="radio" value="11" />
+      </td>
+      <td>
+        <p>
+          master post laurea triennale (o master di I livello)
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="Tassonomia_TitoloStudio12" name="Tassonomia_TitoloStudio" type="radio" value="12" />
+      </td>
+      <td>
+        <p>
+         dottorato di ricerca
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="Tassonomia_TitoloStudio13" name="Tassonomia_TitoloStudio" type="radio" value="13" />
+      </td>
+      <td>
+        <p>
+          altro <span style="font-size: 70%;"><i>(specificare)</i></span>
+          <input class="inputNormal" id="Parametri_Altro" name="Parametri_Altro" style="width: 85%;" label="Altro" mandatory_enabled="#Tassonomia_TitoloStudio13.checked()"/>
+        </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<h3 class="Modulo">
+DICHIARA INFINE
+</h3>
+
+<h3 class="Modulo">
+come previsto dalla deliberazione della Giunta Regionale del 17/01/2008 n. X/7763, art. 3.2
+</h3>
+
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+  <tr>
+  <td style="vertical-align: top; width: 4%;">
+   <input id="Tassonomia_No_Tirocinio" name="Tassonomia_No_Tirocinio" type="checkbox" value="OBBLIGATORIO" dynamic_check="true" checked="checked"/>
+   </td>
+   <td>
+   <p> di non aver realizzato un precedente tirocinio extracurriculare con il soggetto ospitante</p>
+   </td>
+  </tr>
+  <tr>
+  <td style="vertical-align: top; width: 4%;">
+   <input id="Tassonomia_No_Lav_Dip" name="Tassonomia_No_Lav_Dip" type="checkbox" value="OBBLIGATORIO" dynamic_check="true" checked="checked"/>
+   </td>
+   <td>
+   <p> di non aver avuto nei due anni precedenti rapporti di lavoro dipendente o altre forme di collaborazione con il soggetto ospitante (escluse le esperienze di alternanza scuola-lavoro)</p>
+   </td>
+  </tr>
+  <tr>
+  <td style="vertical-align: top; width: 4%;">
+   <input id="Tassonomia_No_Lav_Acc" name="Tassonomia_No_Lav_Acc" type="checkbox" value="OBBLIGATORIO" dynamic_check="true" checked="checked"/>
+   </td>
+   <td>
+   <p> di non aver svolto prestazioni di lavoro accessorio presso il medesimo soggetto ospitante per più di trenta giorni, anche non consecutivi, nei sei mesi precedenti la presentazione dell'istanza di partecipazione</p>
+   </td>
+  </tr>
+  </tbody>
+  </table>
+
+
+<br/>
+
+
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          Eventuali annotazioni
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <textarea class="inputNormal" id="Parametri_Annotazioni" name="Parametri_Annotazioni" style="width: 100%; height: 5cm;" label="Eventuali annotazioni"></textarea>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<br/>
+
+
+<table class="Modulo" name="Allegati" style="border: 1px solid grey">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="2">
+        <p style="text-align: center;">
+          <b>Elenco degli allegati</b><br/>
+          <span style="font-size:70%"><i>(barrare tutti gli allegati richiesti in fase di presentazione della pratica ed elencati sul portale)</i></span>
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="width: 4%; vertical-align: top;">
+        <input id="LAV-CUR-VIT" name="LAV-CUR-VIT" type="checkbox" value="OBBLIGATORIO" dynamic_check="true" checked="checked"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          curriculum vitae in formato europeo firmato in originale
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="width: 4%; vertical-align: top;">
+        <input id="COP-ID-DOTE" name="COP-ID-DOTE" type="checkbox" value="OBBLIGATORIO" enabled="#Titolare_Cittadinanza.element.options[#Titolare_Cittadinanza.element.selectedIndex].parentNode.label == 'Unione Europea'" dynamic_check="#Titolare_Cittadinanza.element.options[#Titolare_Cittadinanza.element.selectedIndex].parentNode.label == 'Unione Europea'"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          copia della carta d'identità o passaporto in corso di validità <br/>
+          <span style="font-size: 70%;"><i>(per cittadini italiani e comunitari)</i></span>
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="width: 4%; vertical-align: top;">
+        <input id="COP-ID-PERM-DOTE" name="COP-ID-PERM-DOTE" type="checkbox" value="OBBLIGATORIO" enabled="#Titolare_Cittadinanza.element.options[#Titolare_Cittadinanza.element.selectedIndex].parentNode.label == 'NON Unione Europea'" dynamic_check="#Titolare_Cittadinanza.element.options[#Titolare_Cittadinanza.element.selectedIndex].parentNode.label == 'NON Unione Europea'"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          copia del passaporto e della carta o permesso di soggiorno <br/>
+          <span style="font-size: 70%;"><i>(per cittadini non comunitari)</i></span>
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="width: 4%; vertical-align: top;">
+        <input id="COP-COD-FISC" name="COP-COD-FISC" type="checkbox" value="OBBLIGATORIO" dynamic_check="true" checked="checked"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          copia del codice fiscale
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="width: 4%; vertical-align: top;">
+        <input id="DOC-ATT-TITOLI" name="DOC-ATT-TITOLI" type="checkbox" value="OBBLIGATORIO"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          copia delle certificazioni relative ai titoli che i candidati ritengano opportuno presentare agli effetti della valutazione di merito
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="ALTRI-ALLEGATI" name="ALTRI-ALLEGATI" type="checkbox" value="OBBLIGATORIO"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          altri allegati
+          <span style="font-size:70%">(specificare)</span>
+          <input class="" label="Altri allegati" id="AltriAllegati" mandatory_enabled="#ALTRI_ALLEGATI.checked()" name="AltriAllegati" style="width:79%;"/>
+        </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<br/>
+  {{ utils.trattamento_dati_personali() }}
+<br/>
+  {{ utils.firma_hidden() }}
+<br/>
+
+<p class="Modulo">
+  <input id="SalvaModulo" name="SalvaModulo" style="height:30px;width:120px;" title="Verifica la corretta compilazione dei campi e salva il modulo nel faldone virtuale dell'istanza." type="submit" value="Salva modulo"/>
+</p>
+
+<input id="GLOBO_sub_urn" dynamic_value="(#CodiceProgetto.value() ==  'Cod. BGM081912H05 - Anagrafe' || #CodiceProgetto.value() == 'Cod. BGM081912H10 - Cultura' ||#CodiceProgetto.value() == 'Cod. BGM081912H11 - Sistema bibliotecario urbano' ||#CodiceProgetto.value() == 'Cod. BGM081912H14 - Biblioteca Angelo Mai' ||#CodiceProgetto.value() == 'Cod. BGM081912H16 - Coordinamento Direzione servizi polifunzionali, partecipazione e cultura' ||#CodiceProgetto.value() == 'Cod. BGM081912H17 - Musei civici' || #CodiceProgetto.value() =='Cod. BGM081912H19 - Partecipazione'? 'ICT' : '') + (#CodiceProgetto.value() ==  'Cod. BGM081912H20 - Comunicazione e supporto al cittadino' ? 'ISTITUZIONALI' : '')  + (#CodiceProgetto.value() ==  'Direzione generale' ? 'DIRGEN' : '') + (#CodiceProgetto.value() ==  'Cod. BGM081912H21 - Ufficio progettazione europea' ? 'PROGEU' : '') + (#CodiceProgetto.value() == 'Cod. BGM081912H22 - Servizi alla persona - area Minori' ||#CodiceProgetto.value() == 'Cod. BGM081912H23 - Risorse umane - gestione dote comune e servizio civile' ? 'UMANE' : '') + (#CodiceProgetto.value() == 'Cod. BGM081912H03 - Tributi' ||#CodiceProgetto.value() == 'Cod. BGM081912H01 - Gestione del bilancio' ? 'BILANCIO' : '')  + (#CodiceProgetto.value() == 'Cod. BGM081912H26 - Servizio patrimonio' ? 'PATRIMONIO' : '') + (#CodiceProgetto.value() == 'Corpo di polizia locale e protezione civile' ? 'POLLOC' : '') + (#CodiceProgetto.value() == 'Cod. BGM081912H24 - Servizio Abitativo Pubblico (E.R.P)' ? 'VERDE' : '')" ng-sub-urn  name="GLOBO_sub_urn" value="" type="hidden"/>
+
+<input destinatario_amministrazione="getParameter('Ente')" sub_urn="(#CodiceProgetto.value() ==  'Cod. BGM081912H05 - Anagrafe'|| #CodiceProgetto.value() == 'Cod. BGM081912H10 - Cultura' ||#CodiceProgetto.value() == 'Cod. BGM081912H11 - Sistema bibliotecario urbano' ||#CodiceProgetto.value() == 'Cod. BGM081912H14 - Biblioteca Angelo Mai' ||#CodiceProgetto.value() == 'Cod. BGM081912H16 - Coordinamento Direzione servizi polifunzionali, partecipazione e cultura' ||#CodiceProgetto.value() == 'Cod. BGM081912H17 - Musei civici' || 'Cod. BGM081912H19 - Partecipazione' ? 'ICT' : '') + (#CodiceProgetto.value() ==  'Cod. BGM081912H20 - Comunicazione e supporto al cittadino' ? 'ISTITUZIONALI' : '')  + (#CodiceProgetto.value() ==  'Direzione generale' ? 'DIRGEN' : '') + (#CodiceProgetto.value() ==  'Cod. BGM081912H21 - Ufficio progettazione europea' ? 'PROGEU' : '') + (#CodiceProgetto.value() == 'Cod. BGM081912H22 - Servizi alla persona - area Minori' ||#CodiceProgetto.value() == 'Cod. BGM081912H23 - Risorse umane - gestione dote comune e servizio civile' ? 'UMANE' : '') + (#CodiceProgetto.value() == 'Cod. BGM081912H03 - Tributi' ||#CodiceProgetto.value() == 'Cod. BGM081912H01 - Gestione del bilancio' ? 'BILANCIO' : '')  + (#CodiceProgetto.value() == 'Corpo di polizia locale e protezione civile' ? 'POLLOC' : '') + (#CodiceProgetto.value() == 'Cod. BGM081912H24 - Servizio Abitativo Pubblico (E.R.P)' ? 'VERDE' : '') + (#CodiceProgetto.value() == 'Cod. BGM081912H26 - Servizio patrimonio' ? 'PATRIMONIO' : '')" id="GLOBO_modulo_c{{ CodiceModulo }}" name="GLOBO_modulo_c{{ CodiceModulo }}" type="hidden" style="width:100%" value=""/>
+
+<input firmare="'P7M_ELETTRONICA'" id="GLOBO_modulofiglio_cINCARICO_PROCURA" name="GLOBO_modulofiglio_cINCARICO_PROCURA" type="hidden" value=""/>
+
+
+<input id="GLOBO_allegato_cLAV-CUR-VIT" name="GLOBO_allegato_cLAV-CUR-VIT" type="hidden" value="" obbligatorio="#LAV_CUR_VIT.checked() ? 'OBBLIGATORIO' : ''"/>
+<input id="GLOBO_allegato_cCOP-ID-DOTE" name="GLOBO_allegato_cCOP-ID-DOTE" type="hidden" value="" obbligatorio="#COP_ID_DOTE.checked() ? 'OBBLIGATORIO' : ''"/>
+<input id="GLOBO_allegato_cCOP-ID-PERM-DOTE" name="GLOBO_allegato_cCOP-ID-PERM-DOTE" type="hidden" value="" obbligatorio="#COP_ID_PERM_DOTE.checked() ? 'OBBLIGATORIO' : ''"/>
+<input id="GLOBO_allegato_cCOP-COD-FISC" name="GLOBO_allegato_cCOP-COD-FISC" type="hidden" value="" obbligatorio="#COP_COD_FISC.checked() ? 'OBBLIGATORIO' : ''"/>
+<input id="GLOBO_allegato_cDOC-ATT-TITOLI" name="GLOBO_allegato_cDOC-ATT-TITOLI" type="hidden" value="" obbligatorio="#DOC_ATT_TITOLI.checked() ? 'OBBLIGATORIO' : ''"/>
+<input id="GLOBO_allegato_cALTRI-ALLEGATI" name="GLOBO_allegato_cALTRI-ALLEGATI" obbligatorio="#ALTRI_ALLEGATI.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+
+<input id="GLOBO_id_padre" name="GLOBO_id_padre" type="hidden"/>
+<input id="GLOBO_recupera_dati" name="GLOBO_recupera_dati" type="hidden"/>
+<input id="GLOBO_codice_modulo" name="GLOBO_codice_modulo" type="hidden" value="{{ CodiceModulo }}"/>
+
+{% endblock content %}

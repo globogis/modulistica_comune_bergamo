@@ -1,0 +1,359 @@
+{% set CodiceModulo =  "001-159s" %}{% extends "base.html" %}
+{% set Urn = "document:c_a794:occupazione.suolo.pubblico;comunicazione.deroga.manifestazione" %}
+{% block meta %}<meta campi_firma="Titolare_CodiceFiscale"
+campi_firma_label="il dichiarante"
+classi_modulo="Ecologia"
+contesto_procedurale="Ecologia"
+codice_modulo="{{ CodiceModulo }}"
+urn="{% block urn %}{{ Urn }}{% endblock urn %}"
+sub_urn_list=""
+uo_globo_list=""
+descrizione=" Comunicazione di deroga per manifestazioni (allegata a autorizzazione suolo pubblico) "
+destinatario_amministrazione=""
+destinatario_ufficio=""
+dinamico="SI"
+email_a=""
+ente_abilitato="TUTTI"
+filigrana="NO"
+firmare="P7M_ELETTRONICA"
+in_bollo="SI"
+istruzioni_compilazione="ATTENZIONE: questo modulo deve essere compilato con i dati del richiedente, cambiare i dati di intestazione se necessario."
+istruzioni_invio="mail_pec"
+metodo_invio="mail"
+name="GLOBO_modulo"
+procura="NO,,"
+tipo_modulo="secondario"
+ufficio=""
+urlhelp="DomandeRisposte/FAQ"
+verifica_pagamento="NO"
+versione="1.0|01/01/2015"/>
+
+<meta codice_allegato="ALTRI-ALLEGATI"
+urn_allegato="document:s_italia:altri.allegati"
+descrizione_estesa="Altri allegati"
+filename="Altri allegati.pdf"
+firmato="SI"
+istruzioni="/modulistica/moduli/ALTRI-ALLEGATI"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="DAE-CDI"
+descrizione_estesa="Documento di identità"
+urn_allegato="document:s_italia:generale;documento.identita;documentazione"
+filename="Documento identita.pdf"
+firmato="SI"
+istruzioni="/modulistica/moduli/DAE-CDI"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="ECO-EVENTI"
+urn_allegato="document:c_a794:occupare.suolo.pubblico;elenco.eventi.previsti"
+descrizione_estesa="Elenco degli eventi previsti"
+filename="Elenco eventi.pdf"
+firmato="SI"
+istruzioni="/modulistica/moduli/ECO-EVENTI"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+
+
+{% endblock meta %}
+
+{% block title %}Comunicazione di deroga acustica per manifestazioni{% endblock title %}
+
+{% block content %}
+
+ <globo_fondo_pagina areaheight="150" scope="2">
+ {{ utils.firma() }}
+</globo_fondo_pagina>
+
+
+ {{ intestazioni.intestazione_moduloprincipale_senzabollo() }}
+ <input checked="checked" dynamic_check="true" id="SempreSI" name="SempreSI" style="display:none;" type="checkbox" value="si"/>
+
+<input dynamic_value="#Ente.value()" id="Parametri_Comune" name="Parametri_Comune" type="hidden"/>
+
+<div id="Tassonomia_amb_acu_temp1_se"> </div>
+<input id="Tassonomia_amb_acu_temp1_se3" name="Tassonomia_amb_acu_temp1_se" type="radio" dynamic_check="true" checked="checked" value="3" style="display:none"/>
+
+<div id="amb_acu_temp"> </div>
+<input id="amb_acu_temp1" name="amb_acu_temp" type="radio" dynamic_check="true" checked="checked" value="1" style="display:none"/>
+
+<input dynamic_value="#Titolare_Cognome.value().toUpperCase() + ' - Comunicazione di deroga per manifestazioni'" id="Oggetto" name="Oggetto" type="hidden"/>
+
+<h1 class="Modulo">
+ Comunicazione di deroga acustica per manifestazioni
+</h1>
+
+<h2 class="Modulo">
+  Ai sensi dell'articolo 3.1 del regolamento comunale n. 61
+</h2>
+
+<input id="Titolare_DatiPersonaObbligatori" name="Titolare_DatiPersonaObbligatori" dynamic_check="true" type="hidden"/>
+{{ anagrafica.societa( 'Titolare', "Il sottoscritto", ["Persona fisica", "Titolare", "Legale rappresentante"], "Richiedente", "visibility:visibility", "cursor:pointer",  "mail_ordinaria","false") }}
+
+<p class='Modulo'>
+Valendosi della facoltà prevista dagli articoli 46 e 47 del Decreto del Presidente della Repubblica 28/12/2000, n. 445, consapevole delle sanzioni penali previste dall’articolo 76 del Decreto del Presidente della Repubblica 28/12/2000, n. 445 e dall’articolo 483 del Codice Penale nel caso di dichiarazioni non veritiere e di falsità in atti,
+</p>
+
+<h3 class="Modulo">COMUNICA CHE</h3>
+<p class='Modulo'> nei seguenti giorni non consecutivi o consecutivi per non più di 3 giorni 
+</p>
+
+<table class="Modulo" style="border:1px solid grey; margin-top:-1px">
+   <tbody>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          il giorno
+        </p>
+      </td>
+     <td>
+        <p class="Labelcella">
+         il giorno
+        </p>
+      </td>  
+ <td>
+        <p class="Labelcella">
+         il giorno
+        </p>
+      </td>
+	<td>
+        <p class="Labelcella">
+         il giorno
+        </p>
+      </td>  
+	  <td>
+        <p class="Labelcella">
+         il giorno
+        </p>
+      </td>  	  
+    </tr>
+	 <tr>
+      <td style="vertical-align: top;">
+        <input class="inputNormal" id="Parametri_DicillGiorno" name="Parametri_DicilGiorno" label="il giorno" mandatory="true" format="date" style="width:100%"/>
+      </td>
+      <td style="vertical-align: top;">
+        <input class="inputNormal" id="Parametri_DicilGiorno2" name="Parametri_DicilGiorno2" label="il giorno" format="date" style="width:100%"/>
+      </td>
+	   <td  style="vertical-align: top;">
+        <input class="inputNormal" id="Parametri_DicilGiorno3" name="Parametri_DicilGiorno3" label="il giorno" format="date" style="width:100%"/>
+      </td>
+      <td  style="vertical-align: top;">
+        <input class="inputNormal" id="Parametri_DicilGiorno4" name="Parametri_DicilGiorno4" label="il giorno" format="date" style="width:100%"/>
+      </td>
+	   <td style="vertical-align: top;">
+        <input class="inputNormal" id="Parametri_DicilGiorno5" name="Parametri_DicilGiorno5" label="il giorno" format="date" style="width:100%"/>
+      </td>
+    </tr>
+	  <tr class="Rigaintestazioneridotta">
+     <td>
+
+        <p class="Labelcella">
+          il giorno
+
+        </p>
+      </td>
+     <td>
+        <p class="Labelcella">
+         il giorno
+        </p>
+      </td>  
+<td>
+        <p class="Labelcella">
+         il giorno
+        </p>
+      </td> 
+	<td>
+        <p class="Labelcella">
+         il giorno
+        </p>
+      </td> 
+	 <td>
+        <p class="Labelcella">
+         il giorno
+
+        </p>
+      </td>  	  
+
+    </tr>
+	 <tr>
+      <td style="vertical-align: top;">
+        <input class="inputNormal" id="Parametri_DicillGiorno6" name="Parametri_DicilGiorno6" label="il giorno" format="date" style="width:100%"/>
+      </td>
+      <td style="vertical-align: top;">
+        <input class="inputNormal" id="Parametri_DicilGiorno7" name="Parametri_DicilGiorno7" label="il giorno" format="date" style="width:100%"/>
+      </td>
+	   <td  style="vertical-align: top;">
+        <input class="inputNormal" id="Parametri_DicilGiorno8" name="Parametri_DicilGiorno8" label="il giorno" format="date" style="width:100%"/>
+      </td>
+      <td  style="vertical-align: top;">
+        <input class="inputNormal" id="Parametri_DicilGiorno9" name="Parametri_DicilGiorno9" label="il giorno" format="date" style="width:100%"/>
+      </td>
+	   <td style="vertical-align: top;">
+        <input class="inputNormal" id="Parametri_DicilGiorno10" name="Parametri_DicilGiorno10" label="il giorno" format="date" style="width:100%"/>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<input checked="checked" dynamic_check="true" style="display:none" id="Immobile_DatiCatastaliObbligatori" name="Immobile_DatiCatastaliObbligatori" type="checkbox" value="si"/>
+{{ immobili.immobile_toponomastica( "Immobile", "Area", "Immobile principale oggetto dell'istanza", "display:visibility", "visibility:hidden", "cursor:default", "true" ) }}
+
+<p class="Modulo">
+  Si svolgerà una manifestazione/evento organizzato ai sensi dell'art. 3.1 del Regolamento Comunale n. 61
+</p>
+
+<table class="Modulo" style="border: 1px solid grey; margin-top:-1px">
+ <tbody>
+  <tr class="Rigaintestazioneridotta">
+   <td>
+    <p class="Labelcella">
+      Descrizione attività (specificando tipologia della manifestazione ed eventuale utilizzo di strumenti/impianti)
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td>
+    <textarea class="inputnormal" id="Parametri_DescAttivita" label="Descrizione attività" mandatory="true" name="Parametri_DescAttivita" style="width:100%; height:3cm;">
+    </textarea>
+   </td>
+  </tr>
+ </tbody>
+</table>  
+
+<h3 class="Modulo">
+  DICHIARA
+</h3>
+      
+<table class="Modulo" style="border: 0px;">
+   <tbody>
+    <tr style="border: 0px;">
+      <td style="width: 4%; vertical-align: top; border: 0px;">
+        <div id="Tassonomia_Dichiara" name="Tassonomia_Dichiara" label="Dichiara" mandatory="true" > </div>      
+        <input group="Tassonomia_Dichiara" id="Tassonomia_Dichiara1" name="Tassonomia_Dichiara1" type="checkbox" checked="checked" dynamic_check="true" value="SI"/>
+      </td>
+      <td style="border: 0px;">
+        <p>che la manifestazione/evento previsto avrà una durata di non più di 3 giorni consecutivi e complessivamente non più di 10 giorni nell'arco dell'anno solare</p>
+      </td>
+    </tr>
+    <tr style="border: 0px;">
+      <td style="width: 4%; vertical-align: top; border: 0px;">
+        <input group="Tassonomia_Dichiara" id="Tassonomia_Dichiara2" name="Tassonomia_Dichiara2" type="checkbox" checked="checked" dynamic_check="true" value="SI"/>
+      </td>
+      <td style="border: 0px;">
+        <p>che la manifestazione/evento rispetta il valore limite di deroga (LAeq) di 60 dB(A) previsto per i giorni di lunedi, martedi, mercoledi, giovedi, domenica dalle ore 8.00 fino alle ore 24.00</p>
+      </td>
+    </tr> 
+    <tr style="border: 0px;">
+      <td style="width: 4%; vertical-align: top; border: 0px;">   
+        <input group="Tassonomia_Dichiara" id="Tassonomia_Dichiara3" name="Tassonomia_Dichiara3" type="checkbox" checked="checked" dynamic_check="true" value="SI"/>
+      </td>
+      <td style="border: 0px;">
+        <p>che la manifestazione/evento rispetta il valore limite di deroga (LAeq) di 65 dB(A) previsto per i giorni di venerdi, sabato dalle ore 8.00 fino alle ore 24.00</p>
+      </td>
+    </tr>         
+   </tbody>
+</table>    
+
+<br/>
+<table class="Modulo" style="border:1px solid grey">
+ <tbody>
+  <tr class="Rigaintestazione">
+   <td colspan="2">
+    <p style="text-align: center;">
+     <b>
+      Elenco degli allegati
+     </b>
+     <br/>
+     <span style="font-size:70%">
+      <i>
+       (barrare tutti gli allegati richiesti in fase di presentazione della pratica ed elencati sul portale)
+      </i>
+     </span>
+    </p>
+   </td>
+  </tr>
+  <tr>
+   <td style="vertical-align: top;">
+    <input enabled="false" id="DAE-CDI" name="DAE-CDI" type="checkbox" value="OBBLIGATORIO"/>
+   </td>
+   <td style="background-color: #eeeeee;">
+    <p>
+     copia del documento d'identità
+     <br/>
+     <span style="font-size:70%">
+      <i>
+       (da non allegare se il modulo è sottoscritto con firma elettronica o se la firma autografa è apposta in presenza del dipendente addetto alla ricezione) 
+      </i>
+     </span>
+    </p>
+   </td>
+  </tr>
+
+  <tr>
+   <td>
+
+    <input checked="checked" dynamic_check="true" id="ECO-EVENTI" name="ECO-EVENTI" type="checkbox" value="OBBLIGATORIO"/>
+   </td>
+   <td style="background-color: #eeeeee;">
+    <p>
+     Elenco eventi
+    </p>
+   </td>
+  </tr>
+
+
+
+  <tr>
+   <td>
+    <input id="ALTRI-ALLEGATI" name="ALTRI-ALLEGATI" type="checkbox" value="OBBLIGATORIO"/>
+   </td>
+   <td style="background-color: #eeeeee;">
+    <p>
+     altri allegati
+     <span style="font-size:70%">
+      (specificare)
+     </span>
+     <input class="" id="AltriAllegati" label="Altri allegati" mandatory_enabled="#ALTRI_ALLEGATI.checked()" name="AltriAllegati" style="width:79%;"/>
+    </p>
+   </td>
+  </tr>
+ </tbody>
+</table>
+
+<br/>
+
+
+ {{ utils.firma_hidden() }}
+ <br/>
+
+<p class="Modulo">
+ <input id="SalvaModulo" name="SalvaModulo" style="height:30px;width:120px;" title="Verifica la corretta compilazione dei campi e salva il modulo nel faldone virtuale dell'istanza." type="submit" value="Salva modulo"/>
+</p>
+
+<input destinatario_amministrazione="getParameter('Ente')" id="GLOBO_modulo_c{{ CodiceModulo }}" name="GLOBO_modulo_c{{ CodiceModulo }}" type="hidden" value=""/>
+
+<input id="GLOBO_allegato_cALTRI-ALLEGATI" name="GLOBO_allegato_cALTRI-ALLEGATI" obbligatorio="#ALTRI_ALLEGATI.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_allegato_cDAE-CDI" name="GLOBO_allegato_cDAE-CDI" obbligatorio="#DAE_CDI.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_allegato_cECO-EVENTI" name="GLOBO_allegato_cECO-EVENTI" obbligatorio="#ECO_EVENTI.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_id_padre" name="GLOBO_id_padre" type="hidden"/>
+
+<input id="GLOBO_recupera_dati" name="GLOBO_recupera_dati" type="hidden"/>
+
+<input id="GLOBO_codice_modulo" name="GLOBO_codice_modulo" type="hidden" value="{{ CodiceModulo }}"/>
+
+<!-- passaggio dati tra moduli -->
+<input id="Metadati_TipoProcedimento" name="Metadati_TipoProcedimento" value="permesso_costruire" type="hidden"/>
+<input id="Metadati_TipoSanatoria" name="Metadati_TipoSanatoria" dynamic_value="#Tassonomia_TitoloPDC3.checked() ? 'in_sanatoria' : 'non_in_sanatoria'" type="hidden"/>
+
+{% endblock content %}

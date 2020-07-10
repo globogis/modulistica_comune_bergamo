@@ -1,0 +1,673 @@
+{% set CodiceModulo = "CAND_BENE_CIVIC" %}
+{% set Urn = "document:c_a794:benemerenza.civica" %}
+{% extends "base.html" %}
+
+{% block meta %}
+
+<meta campi_firma="Titolare_CodiceFiscale"
+campi_firma_label="il dichiarante"
+classi_modulo="Sport e tempo libero"
+codice_modulo="{{ CodiceModulo }}"
+urn="{% block urn %}{{ Urn }}{% endblock urn %}"
+sub_urn_list=""
+uo_globo_list=""
+descrizione="Proposta di candidatura per una riconoscenza civica"
+destinatario_amministrazione=""
+destinatario_ufficio="UOCULTURAMUSEIBIBLIOTECHE"
+dinamico="SI"
+email_a=""
+ente_abilitato="TUTTI"
+filigrana="NO"
+firmare="P7M_ELETTRONICA"
+istruzioni_compilazione=""
+istruzioni_invio="mail_pec"
+metodo_invio="mail"
+name="GLOBO_modulo"
+procura="NO,,"
+tipo_modulo="principale"
+urlhelp="/modulistica/moduli/{{ CodiceModulo }}"
+verifica_pagamento="NO"
+versione="1.0|13/03/2019"/>
+
+<meta codice_modulo_figlio="INCARICO_PROCURA"
+urn_modulo_figlio="document:s_italia:generale;incarico.procura"
+name="GLOBO_modulofiglio"
+numero="1"
+obbligatorio="DINAMICO"/>
+
+<meta codice_allegato="DAE-CDI"
+urn_allegato="document:s_italia:generale;documento.identita;documentazione"
+descrizione_estesa="Documento di identità"
+filename="Documento identita.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/DAE-CDI"
+name="GLOBO_allegato"
+numero="1"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="DOC-SOS-CAN"
+urn_allegato="document:c_a794:benemerenza.civica;documentazione.sostegno"
+descrizione_estesa="Documentazione a sostegno della candidatura"
+filename="Documentazione candidatura.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/DOC-SOS-CAN"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+<meta codice_allegato="ALTRI-ALLEGATI"
+urn_allegato="document:s_italia:altri.allegati"
+descrizione_estesa="Altri allegati"
+filename="Altri allegati.pdf"
+firmato="NO"
+istruzioni="/modulistica/moduli/ALTRI-ALLEGATI"
+name="GLOBO_allegato"
+numero="0"
+obbligatorio="DINAMICO"
+tipo_mime="application/pdf"/>
+
+{% endblock meta %}
+
+{% block title %}
+  Proposta di candidatura per una riconoscenza civica
+{% endblock title %}
+
+{% block content %}
+
+<globo_fondo_pagina areaheight="150" scope="3">
+  {{ utils.firma() }}
+</globo_fondo_pagina>
+
+<input id="Parametri_Comune" name="Parametri_Comune" type="hidden" dynamic_value="#Ente.value()"/>
+<input id="Oggetto" name="Oggetto" type="hidden" dynamic_value="#Titolare_Cognome.value().toUpperCase() + ' ' + #Titolare_Nome.value().toUpperCase() + ' - proposta candidatura riconoscenza civica'"/>
+
+{{ intestazioni.intestazione_moduloprincipale_senzabollo() }}
+
+<h1 class="Modulo">
+  Proposta di candidatura per una riconoscenza civica
+</h1>
+
+<div type="Anagrafica_Società">
+<input id="Titolare_Titolo" name="Titolare_Titolo" type="hidden" value="Richiedente"/>
+<table class="Modulo" style="border:1px solid grey; margin-bottom:-6px">
+    <tbody>
+    <tr class="Rigaintestazione">
+        <td style="border-right:0px">
+        <p class="Labeltabella" style="vertical-align:middle"> Il sottoscritto </p>
+        </td>
+        <td style="width:3%; {{ pointer_carica_dati }}; border-left:0px">
+        <span style="pd4ml-visibility: hidden; pd4ml-display: none;">
+            {{ utils.recupero_dati( 'Titolare', 'visibility:visibility' ) }}
+        </span>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<table class="Modulo" style="border:1px solid grey" mandatory="true">
+    <tbody>
+    <tr class="Rigaintestazioneridotta">
+        <td colspan="2">
+        <p class="Labelcella">Cognome</p>
+        </td>
+        <td>
+        <p class="Labelcella">Nome</p>
+        </td>
+        <td>
+        <p class="Labelcella">Codice Fiscale</p>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+        <input class="" id="Titolare_Cognome" name="Titolare_Cognome" style="width:100%" label="Cognome del Richiedente" />
+        </td>
+        <td>
+        <input class="" id="Titolare_Nome" name="Titolare_Nome" style="width:100%" label="Nome del Richiedente" />
+        </td>
+        <td>
+        <input class="" id="Titolare_CodiceFiscale" name="Titolare_CodiceFiscale" style="width:100%;" format="cf" label="Il codice fiscale del Richiedente"  onkeyup="this.value = this.value.toUpperCase();"/>
+        </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta" style="border-top:0px">
+        <td style="width:24%;">
+        <p class="Labelcella">Data di nascita</p>
+        </td>
+        <td style="width:9%;">
+        <p class="Labelcella">Sesso (M/F)</p>
+        </td>
+        <td style="width: 34%;">
+        <p class="Labelcella">Luogo di nascita</p>
+        </td>
+        <td style="width: 33%;">
+        <p class="Labelcella">Cittadinanza</p>
+        </td>
+    </tr>
+    <tr>
+        <td>
+        <input class="" id="Titolare_DataNascita" name="Titolare_DataNascita" style="width:100%;" format="date" label="Data di nascita del Richiedente" readonly/>
+        </td>
+        <td>
+        <select class="inputNormal" id="Titolare_Sesso" name="Titolare_Sesso" style="width:100%; pointer-events:none;" label="Sesso del Richiedente">
+            <option value=""></option>
+            <option value="M">M </option>
+            <option value="F"> F </option>
+        </select>
+        </td>
+        <td>
+        <input class="" id="Titolare_LuogoNascita" name="Titolare_LuogoNascita" style="width:100%;" label="Luogo di nascita del Richiedente" readonly/>
+        </td>
+        <td>
+        {{ utils.nazionalita( 'Titolare_Cittadinanza', 'Cittadinanza' )}}
+        </td>
+    </tr>
+    </tbody>
+</table>
+    <table class="Modulo" style="border:1px solid grey; margin-top:-1px;" mandatory="true">
+    <tbody>
+        <tr class="Rigaintestazioneridotta">
+        <td colspan="5">
+            <p class="Labelcella">Residenza</p>
+        </td>
+        </tr>
+        <tr class="Rigaintestazioneridotta">
+        <td style="width:9%;">
+            <p class="Labelcella"> Provincia </p>
+        </td>
+        <td style="width:33%;">
+            <p class="Labelcella"> Comune </p>
+        </td>
+        <td style="width:33%;">
+            <p class="Labelcella"> Indirizzo </p>
+        </td>
+        <td style="width:9%;">
+            <p class="Labelcella"> Civico </p>
+        </td>
+        <td style="width:16%;">
+            <p class="Labelcella"> CAP </p>
+        </td>
+        </tr>
+        <tr>
+        <td>
+            {{ utils.provincie( 'Titolare_ProvinciaResidenza', label='Provincia di residenza' )}}
+        </td>
+        <td>
+            <select class="inputNormal" id="Titolare_ComuneResidenza" name="Titolare_ComuneResidenza" style="width:100%" label="Comune di residenza del Richiedente" dynamic_value="getComuniFromProvincia( #Titolare_ProvinciaResidenza.value(), 'Titolare_ComuneResidenza')"> </select>
+        </td>
+        <td>
+            <input class="" id="Titolare_ViaResidenza" name="Titolare_ViaResidenza" style="width:100%;" label="Via di residenza del Richiedente" maxlength="60" format="regular_expression" expression="^(.+)\s(.+)$"/>
+        </td>
+        <td>
+            <input class="" id="Titolare_CivicoResidenza" name="Titolare_CivicoResidenza" style="width:100%;" label="Civico di residenza del Richiedente" maxlength="10"/>
+        </td>
+        <td>
+            <input class="" id="Titolare_CAPResidenza" name="Titolare_CAPResidenza" style="width:100%;" format="cap" label="CAP di residenza del Richiedente" mandatory="#Titolare_ProvinciaResidenza.value() != 'EE'"/>
+        </td>
+        </tr>
+    </tbody>
+    </table>
+    <table class="Modulo" style="border:1px solid grey; margin-top:-1px;">
+    <tbody>
+        <tr class="Rigaintestazioneridotta">
+        <td style="width:16%;">
+            <p class="Labelcella"> Telefono casa </p>
+        </td>
+        <td style="width:17%;">
+            <p class="Labelcella"> Telefono cellulare </p>
+        </td>
+        <td>
+            <p class="Labelcella"> Posta elettronica ordinaria </p>
+        </td>
+        <td style="width:33%;">
+            <p class="Labelcella"> Posta elettronica certificata (domicilio digitale) </p>
+        </td>
+        </tr>
+        <tr>
+        <!-- Telefono casa -->
+        <td>
+            <input class="inputNormal" id="Titolare_Telefono" label="Telefono" name="Titolare_Telefono" style="width:100%" mandatory="#Titolare_TelefonoCellulare.value() == ''" format="regular_expression" expression="(^[0|3]{1}[0-9]{5,10}$)"/>
+        </td>
+        <!-- Telefono cellulare -->
+        <td>
+            <input class="inputNormal" id="Titolare_TelefonoCellulare" label="Telefono cellulare" name="Titolare_TelefonoCellulare" style="width:100%" mandatory="#Titolare_Telefono.value() == ''"/>
+        </td>
+        <td>
+            <input class="inputNormal" format="email" id="Titolare_EMail" label="E-mail ordinaria del Richiedente" mandatory="false" name="Titolare_EMail" style="width:100%;"/>
+        </td>
+        <!-- Email PEC -->
+        <td>
+            <input class="inputNormal" format="pec" id="Titolare_EMailPEC" label="E-mail PEC del Richiedente" name="Titolare_EMailPEC" style="width:100%;" mandatory="!#Titolare_TipologiaImpresa.check_value(['associazione']) and !#Titolare_TipologiaImpresa.check_value(['ente religioso']) and !#Titolare_TipologiaImpresa.check_value([''])"/>
+        </td>
+        </tr>
+    </tbody>
+    </table>
+    <table class="Modulo" style="border:1px solid grey; margin-top:-1px;">
+    <tbody>
+        <tr class="Rigaintestazione">
+        <td colspan="5">
+            <p>
+            <b> in qualità di </b>
+            <span style="font-size:70%"><i> (questa sezione deve essere compilata se il dichiarante non è una persona fisica) </i></span>
+            </p>
+        </td>
+        </tr>
+        <tr class="Rigaintestazioneridotta">
+        <td colspan="5">
+            <p class="Labelcella"> Ruolo <span style="{{ visibility_asterisco_ruolo }}">(*)</span></p>
+        </td>
+        </tr>
+        <tr>
+        <td colspan="5">
+            <select class="inputNormal" id="Titolare_Ruolo" name="Titolare_Ruolo" style="width:100%;" mandatory_enabled="true" label="Ruolo del Richiedente">
+            <option value=""></option>
+            {% set ruoli = ["Persona fisica", "Titolare", "Legale rappresentante"] %}
+            {% for ruolo in ruoli %}
+                <option value="{{ ruolo }}"> {{ ruolo }} </option>
+            {% endfor %}
+            </select>
+        </td>
+        </tr>
+        <tr class="Rigaintestazioneridotta">
+        <td colspan="3">
+            <p class="Labelcella"> Denominazione/Ragione sociale </p>
+        </td>
+        <td colspan="2">
+            <p class="Labelcella"> Tipologia </p>
+        </td>
+        </tr>
+        <tr mandatory_enabled="#Titolare_Ruolo.check_value([ 'Titolare','Legale rappresentante', 'Erede o avente causa', 'Curatore fallimentare','Procuratore con potere di rappresentanza legale', 'Responsabile unico del procedimento', 'Incaricato dell\'impresa di onoranze funebri', 'Direttore tecnico', 'Gestore', 'Dipendente'])">
+        <td colspan="3">
+            <input class="" id="Titolare_Denominazione" name="Titolare_Denominazione" style="width:100%" label="Denominazione/Ragione sociale"/>
+        </td>
+            <td colspan="2">
+            <select id="Titolare_TipologiaImpresa" name="Titolare_TipologiaImpresa" label="Tipologia società" style="width:100%">
+                <option value=""></option>
+                <option value="ditta individuale">ditta individuale</option>
+                <option value="SAPA">SAPA</option>
+                <option value="SAS">SAS</option>
+                <option value="SNC">SNC</option>
+                <option value="SPA">SPA</option>
+                <option value="SRL">SRL</option>
+                <option value="SRLS">SRLS</option>
+                <option value="SS">SS</option>
+                <option value="SURL">SURL</option>
+                <option value="ente pubblico">ente pubblico</option>
+                <option value="ente religioso">ente religioso</option>
+                <option value="società agricola">società agricola</option>
+                <option value="società cooperativa">società cooperativa</option>
+                <option value="associazione">associazione</option>
+                <option value="altro">altro</option>
+            </select>
+        </td>
+        </tr>
+        <tr class="Rigaintestazioneridotta">
+        <td colspan="5">
+            <p class="Labelcella">Sede legale</p>
+        </td>
+        </tr>
+        <tr class="Rigaintestazioneridotta">
+        <td style="width:9%;">
+            <p class="Labelcella"> Provincia </p>
+        </td>
+        <td style="width:33%;">
+            <p class="Labelcella"> Comune </p>
+        </td>
+        <td style="width:33%;">
+            <p class="Labelcella"> Indirizzo </p>
+        </td>
+        <td style="width:9%;">
+            <p class="Labelcella"> Civico </p>
+        </td>
+        <td style="width:16%;">
+            <p class="Labelcella"> CAP </p>
+        </td>
+        </tr>
+        <tr mandatory_enabled="#Titolare_Ruolo.check_value([ 'Titolare','Legale rappresentante', 'Erede o avente causa', 'Curatore fallimentare','Procuratore con potere di rappresentanza legale', 'Responsabile unico del procedimento', 'Incaricato dell\'impresa di onoranze funebri', 'Direttore tecnico', 'Gestore', 'Dipendente' ])">
+        <td>
+            {{ utils.provincie( 'Titolare_ProvinciaSede', label="Provincia della sede legale") }}
+        </td>
+        <td>
+            <select class="inputNormal" id="Titolare_ComuneSede" name="Titolare_ComuneSede" style="width:100%" label="Comune della sede legale" dynamic_value="getComuniFromProvincia( #Titolare_ProvinciaSede.value(), 'Titolare_ComuneSede')"> </select>
+        </td>
+        <td>
+            <input class="" id="Titolare_ViaSede" name="Titolare_ViaSede" style="width:100%;" label="Indirizzo della sede legale" maxlength="60" format="regular_expression" expression="^(.+)\s(.+)$"/>
+        </td>
+        <td>
+            <input class="" id="Titolare_CivicoSede" name="Titolare_CivicoSede" style="width:100%;" label="Civico della sede legale" maxlength="10"/>
+        </td>
+        <td>
+            <input class="" id="Titolare_CAPSede" name="Titolare_CAPSede" style="width:100%;" format="cap" label="CAP della sede legale" enabled="#Titolare_Ruolo.check_value([ 'Titolare','Legale rappresentante', 'Erede o avente causa', 'Curatore fallimentare','Procuratore con potere di rappresentanza legale', 'Responsabile unico del procedimento', 'Incaricato dell\'impresa di onoranze funebri', 'Direttore tecnico', 'Gestore', 'Dipendente' ])" mandatory="#Titolare_Ruolo.check_value([ 'Titolare','Legale rappresentante', 'Erede o avente causa', 'Curatore fallimentare','Procuratore con potere di rappresentanza legale', 'Responsabile unico del procedimento', 'Incaricato dell\'impresa di onoranze funebri', 'Direttore tecnico', 'Gestore', 'Dipendente' ]) and #Titolare_ProvinciaSede.value() != 'EE'"/>
+        </td>
+        </tr>
+    </tbody>
+    </table>
+    <table class="Modulo" style="border:1px solid grey; margin-top:-1px;" mandatory_enabled="#Titolare_Ruolo.check_value([ 'Titolare','Legale rappresentante', 'Erede o avente causa', 'Curatore fallimentare','Procuratore con potere di rappresentanza legale', 'Responsabile unico del procedimento', 'Incaricato dell\'impresa di onoranze funebri', 'Direttore tecnico', 'Gestore', 'Dipendente' ])">
+    <tbody>
+        <tr class="Rigaintestazioneridotta">
+        <td style="width:50%;">
+            <p class="Labelcella">Codice Fiscale</p>
+        </td>
+        <td style="width:50%;">
+            <p class="Labelcella">Partita IVA</p>
+        </td>
+        </tr>
+        <tr>
+        <td>
+            <input class="" id="Titolare_CFPI" name="Titolare_CFPI" label="Codice fiscale" style="width:100%;" format="cfpiva"/>
+        </td>
+            <td>
+            <input class="" id="Titolare_PI" name="Titolare_PI" label="Partita IVA" style="width:100%;" format="piva" mandatory="#Titolare_TipologiaImpresa.value() != '' and #Titolare_TipologiaImpresa.value() != 'associazione'"/>
+            </td>
+        </tr>
+    </tbody>
+    </table>
+    <table class="Modulo" style="border:1px solid grey; margin-top:-1px;">
+    <tbody>
+        <tr class="Rigaintestazioneridotta">
+        <td style="width:33%;">
+            <p class="Labelcella">Telefono soggetto giuridico </p>
+        </td>
+        <td>
+            <p class="Labelcella"> Posta elettronica ordinaria soggetto giuridico </p>
+        </td>
+        <td>
+            <p class="Labelcella"> Posta elettronica certificata soggetto giuridico </p>
+        </td>
+        </tr>
+        <tr>
+        <!-- Telefono soggetto giuridico -->
+        <td mandatory_enabled="#Titolare_Ruolo.check_value([ 'Titolare','Legale rappresentante', 'Erede o avente causa', 'Curatore fallimentare','Procuratore con potere di rappresentanza legale', 'Responsabile unico del procedimento', 'Incaricato dell\'impresa di onoranze funebri', 'Direttore tecnico', 'Gestore', 'Dipendente'])">
+            <input class="inputNormal" id="Titolare_TelefonoSede" label="Telefono soggetto giuridico" name="Titolare_TelefonoSede" style="width:100%"/>
+        </td>
+        <!-- email ordinaria -->
+        <td enabled="#Titolare_Ruolo.check_value([ 'Titolare','Legale rappresentante', 'Erede o avente causa', 'Curatore fallimentare','Procuratore con potere di rappresentanza legale', 'Responsabile unico del procedimento', 'Incaricato dell\'impresa di onoranze funebri', 'Direttore tecnico', 'Gestore', 'Dipendente'])" mandatory="(#Titolare_Ruolo.check_value([ 'Titolare','Legale rappresentante', 'Erede o avente causa', 'Curatore fallimentare','Procuratore con potere di rappresentanza legale', 'Responsabile unico del procedimento', 'Incaricato dell\'impresa di onoranze funebri', 'Direttore tecnico', 'Gestore', 'Dipendente' ])) and (#Titolare_TipologiaImpresa.value() != 'associazione' and #Titolare_TipologiaImpresa.value() != 'ente religioso')">
+            <input class="inputNormal" format="pec" id="Titolare_EMailOrdinariaSede" label="E-mail ordinaria" name="Titolare_EMailOrdinariaSede" style="width:100%;"/>
+        </td>
+        <!-- email PEC -->
+        <td enabled="#Titolare_Ruolo.check_value([ 'Titolare','Legale rappresentante', 'Erede o avente causa', 'Curatore fallimentare','Procuratore con potere di rappresentanza legale', 'Responsabile unico del procedimento', 'Incaricato dell\'impresa di onoranze funebri', 'Direttore tecnico', 'Gestore', 'Dipendente'])" mandatory="(#Titolare_Ruolo.check_value([ 'Titolare','Legale rappresentante', 'Erede o avente causa', 'Curatore fallimentare','Procuratore con potere di rappresentanza legale', 'Responsabile unico del procedimento', 'Incaricato dell\'impresa di onoranze funebri', 'Direttore tecnico', 'Gestore', 'Dipendente' ])) and (#Titolare_TipologiaImpresa.value() != 'associazione' and #Titolare_TipologiaImpresa.value() != 'ente religioso')">
+            <input class="inputNormal" format="pec" id="Titolare_EMailPECSede" label="E-mail PEC soggetto giuridico" name="Titolare_EMailPECSede" style="width:100%;"/>
+        </td>
+        </tr>
+    </tbody>
+    </table>
+</div>
+
+<h3 class="Modulo">
+  PROPONE
+</h3>
+<p class="Modulo">
+  all'amministrazione comunale la riconoscenza civica
+</p>
+
+<globo_salto_pagina></globo_salto_pagina>
+
+<div id="Tassonomia_RiceventeRiconoscenza" name="Tassonomia_RiceventeRiconoscenza" label="Ricevente riconoscenza civica" mandatory="true"></div>
+
+<input id="AventeTitolo1_DatiPersonaObbligatori" name="AventeTitolo1_DatiPersonaObbligatori" type="hidden" dynamic_check="#Tassonomia_RiceventeRiconoscenza1.checked()"/>
+<input id="AventeTitolo1_Titolo" name="AventeTitolo1_Titolo" type="hidden" value="Richiedente"/>
+<input id="AventeTitolo1_Ruolo" name="AventeTitolo1_Ruolo" type="hidden" value="Richiedente"/>
+{{ anagrafica.persona_fisica("AventeTitolo1", "<input group=\"Tassonomia_RiceventeRiconoscenza\" id=\"Tassonomia_RiceventeRiconoscenza1\" name=\"Tassonomia_RiceventeRiconoscenza1\" type=\"checkbox\" value=\"SI\" enabled=\"!#Tassonomia_RiceventeRiconoscenza2.checked()\"/>
+al candidato", "visibility:hidden", "cursor:default", "visibility:visibility", "visibility:visibility", "mail_ordinaria") }}
+
+<table class="Modulo" style="border: 1px solid grey; margin-top: -1px;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td>
+        <p class="Labeltabella">motivazioni a sostegno della candidatura</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <textarea class="" id="Parametri_MotivazioniCandidatura1" name="Parametri_MotivazioniCandidatura1" style="width:100%;height:5cm;" mandatory_enabled="#Tassonomia_RiceventeRiconoscenza1.checked()">
+        </textarea>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<br>
+
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="2">
+        <p class="Labeltabella">
+          <input group="Tassonomia_RiceventeRiconoscenza" id="Tassonomia_RiceventeRiconoscenza2" name="Tassonomia_RiceventeRiconoscenza2" type="checkbox" value="SI" enabled="!#Tassonomia_RiceventeRiconoscenza1.checked()"/>
+          all’associazione
+        </p>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          Denominazione/Ragione sociale
+        </p>
+      </td>
+      <td>
+        <p class="Labelcella">
+          Tipologia
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input class="inputNormal" id="Parametri_DenominazioneAssociazione" name="Parametri_DenominazioneAssociazione" style="width: 100%;" label="Denominazione o ragione sociale" mandatory_enabled="#Tassonomia_RiceventeRiconoscenza2.checked()" />
+      </td>
+      <td>
+        <select name="Parametri_TipologiaAssociazione" id="Parametri_TipologiaAssociazione" label="Tipologia" style="width: 100%">
+          <option value="associazione">associazione</option>
+        </select>
+      </td>
+    </tr>
+    <tr class="Rigaintestazioneridotta">
+      <td colspan="2">
+        <p class="Labelcella">
+          Sede legale
+        </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<div type="Immobile">
+  <input id="Immobile1_Tipo" name="Immobile1_Tipo" type="hidden" value="PT" />
+  <input id="Immobile1_CatComune" name="Immobile1_CatComune" type="hidden" value=""/>
+  <input id="Immobile1_Note" name="Immobile1_Note" type="hidden" value="Immobile principale oggetto dell'istanza"/>
+  <input id="Immobile1_DatiToponomasticiObbligatori" name="Immobile1_DatiToponomasticiObbligatori"   style="display:none" type="checkbox" dynamic_check="false"/>
+  <table class="Modulo" style="border:1px solid grey; margin-top:-1px">
+    <tbody>
+      <tr class="Rigaintestazioneridotta">
+        <td style="width: 8%;">
+          <p class="Labelcella"> Provincia </p>
+        </td>
+        <td style="width: 25%;">
+          <p class="Labelcella"> Comune </p>
+        </td>
+        <td style="width: 27%;">
+          <p class="Labelcella"> Indirizzo </p>
+        </td>
+        <td style="width: 8%;">
+          <p class="Labelcella"> Civico </p>
+        </td>
+        <td style="width: 8%;">
+          <p class="Labelcella"> Barrato </p>
+        </td>
+        <td style="width: 8%;">
+          <p class="Labelcella"> Piano </p>
+        </td>
+        <td>
+          <p class="Labelcella" style="pd4ml-visibility: hidden; pd4ml-display: none;"> Mappa </p>
+        </td>
+      </tr>
+      <tr mandatory_enabled="#Tassonomia_RiceventeRiconoscenza2.checked()">
+        <td>
+          {{ utils.provincie( 'Immobile1_Provincia', label="Provincia") }}
+        </td>
+        <td>
+          <select class="inputNormal" id="Immobile1_Comune" name="Immobile1_Comune" style="width:100%" label="Comune" dynamic_value="getComuniFromProvincia( #Immobile1_Provincia.value(), 'Immobile1_Comune')"></select>
+        </td>
+        <td >
+          <input class="" id="Immobile1_Via" name="Immobile1_Via" style="width:100%;" label="Indirizzo immobile"/>
+        </td>
+        <td>
+          <input class="" id="Immobile1_Civico" name="Immobile1_Civico" style="width:100%;" maxlength="10" label="Civico immobile"/>
+        </td>
+        <td>
+          <input class="" id="Immobile1_Barrato" name="Immobile1_Barrato"style= "width:100%;" mandatory="false" label="Barrato immobile"/>
+        </td>
+        <td>
+          <input class="" id="Immobile1_Piano" name="Immobile1_Piano" style="width:100%;" mandatory="false" label="Piano immobile"/>
+        </td>
+        <td>
+          <button style="width:34px; height:28px" id="Immobile1_ControlloStradario" name="Immobile1_ControlloStradario" onclick="ControlloStradario('Immobile1_'); return false;"><img src="./appoggio/img/valida.png"/></button><button style="width:34px; height:28px" id="Immobile1_MappaToponomastica" name="Immobile1_MappaToponomastica" onclick="mappaToponomastica('Immobile1_'); return false;"><img src="./appoggio/img/mappa.png"/></button><button style="width:34px; height:28px" id="Immobile1_HelpToponomastica" name="Immobile1_HelpToponomastica" onclick="javascript:window.open('/identificare_immobili', '_blank'); return false;"><img src="./appoggio/img/help.png"/></button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<table class="Modulo" style="border: 1px solid grey; margin-top: -1px;">
+  <tbody>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          Telefono
+        </p>
+      </td>
+      <td>
+        <p class="Labelcella">
+          Posta elettronica ordinaria
+        </p>
+      </td>
+      <td>
+        <p class="Labelcella">
+          Posta elettronica certificata (domicilio digitale)
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input class="inputNormal" id="Parametri_TelefonoAssociazione" name="Parametri_TelefonoAssociazione" style="width: 100%;" label="Telefono" mandatory_enabled="#Tassonomia_RiceventeRiconoscenza2.checked()" />
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_Associazione_EmailOrdinaria" name="Parametri_Associazione_EmailOrdinaria" style="width: 100%;" label="Posta elettronica ordinaria" enabled="#Tassonomia_RiceventeRiconoscenza2.checked()"/>
+      </td>
+      <td>
+        <input class="inputNormal" id="Parametri_AssociazioneEmailPEC" name="Parametri_AssociazioneEmailPEC" style="width: 100%;" label="Posta elettronica certificata" enabled="#Tassonomia_RiceventeRiconoscenza2.checked()"/>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<table class="Modulo" style="border: 1px solid grey; margin-top: -1px;">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td>
+        <p class="Labeltabella">motivazioni a sostegno della candidatura</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <textarea class="" id="Parametri_MotivazioniCandidatura2" name="Parametri_MotivazioniCandidatura2" style="width:100%;height:5cm;" mandatory_enabled="#Tassonomia_RiceventeRiconoscenza2.checked()">
+        </textarea>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<globo_salto_pagina></globo_salto_pagina>
+
+<br>
+
+<table class="Modulo" style="border: 1px solid grey;">
+  <tbody>
+    <tr class="Rigaintestazioneridotta">
+      <td>
+        <p class="Labelcella">
+          Eventuali annotazioni
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <textarea class="inputNormal" id="Parametri_Annotazioni" name="Parametri_Annotazioni" style="width: 100%; height: 5cm;" label="Eventuali annotazioni"></textarea>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<br>
+<table class="Modulo" name="Allegati" style="border: 1px solid grey">
+  <tbody>
+    <tr class="Rigaintestazione">
+      <td colspan="2">
+        <p style="text-align: center;">
+          <b>
+            Elenco degli allegati
+          </b>
+          <br/>
+          <span style="font-size:70%">
+            <i>(barrare tutti gli allegati richiesti in fase di presentazione della pratica ed elencati sul portale)</i>
+          </span>
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="DOC-SOS-CAN" name="DOC-SOS-CAN" type="checkbox" value="OBBLIGATORIO"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          documentazione a sostegno della candidatura
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="DAE-CDI" name="DAE-CDI" type="checkbox" value="OBBLIGATORIO" />
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          copia del documento d'identità
+          <br/>
+          <span style="font-size:70%">
+            <i>(da allegare se il modulo è sottoscritto con firma autografa)</i>
+          </span>
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; width: 4%;">
+        <input id="ALTRI-ALLEGATI" name="ALTRI-ALLEGATI" type="checkbox" value="OBBLIGATORIO"/>
+      </td>
+      <td style="background-color: #eeeeee;">
+        <p>
+          altri allegati
+          <span style="font-size:70%">(specificare)</span>
+          <input class="" label="Altri allegati" id="AltriAllegati" mandatory_enabled="#ALTRI_ALLEGATI.checked()" name="AltriAllegati" style="width:79%;"/>
+        </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+{{ utils.trattamento_dati_personali() }}
+<br/>
+  {{ utils.firma_hidden() }}
+<br/>
+
+<p class="Modulo">
+  <input id="SalvaModulo" name="SalvaModulo" style="height:30px;width:120px;" title="Verifica la corretta compilazione dei campi e salva il modulo nel faldone virtuale dell'istanza." type="submit" value="Salva modulo"/>
+</p>
+
+<input destinatario_amministrazione="getParameter('Ente')" id="GLOBO_modulo_c{{ CodiceModulo }}" name="GLOBO_modulo_c{{ CodiceModulo }}" type="hidden" value=""/>
+<input firmare="'P7M_ELETTRONICA'" id="GLOBO_modulofiglio_cINCARICO_PROCURA" name="GLOBO_modulofiglio_cINCARICO_PROCURA" type="hidden" value=""/>
+
+<input id="GLOBO_allegato_cDAE-CDI" name="GLOBO_allegato_cDAE-CDI" obbligatorio="#DAE_CDI.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+<input id="GLOBO_allegato_cDOC-SOS-CAN" name="GLOBO_allegato_cDOC-SOS-CAN" obbligatorio="#DOC_SOS_CAN.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+<input id="GLOBO_allegato_cALTRI-ALLEGATI" name="GLOBO_allegato_cALTRI-ALLEGATI" obbligatorio="#ALTRI_ALLEGATI.checked() ? 'OBBLIGATORIO' : ''" type="hidden" value=""/>
+
+<input id="GLOBO_id_padre" name="GLOBO_id_padre" type="hidden"/>
+<input id="GLOBO_recupera_dati" name="GLOBO_recupera_dati" type="hidden"/>
+<input id="GLOBO_codice_modulo" name="GLOBO_codice_modulo" type="hidden" value="{{ CodiceModulo }}"/>
+
+{% endblock content %}
